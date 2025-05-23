@@ -57,16 +57,26 @@
                 <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-login-section">
+                    <a href="client-login.html" class="nav-login-btn client-login" title="Client Portal">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        <span>Client Portal</span>
+                    </a>
+                    <a href="employee-login.html" class="nav-login-btn employee-login" title="Staff Portal">
+                        <i class="fas fa-user-tie" aria-hidden="true"></i>
+                        <span>Staff Portal</span>
+                    </a>
+                </li>
             </ul>
 
-            <div class="login-buttons">
-                <a href="client-login.html" class="login-btn client-login" title="Client Login">
-                    <i class="fas fa-lock"></i>
-                    <span>Client Login</span>
+            <div class="desktop-login-buttons">
+                <a href="client-login.html" class="login-btn client-login" title="Client Portal Access">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <span>Client</span>
                 </a>
-                <a href="employee-login.html" class="login-btn employee-login" title="Employee Login">
-                    <i class="fas fa-user-shield"></i>
-                    <span>Staff Login</span>
+                <a href="employee-login.html" class="login-btn employee-login" title="Staff Portal Access">
+                    <i class="fas fa-user-tie" aria-hidden="true"></i>
+                    <span>Staff</span>
                 </a>
             </div>
             
@@ -188,7 +198,7 @@
     <section class="about" id="about">
         <div class="about-container">
             <div class="about-img fade-in-up">
-                <img src="/api/placeholder/600/400" alt="About 805 LifeGuard Professional Team">
+                <img src="/images/805-lifeguard-about-img.png" alt="About 805 LifeGuard Professional Team">
                 <div class="about-img-overlay">
                     <div class="overlay-content">
                         <i class="fas fa-play-circle"></i>
@@ -371,35 +381,39 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-container">
             <div class="footer-about fade-in-up">
                 <div class="footer-logo">
-                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="footer-logo-img">
+                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo - Professional Pool Safety Services" class="footer-logo-img">
                     <div class="footer-logo-text">
                         <span class="footer-logo-main">805 LifeGuard</span>
                         <span class="footer-logo-subtitle">Professional Pool Safety</span>
                     </div>
                 </div>
                 <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016. Your safety and swimming success are our top priorities.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
+                <div class="social-links" role="list" aria-label="Social Media Links">
+                    <a href="#" class="social-link" aria-label="Follow us on Facebook" role="listitem">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        <span class="sr-only">Facebook</span>
                     </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
+                    <a href="#" class="social-link" aria-label="Follow us on Instagram" role="listitem">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sr-only">Instagram</span>
                     </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
+                    <a href="#" class="social-link" aria-label="Follow us on Twitter" role="listitem">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sr-only">Twitter</span>
                     </a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
+                    <a href="#" class="social-link" aria-label="Connect with us on LinkedIn" role="listitem">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        <span class="sr-only">LinkedIn</span>
                     </a>
                 </div>
             </div>
-            <div class="footer-links fade-in-up">
-                <h3>Quick Links</h3>
-                <ul>
+            <nav class="footer-links fade-in-up" aria-labelledby="footer-nav-heading">
+                <h3 id="footer-nav-heading">Quick Links</h3>
+                <ul role="list">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
                     <li><a href="hoa-services.html">HOA Services</a></li>
@@ -407,10 +421,10 @@
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-            </div>
-            <div class="footer-services fade-in-up">
-                <h3>Our Services</h3>
-                <ul>
+            </nav>
+            <nav class="footer-services fade-in-up" aria-labelledby="footer-services-heading">
+                <h3 id="footer-services-heading">Our Services</h3>
+                <ul role="list">
                     <li><a href="services.html#lifeguard">Lifeguard Services</a></li>
                     <li><a href="services.html#lessons">Swimming Lessons</a></li>
                     <li><a href="services.html#special-needs">Special Needs Swimming</a></li>
@@ -418,64 +432,77 @@
                     <li><a href="services.html#emergency">Emergency Response</a></li>
                     <li><a href="services.html#corporate">Corporate Events</a></li>
                 </ul>
-            </div>
+            </nav>
             <div class="footer-contact fade-in-up">
-                <h3>Contact Us</h3>
-                <div class="contact-info">
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
+                <h3 id="footer-contact-heading">Contact Information</h3>
+                <div class="contact-info" role="list" aria-labelledby="footer-contact-heading">
+                    <div class="contact-info-item" role="listitem">
+                        <div class="contact-icon" aria-hidden="true">
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="contact-text">
-                            <a href="tel:8053676432">(805) 367-6432</a>
+                            <a href="tel:8053676432" aria-label="Call us at 8 0 5 3 6 7 6 4 3 2">(805) 367-6432</a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
+                    <div class="contact-info-item" role="listitem">
+                        <div class="contact-icon" aria-hidden="true">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact-text">
-                            <a href="mailto:info@805lifeguard.com">info@805lifeguard.com</a>
+                            <a href="mailto:info@805lifeguard.com" aria-label="Email us at info@805lifeguard.com">info@805lifeguard.com</a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
+                    <div class="contact-info-item" role="listitem">
+                        <div class="contact-icon" aria-hidden="true">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-text">
-                            Serving the greater Conejo Valley area
+                            <span>Serving the greater Conejo Valley area</span>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
+                    <div class="contact-info-item" role="listitem">
+                        <div class="contact-icon" aria-hidden="true">
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="contact-text">
-                            Mon-Fri: 9AM-6PM<br>
-                            Sat: 10AM-4PM<br>
-                            Sun: Closed
+                            <div class="business-hours">
+                                <div class="hours-line"><span class="day">Mon-Fri:</span> <span class="time">9AM-6PM</span></div>
+                                <div class="hours-line"><span class="day">Saturday:</span> <span class="time">10AM-4PM</span></div>
+                                <div class="hours-line"><span class="day">Sunday:</span> <span class="time">Emergency Only</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="footer-newsletter fade-in-up">
-                <h3>Stay Updated</h3>
+                <h3 id="newsletter-heading">Stay Updated</h3>
                 <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
-                <form class="newsletter-form" id="newsletterForm">
+                <form class="newsletter-form" id="newsletterForm" aria-labelledby="newsletter-heading">
                     <div class="input-group">
-                        <input type="email" class="newsletter-input" placeholder="Your Email Address" required>
-                        <button type="submit" class="newsletter-btn">
-                            <i class="fas fa-paper-plane"></i>
+                        <label for="newsletter-email" class="sr-only">Email Address for Newsletter</label>
+                        <input 
+                            type="email" 
+                            id="newsletter-email"
+                            class="newsletter-input" 
+                            placeholder="Your Email Address" 
+                            required
+                            aria-describedby="newsletter-error"
+                            autocomplete="email"
+                        >
+                        <button type="submit" class="newsletter-btn" aria-label="Subscribe to Newsletter">
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            <span class="sr-only">Subscribe</span>
                         </button>
                     </div>
+                    <div id="newsletter-error" class="error-message" aria-live="polite"></div>
                 </form>
-                <div class="footer-certifications">
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
+                <div class="footer-certifications" role="list" aria-label="Our Certifications">
+                    <div class="cert-item" role="listitem">
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
                         <span>Licensed & Insured</span>
                     </div>
-                    <div class="cert-item">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="cert-item" role="listitem">
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                         <span>Background Checked</span>
                     </div>
                 </div>
@@ -485,11 +512,11 @@
             <div class="copyright">
                 <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
             </div>
-            <div class="footer-bottom-links">
+            <nav class="footer-bottom-links" aria-label="Legal Links">
                 <a href="privacy-policy.html">Privacy Policy</a>
                 <a href="terms-of-service.html">Terms of Service</a>
                 <a href="sitemap.html">Sitemap</a>
-            </div>
+            </nav>
         </div>
     </footer>
 
