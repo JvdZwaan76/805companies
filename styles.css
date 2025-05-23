@@ -1147,8 +1147,9 @@ footer {
     margin-right: 15px;
     /* Ensure logo displays in full color */
     filter: none !important;
-    opacity: 1;
-    background: none;
+    opacity: 1 !important;
+    background: none !important;
+    -webkit-filter: none !important;
 }
 
 .footer-logo-text {
@@ -1527,27 +1528,40 @@ footer {
         gap: 20px;
     }
     
+    /* Enhanced mobile hero section spacing */
     .hero {
-        height: 80vh;
-        padding: 0 20px;
+        height: auto;
+        min-height: 100vh;
+        padding: 180px 20px 60px 20px; /* Increased top padding for mobile */
+        margin-top: 0;
+    }
+    
+    .hero-content {
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
     }
     
     .hero h1 {
         font-size: 2.5rem;
+        margin-bottom: 20px;
     }
     
     .hero p {
         font-size: 1.2rem;
+        margin-bottom: 30px;
     }
     
     .hero-stats {
         flex-direction: column;
         gap: 20px;
+        margin-top: 30px;
     }
     
     .cta-buttons {
         flex-direction: column;
         gap: 15px;
+        margin: 30px 0;
     }
     
     .cta-btn {
@@ -1597,16 +1611,31 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
     }
+    
+    /* Ensure proper spacing for all mobile sections */
+    section:not(.hero) {
+        scroll-margin-top: 160px;
+    }
 }
 
 @media (max-width: 576px) {
+    /* Further enhanced mobile spacing for smallest screens */
     .hero {
-        height: 90vh;
-        padding: 120px 15px 60px 15px;
+        padding: 200px 15px 60px 15px; /* Even more top padding for small mobile */
+        min-height: 100vh;
     }
     
     .hero h1 {
         font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-badge {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+        padding: 10px 20px;
+        margin-bottom: 20px;
     }
     
     .section-title h2 {
@@ -1641,13 +1670,6 @@ footer {
         padding: 80px 5%;
     }
     
-    .hero-badge {
-        flex-direction: column;
-        gap: 5px;
-        text-align: center;
-        padding: 10px 20px;
-    }
-    
     .stat-item {
         min-width: 120px;
     }
@@ -1657,8 +1679,8 @@ footer {
     }
     
     .nav-links {
-        top: 120px;
-        height: calc(100vh - 120px);
+        top: 140px; /* Adjusted for smaller mobile header */
+        height: calc(100vh - 140px);
         padding: 20px 15px;
         max-width: 95%;
     }
@@ -1704,6 +1726,20 @@ footer {
         flex-direction: column;
         gap: 10px;
         align-items: center;
+    }
+    
+    /* Enhanced footer logo for mobile */
+    .footer-logo-img {
+        height: 50px;
+        filter: none !important;
+        opacity: 1 !important;
+        -webkit-filter: none !important;
+        background: transparent !important;
+    }
+    
+    /* Ensure proper spacing from header for mobile sections */
+    section:not(.hero) {
+        scroll-margin-top: 180px;
     }
 }
 
