@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - 805 LifeGuard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #023e8a;
+            --white: #ffffff;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-links li a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/600');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .page-header-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: var(--white);
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .breadcrumbs-list {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumbs-list li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumbs-list li:not(:last-child)::after {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin: 0 10px;
+            color: var(--gray);
+        }
+        
+        .breadcrumbs-list a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .breadcrumbs-list a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumbs-list .current {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 5%;
+        }
+        
+        .section-title {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background-color: var(--primary);
+            padding: 40px;
+            border-radius: 10px;
+            color: var(--white);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--white);
+        }
+        
+        .contact-method {
+            margin-bottom: 30px;
+        }
+        
+        .contact-method h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-method h4 i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-method p, .contact-method a {
+            margin-left: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-method a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-form h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-check input {
+            margin-right: 10px;
+        }
+        
+        .form-check label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .submit-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Booking Section */
+        .booking-section {
+            padding: 60px 5%;
+            background-color: #f0f8ff;
+        }
+        
+        .booking-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .booking-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .booking-tab {
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .booking-tab:hover {
+            color: var(--primary);
+        }
+        
+        .booking-tab.active {
+            color: var(--primary);
+        }
+        
+        .booking-tab.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .booking-content {
+            display: none;
+        }
+        
+        .booking-content.active {
+            display: block;
+        }
+        
+        .service-selection {
+            margin-bottom: 30px;
+        }
+        
+        .select-service {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .service-option input {
+            margin-right: 10px;
+        }
+        
+        .service-option:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 119, 182, 0.05);
+        }
+        
+        .service-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(0, 119, 182, 0.1);
+        }
+        
+        .date-selection {
+            margin-bottom: 30px;
+        }
+        
+        .calendar {
+            margin-top: 15px;
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-month {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .calendar-nav button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            color: var(--dark);
+            padding-bottom: 10px;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calendar-day:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .calendar-day.available {
+            color: var(--dark);
+        }
+        
+        .calendar-day.unavailable {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.selected {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .time-selection {
+            margin-bottom: 30px;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .time-slot {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .time-slot:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 119, 182, 0.05);
+        }
+        
+        .time-slot.selected {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .time-slot.unavailable {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .booking-details {
+            margin-top: 30px;
+        }
+        
+        .booking-summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .summary-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .booking-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-top: 2px solid #ddd;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .booking-confirmation {
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #e8f5e9;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .booking-confirmation.active {
+            display: block;
+        }
+        
+        .confirmation-icon {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-icon i {
+            font-size: 3rem;
+            color: #0cc74a;
+        }
+        
+        .confirmation-message {
+            text-align: center;
+        }
+        
+        .confirmation-message h4 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .booking-id {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        /* Service Area Section */
+        .service-area-section {
+            padding: 60px 5%;
+            background-color: var(--white);
+        }
+        
+        .service-area-map {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        
+        .service-area-map img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-area-list {
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .area-category {
+            text-align: center;
+        }
+        
+        .area-category h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .area-category ul {
+            list-style: none;
+        }
+        
+        .area-category li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .area-category li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 5% 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #b3c5ef;
+        }
+        
+        .footer-links h3,
+        .footer-contact h3,
+        .footer-newsletter h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after,
+        .footer-contact h3::after,
+        .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #b3c5ef;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .contact-info-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .contact-text {
+            color: #b3c5ef;
+        }
+        
+        .footer-newsletter p {
+            color: #b3c5ef;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #d60064;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b3c5ef;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info, .contact-form {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 100px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 100px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px;
+                transition: left 0.3s;
+                box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-tab {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .booking-tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .booking-tab {
+                padding: 10px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            
+            .booking-tab.active {
+                background-color: var(--primary);
+                color: var(--white);
+            }
+            
+            .booking-tab.active::after {
+                display: none;
+            }
+            
+            .contact-method h4 {
+                font-size: 1.1rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 5px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="top-bar">
+            <span>Serving the greater Conejo Valley area since 2016</span>
+            <a href="tel:8053676432"><i class="fas fa-phone"></i> (805) 367-6432</a>
+        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/api/placeholder/120/60" alt="805 LifeGuard Logo">
+                <div class="logo-text">805 LifeGuard</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team or book our services online</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Contact</li>
+        </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>Have questions or ready to book our services? We're here to help!</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-method">
+                    <h4><i class="fas fa-phone"></i> Phone</h4>
+                    <a href="tel:8053676432">(805) 367-6432</a>
+                </div>
+                <div class="contact-method">
+                    <h4><i class="fas fa-envelope"></i> Email</h4>
+                    <a href="mailto:info@805lifeguard.com">info@805lifeguard.com</a>
+                </div>
+                <div class="contact-method">
+                    <h4><i class="fas fa-clock"></i> Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p>Saturday: 10:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+                <div class="contact-method">
+                    <h4><i class="fas fa-map-marker-alt"></i> Service Area</h4>
+                    <p>Serving the greater Conejo Valley area, including Thousand Oaks, Westlake Village, Agoura Hills, Newbury Park, Moorpark, and Camarillo.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone*</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject*</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message*</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="newsletter" checked>
+                        <label for="newsletter">Subscribe to our newsletter for updates and special offers</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section">
+        <div class="section-title">
+            <h2>Book Online</h2>
+            <p>Schedule our lifeguard services or swimming lessons with our easy online booking system.</p>
+        </div>
+        <div class="booking-container">
+            <div class="booking-tabs">
+                <div class="booking-tab active" data-tab="lifeguard">Lifeguard Services</div>
+                <div class="booking-tab" data-tab="swimming">Swimming Lessons</div>
+            </div>
+            
+            <!-- Lifeguard Booking -->
+            <div class="booking-content active" id="lifeguard-content">
+                <form id="lifeguardForm">
+                    <div class="service-selection">
+                        <h4>Select Service Package</h4>
+                        <div class="select-service">
+                            <label class="service-option">
+                                <input type="radio" name="lifeguardPackage" value="basic" checked>
+                                Basic Package
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="lifeguardPackage" value="standard">
+                                Standard Package
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="lifeguardPackage" value="premium">
+                                Premium Package
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="date-selection">
+                        <h4>Select Date</h4>
+                        <div class="calendar">
+                            <div class="calendar-header">
+                                <div class="calendar-month">May 2025</div>
+                                <div class="calendar-nav">
+                                    <button type="button" class="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                    <button type="button" class="next-month"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                                
+                                <!-- Calendar Days -->
+                                <div class="calendar-day unavailable">28</div>
+                                <div class="calendar-day unavailable">29</div>
+                                <div class="calendar-day unavailable">30</div>
+                                <div class="calendar-day available">1</div>
+                                <div class="calendar-day available">2</div>
+                                <div class="calendar-day available">3</div>
+                                <div class="calendar-day available">4</div>
+                                <div class="calendar-day available">5</div>
+                                <div class="calendar-day available">6</div>
+                                <div class="calendar-day available">7</div>
+                                <div class="calendar-day available">8</div>
+                                <div class="calendar-day available">9</div>
+                                <div class="calendar-day available">10</div>
+                                <div class="calendar-day available">11</div>
+                                <div class="calendar-day available">12</div>
+                                <div class="calendar-day available">13</div>
+                                <div class="calendar-day available">14</div>
+                                <div class="calendar-day available">15</div>
+                                <div class="calendar-day available">16</div>
+                                <div class="calendar-day available">17</div>
+                                <div class="calendar-day available">18</div>
+                                <div class="calendar-day available selected">19</div>
+                                <div class="calendar-day available">20</div>
+                                <div class="calendar-day available">21</div>
+                                <div class="calendar-day available">22</div>
+                                <div class="calendar-day available">23</div>
+                                <div class="calendar-day available">24</div>
+                                <div class="calendar-day available">25</div>
+                                <div class="calendar-day available">26</div>
+                                <div class="calendar-day available">27</div>
+                                <div class="calendar-day available">28</div>
+                                <div class="calendar-day available">29</div>
+                                <div class="calendar-day available">30</div>
+                                <div class="calendar-day available">31</div>
+                                <div class="calendar-day unavailable">1</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-selection">
+                        <h4>Select Time</h4>
+                        <div class="time-slots">
+                            <div class="time-slot unavailable">9:00 AM</div>
+                            <div class="time-slot unavailable">10:00 AM</div>
+                            <div class="time-slot">11:00 AM</div>
+                            <div class="time-slot">12:00 PM</div>
+                            <div class="time-slot selected">1:00 PM</div>
+                            <div class="time-slot">2:00 PM</div>
+                            <div class="time-slot">3:00 PM</div>
+                            <div class="time-slot">4:00 PM</div>
+                            <div class="time-slot">5:00 PM</div>
+                            <div class="time-slot">6:00 PM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" class="form-control">
+                            <option value="birthday">Birthday Party</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="family">Family Gathering</option>
+                            <option value="community">Community Event</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guestCount">Number of Guests</label>
+                            <input type="number" id="guestCount" class="form-control" min="1" value="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration (hours)</label>
+                            <input type="number" id="duration" class="form-control" min="3" value="3">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Event Address</label>
+                        <input type="text" id="location" class="form-control" placeholder="Enter the full address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests or Notes</label>
+                        <textarea id="specialRequests" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <h4>Booking Summary</h4>
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Service:</div>
+                                <div class="summary-value">Basic Package</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Date:</div>
+                                <div class="summary-value">May 19, 2025</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Time:</div>
+                                <div class="summary-value">1:00 PM</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Duration:</div>
+                                <div class="summary-value">3 hours</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Lifeguards:</div>
+                                <div class="summary-value">1</div>
+                            </div>
+                        </div>
+                        <div class="booking-total">
+                            <div>Total:</div>
+                            <div>$150.00</div>
+                        </div>
+                        <button type="submit" class="submit-btn" style="width: 100%;">Book Now</button>
+                    </div>
+                </form>
+                
+                <div class="booking-confirmation">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="confirmation-message">
+                        <h4>Your booking has been confirmed!</h4>
+                        <p>Thank you for choosing 805 LifeGuard. Your booking ID is <span class="booking-id">LG-25051901</span>.</p>
+                        <p>We've sent a confirmation email with all the details to your email address.</p>
+                        <p>Our team will reach out 24 hours prior to your event to confirm once more.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Swimming Lessons Booking -->
+            <div class="booking-content" id="swimming-content">
+                <form id="swimmingForm">
+                    <div class="service-selection">
+                        <h4>Select Package</h4>
+                        <div class="select-service">
+                            <label class="service-option">
+                                <input type="radio" name="swimmingPackage" value="single" checked>
+                                Single Lesson
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="swimmingPackage" value="five">
+                                5-Lesson Package
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="swimmingPackage" value="ten">
+                                10-Lesson Package
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="swimmerName">Swimmer's Name</label>
+                            <input type="text" id="swimmerName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="swimmerAge">Swimmer's Age</label>
+                            <input type="number" id="swimmerAge" class="form-control" min="3" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skillLevel">Swimming Skill Level</label>
+                        <select id="skillLevel" class="form-control">
+                            <option value="beginner">Beginner (No Experience)</option>
+                            <option value="intermediate">Intermediate (Basic Skills)</option>
+                            <option value="advanced">Advanced (Refining Technique)</option>
+                            <option value="special">Special Needs</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lessonGoals">Lesson Goals or Specific Needs</label>
+                        <textarea id="lessonGoals" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="date-selection">
+                        <h4>Preferred Start Date</h4>
+                        <div class="calendar">
+                            <div class="calendar-header">
+                                <div class="calendar-month">May 2025</div>
+                                <div class="calendar-nav">
+                                    <button type="button" class="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                    <button type="button" class="next-month"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <!-- Same calendar as above -->
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                                
+                                <div class="calendar-day unavailable">28</div>
+                                <div class="calendar-day unavailable">29</div>
+                                <div class="calendar-day unavailable">30</div>
+                                <div class="calendar-day available">1</div>
+                                <div class="calendar-day available">2</div>
+                                <div class="calendar-day available">3</div>
+                                <div class="calendar-day available">4</div>
+                                <div class="calendar-day available">5</div>
+                                <div class="calendar-day available">6</div>
+                                <div class="calendar-day available">7</div>
+                                <div class="calendar-day available">8</div>
+                                <div class="calendar-day available">9</div>
+                                <div class="calendar-day available">10</div>
+                                <div class="calendar-day available">11</div>
+                                <div class="calendar-day available">12</div>
+                                <div class="calendar-day available">13</div>
+                                <div class="calendar-day available">14</div>
+                                <div class="calendar-day available">15</div>
+                                <div class="calendar-day available">16</div>
+                                <div class="calendar-day available">17</div>
+                                <div class="calendar-day available">18</div>
+                                <div class="calendar-day available selected">19</div>
+                                <div class="calendar-day available">20</div>
+                                <div class="calendar-day available">21</div>
+                                <div class="calendar-day available">22</div>
+                                <div class="calendar-day available">23</div>
+                                <div class="calendar-day available">24</div>
+                                <div class="calendar-day available">25</div>
+                                <div class="calendar-day available">26</div>
+                                <div class="calendar-day available">27</div>
+                                <div class="calendar-day available">28</div>
+                                <div class="calendar-day available">29</div>
+                                <div class="calendar-day available">30</div>
+                                <div class="calendar-day available">31</div>
+                                <div class="calendar-day unavailable">1</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preferred Days of Week</label>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="monday" name="days[]" value="monday">
+                                <label for="monday">Monday</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="tuesday" name="days[]" value="tuesday">
+                                <label for="tuesday">Tuesday</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="wednesday" name="days[]" value="wednesday" checked>
+                                <label for="wednesday">Wednesday</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="thursday" name="days[]" value="thursday">
+                                <label for="thursday">Thursday</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="friday" name="days[]" value="friday" checked>
+                                <label for="friday">Friday</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="saturday" name="days[]" value="saturday">
+                                <label for="saturday">Saturday</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preferred Time of Day</label>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="morning" name="timeOfDay[]" value="morning">
+                                <label for="morning">Morning (9AM - 12PM)</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="afternoon" name="timeOfDay[]" value="afternoon" checked>
+                                <label for="afternoon">Afternoon (12PM - 4PM)</label>
+                            </div>
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" id="evening" name="timeOfDay[]" value="evening">
+                                <label for="evening">Evening (4PM - 7PM)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="swimmingLocation">Lesson Location</label>
+                        <input type="text" id="swimmingLocation" class="form-control" placeholder="Enter the address where you have pool access">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactInfo">Parent/Guardian Contact Information</label>
+                        <input type="text" id="contactName" class="form-control" placeholder="Full Name" style="margin-bottom: 10px;">
+                        <input type="email" id="contactEmail" class="form-control" placeholder="Email" style="margin-bottom: 10px;">
+                        <input type="tel" id="contactPhone" class="form-control" placeholder="Phone Number">
+                    </div>
+                    
+                    <div class="booking-details">
+                        <h4>Booking Summary</h4>
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Package:</div>
+                                <div class="summary-value">Single Lesson</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Start Date:</div>
+                                <div class="summary-value">May 19, 2025</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Preferred Days:</div>
+                                <div class="summary-value">Wednesday, Friday</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Preferred Time:</div>
+                                <div class="summary-value">Afternoon</div>
+                            </div>
+                        </div>
+                        <div class="booking-total">
+                            <div>Total:</div>
+                            <div>$75.00</div>
+                        </div>
+                        <button type="submit" class="submit-btn" style="width: 100%;">Request Lessons</button>
+                    </div>
+                </form>
+                
+                <div class="booking-confirmation">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="confirmation-message">
+                        <h4>Your swim lesson request has been submitted!</h4>
+                        <p>Thank you for choosing 805 LifeGuard. Your request ID is <span class="booking-id">SW-25051902</span>.</p>
+                        <p>We've sent a confirmation email with all the details to your email address.</p>
+                        <p>Our team will contact you within 24-48 hours to confirm scheduling details and finalize your lessons.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Area Section -->
+    <section class="service-area-section">
+        <div class="section-title">
+            <h2>Our Service Areas</h2>
+            <p>We provide lifeguard services and swim lessons throughout the greater Conejo Valley area.</p>
+        </div>
+        <div class="service-area-map">
+            <img src="/api/placeholder/1200/500" alt="Service Area Map">
+        </div>
+        <div class="service-area-list">
+            <div class="area-category">
+                <h3>East Ventura County</h3>
+                <ul>
+                    <li>Thousand Oaks</li>
+                    <li>Newbury Park</li>
+                    <li>Westlake Village</li>
+                    <li>Oak Park</li>
+                </ul>
+            </div>
+            <div class="area-category">
+                <h3>West Ventura County</h3>
+                <ul>
+                    <li>Camarillo</li>
+                    <li>Moorpark</li>
+                    <li>Simi Valley</li>
+                    <li>Somis</li>
+                </ul>
+            </div>
+            <div class="area-category">
+                <h3>Los Angeles County</h3>
+                <ul>
+                    <li>Agoura Hills</li>
+                    <li>Calabasas</li>
+                    <li>Hidden Hills</li>
+                    <li>Malibu</li>
+                </ul>
+            </div>
+            <div class="area-category">
+                <h3>Santa Barbara County</h3>
+                <ul>
+                    <li>Montecito</li>
+                    <li>Carpinteria</li>
+                    <li>Santa Barbara</li>
+                    <li>Goleta</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/100/50" alt="805 LifeGuard Logo">
+                    <div class="footer-logo-text">805 LifeGuard</div>
+                </div>
+                <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            (805) 367-6432
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            info@805lifeguard.com
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            Serving the greater Conejo Valley area
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your Email Address">
+                    <button type="submit" class="newsletter-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Booking Tabs
+        const bookingTabs = document.querySelectorAll('.booking-tab');
+        const bookingContents = document.querySelectorAll('.booking-content');
+        
+        bookingTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+                
+                bookingTabs.forEach(t => t.classList.remove('active'));
+                bookingContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(target + '-content').classList.add('active');
+            });
+        });
+        
+        // Service Options
+        const serviceOptions = document.querySelectorAll('.service-option');
+        
+        serviceOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const input = option.querySelector('input');
+                if (input.type === 'radio') {
+                    serviceOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    option.classList.add('selected');
+                } else {
+                    option.classList.toggle('selected');
+                }
+            });
+        });
+        
+        // Calendar Day Selection
+        const calendarDays = document.querySelectorAll('.calendar-day.available');
+        
+        calendarDays.forEach(day => {
+            day.addEventListener('click', () => {
+                calendarDays.forEach(d => d.classList.remove('selected'));
+                day.classList.add('selected');
+            });
+        });
+        
+        // Time Slot Selection
+        const timeSlots = document.querySelectorAll('.time-slot:not(.unavailable)');
+        
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                timeSlots.forEach(s => s.classList.remove('selected'));
+                slot.classList.add('selected');
+            });
+        });
+        
+        // Form Submissions
+        const contactForm = document.getElementById('contactForm');
+        const lifeguardForm = document.getElementById('lifeguardForm');
+        const swimmingForm = document.getElementById('swimmingForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Your message has been sent. We will get back to you shortly.');
+            contactForm.reset();
+        });
+        
+        lifeguardForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            lifeguardForm.style.display = 'none';
+            document.querySelector('#lifeguard-content .booking-confirmation').classList.add('active');
+        });
+        
+        swimmingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            swimmingForm.style.display = 'none';
+            document.querySelector('#swimming-content .booking-confirmation').classList.add('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

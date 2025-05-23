@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - 805 LifeGuard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #023e8a;
+            --white: #ffffff;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-links li a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/600');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .page-header-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: var(--white);
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .breadcrumbs-list {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumbs-list li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumbs-list li:not(:last-child)::after {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin: 0 10px;
+            color: var(--gray);
+        }
+        
+        .breadcrumbs-list a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .breadcrumbs-list a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumbs-list .current {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 60px 5%;
+        }
+        
+        .section-title {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+        
+        .testimonials-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s;
+            border-radius: 30px;
+        }
+        
+        .filter-btn:hover {
+            color: var(--primary);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-header {
+            position: relative;
+            padding: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .testimonial-service {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-rating {
+            margin-top: 10px;
+            display: flex;
+        }
+        
+        .testimonial-rating i {
+            color: #ffcc00;
+            margin-right: 2px;
+        }
+        
+        .testimonial-quote {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .testimonial-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-client {
+            display: flex;
+            align-items: center;
+        }
+        
+        .client-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .client-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .client-info h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .client-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Featured Testimonial */
+        .featured-testimonial {
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .featured-testimonial-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 5px 15px;
+            font-weight: 600;
+            z-index: 1;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-badge::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            border-top: 10px solid #d60064;
+            border-left: 10px solid transparent;
+        }
+        
+        .featured-testimonial-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .featured-testimonial-img {
+            flex: 1;
+            min-width: 300px;
+            overflow: hidden;
+        }
+        
+        .featured-testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-testimonial-text {
+            flex: 2;
+            min-width: 300px;
+            padding: 40px;
+        }
+        
+        .featured-testimonial-header {
+            margin-bottom: 20px;
+        }
+        
+        .featured-testimonial-service {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #e6f7ff;
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .featured-testimonial-rating {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .featured-testimonial-rating i {
+            color: #ffcc00;
+            margin-right: 3px;
+            font-size: 1.2rem;
+        }
+        
+        .featured-testimonial-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .featured-testimonial-client {
+            display: flex;
+            align-items: center;
+        }
+        
+        .featured-client-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+        
+        .featured-client-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-client-info h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        .featured-client-info p {
+            color: var(--gray);
+        }
+        
+        /* Video Testimonials */
+        .video-testimonials {
+            padding: 60px 5%;
+            background-color: #f0f8ff;
+        }
+        
+        .video-testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .video-testimonial-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .video-testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .play-btn:hover {
+            background-color: var(--accent);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-testimonial-content {
+            padding: 20px;
+        }
+        
+        .video-testimonial-title {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .video-testimonial-details {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Call to Action */
+        .cta {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 80px 5%;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .primary-btn {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+        
+        .primary-btn:hover {
+            background-color: #d60064;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .secondary-btn:hover {
+            background-color: var(--white);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Add Testimonial Form */
+        .add-testimonial {
+            padding: 60px 5%;
+            background-color: var(--white);
+        }
+        
+        .testimonial-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .rating-select {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .rating-option input {
+            margin-top: 8px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            color: #ddd;
+        }
+        
+        .rating-stars.selected {
+            color: #ffcc00;
+        }
+        
+        .submit-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 5% 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #b3c5ef;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3,
+        .footer-contact h3,
+        .footer-newsletter h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after,
+        .footer-contact h3::after,
+        .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #b3c5ef;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .contact-text {
+            color: #b3c5ef;
+        }
+        
+        .footer-newsletter p {
+            color: #b3c5ef;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #d60064;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b3c5ef;
+            font-size: 0.9rem;
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            width: 80%;
+            max-width: 800px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+        
+        .close-modal:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .featured-testimonial-img {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 100px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 100px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px;
+                transition: left 0.3s;
+                box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .testimonials-filter {
+                flex-wrap: wrap;
+            }
+            
+            .filter-btn {
+                margin-bottom: 10px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .featured-testimonial-text {
+                padding: 30px 20px;
+            }
+            
+            .featured-testimonial-message {
+                font-size: 1rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 5px;
+                padding: 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="top-bar">
+            <span>Serving the greater Conejo Valley area since 2016</span>
+            <a href="tel:8053676432"><i class="fas fa-phone"></i> (805) 367-6432</a>
+        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/api/placeholder/120/60" alt="805 LifeGuard Logo">
+                <div class="logo-text">805 LifeGuard</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Client Testimonials</h1>
+            <p>Hear what our satisfied clients have to say about our services</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Testimonials</li>
+        </ul>
+    </div>
+
+    <!-- Featured Testimonial -->
+    <section class="featured-testimonial">
+        <div class="featured-testimonial-card">
+            <div class="featured-badge">Featured</div>
+            <div class="featured-testimonial-content">
+                <div class="featured-testimonial-img">
+                    <img src="/api/placeholder/600/600" alt="Family Pool Party">
+                </div>
+                <div class="featured-testimonial-text">
+                    <div class="featured-testimonial-header">
+                        <div class="featured-testimonial-service">Lifeguard Services</div>
+                        <div class="featured-testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="featured-testimonial-message">
+                        <p>"After a few lessons with 805 LifeGuard, our two boys are both amazing swimmers. It's mind blowing to see your 6 year old who sort of doggy paddled with kicking sometimes now have a perfect breast stroke, swim across a pool no problem, be able to swim at length underwater, etc. Jasper was patient and fun, but also firm with our son who definitely has a mind of his own. We couldn't be happier and highly recommend 805 LifeGuard."</p>
+                    </div>
+                    <div class="featured-testimonial-client">
+                        <div class="featured-client-img">
+                            <img src="/api/placeholder/80/80" alt="Jamie H.">
+                        </div>
+                        <div class="featured-client-info">
+                            <h3>Jamie H.</h3>
+                            <p>Newbury Park, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="section-title">
+            <h2>What Our Clients Say</h2>
+            <p>We're proud to have helped so many families enjoy the water safely. Here's what they have to say about our services.</p>
+        </div>
+        
+        <div class="testimonials-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="lifeguard">Lifeguard Services</button>
+            <button class="filter-btn" data-filter="swimming">Swimming Lessons</button>
+            <button class="filter-btn" data-filter="special-needs">Special Needs</button>
+        </div>
+        
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card" data-category="lifeguard">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Lifeguard Services</div>
+                    <h3>Birthday Pool Party</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"Jasper was beyond great! I was able to enjoy my son's party while not stressing about the little kids in the pool. We will use Jasper again and again. Highly recommend his service."</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Jessica C.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Jessica C.</h4>
+                            <p>Thousand Oaks, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card" data-category="swimming">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Swimming Lessons</div>
+                    <h3>Children's Swimming</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"Jasper is great with kids and our boys loved their lessons and looked forward to them. If you're looking for a swim teacher or a lifeguard for an event, use him he's the best."</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Brett B.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Brett B.</h4>
+                            <p>Agoura Hills, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card" data-category="special-needs">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Special Needs Swimming</div>
+                    <h3>Personalized Instruction</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"If someone wants to learn how to swim in the shortest time possible, with an attentive and dedicated teacher, and have high quality, customized lessons, 805 LifeGuard is the best choice. Our 5 year old son was afraid to put his head under water and after a lesson package with 805, he is so confident in the water that now he wants to be a professional swimmer."</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Adena T.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Adena T.</h4>
+                            <p>Tarzana, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card" data-category="lifeguard">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Lifeguard Services</div>
+                    <h3>Corporate Event</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"We hired 805 LifeGuard for our company summer party, and they were absolutely professional. Our employees felt safe, and I was able to focus on hosting without worrying about pool safety. Highly recommend for any corporate event with a pool."</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Michael R.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Michael R.</h4>
+                            <p>Westlake Village, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 5 -->
+            <div class="testimonial-card" data-category="swimming">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Swimming Lessons</div>
+                    <h3>Adult Swimming</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"At 45, I finally decided to learn how to swim. I was nervous about taking lessons as an adult, but 805 LifeGuard made the experience comfortable and enjoyable. After just 8 lessons, I can confidently swim laps in the pool. It's never too late to learn!"</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Sarah L.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Sarah L.</h4>
+                            <p>Thousand Oaks, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 6 -->
+            <div class="testimonial-card" data-category="lifeguard">
+                <div class="testimonial-header">
+                    <div class="testimonial-service">Lifeguard Services</div>
+                    <h3>Family Reunion</h3>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        <p>"Jasper was the lifeguard at my daughter's pool birthday party. He kept a close watch on the kids the entire time and made sure they stayed safe. It was perfect because my husband and I didn't have to worry about watching the pool while we were doing other things for the party. It also gave us time to visit with the adults. He was early to the party and very professional. I highly recommend him and would use him again."</p>
+                    </div>
+                    <div class="testimonial-client">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Lisa M.">
+                        </div>
+                        <div class="client-info">
+                            <h4>Lisa M.</h4>
+                            <p>Moorpark, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials -->
+    <section class="video-testimonials">
+        <div class="section-title">
+            <h2>Video Testimonials</h2>
+            <p>Watch our clients share their experiences with 805 LifeGuard services.</p>
+        </div>
+        
+        <div class="video-testimonials-grid">
+            <!-- Video Testimonial 1 -->
+            <div class="video-testimonial-card">
+                <div class="video-thumbnail">
+                    <img src="/api/placeholder/400/300" alt="Swimming Success Story">
+                    <div class="play-btn" data-video="video1">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-testimonial-content">
+                    <h3 class="video-testimonial-title">Our Swimming Success Story</h3>
+                    <div class="video-testimonial-details">
+                        <span>Williams Family</span>
+                        <span>Swimming Lessons</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Testimonial 2 -->
+            <div class="video-testimonial-card">
+                <div class="video-thumbnail">
+                    <img src="/api/placeholder/400/300" alt="Pool Party Safety">
+                    <div class="play-btn" data-video="video2">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-testimonial-content">
+                    <h3 class="video-testimonial-title">How 805 LifeGuard Made Our Party Safe</h3>
+                    <div class="video-testimonial-details">
+                        <span>Johnson Family</span>
+                        <span>Lifeguard Services</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Testimonial 3 -->
+            <div class="video-testimonial-card">
+                <div class="video-thumbnail">
+                    <img src="/api/placeholder/400/300" alt="Special Needs Swimming">
+                    <div class="play-btn" data-video="video3">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-testimonial-content">
+                    <h3 class="video-testimonial-title">A Journey to Water Confidence</h3>
+                    <div class="video-testimonial-details">
+                        <span>Martinez Family</span>
+                        <span>Special Needs Swimming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Testimonial -->
+    <section class="add-testimonial">
+        <div class="section-title">
+            <h2>Share Your Experience</h2>
+            <p>We value your feedback! Please share your experience with our services.</p>
+        </div>
+        
+        <div class="testimonial-form">
+            <form id="addTestimonialForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name*</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location*</label>
+                        <input type="text" id="location" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service">Service Used*</label>
+                    <select id="service" class="form-control" required>
+                        <option value="">Select a service</option>
+                        <option value="lifeguard">Lifeguard Services</option>
+                        <option value="swimming">Swimming Lessons</option>
+                        <option value="special">Special Needs Swimming</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Rating*</label>
+                    <div class="rating-select">
+                        <label class="rating-option">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <input type="radio" name="rating" value="1">
+                        </label>
+                        <label class="rating-option">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <input type="radio" name="rating" value="2">
+                        </label>
+                        <label class="rating-option">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <input type="radio" name="rating" value="3">
+                        </label>
+                        <label class="rating-option">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <input type="radio" name="rating" value="4">
+                        </label>
+                        <label class="rating-option">
+                            <div class="rating-stars selected">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <input type="radio" name="rating" value="5" checked>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testimonial">Your Testimonial*</label>
+                    <textarea id="testimonial" class="form-control" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="photo">Upload Photo (Optional)</label>
+                    <input type="file" id="photo" class="form-control">
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Testimonial</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <h2>Ready to Experience Our Services?</h2>
+        <p>Book our professional lifeguard services for your next event or schedule swimming lessons for you or your children.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="cta-btn primary-btn">Contact Us</a>
+            <a href="services.html" class="cta-btn secondary-btn">View Services</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/100/50" alt="805 LifeGuard Logo">
+                    <div class="footer-logo-text">805 LifeGuard</div>
+                </div>
+                <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            (805) 367-6432
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            info@805lifeguard.com
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            Serving the greater Conejo Valley area
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your Email Address">
+                    <button type="submit" class="newsletter-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <div class="close-modal">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="video-container">
+                <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Testimonials Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                testimonialCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Rating Selection
+        const ratingOptions = document.querySelectorAll('.rating-option');
+        
+        ratingOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const stars = option.querySelector('.rating-stars');
+                
+                ratingOptions.forEach(opt => {
+                    opt.querySelector('.rating-stars').classList.remove('selected');
+                });
+                
+                stars.classList.add('selected');
+            });
+        });
+        
+        // Video Modal
+        const playBtns = document.querySelectorAll('.play-btn');
+        const videoModal = document.getElementById('videoModal');
+        const closeModal = document.querySelector('.close-modal');
+        const videoIframe = document.querySelector('.video-container iframe');
+        
+        playBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const videoId = btn.getAttribute('data-video');
+                // In a real implementation, you would use actual YouTube/Vimeo links
+                let videoSrc = '';
+                
+                if (videoId === 'video1') {
+                    videoSrc = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Sample URL
+                } else if (videoId === 'video2') {
+                    videoSrc = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Sample URL
+                } else if (videoId === 'video3') {
+                    videoSrc = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Sample URL
+                }
+                
+                videoIframe.setAttribute('src', videoSrc);
+                videoModal.classList.add('active');
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            videoModal.classList.remove('active');
+            videoIframe.setAttribute('src', '');
+        });
+        
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('active');
+                videoIframe.setAttribute('src', '');
+            }
+        });
+        
+        // Form Submission
+        const addTestimonialForm = document.getElementById('addTestimonialForm');
+        
+        addTestimonialForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your testimonial! After review, it will be published on our site.');
+            addTestimonialForm.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

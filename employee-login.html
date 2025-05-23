@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Login - 805 LifeGuard | Staff Portal</title>
+    <meta name="description" content="Employee login portal for 805 LifeGuard staff to manage schedules, view assignments, and access training materials.">
+    <meta name="keywords" content="lifeguard employee login, staff portal, schedule management, swimming instructor login">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #f72585;
+            --light: #e3f2fd;
+            --dark: #023e8a;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --employee-primary: #1a237e;
+            --employee-secondary: #3949ab;
+            --employee-accent: #ff6f00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--employee-primary) 0%, var(--employee-secondary) 50%, var(--primary) 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Professional Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Professional Floating Elements */
+        .floating-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.05);
+            font-size: 2rem;
+            animation: float-professional 20s infinite linear;
+        }
+        
+        .floating-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { left: 80%; top: 80%; animation-delay: 5s; }
+        .floating-icon:nth-child(3) { left: 60%; top: 10%; animation-delay: 10s; }
+        .floating-icon:nth-child(4) { left: 20%; top: 70%; animation-delay: 15s; }
+        
+        @keyframes float-professional {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0px) rotate(180deg); }
+            75% { transform: translateY(-10px) rotate(270deg); }
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--employee-accent), #ff8f00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 12px;
+            animation: pulse-professional 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-professional {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 111, 0, 0); }
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 5px;
+            font-weight: 400;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--employee-accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .client-login-toggle {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+        }
+        
+        .client-login-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 119, 182, 0.4);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--white);
+            cursor: pointer;
+        }
+        
+        /* Login Container */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 50px;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--employee-primary), var(--employee-secondary), var(--employee-accent));
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .login-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2.5rem;
+            margin: 0 auto 25px;
+            animation: professional-glow 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .login-icon::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary), var(--employee-accent));
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: professional-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes professional-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(26, 35, 126, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(26, 35, 126, 0.5), 0 0 40px rgba(57, 73, 171, 0.3); }
+        }
+        
+        @keyframes professional-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        .login-title {
+            font-size: 2.2rem;
+            color: var(--employee-primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .login-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .employee-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--employee-accent), #ff8f00);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        
+        .login-form {
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--employee-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--employee-secondary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(57, 73, 171, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-control.error {
+            border-color: var(--error);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--employee-secondary);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .remember-me input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .forgot-password {
+            color: var(--employee-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            color: var(--employee-primary);
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(26, 35, 126, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .login-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        .login-btn.loading::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            border: 3px solid transparent;
+            border-top: 3px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 35px 0;
+            position: relative;
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+        }
+        
+        .divider span {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 0 20px;
+        }
+        
+        /* Employee Resources */
+        .employee-resources {
+            background: rgba(26, 35, 126, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .employee-resources h4 {
+            color: var(--employee-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        
+        .resource-link {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--white);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--employee-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(26, 35, 126, 0.1);
+        }
+        
+        .resource-link:hover {
+            background: var(--employee-primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
+        }
+        
+        .resource-link i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Error/Success Messages */
+        .alert {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: none;
+            border-left: 4px solid;
+        }
+        
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .alert-success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+        
+        .alert-error {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border-left-color: var(--error);
+        }
+        
+        .alert-warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+            border-left-color: var(--warning);
+        }
+        
+        /* Security Badge */
+        .security-info {
+            background: rgba(76, 175, 80, 0.05);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .security-info i {
+            color: var(--success);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .security-info p {
+            color: var(--success);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: rgba(26, 35, 126, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px;
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 12px 0;
+                font-size: 1.1rem;
+            }
+            
+            .login-container {
+                padding: 100px 15px 30px;
+            }
+            
+            .login-card {
+                padding: 35px 25px;
+                margin: 0 5px;
+            }
+            
+            .login-title {
+                font-size: 1.9rem;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .resource-links {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .login-card {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+            
+            .login-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
+            .login-title {
+                font-size: 1.7rem;
+            }
+            
+            .form-control {
+                padding: 15px 18px;
+                font-size: 1rem;
+            }
+            
+            .login-btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 35, 126, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-overlay.show {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Accessibility Improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus styles */
+        .form-control:focus,
+        .login-btn:focus,
+        .resource-link:focus,
+        .nav-links a:focus {
+            outline: 3px solid var(--employee-accent);
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .login-card {
+                border: 3px solid var(--employee-primary);
+            }
+            
+            .form-control {
+                border-width: 3px;
+            }
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Background -->
+    <div class="grid-background"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <i class="floating-icon fas fa-shield-alt"></i>
+        <i class="floating-icon fas fa-calendar-check"></i>
+        <i class="floating-icon fas fa-users"></i>
+        <i class="floating-icon fas fa-clipboard-list"></i>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="logo-text">805 LifeGuard</div>
+                    <div class="logo-subtitle">Staff Portal</div>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="client-login.html" class="client-login-toggle">Client Login</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="employee-badge">Staff Portal</div>
+                <h1 class="login-title">Employee Access</h1>
+                <p class="login-subtitle">Secure login for 805 LifeGuard team members</p>
+            </div>
+
+            <!-- Alert Messages -->
+            <div class="alert alert-error" id="errorAlert"></div>
+            <div class="alert alert-success" id="successAlert"></div>
+            <div class="alert alert-warning" id="warningAlert"></div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="employeeId" class="form-label">Employee ID</label>
+                    <input 
+                        type="text" 
+                        id="employeeId" 
+                        class="form-control" 
+                        required 
+                        autocomplete="username"
+                        placeholder="Enter your employee ID"
+                        aria-describedby="employeeId-help"
+                    >
+                    <div id="employeeId-help" class="sr-only">Enter your assigned employee identification number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div style="position: relative;">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-control" 
+                            required 
+                            autocomplete="current-password"
+                            placeholder="Enter your password"
+                            aria-describedby="password-help"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                    <div id="password-help" class="sr-only">Enter your secure employee password</div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        Keep me signed in
+                    </label>
+                    <a href="#" class="forgot-password" onclick="forgotPassword()">Reset Password</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    Access Dashboard
+                </button>
+            </form>
+
+            <!-- Security Info -->
+            <div class="security-info">
+                <i class="fas fa-lock"></i>
+                <p>This is a secure employee portal. All access is monitored and logged.</p>
+            </div>
+
+            <!-- Employee Resources -->
+            <div class="employee-resources">
+                <h4>Quick Access Resources</h4>
+                <div class="resource-links">
+                    <a href="#" class="resource-link">
+                        <i class="fas fa-book"></i>
+                        <span>Training</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <i class="fas fa-calendar"></i>
+                        <span>Schedule</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Reports</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <i class="fas fa-headset"></i>
+                        <span>Support</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Password Toggle
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Form Validation
+        function validateForm() {
+            const employeeId = document.getElementById('employeeId');
+            const password = document.getElementById('password');
+            let isValid = true;
+
+            // Reset previous error states
+            employeeId.classList.remove('error');
+            password.classList.remove('error');
+
+            // Employee ID validation
+            if (!employeeId.value || employeeId.value.length < 3) {
+                employeeId.classList.add('error');
+                showAlert('Please enter a valid employee ID', 'error');
+                isValid = false;
+            }
+
+            // Password validation
+            if (!password.value || password.value.length < 6) {
+                password.classList.add('error');
+                showAlert('Password must be at least 6 characters long', 'error');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Show Alert Messages
+        function showAlert(message, type) {
+            hideAlerts();
+            const alertElement = document.getElementById(type + 'Alert');
+            alertElement.textContent = message;
+            alertElement.classList.add('show');
+            
+            // Hide alert after 6 seconds
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+            }, 6000);
+        }
+
+        // Hide all alerts
+        function hideAlerts() {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.classList.remove('show');
+            });
+        }
+
+        // Login Form Submit
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideAlerts();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            const employeeId = document.getElementById('employeeId').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.textContent = 'Authenticating...';
+
+            try {
+                // Simulate API call
+                await simulateEmployeeLogin(employeeId, password, rememberMe);
+                
+                showAlert('Authentication successful! Loading dashboard...', 'success');
+                
+                // Redirect after successful login
+                setTimeout(() => {
+                    window.location.href = 'employee-dashboard.html';
+                }, 2000);
+                
+            } catch (error) {
+                showAlert(error.message, 'error');
+            } finally {
+                // Remove loading state
+                loginBtn.classList.remove('loading');
+                loginBtn.textContent = 'Access Dashboard';
+            }
+        });
+
+        // Simulate Employee Login API Call
+        async function simulateEmployeeLogin(employeeId, password, rememberMe) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // Demo employee credentials
+                    const validEmployees = {
+                        'EMP001': { name: 'John Smith', role: 'Senior Lifeguard', password: 'lifeguard123' },
+                        'EMP002': { name: 'Sarah Johnson', role: 'Swimming Instructor', password: 'instructor456' },
+                        'EMP003': { name: 'Mike Wilson', role: 'Pool Manager', password: 'manager789' },
+                        'ADMIN': { name: 'Admin User', role: 'Administrator', password: 'admin123' }
+                    };
+
+                    const employee = validEmployees[employeeId.toUpperCase()];
+                    
+                    if (!employee) {
+                        reject(new Error('Invalid employee ID. Please check your credentials.'));
+                        return;
+                    }
+                    
+                    if (employee.password !== password) {
+                        reject(new Error('Invalid password. Please try again.'));
+                        return;
+                    }
+                    
+                    if (employeeId.toUpperCase() === 'BLOCKED') {
+                        reject(new Error('Your account has been temporarily suspended. Contact HR.'));
+                        return;
+                    }
+
+                    // Store employee login info
+                    const employeeData = {
+                        employeeId: employeeId.toUpperCase(),
+                        name: employee.name,
+                        role: employee.role,
+                        loginTime: new Date().toISOString(),
+                        rememberMe: rememberMe,
+                        permissions: getEmployeePermissions(employee.role)
+                    };
+                    
+                    if (rememberMe) {
+                        localStorage.setItem('805lg_employee', JSON.stringify(employeeData));
+                    } else {
+                        sessionStorage.setItem('805lg_employee', JSON.stringify(employeeData));
+                    }
+                    
+                    resolve(employeeData);
+                }, 2500);
+            });
+        }
+
+        // Get Employee Permissions
+        function getEmployeePermissions(role) {
+            const permissions = {
+                'Administrator': ['all'],
+                'Pool Manager': ['schedule_management', 'staff_management', 'reports', 'client_management'],
+                'Senior Lifeguard': ['schedule_view', 'reports', 'training', 'incident_reporting'],
+                'Swimming Instructor': ['schedule_view', 'student_progress', 'training'],
+                'Lifeguard': ['schedule_view', 'incident_reporting', 'training']
+            };
+            
+            return permissions[role] || ['schedule_view', 'training'];
+        }
+
+        // Forgot Password
+        function forgotPassword() {
+            const employeeId = document.getElementById('employeeId').value;
+            
+            if (employeeId) {
+                showAlert(`Password reset request submitted for ${employeeId}. Check your email.`, 'success');
+            } else {
+                showAlert('Please enter your employee ID first', 'warning');
+                document.getElementById('employeeId').focus();
+            }
+        }
+
+        // Check if employee is already logged in
+        window.addEventListener('load', () => {
+            const employeeData = localStorage.getItem('805lg_employee') || sessionStorage.getItem('805lg_employee');
+            
+            if (employeeData) {
+                showAlert('You are already logged in. Redirecting to dashboard...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'employee-dashboard.html';
+                }, 1500);
+            }
+        });
+
+        // Auto-focus employee ID field
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('employeeId').focus();
+        });
+
+        // Handle Enter key navigation
+        document.getElementById('employeeId').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('password').focus();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Format Employee ID input
+        document.getElementById('employeeId').addEventListener('input', (e) => {
+            // Convert to uppercase for consistency
+            e.target.value = e.target.value.toUpperCase();
+        });
+
+        // Add professional hover effects
+        document.querySelectorAll('.resource-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Keyboard accessibility
+        mobileMenuBtn.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                mobileMenuBtn.click();
+            }
+        });
+
+        // Security monitoring simulation
+        function logAccessAttempt(employeeId, success) {
+            // In a real application, this would send data to a security monitoring system
+            console.log(`Access attempt: ${employeeId} at ${new Date().toISOString()} - ${success ? 'SUCCESS' : 'FAILED'}`);
+        }
+
+        // Enhanced form submission with security logging
+        const originalSubmit = document.getElementById('loginForm').onsubmit;
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            const employeeId = document.getElementById('employeeId').value;
+            
+            // Log the attempt (in real app, this would be server-side)
+            setTimeout(() => {
+                logAccessAttempt(employeeId, true);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
