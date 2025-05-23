@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Local Services - 805 LifeGuard</title>
-	<meta name="robots" content="noindex, nofollow">
+    <title>Our Services - 805 LifeGuard | Professional Lifeguard Services & Swimming Lessons</title>
+    <meta name="description" content="Professional lifeguard services for private events and comprehensive swimming lessons for all ages in Thousand Oaks, CA. Certified lifeguards and expert swim instruction.">
+    <meta name="keywords" content="lifeguard services, swimming lessons, pool safety, private events, swim instruction, Thousand Oaks, Conejo Valley">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Professional Services - 805 LifeGuard">
+    <meta property="og:description" content="Expert lifeguard services and swimming lessons throughout the greater Conejo Valley area.">
+    <meta property="og:image" content="/api/placeholder/1200/630">
+    <meta property="og:url" content="https://www.805lifeguard.com/services.html">
+    <link rel="canonical" href="https://www.805lifeguard.com/services.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #0077b6;
             --secondary: #00b4d8;
             --accent: #f72585;
-            --light: #f8f9fa;
+            --light: #e3f2fd;
             --dark: #023e8a;
             --white: #ffffff;
             --gray: #6c757d;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --gallery-blue: #1e88e5;
+            --gallery-teal: #26a69a;
         }
         
         * {
@@ -25,33 +37,71 @@
         }
         
         body {
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--light) 0%, #f0f8ff 100%);
             color: #333;
             line-height: 1.6;
         }
         
+        /* Animated water ripples background */
+        .ripple-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+            animation: ripple-expand 4s ease-out infinite;
+        }
+        
+        .ripple:nth-child(1) { top: 20%; left: 10%; width: 200px; height: 200px; animation-delay: 0s; }
+        .ripple:nth-child(2) { top: 60%; left: 80%; width: 300px; height: 300px; animation-delay: 1.5s; }
+        .ripple:nth-child(3) { top: 80%; left: 30%; width: 150px; height: 150px; animation-delay: 3s; }
+        .ripple:nth-child(4) { top: 40%; left: 60%; width: 250px; height: 250px; animation-delay: 2s; }
+        
+        @keyframes ripple-expand {
+            0% { transform: scale(0); opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
         /* Header & Navigation */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
         
         .top-bar {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark), var(--primary));
             color: var(--white);
             text-align: center;
             padding: 8px 20px;
             font-size: 0.9rem;
+            font-weight: 500;
         }
         
         .top-bar a {
             color: var(--white);
             text-decoration: none;
             margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .top-bar a:hover {
+            color: var(--gallery-teal);
         }
         
         .navbar {
@@ -59,112 +109,191 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
         }
         
-        .logo img {
-            height: 60px;
-            margin-right: 10px;
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 12px;
+            animation: logo-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
         }
         
         .logo-text {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary);
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
         
         .nav-links li {
-            margin-left: 20px;
+            margin-left: 25px;
         }
         
-        .nav-links li a {
+        .nav-links a {
             text-decoration: none;
             color: var(--dark);
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             position: relative;
-            padding: 5px 0;
-            transition: color 0.3s;
+            padding: 8px 0;
         }
         
-        .nav-links li a:hover {
-            color: var(--accent);
+        .nav-links a:hover {
+            color: var(--gallery-blue);
+            transform: translateY(-2px);
         }
         
-        .nav-links li a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: width 0.3s ease;
         }
         
-        .nav-links li a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .client-login-btn {
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+        
+        .client-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
         }
         
         .mobile-menu-btn {
             display: none;
-            cursor: pointer;
             background: none;
             border: none;
             font-size: 1.5rem;
             color: var(--dark);
+            cursor: pointer;
         }
 
         /* Page Header */
         .page-header {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/600');
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(38, 166, 154, 0.85)), 
+                        url('/api/placeholder/1920/600');
             background-size: cover;
             background-position: center;
-            height: 40vh;
+            height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
             text-align: center;
-            margin-top: 100px;
+            margin-top: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
         }
         
         .page-header-content {
-            max-width: 800px;
+            max-width: 900px;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+            line-height: 1.2;
         }
         
         .page-header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* Breadcrumbs */
         .breadcrumbs {
-            background-color: var(--white);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             padding: 15px 5%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
         }
         
         .breadcrumbs-list {
             display: flex;
             list-style: none;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .breadcrumbs-list li {
@@ -184,42 +313,49 @@
             text-decoration: none;
             color: var(--gray);
             transition: color 0.3s;
+            font-weight: 500;
         }
         
         .breadcrumbs-list a:hover {
-            color: var(--primary);
+            color: var(--gallery-blue);
         }
         
         .breadcrumbs-list .current {
-            color: var(--primary);
+            color: var(--gallery-blue);
             font-weight: 600;
         }
         
         /* Services Section */
         .services-section {
-            padding: 60px 5%;
+            padding: 80px 5%;
         }
         
         .section-title {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             text-align: center;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 15px;
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, var(--dark), var(--gallery-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-weight: 800;
         }
         
         .section-title p {
             max-width: 800px;
             margin: 0 auto;
             color: var(--gray);
+            font-size: 1.2rem;
+            line-height: 1.7;
         }
         
         /* Service Blocks */
         .service-block {
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
         
         .service-block:last-child {
@@ -227,44 +363,76 @@
         }
         
         .service-block-header {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-block-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
         .service-block-header h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
         }
         
         .service-block-header p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             max-width: 800px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            opacity: 0.95;
         }
         
         .service-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .service-feature {
-            background-color: var(--white);
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .service-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
         }
         
         .service-feature:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
         .service-feature-img {
-            height: 200px;
+            height: 220px;
             overflow: hidden;
         }
         
@@ -276,62 +444,82 @@
         }
         
         .service-feature:hover .service-feature-img img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         .service-feature-content {
-            padding: 25px;
+            padding: 30px;
         }
         
         .service-feature-content h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 15px;
             color: var(--dark);
+            font-weight: 700;
         }
         
         .service-feature-content p {
             color: var(--gray);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1rem;
         }
         
         .feature-icon {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .feature-icon i {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 20px;
+            font-size: 1.2rem;
         }
         
         /* Pricing Section */
         .pricing-section {
-            padding: 60px 5%;
-            background-color: #f0f8ff;
+            padding: 80px 5%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
         }
         
         .pricing-tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         
         .pricing-tab {
-            padding: 12px 30px;
-            background-color: var(--white);
-            color: var(--gray);
-            border: 2px solid var(--primary);
+            padding: 15px 35px;
+            background: var(--white);
+            color: var(--gallery-blue);
+            border: 2px solid var(--gallery-blue);
             cursor: pointer;
             font-weight: 600;
-            transition: background-color 0.3s, color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        
+        .pricing-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: left 0.3s ease;
+            z-index: -1;
         }
         
         .pricing-tab:first-child {
@@ -342,9 +530,16 @@
             border-radius: 0 30px 30px 0;
         }
         
-        .pricing-tab.active {
-            background-color: var(--primary);
+        .pricing-tab.active::before,
+        .pricing-tab:hover::before {
+            left: 0;
+        }
+        
+        .pricing-tab.active,
+        .pricing-tab:hover {
             color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
         }
         
         .pricing-content {
@@ -357,65 +552,98 @@
         
         .pricing-packages {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .pricing-package {
-            background-color: var(--white);
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-package::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
         }
         
         .pricing-package:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
         .package-header {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
-            padding: 25px;
+            padding: 35px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
         }
         
         .package-header h4 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
         
         .package-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
         
         .package-price span {
-            font-size: 1rem;
-            font-weight: 400;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
         
         .package-header p {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
         
         .package-features {
-            padding: 25px;
+            padding: 35px;
         }
         
         .package-features ul {
             list-style: none;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .package-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
+            font-size: 1rem;
         }
         
         .package-features li:last-child {
@@ -423,67 +651,73 @@
         }
         
         .package-features li i {
-            color: #0cc74a;
-            margin-right: 10px;
+            color: var(--success);
+            margin-right: 15px;
+            font-size: 1.1rem;
         }
         
         .package-btn {
             display: block;
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             text-align: center;
-            background-color: var(--primary);
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 10px;
             font-weight: 600;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
         }
         
         .package-btn:hover {
-            background-color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
         }
         
         /* FAQ Section */
         .faq-section {
-            padding: 60px 5%;
+            padding: 80px 5%;
         }
         
         .accordion {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
         .accordion-item {
-            margin-bottom: 15px;
-            border-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            background: var(--white);
         }
         
         .accordion-header {
-            background-color: var(--white);
-            padding: 15px 20px;
+            background: var(--white);
+            padding: 25px 30px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
         }
         
         .accordion-header h4 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--dark);
+            font-weight: 600;
         }
         
         .accordion-header i {
-            font-size: 1.1rem;
-            color: var(--primary);
-            transition: transform 0.3s;
+            font-size: 1.2rem;
+            color: var(--gallery-blue);
+            transition: all 0.3s ease;
         }
         
         .accordion-item.active .accordion-header {
-            background-color: var(--primary);
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
         }
         
         .accordion-item.active .accordion-header h4 {
@@ -496,113 +730,150 @@
         }
         
         .accordion-content {
-            background-color: var(--white);
-            padding: 0 20px;
+            background: var(--white);
+            padding: 0 30px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s, padding 0.3s;
+            transition: all 0.3s ease;
         }
         
         .accordion-item.active .accordion-content {
-            padding: 20px;
+            padding: 30px;
             max-height: 1000px;
+        }
+        
+        .accordion-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--gray);
         }
         
         /* Call to Action */
         .cta {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
-            padding: 80px 5%;
+            padding: 100px 5%;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            font-weight: 800;
         }
         
         .cta p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            opacity: 0.95;
         }
         
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
         }
         
         .cta-btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border-radius: 30px;
             font-weight: 600;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
         
         .primary-btn {
-            background-color: var(--accent);
+            background: rgba(255, 255, 255, 0.2);
             color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
         
         .primary-btn:hover {
-            background-color: #d60064;
+            background: var(--white);
+            color: var(--gallery-blue);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
         .secondary-btn {
-            background-color: transparent;
+            background: transparent;
             color: var(--white);
-            border: 2px solid var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
         
         .secondary-btn:hover {
-            background-color: var(--white);
-            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark) 0%, #001d3d 100%);
             color: var(--white);
-            padding: 60px 5% 20px;
+            padding: 80px 5% 30px;
         }
         
         .footer-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto 50px;
         }
         
         .footer-logo {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .footer-logo img {
-            height: 50px;
-            margin-right: 10px;
+            height: 60px;
+            margin-right: 15px;
         }
         
         .footer-logo-text {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--white);
+            background: linear-gradient(45deg, var(--white), var(--gallery-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .footer-about p {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.8;
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
         }
         
         .social-links {
@@ -614,28 +885,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: var(--white);
             text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
         }
         
         .social-link:hover {
-            background-color: var(--accent);
+            background: var(--gallery-teal);
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.4);
         }
         
         .footer-links h3,
         .footer-contact h3,
         .footer-newsletter h3 {
             color: var(--white);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
+            font-weight: 700;
         }
         
         .footer-links h3::after,
@@ -645,9 +919,10 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border-radius: 2px;
         }
         
         .footer-links ul {
@@ -655,110 +930,127 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
         }
         
         .footer-links a:hover {
-            color: var(--white);
+            color: var(--gallery-teal);
+            transform: translateX(5px);
         }
         
         .contact-info {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .contact-info-item {
             display: flex;
-            margin-bottom: 15px;
+            align-items: center;
+            margin-bottom: 18px;
         }
         
         .contact-icon {
-            margin-right: 15px;
-            color: var(--secondary);
+            margin-right: 18px;
+            color: var(--gallery-teal);
+            font-size: 1.3rem;
         }
         
         .contact-text {
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
         }
         
         .footer-newsletter p {
-            color: #b3c5ef;
-            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 25px;
+            line-height: 1.7;
         }
         
         .newsletter-form {
             display: flex;
+            margin-bottom: 15px;
         }
         
         .newsletter-input {
             flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px 0 0 5px;
+            padding: 12px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px 0 0 8px;
             font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+        
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--gallery-teal);
         }
         
         .newsletter-btn {
-            background-color: var(--accent);
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
             color: var(--white);
             border: none;
-            padding: 0 20px;
-            border-radius: 0 5px 5px 0;
+            padding: 0 25px;
+            border-radius: 0 8px 8px 0;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
         
         .newsletter-btn:hover {
-            background-color: #d60064;
+            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.4);
         }
         
         .copyright {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b3c5ef;
-            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
         }
         
         /* Responsive Design */
         @media (max-width: 992px) {
             .service-feature {
-                max-width: 400px;
+                max-width: 450px;
                 margin: 0 auto;
             }
             
             .pricing-package {
-                max-width: 350px;
+                max-width: 400px;
                 margin: 0 auto;
             }
         }
         
         @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-            
             .mobile-menu-btn {
                 display: block;
             }
             
             .nav-links {
                 position: fixed;
-                top: 100px;
+                top: 120px;
                 left: -100%;
-                width: 80%;
-                height: calc(100vh - 100px);
-                background-color: var(--white);
+                width: 85%;
+                height: calc(100vh - 120px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: flex-start;
                 padding: 40px 20px;
-                transition: left 0.3s;
-                box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
             }
             
             .nav-links.active {
@@ -768,20 +1060,32 @@
             .nav-links li {
                 margin-left: 0;
                 margin-bottom: 20px;
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 12px 0;
+                font-size: 1.1rem;
+            }
+            
+            .page-header {
+                height: 45vh;
+                margin-top: 120px;
             }
             
             .page-header h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .page-header p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .pricing-tabs {
                 flex-direction: column;
-                max-width: 300px;
-                margin: 0 auto 40px;
+                max-width: 320px;
+                margin: 0 auto 50px;
             }
             
             .pricing-tab {
@@ -790,27 +1094,33 @@
             }
             
             .pricing-tab:first-child {
-                border-radius: 10px 10px 0 0;
+                border-radius: 15px 15px 0 0;
             }
             
             .pricing-tab:last-child {
-                border-radius: 0 0 10px 10px;
+                border-radius: 0 0 15px 15px;
             }
             
             .cta-buttons {
                 flex-direction: column;
                 max-width: 300px;
                 margin: 0 auto;
+                gap: 15px;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                text-align: center;
             }
         }
         
         @media (max-width: 576px) {
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .service-block-header h3 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .service-block-header p {
@@ -818,11 +1128,11 @@
             }
             
             .accordion-header h4 {
-                font-size: 1rem;
+                font-size: 1.05rem;
             }
             
             .cta h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .newsletter-form {
@@ -830,18 +1140,59 @@
             }
             
             .newsletter-input {
-                border-radius: 5px;
+                border-radius: 8px;
                 margin-bottom: 10px;
             }
             
             .newsletter-btn {
-                border-radius: 5px;
-                padding: 10px;
+                border-radius: 8px;
+                padding: 12px;
+            }
+            
+            .service-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-packages {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Ripple Background -->
+    <div class="ripple-background">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+    </div>
+
     <!-- Header Section -->
     <header>
         <div class="top-bar">
@@ -849,19 +1200,22 @@
             <a href="tel:8053676432"><i class="fas fa-phone"></i> (805) 367-6432</a>
         </div>
         <nav class="navbar">
-            <div class="logo">
-                <img src="/api/placeholder/120/60" alt="805 LifeGuard Logo">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-life-ring"></i>
+                </div>
                 <div class="logo-text">805 LifeGuard</div>
-            </div>
-            <ul class="nav-links">
+            </a>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="hoa-services.html">HOA Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="shop.html">Shop</a></li>
+                <li><a href="client-login.html" class="client-login-btn">Client Login</a></li>
             </ul>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
         </nav>
@@ -869,9 +1223,10 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <div class="page-header-content">
+        <div class="page-header-content fade-in-up">
+            <div class="hero-badge">Professional Pool Safety & Swimming Education</div>
             <h1>Our Services</h1>
-            <p>Professional lifeguard services and personalized swim lessons for all ages</p>
+            <p>Professional lifeguard services and personalized swim lessons for all ages throughout the greater Conejo Valley area</p>
         </div>
     </section>
 
@@ -885,16 +1240,16 @@
 
     <!-- Services Section -->
     <section class="services-section">
-        <div class="section-title">
+        <div class="section-title fade-in-up">
             <h2>What We Offer</h2>
-            <p>We provide professional lifeguard services and personalized swim lessons tailored to your needs.</p>
+            <p>We provide professional lifeguard services and personalized swim lessons tailored to your specific needs and safety requirements.</p>
         </div>
 
         <!-- Lifeguard Services -->
-        <div class="service-block">
+        <div class="service-block fade-in-up">
             <div class="service-block-header">
                 <h3>Lifeguard Services</h3>
-                <p>Our discrete and highly experienced lifeguards will ensure your pool party or event is safe and worry-free. We specialize in private pool parties and company/corporate events.</p>
+                <p>Our discrete and highly experienced lifeguards will ensure your pool party or event is safe and worry-free. We specialize in private pool parties and company/corporate events with comprehensive safety management.</p>
             </div>
             <div class="service-features">
                 <div class="service-feature">
@@ -906,7 +1261,7 @@
                             <i class="fas fa-swimming-pool"></i>
                             <h4>Private Pool Parties</h4>
                         </div>
-                        <p>Professional lifeguard services for private pool parties, ensuring the safety of all guests while allowing hosts to relax and enjoy the event.</p>
+                        <p>Professional lifeguard services for private pool parties, ensuring the safety of all guests while allowing hosts to relax and enjoy their special event with complete peace of mind.</p>
                     </div>
                 </div>
                 <div class="service-feature">
@@ -918,7 +1273,7 @@
                             <i class="fas fa-building"></i>
                             <h4>Corporate Events</h4>
                         </div>
-                        <p>Ensure employee and guest safety at company pool events with our professional lifeguard services, allowing your team to focus on team-building and enjoyment.</p>
+                        <p>Ensure employee and guest safety at company pool events with our professional lifeguard services, allowing your team to focus on team-building and enjoyment without safety concerns.</p>
                     </div>
                 </div>
                 <div class="service-feature">
@@ -930,17 +1285,17 @@
                             <i class="fas fa-users"></i>
                             <h4>HOA & Community Events</h4>
                         </div>
-                        <p>Specialized lifeguard services for homeowner associations and community pools, ensuring compliance with safety regulations and peace of mind for residents.</p>
+                        <p>Specialized lifeguard services for homeowner associations and community pools, ensuring compliance with safety regulations and peace of mind for all residents and guests.</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Swimming Lessons -->
-        <div class="service-block">
+        <div class="service-block fade-in-up">
             <div class="service-block-header">
                 <h3>Swimming Lessons</h3>
-                <p>We work with all types and levels of swimmers from 3 to 99 years old. Our individualized approach ensures comfort and rapid progress.</p>
+                <p>We work with all types and levels of swimmers from 3 to 99 years old. Our individualized approach ensures comfort and rapid progress in a supportive learning environment.</p>
             </div>
             <div class="service-features">
                 <div class="service-feature">
@@ -952,7 +1307,7 @@
                             <i class="fas fa-child"></i>
                             <h4>Children's Lessons</h4>
                         </div>
-                        <p>Age-appropriate swim lessons for children 3 years and older, focusing on water safety, comfort, and foundational swimming skills through a fun, engaging approach.</p>
+                        <p>Age-appropriate swim lessons for children 3 years and older, focusing on water safety, comfort, and foundational swimming skills through a fun, engaging, and supportive approach.</p>
                     </div>
                 </div>
                 <div class="service-feature">
@@ -964,7 +1319,7 @@
                             <i class="fas fa-user"></i>
                             <h4>Adult Lessons</h4>
                         </div>
-                        <p>Personalized swimming instruction for adults of all skill levels, from beginners overcoming water anxiety to advanced swimmers refining their technique.</p>
+                        <p>Personalized swimming instruction for adults of all skill levels, from beginners overcoming water anxiety to advanced swimmers looking to refine their technique and endurance.</p>
                     </div>
                 </div>
                 <div class="service-feature">
@@ -976,7 +1331,7 @@
                             <i class="fas fa-heart"></i>
                             <h4>Special Needs Swimming</h4>
                         </div>
-                        <p>Specialized instruction for individuals with physical, cognitive, or sensory challenges, provided with patience, expertise, and adaptive techniques.</p>
+                        <p>Specialized instruction for individuals with physical, cognitive, or sensory challenges, provided with patience, expertise, and adaptive techniques tailored to each student's unique needs.</p>
                     </div>
                 </div>
             </div>
@@ -985,9 +1340,9 @@
 
     <!-- Pricing Section -->
     <section class="pricing-section">
-        <div class="section-title">
+        <div class="section-title fade-in-up">
             <h2>Our Pricing</h2>
-            <p>Transparent and competitive pricing for all our services.</p>
+            <p>Transparent and competitive pricing for all our professional services with no hidden fees.</p>
         </div>
         <div class="pricing-tabs">
             <div class="pricing-tab active" data-tab="lifeguard-pricing">Lifeguard Services</div>
@@ -995,11 +1350,11 @@
         </div>
         <div class="pricing-content active" id="lifeguard-pricing">
             <div class="pricing-packages">
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>Basic Package</h4>
                         <div class="package-price">$150<span>/3 hours</span></div>
-                        <p>For small private events</p>
+                        <p>Perfect for small private events</p>
                     </div>
                     <div class="package-features">
                         <ul>
@@ -1012,11 +1367,11 @@
                         <a href="contact.html" class="package-btn">Book Now</a>
                     </div>
                 </div>
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>Standard Package</h4>
                         <div class="package-price">$250<span>/3 hours</span></div>
-                        <p>For medium-sized events</p>
+                        <p>Ideal for medium-sized events</p>
                     </div>
                     <div class="package-features">
                         <ul>
@@ -1029,11 +1384,11 @@
                         <a href="contact.html" class="package-btn">Book Now</a>
                     </div>
                 </div>
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>Premium Package</h4>
                         <div class="package-price">$400<span>/4 hours</span></div>
-                        <p>For large corporate events</p>
+                        <p>Best for large corporate events</p>
                     </div>
                     <div class="package-features">
                         <ul>
@@ -1050,11 +1405,11 @@
         </div>
         <div class="pricing-content" id="swimming-pricing">
             <div class="pricing-packages">
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>Single Lesson</h4>
                         <div class="package-price">$75<span>/lesson</span></div>
-                        <p>For occasional swimmers</p>
+                        <p>Great for occasional swimmers</p>
                     </div>
                     <div class="package-features">
                         <ul>
@@ -1067,7 +1422,7 @@
                         <a href="contact.html" class="package-btn">Book Now</a>
                     </div>
                 </div>
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>5-Lesson Package</h4>
                         <div class="package-price">$325<span>/package</span></div>
@@ -1079,12 +1434,12 @@
                             <li><i class="fas fa-check"></i> Personalized progress tracking</li>
                             <li><i class="fas fa-check"></i> Detailed skill assessment</li>
                             <li><i class="fas fa-check"></i> All equipment provided</li>
-                            <li><i class="fas fa-check"></i> 10% savings</li>
+                            <li><i class="fas fa-check"></i> 10% savings included</li>
                         </ul>
                         <a href="contact.html" class="package-btn">Book Now</a>
                     </div>
                 </div>
-                <div class="pricing-package">
+                <div class="pricing-package fade-in-up">
                     <div class="package-header">
                         <h4>10-Lesson Package</h4>
                         <div class="package-price">$600<span>/package</span></div>
@@ -1096,7 +1451,7 @@
                             <li><i class="fas fa-check"></i> Comprehensive skill development</li>
                             <li><i class="fas fa-check"></i> Written progress reports</li>
                             <li><i class="fas fa-check"></i> All equipment provided</li>
-                            <li><i class="fas fa-check"></i> 20% savings</li>
+                            <li><i class="fas fa-check"></i> 20% savings included</li>
                         </ul>
                         <a href="contact.html" class="package-btn">Book Now</a>
                     </div>
@@ -1107,63 +1462,63 @@
 
     <!-- FAQ Section -->
     <section class="faq-section">
-        <div class="section-title">
+        <div class="section-title fade-in-up">
             <h2>Frequently Asked Questions</h2>
-            <p>Find answers to common questions about our services.</p>
+            <p>Find answers to common questions about our services and booking process.</p>
         </div>
         <div class="accordion">
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>What areas do you serve?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>We provide lifeguard services and swimming lessons throughout the greater Conejo Valley area, including Thousand Oaks, Westlake Village, Agoura Hills, Newbury Park, Moorpark, and Camarillo.</p>
+                    <p>We provide lifeguard services and swimming lessons throughout the greater Conejo Valley area, including Thousand Oaks, Westlake Village, Agoura Hills, Newbury Park, Moorpark, and Camarillo. Contact us for specific service area confirmation.</p>
                 </div>
             </div>
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>How far in advance should I book lifeguard services?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>We recommend booking at least two weeks in advance during the California swim season (May-September) to ensure availability. For peak times or large events, booking 3-4 weeks ahead is ideal.</p>
+                    <p>We recommend booking at least two weeks in advance during the California swim season (May-September) to ensure availability. For peak times or large events, booking 3-4 weeks ahead is ideal for the best service guarantee.</p>
                 </div>
             </div>
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>What age groups do you teach?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>We work with swimmers of all ages, from 3 to 99 years old and beyond! Our teaching methods are adjusted based on age, ability, and individual learning styles.</p>
+                    <p>We work with swimmers of all ages, from 3 to 99 years old and beyond! Our teaching methods are carefully adjusted based on age, ability, learning style, and individual comfort levels to ensure the best possible experience.</p>
                 </div>
             </div>
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>Do you provide the pool for swimming lessons?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>No, we do not provide a pool setting. We come to your home or community pool for both lifeguard services and swimming lessons, allowing you to enjoy the privacy and comfort of your own environment.</p>
+                    <p>No, we do not provide a pool setting. We come to your home or community pool for both lifeguard services and swimming lessons, allowing you to enjoy the privacy and comfort of your own familiar environment.</p>
                 </div>
             </div>
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>What qualifications do your lifeguards have?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>All our lifeguards are fully certified with Red Cross Lifeguard Training, CPR/AED for the Professional Rescuer, and First Aid. Many have additional certifications and years of experience in various aquatic environments.</p>
+                    <p>All our lifeguards are fully certified with Red Cross Lifeguard Training, CPR/AED for the Professional Rescuer, and First Aid. Many have additional certifications and years of experience in various aquatic environments and emergency situations.</p>
                 </div>
             </div>
-            <div class="accordion-item">
+            <div class="accordion-item fade-in-up">
                 <div class="accordion-header">
                     <h4>How long does it take to learn to swim?</h4>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="accordion-content">
-                    <p>Learning progress varies greatly depending on the individual's age, natural ability, comfort in water, and consistency of lessons. Most children can become water-safe within 8-10 lessons, while adults typically require 5-15 lessons to develop basic swimming skills.</p>
+                    <p>Learning progress varies greatly depending on the individual's age, natural ability, comfort in water, and consistency of lessons. Most children can become water-safe within 8-10 lessons, while adults typically require 5-15 lessons to develop basic swimming skills and confidence.</p>
                 </div>
             </div>
         </div>
@@ -1171,11 +1526,13 @@
 
     <!-- Call to Action -->
     <section class="cta">
-        <h2>Ready to Get Started?</h2>
-        <p>Book our professional lifeguard services for your next event or schedule swimming lessons for you or your children.</p>
-        <div class="cta-buttons">
-            <a href="contact.html" class="cta-btn primary-btn">Contact Us</a>
-            <a href="booking.html" class="cta-btn secondary-btn">Book Online</a>
+        <div class="cta-content fade-in-up">
+            <h2>Ready to Get Started?</h2>
+            <p>Book our professional lifeguard services for your next event or schedule swimming lessons for you or your children. Experience the 805 LifeGuard difference today.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn primary-btn">Contact Us Today</a>
+                <a href="#" class="cta-btn secondary-btn">Get Quote</a>
+            </div>
         </div>
     </section>
 
@@ -1187,12 +1544,12 @@
                     <img src="/api/placeholder/100/50" alt="805 LifeGuard Logo">
                     <div class="footer-logo-text">805 LifeGuard</div>
                 </div>
-                <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016.</p>
+                <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016. Your safety and swimming success are our top priorities.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1200,10 +1557,10 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
+                    <li><a href="hoa-services.html">HOA Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="about.html">About Us</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
@@ -1239,7 +1596,7 @@
                 <h3>Newsletter</h3>
                 <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
                 <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Your Email Address">
+                    <input type="email" class="newsletter-input" placeholder="Your Email Address" required>
                     <button type="submit" class="newsletter-btn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
@@ -1253,14 +1610,14 @@
 
     <script>
         // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
         
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
         
         // Pricing Tabs
@@ -1301,16 +1658,97 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
                 
                 // Close mobile menu if open
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
                 }
             });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            if (email) {
+                // Here you would typically send the email to your server
+                alert('Thank you for subscribing to our newsletter!');
+                this.reset();
+            }
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`Services page load time: ${loadTime}ms`);
+            }
+        });
+
+        // Preload critical images
+        const criticalImages = [
+            '/api/placeholder/1920/600',
+            '/api/placeholder/400/300'
+        ];
+
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
         });
     </script>
 </body>
