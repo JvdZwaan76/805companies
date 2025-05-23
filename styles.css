@@ -154,6 +154,7 @@ header {
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
+    gap: 30px;
 }
 
 /* Logo Styles */
@@ -252,7 +253,7 @@ header {
 /* Desktop Login Buttons */
 .desktop-login-buttons {
     display: flex;
-    gap: 12px;
+    gap: 18px;
     align-items: center;
 }
 
@@ -260,45 +261,46 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 25px;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 20px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    min-width: 90px;
-    height: 44px;
+    min-width: 75px;
+    height: 36px;
 }
 
 .login-btn i {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .login-btn span {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     white-space: nowrap;
 }
 
-/* Navigation Login Buttons (Mobile) */
+/* Navigation Login Buttons (Mobile Only) */
 .nav-login-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 15px 20px;
+    gap: 15px;
+    padding: 16px 20px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
     transition: var(--transition);
-    border-radius: 8px;
-    margin: 5px 0;
+    border-radius: 10px;
+    margin: 8px 0;
+    width: 100%;
 }
 
 .nav-login-btn i {
     font-size: 1.1rem;
-    width: 20px;
+    width: 24px;
     text-align: center;
 }
 
@@ -306,7 +308,7 @@ header {
 .client-login {
     background: var(--gradient-gold);
     color: #8b4513;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.2);
 }
 
 .client-login::before {
@@ -321,8 +323,8 @@ header {
 }
 
 .client-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 215, 0, 0.3);
     color: #6b3410;
 }
 
@@ -334,7 +336,7 @@ header {
 .employee-login {
     background: var(--gradient-silver);
     color: #4a5568;
-    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.2);
+    box-shadow: 0 3px 10px rgba(192, 192, 192, 0.2);
 }
 
 .employee-login::before {
@@ -349,8 +351,8 @@ header {
 }
 
 .employee-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(192, 192, 192, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(192, 192, 192, 0.3);
     color: #2d3748;
 }
 
@@ -1216,7 +1218,10 @@ footer {
     height: 60px;
     width: auto;
     margin-right: 15px;
-    /* Removed filter to keep logo in full color */
+    /* Ensure logo displays in full color */
+    filter: none !important;
+    opacity: 1;
+    background: none;
 }
 
 .footer-logo-text {
@@ -1529,6 +1534,16 @@ footer {
     
     .stat-number {
         font-size: 2rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-login-section {
+        display: none;
+    }
+    
+    .desktop-login-buttons {
+        display: flex;
     }
 }
 
@@ -1868,15 +1883,28 @@ footer {
 .footer-contact .contact-text a {
     color: #ffffff;
     font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: var(--transition);
 }
 
 .footer-contact .contact-text a:hover {
     color: var(--gallery-teal);
-    text-decoration: underline;
+    text-decoration-color: var(--gallery-teal);
 }
 
 .footer-contact .contact-text span {
     color: rgba(255, 255, 255, 0.95);
+}
+
+.footer-logo-text .footer-logo-main {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.footer-logo-text .footer-logo-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
 }
 
 /* Print styles */
@@ -1901,6 +1929,7 @@ footer {
     }
     
     .footer-logo-img {
-        filter: none;
+        filter: none !important;
+        opacity: 1 !important;
     }
 }
