@@ -154,7 +154,6 @@ header {
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
-    gap: 30px;
 }
 
 /* Logo Styles */
@@ -245,42 +244,44 @@ header {
     width: 100%;
 }
 
+/* Special Portal Links - Desktop */
+.nav-link.client-portal {
+    color: #8b4513;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 237, 74, 0.05));
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 700;
+}
+
+.nav-link.client-portal::before {
+    background: var(--gradient-gold);
+}
+
+.nav-link.client-portal:hover {
+    color: #6b3410;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 237, 74, 0.1));
+}
+
+.nav-link.staff-portal {
+    color: #4a5568;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(156, 163, 175, 0.05));
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 700;
+}
+
+.nav-link.staff-portal::before {
+    background: var(--gradient-silver);
+}
+
+.nav-link.staff-portal:hover {
+    color: #2d3748;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(156, 163, 175, 0.1));
+}
+
 /* Hide mobile nav login section on desktop */
 .nav-login-section {
     display: none;
-}
-
-/* Desktop Login Buttons */
-.desktop-login-buttons {
-    display: flex;
-    gap: 18px;
-    align-items: center;
-}
-
-.login-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    min-width: 75px;
-    height: 36px;
-}
-
-.login-btn i {
-    font-size: 0.9rem;
-}
-
-.login-btn span {
-    font-size: 0.85rem;
-    white-space: nowrap;
 }
 
 /* Navigation Login Buttons (Mobile Only) */
@@ -288,14 +289,15 @@ header {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 16px 20px;
+    padding: 18px 20px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.05rem;
     transition: var(--transition);
-    border-radius: 10px;
-    margin: 8px 0;
+    border-radius: 12px;
+    margin: 10px 0;
     width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-login-btn i {
@@ -304,14 +306,14 @@ header {
     text-align: center;
 }
 
-/* Client Login (Gold) */
-.client-login {
+/* Client Login (Gold) - Mobile */
+.nav-login-btn.client-login {
     background: var(--gradient-gold);
     color: #8b4513;
-    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.2);
+    margin-bottom: 15px;
 }
 
-.client-login::before {
+.nav-login-btn.client-login::before {
     content: '';
     position: absolute;
     top: 0;
@@ -322,24 +324,24 @@ header {
     transition: var(--transition);
 }
 
-.client-login:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(255, 215, 0, 0.3);
+.nav-login-btn.client-login:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
     color: #6b3410;
 }
 
-.client-login:hover::before {
+.nav-login-btn.client-login:hover::before {
     left: 100%;
 }
 
-/* Employee Login (Silver) */
-.employee-login {
+/* Employee Login (Silver) - Mobile */
+.nav-login-btn.employee-login {
     background: var(--gradient-silver);
     color: #4a5568;
-    box-shadow: 0 3px 10px rgba(192, 192, 192, 0.2);
+    margin-bottom: 10px;
 }
 
-.employee-login::before {
+.nav-login-btn.employee-login::before {
     content: '';
     position: absolute;
     top: 0;
@@ -350,13 +352,13 @@ header {
     transition: var(--transition);
 }
 
-.employee-login:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(192, 192, 192, 0.3);
+.nav-login-btn.employee-login:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
     color: #2d3748;
 }
 
-.employee-login:hover::before {
+.nav-login-btn.employee-login:hover::before {
     left: 100%;
 }
 
@@ -1728,7 +1730,7 @@ footer {
         top: 120px;
         height: calc(100vh - 120px);
         padding: 20px 15px;
-        max-width: 90%;
+        max-width: 95%;
     }
     
     .nav-link {
@@ -1737,8 +1739,14 @@ footer {
     }
     
     .nav-login-btn {
-        padding: 12px 15px;
-        font-size: 0.95rem;
+        padding: 16px 15px;
+        font-size: 1rem;
+        margin: 8px 0;
+    }
+    
+    .nav-login-section {
+        margin-top: 25px;
+        padding-top: 20px;
     }
     
     .footer-container {
@@ -1853,12 +1861,19 @@ footer {
 /* Focus styles for accessibility */
 .nav-link:focus,
 .cta-btn:focus,
-.login-btn:focus,
 .nav-login-btn:focus,
 .social-link:focus {
     outline: 3px solid var(--gallery-blue);
     outline-offset: 2px;
     border-radius: 4px;
+}
+
+.nav-link.client-portal:focus {
+    outline-color: #8b4513;
+}
+
+.nav-link.staff-portal:focus {
+    outline-color: #4a5568;
 }
 
 /* High contrast mode support */
@@ -1912,9 +1927,14 @@ footer {
     .ripple-background,
     .hero-scroll-indicator,
     .mobile-menu-btn,
-    .desktop-login-buttons,
     .nav-login-section {
         display: none;
+    }
+    
+    .nav-link.client-portal,
+    .nav-link.staff-portal {
+        background: none !important;
+        color: var(--dark) !important;
     }
     
     .hero {
