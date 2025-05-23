@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>805 LifeGuard - Professional Lifeguard Services and Swim Lessons</title>
-	<meta name="robots" content="noindex, nofollow">
+    <title>Gallery - 805 LifeGuard | Photos & Videos of Our Professional Team</title>
+    <meta name="description" content="View photos and videos of our certified lifeguards and swim instructors in action. See our professional pool safety services and swimming lessons in Conejo Valley, CA.">
+    <meta name="keywords" content="lifeguard photos, swimming lesson videos, pool safety images, 805 lifeguard gallery, professional lifeguards Thousand Oaks, swim instructor photos">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Gallery - 805 LifeGuard Professional Team">
+    <meta property="og:description" content="See our certified lifeguards and swim instructors in action through our comprehensive photo and video gallery.">
+    <meta property="og:image" content="/api/placeholder/1200/630">
+    <meta property="og:url" content="https://www.805lifeguard.com/gallery.html">
+    <link rel="canonical" href="https://www.805lifeguard.com/gallery.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #0077b6;
             --secondary: #00b4d8;
             --accent: #f72585;
-            --light: #f8f9fa;
+            --light: #e3f2fd;
             --dark: #023e8a;
             --white: #ffffff;
             --gray: #6c757d;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --gallery-blue: #1e88e5;
+            --gallery-teal: #26a69a;
         }
         
         * {
@@ -25,33 +37,51 @@
         }
         
         body {
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--light) 0%, #f0f8ff 100%);
             color: #333;
             line-height: 1.6;
         }
         
-        /* Header & Navigation */
+        /* Animated water ripples background */
+        .ripple-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+            animation: ripple-expand 4s ease-out infinite;
+        }
+        
+        .ripple:nth-child(1) { top: 20%; left: 10%; width: 200px; height: 200px; animation-delay: 0s; }
+        .ripple:nth-child(2) { top: 60%; left: 80%; width: 300px; height: 300px; animation-delay: 1.5s; }
+        .ripple:nth-child(3) { top: 80%; left: 30%; width: 150px; height: 150px; animation-delay: 3s; }
+        .ripple:nth-child(4) { top: 40%; left: 60%; width: 250px; height: 250px; animation-delay: 2s; }
+        
+        @keyframes ripple-expand {
+            0% { transform: scale(0); opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        /* Header */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-        }
-        
-        .top-bar {
-            background-color: var(--dark);
-            color: var(--white);
-            text-align: center;
-            padding: 8px 20px;
-            font-size: 0.9rem;
-        }
-        
-        .top-bar a {
-            color: var(--white);
-            text-decoration: none;
-            margin-left: 10px;
+            transition: all 0.3s ease;
         }
         
         .navbar {
@@ -59,436 +89,693 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
         }
         
-        .logo img {
-            height: 60px;
-            margin-right: 10px;
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 12px;
+            animation: logo-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
         }
         
         .logo-text {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary);
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
         
         .nav-links li {
-            margin-left: 20px;
+            margin-left: 25px;
         }
         
-        .nav-links li a {
+        .nav-links a {
             text-decoration: none;
             color: var(--dark);
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             position: relative;
-            padding: 5px 0;
-            transition: color 0.3s;
+            padding: 8px 0;
         }
         
-        .nav-links li a:hover {
-            color: var(--accent);
+        .nav-links a:hover {
+            color: var(--gallery-blue);
+            transform: translateY(-2px);
         }
         
-        .nav-links li a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: width 0.3s ease;
         }
         
-        .nav-links li a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .client-login-btn {
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+        
+        .client-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
         }
         
         .mobile-menu-btn {
             display: none;
-            cursor: pointer;
             background: none;
             border: none;
             font-size: 1.5rem;
             color: var(--dark);
+            cursor: pointer;
         }
         
         /* Hero Section */
         .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080');
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(38, 166, 154, 0.8)), 
+                        url('/api/placeholder/1920/800');
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
             text-align: center;
-            margin-top: 100px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
         }
         
         .hero-content {
             max-width: 800px;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
         }
         
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .cta-buttons {
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: var(--white);
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .breadcrumbs-list {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        
-        .primary-btn {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-        
-        .primary-btn:hover {
-            background-color: #d60064;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .secondary-btn {
-            background-color: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-        
-        .secondary-btn:hover {
-            background-color: var(--white);
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Services Section */
-        .services {
-            padding: 80px 5%;
-            background-color: var(--white);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            font-size: 1.1rem;
-            color: var(--gray);
-            max-width: 700px;
+            list-style: none;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
-        .services-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .service-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .service-content {
-            padding: 25px;
-        }
-        
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        .service-content p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-        
-        .service-content .learn-more {
-            display: inline-block;
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .service-content .learn-more:hover {
-            color: #d60064;
-        }
-        
-        /* About Section */
-        .about {
-            padding: 80px 5%;
-            background-color: #f0f8ff;
-        }
-        
-        .about-container {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-        
-        .about-img {
-            flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .about-content {
-            flex: 1;
-        }
-        
-        .about-content h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 20px;
-        }
-        
-        .about-content p {
-            color: var(--gray);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .values {
-            margin-top: 30px;
-        }
-        
-        .value-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .value-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .value-text h4 {
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-        
-        .value-text p {
-            margin-bottom: 0;
-            font-size: 0.95rem;
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            padding: 80px 5%;
-            background-color: var(--white);
-        }
-        
-        .testimonials-container {
-            display: flex;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        .testimonial-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        
-        .testimonial-card {
-            min-width: 350px;
-            margin-right: 30px;
-            background-color: var(--light);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-card-content {
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-card-content p {
-            font-style: italic;
-            color: var(--gray);
-        }
-        
-        .testimonial-card-content p::before,
-        .testimonial-card-content p::after {
-            content: '"';
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-        
-        .testimonial-client {
+        .breadcrumbs-list li {
             display: flex;
             align-items: center;
         }
         
-        .testimonial-client img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        
-        .client-info h4 {
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-        
-        .client-info p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .testimonial-controls {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        
-        .testimonial-btn {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: color 0.3s;
+        .breadcrumbs-list li:not(:last-child)::after {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
             margin: 0 10px;
+            color: var(--gray);
         }
         
-        .testimonial-btn:hover {
-            color: var(--accent);
+        .breadcrumbs-list a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: color 0.3s;
         }
         
-        /* Call to Action */
-        .cta {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 80px 5%;
+        .breadcrumbs-list a:hover {
+            color: var(--gallery-blue);
+        }
+        
+        .breadcrumbs-list .current {
+            color: var(--gallery-blue);
+            font-weight: 600;
+        }
+        
+        /* Gallery Filters */
+        .gallery-filters {
+            padding: 40px 5% 20px;
             text-align: center;
         }
         
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-        
-        .cta .cta-buttons {
+        .filter-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
-        .cta .cta-btn {
-            display: inline-block;
-            padding: 12px 30px;
+        .filter-btn {
+            padding: 12px 25px;
+            background: var(--white);
+            border: 2px solid var(--gallery-blue);
             border-radius: 30px;
+            color: var(--gallery-blue);
+            cursor: pointer;
             font-weight: 600;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .cta .primary-btn {
-            background-color: var(--accent);
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
             color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
         }
         
-        .cta .primary-btn:hover {
-            background-color: #d60064;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .search-bar {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
         }
         
-        .cta .secondary-btn {
-            background-color: transparent;
+        .search-input {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gallery-blue);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border: none;
+            border-radius: 50%;
             color: var(--white);
-            border: 2px solid var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .cta .secondary-btn:hover {
-            background-color: var(--white);
-            color: var(--primary);
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        /* Gallery Grid */
+        .gallery-container {
+            padding: 20px 5% 80px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img,
+        .gallery-item:hover video {
+            transform: scale(1.05);
+        }
+        
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-item:hover .media-overlay {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gallery-blue);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            background: var(--white);
+            transform: scale(1.1);
+        }
+        
+        .zoom-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gallery-blue);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            opacity: 0;
+        }
+        
+        .gallery-item:hover .zoom-btn {
+            opacity: 1;
+        }
+        
+        .zoom-btn:hover {
+            background: var(--white);
+            transform: scale(1.1);
+        }
+        
+        .media-type-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .gallery-item-info {
+            padding: 20px;
+        }
+        
+        .gallery-item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .gallery-item-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .gallery-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            padding: 4px 10px;
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--gallery-blue);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox img,
+        .lightbox video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .lightbox-prev {
+            left: -80px;
+        }
+        
+        .lightbox-next {
+            right: -80px;
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .lightbox-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            padding: 40px 5%;
+        }
+        
+        .load-more-btn {
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
+        }
+        
+        .load-more-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
+        }
+        
+        .load-more-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        .load-more-btn.loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Video Player Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .video-controls {
+            opacity: 1;
+        }
+        
+        .video-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+        
+        .video-progress-bar {
+            height: 100%;
+            background: var(--gallery-teal);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .video-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .video-btn:hover {
+            color: var(--gallery-teal);
+        }
+        
+        /* Statistics Section */
+        .gallery-stats {
+            background: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 60px 5%;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
         
         /* Footer */
@@ -501,8 +788,9 @@
         .footer-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto 40px;
         }
         
         .footer-logo {
@@ -513,7 +801,7 @@
         
         .footer-logo img {
             height: 50px;
-            margin-right: 10px;
+            margin-right: 15px;
         }
         
         .footer-logo-text {
@@ -525,7 +813,7 @@
         .footer-about p {
             margin-bottom: 20px;
             line-height: 1.8;
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.8);
         }
         
         .social-links {
@@ -537,40 +825,39 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: var(--white);
             text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
         }
         
         .social-link:hover {
-            background-color: var(--accent);
+            background-color: var(--gallery-teal);
             transform: translateY(-3px);
         }
         
         .footer-links h3,
-        .footer-contact h3,
-        .footer-newsletter h3 {
+        .footer-contact h3 {
             color: var(--white);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 20px;
+            font-weight: 700;
             position: relative;
             padding-bottom: 10px;
         }
         
         .footer-links h3::after,
-        .footer-contact h3::after,
-        .footer-newsletter h3::after {
+        .footer-contact h3::after {
             content: '';
             position: absolute;
             left: 0;
             bottom: 0;
             width: 50px;
-            height: 2px;
-            background-color: var(--accent);
+            height: 3px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
         }
         
         .footer-links ul {
@@ -578,113 +865,63 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
         
         .footer-links a:hover {
             color: var(--white);
-        }
-        
-        .contact-info {
-            margin-bottom: 20px;
+            text-decoration: underline;
         }
         
         .contact-info-item {
             display: flex;
+            align-items: center;
             margin-bottom: 15px;
         }
         
         .contact-icon {
             margin-right: 15px;
-            color: var(--secondary);
+            color: var(--gallery-teal);
+            font-size: 1.2rem;
         }
         
         .contact-text {
-            color: #b3c5ef;
-        }
-        
-        .footer-newsletter p {
-            color: #b3c5ef;
-            margin-bottom: 20px;
-        }
-        
-        .newsletter-form {
-            display: flex;
-        }
-        
-        .newsletter-input {
-            flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px 0 0 5px;
-            font-size: 1rem;
-        }
-        
-        .newsletter-btn {
-            background-color: var(--accent);
-            color: var(--white);
-            border: none;
-            padding: 0 20px;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .newsletter-btn:hover {
-            background-color: #d60064;
+            color: rgba(255, 255, 255, 0.8);
         }
         
         .copyright {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b3c5ef;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
         
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .about-container {
-                flex-direction: column;
-            }
-            
-            .about-img, .about-content {
-                flex: none;
-                width: 100%;
-            }
-            
-            .testimonial-card {
-                min-width: 300px;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-            
             .mobile-menu-btn {
                 display: block;
             }
             
             .nav-links {
                 position: fixed;
-                top: 100px;
+                top: 80px;
                 left: -100%;
-                width: 80%;
-                height: calc(100vh - 100px);
-                background-color: var(--white);
+                width: 85%;
+                height: calc(100vh - 80px);
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: flex-start;
                 padding: 40px 20px;
-                transition: left 0.3s;
-                box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
             }
             
             .nav-links.active {
@@ -694,10 +931,13 @@
             .nav-links li {
                 margin-left: 0;
                 margin-bottom: 20px;
+                width: 100%;
             }
             
-            .hero {
-                height: 70vh;
+            .nav-links a {
+                display: block;
+                padding: 12px 0;
+                font-size: 1.1rem;
             }
             
             .hero h1 {
@@ -708,381 +948,889 @@
                 font-size: 1rem;
             }
             
-            .cta-buttons {
-                flex-direction: column;
-                gap: 15px;
+            .filter-buttons {
+                justify-content: center;
             }
             
-            .cta-btn {
-                width: 100%;
-                text-align: center;
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
             
-            .testimonial-card {
-                min-width: 100%;
-                margin-right: 0;
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .lightbox-nav {
+                display: none;
+            }
+            
+            .lightbox-info {
+                position: static;
+                margin-top: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
             }
         }
         
-        @media (max-width: 576px) {
-            .section-title h2 {
+        @media (max-width: 480px) {
+            .hero h1 {
                 font-size: 2rem;
             }
             
-            .about-content h2 {
-                font-size: 2rem;
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
             }
             
-            .cta h2 {
-                font-size: 2rem;
+            .gallery-item-media {
+                height: 200px;
             }
             
-            .newsletter-form {
+            .filter-buttons {
                 flex-direction: column;
+                align-items: center;
             }
             
-            .newsletter-input {
-                border-radius: 5px;
-                margin-bottom: 10px;
+            .filter-btn {
+                width: 100%;
+                max-width: 200px;
             }
             
-            .newsletter-btn {
-                border-radius: 5px;
-                padding: 10px;
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus indicators */
+        .gallery-item:focus,
+        .filter-btn:focus,
+        .lightbox-close:focus,
+        .lightbox-nav:focus {
+            outline: 3px solid var(--gallery-teal);
+            outline-offset: 2px;
+        }
+        
+        /* High contrast support */
+        @media (prefers-contrast: high) {
+            .gallery-item {
+                border: 2px solid var(--dark);
+            }
+            
+            .media-overlay {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Ripple Background -->
+    <div class="ripple-background">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+    </div>
+
+    <!-- Header -->
     <header>
-        <div class="top-bar">
-            <span>Serving the greater Conejo Valley area since 2016</span>
-            <a href="tel:8053676432"><i class="fas fa-phone"></i> (805) 367-6432</a>
-        </div>
         <nav class="navbar">
-            <div class="logo">
-                <img src="/api/placeholder/120/60" alt="805 LifeGuard Logo">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
                 <div class="logo-text">805 LifeGuard</div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#shop">Shop</a></li>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="hoa-services.html">HOA Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="client-login.html" class="client-login-btn">Client Login</a></li>
             </ul>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-content">
-            <h1>Professional Lifeguard Services & Swim Lessons</h1>
-            <p>Providing certified lifeguards for private events and personalized swim lessons for all ages. Serving the greater Conejo Valley since 2016.</p>
-            <div class="cta-buttons">
-                <a href="#services" class="cta-btn primary-btn">Our Services</a>
-                <a href="#contact" class="cta-btn secondary-btn">Book Now</a>
+            <div class="hero-badge">Professional Team in Action</div>
+            <h1>Our Gallery</h1>
+            <p>See our certified lifeguards and swim instructors providing professional pool safety services and swimming lessons throughout the Conejo Valley.</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Gallery</li>
+        </ul>
+    </div>
+
+    <!-- Gallery Filters -->
+    <section class="gallery-filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Media</button>
+            <button class="filter-btn" data-filter="lifeguards">Lifeguards</button>
+            <button class="filter-btn" data-filter="swim-lessons">Swim Lessons</button>
+            <button class="filter-btn" data-filter="events">Events</button>
+            <button class="filter-btn" data-filter="hoa-services">HOA Services</button>
+            <button class="filter-btn" data-filter="videos">Videos</button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search gallery..." id="searchInput">
+            <button class="search-btn" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Lifeguard Images -->
+            <div class="gallery-item" data-category="lifeguards" data-title="Professional Lifeguard on Duty" data-description="Our certified lifeguard maintaining pool safety during a busy day">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Professional Lifeguard on Duty" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Professional Lifeguard on Duty</h3>
+                    <p class="gallery-item-description">Our certified lifeguard maintaining pool safety during a busy day</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Lifeguard</span>
+                        <span class="tag">Pool Safety</span>
+                        <span class="tag">Professional</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="swim-lessons" data-title="Private Swimming Lesson" data-description="One-on-one swimming instruction with our certified instructor">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Private Swimming Lesson" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Private Swimming Lesson</h3>
+                    <p class="gallery-item-description">One-on-one swimming instruction with our certified instructor</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Swimming Lessons</span>
+                        <span class="tag">Private Instruction</span>
+                        <span class="tag">Kids</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="videos" data-title="Swimming Technique Demonstration" data-description="Our instructor demonstrates proper swimming form">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/swimming-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Swimming Technique Demonstration</h3>
+                    <p class="gallery-item-description">Our instructor demonstrates proper swimming form</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Technique</span>
+                        <span class="tag">Training</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="events" data-title="Pool Party Lifeguard Service" data-description="Professional lifeguard ensuring safety at a birthday party">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Pool Party Lifeguard Service" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Pool Party Lifeguard Service</h3>
+                    <p class="gallery-item-description">Professional lifeguard ensuring safety at a birthday party</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Events</span>
+                        <span class="tag">Pool Party</span>
+                        <span class="tag">Safety</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="hoa-services" data-title="HOA Community Pool Management" data-description="Managing safety at a homeowner association community pool">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="HOA Community Pool Management" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">HOA Community Pool Management</h3>
+                    <p class="gallery-item-description">Managing safety at a homeowner association community pool</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">HOA Services</span>
+                        <span class="tag">Community Pool</span>
+                        <span class="tag">Management</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="swim-lessons" data-title="Group Swimming Class" data-description="Teaching multiple students proper swimming techniques">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Group Swimming Class" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Group Swimming Class</h3>
+                    <p class="gallery-item-description">Teaching multiple students proper swimming techniques</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Group Lessons</span>
+                        <span class="tag">Swimming</span>
+                        <span class="tag">Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="videos" data-title="Water Safety Training" data-description="Demonstrating important water safety techniques">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/safety-training.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Water Safety Training</h3>
+                    <p class="gallery-item-description">Demonstrating important water safety techniques</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Safety Training</span>
+                        <span class="tag">Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="lifeguards" data-title="Lifeguard Emergency Response" data-description="Professional response during a pool emergency situation">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Lifeguard Emergency Response" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Lifeguard Emergency Response</h3>
+                    <p class="gallery-item-description">Professional response during a pool emergency situation</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Emergency Response</span>
+                        <span class="tag">Professional</span>
+                        <span class="tag">Training</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="swim-lessons" data-title="Adult Swimming Instruction" data-description="Teaching swimming to adult learners with patience and expertise">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Adult Swimming Instruction" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Adult Swimming Instruction</h3>
+                    <p class="gallery-item-description">Teaching swimming to adult learners with patience and expertise</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Adult Lessons</span>
+                        <span class="tag">Swimming</span>
+                        <span class="tag">Beginner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="events" data-title="Corporate Pool Event" data-description="Providing lifeguard services for a company team building event">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Corporate Pool Event" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Corporate Pool Event</h3>
+                    <p class="gallery-item-description">Providing lifeguard services for a company team building event</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Corporate Events</span>
+                        <span class="tag">Team Building</span>
+                        <span class="tag">Professional</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="videos" data-title="Special Needs Swimming Lesson" data-description="Specialized instruction for swimmers with special needs">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/special-needs.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Special Needs Swimming Lesson</h3>
+                    <p class="gallery-item-description">Specialized instruction for swimmers with special needs</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Special Needs</span>
+                        <span class="tag">Adaptive</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="hoa-services" data-title="Community Pool Safety Inspection" data-description="Daily safety inspection at an HOA community pool">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Community Pool Safety Inspection" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Community Pool Safety Inspection</h3>
+                    <p class="gallery-item-description">Daily safety inspection at an HOA community pool</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">HOA Services</span>
+                        <span class="tag">Safety Inspection</span>
+                        <span class="tag">Management</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="section-title">
-            <h2>Our Services</h2>
-            <p>We provide professional lifeguard services and personalized swim lessons tailored to your needs.</p>
-        </div>
-        <div class="services-container">
-            <div class="service-card">
-                <img src="/api/placeholder/400/300" alt="Lifeguard Services">
-                <div class="service-content">
-                    <h3>Lifeguard Services</h3>
-                    <p>Our discrete and highly experienced lifeguards will ensure your pool party or event is safe and worry-free. We specialize in private pool parties and company/corporate events.</p>
-                    <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
+    <!-- Load More Button -->
+    <div class="load-more-container">
+        <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+    </div>
+
+    <!-- Gallery Statistics -->
+    <section class="gallery-stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" data-count="150">0</span>
+                <span class="stat-label">Photos</span>
             </div>
-            <div class="service-card">
-                <img src="/api/placeholder/400/300" alt="Swimming Lessons">
-                <div class="service-content">
-                    <h3>Swimming Lessons</h3>
-                    <p>We work with all types and levels of swimmers from 3 to 99 years old. Our individualized approach ensures comfort and rapid progress.</p>
-                    <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="25">0</span>
+                <span class="stat-label">Videos</span>
             </div>
-            <div class="service-card">
-                <img src="/api/placeholder/400/300" alt="Special Needs Swimming">
-                <div class="service-content">
-                    <h3>Special Needs Swimming</h3>
-                    <p>We specialize in teaching swimming to individuals with special needs and challenges, providing personalized attention and care.</p>
-                    <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="50">0</span>
+                <span class="stat-label">Events Covered</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="500">0</span>
+                <span class="stat-label">Happy Clients</span>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-container">
-            <div class="about-img">
-                <img src="/api/placeholder/600/400" alt="About 805 LifeGuard">
-            </div>
-            <div class="about-content">
-                <h2>About 805 LifeGuard</h2>
-                <p>Since 2016, 805 LifeGuard has been committed to teaching water safety and providing professional lifeguard services in the greater Conejo Valley area.</p>
-                <p>We believe that everyone deserves to enjoy the water safely, which is why we offer personalized swim lessons for all ages and abilities, as well as professional lifeguard services for private events.</p>
-                <div class="values">
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="value-text">
-                            <h4>Do small things with great love</h4>
-                            <p>We put our heart into everything we do, ensuring each lesson and service is delivered with care and dedication.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="value-text">
-                            <h4>Everyone is family</h4>
-                            <p>We treat every client like family, providing personalized attention and creating a comfortable learning environment.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="value-text">
-                            <h4>Whatever it takes</h4>
-                            <p>We're committed to going above and beyond to ensure the safety and success of our clients.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+            <img id="lightboxImage" src="" alt="">
+            <video id="lightboxVideo" controls style="display: none;">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-description" id="lightboxDescription"></div>
             </div>
         </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="section-title">
-            <h2>What Our Clients Say</h2>
-            <p>Hear from our satisfied customers about their experiences with 805 LifeGuard.</p>
-        </div>
-        <div class="testimonials-container">
-            <div class="testimonial-track">
-                <div class="testimonial-card">
-                    <div class="testimonial-card-content">
-                        <p>Jasper is great with kids and our boys loved their lessons and looked forward to them. If you're looking for a swim teacher or a lifeguard for an event, use him he's the best.</p>
-                    </div>
-                    <div class="testimonial-client">
-                        <img src="/api/placeholder/60/60" alt="Brett B.">
-                        <div class="client-info">
-                            <h4>Brett B.</h4>
-                            <p>Agoura Hills, CA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-card-content">
-                        <p>He was patient and fun, but also firm with our son who definitely has a mind of his own. We couldn't be happier.</p>
-                    </div>
-                    <div class="testimonial-client">
-                        <img src="/api/placeholder/60/60" alt="Jamie H.">
-                        <div class="client-info">
-                            <h4>Jamie H.</h4>
-                            <p>Newbury Park, CA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-card-content">
-                        <p>Jasper was beyond great! I was able to enjoy my son's party while not stressing about the little kids in the pool. We will use Jasper again and again.</p>
-                    </div>
-                    <div class="testimonial-client">
-                        <img src="/api/placeholder/60/60" alt="Jessica C.">
-                        <div class="client-info">
-                            <h4>Jessica C.</h4>
-                            <p>Thousand Oaks, CA</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-controls">
-            <button class="testimonial-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="testimonial-btn next-btn"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta">
-        <h2>Ready to Get Started?</h2>
-        <p>Book our professional lifeguard services for your next event or schedule swimming lessons for you or your children.</p>
-        <div class="cta-buttons">
-            <a href="#contact" class="cta-btn primary-btn">Contact Us</a>
-            <a href="#services" class="cta-btn secondary-btn">View Services</a>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="footer-container">
             <div class="footer-about">
                 <div class="footer-logo">
                     <img src="/api/placeholder/100/50" alt="805 LifeGuard Logo">
                     <div class="footer-logo-text">805 LifeGuard</div>
                 </div>
-                <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016.</p>
+                <p>Professional lifeguard services and swimming instruction throughout the greater Conejo Valley area. View our gallery to see our team in action.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-links">
-                <h3>Quick Links</h3>
+                <h3>Services</h3>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#shop">Shop</a></li>
-                    <li><a href="#faqs">FAQs</a></li>
+                    <li><a href="services.html">Lifeguard Services</a></li>
+                    <li><a href="services.html">Swimming Lessons</a></li>
+                    <li><a href="hoa-services.html">HOA Pool Management</a></li>
+                    <li><a href="services.html">Special Events</a></li>
+                    <li><a href="about.html">Our Team</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
-                <h3>Contact Us</h3>
-                <div class="contact-info">
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            (805) 367-6432
-                        </div>
+                <h3>Contact Info</h3>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            info@805lifeguard.com
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            Serving the greater Conejo Valley area
-                        </div>
-                    </div>
+                    <div class="contact-text">(805) 367-6432</div>
                 </div>
-            </div>
-            <div class="footer-newsletter">
-                <h3>Newsletter</h3>
-                <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
-                <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Your Email Address">
-                    <button type="submit" class="newsletter-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">info@805lifeguard.com</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">Serving Greater Conejo Valley</div>
+                </div>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
+            <p>&copy; 2025 805 LifeGuard. All Rights Reserved. | Professional Pool Safety Gallery</p>
         </div>
     </footer>
 
     <script>
         // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
         
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
-        
-        // Testimonials Slider
-        const testimonialTrack = document.querySelector('.testimonial-track');
-        const testimonials = document.querySelectorAll('.testimonial-card');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        let currentIndex = 0;
-        
-        // Set up testimonial width based on container
-        function setupTestimonials() {
-            const containerWidth = document.querySelector('.testimonials-container').offsetWidth;
-            let cardWidth = containerWidth;
+
+        // Gallery Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const searchInput = document.getElementById('searchInput');
+        let currentFilter = 'all';
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active filter button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentFilter = btn.getAttribute('data-filter');
+                filterGallery();
+            });
+        });
+
+        // Search Functionality
+        searchInput.addEventListener('input', filterGallery);
+        document.getElementById('searchBtn').addEventListener('click', filterGallery);
+
+        function filterGallery() {
+            const searchTerm = searchInput.value.toLowerCase();
             
-            if (window.innerWidth > 768) {
-                cardWidth = containerWidth / 3;
-            } else if (window.innerWidth > 576) {
-                cardWidth = containerWidth / 2;
-            }
-            
-            testimonials.forEach(testimonial => {
-                testimonial.style.minWidth = `${cardWidth}px`;
+            galleryItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                const title = item.getAttribute('data-title').toLowerCase();
+                const description = item.getAttribute('data-description').toLowerCase();
+                const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                const matchesSearch = searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    description.includes(searchTerm) ||
+                    tags.some(tag => tag.includes(searchTerm));
+                
+                if (matchesFilter && matchesSearch) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeIn 0.5s ease-in-out';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         }
+
+        // Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxVideo = document.getElementById('lightboxVideo');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDescription = document.getElementById('lightboxDescription');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
         
-        setupTestimonials();
-        window.addEventListener('resize', setupTestimonials);
-        
-        // Move testimonials
-        function moveSlide() {
-            const slideWidth = testimonials[0].offsetWidth + parseInt(getComputedStyle(testimonials[0]).marginRight);
-            testimonialTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        let currentLightboxIndex = 0;
+        let visibleItems = [];
+
+        // Open lightbox when clicking on gallery items
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                openLightbox(index);
+            });
+        });
+
+        function openLightbox(index) {
+            // Get currently visible items
+            visibleItems = Array.from(galleryItems).filter(item => 
+                item.style.display !== 'none'
+            );
+            
+            // Find the index in visible items
+            currentLightboxIndex = visibleItems.findIndex(item => 
+                Array.from(galleryItems).indexOf(item) === index
+            );
+            
+            if (currentLightboxIndex === -1) return;
+            
+            showLightboxItem(currentLightboxIndex);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                moveSlide();
+
+        function showLightboxItem(index) {
+            const item = visibleItems[index];
+            const title = item.getAttribute('data-title');
+            const description = item.getAttribute('data-description');
+            const mediaElement = item.querySelector('img, video');
+            
+            lightboxTitle.textContent = title;
+            lightboxDescription.textContent = description;
+            
+            if (mediaElement.tagName === 'VIDEO') {
+                lightboxImage.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = mediaElement.querySelector('source').src;
+            } else {
+                lightboxVideo.style.display = 'none';
+                lightboxImage.style.display = 'block';
+                lightboxImage.src = mediaElement.src;
+                lightboxImage.alt = mediaElement.alt;
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Stop video if playing
+            if (lightboxVideo.style.display !== 'none') {
+                lightboxVideo.pause();
+                lightboxVideo.src = '';
+            }
+        }
+
+        function nextLightboxItem() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % visibleItems.length;
+            showLightboxItem(currentLightboxIndex);
+        }
+
+        function prevLightboxItem() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + visibleItems.length) % visibleItems.length;
+            showLightboxItem(currentLightboxIndex);
+        }
+
+        // Lightbox event listeners
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', nextLightboxItem);
+        lightboxPrev.addEventListener('click', prevLightboxItem);
+
+        // Close lightbox when clicking outside content
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
             }
         });
-        
-        nextBtn.addEventListener('click', () => {
-            const maxIndex = testimonials.length - (window.innerWidth > 768 ? 3 : window.innerWidth > 576 ? 2 : 1);
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                moveSlide();
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    prevLightboxItem();
+                    break;
+                case 'ArrowRight':
+                    nextLightboxItem();
+                    break;
             }
         });
-        
-        // Auto-slide testimonials
-        setInterval(() => {
-            const maxIndex = testimonials.length - (window.innerWidth > 768 ? 3 : window.innerWidth > 576 ? 2 : 1);
-            currentIndex = (currentIndex + 1) % (maxIndex + 1);
-            moveSlide();
-        }, 5000);
-        
-        // Smooth scrolling for anchor links
+
+        // Video Controls
+        document.querySelectorAll('video').forEach(video => {
+            const controls = video.parentElement.querySelector('.video-controls');
+            const playPauseBtn = controls?.querySelector('.play-pause');
+            const muteBtn = controls?.querySelector('.mute');
+            const progressBar = controls?.querySelector('.video-progress-bar');
+            
+            if (!controls) return;
+
+            playPauseBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            muteBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.muted = !video.muted;
+                muteBtn.innerHTML = video.muted ? 
+                    '<i class="fas fa-volume-mute"></i>' : 
+                    '<i class="fas fa-volume-up"></i>';
+            });
+
+            video.addEventListener('timeupdate', () => {
+                if (progressBar && video.duration) {
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            });
+        });
+
+        // Load More Functionality
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        let loadMoreCount = 0;
+
+        loadMoreBtn.addEventListener('click', () => {
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.textContent = 'Loading...';
+            
+            // Simulate loading more content
+            setTimeout(() => {
+                // In a real implementation, this would load more gallery items
+                loadMoreCount++;
+                
+                if (loadMoreCount >= 3) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.classList.remove('loading');
+                    loadMoreBtn.textContent = 'Load More';
+                }
+            }, 1500);
+        });
+
+        // Animated Counter for Statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('gallery-stats')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.querySelector('.gallery-stats'));
+
+        // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
                 
                 // Close mobile menu if open
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
                 }
             });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Image lazy loading enhancement
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+            
+            img.addEventListener('error', function() {
+                this.src = '/api/placeholder/400/300';
+                this.alt = 'Image unavailable';
+            });
+        });
+
+        // Add fade-in animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`Gallery page load time: ${loadTime}ms`);
+            }
         });
     </script>
 </body>
