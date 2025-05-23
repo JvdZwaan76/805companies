@@ -3,229 +3,1959 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - 805 LifeGuard | Photos & Videos of Our Professional Team</title>
+    <meta name="description" content="View photos and videos of our certified lifeguards and swim instructors in action. See our professional pool safety services and swimming lessons in Conejo Valley, CA.">
+    <meta name="keywords" content="lifeguard photos, swimming lesson videos, pool safety images, 805 lifeguard gallery, professional lifeguards Thousand Oaks, swim instructor photos">
     <meta name="robots" content="noindex, nofollow">
-    <title>Gallery and Videos | 805 LifeGuard</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta property="og:title" content="Gallery - 805 LifeGuard Professional Team">
+    <meta property="og:description" content="See our certified lifeguards and swim instructors in action through our comprehensive photo and video gallery.">
+    <meta property="og:image" content="/api/placeholder/1200/630">
+    <meta property="og:url" content="https://www.805lifeguard.com/gallery.html">
+    <link rel="canonical" href="https://www.805lifeguard.com/gallery.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #f72585;
+            --light: #e3f2fd;
+            --dark: #023e8a;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --gallery-blue: #1e88e5;
+            --gallery-teal: #26a69a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #f0f8ff 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Animated water ripples background */
+        .ripple-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+            animation: ripple-expand 4s ease-out infinite;
+        }
+        
+        .ripple:nth-child(1) { top: 20%; left: 10%; width: 200px; height: 200px; animation-delay: 0s; }
+        .ripple:nth-child(2) { top: 60%; left: 80%; width: 300px; height: 300px; animation-delay: 1.5s; }
+        .ripple:nth-child(3) { top: 80%; left: 30%; width: 150px; height: 150px; animation-delay: 3s; }
+        .ripple:nth-child(4) { top: 40%; left: 60%; width: 250px; height: 250px; animation-delay: 2s; }
+        
+        @keyframes ripple-expand {
+            0% { transform: scale(0); opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .top-bar {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .top-bar a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .top-bar a:hover {
+            color: var(--gallery-teal);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 12px;
+            animation: logo-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gallery-blue);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .client-login-btn {
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+        
+        .client-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(38, 166, 154, 0.85)), 
+                        url('/api/placeholder/1920/800');
+            background-size: cover;
+            background-position: center;
+            height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            margin-top: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .breadcrumbs-list {
+            display: flex;
+            list-style: none;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumbs-list li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumbs-list li:not(:last-child)::after {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin: 0 10px;
+            color: var(--gray);
+        }
+        
+        .breadcrumbs-list a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        .breadcrumbs-list a:hover {
+            color: var(--gallery-blue);
+        }
+        
+        .breadcrumbs-list .current {
+            color: var(--gallery-blue);
+            font-weight: 600;
+        }
+        
+        /* Gallery Filters */
+        .gallery-filters {
+            padding: 50px 5% 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            background: var(--white);
+            border: 2px solid var(--gallery-blue);
+            border-radius: 30px;
+            color: var(--gallery-blue);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.1);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+        
+        .search-bar {
+            max-width: 450px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 55px 15px 25px;
+            border: 2px solid rgba(30, 136, 229, 0.2);
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gallery-blue);
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.15);
+            background: var(--white);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+        
+        /* Gallery Grid */
+        .gallery-container {
+            padding: 30px 5% 80px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            z-index: 1;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item-media {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img,
+        .gallery-item:hover video {
+            transform: scale(1.05);
+        }
+        
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-item:hover .media-overlay {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gallery-blue);
+            font-size: 2.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .play-btn:hover {
+            background: var(--white);
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .zoom-btn {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gallery-blue);
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item:hover .zoom-btn {
+            opacity: 1;
+        }
+        
+        .zoom-btn:hover {
+            background: var(--white);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .media-type-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 6px 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--white);
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .gallery-item-info {
+            padding: 25px;
+        }
+        
+        .gallery-item-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .gallery-item-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .gallery-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--gallery-blue);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox img,
+        .lightbox video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 15px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -60px;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .lightbox-prev {
+            left: -90px;
+        }
+        
+        .lightbox-next {
+            right: -90px;
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .lightbox-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .lightbox-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            padding: 50px 5%;
+        }
+        
+        .load-more-btn {
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 18px 45px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(30, 136, 229, 0.4);
+        }
+        
+        .load-more-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        .load-more-btn.loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Video Player Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            padding: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .gallery-item:hover .video-controls {
+            opacity: 1;
+        }
+        
+        .video-progress {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        
+        .video-progress-bar {
+            height: 100%;
+            background: var(--gallery-teal);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .video-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .video-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .video-btn:hover {
+            color: var(--gallery-teal);
+        }
+        
+        /* Statistics Section */
+        .gallery-stats {
+            background: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
+            color: var(--white);
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #001d3d 100%);
+            color: var(--white);
+            padding: 80px 5% 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--white), var(--gallery-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-about p {
+            margin-bottom: 25px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-link:hover {
+            background: var(--gallery-teal);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.4);
+        }
+        
+        .footer-links h3,
+        .footer-contact h3 {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--gallery-blue), var(--gallery-teal));
+            border-radius: 2px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gallery-teal);
+            transform: translateX(5px);
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        
+        .contact-icon {
+            margin-right: 18px;
+            color: var(--gallery-teal);
+            font-size: 1.3rem;
+        }
+        
+        .contact-text {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 120px;
+                left: -100%;
+                width: 85%;
+                height: calc(100vh - 120px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px;
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 12px 0;
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                height: 55vh;
+                margin-top: 120px;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            
+            .lightbox-nav {
+                display: none;
+            }
+            
+            .lightbox-info {
+                position: static;
+                margin-top: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .gallery-item-media {
+                height: 220px;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 220px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus indicators */
+        .gallery-item:focus,
+        .filter-btn:focus,
+        .lightbox-close:focus,
+        .lightbox-nav:focus {
+            outline: 3px solid var(--gallery-teal);
+            outline-offset: 2px;
+        }
+        
+        /* High contrast support */
+        @media (prefers-contrast: high) {
+            .gallery-item {
+                border: 2px solid var(--dark);
+            }
+            
+            .media-overlay {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Loading animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Ripple Background -->
+    <div class="ripple-background">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+    </div>
+
+    <!-- Header -->
     <header>
-        <div class="container">
-            <div class="logo">
-                <img src="images/logo.png" alt="805 LifeGuard">
-                <h1>805 LifeGuard</h1>
-            </div>
-            <nav>
-                <ul class="links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="hoa-services.html">HOA Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="client-login.html">Client Login</a></li>
-                </ul>
-            </nav>
+        <div class="top-bar">
+            <span>Serving the greater Conejo Valley area since 2016</span>
+            <a href="tel:8053676432"><i class="fas fa-phone"></i> (805) 367-6432</a>
         </div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="logo-text">805 LifeGuard</div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="hoa-services.html">HOA Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="client-login.html" class="client-login-btn">Client Login</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
     </header>
 
-    <section class="gallery-hero">
-        <div class="container">
-            <h2>Visual Portfolio</h2>
-            <h3>Photo & Video Gallery</h3>
-            <p>See our professional lifeguards and swim instructors in action through our comprehensive gallery of photos and videos</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <div class="hero-badge">Professional Team in Action</div>
+            <h1>Our Gallery</h1>
+            <p>See our certified lifeguards and swim instructors providing professional pool safety services and swimming lessons throughout the Conejo Valley.</p>
         </div>
     </section>
 
-    <nav class="breadcrumbs">
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Gallery</li>
+        </ul>
+    </div>
 
+    <!-- Gallery Filters -->
     <section class="gallery-filters">
-        <div class="container">
-            <ul class="filters">
-                <li><a href="#" class="active">All</a></li>
-                <li><a href="#">Lifeguards</a></li>
-                <li><a href="#">Swim Lessons</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Training</a></li>
-                <li><a href="#">Videos</a></li>
-            </ul>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/lifeguard1.jpg" alt="">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/swim-lesson1.jpg" alt="">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/event1.jpg" alt="">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/training1.jpg" alt="">
-                </div>
-            </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Media</button>
+            <button class="filter-btn" data-filter="lifeguards">Lifeguards</button>
+            <button class="filter-btn" data-filter="swim-lessons">Swim Lessons</button>
+            <button class="filter-btn" data-filter="events">Events</button>
+            <button class="filter-btn" data-filter="hoa-services">HOA Services</button>
+            <button class="filter-btn" data-filter="videos">Videos</button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search gallery..." id="searchInput">
+            <button class="search-btn" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
     </section>
 
-    <section class="gallery-loading">
-        <div class="container">
-            <div class="loading">
-                <p>Loading gallery...</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery-no-results">
-        <div class="container">
-            <div class="no-results">
-                <h3>No Results Found</h3>
-                <p>Try adjusting your search terms or filters</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="team">
-        <div class="container">
-            <h2>Meet Our Professional Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="images/jasper-thompson.jpg" alt="">
-                    <h3>Jasper Thompson</h3>
-                    <p>Senior Lifeguard & Lead Instructor</p>
-                    <ul>
-                        <li>Red Cross Certified</li>
-                        <li>CPR/AED</li>
-                        <li>WSI</li>
-                    </ul>
+    <!-- Gallery Grid -->
+    <section class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Lifeguard Images -->
+            <div class="gallery-item fade-in-up" data-category="lifeguards" data-title="Professional Lifeguard on Duty" data-description="Our certified lifeguard maintaining pool safety during a busy day">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Professional Lifeguard on Duty" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
                 </div>
-                <div class="team-member">
-                    <img src="images/sarah-martinez.jpg" alt="">
-                    <h3>Sarah Martinez</h3>
-                    <p>Swimming Instructor</p>
-                    <ul>
-                        <li>Red Cross Certified</li>
-                        <li>Special Needs</li>
-                    </ul>
-                </div>
-                <div class="team-member">
-                    <img src="images/mike-johnson.jpg" alt="">
-                    <h3>Mike Johnson</h3>
-                    <p>Pool Safety Manager</p>
-                    <ul>
-                        <li>Certified Pool Manager</li>
-                        <li>Safety Inspector</li>
-                    </ul>
-                </div>
-                <div class="team-member">
-                    <img src="images/emma-davis.jpg" alt="">
-                    <h3>Emma Davis</h3>
-                    <p>Junior Swimming Instructor</p>
-                    <ul>
-                        <li>Red Cross Certified</li>
-                        <li>Youth Programs</li>
-                    </ul>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Professional Lifeguard on Duty</h3>
+                    <p class="gallery-item-description">Our certified lifeguard maintaining pool safety during a busy day</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Lifeguard</span>
+                        <span class="tag">Pool Safety</span>
+                        <span class="tag">Professional</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="stats">
-        <div class="container">
-            <div class="stat">
-                <h3>0</h3>
-                <p>Events Covered</p>
+            <div class="gallery-item fade-in-up" data-category="swim-lessons" data-title="Private Swimming Lesson" data-description="One-on-one swimming instruction with our certified instructor">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Private Swimming Lesson" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Private Swimming Lesson</h3>
+                    <p class="gallery-item-description">One-on-one swimming instruction with our certified instructor</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Swimming Lessons</span>
+                        <span class="tag">Private Instruction</span>
+                        <span class="tag">Kids</span>
+                    </div>
+                </div>
             </div>
-            <div class="stat">
-                <h3>0</h3>
-                <p>Swimming Lessons</p>
-            </div>
-            <div class="stat">
-                <h3>0</h3>
-                <p>Years Experience</p>
-            </div>
-            <div class="stat">
-                <h3>0</h3>
-                <p>Certified Staff</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="gallery-videos">
-        <div class="container">
-            <div class="video-grid">
-                <div class="video-item">
-                    <video controls>
-                        <source src="videos/lifeguard-training.mp4" type="video/mp4">
+            <div class="gallery-item fade-in-up" data-category="videos" data-title="Swimming Technique Demonstration" data-description="Our instructor demonstrates proper swimming form">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/swimming-demo.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
                 </div>
-                <div class="video-item">
-                    <img src="images/swim-lesson-video.jpg" alt="">
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Swimming Technique Demonstration</h3>
+                    <p class="gallery-item-description">Our instructor demonstrates proper swimming form</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Technique</span>
+                        <span class="tag">Training</span>
+                    </div>
                 </div>
-                <div class="video-item">
-                    <img src="images/event-video.jpg" alt="">
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="events" data-title="Pool Party Lifeguard Service" data-description="Professional lifeguard ensuring safety at a birthday party">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Pool Party Lifeguard Service" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
                 </div>
-                <div class="video-item">
-                    <a href="https://www.youtube.com/watch?v=example" target="_blank">
-                        <img src="images/youtube-placeholder.jpg" alt="">
-                    </a>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Pool Party Lifeguard Service</h3>
+                    <p class="gallery-item-description">Professional lifeguard ensuring safety at a birthday party</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Events</span>
+                        <span class="tag">Pool Party</span>
+                        <span class="tag">Safety</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="hoa-services" data-title="HOA Community Pool Management" data-description="Managing safety at a homeowner association community pool">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="HOA Community Pool Management" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">HOA Community Pool Management</h3>
+                    <p class="gallery-item-description">Managing safety at a homeowner association community pool</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">HOA Services</span>
+                        <span class="tag">Community Pool</span>
+                        <span class="tag">Management</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="swim-lessons" data-title="Group Swimming Class" data-description="Teaching multiple students proper swimming techniques">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Group Swimming Class" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Group Swimming Class</h3>
+                    <p class="gallery-item-description">Teaching multiple students proper swimming techniques</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Group Lessons</span>
+                        <span class="tag">Swimming</span>
+                        <span class="tag">Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="videos" data-title="Water Safety Training" data-description="Demonstrating important water safety techniques">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/safety-training.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Water Safety Training</h3>
+                    <p class="gallery-item-description">Demonstrating important water safety techniques</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Safety Training</span>
+                        <span class="tag">Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="lifeguards" data-title="Lifeguard Emergency Response" data-description="Professional response during a pool emergency situation">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Lifeguard Emergency Response" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Lifeguard Emergency Response</h3>
+                    <p class="gallery-item-description">Professional response during a pool emergency situation</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Emergency Response</span>
+                        <span class="tag">Professional</span>
+                        <span class="tag">Training</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="swim-lessons" data-title="Adult Swimming Instruction" data-description="Teaching swimming to adult learners with patience and expertise">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Adult Swimming Instruction" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Adult Swimming Instruction</h3>
+                    <p class="gallery-item-description">Teaching swimming to adult learners with patience and expertise</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Adult Lessons</span>
+                        <span class="tag">Swimming</span>
+                        <span class="tag">Beginner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="events" data-title="Corporate Pool Event" data-description="Providing lifeguard services for a company team building event">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Corporate Pool Event" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Corporate Pool Event</h3>
+                    <p class="gallery-item-description">Providing lifeguard services for a company team building event</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Corporate Events</span>
+                        <span class="tag">Team Building</span>
+                        <span class="tag">Professional</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="videos" data-title="Special Needs Swimming Lesson" data-description="Specialized instruction for swimmers with special needs">
+                <div class="gallery-item-media">
+                    <video poster="/api/placeholder/400/300" preload="metadata">
+                        <source src="/api/placeholder/video/special-needs.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-overlay">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="media-type-badge">Video</div>
+                    <div class="video-controls">
+                        <div class="video-progress">
+                            <div class="video-progress-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button class="video-btn play-pause"><i class="fas fa-play"></i></button>
+                            <button class="video-btn mute"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Special Needs Swimming Lesson</h3>
+                    <p class="gallery-item-description">Specialized instruction for swimmers with special needs</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">Video</span>
+                        <span class="tag">Special Needs</span>
+                        <span class="tag">Adaptive</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in-up" data-category="hoa-services" data-title="Community Pool Safety Inspection" data-description="Daily safety inspection at an HOA community pool">
+                <div class="gallery-item-media">
+                    <img src="/api/placeholder/400/300" alt="Community Pool Safety Inspection" loading="lazy">
+                    <div class="media-overlay">
+                        <div class="zoom-btn"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="media-type-badge">Photo</div>
+                </div>
+                <div class="gallery-item-info">
+                    <h3 class="gallery-item-title">Community Pool Safety Inspection</h3>
+                    <p class="gallery-item-description">Daily safety inspection at an HOA community pool</p>
+                    <div class="gallery-item-tags">
+                        <span class="tag">HOA Services</span>
+                        <span class="tag">Safety Inspection</span>
+                        <span class="tag">Management</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Load More Button -->
+    <div class="load-more-container">
+        <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+    </div>
+
+    <!-- Gallery Statistics -->
+    <section class="gallery-stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" data-count="150">0</span>
+                <span class="stat-label">Photos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="25">0</span>
+                <span class="stat-label">Videos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="50">0</span>
+                <span class="stat-label">Events Covered</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="500">0</span>
+                <span class="stat-label">Happy Clients</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+            <img id="lightboxImage" src="" alt="">
+            <video id="lightboxVideo" controls style="display: none;">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-description" id="lightboxDescription"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <img src="images/logo.png" alt="805 LifeGuard">
-                    <h3>805 LifeGuard</h3>
-                    <p>Professional lifeguard services and swim lessons serving the greater Conejo Valley area since 2016. See our team in action through our gallery.</p>
-                    <ul class="social-links">
-                        <li><a href="#"><img src="images/facebook.png" alt=""></a></li>
-                        <li><a href="#"><img src="images/twitter.png" alt=""></a></li>
-                        <li><a href="#"><img src="images/instagram.png" alt=""></a></li>
-                    </ul>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/100/50" alt="805 LifeGuard Logo">
+                    <div class="footer-logo-text">805 LifeGuard</div>
                 </div>
-                <div class="footer-section">
-                    <h3>Services</h3>
-                    <ul>
-                        <li><a href="services.html">Lifeguard Services</a></li>
-                        <li><a href="services.html">Swimming Lessons</a></li>
-                        <li><a href="hoa-services.html">HOA Pool Management</a></li>
-                        <li><a href="services.html">Special Events</a></li>
-                        <li><a href="contact.html">Book Services</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Gallery</h3>
-                    <ul>
-                        <li><a href="gallery.html">Photo Gallery</a></li>
-                        <li><a href="gallery.html">Video Gallery</a></li>
-                        <li><a href="gallery.html">Team Photos</a></li>
-                        <li><a href="gallery.html">Event Coverage</a></li>
-                        <li><a href="gallery.html">Training Sessions</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><a href="tel:+18053676432">(805) 367-6432</a></li>
-                        <li><a href="mailto:info@805lifeguard.com">info@805lifeguard.com</a></li>
-                        <li><a href="contact.html">Request Quote</a></li>
-                        <li><a href="client-login.html">Client Portal</a></li>
-                    </ul>
+                <p>Professional lifeguard services and swimming instruction throughout the greater Conejo Valley area. View our gallery to see our team in action providing exceptional pool safety and swim education.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-            <p class="footer-bottom">© 2025 805 LifeGuard. All Rights Reserved. | Professional Lifeguard Services & Swimming Instruction</p>
+            <div class="footer-links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="services.html">Lifeguard Services</a></li>
+                    <li><a href="services.html">Swimming Lessons</a></li>
+                    <li><a href="hoa-services.html">HOA Pool Management</a></li>
+                    <li><a href="services.html">Special Events</a></li>
+                    <li><a href="about.html">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Info</h3>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">(805) 367-6432</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">info@805lifeguard.com</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">Serving Greater Conejo Valley</div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 805 LifeGuard. All Rights Reserved. | Professional Pool Safety Gallery</p>
         </div>
     </footer>
 
-    <script src="js/scripts.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Gallery Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const searchInput = document.getElementById('searchInput');
+        let currentFilter = 'all';
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active filter button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentFilter = btn.getAttribute('data-filter');
+                filterGallery();
+            });
+        });
+
+        // Search Functionality
+        searchInput.addEventListener('input', filterGallery);
+        document.getElementById('searchBtn').addEventListener('click', filterGallery);
+
+        function filterGallery() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            galleryItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                const title = item.getAttribute('data-title').toLowerCase();
+                const description = item.getAttribute('data-description').toLowerCase();
+                const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                const matchesSearch = searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    description.includes(searchTerm) ||
+                    tags.some(tag => tag.includes(searchTerm));
+                
+                if (matchesFilter && matchesSearch) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeInUp 0.5s ease-in-out';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxVideo = document.getElementById('lightboxVideo');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDescription = document.getElementById('lightboxDescription');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        
+        let currentLightboxIndex = 0;
+        let visibleItems = [];
+
+        // Open lightbox when clicking on gallery items
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                openLightbox(index);
+            });
+        });
+
+        function openLightbox(index) {
+            // Get currently visible items
+            visibleItems = Array.from(galleryItems).filter(item => 
+                item.style.display !== 'none'
+            );
+            
+            // Find the index in visible items
+            currentLightboxIndex = visibleItems.findIndex(item => 
+                Array.from(galleryItems).indexOf(item) === index
+            );
+            
+            if (currentLightboxIndex === -1) return;
+            
+            showLightboxItem(currentLightboxIndex);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showLightboxItem(index) {
+            const item = visibleItems[index];
+            const title = item.getAttribute('data-title');
+            const description = item.getAttribute('data-description');
+            const mediaElement = item.querySelector('img, video');
+            
+            lightboxTitle.textContent = title;
+            lightboxDescription.textContent = description;
+            
+            if (mediaElement.tagName === 'VIDEO') {
+                lightboxImage.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = mediaElement.querySelector('source').src;
+            } else {
+                lightboxVideo.style.display = 'none';
+                lightboxImage.style.display = 'block';
+                lightboxImage.src = mediaElement.src;
+                lightboxImage.alt = mediaElement.alt;
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Stop video if playing
+            if (lightboxVideo.style.display !== 'none') {
+                lightboxVideo.pause();
+                lightboxVideo.src = '';
+            }
+        }
+
+        function nextLightboxItem() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % visibleItems.length;
+            showLightboxItem(currentLightboxIndex);
+        }
+
+        function prevLightboxItem() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + visibleItems.length) % visibleItems.length;
+            showLightboxItem(currentLightboxIndex);
+        }
+
+        // Lightbox event listeners
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', nextLightboxItem);
+        lightboxPrev.addEventListener('click', prevLightboxItem);
+
+        // Close lightbox when clicking outside content
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    prevLightboxItem();
+                    break;
+                case 'ArrowRight':
+                    nextLightboxItem();
+                    break;
+            }
+        });
+
+        // Video Controls
+        document.querySelectorAll('video').forEach(video => {
+            const controls = video.parentElement.querySelector('.video-controls');
+            const playPauseBtn = controls?.querySelector('.play-pause');
+            const muteBtn = controls?.querySelector('.mute');
+            const progressBar = controls?.querySelector('.video-progress-bar');
+            
+            if (!controls) return;
+
+            playPauseBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            muteBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.muted = !video.muted;
+                muteBtn.innerHTML = video.muted ? 
+                    '<i class="fas fa-volume-mute"></i>' : 
+                    '<i class="fas fa-volume-up"></i>';
+            });
+
+            video.addEventListener('timeupdate', () => {
+                if (progressBar && video.duration) {
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            });
+        });
+
+        // Load More Functionality
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        let loadMoreCount = 0;
+
+        loadMoreBtn.addEventListener('click', () => {
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.textContent = 'Loading...';
+            
+            // Simulate loading more content
+            setTimeout(() => {
+                // In a real implementation, this would load more gallery items
+                loadMoreCount++;
+                
+                if (loadMoreCount >= 3) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.classList.remove('loading');
+                    loadMoreBtn.textContent = 'Load More';
+                }
+            }, 1500);
+        });
+
+        // Animated Counter for Statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('gallery-stats')) {
+                        animateCounters();
+                    }
+                    if (entry.target.classList.contains('fade-in-up')) {
+                        entry.target.style.animationDelay = '0.1s';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animations
+        observer.observe(document.querySelector('.gallery-stats'));
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Image lazy loading enhancement
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+            
+            img.addEventListener('error', function() {
+                this.src = '/api/placeholder/400/300';
+                this.alt = 'Image unavailable';
+            });
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`Gallery page load time: ${loadTime}ms`);
+            }
+        });
+
+        // Preload critical images
+        const criticalImages = [
+            '/api/placeholder/1920/800',
+            '/api/placeholder/400/300'
+        ];
+
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    </script>
 </body>
 </html>
