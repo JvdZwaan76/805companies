@@ -210,7 +210,7 @@ header {
     display: flex;
     list-style: none;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
 }
 
 .nav-link {
@@ -221,6 +221,7 @@ header {
     transition: var(--transition);
     position: relative;
     padding: 10px 0;
+    white-space: nowrap;
 }
 
 .nav-link::before {
@@ -244,7 +245,7 @@ header {
     width: 100%;
 }
 
-/* Special Portal Links - Desktop */
+/* Special Portal Links */
 .nav-link.client-portal {
     color: #8b4513;
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 237, 74, 0.05));
@@ -277,89 +278,6 @@ header {
 .nav-link.staff-portal:hover {
     color: #2d3748;
     background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(156, 163, 175, 0.1));
-}
-
-/* Hide mobile nav login section on desktop */
-.nav-login-section {
-    display: none;
-}
-
-/* Navigation Login Buttons (Mobile Only) */
-.nav-login-btn {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px 20px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: var(--transition);
-    border-radius: 12px;
-    margin: 10px 0;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.nav-login-btn i {
-    font-size: 1.1rem;
-    width: 24px;
-    text-align: center;
-}
-
-/* Client Login (Gold) - Mobile */
-.nav-login-btn.client-login {
-    background: var(--gradient-gold);
-    color: #8b4513;
-    margin-bottom: 15px;
-}
-
-.nav-login-btn.client-login::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: var(--transition);
-}
-
-.nav-login-btn.client-login:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-    color: #6b3410;
-}
-
-.nav-login-btn.client-login:hover::before {
-    left: 100%;
-}
-
-/* Employee Login (Silver) - Mobile */
-.nav-login-btn.employee-login {
-    background: var(--gradient-silver);
-    color: #4a5568;
-    margin-bottom: 10px;
-}
-
-.nav-login-btn.employee-login::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: var(--transition);
-}
-
-.nav-login-btn.employee-login:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
-    color: #2d3748;
-}
-
-.nav-login-btn.employee-login:hover::before {
-    left: 100%;
 }
 
 /* Mobile Menu Button */
@@ -404,6 +322,8 @@ header {
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-top: 0;
+    padding-top: 140px; /* Account for fixed header */
 }
 
 .hero::before {
@@ -576,6 +496,11 @@ header {
 /* ========================================
    SECTIONS
    ======================================== */
+
+/* Ensure all main sections have proper spacing from fixed header */
+section:not(.hero) {
+    scroll-margin-top: 140px;
+}
 
 .section-title {
     text-align: center;
@@ -1675,6 +1600,11 @@ footer {
 }
 
 @media (max-width: 576px) {
+    .hero {
+        height: 90vh;
+        padding: 120px 15px 60px 15px;
+    }
+    
     .hero h1 {
         font-size: 2rem;
     }
@@ -1736,17 +1666,6 @@ footer {
     .nav-link {
         padding: 15px 12px;
         font-size: 1rem;
-    }
-    
-    .nav-login-btn {
-        padding: 16px 15px;
-        font-size: 1rem;
-        margin: 8px 0;
-    }
-    
-    .nav-login-section {
-        margin-top: 25px;
-        padding-top: 20px;
     }
     
     .footer-container {
@@ -1861,7 +1780,6 @@ footer {
 /* Focus styles for accessibility */
 .nav-link:focus,
 .cta-btn:focus,
-.nav-login-btn:focus,
 .social-link:focus {
     outline: 3px solid var(--gallery-blue);
     outline-offset: 2px;
@@ -1926,8 +1844,7 @@ footer {
 @media print {
     .ripple-background,
     .hero-scroll-indicator,
-    .mobile-menu-btn,
-    .nav-login-section {
+    .mobile-menu-btn {
         display: none;
     }
     
