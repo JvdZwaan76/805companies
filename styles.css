@@ -1709,10 +1709,21 @@ footer {
     .hours-line {
         flex-direction: column;
         align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .hours-main {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 2px;
     }
     
     .business-hours {
+        width: 100%;
+    }
+    
+    .hours-note {
+        margin-left: 0;
         width: 100%;
     }
     
@@ -1777,18 +1788,34 @@ footer {
     line-height: 1.6;
 }
 
+.hours-header {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
 .hours-line {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-    padding: 4px 0;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    padding: 6px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-direction: column;
+    gap: 4px;
 }
 
 .hours-line:last-child {
     border-bottom: none;
     margin-bottom: 0;
+}
+
+.hours-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .day {
@@ -1799,6 +1826,14 @@ footer {
 .time {
     color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
+}
+
+.hours-note {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    margin-left: 0;
+    align-self: flex-start;
 }
 
 @media (prefers-reduced-motion: reduce) {
