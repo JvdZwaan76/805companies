@@ -7,230 +7,102 @@
     <meta name="description" content="Employee login portal for 805 LifeGuard staff to manage schedules, view assignments, and access training materials.">
     <meta name="keywords" content="lifeguard employee login, staff portal, schedule management, swimming instructor login">
     <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Staff Portal - 805 LifeGuard">
+    <meta property="og:description" content="Secure employee portal for 805 LifeGuard team members.">
+    <meta property="og:image" content="/images/805-lifeguard-logo.png">
+    <meta property="og:url" content="https://www.805lifeguard.com/employee-login.html">
+    <link rel="canonical" href="https://www.805lifeguard.com/employee-login.html">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preload" href="/images/805-lifeguard-logo.png" as="image">
     <style>
+        /* Employee Login Specific Styles */
         :root {
-            --primary: #0077b6;
-            --secondary: #00b4d8;
-            --accent: #f72585;
-            --light: #e3f2fd;
-            --dark: #023e8a;
-            --white: #ffffff;
-            --gray: #6c757d;
-            --success: #4caf50;
-            --warning: #ff9800;
-            --error: #f44336;
             --employee-primary: #1a237e;
             --employee-secondary: #3949ab;
             --employee-accent: #ff6f00;
+            --employee-light: #e8eaf6;
+            --employee-dark: #0d1457;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--employee-primary) 0%, var(--employee-secondary) 50%, var(--primary) 100%);
-            color: #333;
-            line-height: 1.6;
+
+        .employee-login-page {
+            background: linear-gradient(135deg, var(--employee-primary) 0%, var(--employee-secondary) 50%, var(--gallery-blue) 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
-        
+
         /* Professional Grid Background */
-        .grid-background {
+        .employee-grid-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.05;
+            opacity: 0.03;
             background-image: 
                 linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
             background-size: 50px 50px;
+            pointer-events: none;
         }
-        
+
         /* Professional Floating Elements */
-        .floating-elements {
+        .employee-floating-elements {
             position: fixed;
             width: 100%;
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
-        
-        .floating-icon {
+
+        .employee-floating-icon {
             position: absolute;
-            color: rgba(255, 255, 255, 0.05);
-            font-size: 2rem;
-            animation: float-professional 20s infinite linear;
+            color: rgba(255, 255, 255, 0.04);
+            font-size: 2.5rem;
+            animation: float-professional 25s infinite linear;
         }
-        
-        .floating-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .floating-icon:nth-child(2) { left: 80%; top: 80%; animation-delay: 5s; }
-        .floating-icon:nth-child(3) { left: 60%; top: 10%; animation-delay: 10s; }
-        .floating-icon:nth-child(4) { left: 20%; top: 70%; animation-delay: 15s; }
-        
+
+        .employee-floating-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .employee-floating-icon:nth-child(2) { left: 80%; top: 80%; animation-delay: 6s; }
+        .employee-floating-icon:nth-child(3) { left: 60%; top: 10%; animation-delay: 12s; }
+        .employee-floating-icon:nth-child(4) { left: 20%; top: 70%; animation-delay: 18s; }
+        .employee-floating-icon:nth-child(5) { left: 90%; top: 30%; animation-delay: 24s; }
+
         @keyframes float-professional {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(90deg); }
+            25% { transform: translateY(-25px) rotate(90deg); }
             50% { transform: translateY(0px) rotate(180deg); }
-            75% { transform: translateY(-10px) rotate(270deg); }
+            75% { transform: translateY(-15px) rotate(270deg); }
         }
-        
-        /* Header */
-        header {
-            background-color: rgba(26, 35, 126, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, var(--employee-accent), #ff8f00);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.5rem;
-            margin-right: 12px;
-            animation: pulse-professional 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse-professional {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 111, 0, 0); }
-        }
-        
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--white);
-        }
-        
-        .logo-subtitle {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-left: 5px;
-            font-weight: 400;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
-        
-        .nav-links li {
-            margin-left: 25px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 8px 0;
-        }
-        
-        .nav-links a:hover {
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--employee-accent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .client-login-toggle {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
-        }
-        
-        .client-login-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 119, 182, 0.4);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--white);
-            cursor: pointer;
-        }
-        
-        /* Login Container */
-        .login-container {
+
+        /* Employee Login Container */
+        .employee-login-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 20px 50px;
+            padding: 180px 20px 50px;
+            position: relative;
+            z-index: 1;
         }
-        
-        .login-card {
+
+        .employee-login-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             padding: 50px;
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
         }
-        
-        .login-card::before {
+
+        .employee-login-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -239,15 +111,15 @@
             height: 5px;
             background: linear-gradient(90deg, var(--employee-primary), var(--employee-secondary), var(--employee-accent));
         }
-        
-        .login-header {
+
+        .employee-login-header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
-        
-        .login-icon {
-            width: 90px;
-            height: 90px;
+
+        .employee-login-icon {
+            width: 100px;
+            height: 100px;
             background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
             border-radius: 20px;
             display: flex;
@@ -258,9 +130,10 @@
             margin: 0 auto 25px;
             animation: professional-glow 3s ease-in-out infinite;
             position: relative;
+            box-shadow: var(--shadow-heavy);
         }
-        
-        .login-icon::after {
+
+        .employee-login-icon::after {
             content: '';
             position: absolute;
             top: -5px;
@@ -273,93 +146,137 @@
             opacity: 0.3;
             animation: professional-pulse 2s ease-in-out infinite;
         }
-        
+
         @keyframes professional-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(26, 35, 126, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(26, 35, 126, 0.5), 0 0 40px rgba(57, 73, 171, 0.3); }
+            0%, 100% { box-shadow: 0 0 20px rgba(26, 35, 126, 0.4), var(--shadow-heavy); }
+            50% { box-shadow: 0 0 30px rgba(26, 35, 126, 0.6), 0 0 40px rgba(57, 73, 171, 0.3), var(--shadow-heavy); }
         }
-        
+
         @keyframes professional-pulse {
             0%, 100% { transform: scale(1); opacity: 0.3; }
             50% { transform: scale(1.1); opacity: 0.1; }
         }
-        
-        .login-title {
-            font-size: 2.2rem;
-            color: var(--employee-primary);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .login-subtitle {
-            color: var(--gray);
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
+
         .employee-badge {
             display: inline-block;
             background: linear-gradient(45deg, var(--employee-accent), #ff8f00);
             color: var(--white);
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             margin-bottom: 20px;
+            box-shadow: var(--shadow-light);
         }
-        
-        .login-form {
+
+        .employee-login-title {
+            font-size: 2.5rem;
+            color: var(--employee-primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .employee-login-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Alert Messages */
+        .employee-alert {
+            padding: 16px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: none;
+            border-left: 4px solid;
+        }
+
+        .employee-alert.show {
+            display: block;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .employee-alert-success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+
+        .employee-alert-error {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border-left-color: var(--error);
+        }
+
+        .employee-alert-warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+            border-left-color: var(--warning);
+        }
+
+        /* Form Styling */
+        .employee-login-form {
             margin-bottom: 30px;
         }
-        
-        .form-group {
+
+        .employee-form-group {
             margin-bottom: 25px;
             position: relative;
         }
-        
-        .form-label {
+
+        .employee-form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 700;
             color: var(--employee-primary);
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
-        
-        .form-control {
+
+        .employee-form-control {
             width: 100%;
             padding: 18px 20px;
-            border: 2px solid #e1e5e9;
-            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
             font-size: 1.1rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+            background: var(--white);
             font-weight: 500;
         }
-        
-        .form-control:focus {
+
+        .employee-form-control:focus {
             outline: none;
             border-color: var(--employee-secondary);
-            background: var(--white);
             box-shadow: 0 0 0 4px rgba(57, 73, 171, 0.1);
             transform: translateY(-2px);
         }
-        
-        .form-control.error {
+
+        .employee-form-control.error {
             border-color: var(--error);
             animation: shake 0.5s ease-in-out;
         }
-        
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-8px); }
             75% { transform: translateX(8px); }
         }
-        
-        .password-toggle {
+
+        .employee-password-toggle {
             position: absolute;
             right: 18px;
             top: 50%;
@@ -369,62 +286,66 @@
             color: var(--gray);
             cursor: pointer;
             font-size: 1.2rem;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
-        
-        .password-toggle:hover {
+
+        .employee-password-toggle:hover {
             color: var(--employee-secondary);
         }
-        
-        .form-options {
+
+        .employee-form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             font-size: 0.95rem;
         }
-        
-        .remember-me {
+
+        .employee-remember-me {
             display: flex;
             align-items: center;
+            gap: 10px;
             font-weight: 500;
+            cursor: pointer;
         }
-        
-        .remember-me input {
-            margin-right: 10px;
-            transform: scale(1.2);
+
+        .employee-remember-me input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--employee-secondary);
         }
-        
-        .forgot-password {
+
+        .employee-forgot-password {
             color: var(--employee-secondary);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
-        
-        .forgot-password:hover {
+
+        .employee-forgot-password:hover {
             color: var(--employee-primary);
             text-decoration: underline;
         }
-        
-        .login-btn {
+
+        .employee-login-btn {
             width: 100%;
             padding: 18px;
             background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
             color: var(--white);
             border: none;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             text-transform: uppercase;
             letter-spacing: 1.2px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(26, 35, 126, 0.3);
         }
-        
-        .login-btn::before {
+
+        .employee-login-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -434,26 +355,26 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
-        
-        .login-btn:hover::before {
+
+        .employee-login-btn:hover::before {
             left: 100%;
         }
-        
-        .login-btn:hover {
+
+        .employee-login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(26, 35, 126, 0.4);
+            box-shadow: 0 15px 40px rgba(26, 35, 126, 0.4);
         }
-        
-        .login-btn:active {
+
+        .employee-login-btn:active {
             transform: translateY(-1px);
         }
-        
-        .login-btn.loading {
+
+        .employee-login-btn.loading {
             pointer-events: none;
             opacity: 0.8;
         }
-        
-        .login-btn.loading::after {
+
+        .employee-login-btn.loading::after {
             content: '';
             width: 22px;
             height: 22px;
@@ -466,241 +387,145 @@
             top: 50%;
             transform: translateY(-50%);
         }
-        
+
         @keyframes spin {
             0% { transform: translateY(-50%) rotate(0deg); }
             100% { transform: translateY(-50%) rotate(360deg); }
         }
-        
-        .divider {
+
+        /* Security Info */
+        .employee-security-info {
+            background: rgba(76, 175, 80, 0.05);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 25px 0;
             text-align: center;
-            margin: 35px 0;
-            position: relative;
-            color: var(--gray);
-            font-size: 0.9rem;
+        }
+
+        .employee-security-info i {
+            color: var(--success);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .employee-security-info p {
+            color: var(--success);
             font-weight: 600;
+            font-size: 0.95rem;
+            margin: 0;
         }
-        
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ddd, transparent);
-        }
-        
-        .divider span {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 0 20px;
-        }
-        
+
         /* Employee Resources */
         .employee-resources {
             background: rgba(26, 35, 126, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
         }
-        
+
         .employee-resources h4 {
             color: var(--employee-primary);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
             font-weight: 700;
+            text-align: center;
         }
-        
-        .resource-links {
+
+        .employee-resource-links {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
+            gap: 15px;
         }
-        
-        .resource-link {
+
+        .employee-resource-link {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 15px;
             background: var(--white);
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             text-decoration: none;
             color: var(--employee-primary);
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             border: 1px solid rgba(26, 35, 126, 0.1);
+            box-shadow: var(--shadow-light);
         }
-        
-        .resource-link:hover {
+
+        .employee-resource-link:hover {
             background: var(--employee-primary);
             color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
         }
-        
-        .resource-link i {
-            margin-right: 8px;
-            font-size: 1rem;
+
+        .employee-resource-link i {
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
-        
-        /* Error/Success Messages */
-        .alert {
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            display: none;
-            border-left: 4px solid;
-        }
-        
-        .alert.show {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .alert-success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-            border-left-color: var(--success);
-        }
-        
-        .alert-error {
-            background: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-            border-left-color: var(--error);
-        }
-        
-        .alert-warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: var(--warning);
-            border-left-color: var(--warning);
-        }
-        
-        /* Security Badge */
-        .security-info {
-            background: rgba(76, 175, 80, 0.05);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .security-info i {
-            color: var(--success);
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-        
-        .security-info p {
-            color: var(--success);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .employee-login-container {
+                padding: 160px 15px 30px;
             }
-            
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background: rgba(26, 35, 126, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 40px 20px;
-                transition: left 0.3s ease;
-                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+
+            .employee-login-card {
+                padding: 40px 30px;
+                margin: 0 10px;
             }
-            
-            .nav-links.active {
-                left: 0;
+
+            .employee-login-title {
+                font-size: 2rem;
             }
-            
-            .nav-links li {
-                margin-left: 0;
-                margin-bottom: 20px;
-                width: 100%;
+
+            .employee-login-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
             }
-            
-            .nav-links a {
-                display: block;
-                padding: 12px 0;
-                font-size: 1.1rem;
-            }
-            
-            .login-container {
-                padding: 100px 15px 30px;
-            }
-            
-            .login-card {
-                padding: 35px 25px;
-                margin: 0 5px;
-            }
-            
-            .login-title {
-                font-size: 1.9rem;
-            }
-            
-            .form-options {
+
+            .employee-form-options {
                 flex-direction: column;
                 gap: 15px;
                 align-items: flex-start;
             }
-            
-            .resource-links {
+
+            .employee-resource-links {
                 grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 10px 15px;
-            }
-            
-            .logo-text {
-                font-size: 1.5rem;
-            }
-            
-            .login-card {
-                padding: 30px 20px;
+
+        @media (max-width: 576px) {
+            .employee-login-card {
+                padding: 30px 25px;
                 border-radius: 15px;
             }
-            
-            .login-icon {
+
+            .employee-login-title {
+                font-size: 1.8rem;
+            }
+
+            .employee-login-icon {
                 width: 70px;
                 height: 70px;
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
-            
-            .login-title {
-                font-size: 1.7rem;
-            }
-            
-            .form-control {
+
+            .employee-form-control {
                 padding: 15px 18px;
                 font-size: 1rem;
             }
-            
-            .login-btn {
+
+            .employee-login-btn {
                 padding: 15px;
                 font-size: 1.1rem;
             }
         }
-        
+
         /* Loading Overlay */
-        .loading-overlay {
+        .employee-loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -713,12 +538,12 @@
             align-items: center;
             justify-content: center;
         }
-        
-        .loading-overlay.show {
+
+        .employee-loading-overlay.show {
             display: flex;
         }
-        
-        .loading-spinner {
+
+        .employee-loading-spinner {
             width: 60px;
             height: 60px;
             border: 5px solid rgba(255, 255, 255, 0.3);
@@ -726,7 +551,7 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
+
         /* Accessibility Improvements */
         .sr-only {
             position: absolute;
@@ -739,103 +564,138 @@
             white-space: nowrap;
             border: 0;
         }
-        
-        /* Focus styles */
-        .form-control:focus,
-        .login-btn:focus,
-        .resource-link:focus,
-        .nav-links a:focus {
+
+        /* Focus styles for accessibility */
+        .employee-form-control:focus,
+        .employee-login-btn:focus,
+        .employee-resource-link:focus {
             outline: 3px solid var(--employee-accent);
             outline-offset: 2px;
+            border-radius: 4px;
         }
-        
-        /* High contrast mode */
+
+        /* High contrast mode support */
         @media (prefers-contrast: high) {
-            .login-card {
+            .employee-login-card {
                 border: 3px solid var(--employee-primary);
+                background: var(--white);
             }
-            
-            .form-control {
+
+            .employee-form-control {
                 border-width: 3px;
             }
         }
-        
-        /* Reduced motion */
+
+        /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+
+            .employee-floating-icon {
+                display: none;
+            }
+        }
+
+        /* Staff Portal Badge Styling */
+        .nav-link.active {
+            color: var(--gallery-blue);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
         }
     </style>
 </head>
-<body>
-    <!-- Grid Background -->
-    <div class="grid-background"></div>
+<body class="employee-login-page">
+    <!-- Professional Grid Background -->
+    <div class="employee-grid-background"></div>
     
-    <!-- Floating Elements -->
-    <div class="floating-elements">
-        <i class="floating-icon fas fa-shield-alt"></i>
-        <i class="floating-icon fas fa-calendar-check"></i>
-        <i class="floating-icon fas fa-users"></i>
-        <i class="floating-icon fas fa-clipboard-list"></i>
+    <!-- Professional Floating Elements -->
+    <div class="employee-floating-elements">
+        <i class="employee-floating-icon fas fa-shield-alt"></i>
+        <i class="employee-floating-icon fas fa-calendar-check"></i>
+        <i class="employee-floating-icon fas fa-users"></i>
+        <i class="employee-floating-icon fas fa-clipboard-list"></i>
+        <i class="employee-floating-icon fas fa-user-tie"></i>
     </div>
 
     <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
+    <div class="employee-loading-overlay" id="loadingOverlay">
+        <div class="employee-loading-spinner"></div>
     </div>
 
-    <!-- Header -->
+    <!-- Header Section -->
     <header>
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <span class="service-area">Serving Southern California since 2016</span>
+                <div class="top-bar-contact">
+                    <a href="tel:8053676432" class="phone-link">
+                        <i class="fas fa-phone"></i> (805) 367-6432
+                    </a>
+                    <a href="mailto:info@805lifeguard.com" class="email-link">
+                        <i class="fas fa-envelope"></i> info@805lifeguard.com
+                    </a>
+                </div>
+            </div>
+        </div>
         <nav class="navbar">
             <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div>
-                    <div class="logo-text">805 LifeGuard</div>
-                    <div class="logo-subtitle">Staff Portal</div>
+                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">805 LifeGuard</span>
+                    <span class="logo-subtitle">Professional Pool Safety</span>
                 </div>
             </a>
+            
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="client-login.html" class="client-login-toggle">Client Login</a></li>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="hoa-services.html" class="nav-link">HOA Services</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="client-login.html" class="nav-link client-portal" title="Client Portal Access">Client Portal</a></li>
+                <li><a href="employee-login.html" class="nav-link staff-portal active" title="Staff Portal Access">Staff Portal</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </nav>
     </header>
 
-    <!-- Login Container -->
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-icon">
+    <!-- Employee Login Container -->
+    <div class="employee-login-container">
+        <div class="employee-login-card">
+            <div class="employee-login-header">
+                <div class="employee-login-icon">
                     <i class="fas fa-user-shield"></i>
                 </div>
                 <div class="employee-badge">Staff Portal</div>
-                <h1 class="login-title">Employee Access</h1>
-                <p class="login-subtitle">Secure login for 805 LifeGuard team members</p>
+                <h1 class="employee-login-title">Employee Access</h1>
+                <p class="employee-login-subtitle">Secure login for 805 LifeGuard team members and staff</p>
             </div>
 
             <!-- Alert Messages -->
-            <div class="alert alert-error" id="errorAlert"></div>
-            <div class="alert alert-success" id="successAlert"></div>
-            <div class="alert alert-warning" id="warningAlert"></div>
+            <div class="employee-alert employee-alert-error" id="errorAlert"></div>
+            <div class="employee-alert employee-alert-success" id="successAlert"></div>
+            <div class="employee-alert employee-alert-warning" id="warningAlert"></div>
 
-            <!-- Login Form -->
-            <form class="login-form" id="loginForm">
-                <div class="form-group">
-                    <label for="employeeId" class="form-label">Employee ID</label>
+            <!-- Employee Login Form -->
+            <form class="employee-login-form" id="loginForm">
+                <div class="employee-form-group">
+                    <label for="employeeId" class="employee-form-label">Employee ID</label>
                     <input 
                         type="text" 
                         id="employeeId" 
-                        class="form-control" 
+                        class="employee-form-control" 
                         required 
                         autocomplete="username"
                         placeholder="Enter your employee ID"
@@ -844,61 +704,61 @@
                     <div id="employeeId-help" class="sr-only">Enter your assigned employee identification number</div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
+                <div class="employee-form-group">
+                    <label for="password" class="employee-form-label">Password</label>
                     <div style="position: relative;">
                         <input 
                             type="password" 
                             id="password" 
-                            class="form-control" 
+                            class="employee-form-control" 
                             required 
                             autocomplete="current-password"
                             placeholder="Enter your password"
                             aria-describedby="password-help"
                         >
-                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <button type="button" class="employee-password-toggle" onclick="togglePassword()">
                             <i class="fas fa-eye" id="passwordToggleIcon"></i>
                         </button>
                     </div>
                     <div id="password-help" class="sr-only">Enter your secure employee password</div>
                 </div>
 
-                <div class="form-options">
-                    <label class="remember-me">
+                <div class="employee-form-options">
+                    <label class="employee-remember-me">
                         <input type="checkbox" id="rememberMe">
-                        Keep me signed in
+                        <span>Keep me signed in</span>
                     </label>
-                    <a href="#" class="forgot-password" onclick="forgotPassword()">Reset Password</a>
+                    <a href="#" class="employee-forgot-password" onclick="forgotPassword()">Reset Password</a>
                 </div>
 
-                <button type="submit" class="login-btn" id="loginBtn">
+                <button type="submit" class="employee-login-btn" id="loginBtn">
                     Access Dashboard
                 </button>
             </form>
 
             <!-- Security Info -->
-            <div class="security-info">
+            <div class="employee-security-info">
                 <i class="fas fa-lock"></i>
-                <p>This is a secure employee portal. All access is monitored and logged.</p>
+                <p>This is a secure employee portal. All access is monitored and logged for security purposes.</p>
             </div>
 
             <!-- Employee Resources -->
             <div class="employee-resources">
                 <h4>Quick Access Resources</h4>
-                <div class="resource-links">
-                    <a href="#" class="resource-link">
+                <div class="employee-resource-links">
+                    <a href="#" class="employee-resource-link">
                         <i class="fas fa-book"></i>
                         <span>Training</span>
                     </a>
-                    <a href="#" class="resource-link">
+                    <a href="#" class="employee-resource-link">
                         <i class="fas fa-calendar"></i>
                         <span>Schedule</span>
                     </a>
-                    <a href="#" class="resource-link">
+                    <a href="#" class="employee-resource-link">
                         <i class="fas fa-file-alt"></i>
                         <span>Reports</span>
                     </a>
-                    <a href="#" class="resource-link">
+                    <a href="#" class="employee-resource-link">
                         <i class="fas fa-headset"></i>
                         <span>Support</span>
                     </a>
@@ -907,18 +767,8 @@
         </div>
     </div>
 
+    <script src="scripts.js"></script>
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
-
         // Password Toggle
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -977,7 +827,7 @@
 
         // Hide all alerts
         function hideAlerts() {
-            document.querySelectorAll('.alert').forEach(alert => {
+            document.querySelectorAll('.employee-alert').forEach(alert => {
                 alert.classList.remove('show');
             });
         }
@@ -1088,7 +938,7 @@
             const employeeId = document.getElementById('employeeId').value;
             
             if (employeeId) {
-                showAlert(`Password reset request submitted for ${employeeId}. Check your email.`, 'success');
+                showAlert(`Password reset request submitted for ${employeeId}. Check your email for instructions.`, 'success');
             } else {
                 showAlert('Please enter your employee ID first', 'warning');
                 document.getElementById('employeeId').focus();
@@ -1119,16 +969,6 @@
             }
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
-            }
-        });
-
         // Format Employee ID input
         document.getElementById('employeeId').addEventListener('input', (e) => {
             // Convert to uppercase for consistency
@@ -1136,7 +976,7 @@
         });
 
         // Add professional hover effects
-        document.querySelectorAll('.resource-link').forEach(link => {
+        document.querySelectorAll('.employee-resource-link').forEach(link => {
             link.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-3px) scale(1.02)';
             });
@@ -1146,14 +986,6 @@
             });
         });
 
-        // Keyboard accessibility
-        mobileMenuBtn.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                mobileMenuBtn.click();
-            }
-        });
-
         // Security monitoring simulation
         function logAccessAttempt(employeeId, success) {
             // In a real application, this would send data to a security monitoring system
@@ -1161,7 +993,6 @@
         }
 
         // Enhanced form submission with security logging
-        const originalSubmit = document.getElementById('loginForm').onsubmit;
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             const employeeId = document.getElementById('employeeId').value;
             
