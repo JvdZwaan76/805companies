@@ -599,18 +599,26 @@
             flex-direction: column;
         }
 
-        .calendar-day:hover {
+        .calendar-day:hover:not(.other-month):not(.past-date) {
             background: rgba(30, 136, 229, 0.05);
+            transform: scale(1.02);
         }
 
         .calendar-day.other-month {
             color: #ccc;
             background: #f8f9fa;
+            cursor: default;
+        }
+
+        .calendar-day.past-date {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
         .calendar-day.today {
             background: rgba(30, 136, 229, 0.1);
             font-weight: 700;
+            border: 2px solid var(--gallery-blue);
         }
 
         .calendar-day.available {
@@ -624,6 +632,12 @@
         .calendar-day.unavailable {
             border-left: 4px solid var(--error);
             opacity: 0.6;
+        }
+
+        .calendar-day.selected {
+            background: var(--gradient-primary) !important;
+            color: var(--white);
+            transform: scale(1.05);
         }
 
         .day-number {
@@ -672,7 +686,7 @@
             background: var(--white);
             border-radius: var(--border-radius-large);
             padding: 30px;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -709,7 +723,7 @@
 
         .service-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -726,11 +740,13 @@
 
         .service-option:hover {
             background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-2px);
         }
 
         .service-option.selected {
             border-color: var(--gallery-blue);
             background: rgba(30, 136, 229, 0.15);
+            transform: translateY(-2px);
         }
 
         .service-option i {
@@ -743,6 +759,13 @@
             font-size: 0.9rem;
             color: var(--dark);
             font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .service-price {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
         }
 
         .time-slots {
@@ -750,6 +773,11 @@
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
             margin-bottom: 25px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
         }
 
         .time-slot {
@@ -761,22 +789,26 @@
             cursor: pointer;
             transition: var(--transition);
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .time-slot:hover {
+        .time-slot:hover:not(.unavailable) {
             background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-1px);
         }
 
         .time-slot.selected {
             border-color: var(--gallery-blue);
-            background: rgba(30, 136, 229, 0.15);
-            color: var(--gallery-blue);
+            background: var(--gallery-blue);
+            color: var(--white);
+            transform: translateY(-1px);
         }
 
         .time-slot.unavailable {
             opacity: 0.5;
             cursor: not-allowed;
             background: #f8f9fa;
+            text-decoration: line-through;
         }
 
         .booking-summary {
@@ -947,29 +979,6 @@
         }
 
         /* Account Settings */
-        .settings-section {
-            background: var(--white);
-            border-radius: var(--border-radius-large);
-            padding: 25px;
-            box-shadow: var(--shadow-medium);
-            margin-bottom: 25px;
-        }
-
-        .settings-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .settings-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-left: 10px;
-        }
-
         .settings-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -995,23 +1004,6 @@
             font-size: 0.95rem;
         }
 
-        .edit-profile-btn {
-            background: var(--gradient-primary);
-            color: var(--white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            margin-top: 20px;
-        }
-
-        .edit-profile-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-light);
-        }
-
         /* Loading States */
         .loading {
             display: inline-flex;
@@ -1031,6 +1023,47 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .message.error {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border-left: 4px solid var(--error);
         }
 
         /* Responsive Design */
@@ -1100,11 +1133,11 @@
             }
 
             .service-selection {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
 
             .time-slots {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .modal-actions {
@@ -1160,52 +1193,11 @@
             }
 
             .time-slots {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .quick-stats {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .ripple-background,
-            .portal-header,
-            .logout-btn,
-            .card-action,
-            .booking-actions {
-                display: none;
-            }
-
-            .portal-container {
-                display: block;
-            }
-
-            .login-container {
-                display: none;
-            }
-        }
-
-        /* High Contrast Mode */
-        @media (prefers-contrast: high) {
-            :root {
-                --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.4);
-                --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.5);
-                --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.6);
-            }
-        }
-
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .ripple {
-                display: none;
             }
         }
 
@@ -1226,19 +1218,6 @@
 
         .login-btn:focus {
             outline-color: #8b4513;
-        }
-
-        /* Screen Reader Only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
         }
     </style>
 </head>
@@ -1335,19 +1314,19 @@
                     
                     <div class="quick-stats">
                         <div class="stat-item">
-                            <div class="stat-number" id="totalBookings">12</div>
+                            <div class="stat-number" id="totalBookings">0</div>
                             <div class="stat-label">Total Bookings</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="upcomingBookings">3</div>
+                            <div class="stat-number" id="upcomingBookings">0</div>
                             <div class="stat-label">Upcoming</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="monthlyLessons">8</div>
+                            <div class="stat-number" id="monthlyLessons">0</div>
                             <div class="stat-label">This Month</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="memberSince">2022</div>
+                            <div class="stat-number" id="memberSince">2025</div>
                             <div class="stat-label">Member Since</div>
                         </div>
                     </div>
@@ -1370,13 +1349,13 @@
                     <p>Book swim lessons, lifeguard services, or special events quickly and easily.</p>
                     <div style="margin-top: 15px;">
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="btn-small btn-edit" onclick="portal.openBookingModal('swim-lesson')">
+                            <button class="btn-small btn-edit" onclick="portal.quickBook('swim-lesson')">
                                 <i class="fas fa-swimmer"></i> Swim Lesson
                             </button>
-                            <button class="btn-small btn-edit" onclick="portal.openBookingModal('lifeguard')">
+                            <button class="btn-small btn-edit" onclick="portal.quickBook('lifeguard')">
                                 <i class="fas fa-user-shield"></i> Lifeguard
                             </button>
-                            <button class="btn-small btn-edit" onclick="portal.openBookingModal('event')">
+                            <button class="btn-small btn-edit" onclick="portal.quickBook('event')">
                                 <i class="fas fa-calendar-alt"></i> Event
                             </button>
                         </div>
@@ -1393,28 +1372,10 @@
                         <button class="card-action" onclick="portal.showAllBookings()">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList">
-                        <div class="booking-item">
-                            <div class="booking-header">
-                                <div class="booking-title">Private Swim Lesson</div>
-                                <div class="booking-status status-confirmed">Confirmed</div>
-                            </div>
-                            <div class="booking-details">
-                                <div><i class="fas fa-calendar"></i> Tomorrow, June 15th</div>
-                                <div><i class="fas fa-clock"></i> 2:00 PM - 3:00 PM</div>
-                                <div><i class="fas fa-user"></i> Sarah (Age 8)</div>
-                            </div>
+                        <div class="loading-overlay" id="bookingsLoading">
+                            <div class="spinner"></div>
                         </div>
-                        <div class="booking-item">
-                            <div class="booking-header">
-                                <div class="booking-title">Pool Party Lifeguard</div>
-                                <div class="booking-status status-pending">Pending</div>
-                            </div>
-                            <div class="booking-details">
-                                <div><i class="fas fa-calendar"></i> Saturday, June 18th</div>
-                                <div><i class="fas fa-clock"></i> 12:00 PM - 6:00 PM</div>
-                                <div><i class="fas fa-users"></i> Birthday Party (25 guests)</div>
-                            </div>
-                        </div>
+                        <p style="text-align: center; color: var(--gray); padding: 20px;">Loading your bookings...</p>
                     </div>
                 </div>
 
@@ -1427,29 +1388,29 @@
                         </h2>
                         <button class="card-action" onclick="portal.showAccountSettings()">Manage</button>
                     </div>
-                    <div class="settings-grid">
+                    <div class="settings-grid" id="accountSettings">
                         <div class="settings-item">
                             <div>
                                 <div class="settings-label">Email</div>
-                                <div class="settings-value">john.doe@email.com</div>
+                                <div class="settings-value" id="userEmail">Loading...</div>
                             </div>
                         </div>
                         <div class="settings-item">
                             <div>
                                 <div class="settings-label">Phone</div>
-                                <div class="settings-value">(805) 555-0123</div>
+                                <div class="settings-value" id="userPhone">Loading...</div>
                             </div>
                         </div>
                         <div class="settings-item">
                             <div>
                                 <div class="settings-label">Address</div>
-                                <div class="settings-value">123 Pool St, Ventura, CA</div>
+                                <div class="settings-value" id="userAddress">Loading...</div>
                             </div>
                         </div>
                         <div class="settings-item">
                             <div>
                                 <div class="settings-label">Emergency Contact</div>
-                                <div class="settings-value">Jane Doe - (805) 555-0124</div>
+                                <div class="settings-value" id="userEmergencyContact">Loading...</div>
                             </div>
                         </div>
                     </div>
@@ -1464,7 +1425,7 @@
                         <button class="calendar-btn" id="prevMonth" aria-label="Previous month">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <div class="current-month" id="currentMonth">June 2025</div>
+                        <div class="current-month" id="currentMonth">Loading...</div>
                         <button class="calendar-btn" id="nextMonth" aria-label="Next month">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -1500,6 +1461,10 @@
     <!-- Booking Modal -->
     <div class="booking-modal" id="bookingModal">
         <div class="modal-content">
+            <div class="loading-overlay" id="modalLoading">
+                <div class="spinner"></div>
+            </div>
+            
             <div class="modal-header">
                 <h2 class="modal-title">Book a Service</h2>
                 <button class="modal-close" id="modalClose">&times;</button>
@@ -1509,30 +1474,33 @@
                 <div class="form-group">
                     <label class="form-label">Select Service</label>
                     <div class="service-selection">
-                        <div class="service-option" data-service="swim-lesson">
+                        <div class="service-option" data-service="swim-lesson" data-price="75">
                             <i class="fas fa-swimmer"></i>
                             <h4>Swim Lesson</h4>
+                            <div class="service-price">From $75/hour</div>
                         </div>
-                        <div class="service-option" data-service="lifeguard">
+                        <div class="service-option" data-service="lifeguard" data-price="45">
                             <i class="fas fa-user-shield"></i>
                             <h4>Lifeguard Service</h4>
+                            <div class="service-price">From $45/hour</div>
                         </div>
-                        <div class="service-option" data-service="event">
+                        <div class="service-option" data-service="event" data-price="65">
                             <i class="fas fa-calendar-alt"></i>
                             <h4>Special Event</h4>
+                            <div class="service-price">From $65/hour</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Selected Date</label>
-                    <input type="text" id="selectedDate" class="form-input" readonly placeholder="Select a date from the calendar">
+                    <input type="text" id="selectedDate" class="form-input" readonly placeholder="Click on a calendar date to select">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Available Time Slots</label>
                     <div class="time-slots" id="timeSlots">
-                        <!-- Time slots will be populated by JavaScript -->
+                        <p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>
                     </div>
                 </div>
                 
@@ -1593,6 +1561,8 @@
                     </div>
                 </div>
                 
+                <div class="message" id="bookingMessage"></div>
+                
                 <div class="modal-actions">
                     <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
                     <button type="submit" class="btn-primary" id="submitBooking" disabled>
@@ -1605,7 +1575,7 @@
     </div>
 
     <script>
-        // Client Portal System - Connected to Live D1 Database
+        // Production-Ready Client Portal System
         class ClientPortal {
             constructor() {
                 this.currentUser = null;
@@ -1615,27 +1585,39 @@
                 this.selectedTime = null;
                 this.bookings = [];
                 this.availabilityData = {};
+                this.isEditingBooking = false;
+                this.editingBookingId = null;
                 
-                // ** IMPORTANT: Update this to your actual Worker URL **
+                // API Configuration
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
+                
+                // Service pricing
+                this.servicePricing = {
+                    'swim-lesson': { base: 75, name: 'Private Swim Lesson' },
+                    'lifeguard': { base: 45, name: 'Lifeguard Service' },
+                    'event': { base: 65, name: 'Special Event Coverage' }
+                };
                 
                 this.init();
             }
 
-            init() {
+            async init() {
+                console.log('🏊‍♂️ Initializing 805 LifeGuard Client Portal...');
+                
                 this.setupEventListeners();
                 this.generateCalendar();
                 
-                // Check if user is already logged in
+                // Check authentication
                 const token = localStorage.getItem('authToken');
                 if (token) {
-                    this.validateToken(token);
+                    await this.validateToken(token);
                 } else {
                     this.showLogin();
                 }
             }
 
-            // Authentication Methods - Updated to use live API
+            // ==================== AUTHENTICATION ====================
+            
             async validateToken(token) {
                 try {
                     const response = await this.apiCall('/api/user/profile', 'GET', null, token);
@@ -1660,10 +1642,7 @@
                 const loginBtn = document.getElementById('loginBtn');
                 const errorDiv = document.getElementById('loginError');
 
-                // Show loading state
-                loginBtn.disabled = true;
-                loginBtn.querySelector('.btn-text').style.display = 'none';
-                loginBtn.querySelector('.loading').style.display = 'flex';
+                this.showLoadingState(loginBtn, 'Signing In...');
                 errorDiv.classList.remove('show');
 
                 try {
@@ -1673,11 +1652,9 @@
                     });
 
                     if (response && response.success) {
-                        // Store token and user data
                         localStorage.setItem('authToken', response.token);
                         this.currentUser = response.user;
                         
-                        // Load user data and show portal
                         await this.loadUserData();
                         setTimeout(() => {
                             this.showPortal();
@@ -1691,43 +1668,79 @@
                     errorDiv.textContent = error.message || 'Login failed. Please try again.';
                     errorDiv.classList.add('show');
                 } finally {
-                    // Reset button state
-                    loginBtn.disabled = false;
-                    loginBtn.querySelector('.btn-text').style.display = 'inline';
-                    loginBtn.querySelector('.loading').style.display = 'none';
+                    this.hideLoadingState(loginBtn, 'Sign In');
                 }
             }
 
+            handleLogout() {
+                localStorage.removeItem('authToken');
+                this.currentUser = null;
+                this.bookings = [];
+                this.availabilityData = {};
+                
+                document.getElementById('loginForm').reset();
+                this.showLogin();
+            }
+
+            // ==================== DATA LOADING ====================
+            
             async loadUserData() {
                 try {
+                    console.log('📊 Loading user data...');
+                    
                     // Load bookings
-                    const bookingsResponse = await this.apiCall('/api/bookings', 'GET');
-                    if (bookingsResponse && bookingsResponse.success) {
-                        this.bookings = bookingsResponse.bookings || [];
-                        this.updateStats();
-                        this.updateUpcomingBookings();
-                    }
-
+                    await this.loadBookings();
+                    
                     // Load availability
-                    const availabilityResponse = await this.apiCall('/api/availability', 'GET');
-                    if (availabilityResponse && availabilityResponse.success) {
-                        this.availabilityData = availabilityResponse.availability || {};
-                        this.generateCalendar();
-                    }
+                    await this.loadAvailability();
+                    
+                    // Update UI
+                    this.updatePortalUserInfo();
+                    this.updateStats();
+                    this.updateUpcomingBookings();
+                    this.generateCalendar();
+                    
+                    console.log('✅ User data loaded successfully');
                 } catch (error) {
                     console.error('Error loading user data:', error);
-                    // Still show portal even if data loading fails
+                    this.showMessage('Warning: Some data could not be loaded. Please refresh the page.', 'error');
                 }
             }
 
-            // API Call Helper - Fixed error handling
+            async loadBookings() {
+                try {
+                    const response = await this.apiCall('/api/bookings', 'GET');
+                    if (response && response.success) {
+                        this.bookings = response.bookings || [];
+                        console.log(`📅 Loaded ${this.bookings.length} bookings`);
+                    }
+                } catch (error) {
+                    console.error('Error loading bookings:', error);
+                    this.bookings = [];
+                }
+            }
+
+            async loadAvailability() {
+                try {
+                    const response = await this.apiCall('/api/availability', 'GET');
+                    if (response && response.success) {
+                        this.availabilityData = response.availability || {};
+                        console.log('📊 Availability data loaded');
+                    }
+                } catch (error) {
+                    console.error('Error loading availability:', error);
+                    this.availabilityData = {};
+                }
+            }
+
+            // ==================== API CALLS ====================
+            
             async apiCall(endpoint, method = 'GET', data = null, token = null) {
                 const url = `${this.apiBaseUrl}${endpoint}`;
                 const headers = {
                     'Content-Type': 'application/json',
                 };
 
-                // Add auth token
                 const authToken = token || localStorage.getItem('authToken');
                 if (authToken) {
                     headers['Authorization'] = `Bearer ${authToken}`;
@@ -1743,27 +1756,26 @@
                 }
 
                 try {
+                    console.log(`🌐 API ${method} ${endpoint}`);
                     const response = await fetch(url, config);
                     
-                    // Check if response is ok
                     if (!response.ok) {
-                        // Try to get error message from response
                         let errorMessage = `HTTP ${response.status}`;
                         try {
                             const errorData = await response.json();
                             errorMessage = errorData.error || errorMessage;
                         } catch (e) {
-                            // Response is not JSON, use status text
                             errorMessage = response.statusText || errorMessage;
                         }
                         throw new Error(errorMessage);
                     }
 
-                    return await response.json();
+                    const result = await response.json();
+                    console.log(`✅ API ${method} ${endpoint} - Success`);
+                    return result;
                 } catch (error) {
-                    console.error('API call failed:', error);
+                    console.error(`❌ API ${method} ${endpoint} - Error:`, error);
                     
-                    // Handle unauthorized errors
                     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
                         localStorage.removeItem('authToken');
                         this.showLogin();
@@ -1773,196 +1785,329 @@
                 }
             }
 
-            // Booking Methods (Updated to use API)
-            async handleBookingSubmission() {
-                const submitBtn = document.getElementById('submitBooking');
+            // ==================== CALENDAR FUNCTIONALITY ====================
+            
+            generateCalendar() {
+                const calendarGrid = document.getElementById('calendarGrid');
+                const currentMonthDisplay = document.getElementById('currentMonth');
                 
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="loading"><span class="spinner"></span>Processing...</span>';
-
-                try {
-                    const bookingData = {
-                        service: this.selectedService,
-                        date: this.selectedDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
-                        time: this.selectedTime,
-                        duration: parseFloat(document.getElementById('duration').value),
-                        participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value,
-                        cost: this.calculateEstimatedCost()
-                    };
-
-                    const response = await this.apiCall('/api/bookings', 'POST', bookingData);
-
-                    if (response && response.success) {
-                        // Add to local bookings array
-                        this.bookings.push(response.booking);
-                        
-                        // Update UI
-                        this.updateStats();
-                        this.updateUpcomingBookings();
-                        this.generateCalendar(); // Refresh calendar availability
-                        
-                        // Show success message
-                        this.showBookingSuccess(response.booking);
-                        
-                        // Close modal
-                        this.closeBookingModal();
-                    } else {
-                        throw new Error(response.error || 'Booking failed');
-                    }
-
-                } catch (error) {
-                    console.error('Booking submission error:', error);
-                    alert(`Error: ${error.message}`);
-                } finally {
-                    // Reset button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                }
-            }
-
-            async editBooking(bookingId) {
-                const booking = this.bookings.find(b => b.id === bookingId);
-                if (booking) {
-                    // Pre-populate the booking form with existing data
-                    this.selectedService = booking.service;
-                    this.selectedDate = new Date(booking.date + 'T00:00:00'); // Ensure proper date parsing
-                    this.selectedTime = booking.time;
-                    
-                    // Open modal and populate form
-                    this.openBookingModal(booking.service);
-                    
-                    // Set form values
-                    setTimeout(() => {
-                        document.getElementById('selectedDate').value = this.selectedDate.toLocaleDateString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        document.getElementById('duration').value = booking.duration;
-                        document.getElementById('participants').value = booking.participants;
-                        document.getElementById('specialRequests').value = booking.specialRequests || '';
-                        
-                        this.generateTimeSlots(this.selectedDate);
-                        this.updateBookingSummary();
-                        
-                        // Change submit button to update mode
-                        const submitBtn = document.getElementById('submitBooking');
-                        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Booking';
-                        submitBtn.onclick = () => this.updateExistingBooking(bookingId);
-                    }, 100);
-                }
-            }
-
-            async updateExistingBooking(bookingId) {
-                const submitBtn = document.getElementById('submitBooking');
+                if (!calendarGrid || !currentMonthDisplay) return;
                 
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="loading"><span class="spinner"></span>Updating...</span>';
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
 
-                try {
-                    const updateData = {
-                        service_type: this.selectedService,
-                        booking_date: this.selectedDate.toISOString().split('T')[0],
-                        booking_time: this.selectedTime,
-                        duration: parseFloat(document.getElementById('duration').value),
-                        participants: parseInt(document.getElementById('participants').value),
-                        special_requests: document.getElementById('specialRequests').value
-                    };
+                calendarGrid.innerHTML = '';
 
-                    const response = await this.apiCall(`/api/bookings/${bookingId}`, 'PUT', updateData);
+                // Day headers
+                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayHeaders.forEach(day => {
+                    const header = document.createElement('div');
+                    header.className = 'calendar-day-header';
+                    header.textContent = day;
+                    calendarGrid.appendChild(header);
+                });
 
-                    if (response && response.success) {
-                        // Update local booking
-                        const bookingIndex = this.bookings.findIndex(b => b.id === bookingId);
-                        if (bookingIndex !== -1) {
-                            Object.assign(this.bookings[bookingIndex], {
-                                service: updateData.service_type,
-                                date: updateData.booking_date,
-                                time: updateData.booking_time,
-                                duration: updateData.duration,
-                                participants: updateData.participants,
-                                specialRequests: updateData.special_requests
-                            });
-                        }
-                        
-                        // Update UI
-                        this.updateUpcomingBookings();
-                        this.generateCalendar();
-                        
-                        // Show success and close modal
-                        alert('Booking updated successfully!');
-                        this.closeBookingModal();
-                    } else {
-                        throw new Error(response.error || 'Update failed');
-                    }
+                // Generate calendar days
+                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
 
-                } catch (error) {
-                    console.error('Booking update error:', error);
-                    alert(`Error: ${error.message}`);
-                } finally {
-                    // Reset button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                    submitBtn.onclick = null; // Remove custom onclick
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < 42; i++) {
+                    const currentDay = new Date(startDate);
+                    currentDay.setDate(startDate.getDate() + i);
+                    
+                    const dayElement = this.createCalendarDay(currentDay, today);
+                    calendarGrid.appendChild(dayElement);
                 }
             }
 
-            async cancelBooking(bookingId) {
-                if (confirm('Are you sure you want to cancel this booking?')) {
-                    try {
-                        const response = await this.apiCall(`/api/bookings/${bookingId}`, 'DELETE');
-                        
-                        if (response && response.success) {
-                            // Update local booking status
-                            const booking = this.bookings.find(b => b.id === bookingId);
-                            if (booking) {
-                                booking.status = 'cancelled';
-                            }
-                            
-                            // Update UI
-                            this.updateUpcomingBookings();
-                            this.updateStats();
-                            this.generateCalendar();
-                            
-                            alert('Booking cancelled successfully.');
-                        } else {
-                            throw new Error(response.error || 'Cancellation failed');
+            createCalendarDay(date, today) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.setAttribute('tabindex', '0');
+                dayElement.setAttribute('role', 'button');
+                dayElement.setAttribute('aria-label', `Select ${date.toDateString()}`);
+
+                // Add classes
+                if (date.getMonth() !== this.currentDate.getMonth()) {
+                    dayElement.classList.add('other-month');
+                }
+
+                if (date.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                }
+
+                if (date < today) {
+                    dayElement.classList.add('past-date');
+                }
+
+                // Check if this date is selected
+                if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+
+                // Add availability status
+                const availability = this.getDateAvailability(date);
+                dayElement.classList.add(availability.status);
+
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = date.getDate();
+                dayElement.appendChild(dayNumber);
+
+                // Events container
+                const eventsContainer = document.createElement('div');
+                eventsContainer.className = 'day-events';
+                
+                availability.events.forEach(event => {
+                    const eventDot = document.createElement('div');
+                    eventDot.className = `event-dot event-${event.type}`;
+                    eventsContainer.appendChild(eventDot);
+                });
+
+                dayElement.appendChild(eventsContainer);
+
+                // Event listeners - Fixed to properly handle date selection
+                if (!dayElement.classList.contains('past-date') && !dayElement.classList.contains('other-month')) {
+                    dayElement.addEventListener('click', () => {
+                        this.selectCalendarDate(new Date(date));
+                    });
+
+                    dayElement.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectCalendarDate(new Date(date));
                         }
-                    } catch (error) {
-                        console.error('Booking cancellation error:', error);
-                        alert(`Error: ${error.message}`);
+                    });
+                }
+
+                return dayElement;
+            }
+
+            selectCalendarDate(date) {
+                console.log('📅 Calendar date selected:', date.toDateString());
+                
+                // Clear previous selection
+                document.querySelectorAll('.calendar-day.selected').forEach(day => {
+                    day.classList.remove('selected');
+                });
+                
+                // Set new selection
+                this.selectedDate = date;
+                
+                // Update visual selection
+                this.generateCalendar(); // Regenerate to show selection
+                
+                // Open booking modal with pre-selected date
+                this.openBookingModal();
+                
+                // Update the date input in the modal
+                this.updateSelectedDateInput();
+            }
+
+            updateSelectedDateInput() {
+                const selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput && this.selectedDate) {
+                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    // Generate time slots if service is selected
+                    if (this.selectedService) {
+                        this.generateTimeSlots();
                     }
                 }
             }
 
-            // Updated availability methods
+            navigateMonth(direction) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
+                this.generateCalendar();
+            }
+
             getDateAvailability(date) {
                 const dateKey = date.toISOString().split('T')[0];
-                return this.availabilityData[dateKey] || {
-                    status: 'available',
-                    events: [{ type: 'available' }]
-                };
+                
+                // Check for user's existing bookings
+                const userBookings = this.bookings.filter(booking => 
+                    booking.date === dateKey && booking.status !== 'cancelled'
+                );
+                
+                if (userBookings.length > 0) {
+                    return {
+                        status: 'booked',
+                        events: [{ type: 'lesson' }]
+                    };
+                }
+                
+                // Default availability (this could be enhanced with real availability data)
+                const dayOfWeek = date.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
+                    return {
+                        status: 'available',
+                        events: [{ type: 'available' }]
+                    };
+                } else { // Weekday
+                    return {
+                        status: 'available',
+                        events: [{ type: 'available' }]
+                    };
+                }
+            }
+
+            // ==================== BOOKING FUNCTIONALITY ====================
+            
+            quickBook(serviceType) {
+                this.selectedService = serviceType;
+                this.openBookingModal();
+                
+                // Pre-select the service
+                setTimeout(() => {
+                    this.selectService(serviceType);
+                }, 100);
+            }
+
+            openBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                console.log('🔄 Opening booking modal');
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                // Update date input if date is already selected
+                if (this.selectedDate) {
+                    this.updateSelectedDateInput();
+                }
+                
+                // Pre-select service if already chosen
+                if (this.selectedService) {
+                    setTimeout(() => {
+                        this.selectService(this.selectedService);
+                    }, 100);
+                }
+
+                // Focus management
+                setTimeout(() => {
+                    const firstFocusable = modal.querySelector('button, input, select, textarea');
+                    if (firstFocusable) {
+                        firstFocusable.focus();
+                    }
+                }, 100);
+            }
+
+            closeBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                this.resetBookingForm();
+            }
+
+            selectService(serviceType) {
+                console.log('🎯 Service selected:', serviceType);
+                
+                // Clear previous selection
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // Select new service
+                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                    this.selectedService = serviceType;
+                    
+                    // Generate time slots if date is selected
+                    if (this.selectedDate) {
+                        this.generateTimeSlots();
+                    }
+                    
+                    this.updateBookingSummary();
+                }
+            }
+
+            async generateTimeSlots() {
+                const timeSlotsContainer = document.getElementById('timeSlots');
+                if (!timeSlotsContainer || !this.selectedDate || !this.selectedService) return;
+                
+                console.log('⏰ Generating time slots for', this.selectedDate.toDateString(), this.selectedService);
+                
+                timeSlotsContainer.innerHTML = '<div class="loading"><div class="spinner"></div>Loading available times...</div>';
+
+                try {
+                    const availableSlots = await this.getAvailableTimeSlots(this.selectedDate, this.selectedService);
+                    
+                    timeSlotsContainer.innerHTML = '';
+
+                    if (availableSlots.length === 0) {
+                        timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error); padding: 20px;">No available time slots for this date</p>';
+                        return;
+                    }
+
+                    availableSlots.forEach(slot => {
+                        const timeSlot = document.createElement('div');
+                        timeSlot.className = 'time-slot';
+                        timeSlot.textContent = slot.time;
+                        timeSlot.dataset.time = slot.time;
+
+                        if (!slot.available) {
+                            timeSlot.classList.add('unavailable');
+                            timeSlot.title = 'This time slot is not available';
+                        } else {
+                            timeSlot.addEventListener('click', () => {
+                                this.selectTimeSlot(timeSlot);
+                            });
+                            
+                            timeSlot.addEventListener('keydown', (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    this.selectTimeSlot(timeSlot);
+                                }
+                            });
+                            
+                            timeSlot.setAttribute('tabindex', '0');
+                            timeSlot.setAttribute('role', 'button');
+                        }
+
+                        timeSlotsContainer.appendChild(timeSlot);
+                    });
+                } catch (error) {
+                    console.error('Error generating time slots:', error);
+                    timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading time slots</p>';
+                }
             }
 
             async getAvailableTimeSlots(date, serviceType) {
-                // This could be enhanced to make a specific API call for time slots
-                // For now, using the existing logic with some random availability
-                const baseSlots = [
-                    '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
-                    '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM',
-                    '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM'
-                ];
-
-                let availableSlots = [...baseSlots];
+                // Generate base time slots based on service type
+                let baseSlots = [];
                 
                 if (serviceType === 'swim-lesson') {
-                    availableSlots = baseSlots.slice(2, 9); // 10 AM to 5 PM
+                    baseSlots = [
+                        '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+                    ];
+                } else if (serviceType === 'lifeguard') {
+                    baseSlots = [
+                        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+                        '6:00 PM', '7:00 PM', '8:00 PM'
+                    ];
                 } else if (serviceType === 'event') {
-                    availableSlots = baseSlots;
+                    baseSlots = [
+                        '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
+                        '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'
+                    ];
                 }
 
                 // Check against existing bookings
@@ -1971,27 +2116,423 @@
                     booking.date === dateStr && booking.status !== 'cancelled'
                 );
 
-                return availableSlots.map(time => ({
+                return baseSlots.map(time => ({
                     time,
                     available: !existingBookings.some(booking => booking.time === time)
                 }));
             }
 
-            // Keep all the existing UI methods but update logout
-            handleLogout() {
-                // Clear token and user data
-                localStorage.removeItem('authToken');
-                this.currentUser = null;
-                this.bookings = [];
+            selectTimeSlot(timeSlotElement) {
+                if (timeSlotElement.classList.contains('unavailable')) return;
+
+                console.log('⏰ Time slot selected:', timeSlotElement.dataset.time);
+
+                // Clear previous selection
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+
+                // Select new time slot
+                timeSlotElement.classList.add('selected');
+                this.selectedTime = timeSlotElement.dataset.time;
                 
-                // Reset form
-                document.getElementById('loginForm').reset();
-                
-                // Show login screen
-                this.showLogin();
+                this.updateBookingSummary();
+                this.validateBookingForm();
             }
 
-            // Setup Event Listeners - Fixed
+            updateBookingSummary() {
+                const summaryContainer = document.getElementById('bookingSummary');
+                if (!summaryContainer) return;
+                
+                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
+                    summaryContainer.style.display = 'none';
+                    return;
+                }
+
+                summaryContainer.style.display = 'block';
+
+                // Update summary fields
+                const summaryService = document.getElementById('summaryService');
+                const summaryDate = document.getElementById('summaryDate');
+                const summaryTime = document.getElementById('summaryTime');
+                const summaryDuration = document.getElementById('summaryDuration');
+                const summaryParticipants = document.getElementById('summaryParticipants');
+                const summaryTotal = document.getElementById('summaryTotal');
+
+                if (summaryService) summaryService.textContent = this.servicePricing[this.selectedService].name;
+                if (summaryDate) summaryDate.textContent = this.selectedDate.toLocaleDateString();
+                if (summaryTime) summaryTime.textContent = this.selectedTime;
+                
+                const duration = document.getElementById('duration')?.value || '1';
+                if (summaryDuration) summaryDuration.textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
+                
+                const participants = document.getElementById('participants')?.value || '1';
+                if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
+
+                const cost = this.calculateEstimatedCost();
+                if (summaryTotal) summaryTotal.textContent = `$${cost}`;
+            }
+
+            calculateEstimatedCost() {
+                if (!this.selectedService) return 0;
+
+                const durationElement = document.getElementById('duration');
+                const participantsElement = document.getElementById('participants');
+                
+                const duration = parseFloat(durationElement?.value || '1');
+                const participants = parseInt(participantsElement?.value || '1');
+                
+                let basePrice = this.servicePricing[this.selectedService].base;
+                let totalCost = basePrice * duration;
+
+                // Apply participant multipliers
+                if (this.selectedService === 'swim-lesson' && participants > 2) {
+                    totalCost *= 1.5; // Group lesson pricing
+                } else if (this.selectedService === 'event' && participants >= 5) {
+                    totalCost *= 1.8; // Large event pricing
+                }
+
+                return Math.round(totalCost);
+            }
+
+            validateBookingForm() {
+                const submitBtn = document.getElementById('submitBooking');
+                if (!submitBtn) return;
+                
+                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
+                
+                submitBtn.disabled = !isValid;
+                
+                if (isValid) {
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                } else {
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
+                }
+            }
+
+            async handleBookingSubmission() {
+                console.log('📝 Submitting booking...');
+                
+                const submitBtn = document.getElementById('submitBooking');
+                this.showLoadingState(submitBtn, 'Processing...');
+
+                try {
+                    const bookingData = {
+                        service: this.selectedService,
+                        date: this.selectedDate.toISOString().split('T')[0],
+                        time: this.selectedTime,
+                        duration: parseFloat(document.getElementById('duration').value),
+                        participants: parseInt(document.getElementById('participants').value),
+                        specialRequests: document.getElementById('specialRequests').value,
+                        cost: this.calculateEstimatedCost()
+                    };
+
+                    let response;
+                    if (this.isEditingBooking) {
+                        response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
+                    } else {
+                        response = await this.apiCall('/api/bookings', 'POST', bookingData);
+                    }
+
+                    if (response && response.success) {
+                        if (this.isEditingBooking) {
+                            // Update existing booking
+                            const bookingIndex = this.bookings.findIndex(b => b.id === this.editingBookingId);
+                            if (bookingIndex !== -1) {
+                                this.bookings[bookingIndex] = { ...this.bookings[bookingIndex], ...bookingData };
+                            }
+                            this.showMessage('Booking updated successfully!', 'success');
+                        } else {
+                            // Add new booking
+                            this.bookings.push(response.booking);
+                            this.showMessage('Booking request submitted successfully!', 'success');
+                        }
+                        
+                        // Update UI
+                        this.updateStats();
+                        this.updateUpcomingBookings();
+                        this.generateCalendar();
+                        
+                        // Close modal after delay
+                        setTimeout(() => {
+                            this.closeBookingModal();
+                        }, 2000);
+                    } else {
+                        throw new Error(response.error || 'Booking submission failed');
+                    }
+
+                } catch (error) {
+                    console.error('Booking submission error:', error);
+                    this.showMessage(`Error: ${error.message}`, 'error');
+                } finally {
+                    this.hideLoadingState(submitBtn, this.isEditingBooking ? 'Update Booking' : 'Request Booking');
+                }
+            }
+
+            async editBooking(bookingId) {
+                const booking = this.bookings.find(b => b.id === bookingId);
+                if (!booking) return;
+                
+                console.log('✏️ Editing booking:', bookingId);
+                
+                this.isEditingBooking = true;
+                this.editingBookingId = bookingId;
+                
+                // Set form data
+                this.selectedService = booking.service;
+                this.selectedDate = new Date(booking.date + 'T00:00:00');
+                this.selectedTime = booking.time;
+                
+                this.openBookingModal();
+                
+                // Populate form
+                setTimeout(() => {
+                    this.selectService(booking.service);
+                    this.updateSelectedDateInput();
+                    
+                    document.getElementById('duration').value = booking.duration;
+                    document.getElementById('participants').value = booking.participants;
+                    document.getElementById('specialRequests').value = booking.specialRequests || '';
+                    
+                    this.generateTimeSlots().then(() => {
+                        // Select the time slot
+                        const timeSlot = document.querySelector(`[data-time="${booking.time}"]`);
+                        if (timeSlot) {
+                            this.selectTimeSlot(timeSlot);
+                        }
+                    });
+                    
+                    // Update submit button
+                    const submitBtn = document.getElementById('submitBooking');
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Booking';
+                }, 200);
+            }
+
+            async cancelBooking(bookingId) {
+                if (!confirm('Are you sure you want to cancel this booking?')) return;
+                
+                try {
+                    const response = await this.apiCall(`/api/bookings/${bookingId}`, 'DELETE');
+                    
+                    if (response && response.success) {
+                        // Update local booking status
+                        const booking = this.bookings.find(b => b.id === bookingId);
+                        if (booking) {
+                            booking.status = 'cancelled';
+                        }
+                        
+                        this.updateUpcomingBookings();
+                        this.updateStats();
+                        this.generateCalendar();
+                        
+                        this.showMessage('Booking cancelled successfully.', 'success');
+                    } else {
+                        throw new Error(response.error || 'Cancellation failed');
+                    }
+                } catch (error) {
+                    console.error('Booking cancellation error:', error);
+                    this.showMessage(`Error: ${error.message}`, 'error');
+                }
+            }
+
+            resetBookingForm() {
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) bookingForm.reset();
+                
+                // Clear selections
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+
+                // Reset variables
+                this.selectedService = null;
+                this.selectedTime = null;
+                this.isEditingBooking = false;
+                this.editingBookingId = null;
+
+                // Hide summary
+                const bookingSummary = document.getElementById('bookingSummary');
+                if (bookingSummary) bookingSummary.style.display = 'none';
+                
+                // Clear time slots
+                const timeSlots = document.getElementById('timeSlots');
+                if (timeSlots) timeSlots.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>';
+                
+                // Reset submit button
+                const submitBtn = document.getElementById('submitBooking');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                }
+                
+                // Clear messages
+                this.hideMessage();
+            }
+
+            // ==================== UI UPDATES ====================
+            
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                this.updatePortalUserInfo();
+                document.body.style.overflow = 'auto';
+                
+                console.log('🎉 Portal loaded successfully!');
+            }
+
+            updatePortalUserInfo() {
+                if (!this.currentUser) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const welcomeName = document.getElementById('welcomeName');
+                const memberSince = document.getElementById('memberSince');
+                const userEmail = document.getElementById('userEmail');
+                const userPhone = document.getElementById('userPhone');
+                const userAddress = document.getElementById('userAddress');
+                const userEmergencyContact = document.getElementById('userEmergencyContact');
+
+                if (userAvatar) userAvatar.textContent = this.currentUser.avatar || 'U';
+                if (userName) userName.textContent = this.currentUser.name || 'User';
+                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
+                if (userEmail) userEmail.textContent = this.currentUser.email || 'Not provided';
+                if (userPhone) userPhone.textContent = this.currentUser.phone || 'Not provided';
+                if (userAddress) userAddress.textContent = this.currentUser.address || 'Not provided';
+                if (userEmergencyContact) userEmergencyContact.textContent = this.currentUser.emergency_contact || 'Not provided';
+                
+                if (memberSince && this.currentUser.member_since) {
+                    const memberSinceDate = new Date(this.currentUser.member_since);
+                    memberSince.textContent = memberSinceDate.getFullYear();
+                }
+            }
+
+            updateStats() {
+                const totalBookings = this.bookings.length;
+                const upcomingBookings = this.bookings.filter(booking => 
+                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
+                ).length;
+                
+                const thisMonth = new Date();
+                const monthlyLessons = this.bookings.filter(booking => {
+                    const bookingDate = new Date(booking.date);
+                    return bookingDate.getMonth() === thisMonth.getMonth() &&
+                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
+                           booking.service === 'swim-lesson' &&
+                           booking.status !== 'cancelled';
+                }).length;
+
+                this.animateNumber('totalBookings', totalBookings);
+                this.animateNumber('upcomingBookings', upcomingBookings);
+                this.animateNumber('monthlyLessons', monthlyLessons);
+            }
+
+            animateNumber(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = parseInt(element.textContent) || 0;
+                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 20));
+                
+                const timer = setInterval(() => {
+                    if (currentValue < targetValue) {
+                        currentValue = Math.min(currentValue + increment, targetValue);
+                        element.textContent = currentValue;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+
+            updateUpcomingBookings() {
+                const container = document.getElementById('upcomingBookingsList');
+                if (!container) return;
+                
+                const upcomingBookings = this.bookings
+                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+
+                container.innerHTML = '';
+
+                if (upcomingBookings.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
+                            <i class="fas fa-calendar-plus" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                            <p>No upcoming bookings</p>
+                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Book Now
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                upcomingBookings.forEach(booking => {
+                    const bookingElement = this.createBookingElement(booking);
+                    container.appendChild(bookingElement);
+                });
+            }
+
+            createBookingElement(booking) {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.className = 'booking-item';
+                
+                const statusClass = `status-${booking.status}`;
+                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+                
+                const bookingDate = new Date(booking.date);
+                const isToday = this.isToday(bookingDate);
+                const isTomorrow = this.isTomorrow(bookingDate);
+                
+                let dateDisplay = bookingDate.toLocaleDateString();
+                if (isToday) dateDisplay = 'Today';
+                else if (isTomorrow) dateDisplay = 'Tomorrow';
+
+                const serviceName = this.servicePricing[booking.service]?.name || booking.service;
+
+                bookingDiv.innerHTML = `
+                    <div class="booking-header">
+                        <div class="booking-title">${serviceName}</div>
+                        <div class="booking-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="booking-details">
+                        <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
+                        <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                        ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
+                    </div>
+                    <div class="booking-actions">
+                        <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        ${booking.status === 'pending' || booking.status === 'confirmed' ? `
+                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+
+                return bookingDiv;
+            }
+
+            // ==================== EVENT LISTENERS ====================
+            
             setupEventListeners() {
                 // Login form
                 const loginForm = document.getElementById('loginForm');
@@ -2062,7 +2603,7 @@
                     });
                 }
 
-                // Form change listeners for real-time updates
+                // Form change listeners
                 ['duration', 'participants'].forEach(id => {
                     const element = document.getElementById(id);
                     if (element) {
@@ -2072,7 +2613,7 @@
                     }
                 });
 
-                // Close modal when clicking outside
+                // Modal backdrop
                 const bookingModal = document.getElementById('bookingModal');
                 if (bookingModal) {
                     bookingModal.addEventListener('click', (e) => {
@@ -2082,7 +2623,7 @@
                     });
                 }
 
-                // Keyboard navigation
+                // Keyboard shortcuts
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
                         this.closeBookingModal();
@@ -2090,44 +2631,8 @@
                 });
             }
 
-            showLogin() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('portalContainer');
-                if (loginContainer) loginContainer.style.display = 'flex';
-                if (portalContainer) portalContainer.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-
-            showPortal() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('portalContainer');
-                if (loginContainer) loginContainer.style.display = 'none';
-                if (portalContainer) portalContainer.style.display = 'block';
-                
-                // Update user info in portal
-                this.updatePortalUserInfo();
-                document.body.style.overflow = 'auto';
-            }
-
-            updatePortalUserInfo() {
-                if (!this.currentUser) return;
-
-                const userAvatar = document.getElementById('userAvatar');
-                const userName = document.getElementById('userName');
-                const welcomeName = document.getElementById('welcomeName');
-                const memberSince = document.getElementById('memberSince');
-
-                if (userAvatar) userAvatar.textContent = this.currentUser.avatar || 'U';
-                if (userName) userName.textContent = this.currentUser.name || 'User';
-                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
-                
-                // Set member since year
-                if (memberSince && this.currentUser.member_since) {
-                    const memberSinceDate = new Date(this.currentUser.member_since);
-                    memberSince.textContent = memberSinceDate.getFullYear();
-                }
-            }
-
+            // ==================== UTILITY FUNCTIONS ====================
+            
             togglePassword() {
                 const passwordInput = document.getElementById('password');
                 const toggleBtn = document.getElementById('passwordToggle');
@@ -2142,477 +2647,36 @@
                 }
             }
 
-            // Calendar Methods (keep existing implementation)
-            generateCalendar() {
-                const calendarGrid = document.getElementById('calendarGrid');
-                const currentMonthDisplay = document.getElementById('currentMonth');
-                
-                if (!calendarGrid || !currentMonthDisplay) return;
-                
-                // Update month display
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+            showLoadingState(button, text) {
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
 
-                // Clear existing calendar
-                calendarGrid.innerHTML = '';
+            hideLoadingState(button, text) {
+                button.disabled = false;
+                button.innerHTML = text;
+            }
 
-                // Add day headers
-                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayHeaders.forEach(day => {
-                    const header = document.createElement('div');
-                    header.className = 'calendar-day-header';
-                    header.textContent = day;
-                    calendarGrid.appendChild(header);
-                });
-
-                // Get first day of month and number of days
-                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-                const lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
-                const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-                // Generate calendar days
-                for (let i = 0; i < 42; i++) {
-                    const currentDay = new Date(startDate);
-                    currentDay.setDate(startDate.getDate() + i);
+            showMessage(message, type = 'success') {
+                const messageElement = document.getElementById('bookingMessage');
+                if (messageElement) {
+                    messageElement.textContent = message;
+                    messageElement.className = `message ${type} show`;
                     
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day';
-                    dayElement.setAttribute('tabindex', '0');
-                    dayElement.setAttribute('role', 'button');
-                    dayElement.setAttribute('aria-label', `Select ${currentDay.toDateString()}`);
-
-                    // Add appropriate classes
-                    if (currentDay.getMonth() !== this.currentDate.getMonth()) {
-                        dayElement.classList.add('other-month');
-                    }
-
-                    if (this.isToday(currentDay)) {
-                        dayElement.classList.add('today');
-                    }
-
-                    // Add availability status
-                    const availability = this.getDateAvailability(currentDay);
-                    dayElement.classList.add(availability.status);
-
-                    // Day number
-                    const dayNumber = document.createElement('div');
-                    dayNumber.className = 'day-number';
-                    dayNumber.textContent = currentDay.getDate();
-                    dayElement.appendChild(dayNumber);
-
-                    // Events container
-                    const eventsContainer = document.createElement('div');
-                    eventsContainer.className = 'day-events';
-                    
-                    // Add availability indicators
-                    availability.events.forEach(event => {
-                        const eventDot = document.createElement('div');
-                        eventDot.className = `event-dot event-${event.type}`;
-                        eventsContainer.appendChild(eventDot);
-                    });
-
-                    dayElement.appendChild(eventsContainer);
-
-                    // Click handler for date selection
-                    dayElement.addEventListener('click', () => {
-                        this.selectDate(new Date(currentDay));
-                    });
-
-                    // Keyboard navigation
-                    dayElement.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.selectDate(new Date(currentDay));
-                        }
-                    });
-
-                    calendarGrid.appendChild(dayElement);
+                    // Auto-hide after 5 seconds
+                    setTimeout(() => {
+                        this.hideMessage();
+                    }, 5000);
                 }
             }
 
-            navigateMonth(direction) {
-                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
-                this.generateCalendar();
-            }
-
-            selectDate(date) {
-                // Don't allow selection of past dates
-                if (date < new Date().setHours(0, 0, 0, 0)) {
-                    return;
-                }
-
-                this.selectedDate = date;
-                
-                // Update selected date in booking form
-                const selectedDateInput = document.getElementById('selectedDate');
-                if (selectedDateInput) {
-                    selectedDateInput.value = date.toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                }
-
-                // Generate time slots for selected date
-                this.generateTimeSlots(date);
-                
-                // Open booking modal if not already open
-                const bookingModal = document.getElementById('bookingModal');
-                if (bookingModal && !bookingModal.classList.contains('show')) {
-                    this.openBookingModal();
+            hideMessage() {
+                const messageElement = document.getElementById('bookingMessage');
+                if (messageElement) {
+                    messageElement.classList.remove('show');
                 }
             }
 
-            openBookingModal(serviceType = null) {
-                const modal = document.getElementById('bookingModal');
-                if (!modal) return;
-                
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-
-                // Pre-select service if specified
-                if (serviceType) {
-                    this.selectService(serviceType);
-                }
-
-                // Focus management for accessibility
-                setTimeout(() => {
-                    const firstFocusableElement = modal.querySelector('button, input, select, textarea');
-                    if (firstFocusableElement) {
-                        firstFocusableElement.focus();
-                    }
-                }, 100);
-            }
-
-            closeBookingModal() {
-                const modal = document.getElementById('bookingModal');
-                if (!modal) return;
-                
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                
-                // Reset form
-                this.resetBookingForm();
-            }
-
-            selectService(serviceType) {
-                // Clear previous selection
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-
-                // Select new service
-                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
-                if (selectedOption) {
-                    selectedOption.classList.add('selected');
-                    this.selectedService = serviceType;
-                    
-                    // Update time slots based on service
-                    if (this.selectedDate) {
-                        this.generateTimeSlots(this.selectedDate);
-                    }
-                    
-                    // Update booking summary
-                    this.updateBookingSummary();
-                }
-            }
-
-            // Update the generateTimeSlots method to be async
-            async generateTimeSlots(date) {
-                const timeSlotsContainer = document.getElementById('timeSlots');
-                if (!timeSlotsContainer) return;
-                
-                timeSlotsContainer.innerHTML = '';
-
-                try {
-                    // Get available time slots for the selected date and service
-                    const availableSlots = await this.getAvailableTimeSlots(date, this.selectedService);
-
-                    availableSlots.forEach(slot => {
-                        const timeSlot = document.createElement('div');
-                        timeSlot.className = 'time-slot';
-                        timeSlot.textContent = slot.time;
-                        timeSlot.dataset.time = slot.time;
-                        timeSlot.dataset.available = slot.available;
-
-                        if (!slot.available) {
-                            timeSlot.classList.add('unavailable');
-                            timeSlot.title = 'This time slot is not available';
-                        } else {
-                            timeSlot.addEventListener('click', () => {
-                                this.selectTimeSlot(timeSlot);
-                            });
-                            
-                            timeSlot.addEventListener('keydown', (e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault();
-                                    this.selectTimeSlot(timeSlot);
-                                }
-                            });
-                            
-                            timeSlot.setAttribute('tabindex', '0');
-                            timeSlot.setAttribute('role', 'button');
-                        }
-
-                        timeSlotsContainer.appendChild(timeSlot);
-                    });
-                } catch (error) {
-                    console.error('Error generating time slots:', error);
-                    timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading time slots</p>';
-                }
-            }
-
-            selectTimeSlot(timeSlotElement) {
-                if (timeSlotElement.classList.contains('unavailable')) return;
-
-                // Clear previous selection
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-
-                // Select new time slot
-                timeSlotElement.classList.add('selected');
-                this.selectedTime = timeSlotElement.dataset.time;
-                
-                // Update booking summary
-                this.updateBookingSummary();
-                
-                // Enable submit button if all required fields are filled
-                this.validateBookingForm();
-            }
-
-            updateBookingSummary() {
-                const summaryContainer = document.getElementById('bookingSummary');
-                if (!summaryContainer) return;
-                
-                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
-                    summaryContainer.style.display = 'none';
-                    return;
-                }
-
-                summaryContainer.style.display = 'block';
-
-                // Update summary fields
-                const serviceNames = {
-                    'swim-lesson': 'Private Swim Lesson',
-                    'lifeguard': 'Lifeguard Service',
-                    'event': 'Special Event Coverage'
-                };
-
-                const summaryService = document.getElementById('summaryService');
-                const summaryDate = document.getElementById('summaryDate');
-                const summaryTime = document.getElementById('summaryTime');
-                const summaryDuration = document.getElementById('summaryDuration');
-                const summaryParticipants = document.getElementById('summaryParticipants');
-                const summaryTotal = document.getElementById('summaryTotal');
-
-                if (summaryService) summaryService.textContent = serviceNames[this.selectedService];
-                if (summaryDate) summaryDate.textContent = this.selectedDate.toLocaleDateString();
-                if (summaryTime) summaryTime.textContent = this.selectedTime;
-                
-                const duration = document.getElementById('duration')?.value || '1';
-                if (summaryDuration) summaryDuration.textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
-                
-                const participants = document.getElementById('participants')?.value || '1';
-                if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
-
-                // Calculate estimated cost
-                const cost = this.calculateEstimatedCost();
-                if (summaryTotal) summaryTotal.textContent = `$${cost}`;
-            }
-
-            calculateEstimatedCost() {
-                if (!this.selectedService) return 0;
-
-                const basePrices = {
-                    'swim-lesson': 75,
-                    'lifeguard': 45,
-                    'event': 65
-                };
-
-                const durationElement = document.getElementById('duration');
-                const participantsElement = document.getElementById('participants');
-                
-                const duration = parseFloat(durationElement?.value || '1');
-                const participants = parseInt(participantsElement?.value || '1');
-                
-                let basePrice = basePrices[this.selectedService];
-                let totalCost = basePrice * duration;
-
-                // Apply participant multiplier for certain services
-                if (this.selectedService === 'swim-lesson' && participants > 2) {
-                    totalCost *= 1.5; // Group lesson pricing
-                } else if (this.selectedService === 'event' && participants >= 5) {
-                    totalCost *= 1.8; // Large event pricing
-                }
-
-                return Math.round(totalCost);
-            }
-
-            validateBookingForm() {
-                const submitBtn = document.getElementById('submitBooking');
-                if (!submitBtn) return;
-                
-                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
-                
-                submitBtn.disabled = !isValid;
-                
-                if (isValid) {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
-                }
-            }
-
-            resetBookingForm() {
-                const bookingForm = document.getElementById('bookingForm');
-                if (bookingForm) bookingForm.reset();
-                
-                // Clear selections
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-
-                // Reset variables
-                this.selectedService = null;
-                this.selectedTime = null;
-                this.selectedDate = null;
-
-                // Hide summary
-                const bookingSummary = document.getElementById('bookingSummary');
-                if (bookingSummary) bookingSummary.style.display = 'none';
-                
-                // Clear time slots
-                const timeSlots = document.getElementById('timeSlots');
-                if (timeSlots) timeSlots.innerHTML = '';
-                
-                // Disable submit button
-                const submitBtn = document.getElementById('submitBooking');
-                if (submitBtn) submitBtn.disabled = true;
-            }
-
-            showBookingSuccess(booking) {
-                const serviceName = {
-                    'swim-lesson': 'Private Swim Lesson',
-                    'lifeguard': 'Lifeguard Service',
-                    'event': 'Special Event Coverage'
-                }[booking.service] || booking.service;
-
-                const successMessage = `
-Booking request submitted successfully!
-
-Service: ${serviceName}
-Date: ${new Date(booking.date).toLocaleDateString()}
-Time: ${booking.time}
-
-You will receive a confirmation email shortly.
-                `;
-                
-                alert(successMessage);
-                
-                // Refresh the upcoming bookings display
-                this.updateUpcomingBookings();
-            }
-
-            updateStats() {
-                const totalBookings = this.bookings.length;
-                const upcomingBookings = this.bookings.filter(booking => 
-                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
-                ).length;
-                
-                const thisMonth = new Date();
-                const monthlyLessons = this.bookings.filter(booking => {
-                    const bookingDate = new Date(booking.date);
-                    return bookingDate.getMonth() === thisMonth.getMonth() &&
-                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
-                           booking.service === 'swim-lesson';
-                }).length;
-
-                const totalBookingsElement = document.getElementById('totalBookings');
-                const upcomingBookingsElement = document.getElementById('upcomingBookings');
-                const monthlyLessonsElement = document.getElementById('monthlyLessons');
-
-                if (totalBookingsElement) totalBookingsElement.textContent = totalBookings;
-                if (upcomingBookingsElement) upcomingBookingsElement.textContent = upcomingBookings;
-                if (monthlyLessonsElement) monthlyLessonsElement.textContent = monthlyLessons;
-            }
-
-            updateUpcomingBookings() {
-                const container = document.getElementById('upcomingBookingsList');
-                if (!container) return;
-                
-                const upcomingBookings = this.bookings
-                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .slice(0, 3); // Show only next 3 bookings
-
-                container.innerHTML = '';
-
-                upcomingBookings.forEach(booking => {
-                    const bookingElement = this.createBookingElement(booking);
-                    container.appendChild(bookingElement);
-                });
-
-                if (upcomingBookings.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">No upcoming bookings</p>';
-                }
-            }
-
-            createBookingElement(booking) {
-                const bookingDiv = document.createElement('div');
-                bookingDiv.className = 'booking-item';
-                
-                const statusClass = `status-${booking.status}`;
-                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
-                
-                const bookingDate = new Date(booking.date);
-                const isToday = this.isToday(bookingDate);
-                const isTomorrow = this.isTomorrow(bookingDate);
-                
-                let dateDisplay = bookingDate.toLocaleDateString();
-                if (isToday) dateDisplay = 'Today';
-                else if (isTomorrow) dateDisplay = 'Tomorrow';
-
-                const serviceName = {
-                    'swim-lesson': 'Private Swim Lesson',
-                    'lifeguard': 'Lifeguard Service',
-                    'event': 'Special Event Coverage'
-                }[booking.service] || booking.service;
-
-                bookingDiv.innerHTML = `
-                    <div class="booking-header">
-                        <div class="booking-title">${serviceName}</div>
-                        <div class="booking-status ${statusClass}">${statusText}</div>
-                    </div>
-                    <div class="booking-details">
-                        <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
-                        <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
-                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
-                        ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
-                    </div>
-                    <div class="booking-actions">
-                        <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        ${booking.status === 'pending' ? `
-                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
-                                <i class="fas fa-times"></i> Cancel
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
-
-                return bookingDiv;
-            }
-
-            // Utility methods
             isToday(date) {
                 const today = new Date();
                 return date.toDateString() === today.toDateString();
@@ -2625,38 +2689,181 @@ You will receive a confirmation email shortly.
             }
 
             showAllBookings() {
-                alert('All bookings view would open here. This is a demo feature.');
+                // This would open a full bookings view - for now, just open booking modal
+                this.openBookingModal();
             }
 
             showAccountSettings() {
-                alert('Account settings would open here. This is a demo feature.');
+                // This would open account settings - for now, just show a message
+                alert('Account settings feature coming soon! For now, contact us at (805) 367-6432 to update your information.');
+            }
+
+            // ==================== DEMO DATA GENERATORS ====================
+            
+            generateDemoAvailability() {
+                // Generate some demo availability data for the next 60 days
+                const today = new Date();
+                const availabilityData = {};
+                
+                for (let i = 0; i < 60; i++) {
+                    const date = new Date(today);
+                    date.setDate(today.getDate() + i);
+                    const dateKey = date.toISOString().split('T')[0];
+                    
+                    // Random availability
+                    const dayOfWeek = date.getDay();
+                    let status = 'available';
+                    let events = [{ type: 'available' }];
+                    
+                    if (Math.random() < 0.1) { // 10% chance of being unavailable
+                        status = 'unavailable';
+                        events = [{ type: 'unavailable' }];
+                    } else if (Math.random() < 0.3) { // 30% chance of being partially booked
+                        status = 'booked';
+                        events = [{ type: 'booked' }];
+                    }
+                    
+                    availabilityData[dateKey] = { status, events };
+                }
+                
+                return availabilityData;
             }
         }
 
+        // ==================== GLOBAL FUNCTIONS ====================
+        
+        // Global functions for inline event handlers
+        function openBookingModal(serviceType = null) {
+            if (window.portal) {
+                window.portal.openBookingModal(serviceType);
+            }
+        }
+
+        function showAllBookings() {
+            if (window.portal) {
+                window.portal.showAllBookings();
+            }
+        }
+
+        function showAccountSettings() {
+            if (window.portal) {
+                window.portal.showAccountSettings();
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        
         // Initialize the portal when the page loads
-        let portal;
         document.addEventListener('DOMContentLoaded', function() {
-            portal = new ClientPortal();
-            console.log('805 LifeGuard Client Portal initialized with live D1 Database');
-            console.log('API Base URL:', portal.apiBaseUrl);
+            window.portal = new ClientPortal();
             
-            // Add debugging for network requests
+            console.log('🏊‍♂️ 805 LifeGuard Client Portal - Production Ready');
+            console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
+            console.log('✅ All systems initialized');
+            
+            // Add network monitoring for debugging
             if (window.fetch) {
                 const originalFetch = window.fetch;
                 window.fetch = function(...args) {
-                    console.log('API Request:', args[0]);
+                    const startTime = Date.now();
+                    console.log(`🌐 API Request: ${args[0]}`);
+                    
                     return originalFetch.apply(this, args)
                         .then(response => {
-                            console.log('API Response:', response.status, response.statusText);
+                            const duration = Date.now() - startTime;
+                            console.log(`✅ API Response: ${response.status} ${response.statusText} (${duration}ms)`);
                             return response;
                         })
                         .catch(error => {
-                            console.error('API Error:', error);
+                            const duration = Date.now() - startTime;
+                            console.error(`❌ API Error: ${error.message} (${duration}ms)`);
                             throw error;
                         });
                 };
             }
+            
+            // Add performance monitoring
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        console.log(`⚡ Page Load Time: ${Math.round(perfData.loadEventEnd - perfData.fetchStart)}ms`);
+                    }, 0);
+                });
+            }
+            
+            // Service worker registration (for future PWA features)
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    // navigator.serviceWorker.register('/sw.js')
+                    //     .then(registration => console.log('SW registered'))
+                    //     .catch(error => console.log('SW registration failed'));
+                });
+            }
         });
+
+        // ==================== ERROR HANDLING ====================
+        
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Global Error:', event.error);
+            
+            // Show user-friendly error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'message error show';
+            errorDiv.style.position = 'fixed';
+            errorDiv.style.top = '20px';
+            errorDiv.style.right = '20px';
+            errorDiv.style.zIndex = '10000';
+            errorDiv.style.maxWidth = '400px';
+            errorDiv.textContent = 'Something went wrong. Please refresh the page or contact support.';
+            
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Unhandled Promise Rejection:', event.reason);
+            event.preventDefault();
+        });
+
+        // ==================== UTILITY ENHANCEMENTS ====================
+        
+        // Add smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Add focus management for accessibility
+        document.addEventListener('focusin', (e) => {
+            if (e.target.matches('.calendar-day')) {
+                e.target.style.outline = '2px solid var(--gallery-blue)';
+            }
+        });
+        
+        document.addEventListener('focusout', (e) => {
+            if (e.target.matches('.calendar-day')) {
+                e.target.style.outline = '';
+            }
+        });
+        
+        // Prevent zoom on mobile inputs
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                });
+                
+                input.addEventListener('blur', () => {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    viewport.content = 'width=device-width, initial-scale=1.0';
+                });
+            });
+        }
     </script>
 </body>
 </html>
