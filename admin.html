@@ -181,7 +181,7 @@
             color: var(--dark);
         }
 
-        .form-group input {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 15px 20px;
             border: 2px solid #e9ecef;
@@ -191,10 +191,15 @@
             background: var(--white);
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--gallery-blue);
             box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         .btn {
@@ -292,6 +297,55 @@
             font-size: 18px;
         }
 
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 30px;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-tab.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--gallery-blue);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -324,6 +378,7 @@
         .stat-card.pending::before { background: linear-gradient(135deg, var(--warning), #ffcc02); }
         .stat-card.confirmed::before { background: linear-gradient(135deg, var(--success), #66bb6a); }
         .stat-card.revenue::before { background: var(--gradient-gold); }
+        .stat-card.customers::before { background: linear-gradient(135deg, var(--gallery-teal), #4db6ac); }
 
         .stat-card:hover {
             transform: translateY(-5px);
@@ -350,6 +405,11 @@
         }
         .stat-card.revenue .icon { 
             background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card.customers .icon { 
+            background: linear-gradient(135deg, var(--gallery-teal), #4db6ac);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -444,26 +504,26 @@
             box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
         }
 
-        .bookings-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .bookings-table th,
-        .bookings-table td {
+        .data-table th,
+        .data-table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #e9ecef;
         }
 
-        .bookings-table th {
+        .data-table th {
             background: rgba(30, 136, 229, 0.05);
             font-weight: 600;
             color: var(--dark);
         }
 
-        .bookings-table tr:hover {
+        .data-table tr:hover {
             background: rgba(30, 136, 229, 0.03);
         }
 
@@ -529,6 +589,18 @@
             background: var(--gradient-gold);
             color: #8b4513; 
         }
+        .btn-add { 
+            background: linear-gradient(135deg, var(--gallery-teal), #4db6ac);
+            color: white; 
+        }
+        .btn-edit { 
+            background: var(--gradient-primary);
+            color: white; 
+        }
+        .btn-delete { 
+            background: linear-gradient(135deg, var(--error), #ef5350);
+            color: white; 
+        }
 
         .modal {
             display: none;
@@ -554,7 +626,7 @@
             backdrop-filter: blur(20px);
             padding: 30px;
             border-radius: var(--border-radius-large);
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -680,6 +752,48 @@
             transform: translateY(-2px);
         }
 
+        /* Customer Form Styles */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(30, 136, 229, 0.1);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: var(--gray);
+        }
+
+        /* No data state */
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .no-data i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -701,6 +815,10 @@
                 font-size: 2em;
             }
             
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -709,12 +827,12 @@
                 grid-template-columns: 1fr;
             }
             
-            .bookings-table {
+            .data-table {
                 font-size: 12px;
             }
             
-            .bookings-table th,
-            .bookings-table td {
+            .data-table th,
+            .data-table td {
                 padding: 8px;
             }
 
@@ -722,14 +840,21 @@
                 margin: 10px;
                 padding: 25px 20px;
             }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Focus Styles for Accessibility */
         .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus,
         .btn:focus,
         .logout-btn:focus,
         .btn-small:focus,
-        .close-btn:focus {
+        .close-btn:focus,
+        .nav-tab:focus {
             outline: 3px solid var(--gallery-blue);
             outline-offset: 2px;
         }
@@ -747,6 +872,7 @@
         .stat-card:nth-child(2) { animation-delay: 0.2s; }
         .stat-card:nth-child(3) { animation-delay: 0.3s; }
         .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
 
         @keyframes slideInUp {
             from {
@@ -764,26 +890,10 @@
         }
 
         /* Enhanced table styling */
-        .bookings-table {
+        .data-table {
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-light);
-        }
-
-        /* No data state */
-        .no-data {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray);
-        }
-
-        .no-data i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.3;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
@@ -845,6 +955,16 @@
                 </div>
             </div>
 
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('bookings')">
+                    <i class="fas fa-calendar-check"></i> Booking Management
+                </button>
+                <button class="nav-tab" onclick="switchTab('customers')">
+                    <i class="fas fa-users"></i> Customer Management
+                </button>
+            </div>
+
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card total">
@@ -862,6 +982,11 @@
                     <div class="number" id="confirmedBookings">0</div>
                     <div class="label">Confirmed</div>
                 </div>
+                <div class="stat-card customers">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <div class="number" id="totalCustomers">0</div>
+                    <div class="label">Total Customers</div>
+                </div>
                 <div class="stat-card revenue">
                     <div class="icon"><i class="fas fa-chart-line"></i></div>
                     <div class="number" id="totalRevenue">$0</div>
@@ -869,46 +994,78 @@
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="main-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2><i class="fas fa-tasks"></i> Booking Management</h2>
-                        <button onclick="exportBookings()" class="btn-small btn-export">
-                            <i class="fas fa-download"></i> Export Data
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <!-- Filters -->
-                        <div class="filters">
-                            <div class="filter-group">
-                                <label>Status Filter</label>
-                                <select id="statusFilter">
-                                    <option value="">All Statuses</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
+            <!-- Bookings Tab Content -->
+            <div id="bookingsTab" class="tab-content active">
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-tasks"></i> Booking Management</h2>
+                            <button onclick="exportBookings()" class="btn-small btn-export">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filters -->
+                            <div class="filters">
+                                <div class="filter-group">
+                                    <label>Status Filter</label>
+                                    <select id="statusFilter">
+                                        <option value="">All Statuses</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Start Date</label>
+                                    <input type="date" id="startDateFilter">
+                                </div>
+                                <div class="filter-group">
+                                    <label>End Date</label>
+                                    <input type="date" id="endDateFilter">
+                                </div>
+                                <div class="filter-group">
+                                    <label>Customer Search</label>
+                                    <input type="text" id="customerFilter" placeholder="Search by name or email">
+                                </div>
                             </div>
-                            <div class="filter-group">
-                                <label>Start Date</label>
-                                <input type="date" id="startDateFilter">
-                            </div>
-                            <div class="filter-group">
-                                <label>End Date</label>
-                                <input type="date" id="endDateFilter">
-                            </div>
-                            <div class="filter-group">
-                                <label>Customer Search</label>
-                                <input type="text" id="customerFilter" placeholder="Search by name or email">
+
+                            <!-- Bookings Table -->
+                            <div id="bookingsContainer">
+                                <div class="loading">
+                                    <div class="spinner"></div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Bookings Table -->
-                        <div id="bookingsContainer">
-                            <div class="loading">
-                                <div class="spinner"></div>
+            <!-- Customers Tab Content -->
+            <div id="customersTab" class="tab-content">
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-users"></i> Customer Management</h2>
+                            <button onclick="showAddCustomerModal()" class="btn-small btn-add">
+                                <i class="fas fa-plus"></i> Add Customer
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Customer Search -->
+                            <div class="filters">
+                                <div class="filter-group">
+                                    <label>Search Customers</label>
+                                    <input type="text" id="customerSearchFilter" placeholder="Search by name or email">
+                                </div>
+                            </div>
+
+                            <!-- Customers Table -->
+                            <div id="customersContainer">
+                                <div class="loading">
+                                    <div class="spinner"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -922,7 +1079,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3><i class="fas fa-info-circle"></i> Booking Details</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <button class="close-btn" onclick="closeModal('bookingModal')">&times;</button>
             </div>
             <div id="bookingDetails"></div>
             <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(30, 136, 229, 0.1);">
@@ -941,11 +1098,84 @@
         </div>
     </div>
 
+    <!-- Add/Edit Customer Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="customerModalTitle"><i class="fas fa-user-plus"></i> Add New Customer</h3>
+                <button class="close-btn" onclick="closeModal('customerModal')">&times;</button>
+            </div>
+            <form id="customerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerName">Full Name *</label>
+                        <input type="text" id="customerName" name="name" required placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email Address *</label>
+                        <input type="email" id="customerEmail" name="email" required placeholder="Enter email address">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number</label>
+                        <input type="tel" id="customerPhone" name="phone" placeholder="(805) 555-0123">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPassword">Password *</label>
+                        <input type="password" id="customerPassword" name="password" placeholder="Enter password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress">Address</label>
+                    <textarea id="customerAddress" name="address" placeholder="Enter full address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmergencyContact">Emergency Contact</label>
+                    <input type="text" id="customerEmergencyContact" name="emergency_contact" placeholder="Emergency contact name and phone">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn" style="flex: 1;">
+                        <i class="fas fa-save"></i> <span id="customerSubmitText">Create Customer</span>
+                    </button>
+                    <button type="button" onclick="closeModal('customerModal')" class="btn btn-secondary" style="flex: 0 0 auto;">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+            <div id="customerError" class="error" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customerDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user"></i> Customer Details</h3>
+                <button class="close-btn" onclick="closeModal('customerDetailsModal')">&times;</button>
+            </div>
+            <div id="customerDetailsContent"></div>
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(30, 136, 229, 0.1);">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="editCurrentCustomer()" class="btn-small btn-edit">
+                        <i class="fas fa-edit"></i> Edit Customer
+                    </button>
+                    <button onclick="deleteCurrentCustomer()" class="btn-small btn-delete">
+                        <i class="fas fa-trash"></i> Delete Customer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Configuration - UPDATE THIS URL TO YOUR WORKER URL
         const API_BASE = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
         let authToken = localStorage.getItem('adminToken');
         let currentBookingId = null;
+        let currentCustomerId = null;
+        let currentCustomer = null;
+        let customers = [];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -961,6 +1191,8 @@
             document.getElementById('startDateFilter').addEventListener('change', loadBookings);
             document.getElementById('endDateFilter').addEventListener('change', loadBookings);
             document.getElementById('customerFilter').addEventListener('input', debounce(loadBookings, 500));
+            document.getElementById('customerSearchFilter').addEventListener('input', debounce(loadCustomers, 500));
+            document.getElementById('customerForm').addEventListener('submit', handleCustomerSubmit);
         });
 
         // Authentication
@@ -1006,6 +1238,25 @@
             document.getElementById('dashboard').classList.add('active');
             loadStats();
             loadBookings();
+            loadCustomers();
+        }
+
+        // Tab Management
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName + 'Tab').classList.add('active');
+
+            // Load data for active tab
+            if (tabName === 'bookings') {
+                loadBookings();
+            } else if (tabName === 'customers') {
+                loadCustomers();
+            }
         }
 
         // API Calls
@@ -1030,14 +1281,23 @@
         // Load Statistics
         async function loadStats() {
             try {
-                const response = await apiCall('/api/admin/bookings/stats');
-                const data = await response.json();
+                const [bookingStatsResponse, customersResponse] = await Promise.all([
+                    apiCall('/api/admin/bookings/stats'),
+                    apiCall('/api/admin/customers')
+                ]);
 
-                if (data.success) {
-                    animateNumber('totalBookings', data.stats.total_bookings || 0);
-                    animateNumber('pendingBookings', data.stats.pending_bookings || 0);
-                    animateNumber('confirmedBookings', data.stats.confirmed_bookings || 0);
-                    document.getElementById('totalRevenue').textContent = `$${(data.stats.total_revenue || 0).toFixed(2)}`;
+                const bookingStats = await bookingStatsResponse.json();
+                const customersData = await customersResponse.json();
+
+                if (bookingStats.success) {
+                    animateNumber('totalBookings', bookingStats.stats.total_bookings || 0);
+                    animateNumber('pendingBookings', bookingStats.stats.pending_bookings || 0);
+                    animateNumber('confirmedBookings', bookingStats.stats.confirmed_bookings || 0);
+                    document.getElementById('totalRevenue').textContent = `$${(bookingStats.stats.total_revenue || 0).toFixed(2)}`;
+                }
+
+                if (customersData.success) {
+                    animateNumber('totalCustomers', customersData.customers.length || 0);
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -1104,7 +1364,7 @@
             }
 
             const table = `
-                <table class="bookings-table">
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th><i class="fas fa-hashtag"></i> ID</th>
@@ -1151,7 +1411,264 @@
             container.innerHTML = table;
         }
 
-        // Show Booking Details
+        // Load Customers
+        async function loadCustomers() {
+            const container = document.getElementById('customersContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            try {
+                const response = await apiCall('/api/admin/customers');
+                const data = await response.json();
+
+                if (data.success) {
+                    customers = data.customers;
+                    displayCustomers(filterCustomers(customers));
+                } else {
+                    container.innerHTML = '<div class="error">Error loading customers</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="error">Connection error. Please try again.</div>';
+            }
+        }
+
+        function filterCustomers(customersList) {
+            const searchTerm = document.getElementById('customerSearchFilter').value.toLowerCase();
+            if (!searchTerm) return customersList;
+
+            return customersList.filter(customer => 
+                customer.name.toLowerCase().includes(searchTerm) ||
+                customer.email.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        // Display Customers
+        function displayCustomers(customersList) {
+            const container = document.getElementById('customersContainer');
+
+            if (customersList.length === 0) {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-users"></i>
+                        <h3>No customers found</h3>
+                        <p>No customers match your search criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag"></i> ID</th>
+                            <th><i class="fas fa-user"></i> Customer</th>
+                            <th><i class="fas fa-phone"></i> Phone</th>
+                            <th><i class="fas fa-calendar-plus"></i> Member Since</th>
+                            <th><i class="fas fa-calendar-check"></i> Bookings</th>
+                            <th><i class="fas fa-dollar-sign"></i> Total Spent</th>
+                            <th><i class="fas fa-clock"></i> Last Login</th>
+                            <th><i class="fas fa-cogs"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${customersList.map(customer => `
+                            <tr>
+                                <td><strong>#${customer.id}</strong></td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="avatar" style="width: 35px; height: 35px; font-size: 14px;">${customer.avatar}</div>
+                                        <div>
+                                            <div><strong>${customer.name}</strong></div>
+                                            <div style="font-size: 12px; color: var(--gray);">
+                                                <i class="fas fa-envelope"></i> ${customer.email}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>${customer.phone || '<span style="color: var(--gray);">Not provided</span>'}</td>
+                                <td>${formatDate(customer.member_since)}</td>
+                                <td><strong>${customer.total_bookings}</strong></td>
+                                <td><strong>$${(customer.total_spent || 0).toFixed(2)}</strong></td>
+                                <td>${customer.last_login ? formatDate(customer.last_login) : '<span style="color: var(--gray);">Never</span>'}</td>
+                                <td>
+                                    <button onclick="showCustomerDetails(${customer.id})" class="btn-small" style="background: var(--gradient-primary); color: white;">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                    <button onclick="editCustomer(${customer.id})" class="btn-small btn-edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = table;
+        }
+
+        // Customer Management Functions
+        function showAddCustomerModal() {
+            currentCustomerId = null;
+            currentCustomer = null;
+            document.getElementById('customerModalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Add New Customer';
+            document.getElementById('customerSubmitText').textContent = 'Create Customer';
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerPassword').required = true;
+            document.getElementById('customerModal').classList.add('active');
+        }
+
+        function editCustomer(customerId) {
+            const customer = customers.find(c => c.id === customerId);
+            if (!customer) return;
+
+            currentCustomerId = customerId;
+            currentCustomer = customer;
+            document.getElementById('customerModalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Edit Customer';
+            document.getElementById('customerSubmitText').textContent = 'Update Customer';
+            
+            // Fill form with customer data
+            document.getElementById('customerName').value = customer.name;
+            document.getElementById('customerEmail').value = customer.email;
+            document.getElementById('customerPhone').value = customer.phone || '';
+            document.getElementById('customerAddress').value = customer.address || '';
+            document.getElementById('customerEmergencyContact').value = customer.emergency_contact || '';
+            document.getElementById('customerPassword').value = '';
+            document.getElementById('customerPassword').required = false;
+            document.getElementById('customerPassword').placeholder = 'Leave blank to keep current password';
+            
+            document.getElementById('customerModal').classList.add('active');
+        }
+
+        function editCurrentCustomer() {
+            closeModal('customerDetailsModal');
+            editCustomer(currentCustomerId);
+        }
+
+        async function handleCustomerSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const customerData = {};
+            
+            formData.forEach((value, key) => {
+                if (value.trim()) customerData[key] = value.trim();
+            });
+
+            // Don't send empty password for updates
+            if (currentCustomerId && !customerData.password) {
+                delete customerData.password;
+            }
+
+            try {
+                const url = currentCustomerId 
+                    ? `/api/admin/customers/${currentCustomerId}`
+                    : '/api/admin/customers';
+                const method = currentCustomerId ? 'PUT' : 'POST';
+
+                const response = await apiCall(url, {
+                    method,
+                    body: JSON.stringify(customerData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    closeModal('customerModal');
+                    loadCustomers();
+                    loadStats();
+                    showSuccess(currentCustomerId ? 'Customer updated successfully!' : 'Customer created successfully!');
+                } else {
+                    showError('customerError', data.error || 'Failed to save customer');
+                }
+            } catch (error) {
+                showError('customerError', 'Connection error. Please try again.');
+            }
+        }
+
+        function showCustomerDetails(customerId) {
+            const customer = customers.find(c => c.id === customerId);
+            if (!customer) return;
+
+            currentCustomerId = customerId;
+            currentCustomer = customer;
+
+            const detailsContainer = document.getElementById('customerDetailsContent');
+            detailsContainer.innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-hashtag"></i> Customer ID:</div>
+                    <div class="detail-value"><strong>#${customer.id}</strong></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-user"></i> Full Name:</div>
+                    <div class="detail-value"><strong>${customer.name}</strong></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-envelope"></i> Email:</div>
+                    <div class="detail-value">${customer.email}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-phone"></i> Phone:</div>
+                    <div class="detail-value">${customer.phone || 'Not provided'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-map-marker-alt"></i> Address:</div>
+                    <div class="detail-value">${customer.address || 'Not provided'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-user-shield"></i> Emergency Contact:</div>
+                    <div class="detail-value">${customer.emergency_contact || 'Not provided'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-calendar-plus"></i> Member Since:</div>
+                    <div class="detail-value"><strong>${formatDate(customer.member_since)}</strong></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-clock"></i> Last Login:</div>
+                    <div class="detail-value">${customer.last_login ? formatDateTime(customer.last_login) : 'Never logged in'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-calendar-check"></i> Total Bookings:</div>
+                    <div class="detail-value"><strong>${customer.total_bookings}</strong></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-dollar-sign"></i> Total Spent:</div>
+                    <div class="detail-value"><strong>$${(customer.total_spent || 0).toFixed(2)}</strong></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label"><i class="fas fa-calendar"></i> Last Booking:</div>
+                    <div class="detail-value">${customer.last_booking_date ? formatDate(customer.last_booking_date) : 'No bookings yet'}</div>
+                </div>
+            `;
+
+            document.getElementById('customerDetailsModal').classList.add('active');
+        }
+
+        async function deleteCurrentCustomer() {
+            if (!currentCustomerId || !confirm('Are you sure you want to delete this customer? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const response = await apiCall(`/api/admin/customers/${currentCustomerId}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    closeModal('customerDetailsModal');
+                    loadCustomers();
+                    loadStats();
+                    showSuccess('Customer deleted successfully!');
+                } else {
+                    showError('customerError', data.error || 'Failed to delete customer');
+                }
+            } catch (error) {
+                showError('customerError', 'Connection error. Please try again.');
+            }
+        }
+
+        // Booking Management Functions (existing)
         async function showBookingDetails(bookingId) {
             currentBookingId = bookingId;
             const modal = document.getElementById('bookingModal');
@@ -1226,7 +1743,6 @@
             }
         }
 
-        // Update Booking Status
         async function updateBookingStatus(newStatus) {
             if (!currentBookingId) return;
 
@@ -1239,7 +1755,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    closeModal();
+                    closeModal('bookingModal');
                     loadBookings();
                     loadStats();
                     showSuccess('Booking status updated successfully!');
@@ -1251,7 +1767,6 @@
             }
         }
 
-        // Export Bookings
         async function exportBookings() {
             try {
                 const response = await apiCall('/api/admin/export');
@@ -1271,9 +1786,15 @@
         }
 
         // Utility Functions
-        function closeModal() {
-            document.getElementById('bookingModal').classList.remove('active');
-            currentBookingId = null;
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            if (modalId === 'bookingModal') {
+                currentBookingId = null;
+            } else if (modalId === 'customerModal' || modalId === 'customerDetailsModal') {
+                currentCustomerId = null;
+                currentCustomer = null;
+                document.getElementById('customerError').style.display = 'none';
+            }
         }
 
         function formatDate(dateString) {
@@ -1338,6 +1859,18 @@
             document.body.appendChild(successEl);
             setTimeout(() => successEl.remove(), 4000);
         }
+
+        // Update customer search when input changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const customerSearchFilter = document.getElementById('customerSearchFilter');
+            if (customerSearchFilter) {
+                customerSearchFilter.addEventListener('input', function() {
+                    if (customers.length > 0) {
+                        displayCustomers(filterCustomers(customers));
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
