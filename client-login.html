@@ -759,13 +759,6 @@
             font-size: 0.9rem;
             color: var(--dark);
             font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .service-price {
-            font-size: 0.8rem;
-            color: var(--gray);
-            font-weight: 500;
         }
 
         .time-slots {
@@ -1474,20 +1467,17 @@
                 <div class="form-group">
                     <label class="form-label">Select Service</label>
                     <div class="service-selection">
-                        <div class="service-option" data-service="swim-lesson" data-price="75">
+                        <div class="service-option" data-service="swim-lesson">
                             <i class="fas fa-swimmer"></i>
                             <h4>Swim Lesson</h4>
-                            <div class="service-price">From $75/hour</div>
                         </div>
-                        <div class="service-option" data-service="lifeguard" data-price="45">
+                        <div class="service-option" data-service="lifeguard">
                             <i class="fas fa-user-shield"></i>
                             <h4>Lifeguard Service</h4>
-                            <div class="service-price">From $45/hour</div>
                         </div>
-                        <div class="service-option" data-service="event" data-price="65">
+                        <div class="service-option" data-service="event">
                             <i class="fas fa-calendar-alt"></i>
                             <h4>Special Event</h4>
-                            <div class="service-price">From $65/hour</div>
                         </div>
                     </div>
                 </div>
@@ -1555,10 +1545,6 @@
                         <span>Participants:</span>
                         <span id="summaryParticipants">-</span>
                     </div>
-                    <div class="summary-row">
-                        <span>Estimated Total:</span>
-                        <span id="summaryTotal">$0</span>
-                    </div>
                 </div>
                 
                 <div class="message" id="bookingMessage"></div>
@@ -1591,11 +1577,11 @@
                 // API Configuration
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
                 
-                // Service pricing
-                this.servicePricing = {
-                    'swim-lesson': { base: 75, name: 'Private Swim Lesson' },
-                    'lifeguard': { base: 45, name: 'Lifeguard Service' },
-                    'event': { base: 65, name: 'Special Event Coverage' }
+                // Service pricing - removed since pricing varies per client
+                this.serviceNames = {
+                    'swim-lesson': 'Private Swim Lesson',
+                    'lifeguard': 'Lifeguard Service',
+                    'event': 'Special Event Coverage'
                 };
                 
                 this.init();
@@ -2157,9 +2143,8 @@
                 const summaryTime = document.getElementById('summaryTime');
                 const summaryDuration = document.getElementById('summaryDuration');
                 const summaryParticipants = document.getElementById('summaryParticipants');
-                const summaryTotal = document.getElementById('summaryTotal');
 
-                if (summaryService) summaryService.textContent = this.servicePricing[this.selectedService].name;
+                if (summaryService) summaryService.textContent = this.serviceNames[this.selectedService];
                 if (summaryDate) summaryDate.textContent = this.selectedDate.toLocaleDateString();
                 if (summaryTime) summaryTime.textContent = this.selectedTime;
                 
@@ -2168,9 +2153,6 @@
                 
                 const participants = document.getElementById('participants')?.value || '1';
                 if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
-
-                const cost = this.calculateEstimatedCost();
-                if (summaryTotal) summaryTotal.textContent = `$${cost}`;
             }
 
             calculateEstimatedCost() {
@@ -2217,35 +2199,51 @@
                 this.showLoadingState(submitBtn, 'Processing...');
 
                 try {
+                    // Prepare booking data - match your API's expected format
                     const bookingData = {
-                        service: this.selectedService,
-                        date: this.selectedDate.toISOString().split('T')[0],
-                        time: this.selectedTime,
+                        service_type: this.selectedService,
+                        booking_date: this.selectedDate.toISOString().split('T')[0], // YYYY-MM-DD format
+                        booking_time: this.selectedTime,
                         duration: parseFloat(document.getElementById('duration').value),
                         participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value,
-                        cost: this.calculateEstimatedCost()
+                        special_requests: document.getElementById('specialRequests').value || null
                     };
+
+                    console.log('📤 Sending booking data:', bookingData);
 
                     let response;
                     if (this.isEditingBooking) {
+                        console.log('✏️ Updating existing booking:', this.editingBookingId);
                         response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
                     } else {
+                        console.log('🆕 Creating new booking');
                         response = await this.apiCall('/api/bookings', 'POST', bookingData);
                     }
+
+                    console.log('📥 API Response:', response);
 
                     if (response && response.success) {
                         if (this.isEditingBooking) {
                             // Update existing booking
                             const bookingIndex = this.bookings.findIndex(b => b.id === this.editingBookingId);
                             if (bookingIndex !== -1) {
-                                this.bookings[bookingIndex] = { ...this.bookings[bookingIndex], ...bookingData };
+                                this.bookings[bookingIndex] = { 
+                                    ...this.bookings[bookingIndex], 
+                                    service: bookingData.service_type,
+                                    date: bookingData.booking_date,
+                                    time: bookingData.booking_time,
+                                    duration: bookingData.duration,
+                                    participants: bookingData.participants,
+                                    specialRequests: bookingData.special_requests
+                                };
                             }
                             this.showMessage('Booking updated successfully!', 'success');
                         } else {
                             // Add new booking
-                            this.bookings.push(response.booking);
-                            this.showMessage('Booking request submitted successfully!', 'success');
+                            if (response.booking) {
+                                this.bookings.push(response.booking);
+                            }
+                            this.showMessage('Booking request submitted successfully! You will receive a confirmation email shortly.', 'success');
                         }
                         
                         // Update UI
@@ -2258,12 +2256,27 @@
                             this.closeBookingModal();
                         }, 2000);
                     } else {
-                        throw new Error(response.error || 'Booking submission failed');
+                        throw new Error(response?.error || 'Booking submission failed');
                     }
 
                 } catch (error) {
-                    console.error('Booking submission error:', error);
-                    this.showMessage(`Error: ${error.message}`, 'error');
+                    console.error('❌ Booking submission error:', error);
+                    console.error('Error details:', {
+                        message: error.message,
+                        stack: error.stack,
+                        selectedService: this.selectedService,
+                        selectedDate: this.selectedDate,
+                        selectedTime: this.selectedTime
+                    });
+                    
+                    let errorMessage = 'Failed to submit booking. ';
+                    if (error.message.includes('Internal Server Error')) {
+                        errorMessage += 'Please check that all fields are filled correctly and try again.';
+                    } else {
+                        errorMessage += error.message;
+                    }
+                    
+                    this.showMessage(`Error: ${errorMessage}`, 'error');
                 } finally {
                     this.hideLoadingState(submitBtn, this.isEditingBooking ? 'Update Booking' : 'Request Booking');
                 }
@@ -2503,7 +2516,7 @@
                 if (isToday) dateDisplay = 'Today';
                 else if (isTomorrow) dateDisplay = 'Tomorrow';
 
-                const serviceName = this.servicePricing[booking.service]?.name || booking.service;
+                const serviceName = this.serviceNames[booking.service] || booking.service;
 
                 bookingDiv.innerHTML = `
                     <div class="booking-header">
