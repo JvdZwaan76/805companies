@@ -4,8 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>805 LifeGuard - Admin Dashboard</title>
+    <meta name="description" content="Secure admin dashboard for 805 LifeGuard business management and booking oversight.">
+    <meta name="robots" content="noindex, nofollow">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* CSS Variables - Matching Client Portal */
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #f72585;
+            --light: #e3f2fd;
+            --dark: #023e8a;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --gallery-blue: #1e88e5;
+            --gallery-teal: #26a69a;
+            --gold: #ffd700;
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --gradient-primary: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
+            --gradient-gold: linear-gradient(135deg, #ffd700, #ffed4a);
+            --border-radius: 12px;
+            --border-radius-large: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset and Base */
         * {
             margin: 0;
             padding: 0;
@@ -14,9 +43,46 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--light) 0%, #f0f8ff 100%);
             min-height: 100vh;
             color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Water Ripples Background */
+        .ripple-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.03) 0%, transparent 70%);
+            animation: ripple-expand 8s ease-out infinite;
+        }
+
+        .ripple:nth-child(1) { 
+            top: 15%; left: 10%; width: 150px; height: 150px; animation-delay: 0s; 
+        }
+        .ripple:nth-child(2) { 
+            top: 70%; left: 85%; width: 200px; height: 200px; animation-delay: 3s; 
+        }
+        .ripple:nth-child(3) { 
+            top: 85%; left: 25%; width: 120px; height: 120px; animation-delay: 6s; 
+        }
+
+        @keyframes ripple-expand {
+            0% { transform: scale(0) rotate(0deg); opacity: 0.4; }
+            50% { opacity: 0.2; }
+            100% { transform: scale(3) rotate(180deg); opacity: 0; }
         }
 
         .container {
@@ -31,66 +97,130 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
         }
 
         .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-large);
+            padding: 50px 40px;
+            box-shadow: var(--shadow-heavy);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-gold);
+        }
+
+        .login-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .login-logo-text {
+            text-align: left;
+        }
+
+        .login-logo-main {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .login-logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .login-card h1 {
-            color: #2c5aa0;
-            margin-bottom: 30px;
-            font-size: 2em;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .login-subtitle {
+            color: var(--gray);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #555;
+            color: var(--dark);
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #2c5aa0;
+            border-color: var(--gallery-blue);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
         }
 
         .btn {
-            background: linear-gradient(135deg, #2c5aa0 0%, #4fc3f7 100%);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s;
             width: 100%;
+            padding: 15px;
+            background: var(--gradient-gold);
+            color: #8b4513;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Dashboard */
@@ -109,19 +239,38 @@
         }
 
         .header {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-gold);
         }
 
         .header h1 {
-            color: #2c5aa0;
             font-size: 2.5em;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .header .user-info {
@@ -133,12 +282,12 @@
         .avatar {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #2c5aa0, #4fc3f7);
+            background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--white);
             font-weight: bold;
             font-size: 18px;
         }
@@ -151,38 +300,71 @@
         }
 
         .stat-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
             text-align: center;
-            transition: transform 0.2s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .stat-card.total::before { background: var(--gradient-primary); }
+        .stat-card.pending::before { background: linear-gradient(135deg, var(--warning), #ffcc02); }
+        .stat-card.confirmed::before { background: linear-gradient(135deg, var(--success), #66bb6a); }
+        .stat-card.revenue::before { background: var(--gradient-gold); }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
         }
 
         .stat-card .icon {
             font-size: 2.5em;
             margin-bottom: 15px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .stat-card.total .icon { color: #2c5aa0; }
-        .stat-card.pending .icon { color: #ff9800; }
-        .stat-card.confirmed .icon { color: #4caf50; }
-        .stat-card.revenue .icon { color: #9c27b0; }
+        .stat-card.pending .icon { 
+            background: linear-gradient(135deg, var(--warning), #ffcc02);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card.confirmed .icon { 
+            background: linear-gradient(135deg, var(--success), #66bb6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card.revenue .icon { 
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
         .stat-card .number {
             font-size: 2.5em;
             font-weight: bold;
-            color: #333;
+            color: var(--dark);
             margin-bottom: 5px;
         }
 
         .stat-card .label {
-            color: #666;
+            color: var(--gray);
             font-size: 1.1em;
+            font-weight: 600;
         }
 
         .main-content {
@@ -192,16 +374,28 @@
         }
 
         .card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
             overflow: hidden;
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
 
         .card-header {
             padding: 20px;
-            background: linear-gradient(135deg, #2c5aa0 0%, #4fc3f7 100%);
-            color: white;
+            background: var(--gradient-primary);
+            color: var(--white);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -209,6 +403,7 @@
 
         .card-header h2 {
             font-size: 1.5em;
+            font-weight: 700;
         }
 
         .card-body {
@@ -230,15 +425,23 @@
         .filter-group label {
             margin-bottom: 5px;
             font-weight: 600;
-            color: #555;
+            color: var(--dark);
         }
 
         .filter-group select,
         .filter-group input {
-            padding: 10px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
             font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--gallery-blue);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
         }
 
         .bookings-table {
@@ -251,50 +454,81 @@
         .bookings-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #e1e5e9;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .bookings-table th {
-            background: #f8f9fa;
+            background: rgba(30, 136, 229, 0.05);
             font-weight: 600;
-            color: #555;
+            color: var(--dark);
         }
 
         .bookings-table tr:hover {
-            background: #f8f9fa;
+            background: rgba(30, 136, 229, 0.03);
         }
 
         .status-badge {
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .status-pending { background: #fff3cd; color: #856404; }
-        .status-confirmed { background: #d4edda; color: #155724; }
-        .status-completed { background: #d1ecf1; color: #0c5460; }
-        .status-cancelled { background: #f8d7da; color: #721c24; }
+        .status-pending { 
+            background: rgba(255, 152, 0, 0.1); 
+            color: var(--warning);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+        .status-confirmed { 
+            background: rgba(76, 175, 80, 0.1); 
+            color: var(--success);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .status-completed { 
+            background: rgba(30, 136, 229, 0.1); 
+            color: var(--gallery-blue);
+            border: 1px solid rgba(30, 136, 229, 0.3);
+        }
+        .status-cancelled { 
+            background: rgba(244, 67, 54, 0.1); 
+            color: var(--error);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
 
         .btn-small {
-            padding: 8px 15px;
+            padding: 8px 16px;
             font-size: 12px;
-            border-radius: 6px;
+            border-radius: var(--border-radius);
             border: none;
             cursor: pointer;
             margin-right: 5px;
-            transition: transform 0.2s;
+            transition: var(--transition);
+            font-weight: 600;
         }
 
         .btn-small:hover {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
         }
 
-        .btn-confirm { background: #4caf50; color: white; }
-        .btn-complete { background: #2196f3; color: white; }
-        .btn-cancel { background: #f44336; color: white; }
-        .btn-export { background: #ff9800; color: white; }
+        .btn-confirm { 
+            background: linear-gradient(135deg, var(--success), #66bb6a);
+            color: white; 
+        }
+        .btn-complete { 
+            background: var(--gradient-primary);
+            color: white; 
+        }
+        .btn-cancel { 
+            background: linear-gradient(135deg, var(--error), #ef5350);
+            color: white; 
+        }
+        .btn-export { 
+            background: var(--gradient-gold);
+            color: #8b4513; 
+        }
 
         .modal {
             display: none;
@@ -303,7 +537,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             animation: fadeIn 0.3s ease-in;
         }
@@ -315,13 +550,27 @@
         }
 
         .modal-content {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: 30px;
-            border-radius: 15px;
+            border-radius: var(--border-radius-large);
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
         }
 
         .modal-header {
@@ -332,8 +581,11 @@
         }
 
         .modal-header h3 {
-            color: #2c5aa0;
             font-size: 1.5em;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .close-btn {
@@ -341,23 +593,35 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #999;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
         }
 
         .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(30, 136, 229, 0.1);
         }
 
         .detail-label {
             font-weight: 600;
-            color: #555;
+            color: var(--dark);
         }
 
         .detail-value {
-            color: #333;
+            color: var(--gray);
         }
 
         .loading {
@@ -370,8 +634,8 @@
         .spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2c5aa0;
+            border: 4px solid rgba(30, 136, 229, 0.1);
+            border-top: 4px solid var(--gallery-blue);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -382,26 +646,49 @@
         }
 
         .error {
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
             padding: 15px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             margin: 20px 0;
-            border: 1px solid #f5c6cb;
+            border-left: 4px solid var(--error);
         }
 
         .success {
-            background: #d4edda;
-            color: #155724;
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
             padding: 15px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             margin: 20px 0;
-            border: 1px solid #c3e6cb;
+            border-left: 4px solid var(--success);
         }
 
+        .logout-btn {
+            background: none;
+            border: 2px solid var(--gallery-blue);
+            color: var(--gallery-blue);
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: var(--gallery-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
+            }
+            
+            .login-card {
+                padding: 40px 30px;
+                margin: 10px;
             }
             
             .header {
@@ -430,28 +717,116 @@
             .bookings-table td {
                 padding: 8px;
             }
+
+            .modal-content {
+                margin: 10px;
+                padding: 25px 20px;
+            }
+        }
+
+        /* Focus Styles for Accessibility */
+        .form-group input:focus,
+        .btn:focus,
+        .logout-btn:focus,
+        .btn-small:focus,
+        .close-btn:focus {
+            outline: 3px solid var(--gallery-blue);
+            outline-offset: 2px;
+        }
+
+        .btn:focus {
+            outline-color: #8b4513;
+        }
+
+        /* Additional Animations */
+        .stat-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: slideInUp 0.6s ease-out 0.5s both;
+        }
+
+        /* Enhanced table styling */
+        .bookings-table {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* No data state */
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .no-data i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
 <body>
-    <!-- Login Form -->
+    <!-- Ripple Background -->
+    <div class="ripple-background">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+    </div>
+
+    <!-- Login Screen -->
     <div id="loginContainer" class="login-container">
         <div class="login-card">
-            <h1><i class="fas fa-swimmer"></i> 805 LifeGuard Admin</h1>
+            <div class="login-logo">
+                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                <div class="login-logo-text">
+                    <div class="login-logo-main">805 LifeGuard</div>
+                    <div class="login-logo-subtitle">Admin Portal</div>
+                </div>
+            </div>
+            
+            <h1><i class="fas fa-shield-alt"></i> Admin Access</h1>
+            <p class="login-subtitle">Secure dashboard for business management and booking oversight</p>
+            
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required value="admin">
+                    <input type="text" id="username" name="username" required value="admin" placeholder="Enter admin username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required value="lifeguard2025">
+                    <input type="password" id="password" name="password" required value="lifeguard2025" placeholder="Enter admin password">
                 </div>
                 <button type="submit" class="btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i class="fas fa-sign-in-alt"></i> Secure Login
                 </button>
             </form>
             <div id="loginError" class="error" style="display: none;"></div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; color: var(--gray); font-size: 0.9rem; text-align: center;">
+                <p><i class="fas fa-lock"></i> Authorized access only. All activity is monitored.</p>
+            </div>
         </div>
     </div>
 
@@ -463,8 +838,8 @@
                 <h1><i class="fas fa-swimmer"></i> 805 LifeGuard Admin</h1>
                 <div class="user-info">
                     <div class="avatar">AD</div>
-                    <span>Admin</span>
-                    <button onclick="logout()" class="btn-small btn-cancel">
+                    <span style="font-weight: 600; color: var(--dark);">Administrator</span>
+                    <button onclick="logout()" class="logout-btn">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
                 </div>
@@ -480,7 +855,7 @@
                 <div class="stat-card pending">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <div class="number" id="pendingBookings">0</div>
-                    <div class="label">Pending</div>
+                    <div class="label">Pending Approval</div>
                 </div>
                 <div class="stat-card confirmed">
                     <div class="icon"><i class="fas fa-check-circle"></i></div>
@@ -488,7 +863,7 @@
                     <div class="label">Confirmed</div>
                 </div>
                 <div class="stat-card revenue">
-                    <div class="icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="icon"><i class="fas fa-chart-line"></i></div>
                     <div class="number" id="totalRevenue">$0</div>
                     <div class="label">Total Revenue</div>
                 </div>
@@ -498,16 +873,16 @@
             <div class="main-content">
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-list"></i> Bookings Management</h2>
+                        <h2><i class="fas fa-tasks"></i> Booking Management</h2>
                         <button onclick="exportBookings()" class="btn-small btn-export">
-                            <i class="fas fa-download"></i> Export CSV
+                            <i class="fas fa-download"></i> Export Data
                         </button>
                     </div>
                     <div class="card-body">
                         <!-- Filters -->
                         <div class="filters">
                             <div class="filter-group">
-                                <label>Status</label>
+                                <label>Status Filter</label>
                                 <select id="statusFilter">
                                     <option value="">All Statuses</option>
                                     <option value="pending">Pending</option>
@@ -525,7 +900,7 @@
                                 <input type="date" id="endDateFilter">
                             </div>
                             <div class="filter-group">
-                                <label>Customer</label>
+                                <label>Customer Search</label>
                                 <input type="text" id="customerFilter" placeholder="Search by name or email">
                             </div>
                         </div>
@@ -546,20 +921,22 @@
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Booking Details</h3>
+                <h3><i class="fas fa-info-circle"></i> Booking Details</h3>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <div id="bookingDetails"></div>
-            <div style="margin-top: 20px;">
-                <button onclick="updateBookingStatus('confirmed')" class="btn-small btn-confirm">
-                    <i class="fas fa-check"></i> Confirm
-                </button>
-                <button onclick="updateBookingStatus('completed')" class="btn-small btn-complete">
-                    <i class="fas fa-check-double"></i> Complete
-                </button>
-                <button onclick="updateBookingStatus('cancelled')" class="btn-small btn-cancel">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(30, 136, 229, 0.1);">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="updateBookingStatus('confirmed')" class="btn-small btn-confirm">
+                        <i class="fas fa-check"></i> Confirm Booking
+                    </button>
+                    <button onclick="updateBookingStatus('completed')" class="btn-small btn-complete">
+                        <i class="fas fa-check-double"></i> Mark Complete
+                    </button>
+                    <button onclick="updateBookingStatus('cancelled')" class="btn-small btn-cancel">
+                        <i class="fas fa-times"></i> Cancel Booking
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -657,14 +1034,28 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    document.getElementById('totalBookings').textContent = data.stats.total_bookings || 0;
-                    document.getElementById('pendingBookings').textContent = data.stats.pending_bookings || 0;
-                    document.getElementById('confirmedBookings').textContent = data.stats.confirmed_bookings || 0;
+                    animateNumber('totalBookings', data.stats.total_bookings || 0);
+                    animateNumber('pendingBookings', data.stats.pending_bookings || 0);
+                    animateNumber('confirmedBookings', data.stats.confirmed_bookings || 0);
                     document.getElementById('totalRevenue').textContent = `$${(data.stats.total_revenue || 0).toFixed(2)}`;
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
             }
+        }
+
+        function animateNumber(elementId, target) {
+            const element = document.getElementById(elementId);
+            let current = 0;
+            const increment = Math.ceil(target / 20);
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = current;
+            }, 50);
         }
 
         // Load Bookings
@@ -702,7 +1093,13 @@
             const container = document.getElementById('bookingsContainer');
 
             if (bookings.length === 0) {
-                container.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">No bookings found.</p>';
+                container.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>No bookings found</h3>
+                        <p>No bookings match your current filters.</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -710,31 +1107,38 @@
                 <table class="bookings-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Customer</th>
-                            <th>Service</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Cost</th>
-                            <th>Actions</th>
+                            <th><i class="fas fa-hashtag"></i> ID</th>
+                            <th><i class="fas fa-user"></i> Customer</th>
+                            <th><i class="fas fa-swimmer"></i> Service</th>
+                            <th><i class="fas fa-calendar"></i> Date</th>
+                            <th><i class="fas fa-clock"></i> Time</th>
+                            <th><i class="fas fa-tag"></i> Status</th>
+                            <th><i class="fas fa-dollar-sign"></i> Cost</th>
+                            <th><i class="fas fa-cogs"></i> Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${bookings.map(booking => `
                             <tr>
-                                <td>#${booking.id}</td>
+                                <td><strong>#${booking.id}</strong></td>
                                 <td>
                                     <div><strong>${booking.customer.name}</strong></div>
-                                    <div style="font-size: 12px; color: #666;">${booking.customer.email}</div>
+                                    <div style="font-size: 12px; color: var(--gray);">
+                                        <i class="fas fa-envelope"></i> ${booking.customer.email}
+                                    </div>
                                 </td>
-                                <td>${booking.serviceName}</td>
-                                <td>${formatDate(booking.date)}</td>
-                                <td>${booking.time}</td>
-                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
-                                <td>$${booking.cost.toFixed(2)}</td>
                                 <td>
-                                    <button onclick="showBookingDetails(${booking.id})" class="btn-small" style="background: #2c5aa0; color: white;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-swimmer" style="color: var(--gallery-blue);"></i>
+                                        ${booking.serviceName}
+                                    </div>
+                                </td>
+                                <td>${formatDate(booking.date)}</td>
+                                <td><strong>${booking.time}</strong></td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                <td><strong>$${booking.cost.toFixed(2)}</strong></td>
+                                <td>
+                                    <button onclick="showBookingDetails(${booking.id})" class="btn-small" style="background: var(--gradient-primary); color: white;">
                                         <i class="fas fa-eye"></i> View
                                     </button>
                                 </td>
@@ -761,19 +1165,58 @@
                     const booking = data.bookings.find(b => b.id === bookingId);
                     if (booking) {
                         detailsContainer.innerHTML = `
-                            <div class="detail-row"><div class="detail-label">Booking ID:</div><div class="detail-value">#${booking.id}</div></div>
-                            <div class="detail-row"><div class="detail-label">Customer:</div><div class="detail-value">${booking.customer.name}</div></div>
-                            <div class="detail-row"><div class="detail-label">Email:</div><div class="detail-value">${booking.customer.email}</div></div>
-                            <div class="detail-row"><div class="detail-label">Phone:</div><div class="detail-value">${booking.customer.phone}</div></div>
-                            <div class="detail-row"><div class="detail-label">Service:</div><div class="detail-value">${booking.serviceName}</div></div>
-                            <div class="detail-row"><div class="detail-label">Date:</div><div class="detail-value">${formatDate(booking.date)}</div></div>
-                            <div class="detail-row"><div class="detail-label">Time:</div><div class="detail-value">${booking.time}</div></div>
-                            <div class="detail-row"><div class="detail-label">Duration:</div><div class="detail-value">${booking.duration} hour(s)</div></div>
-                            <div class="detail-row"><div class="detail-label">Participants:</div><div class="detail-value">${booking.participants}</div></div>
-                            <div class="detail-row"><div class="detail-label">Special Requests:</div><div class="detail-value">${booking.specialRequests || 'None'}</div></div>
-                            <div class="detail-row"><div class="detail-label">Cost:</div><div class="detail-value">$${booking.cost.toFixed(2)}</div></div>
-                            <div class="detail-row"><div class="detail-label">Status:</div><div class="detail-value"><span class="status-badge status-${booking.status}">${booking.status}</span></div></div>
-                            <div class="detail-row"><div class="detail-label">Created:</div><div class="detail-value">${formatDateTime(booking.createdAt)}</div></div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-hashtag"></i> Booking ID:</div>
+                                <div class="detail-value"><strong>#${booking.id}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-user"></i> Customer:</div>
+                                <div class="detail-value"><strong>${booking.customer.name}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-envelope"></i> Email:</div>
+                                <div class="detail-value">${booking.customer.email}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-phone"></i> Phone:</div>
+                                <div class="detail-value">${booking.customer.phone || 'Not provided'}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-swimmer"></i> Service:</div>
+                                <div class="detail-value"><strong>${booking.serviceName}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-calendar"></i> Date:</div>
+                                <div class="detail-value"><strong>${formatDate(booking.date)}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-clock"></i> Time:</div>
+                                <div class="detail-value"><strong>${booking.time}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-hourglass-half"></i> Duration:</div>
+                                <div class="detail-value">${booking.duration} hour(s)</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-users"></i> Participants:</div>
+                                <div class="detail-value">${booking.participants}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-comment"></i> Special Requests:</div>
+                                <div class="detail-value">${booking.specialRequests || 'None'}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-dollar-sign"></i> Cost:</div>
+                                <div class="detail-value"><strong>$${booking.cost.toFixed(2)}</strong></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-tag"></i> Status:</div>
+                                <div class="detail-value"><span class="status-badge status-${booking.status}">${booking.status}</span></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label"><i class="fas fa-calendar-plus"></i> Created:</div>
+                                <div class="detail-value">${formatDateTime(booking.createdAt)}</div>
+                            </div>
                         `;
                         modal.classList.add('active');
                     }
@@ -816,14 +1259,14 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `bookings_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `805-lifeguard-bookings_${new Date().toISOString().split('T')[0]}.csv`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                showSuccess('Bookings exported successfully!');
+                showSuccess('Booking data exported successfully!');
             } catch (error) {
-                showError('exportError', 'Failed to export bookings');
+                showError('exportError', 'Failed to export booking data');
             }
         }
 
@@ -868,17 +1311,32 @@
                 setTimeout(() => {
                     errorEl.style.display = 'none';
                 }, 5000);
+            } else {
+                // Create floating error message
+                const floatingError = document.createElement('div');
+                floatingError.className = 'error';
+                floatingError.style.position = 'fixed';
+                floatingError.style.top = '20px';
+                floatingError.style.right = '20px';
+                floatingError.style.zIndex = '10001';
+                floatingError.style.maxWidth = '400px';
+                floatingError.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+                document.body.appendChild(floatingError);
+                setTimeout(() => floatingError.remove(), 5000);
             }
         }
 
         function showSuccess(message) {
             const successEl = document.createElement('div');
             successEl.className = 'success';
-            successEl.textContent = message;
+            successEl.style.position = 'fixed';
+            successEl.style.top = '20px';
+            successEl.style.right = '20px';
+            successEl.style.zIndex = '10001';
+            successEl.style.maxWidth = '400px';
+            successEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
             document.body.appendChild(successEl);
-            setTimeout(() => {
-                document.body.removeChild(successEl);
-            }, 3000);
+            setTimeout(() => successEl.remove(), 4000);
         }
     </script>
 </body>
