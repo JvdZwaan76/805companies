@@ -167,6 +167,12 @@
             text-align: left;
         }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
         .form-label {
             display: block;
             margin-bottom: 8px;
@@ -279,12 +285,128 @@
             display: block;
         }
 
+        .success-message {
+            color: var(--success);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
         .login-footer {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid #e9ecef;
             color: var(--gray);
             font-size: 0.9rem;
+        }
+
+        .create-account-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .create-account-btn {
+            background: none;
+            border: 2px solid var(--gallery-blue);
+            color: var(--gallery-blue);
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .create-account-btn:hover {
+            background: var(--gallery-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Registration Modal Styles */
+        .registration-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .registration-modal.show {
+            display: flex;
+        }
+
+        .registration-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-large);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .registration-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+        }
+
+        .registration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .registration-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
         }
 
         /* Portal Dashboard Styles */
@@ -1061,7 +1183,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .login-card {
+            .login-card, .registration-content {
                 padding: 40px 30px;
                 margin: 10px;
             }
@@ -1120,7 +1242,7 @@
                 font-size: 0.75rem;
             }
 
-            .modal-content {
+            .modal-content, .registration-content {
                 margin: 10px;
                 padding: 25px 20px;
             }
@@ -1161,10 +1283,14 @@
                 align-items: flex-start;
                 gap: 8px;
             }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
-            .login-card {
+            .login-card, .registration-content {
                 padding: 30px 20px;
             }
 
@@ -1204,7 +1330,9 @@
         .service-option:focus,
         .time-slot:focus,
         .btn-primary:focus,
-        .btn-secondary:focus {
+        .btn-secondary:focus,
+        .create-account-btn:focus,
+        .close-btn:focus {
             outline: 3px solid var(--gallery-blue);
             outline-offset: 2px;
         }
@@ -1270,9 +1398,98 @@
                 
                 <div class="error-message" id="loginError"></div>
             </form>
+
+            <div class="create-account-link">
+                <p style="margin-bottom: 15px; color: var(--gray);">Don't have an account?</p>
+                <button type="button" class="create-account-btn" id="createAccountBtn">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </div>
             
             <div class="login-footer">
                 <p>Need help accessing your account? Contact us at <a href="tel:8053676432">(805) 367-6432</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="registration-modal" id="registrationModal">
+        <div class="registration-content">
+            <div class="registration-header">
+                <h2 class="registration-title">Create Your Account</h2>
+                <button class="close-btn" id="registrationClose">&times;</button>
+            </div>
+            
+            <p style="color: var(--gray); margin-bottom: 30px; text-align: center;">
+                Join 805 LifeGuard and start booking professional aquatic services today!
+            </p>
+            
+            <form id="registrationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regName" class="form-label">Full Name *</label>
+                        <input type="text" id="regName" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail" class="form-label">Email Address *</label>
+                        <input type="email" id="regEmail" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regPassword" class="form-label">Password *</label>
+                        <div class="password-container">
+                            <input type="password" id="regPassword" class="form-input" placeholder="Create a password" required>
+                            <button type="button" class="password-toggle" id="regPasswordToggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regConfirmPassword" class="form-label">Confirm Password *</label>
+                        <input type="password" id="regConfirmPassword" class="form-input" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPhone" class="form-label">Phone Number</label>
+                    <input type="tel" id="regPhone" class="form-input" placeholder="(805) 555-0123">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regAddress" class="form-label">Address</label>
+                    <input type="text" id="regAddress" class="form-input" placeholder="Enter your address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmergencyContact" class="form-label">Emergency Contact</label>
+                    <input type="text" id="regEmergencyContact" class="form-input" placeholder="Emergency contact name and phone">
+                </div>
+                
+                <div style="margin: 25px 0; padding: 15px; background: rgba(30, 136, 229, 0.05); border-radius: var(--border-radius); font-size: 0.9rem; color: var(--gray);">
+                    <p style="margin-bottom: 10px;"><strong>Password Requirements:</strong></p>
+                    <ul style="margin-left: 20px; line-height: 1.5;">
+                        <li>At least 8 characters long</li>
+                        <li>Contains uppercase and lowercase letters</li>
+                        <li>Contains at least one number</li>
+                    </ul>
+                </div>
+                
+                <button type="submit" class="login-btn" id="registrationBtn" style="margin-bottom: 15px;">
+                    <span class="btn-text">Create Account</span>
+                    <span class="loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Creating Account...
+                    </span>
+                </button>
+                
+                <div class="error-message" id="registrationError"></div>
+                <div class="success-message" id="registrationSuccess"></div>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef; color: var(--gray); font-size: 0.9rem;">
+                <p>Already have an account? <button type="button" class="forgot-password" onclick="closeRegistrationModal()" style="background: none; border: none; cursor: pointer;">Sign in here</button></p>
             </div>
         </div>
     </div>
@@ -1561,7 +1778,7 @@
     </div>
 
     <script>
-        // Production-Ready Client Portal System
+        // Production-Ready Client Portal System with Registration
         class ClientPortal {
             constructor() {
                 this.currentUser = null;
@@ -1655,6 +1872,153 @@
                     errorDiv.classList.add('show');
                 } finally {
                     this.hideLoadingState(loginBtn, 'Sign In');
+                }
+            }
+
+            // ==================== REGISTRATION ====================
+
+            async handleRegistration() {
+                const name = document.getElementById('regName').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const password = document.getElementById('regPassword').value;
+                const confirmPassword = document.getElementById('regConfirmPassword').value;
+                const phone = document.getElementById('regPhone').value.trim();
+                const address = document.getElementById('regAddress').value.trim();
+                const emergencyContact = document.getElementById('regEmergencyContact').value.trim();
+
+                const registrationBtn = document.getElementById('registrationBtn');
+                const errorDiv = document.getElementById('registrationError');
+                const successDiv = document.getElementById('registrationSuccess');
+
+                // Clear previous messages
+                errorDiv.classList.remove('show');
+                successDiv.classList.remove('show');
+
+                // Validation
+                const errors = [];
+                if (!name) errors.push('Full name is required');
+                if (!email) errors.push('Email address is required');
+                if (!password) errors.push('Password is required');
+                if (password !== confirmPassword) errors.push('Passwords do not match');
+                if (!this.isValidEmail(email)) errors.push('Please enter a valid email address');
+                if (!this.isValidPassword(password)) {
+                    errors.push('Password must be at least 8 characters with uppercase, lowercase, and number');
+                }
+
+                if (errors.length > 0) {
+                    errorDiv.innerHTML = errors.join('<br>');
+                    errorDiv.classList.add('show');
+                    return;
+                }
+
+                this.showLoadingState(registrationBtn, 'Creating Account...');
+
+                try {
+                    // Registration data
+                    const registrationData = {
+                        name,
+                        email,
+                        password,
+                        phone: phone || null,
+                        address: address || null,
+                        emergency_contact: emergencyContact || null
+                    };
+
+                    console.log('📝 Registering new user:', { ...registrationData, password: '[HIDDEN]' });
+
+                    const response = await this.apiCall('/api/auth/register', 'POST', registrationData);
+
+                    if (response && response.success) {
+                        successDiv.innerHTML = `
+                            <strong>Account created successfully!</strong><br>
+                            You can now sign in with your email and password.
+                        `;
+                        successDiv.classList.add('show');
+
+                        // Clear form
+                        document.getElementById('registrationForm').reset();
+
+                        // Auto-close registration modal and show login after delay
+                        setTimeout(() => {
+                            this.closeRegistrationModal();
+                            
+                            // Pre-fill login email
+                            document.getElementById('email').value = email;
+                            
+                            // Show success message on login screen
+                            setTimeout(() => {
+                                this.showMessage('Account created! Please sign in with your new credentials.', 'success');
+                            }, 500);
+                        }, 2000);
+
+                    } else {
+                        throw new Error(response.error || 'Registration failed');
+                    }
+
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    let errorMessage = error.message || 'Registration failed. Please try again.';
+                    
+                    // Handle specific error cases
+                    if (errorMessage.includes('already exists') || errorMessage.includes('duplicate')) {
+                        errorMessage = 'An account with this email already exists. Please use a different email or try signing in.';
+                    }
+                    
+                    errorDiv.textContent = errorMessage;
+                    errorDiv.classList.add('show');
+                } finally {
+                    this.hideLoadingState(registrationBtn, 'Create Account');
+                }
+            }
+
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            isValidPassword(password) {
+                // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
+                return passwordRegex.test(password);
+            }
+
+            showRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Focus on first input
+                    setTimeout(() => {
+                        document.getElementById('regName').focus();
+                    }, 100);
+                }
+            }
+
+            closeRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Clear form and messages
+                    document.getElementById('registrationForm').reset();
+                    document.getElementById('registrationError').classList.remove('show');
+                    document.getElementById('registrationSuccess').classList.remove('show');
+                }
+            }
+
+            toggleRegistrationPassword() {
+                const passwordInput = document.getElementById('regPassword');
+                const toggleBtn = document.getElementById('regPasswordToggle');
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
                 }
             }
 
@@ -2155,8 +2519,6 @@
                 if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
             }
 
-            // Removed calculateEstimatedCost since pricing is handled separately
-
             validateBookingForm() {
                 const submitBtn = document.getElementById('submitBooking');
                 if (!submitBtn) return;
@@ -2191,15 +2553,6 @@
                     };
 
                     console.log('📤 Sending booking data (CORRECTED FORMAT):', JSON.stringify(bookingData, null, 2));
-                    console.log('📤 Data types:', {
-                        service: typeof bookingData.service,
-                        date: typeof bookingData.date,
-                        time: typeof bookingData.time,
-                        duration: typeof bookingData.duration,
-                        participants: typeof bookingData.participants,
-                        specialRequests: typeof bookingData.specialRequests,
-                        cost: typeof bookingData.cost
-                    });
 
                     let response;
 
@@ -2261,13 +2614,6 @@
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
-                    console.error('Error details:', {
-                        message: error.message,
-                        stack: error.stack,
-                        selectedService: this.selectedService,
-                        selectedDate: this.selectedDate,
-                        selectedTime: this.selectedTime
-                    });
                     
                     let errorMessage = 'Failed to submit booking. ';
                     if (error.message.includes('Internal Server Error')) {
@@ -2556,11 +2902,53 @@
                     });
                 }
 
-                // Password toggle
+                // Registration form
+                const registrationForm = document.getElementById('registrationForm');
+                if (registrationForm) {
+                    registrationForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleRegistration();
+                    });
+                }
+
+                // Create account button
+                const createAccountBtn = document.getElementById('createAccountBtn');
+                if (createAccountBtn) {
+                    createAccountBtn.addEventListener('click', () => {
+                        this.showRegistrationModal();
+                    });
+                }
+
+                // Registration modal close
+                const registrationClose = document.getElementById('registrationClose');
+                if (registrationClose) {
+                    registrationClose.addEventListener('click', () => {
+                        this.closeRegistrationModal();
+                    });
+                }
+
+                // Registration modal backdrop
+                const registrationModal = document.getElementById('registrationModal');
+                if (registrationModal) {
+                    registrationModal.addEventListener('click', (e) => {
+                        if (e.target.id === 'registrationModal') {
+                            this.closeRegistrationModal();
+                        }
+                    });
+                }
+
+                // Password toggles
                 const passwordToggle = document.getElementById('passwordToggle');
                 if (passwordToggle) {
                     passwordToggle.addEventListener('click', () => {
                         this.togglePassword();
+                    });
+                }
+
+                const regPasswordToggle = document.getElementById('regPasswordToggle');
+                if (regPasswordToggle) {
+                    regPasswordToggle.addEventListener('click', () => {
+                        this.toggleRegistrationPassword();
                     });
                 }
 
@@ -2640,6 +3028,7 @@
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
                         this.closeBookingModal();
+                        this.closeRegistrationModal();
                     }
                 });
             }
@@ -2671,12 +3060,29 @@
             }
 
             showMessage(message, type = 'success') {
-                const messageElement = document.getElementById('bookingMessage');
-                if (messageElement) {
-                    messageElement.textContent = message;
-                    messageElement.className = `message ${type} show`;
+                // Create floating message
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${type} show`;
+                messageElement.style.position = 'fixed';
+                messageElement.style.top = '20px';
+                messageElement.style.right = '20px';
+                messageElement.style.zIndex = '10001';
+                messageElement.style.maxWidth = '400px';
+                messageElement.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${message}`;
+                
+                document.body.appendChild(messageElement);
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    messageElement.remove();
+                }, 5000);
+
+                // Also try to show in booking modal if visible
+                const bookingMessage = document.getElementById('bookingMessage');
+                if (bookingMessage) {
+                    bookingMessage.textContent = message;
+                    bookingMessage.className = `message ${type} show`;
                     
-                    // Auto-hide after 5 seconds
                     setTimeout(() => {
                         this.hideMessage();
                     }, 5000);
@@ -2733,55 +3139,21 @@
             }
         }
 
+        function closeRegistrationModal() {
+            if (window.portal) {
+                window.portal.closeRegistrationModal();
+            }
+        }
+
         // ==================== INITIALIZATION ====================
         
         // Initialize the portal when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             window.portal = new ClientPortal();
             
-            console.log('🏊‍♂️ 805 LifeGuard Client Portal - Production Ready');
+            console.log('🏊‍♂️ 805 LifeGuard Client Portal - Production Ready with Registration');
             console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
             console.log('✅ All systems initialized');
-            
-            // Add network monitoring for debugging
-            if (window.fetch) {
-                const originalFetch = window.fetch;
-                window.fetch = function(...args) {
-                    const startTime = Date.now();
-                    console.log(`🌐 API Request: ${args[0]}`);
-                    
-                    return originalFetch.apply(this, args)
-                        .then(response => {
-                            const duration = Date.now() - startTime;
-                            console.log(`✅ API Response: ${response.status} ${response.statusText} (${duration}ms)`);
-                            return response;
-                        })
-                        .catch(error => {
-                            const duration = Date.now() - startTime;
-                            console.error(`❌ API Error: ${error.message} (${duration}ms)`);
-                            throw error;
-                        });
-                };
-            }
-            
-            // Add performance monitoring
-            if ('performance' in window) {
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log(`⚡ Page Load Time: ${Math.round(perfData.loadEventEnd - perfData.fetchStart)}ms`);
-                    }, 0);
-                });
-            }
-            
-            // Service worker registration (for future PWA features)
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    // navigator.serviceWorker.register('/sw.js')
-                    //     .then(registration => console.log('SW registered'))
-                    //     .catch(error => console.log('SW registration failed'));
-                });
-            }
         });
 
         // ==================== ERROR HANDLING ====================
@@ -2812,40 +3184,6 @@
             console.error('🚨 Unhandled Promise Rejection:', event.reason);
             event.preventDefault();
         });
-
-        // ==================== UTILITY ENHANCEMENTS ====================
-        
-        // Add smooth scrolling for better UX
-        document.documentElement.style.scrollBehavior = 'smooth';
-        
-        // Add focus management for accessibility
-        document.addEventListener('focusin', (e) => {
-            if (e.target.matches('.calendar-day')) {
-                e.target.style.outline = '2px solid var(--gallery-blue)';
-            }
-        });
-        
-        document.addEventListener('focusout', (e) => {
-            if (e.target.matches('.calendar-day')) {
-                e.target.style.outline = '';
-            }
-        });
-        
-        // Prevent zoom on mobile inputs
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('focus', () => {
-                    const viewport = document.querySelector('meta[name="viewport"]');
-                    viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-                });
-                
-                input.addEventListener('blur', () => {
-                    const viewport = document.querySelector('meta[name="viewport"]');
-                    viewport.content = 'width=device-width, initial-scale=1.0';
-                });
-            });
-        }
     </script>
 </body>
 </html>
