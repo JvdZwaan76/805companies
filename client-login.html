@@ -1604,919 +1604,963 @@
         </div>
     </div>
 
-    <script>
-        // Client Portal System - Complete Implementation
-        class ClientPortal {
-            constructor() {
-                this.currentUser = null;
-                this.currentDate = new Date();
-                this.selectedDate = null;
-                this.selectedService = null;
-                this.selectedTime = null;
-                this.bookings = this.getStoredBookings();
-                this.availabilityData = this.generateAvailabilityData();
-                
-                this.init();
-            }
+	// Updated JavaScript section for your client-login.html
+	// Replace the entire <script> section with this code
 
-            init() {
-                this.setupEventListeners();
-                this.generateCalendar();
-                this.updateStats();
-                
-                // Check if user is already logged in
-                const storedUser = localStorage.getItem('portalUser');
-                if (storedUser) {
-                    this.currentUser = JSON.parse(storedUser);
-                    this.showPortal();
-                } else {
-                    this.showLogin();
-                }
-            }
+	<script>
+	    // Client Portal System - Connected to Live D1 Database
+	    class ClientPortal {
+	        constructor() {
+	            this.currentUser = null;
+	            this.currentDate = new Date();
+	            this.selectedDate = null;
+	            this.selectedService = null;
+	            this.selectedTime = null;
+	            this.bookings = [];
+	            this.availabilityData = {};
+            
+	            // ** IMPORTANT: Update this to your actual Worker URL **
+	            this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
+            
+	            this.init();
+	        }
 
-            setupEventListeners() {
-                // Login form
-                document.getElementById('loginForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleLogin();
-                });
+	        init() {
+	            this.setupEventListeners();
+	            this.generateCalendar();
+            
+	            // Check if user is already logged in
+	            const token = localStorage.getItem('authToken');
+	            if (token) {
+	                this.validateToken(token);
+	            } else {
+	                this.showLogin();
+	            }
+	        }
 
-                // Password toggle
-                document.getElementById('passwordToggle').addEventListener('click', () => {
-                    this.togglePassword();
-                });
+	        // Authentication Methods - Updated to use live API
+	        async validateToken(token) {
+	            try {
+	                const response = await this.apiCall('/api/user/profile', 'GET', null, token);
+	                if (response.success) {
+	                    this.currentUser = response.user;
+	                    await this.loadUserData();
+	                    this.showPortal();
+	                } else {
+	                    localStorage.removeItem('authToken');
+	                    this.showLogin();
+	                }
+	            } catch (error) {
+	                console.error('Token validation error:', error);
+	                localStorage.removeItem('authToken');
+	                this.showLogin();
+	            }
+	        }
 
-                // Logout
-                document.getElementById('logoutBtn').addEventListener('click', () => {
-                    this.handleLogout();
-                });
+	        async handleLogin() {
+	            const email = document.getElementById('email').value;
+	            const password = document.getElementById('password').value;
+	            const loginBtn = document.getElementById('loginBtn');
+	            const errorDiv = document.getElementById('loginError');
 
-                // Calendar navigation
-                document.getElementById('prevMonth').addEventListener('click', () => {
-                    this.navigateMonth(-1);
-                });
+	            // Show loading state
+	            loginBtn.disabled = true;
+	            loginBtn.querySelector('.btn-text').style.display = 'none';
+	            loginBtn.querySelector('.loading').style.display = 'flex';
+	            errorDiv.classList.remove('show');
 
-                document.getElementById('nextMonth').addEventListener('click', () => {
-                    this.navigateMonth(1);
-                });
+	            try {
+	                const response = await this.apiCall('/api/auth/login', 'POST', {
+	                    email,
+	                    password
+	                });
 
-                // Modal controls
-                document.getElementById('modalClose').addEventListener('click', () => {
-                    this.closeBookingModal();
-                });
-
-                document.getElementById('cancelBooking').addEventListener('click', () => {
-                    this.closeBookingModal();
-                });
-
-                // Service selection
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.addEventListener('click', () => {
-                        this.selectService(option.dataset.service);
-                    });
-                });
-
-                // Booking form
-                document.getElementById('bookingForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleBookingSubmission();
-                });
-
-                // Form change listeners for real-time updates
-                ['duration', 'participants'].forEach(id => {
-                    document.getElementById(id).addEventListener('change', () => {
-                        this.updateBookingSummary();
-                    });
-                });
-
-                // Close modal when clicking outside
-                document.getElementById('bookingModal').addEventListener('click', (e) => {
-                    if (e.target.id === 'bookingModal') {
-                        this.closeBookingModal();
-                    }
-                });
-
-                // Keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeBookingModal();
-                    }
-                });
-            }
-
-            // Authentication Methods
-            async handleLogin() {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const loginBtn = document.getElementById('loginBtn');
-                const errorDiv = document.getElementById('loginError');
-
-                // Show loading state
-                loginBtn.disabled = true;
-                loginBtn.querySelector('.btn-text').style.display = 'none';
-                loginBtn.querySelector('.loading').style.display = 'flex';
-                errorDiv.classList.remove('show');
-
-                try {
-                    // Simulate API call - In production, this would call your backend
-                    await this.simulateLogin(email, password);
+	                if (response.success) {
+	                    // Store token and user data
+	                    localStorage.setItem('authToken', response.token);
+	                    this.currentUser = response.user;
                     
-                    // Create user session
-                    this.currentUser = {
-                        id: 1,
-                        name: 'John Doe',
-                        email: email,
-                        phone: '(805) 555-0123',
-                        address: '123 Pool St, Ventura, CA',
-                        emergencyContact: 'Jane Doe - (805) 555-0124',
-                        memberSince: '2022',
-                        avatar: this.getInitials('John Doe')
-                    };
+	                    // Load user data and show portal
+	                    await this.loadUserData();
+	                    setTimeout(() => {
+	                        this.showPortal();
+	                    }, 1000);
+	                } else {
+	                    throw new Error(response.error || 'Login failed');
+	                }
 
-                    // Store user session
-                    localStorage.setItem('portalUser', JSON.stringify(this.currentUser));
+	            } catch (error) {
+	                errorDiv.textContent = error.message;
+	                errorDiv.classList.add('show');
+	            } finally {
+	                // Reset button state
+	                loginBtn.disabled = false;
+	                loginBtn.querySelector('.btn-text').style.display = 'inline';
+	                loginBtn.querySelector('.loading').style.display = 'none';
+	            }
+	        }
+
+	        async loadUserData() {
+	            try {
+	                // Load bookings
+	                const bookingsResponse = await this.apiCall('/api/bookings', 'GET');
+	                if (bookingsResponse.success) {
+	                    this.bookings = bookingsResponse.bookings;
+	                    this.updateStats();
+	                    this.updateUpcomingBookings();
+	                }
+
+	                // Load availability
+	                const availabilityResponse = await this.apiCall('/api/availability', 'GET');
+	                if (availabilityResponse.success) {
+	                    this.availabilityData = availabilityResponse.availability;
+	                    this.generateCalendar();
+	                }
+	            } catch (error) {
+	                console.error('Error loading user data:', error);
+	                // Still show portal even if data loading fails
+	            }
+	        }
+
+	        // API Call Helper
+	        async apiCall(endpoint, method = 'GET', data = null, token = null) {
+	            const url = `${this.apiBaseUrl}${endpoint}`;
+	            const headers = {
+	                'Content-Type': 'application/json',
+	            };
+
+	            // Add auth token
+	            const authToken = token || localStorage.getItem('authToken');
+	            if (authToken) {
+	                headers['Authorization'] = `Bearer ${authToken}`;
+	            }
+
+	            const config = {
+	                method,
+	                headers
+	            };
+
+	            if (data && (method === 'POST' || method === 'PUT')) {
+	                config.body = JSON.stringify(data);
+	            }
+
+	            try {
+	                const response = await fetch(url, config);
+                
+	                if (!response.ok) {
+	                    const errorData = await response.json().catch(() => ({}));
+	                    throw new Error(errorData.error || `HTTP ${response.status}`);
+	                }
+
+	                return await response.json();
+	            } catch (error) {
+	                console.error('API call failed:', error);
+                
+	                // Handle unauthorized errors
+	                if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+	                    localStorage.removeItem('authToken');
+	                    this.showLogin();
+	                }
+                
+	                throw error;
+	            }
+	        }
+
+	        // Booking Methods (Updated to use API)
+	        async handleBookingSubmission() {
+	            const submitBtn = document.getElementById('submitBooking');
+            
+	            // Show loading state
+	            submitBtn.disabled = true;
+	            submitBtn.innerHTML = '<span class="loading"><span class="spinner"></span>Processing...</span>';
+
+	            try {
+	                const bookingData = {
+	                    service: this.selectedService,
+	                    date: this.selectedDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+	                    time: this.selectedTime,
+	                    duration: parseFloat(document.getElementById('duration').value),
+	                    participants: parseInt(document.getElementById('participants').value),
+	                    specialRequests: document.getElementById('specialRequests').value,
+	                    cost: this.calculateEstimatedCost()
+	                };
+
+	                const response = await this.apiCall('/api/bookings', 'POST', bookingData);
+
+	                if (response.success) {
+	                    // Add to local bookings array
+	                    this.bookings.push(response.booking);
                     
-                    // Show success and transition to portal
-                    setTimeout(() => {
-                        this.showPortal();
-                    }, 1000);
-
-                } catch (error) {
-                    // Show error message
-                    errorDiv.textContent = error.message;
-                    errorDiv.classList.add('show');
-                } finally {
-                    // Reset button state
-                    loginBtn.disabled = false;
-                    loginBtn.querySelector('.btn-text').style.display = 'inline';
-                    loginBtn.querySelector('.loading').style.display = 'none';
-                }
-            }
-
-            async simulateLogin(email, password) {
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // Demo credentials - In production, this would validate against your backend
-                const validCredentials = [
-                    { email: 'demo@805lifeguard.com', password: 'demo123' },
-                    { email: 'john@example.com', password: 'password' },
-                    { email: 'client@test.com', password: 'test123' }
-                ];
-
-                const isValid = validCredentials.some(cred => 
-                    cred.email === email && cred.password === password
-                );
-
-                if (!isValid) {
-                    throw new Error('Invalid email or password. Try demo@805lifeguard.com / demo123');
-                }
-            }
-
-            handleLogout() {
-                // Clear user session
-                localStorage.removeItem('portalUser');
-                this.currentUser = null;
-                
-                // Reset form
-                document.getElementById('loginForm').reset();
-                
-                // Show login screen
-                this.showLogin();
-            }
-
-            showLogin() {
-                document.getElementById('loginContainer').style.display = 'flex';
-                document.getElementById('portalContainer').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-
-            showPortal() {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('portalContainer').style.display = 'block';
-                
-                // Update user info in portal
-                this.updatePortalUserInfo();
-                document.body.style.overflow = 'auto';
-            }
-
-            updatePortalUserInfo() {
-                if (!this.currentUser) return;
-
-                document.getElementById('userAvatar').textContent = this.currentUser.avatar;
-                document.getElementById('userName').textContent = this.currentUser.name;
-                document.getElementById('welcomeName').textContent = this.currentUser.name.split(' ')[0];
-                document.getElementById('memberSince').textContent = this.currentUser.memberSince;
-            }
-
-            togglePassword() {
-                const passwordInput = document.getElementById('password');
-                const toggleBtn = document.getElementById('passwordToggle');
-                const icon = toggleBtn.querySelector('i');
-
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    icon.className = 'fas fa-eye-slash';
-                } else {
-                    passwordInput.type = 'password';
-                    icon.className = 'fas fa-eye';
-                }
-            }
-
-            // Calendar Methods
-            generateCalendar() {
-                const calendarGrid = document.getElementById('calendarGrid');
-                const currentMonthDisplay = document.getElementById('currentMonth');
-                
-                // Update month display
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
-
-                // Clear existing calendar
-                calendarGrid.innerHTML = '';
-
-                // Add day headers
-                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayHeaders.forEach(day => {
-                    const header = document.createElement('div');
-                    header.className = 'calendar-day-header';
-                    header.textContent = day;
-                    calendarGrid.appendChild(header);
-                });
-
-                // Get first day of month and number of days
-                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-                const lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
-                const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-                // Generate calendar days
-                for (let i = 0; i < 42; i++) {
-                    const currentDay = new Date(startDate);
-                    currentDay.setDate(startDate.getDate() + i);
+	                    // Update UI
+	                    this.updateStats();
+	                    this.updateUpcomingBookings();
+	                    this.generateCalendar(); // Refresh calendar availability
                     
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day';
-                    dayElement.setAttribute('tabindex', '0');
-                    dayElement.setAttribute('role', 'button');
-                    dayElement.setAttribute('aria-label', `Select ${currentDay.toDateString()}`);
-
-                    // Add appropriate classes
-                    if (currentDay.getMonth() !== this.currentDate.getMonth()) {
-                        dayElement.classList.add('other-month');
-                    }
-
-                    if (this.isToday(currentDay)) {
-                        dayElement.classList.add('today');
-                    }
-
-                    // Add availability status
-                    const availability = this.getDateAvailability(currentDay);
-                    dayElement.classList.add(availability.status);
-
-                    // Day number
-                    const dayNumber = document.createElement('div');
-                    dayNumber.className = 'day-number';
-                    dayNumber.textContent = currentDay.getDate();
-                    dayElement.appendChild(dayNumber);
-
-                    // Events container
-                    const eventsContainer = document.createElement('div');
-                    eventsContainer.className = 'day-events';
+	                    // Show success message
+	                    this.showBookingSuccess(response.booking);
                     
-                    // Add availability indicators
-                    availability.events.forEach(event => {
-                        const eventDot = document.createElement('div');
-                        eventDot.className = `event-dot event-${event.type}`;
-                        eventsContainer.appendChild(eventDot);
-                    });
+	                    // Close modal
+	                    this.closeBookingModal();
+	                } else {
+	                    throw new Error(response.error || 'Booking failed');
+	                }
 
-                    dayElement.appendChild(eventsContainer);
+	            } catch (error) {
+	                console.error('Booking submission error:', error);
+	                alert(`Error: ${error.message}`);
+	            } finally {
+	                // Reset button
+	                submitBtn.disabled = false;
+	                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+	            }
+	        }
 
-                    // Click handler for date selection
-                    dayElement.addEventListener('click', () => {
-                        this.selectDate(new Date(currentDay));
-                    });
-
-                    // Keyboard navigation
-                    dayElement.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.selectDate(new Date(currentDay));
-                        }
-                    });
-
-                    calendarGrid.appendChild(dayElement);
-                }
-            }
-
-            navigateMonth(direction) {
-                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
-                this.generateCalendar();
-            }
-
-            selectDate(date) {
-                // Don't allow selection of past dates
-                if (date < new Date().setHours(0, 0, 0, 0)) {
-                    return;
-                }
-
-                this.selectedDate = date;
+	        async editBooking(bookingId) {
+	            const booking = this.bookings.find(b => b.id === bookingId);
+	            if (booking) {
+	                // Pre-populate the booking form with existing data
+	                this.selectedService = booking.service;
+	                this.selectedDate = new Date(booking.date + 'T00:00:00'); // Ensure proper date parsing
+	                this.selectedTime = booking.time;
                 
-                // Update selected date in booking form
-                const selectedDateInput = document.getElementById('selectedDate');
-                selectedDateInput.value = date.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-
-                // Generate time slots for selected date
-                this.generateTimeSlots(date);
+	                // Open modal and populate form
+	                this.openBookingModal(booking.service);
                 
-                // Open booking modal if not already open
-                if (!document.getElementById('bookingModal').classList.contains('show')) {
-                    this.openBookingModal();
-                }
-            }
-
-            // Booking Methods
-            openBookingModal(serviceType = null) {
-                const modal = document.getElementById('bookingModal');
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-
-                // Pre-select service if specified
-                if (serviceType) {
-                    this.selectService(serviceType);
-                }
-
-                // Focus management for accessibility
-                setTimeout(() => {
-                    const firstFocusableElement = modal.querySelector('button, input, select, textarea');
-                    if (firstFocusableElement) {
-                        firstFocusableElement.focus();
-                    }
-                }, 100);
-            }
-
-            closeBookingModal() {
-                const modal = document.getElementById('bookingModal');
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                
-                // Reset form
-                this.resetBookingForm();
-            }
-
-            selectService(serviceType) {
-                // Clear previous selection
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-
-                // Select new service
-                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
-                if (selectedOption) {
-                    selectedOption.classList.add('selected');
-                    this.selectedService = serviceType;
+	                // Set form values
+	                setTimeout(() => {
+	                    document.getElementById('selectedDate').value = this.selectedDate.toLocaleDateString('en-US', {
+	                        weekday: 'long',
+	                        year: 'numeric',
+	                        month: 'long',
+	                        day: 'numeric'
+	                    });
+	                    document.getElementById('duration').value = booking.duration;
+	                    document.getElementById('participants').value = booking.participants;
+	                    document.getElementById('specialRequests').value = booking.specialRequests || '';
                     
-                    // Update time slots based on service
-                    if (this.selectedDate) {
-                        this.generateTimeSlots(this.selectedDate);
-                    }
+	                    this.generateTimeSlots(this.selectedDate);
+	                    this.updateBookingSummary();
                     
-                    // Update booking summary
-                    this.updateBookingSummary();
-                }
-            }
+	                    // Change submit button to update mode
+	                    const submitBtn = document.getElementById('submitBooking');
+	                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Booking';
+	                    submitBtn.onclick = () => this.updateExistingBooking(bookingId);
+	                }, 100);
+	            }
+	        }
 
-            generateTimeSlots(date) {
-                const timeSlotsContainer = document.getElementById('timeSlots');
-                timeSlotsContainer.innerHTML = '';
+	        async updateExistingBooking(bookingId) {
+	            const submitBtn = document.getElementById('submitBooking');
+            
+	            // Show loading state
+	            submitBtn.disabled = true;
+	            submitBtn.innerHTML = '<span class="loading"><span class="spinner"></span>Updating...</span>';
 
-                // Get available time slots for the selected date and service
-                const availableSlots = this.getAvailableTimeSlots(date, this.selectedService);
+	            try {
+	                const updateData = {
+	                    service_type: this.selectedService,
+	                    booking_date: this.selectedDate.toISOString().split('T')[0],
+	                    booking_time: this.selectedTime,
+	                    duration: parseFloat(document.getElementById('duration').value),
+	                    participants: parseInt(document.getElementById('participants').value),
+	                    special_requests: document.getElementById('specialRequests').value
+	                };
 
-                availableSlots.forEach(slot => {
-                    const timeSlot = document.createElement('div');
-                    timeSlot.className = 'time-slot';
-                    timeSlot.textContent = slot.time;
-                    timeSlot.dataset.time = slot.time;
-                    timeSlot.dataset.available = slot.available;
+	                const response = await this.apiCall(`/api/bookings/${bookingId}`, 'PUT', updateData);
 
-                    if (!slot.available) {
-                        timeSlot.classList.add('unavailable');
-                        timeSlot.title = 'This time slot is not available';
-                    } else {
-                        timeSlot.addEventListener('click', () => {
-                            this.selectTimeSlot(timeSlot);
-                        });
+	                if (response.success) {
+	                    // Update local booking
+	                    const bookingIndex = this.bookings.findIndex(b => b.id === bookingId);
+	                    if (bookingIndex !== -1) {
+	                        Object.assign(this.bookings[bookingIndex], {
+	                            service: updateData.service_type,
+	                            date: updateData.booking_date,
+	                            time: updateData.booking_time,
+	                            duration: updateData.duration,
+	                            participants: updateData.participants,
+	                            specialRequests: updateData.special_requests
+	                        });
+	                    }
+                    
+	                    // Update UI
+	                    this.updateUpcomingBookings();
+	                    this.generateCalendar();
+                    
+	                    // Show success and close modal
+	                    alert('Booking updated successfully!');
+	                    this.closeBookingModal();
+	                } else {
+	                    throw new Error(response.error || 'Update failed');
+	                }
+
+	            } catch (error) {
+	                console.error('Booking update error:', error);
+	                alert(`Error: ${error.message}`);
+	            } finally {
+	                // Reset button
+	                submitBtn.disabled = false;
+	                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+	                submitBtn.onclick = null; // Remove custom onclick
+	            }
+	        }
+
+	        async cancelBooking(bookingId) {
+	            if (confirm('Are you sure you want to cancel this booking?')) {
+	                try {
+	                    const response = await this.apiCall(`/api/bookings/${bookingId}`, 'DELETE');
+                    
+	                    if (response.success) {
+	                        // Update local booking status
+	                        const booking = this.bookings.find(b => b.id === bookingId);
+	                        if (booking) {
+	                            booking.status = 'cancelled';
+	                        }
                         
-                        timeSlot.addEventListener('keydown', (e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                this.selectTimeSlot(timeSlot);
-                            }
-                        });
+	                        // Update UI
+	                        this.updateUpcomingBookings();
+	                        this.updateStats();
+	                        this.generateCalendar();
                         
-                        timeSlot.setAttribute('tabindex', '0');
-                        timeSlot.setAttribute('role', 'button');
-                    }
+	                        alert('Booking cancelled successfully.');
+	                    } else {
+	                        throw new Error(response.error || 'Cancellation failed');
+	                    }
+	                } catch (error) {
+	                    console.error('Booking cancellation error:', error);
+	                    alert(`Error: ${error.message}`);
+	                }
+	            }
+	        }
 
-                    timeSlotsContainer.appendChild(timeSlot);
-                });
-            }
+	        // Updated availability methods
+	        getDateAvailability(date) {
+	            const dateKey = date.toISOString().split('T')[0];
+	            return this.availabilityData[dateKey] || {
+	                status: 'available',
+	                events: [{ type: 'available' }]
+	            };
+	        }
 
-            selectTimeSlot(timeSlotElement) {
-                if (timeSlotElement.classList.contains('unavailable')) return;
+	        async getAvailableTimeSlots(date, serviceType) {
+	            // This could be enhanced to make a specific API call for time slots
+	            // For now, using the existing logic with some random availability
+	            const baseSlots = [
+	                '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+	                '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM',
+	                '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM'
+	            ];
 
-                // Clear previous selection
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
+	            let availableSlots = [...baseSlots];
+            
+	            if (serviceType === 'swim-lesson') {
+	                availableSlots = baseSlots.slice(2, 9); // 10 AM to 5 PM
+	            } else if (serviceType === 'event') {
+	                availableSlots = baseSlots;
+	            }
 
-                // Select new time slot
-                timeSlotElement.classList.add('selected');
-                this.selectedTime = timeSlotElement.dataset.time;
+	            // Check against existing bookings
+	            const dateStr = date.toISOString().split('T')[0];
+	            const existingBookings = this.bookings.filter(booking => 
+	                booking.date === dateStr && booking.status !== 'cancelled'
+	            );
+
+	            return availableSlots.map(time => ({
+	                time,
+	                available: !existingBookings.some(booking => booking.time === time)
+	            }));
+	        }
+
+	        // Keep all the existing UI methods but update logout
+	        handleLogout() {
+	            // Clear token and user data
+	            localStorage.removeItem('authToken');
+	            this.currentUser = null;
+	            this.bookings = [];
+            
+	            // Reset form
+	            document.getElementById('loginForm').reset();
+            
+	            // Show login screen
+	            this.showLogin();
+	        }
+
+	        // Keep all other existing methods unchanged...
+	        setupEventListeners() {
+	            // Login form
+	            document.getElementById('loginForm').addEventListener('submit', (e) => {
+	                e.preventDefault();
+	                this.handleLogin();
+	            });
+
+	            // Password toggle
+	            document.getElementById('passwordToggle').addEventListener('click', () => {
+	                this.togglePassword();
+	            });
+
+	            // Logout
+	            document.getElementById('logoutBtn').addEventListener('click', () => {
+	                this.handleLogout();
+	            });
+
+	            // Calendar navigation
+	            document.getElementById('prevMonth').addEventListener('click', () => {
+	                this.navigateMonth(-1);
+	            });
+
+	            document.getElementById('nextMonth').addEventListener('click', () => {
+	                this.navigateMonth(1);
+	            });
+
+	            // Modal controls
+	            document.getElementById('modalClose').addEventListener('click', () => {
+	                this.closeBookingModal();
+	            });
+
+	            document.getElementById('cancelBooking').addEventListener('click', () => {
+	                this.closeBookingModal();
+	            });
+
+	            // Service selection
+	            document.querySelectorAll('.service-option').forEach(option => {
+	                option.addEventListener('click', () => {
+	                    this.selectService(option.dataset.service);
+	                });
+	            });
+
+	            // Booking form
+	            document.getElementById('bookingForm').addEventListener('submit', (e) => {
+	                e.preventDefault();
+	                this.handleBookingSubmission();
+	            });
+
+	            // Form change listeners for real-time updates
+	            ['duration', 'participants'].forEach(id => {
+	                document.getElementById(id).addEventListener('change', () => {
+	                    this.updateBookingSummary();
+	                });
+	            });
+
+	            // Close modal when clicking outside
+	            document.getElementById('bookingModal').addEventListener('click', (e) => {
+	                if (e.target.id === 'bookingModal') {
+	                    this.closeBookingModal();
+	                }
+	            });
+
+	            // Keyboard navigation
+	            document.addEventListener('keydown', (e) => {
+	                if (e.key === 'Escape') {
+	                    this.closeBookingModal();
+	                }
+	            });
+	        }
+
+	        showLogin() {
+	            document.getElementById('loginContainer').style.display = 'flex';
+	            document.getElementById('portalContainer').style.display = 'none';
+	            document.body.style.overflow = 'auto';
+	        }
+
+	        showPortal() {
+	            document.getElementById('loginContainer').style.display = 'none';
+	            document.getElementById('portalContainer').style.display = 'block';
+            
+	            // Update user info in portal
+	            this.updatePortalUserInfo();
+	            document.body.style.overflow = 'auto';
+	        }
+
+	        updatePortalUserInfo() {
+	            if (!this.currentUser) return;
+
+	            document.getElementById('userAvatar').textContent = this.currentUser.avatar;
+	            document.getElementById('userName').textContent = this.currentUser.name;
+	            document.getElementById('welcomeName').textContent = this.currentUser.name.split(' ')[0];
+            
+	            // Set member since year
+	            const memberSince = new Date(this.currentUser.member_since);
+	            document.getElementById('memberSince').textContent = memberSince.getFullYear();
+	        }
+
+	        togglePassword() {
+	            const passwordInput = document.getElementById('password');
+	            const toggleBtn = document.getElementById('passwordToggle');
+	            const icon = toggleBtn.querySelector('i');
+
+	            if (passwordInput.type === 'password') {
+	                passwordInput.type = 'text';
+	                icon.className = 'fas fa-eye-slash';
+	            } else {
+	                passwordInput.type = 'password';
+	                icon.className = 'fas fa-eye';
+	            }
+	        }
+
+	        // Calendar Methods (keep existing implementation)
+	        generateCalendar() {
+	            const calendarGrid = document.getElementById('calendarGrid');
+	            const currentMonthDisplay = document.getElementById('currentMonth');
+            
+	            // Update month display
+	            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+	                'July', 'August', 'September', 'October', 'November', 'December'];
+	            currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+
+	            // Clear existing calendar
+	            calendarGrid.innerHTML = '';
+
+	            // Add day headers
+	            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	            dayHeaders.forEach(day => {
+	                const header = document.createElement('div');
+	                header.className = 'calendar-day-header';
+	                header.textContent = day;
+	                calendarGrid.appendChild(header);
+	            });
+
+	            // Get first day of month and number of days
+	            const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+	            const lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
+	            const startDate = new Date(firstDay);
+	            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+	            // Generate calendar days
+	            for (let i = 0; i < 42; i++) {
+	                const currentDay = new Date(startDate);
+	                currentDay.setDate(startDate.getDate() + i);
                 
-                // Update booking summary
-                this.updateBookingSummary();
+	                const dayElement = document.createElement('div');
+	                dayElement.className = 'calendar-day';
+	                dayElement.setAttribute('tabindex', '0');
+	                dayElement.setAttribute('role', 'button');
+	                dayElement.setAttribute('aria-label', `Select ${currentDay.toDateString()}`);
+
+	                // Add appropriate classes
+	                if (currentDay.getMonth() !== this.currentDate.getMonth()) {
+	                    dayElement.classList.add('other-month');
+	                }
+
+	                if (this.isToday(currentDay)) {
+	                    dayElement.classList.add('today');
+	                }
+
+	                // Add availability status
+	                const availability = this.getDateAvailability(currentDay);
+	                dayElement.classList.add(availability.status);
+
+	                // Day number
+	                const dayNumber = document.createElement('div');
+	                dayNumber.className = 'day-number';
+	                dayNumber.textContent = currentDay.getDate();
+	                dayElement.appendChild(dayNumber);
+
+	                // Events container
+	                const eventsContainer = document.createElement('div');
+	                eventsContainer.className = 'day-events';
                 
-                // Enable submit button if all required fields are filled
-                this.validateBookingForm();
-            }
+	                // Add availability indicators
+	                availability.events.forEach(event => {
+	                    const eventDot = document.createElement('div');
+	                    eventDot.className = `event-dot event-${event.type}`;
+	                    eventsContainer.appendChild(eventDot);
+	                });
 
-            updateBookingSummary() {
-                const summaryContainer = document.getElementById('bookingSummary');
+	                dayElement.appendChild(eventsContainer);
+
+	                // Click handler for date selection
+	                dayElement.addEventListener('click', () => {
+	                    this.selectDate(new Date(currentDay));
+	                });
+
+	                // Keyboard navigation
+	                dayElement.addEventListener('keydown', (e) => {
+	                    if (e.key === 'Enter' || e.key === ' ') {
+	                        e.preventDefault();
+	                        this.selectDate(new Date(currentDay));
+	                    }
+	                });
+
+	                calendarGrid.appendChild(dayElement);
+	            }
+	        }
+
+	        navigateMonth(direction) {
+	            this.currentDate.setMonth(this.currentDate.getMonth() + direction);
+	            this.generateCalendar();
+	        }
+
+	        selectDate(date) {
+	            // Don't allow selection of past dates
+	            if (date < new Date().setHours(0, 0, 0, 0)) {
+	                return;
+	            }
+
+	            this.selectedDate = date;
+            
+	            // Update selected date in booking form
+	            const selectedDateInput = document.getElementById('selectedDate');
+	            selectedDateInput.value = date.toLocaleDateString('en-US', {
+	                weekday: 'long',
+	                year: 'numeric',
+	                month: 'long',
+	                day: 'numeric'
+	            });
+
+	            // Generate time slots for selected date
+	            this.generateTimeSlots(date);
+            
+	            // Open booking modal if not already open
+	            if (!document.getElementById('bookingModal').classList.contains('show')) {
+	                this.openBookingModal();
+	            }
+	        }
+
+	        openBookingModal(serviceType = null) {
+	            const modal = document.getElementById('bookingModal');
+	            modal.classList.add('show');
+	            document.body.style.overflow = 'hidden';
+
+	            // Pre-select service if specified
+	            if (serviceType) {
+	                this.selectService(serviceType);
+	            }
+
+	            // Focus management for accessibility
+	            setTimeout(() => {
+	                const firstFocusableElement = modal.querySelector('button, input, select, textarea');
+	                if (firstFocusableElement) {
+	                    firstFocusableElement.focus();
+	                }
+	            }, 100);
+	        }
+
+	        closeBookingModal() {
+	            const modal = document.getElementById('bookingModal');
+	            modal.classList.remove('show');
+	            document.body.style.overflow = 'auto';
+            
+	            // Reset form
+	            this.resetBookingForm();
+	        }
+
+	        selectService(serviceType) {
+	            // Clear previous selection
+	            document.querySelectorAll('.service-option').forEach(option => {
+	                option.classList.remove('selected');
+	            });
+
+	            // Select new service
+	            const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
+	            if (selectedOption) {
+	                selectedOption.classList.add('selected');
+	                this.selectedService = serviceType;
                 
-                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
-                    summaryContainer.style.display = 'none';
-                    return;
-                }
-
-                summaryContainer.style.display = 'block';
-
-                // Update summary fields
-                const serviceNames = {
-                    'swim-lesson': 'Private Swim Lesson',
-                    'lifeguard': 'Lifeguard Service',
-                    'event': 'Special Event Coverage'
-                };
-
-                document.getElementById('summaryService').textContent = serviceNames[this.selectedService];
-                document.getElementById('summaryDate').textContent = this.selectedDate.toLocaleDateString();
-                document.getElementById('summaryTime').textContent = this.selectedTime;
+	                // Update time slots based on service
+	                if (this.selectedDate) {
+	                    this.generateTimeSlots(this.selectedDate);
+	                }
                 
-                const duration = document.getElementById('duration').value;
-                document.getElementById('summaryDuration').textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
-                
-                const participants = document.getElementById('participants').value;
-                document.getElementById('summaryParticipants').textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
+	                // Update booking summary
+	                this.updateBookingSummary();
+	            }
+	        }
 
-                // Calculate estimated cost
-                const cost = this.calculateEstimatedCost();
-                document.getElementById('summaryTotal').textContent = `$${cost}`;
-            }
+	        // Update the generateTimeSlots method to be async
+	        async generateTimeSlots(date) {
+	            const timeSlotsContainer = document.getElementById('timeSlots');
+	            timeSlotsContainer.innerHTML = '';
 
-            calculateEstimatedCost() {
-                if (!this.selectedService) return 0;
+	            try {
+	                // Get available time slots for the selected date and service
+	                const availableSlots = await this.getAvailableTimeSlots(date, this.selectedService);
 
-                const basePrices = {
-                    'swim-lesson': 75,
-                    'lifeguard': 45,
-                    'event': 65
-                };
+	                availableSlots.forEach(slot => {
+	                    const timeSlot = document.createElement('div');
+	                    timeSlot.className = 'time-slot';
+	                    timeSlot.textContent = slot.time;
+	                    timeSlot.dataset.time = slot.time;
+	                    timeSlot.dataset.available = slot.available;
 
-                const duration = parseFloat(document.getElementById('duration').value);
-                const participants = parseInt(document.getElementById('participants').value);
-                
-                let basePrice = basePrices[this.selectedService];
-                let totalCost = basePrice * duration;
-
-                // Apply participant multiplier for certain services
-                if (this.selectedService === 'swim-lesson' && participants > 2) {
-                    totalCost *= 1.5; // Group lesson pricing
-                } else if (this.selectedService === 'event' && participants >= 5) {
-                    totalCost *= 1.8; // Large event pricing
-                }
-
-                return Math.round(totalCost);
-            }
-
-            validateBookingForm() {
-                const submitBtn = document.getElementById('submitBooking');
-                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
-                
-                submitBtn.disabled = !isValid;
-                
-                if (isValid) {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
-                }
-            }
-
-            async handleBookingSubmission() {
-                const submitBtn = document.getElementById('submitBooking');
-                
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="loading"><span class="spinner"></span>Processing...</span>';
-
-                try {
-                    // Simulate API call
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-
-                    // Create booking object
-                    const newBooking = {
-                        id: Date.now(),
-                        service: this.selectedService,
-                        serviceName: document.getElementById('summaryService').textContent,
-                        date: this.selectedDate.toISOString(),
-                        time: this.selectedTime,
-                        duration: document.getElementById('duration').value,
-                        participants: document.getElementById('participants').value,
-                        specialRequests: document.getElementById('specialRequests').value,
-                        cost: this.calculateEstimatedCost(),
-                        status: 'pending',
-                        createdAt: new Date().toISOString()
-                    };
-
-                    // Add to bookings array
-                    this.bookings.push(newBooking);
-                    
-                    // Save to local storage
-                    localStorage.setItem('portalBookings', JSON.stringify(this.bookings));
-
-                    // Update stats
-                    this.updateStats();
-
-                    // Show success message
-                    this.showBookingSuccess(newBooking);
-
-                    // Close modal
-                    this.closeBookingModal();
-
-                } catch (error) {
-                    console.error('Booking submission error:', error);
-                    alert('There was an error submitting your booking. Please try again.');
-                } finally {
-                    // Reset button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                }
-            }
-
-            showBookingSuccess(booking) {
-                // In a real app, this might be a toast notification or modal
-                const successMessage = `
-                    Booking request submitted successfully!
-                    
-                    Service: ${booking.serviceName}
-                    Date: ${new Date(booking.date).toLocaleDateString()}
-                    Time: ${booking.time}
-                    
-                    You will receive a confirmation email shortly.
-                `;
-                
-                alert(successMessage);
-                
-                // Refresh the upcoming bookings display
-                this.updateUpcomingBookings();
-            }
-
-            resetBookingForm() {
-                document.getElementById('bookingForm').reset();
-                
-                // Clear selections
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-
-                // Reset variables
-                this.selectedService = null;
-                this.selectedTime = null;
-                this.selectedDate = null;
-
-                // Hide summary
-                document.getElementById('bookingSummary').style.display = 'none';
-                
-                // Clear time slots
-                document.getElementById('timeSlots').innerHTML = '';
-                
-                // Disable submit button
-                document.getElementById('submitBooking').disabled = true;
-            }
-
-            // Data Management Methods
-            getStoredBookings() {
-                const stored = localStorage.getItem('portalBookings');
-                return stored ? JSON.parse(stored) : this.generateSampleBookings();
-            }
-
-            generateSampleBookings() {
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                const nextWeek = new Date();
-                nextWeek.setDate(nextWeek.getDate() + 6);
-
-                return [
-                    {
-                        id: 1,
-                        service: 'swim-lesson',
-                        serviceName: 'Private Swim Lesson',
-                        date: tomorrow.toISOString(),
-                        time: '2:00 PM',
-                        duration: '1',
-                        participants: '1',
-                        specialRequests: 'Focus on backstroke technique',
-                        cost: 75,
-                        status: 'confirmed',
-                        createdAt: new Date(Date.now() - 86400000).toISOString()
-                    },
-                    {
-                        id: 2,
-                        service: 'lifeguard',
-                        serviceName: 'Pool Party Lifeguard',
-                        date: nextWeek.toISOString(),
-                        time: '12:00 PM',
-                        duration: '6',
-                        participants: '5',
-                        specialRequests: 'Birthday party for 8-year-old, 25 guests expected',
-                        cost: 486,
-                        status: 'pending',
-                        createdAt: new Date(Date.now() - 172800000).toISOString()
-                    }
-                ];
-            }
-
-            generateAvailabilityData() {
-                // Generate sample availability data for the next 60 days
-                const availability = {};
-                const today = new Date();
-                
-                for (let i = 0; i < 60; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() + i);
-                    const dateKey = date.toDateString();
-                    
-                    // Skip Sundays for this demo
-                    if (date.getDay() === 0) {
-                        availability[dateKey] = {
-                            status: 'unavailable',
-                            events: [{ type: 'unavailable' }]
-                        };
-                        continue;
-                    }
-                    
-                    // Random availability
-                    const random = Math.random();
-                    if (random > 0.8) {
-                        availability[dateKey] = {
-                            status: 'unavailable',
-                            events: [{ type: 'unavailable' }]
-                        };
-                    } else if (random > 0.5) {
-                        availability[dateKey] = {
-                            status: 'booked',
-                            events: [
-                                { type: 'booked' },
-                                { type: 'available' }
-                            ]
-                        };
-                    } else {
-                        availability[dateKey] = {
-                            status: 'available',
-                            events: [
-                                { type: 'available' },
-                                { type: 'available' }
-                            ]
-                        };
-                    }
-                }
-                
-                return availability;
-            }
-
-            getDateAvailability(date) {
-                const dateKey = date.toDateString();
-                return this.availabilityData[dateKey] || {
-                    status: 'available',
-                    events: [{ type: 'available' }]
-                };
-            }
-
-            getAvailableTimeSlots(date, serviceType) {
-                // Generate time slots based on service type and date
-                const baseSlots = [
-                    '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
-                    '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM',
-                    '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM'
-                ];
-
-                // Filter based on service type
-                let availableSlots = [...baseSlots];
-                
-                if (serviceType === 'swim-lesson') {
-                    // Swim lessons typically during daytime
-                    availableSlots = baseSlots.slice(2, 9); // 10 AM to 5 PM
-                } else if (serviceType === 'event') {
-                    // Events can be all day
-                    availableSlots = baseSlots;
-                }
-
-                // Mark some slots as unavailable based on existing bookings
-                return availableSlots.map(time => ({
-                    time,
-                    available: Math.random() > 0.3 // 70% availability rate
-                }));
-            }
-
-            updateStats() {
-                const totalBookings = this.bookings.length;
-                const upcomingBookings = this.bookings.filter(booking => 
-                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
-                ).length;
-                
-                const thisMonth = new Date();
-                const monthlyLessons = this.bookings.filter(booking => {
-                    const bookingDate = new Date(booking.date);
-                    return bookingDate.getMonth() === thisMonth.getMonth() &&
-                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
-                           booking.service === 'swim-lesson';
-                }).length;
-
-                document.getElementById('totalBookings').textContent = totalBookings;
-                document.getElementById('upcomingBookings').textContent = upcomingBookings;
-                document.getElementById('monthlyLessons').textContent = monthlyLessons;
-            }
-
-            updateUpcomingBookings() {
-                const container = document.getElementById('upcomingBookingsList');
-                const upcomingBookings = this.bookings
-                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .slice(0, 3); // Show only next 3 bookings
-
-                container.innerHTML = '';
-
-                upcomingBookings.forEach(booking => {
-                    const bookingElement = this.createBookingElement(booking);
-                    container.appendChild(bookingElement);
-                });
-
-                if (upcomingBookings.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">No upcoming bookings</p>';
-                }
-            }
-
-            createBookingElement(booking) {
-                const bookingDiv = document.createElement('div');
-                bookingDiv.className = 'booking-item';
-                
-                const statusClass = `status-${booking.status}`;
-                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
-                
-                const bookingDate = new Date(booking.date);
-                const isToday = this.isToday(bookingDate);
-                const isTomorrow = this.isTomorrow(bookingDate);
-                
-                let dateDisplay = bookingDate.toLocaleDateString();
-                if (isToday) dateDisplay = 'Today';
-                else if (isTomorrow) dateDisplay = 'Tomorrow';
-
-                bookingDiv.innerHTML = `
-                    <div class="booking-header">
-                        <div class="booking-title">${booking.serviceName}</div>
-                        <div class="booking-status ${statusClass}">${statusText}</div>
-                    </div>
-                    <div class="booking-details">
-                        <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
-                        <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
-                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
-                        ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
-                    </div>
-                    <div class="booking-actions">
-                        <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        ${booking.status === 'pending' ? `
-                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
-                                <i class="fas fa-times"></i> Cancel
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
-
-                return bookingDiv;
-            }
-
-            // Utility Methods
-            isToday(date) {
-                const today = new Date();
-                return date.toDateString() === today.toDateString();
-            }
-
-            isTomorrow(date) {
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                return date.toDateString() === tomorrow.toDateString();
-            }
-
-            getInitials(name) {
-                return name.split(' ').map(n => n[0]).join('').toUpperCase();
-            }
-
-            // Public methods for global access
-            editBooking(bookingId) {
-                const booking = this.bookings.find(b => b.id === bookingId);
-                if (booking) {
-                    // Pre-populate the booking form with existing data
-                    this.selectedService = booking.service;
-                    this.selectedDate = new Date(booking.date);
-                    this.selectedTime = booking.time;
-                    
-                    // Open modal and populate form
-                    this.openBookingModal(booking.service);
-                    
-                    // Set form values
-                    setTimeout(() => {
-                        document.getElementById('selectedDate').value = this.selectedDate.toLocaleDateString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        document.getElementById('duration').value = booking.duration;
-                        document.getElementById('participants').value = booking.participants;
-                        document.getElementById('specialRequests').value = booking.specialRequests || '';
+	                    if (!slot.available) {
+	                        timeSlot.classList.add('unavailable');
+	                        timeSlot.title = 'This time slot is not available';
+	                    } else {
+	                        timeSlot.addEventListener('click', () => {
+	                            this.selectTimeSlot(timeSlot);
+	                        });
                         
-                        this.generateTimeSlots(this.selectedDate);
-                        this.updateBookingSummary();
-                    }, 100);
-                }
-            }
+	                        timeSlot.addEventListener('keydown', (e) => {
+	                            if (e.key === 'Enter' || e.key === ' ') {
+	                                e.preventDefault();
+	                                this.selectTimeSlot(timeSlot);
+	                            }
+	                        });
+                        
+	                        timeSlot.setAttribute('tabindex', '0');
+	                        timeSlot.setAttribute('role', 'button');
+	                    }
 
-            cancelBooking(bookingId) {
-                if (confirm('Are you sure you want to cancel this booking?')) {
-                    const bookingIndex = this.bookings.findIndex(b => b.id === bookingId);
-                    if (bookingIndex !== -1) {
-                        this.bookings[bookingIndex].status = 'cancelled';
-                        localStorage.setItem('portalBookings', JSON.stringify(this.bookings));
-                        this.updateUpcomingBookings();
-                        this.updateStats();
-                        alert('Booking cancelled successfully.');
-                    }
-                }
-            }
+	                    timeSlotsContainer.appendChild(timeSlot);
+	                });
+	            } catch (error) {
+	                console.error('Error generating time slots:', error);
+	                timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading time slots</p>';
+	            }
+	        }
 
-            showAllBookings() {
-                // This would typically open a dedicated bookings page
-                alert('All bookings view would open here. This is a demo feature.');
-            }
+	        selectTimeSlot(timeSlotElement) {
+	            if (timeSlotElement.classList.contains('unavailable')) return;
 
-            showAccountSettings() {
-                // This would typically open account settings modal
-                alert('Account settings would open here. This is a demo feature.');
-            }
-        }
+	            // Clear previous selection
+	            document.querySelectorAll('.time-slot').forEach(slot => {
+	                slot.classList.remove('selected');
+	            });
 
-        // Global functions for inline event handlers
-        function openBookingModal(serviceType = null) {
-            portal.openBookingModal(serviceType);
-        }
+	            // Select new time slot
+	            timeSlotElement.classList.add('selected');
+	            this.selectedTime = timeSlotElement.dataset.time;
+            
+	            // Update booking summary
+	            this.updateBookingSummary();
+            
+	            // Enable submit button if all required fields are filled
+	            this.validateBookingForm();
+	        }
 
-        function showAllBookings() {
-            portal.showAllBookings();
-        }
+	        updateBookingSummary() {
+	            const summaryContainer = document.getElementById('bookingSummary');
+            
+	            if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
+	                summaryContainer.style.display = 'none';
+	                return;
+	            }
 
-        function showAccountSettings() {
-            portal.showAccountSettings();
-        }
+	            summaryContainer.style.display = 'block';
 
-        // Initialize the portal when the page loads
-        let portal;
-        document.addEventListener('DOMContentLoaded', function() {
-            portal = new ClientPortal();
-            console.log('805 LifeGuard Client Portal initialized');
-            console.log('Demo credentials: demo@805lifeguard.com / demo123');
-        });
+	            // Update summary fields
+	            const serviceNames = {
+	                'swim-lesson': 'Private Swim Lesson',
+	                'lifeguard': 'Lifeguard Service',
+	                'event': 'Special Event Coverage'
+	            };
 
-        // Service Worker registration for PWA capabilities (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // This would register a service worker for offline capabilities
-                console.log('Service Worker support detected - PWA ready');
-            });
-        }
-    </script>
+	            document.getElementById('summaryService').textContent = serviceNames[this.selectedService];
+	            document.getElementById('summaryDate').textContent = this.selectedDate.toLocaleDateString();
+	            document.getElementById('summaryTime').textContent = this.selectedTime;
+            
+	            const duration = document.getElementById('duration').value;
+	            document.getElementById('summaryDuration').textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
+            
+	            const participants = document.getElementById('participants').value;
+	            document.getElementById('summaryParticipants').textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
+
+	            // Calculate estimated cost
+	            const cost = this.calculateEstimatedCost();
+	            document.getElementById('summaryTotal').textContent = `$${cost}`;
+	        }
+
+	        calculateEstimatedCost() {
+	            if (!this.selectedService) return 0;
+
+	            const basePrices = {
+	                'swim-lesson': 75,
+	                'lifeguard': 45,
+	                'event': 65
+	            };
+
+	            const duration = parseFloat(document.getElementById('duration').value);
+	            const participants = parseInt(document.getElementById('participants').value);
+            
+	            let basePrice = basePrices[this.selectedService];
+	            let totalCost = basePrice * duration;
+
+	            // Apply participant multiplier for certain services
+	            if (this.selectedService === 'swim-lesson' && participants > 2) {
+	                totalCost *= 1.5; // Group lesson pricing
+	            } else if (this.selectedService === 'event' && participants >= 5) {
+	                totalCost *= 1.8; // Large event pricing
+	            }
+
+	            return Math.round(totalCost);
+	        }
+
+	        validateBookingForm() {
+	            const submitBtn = document.getElementById('submitBooking');
+	            const isValid = this.selectedService && this.selectedDate && this.selectedTime;
+            
+	            submitBtn.disabled = !isValid;
+            
+	            if (isValid) {
+	                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+	            } else {
+	                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
+	            }
+	        }
+
+	        resetBookingForm() {
+	            document.getElementById('bookingForm').reset();
+            
+	            // Clear selections
+	            document.querySelectorAll('.service-option').forEach(option => {
+	                option.classList.remove('selected');
+	            });
+            
+	            document.querySelectorAll('.time-slot').forEach(slot => {
+	                slot.classList.remove('selected');
+	            });
+
+	            // Reset variables
+	            this.selectedService = null;
+	            this.selectedTime = null;
+	            this.selectedDate = null;
+
+	            // Hide summary
+	            document.getElementById('bookingSummary').style.display = 'none';
+            
+	            // Clear time slots
+	            document.getElementById('timeSlots').innerHTML = '';
+            
+	            // Disable submit button
+	            document.getElementById('submitBooking').disabled = true;
+	        }
+
+	        showBookingSuccess(booking) {
+	            const successMessage = `
+	                Booking request submitted successfully!
+                
+	                Service: ${booking.serviceName}
+	                Date: ${new Date(booking.date).toLocaleDateString()}
+	                Time: ${booking.time}
+                
+	                You will receive a confirmation email shortly.
+	            `;
+            
+	            alert(successMessage);
+            
+	            // Refresh the upcoming bookings display
+	            this.updateUpcomingBookings();
+	        }
+
+	        updateStats() {
+	            const totalBookings = this.bookings.length;
+	            const upcomingBookings = this.bookings.filter(booking => 
+	                new Date(booking.date) > new Date() && booking.status !== 'cancelled'
+	            ).length;
+            
+	            const thisMonth = new Date();
+	            const monthlyLessons = this.bookings.filter(booking => {
+	                const bookingDate = new Date(booking.date);
+	                return bookingDate.getMonth() === thisMonth.getMonth() &&
+	                       bookingDate.getFullYear() === thisMonth.getFullYear() &&
+	                       booking.service === 'swim-lesson';
+	            }).length;
+
+	            document.getElementById('totalBookings').textContent = totalBookings;
+	            document.getElementById('upcomingBookings').textContent = upcomingBookings;
+	            document.getElementById('monthlyLessons').textContent = monthlyLessons;
+	        }
+
+	        updateUpcomingBookings() {
+	            const container = document.getElementById('upcomingBookingsList');
+	            const upcomingBookings = this.bookings
+	                .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
+	                .sort((a, b) => new Date(a.date) - new Date(b.date))
+	                .slice(0, 3); // Show only next 3 bookings
+
+	            container.innerHTML = '';
+
+	            upcomingBookings.forEach(booking => {
+	                const bookingElement = this.createBookingElement(booking);
+	                container.appendChild(bookingElement);
+	            });
+
+	            if (upcomingBookings.length === 0) {
+	                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">No upcoming bookings</p>';
+	            }
+	        }
+
+	        createBookingElement(booking) {
+	            const bookingDiv = document.createElement('div');
+	            bookingDiv.className = 'booking-item';
+            
+	            const statusClass = `status-${booking.status}`;
+	            const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+            
+	            const bookingDate = new Date(booking.date);
+	            const isToday = this.isToday(bookingDate);
+	            const isTomorrow = this.isTomorrow(bookingDate);
+            
+	            let dateDisplay = bookingDate.toLocaleDateString();
+	            if (isToday) dateDisplay = 'Today';
+	            else if (isTomorrow) dateDisplay = 'Tomorrow';
+
+	            bookingDiv.innerHTML = `
+	                <div class="booking-header">
+	                    <div class="booking-title">${booking.serviceName}</div>
+	                    <div class="booking-status ${statusClass}">${statusText}</div>
+	                </div>
+	                <div class="booking-details">
+	                    <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
+	                    <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+	                    <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+	                    ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
+	                </div>
+	                <div class="booking-actions">
+	                    <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
+	                        <i class="fas fa-edit"></i> Edit
+	                    </button>
+	                    ${booking.status === 'pending' ? `
+	                        <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
+	                            <i class="fas fa-times"></i> Cancel
+	                        </button>
+	                    ` : ''}
+	                </div>
+	            `;
+
+	            return bookingDiv;
+	        }
+
+	        // Utility methods
+	        isToday(date) {
+	            const today = new Date();
+	            return date.toDateString() === today.toDateString();
+	        }
+
+	        isTomorrow(date) {
+	            const tomorrow = new Date();
+	            tomorrow.setDate(tomorrow.getDate() + 1);
+	            return date.toDateString() === tomorrow.toDateString();
+	        }
+
+	        showAllBookings() {
+	            alert('All bookings view would open here. This is a demo feature.');
+	        }
+
+	        showAccountSettings() {
+	            alert('Account settings would open here. This is a demo feature.');
+	        }
+	    }
+
+	    // Global functions for inline event handlers
+	    function openBookingModal(serviceType = null) {
+	        portal.openBookingModal(serviceType);
+	    }
+
+	    function showAllBookings() {
+	        portal.showAllBookings();
+	    }
+
+	    function showAccountSettings() {
+	        portal.showAccountSettings();
+	    }
+
+	    // Initialize the portal when the page loads
+	    let portal;
+	    document.addEventListener('DOMContentLoaded', function() {
+	        portal = new ClientPortal();
+	        console.log('805 LifeGuard Client Portal initialized with live D1 Database');
+	        console.log('Demo credentials: demo@805lifeguard.com / test');
+	    });
+	</script>
 </body>
 </html>
