@@ -2199,25 +2199,76 @@
                 this.showLoadingState(submitBtn, 'Processing...');
 
                 try {
-                    // Prepare booking data - match your API's expected format
-                    const bookingData = {
-                        service_type: this.selectedService,
-                        booking_date: this.selectedDate.toISOString().split('T')[0], // YYYY-MM-DD format
-                        booking_time: this.selectedTime,
+                    // Try multiple data formats to match your backend
+                    const baseData = {
+                        selectedService: this.selectedService,
+                        selectedDate: this.selectedDate.toISOString().split('T')[0],
+                        selectedTime: this.selectedTime,
                         duration: parseFloat(document.getElementById('duration').value),
                         participants: parseInt(document.getElementById('participants').value),
-                        special_requests: document.getElementById('specialRequests').value || null
+                        specialRequests: document.getElementById('specialRequests').value || ''
                     };
 
-                    console.log('📤 Sending booking data:', bookingData);
+                    // Format 1: Current format (most likely)
+                    const bookingDataV1 = {
+                        service_type: baseData.selectedService,
+                        booking_date: baseData.selectedDate,
+                        booking_time: baseData.selectedTime,
+                        duration: baseData.duration,
+                        participants: baseData.participants,
+                        special_requests: baseData.specialRequests
+                    };
+
+                    // Format 2: Alternative format (backup)
+                    const bookingDataV2 = {
+                        service: baseData.selectedService,
+                        date: baseData.selectedDate,
+                        time: baseData.selectedTime,
+                        duration: baseData.duration,
+                        participants: baseData.participants,
+                        specialRequests: baseData.specialRequests
+                    };
+
+                    console.log('📤 Sending booking data (Format 1):', JSON.stringify(bookingDataV1, null, 2));
+                    console.log('📤 Data types:', {
+                        service_type: typeof bookingDataV1.service_type,
+                        booking_date: typeof bookingDataV1.booking_date,
+                        booking_time: typeof bookingDataV1.booking_time,
+                        duration: typeof bookingDataV1.duration,
+                        participants: typeof bookingDataV1.participants,
+                        special_requests: typeof bookingDataV1.special_requests
+                    });
 
                     let response;
+                    let bookingData = bookingDataV1; // Start with format 1
+
                     if (this.isEditingBooking) {
                         console.log('✏️ Updating existing booking:', this.editingBookingId);
-                        response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
+                        try {
+                            response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
+                        } catch (error) {
+                            if (error.message.includes('Internal Server Error')) {
+                                console.log('🔄 Trying alternative data format...');
+                                bookingData = bookingDataV2;
+                                response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
+                            } else {
+                                throw error;
+                            }
+                        }
                     } else {
                         console.log('🆕 Creating new booking');
-                        response = await this.apiCall('/api/bookings', 'POST', bookingData);
+                        try {
+                            response = await this.apiCall('/api/bookings', 'POST', bookingData);
+                        } catch (error) {
+                            if (error.message.includes('Internal Server Error')) {
+                                console.log('🔄 Trying alternative data format...');
+                                console.log('📤 Sending booking data (Format 2):', JSON.stringify(bookingDataV2, null, 2));
+                                bookingData = bookingDataV2;
+                                response = await this.apiCall('/api/bookings', 'POST', bookingData);
+                            } else {
+                                throw error;
+                            }
+                        }
                     }
 
                     console.log('📥 API Response:', response);
