@@ -2155,27 +2155,7 @@
                 if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
             }
 
-            calculateEstimatedCost() {
-                if (!this.selectedService) return 0;
-
-                const durationElement = document.getElementById('duration');
-                const participantsElement = document.getElementById('participants');
-                
-                const duration = parseFloat(durationElement?.value || '1');
-                const participants = parseInt(participantsElement?.value || '1');
-                
-                let basePrice = this.servicePricing[this.selectedService].base;
-                let totalCost = basePrice * duration;
-
-                // Apply participant multipliers
-                if (this.selectedService === 'swim-lesson' && participants > 2) {
-                    totalCost *= 1.5; // Group lesson pricing
-                } else if (this.selectedService === 'event' && participants >= 5) {
-                    totalCost *= 1.8; // Large event pricing
-                }
-
-                return Math.round(totalCost);
-            }
+            // Removed calculateEstimatedCost since pricing is handled separately
 
             validateBookingForm() {
                 const submitBtn = document.getElementById('submitBooking');
@@ -2199,76 +2179,45 @@
                 this.showLoadingState(submitBtn, 'Processing...');
 
                 try {
-                    // Try multiple data formats to match your backend
-                    const baseData = {
-                        selectedService: this.selectedService,
-                        selectedDate: this.selectedDate.toISOString().split('T')[0],
-                        selectedTime: this.selectedTime,
+                    // Prepare booking data - EXACTLY matching your backend expectations
+                    const bookingData = {
+                        service: this.selectedService,           // ← Backend expects "service"
+                        date: this.selectedDate.toISOString().split('T')[0], // ← Backend expects "date"
+                        time: this.selectedTime,                 // ← Backend expects "time"
                         duration: parseFloat(document.getElementById('duration').value),
                         participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value || ''
+                        specialRequests: document.getElementById('specialRequests').value || '', // ← Backend expects "specialRequests"
+                        cost: 0  // ← Backend expects "cost" - set to 0 since you handle pricing separately
                     };
 
-                    // Format 1: Current format (most likely)
-                    const bookingDataV1 = {
-                        service_type: baseData.selectedService,
-                        booking_date: baseData.selectedDate,
-                        booking_time: baseData.selectedTime,
-                        duration: baseData.duration,
-                        participants: baseData.participants,
-                        special_requests: baseData.specialRequests
-                    };
-
-                    // Format 2: Alternative format (backup)
-                    const bookingDataV2 = {
-                        service: baseData.selectedService,
-                        date: baseData.selectedDate,
-                        time: baseData.selectedTime,
-                        duration: baseData.duration,
-                        participants: baseData.participants,
-                        specialRequests: baseData.specialRequests
-                    };
-
-                    console.log('📤 Sending booking data (Format 1):', JSON.stringify(bookingDataV1, null, 2));
+                    console.log('📤 Sending booking data (CORRECTED FORMAT):', JSON.stringify(bookingData, null, 2));
                     console.log('📤 Data types:', {
-                        service_type: typeof bookingDataV1.service_type,
-                        booking_date: typeof bookingDataV1.booking_date,
-                        booking_time: typeof bookingDataV1.booking_time,
-                        duration: typeof bookingDataV1.duration,
-                        participants: typeof bookingDataV1.participants,
-                        special_requests: typeof bookingDataV1.special_requests
+                        service: typeof bookingData.service,
+                        date: typeof bookingData.date,
+                        time: typeof bookingData.time,
+                        duration: typeof bookingData.duration,
+                        participants: typeof bookingData.participants,
+                        specialRequests: typeof bookingData.specialRequests,
+                        cost: typeof bookingData.cost
                     });
 
                     let response;
-                    let bookingData = bookingDataV1; // Start with format 1
 
                     if (this.isEditingBooking) {
                         console.log('✏️ Updating existing booking:', this.editingBookingId);
-                        try {
-                            response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
-                        } catch (error) {
-                            if (error.message.includes('Internal Server Error')) {
-                                console.log('🔄 Trying alternative data format...');
-                                bookingData = bookingDataV2;
-                                response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', bookingData);
-                            } else {
-                                throw error;
-                            }
-                        }
+                        // For updates, use the backend's expected field names
+                        const updateData = {
+                            service_type: bookingData.service,
+                            booking_date: bookingData.date,
+                            booking_time: bookingData.time,
+                            duration: bookingData.duration,
+                            participants: bookingData.participants,
+                            special_requests: bookingData.specialRequests
+                        };
+                        response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', updateData);
                     } else {
                         console.log('🆕 Creating new booking');
-                        try {
-                            response = await this.apiCall('/api/bookings', 'POST', bookingData);
-                        } catch (error) {
-                            if (error.message.includes('Internal Server Error')) {
-                                console.log('🔄 Trying alternative data format...');
-                                console.log('📤 Sending booking data (Format 2):', JSON.stringify(bookingDataV2, null, 2));
-                                bookingData = bookingDataV2;
-                                response = await this.apiCall('/api/bookings', 'POST', bookingData);
-                            } else {
-                                throw error;
-                            }
-                        }
+                        response = await this.apiCall('/api/bookings', 'POST', bookingData);
                     }
 
                     console.log('📥 API Response:', response);
@@ -2280,12 +2229,12 @@
                             if (bookingIndex !== -1) {
                                 this.bookings[bookingIndex] = { 
                                     ...this.bookings[bookingIndex], 
-                                    service: bookingData.service_type,
-                                    date: bookingData.booking_date,
-                                    time: bookingData.booking_time,
+                                    service: bookingData.service,
+                                    date: bookingData.date,
+                                    time: bookingData.time,
                                     duration: bookingData.duration,
                                     participants: bookingData.participants,
-                                    specialRequests: bookingData.special_requests
+                                    specialRequests: bookingData.specialRequests
                                 };
                             }
                             this.showMessage('Booking updated successfully!', 'success');
@@ -2760,37 +2709,6 @@
             showAccountSettings() {
                 // This would open account settings - for now, just show a message
                 alert('Account settings feature coming soon! For now, contact us at (805) 367-6432 to update your information.');
-            }
-
-            // ==================== DEMO DATA GENERATORS ====================
-            
-            generateDemoAvailability() {
-                // Generate some demo availability data for the next 60 days
-                const today = new Date();
-                const availabilityData = {};
-                
-                for (let i = 0; i < 60; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() + i);
-                    const dateKey = date.toISOString().split('T')[0];
-                    
-                    // Random availability
-                    const dayOfWeek = date.getDay();
-                    let status = 'available';
-                    let events = [{ type: 'available' }];
-                    
-                    if (Math.random() < 0.1) { // 10% chance of being unavailable
-                        status = 'unavailable';
-                        events = [{ type: 'unavailable' }];
-                    } else if (Math.random() < 0.3) { // 30% chance of being partially booked
-                        status = 'booked';
-                        events = [{ type: 'booked' }];
-                    }
-                    
-                    availabilityData[dateKey] = { status, events };
-                }
-                
-                return availabilityData;
             }
         }
 
