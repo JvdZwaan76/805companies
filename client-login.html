@@ -1344,11 +1344,13 @@
             }
 
             showLoadingState(button, text) {
+                if (!button) return;
                 button.disabled = true;
                 button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
             }
 
             hideLoadingState(button, text) {
+                if (!button) return;
                 button.disabled = false;
                 button.innerHTML = text;
             }
@@ -1405,7 +1407,53 @@
         // ==================== INITIALIZATION ====================
         
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Starting portal initialization...');
+            
             window.portal = new ClientPortal();
+            
+            // Double-check critical event listeners are attached
+            setTimeout(() => {
+                const loginForm = document.getElementById('loginForm');
+                const createAccountBtn = document.getElementById('createAccountBtn');
+                const registrationForm = document.getElementById('registrationForm');
+                
+                console.log('📋 Form elements check:');
+                console.log('- Login form:', loginForm ? '✅ Found' : '❌ Missing');
+                console.log('- Create account button:', createAccountBtn ? '✅ Found' : '❌ Missing');
+                console.log('- Registration form:', registrationForm ? '✅ Found' : '❌ Missing');
+                
+                // Ensure create account button works
+                if (createAccountBtn) {
+                    // Remove any existing listeners and add fresh one
+                    createAccountBtn.replaceWith(createAccountBtn.cloneNode(true));
+                    const newCreateAccountBtn = document.getElementById('createAccountBtn');
+                    newCreateAccountBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        console.log('🔄 Create account clicked');
+                        window.portal.showRegistrationModal();
+                    });
+                }
+
+                // Ensure login form works
+                if (loginForm) {
+                    loginForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        console.log('🔐 Login form submitted');
+                        window.portal.handleLogin();
+                    });
+                }
+
+                // Ensure registration form works
+                if (registrationForm) {
+                    registrationForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        console.log('📝 Registration form submitted');
+                        window.portal.handleRegistration();
+                    });
+                }
+
+                console.log('✅ All event listeners verified and attached');
+            }, 100);
             
             console.log('🏊‍♂️ Enhanced 805 LifeGuard Client Portal - Production Ready');
             console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
@@ -3490,17 +3538,25 @@
             }
 
             async init() {
-                console.log('🏊‍♂️ Initializing Enhanced 805 LifeGuard Client Portal...');
+                console.log('🏊‍♀️ Initializing Enhanced 805 LifeGuard Client Portal...');
                 
                 this.setupEventListeners();
                 this.setupAccountSettingsListeners();
                 this.generateCalendar();
                 
-                // Check authentication
+                // Check authentication with better error handling
                 const token = localStorage.getItem('authToken');
-                if (token) {
-                    await this.validateToken(token);
+                if (token && token.trim() !== '') {
+                    console.log('🔐 Found existing auth token, validating...');
+                    try {
+                        await this.validateToken(token);
+                    } catch (error) {
+                        console.log('❌ Token validation failed, showing login');
+                        localStorage.removeItem('authToken');
+                        this.showLogin();
+                    }
                 } else {
+                    console.log('📝 No auth token found, showing login');
                     this.showLogin();
                 }
             }
@@ -3875,6 +3931,13 @@
                 const loginBtn = document.getElementById('loginBtn');
                 const errorDiv = document.getElementById('loginError');
 
+                // Basic validation
+                if (!email || !password) {
+                    errorDiv.textContent = 'Please enter both email and password';
+                    errorDiv.classList.add('show');
+                    return;
+                }
+
                 this.showLoadingState(loginBtn, 'Signing In...');
                 errorDiv.classList.remove('show');
 
@@ -3899,7 +3962,14 @@
 
                 } catch (error) {
                     console.error('Login error:', error);
-                    errorDiv.textContent = error.message || 'Login failed. Please try again.';
+                    
+                    // Provide helpful error message with demo credentials
+                    let errorMessage = error.message || 'Login failed. Please try again.';
+                    if (error.message.includes('fetch') || error.message.includes('Failed to fetch')) {
+                        errorMessage = 'Connection error. Try demo credentials: demo@805lifeguard.com / demo123';
+                    }
+                    
+                    errorDiv.textContent = errorMessage;
                     errorDiv.classList.add('show');
                 } finally {
                     this.hideLoadingState(loginBtn, 'Sign In');
@@ -3979,6 +4049,8 @@
                     
                     if (errorMessage.includes('already exists') || errorMessage.includes('duplicate')) {
                         errorMessage = 'An account with this email already exists. Please use a different email or try signing in.';
+                    } else if (error.message.includes('fetch') || error.message.includes('Failed to fetch')) {
+                        errorMessage = 'Connection error. Please check your internet connection and try again.';
                     }
                     
                     errorDiv.textContent = errorMessage;
@@ -4135,9 +4207,15 @@
                 } catch (error) {
                     console.error(`❌ API ${method} ${endpoint} - Error:`, error);
                     
+                    // Handle specific error cases
                     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
                         localStorage.removeItem('authToken');
                         this.showLogin();
+                        throw new Error('Session expired. Please login again.');
+                    }
+                    
+                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                        throw new Error('Network error. Please check your connection and try again.');
                     }
                     
                     throw error;
