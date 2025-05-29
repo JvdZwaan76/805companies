@@ -8,8 +8,9 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* CSS Variables - Enhanced Design System */
+        /* ==================== CSS VARIABLES & DESIGN SYSTEM ==================== */
         :root {
+            /* Color Palette */
             --primary: #0077b6;
             --secondary: #00b4d8;
             --accent: #f72585;
@@ -24,9 +25,6 @@
             --gallery-blue: #1e88e5;
             --gallery-teal: #26a69a;
             --gold: #ffd700;
-            --purple: #9c27b0;
-            --cyan: #00bcd4;
-            --indigo: #3f51b5;
             
             /* Enhanced Gradients */
             --gradient-primary: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
@@ -37,27 +35,25 @@
             --gradient-cosmic: linear-gradient(135deg, #667db6, #0082c8, #0078d7);
             --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
             
-            /* Advanced Shadows */
+            /* Shadows */
             --shadow-soft: 0 2px 20px rgba(0,0,0,0.08);
             --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
             --shadow-strong: 0 15px 40px rgba(0,0,0,0.15);
             --shadow-glow: 0 0 30px rgba(30, 136, 229, 0.3);
-            --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.1);
             
-            /* Enhanced Border Radius */
+            /* Border Radius */
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-xl: 32px;
             --radius-full: 50px;
             
-            /* Advanced Transitions */
+            /* Transitions */
             --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            --transition-elastic: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Advanced Reset and Base */
+        /* ==================== BASE STYLES ==================== */
         * {
             margin: 0;
             padding: 0;
@@ -74,7 +70,7 @@
             letter-spacing: 0.3px;
         }
 
-        /* Water-Themed Animated Background */
+        /* ==================== ANIMATED BACKGROUND ==================== */
         .enhanced-background {
             position: fixed;
             top: 0;
@@ -93,21 +89,11 @@
             animation: ripple-expand 8s ease-out infinite;
         }
 
-        .ripple:nth-child(1) { 
-            top: 15%; left: 10%; width: 150px; height: 150px; animation-delay: 0s; 
-        }
-        .ripple:nth-child(2) { 
-            top: 70%; left: 85%; width: 200px; height: 200px; animation-delay: 3s; 
-        }
-        .ripple:nth-child(3) { 
-            top: 85%; left: 25%; width: 120px; height: 120px; animation-delay: 6s; 
-        }
-        .ripple:nth-child(4) { 
-            top: 40%; right: 20%; width: 180px; height: 180px; animation-delay: 2s; 
-        }
-        .ripple:nth-child(5) { 
-            bottom: 20%; left: 60%; width: 100px; height: 100px; animation-delay: 5s; 
-        }
+        .ripple:nth-child(1) { top: 15%; left: 10%; width: 150px; height: 150px; animation-delay: 0s; }
+        .ripple:nth-child(2) { top: 70%; left: 85%; width: 200px; height: 200px; animation-delay: 3s; }
+        .ripple:nth-child(3) { top: 85%; left: 25%; width: 120px; height: 120px; animation-delay: 6s; }
+        .ripple:nth-child(4) { top: 40%; right: 20%; width: 180px; height: 180px; animation-delay: 2s; }
+        .ripple:nth-child(5) { bottom: 20%; left: 60%; width: 100px; height: 100px; animation-delay: 5s; }
 
         @keyframes ripple-expand {
             0% { transform: scale(0) rotate(0deg); opacity: 0.4; }
@@ -118,8 +104,6 @@
         .floating-element {
             position: absolute;
             border-radius: 50%;
-            background: var(--gradient-glass);
-            backdrop-filter: blur(20px);
             animation: float 8s ease-in-out infinite;
             opacity: 0.4;
         }
@@ -144,7 +128,7 @@
             75% { transform: translateY(-20px) rotate(270deg) scale(1.1); }
         }
 
-        /* Enhanced Glassmorphism Effects */
+        /* ==================== GLASSMORPHISM EFFECTS ==================== */
         .glass-card {
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(25px) saturate(180%);
@@ -160,7 +144,7 @@
             box-shadow: var(--shadow-strong);
         }
 
-        /* Enhanced Navigation Header */
+        /* ==================== NAVIGATION ==================== */
         .main-nav {
             position: fixed;
             top: 0;
@@ -254,7 +238,7 @@
             box-shadow: var(--shadow-glow);
         }
 
-        /* Enhanced Login Screen */
+        /* ==================== LOGIN SCREEN ==================== */
         .login-container {
             display: flex;
             align-items: center;
@@ -287,6 +271,11 @@
             right: 0;
             height: 4px;
             background: var(--gradient-gold);
+        }
+
+        .login-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong), 0 0 50px rgba(30, 136, 229, 0.2);
         }
 
         .login-logo {
@@ -322,12 +311,20 @@
             letter-spacing: 1px;
         }
 
-        .login-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-strong), 0 0 50px rgba(30, 136, 229, 0.2);
+        .login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--dark);
         }
 
-        /* Enhanced Form Elements with Water Theme */
+        .login-subtitle {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        /* ==================== FORM ELEMENTS ==================== */
         .form-group {
             margin-bottom: 25px;
             text-align: left;
@@ -344,6 +341,31 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gallery-blue);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1), var(--shadow-soft);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(108, 117, 125, 0.7);
+            font-weight: 400;
         }
 
         .password-container {
@@ -390,99 +412,8 @@
         .forgot-password:hover {
             color: var(--gallery-teal);
         }
-        .form-input {
-            width: 100%;
-            padding: 18px 24px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: var(--radius-md);
-            font-size: 1rem;
-            transition: var(--transition-smooth);
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            font-weight: 500;
-        }
 
-        .form-input:focus {
-            outline: none;
-            border-color: var(--gallery-blue);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1), var(--shadow-soft);
-            transform: translateY(-2px);
-        }
-
-        .form-input::placeholder {
-            color: rgba(108, 117, 125, 0.7);
-            font-weight: 400;
-        }
-
-        /* Enhanced Login Button with Gold Theme */
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--gradient-gold);
-            color: #8b4513;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(139, 69, 19, 0.2);
-            border-radius: 50%;
-            transition: var(--transition-smooth);
-            transform: translate(-50%, -50%);
-        }
-
-        .login-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: var(--shadow-strong);
-        }
-
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Enhanced Create Account Button */
-        .create-account-btn {
-            background: none;
-            border: 2px solid var(--gallery-blue);
-            color: var(--gallery-blue);
-            padding: 12px 24px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            font-size: 0.95rem;
-        }
-
-        .create-account-btn:hover {
-            background: var(--gallery-blue);
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Enhanced General Primary Buttons */
+        /* ==================== BUTTONS ==================== */
         .btn-primary {
             background: var(--gradient-primary);
             color: white;
@@ -497,6 +428,7 @@
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .btn-primary::before {
@@ -522,24 +454,208 @@
             box-shadow: var(--shadow-strong), var(--shadow-glow);
         }
 
-        .btn-primary:active {
-            transform: translateY(-1px) scale(0.98);
-        }
-
         .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        /* Enhanced Portal Layout with Water Theme */
+        .login-btn {
+            background: var(--gradient-gold);
+            color: #8b4513;
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-edit {
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--gallery-blue);
+        }
+
+        .btn-edit:hover {
+            background: rgba(30, 136, 229, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .btn-cancel {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(244, 67, 54, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .create-account-btn {
+            background: none;
+            border: 2px solid var(--gallery-blue);
+            color: var(--gallery-blue);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+        }
+
+        .create-account-btn:hover {
+            background: var(--gallery-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ==================== MODALS ==================== */
+        .registration-modal,
+        .account-settings-modal,
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .registration-modal.show,
+        .account-settings-modal.show,
+        .booking-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .registration-content,
+        .settings-content,
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-strong);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0.9);
+            transition: var(--transition-bounce);
+        }
+
+        .registration-modal.show .registration-content,
+        .account-settings-modal.show .settings-content,
+        .booking-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .registration-header,
+        .settings-header,
+        .modal-header {
+            background: var(--gradient-cosmic);
+            color: white;
+            padding: 30px 40px;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .registration-header::before,
+        .settings-header::before,
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .registration-title,
+        .settings-title,
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .settings-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn,
+        .settings-close,
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            z-index: 2;
+        }
+
+        .close-btn:hover,
+        .settings-close:hover,
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* ==================== PORTAL LAYOUT ==================== */
         .portal-container {
             display: none;
             min-height: 100vh;
             padding-top: 80px;
         }
 
-        /* Portal Header with Water Theme */
         .portal-header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -624,7 +740,7 @@
             padding: 40px 30px;
         }
 
-        /* Enhanced Welcome Section with Water Theme */
+        /* ==================== WELCOME SECTION ==================== */
         .welcome-section {
             background: var(--gradient-primary);
             color: white;
@@ -682,7 +798,38 @@
             font-weight: 300;
         }
 
-        /* Enhanced Dashboard Cards */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(15px);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==================== DASHBOARD CARDS ==================== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -718,6 +865,22 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
         .card-icon {
             width: 50px;
             height: 50px;
@@ -728,7 +891,6 @@
             justify-content: center;
             color: white;
             font-size: 1.3rem;
-            margin-bottom: 15px;
             transition: var(--transition-bounce);
         }
 
@@ -737,211 +899,61 @@
             background: var(--gradient-sunset);
         }
 
-        /* Enhanced Account Settings Modal */
-        .account-settings-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .account-settings-modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .settings-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(25px);
-            border-radius: var(--radius-xl);
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: var(--shadow-strong);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: scale(0.9);
-            transition: var(--transition-bounce);
-        }
-
-        .account-settings-modal.show .settings-content {
-            transform: scale(1);
-        }
-
-        .settings-header {
-            background: var(--gradient-cosmic);
+        .card-action {
+            background: var(--gradient-primary);
             color: white;
-            padding: 30px 40px;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        .card-action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-highlight {
             position: relative;
             overflow: hidden;
         }
 
-        .settings-header::before {
+        .feature-highlight::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: -100px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .settings-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .settings-subtitle {
-            opacity: 0.9;
-            font-size: 1.1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .settings-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            z-index: 2;
-        }
-
-        .settings-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        .settings-tabs {
-            display: flex;
-            background: rgba(248, 249, 250, 0.8);
-            margin: 0;
-            padding: 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .settings-tab {
-            flex: 1;
-            padding: 20px;
-            background: none;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            color: var(--gray);
-            position: relative;
-        }
-
-        .settings-tab::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-            transition: var(--transition-smooth);
-            transform: translateX(-50%);
-        }
-
-        .settings-tab.active {
-            color: var(--gallery-blue);
-            background: rgba(30, 136, 229, 0.05);
-        }
-
-        .settings-tab.active::after {
-            width: 60%;
-        }
-
-        .settings-tab:hover:not(.active) {
-            background: rgba(30, 136, 229, 0.03);
-        }
-
-        .settings-body {
-            padding: 40px;
-        }
-
-        .settings-section {
-            display: none;
-        }
-
-        .settings-section.active {
-            display: block;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .settings-form-group {
-            margin-bottom: 25px;
-        }
-
-        .settings-form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .settings-form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .settings-save-btn {
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             background: var(--gradient-cosmic);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: var(--radius-md);
-            font-weight: 700;
-            cursor: pointer;
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
             transition: var(--transition-smooth);
-            width: auto;
-            min-width: 150px;
         }
 
-        .settings-save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+        .feature-highlight:hover::before {
+            opacity: 0.7;
         }
 
-        /* Enhanced Calendar with Fixed Styling */
+        .premium-badge {
+            background: var(--gradient-gold);
+            color: #8b4513;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* ==================== CALENDAR ==================== */
         .calendar-container {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
@@ -1097,99 +1109,1355 @@
             width: 100%;
             height: 4px;
             border-radius: 2px;
-            font-size: 0.7rem;
         }
 
-        .event-available { 
-            background: var(--success); 
-        }
-        
-        .event-booked { 
-            background: var(--warning); 
-        }
-        
-        .event-lesson { 
-            background: var(--gallery-blue); 
+        .event-available { background: var(--success); }
+        .event-booked { background: var(--warning); }
+        .event-lesson { background: var(--gallery-blue); }
+        .event-unavailable { background: var(--error); }
+
+        /* ==================== ACCOUNT SETTINGS ==================== */
+        .settings-tabs {
+            display: flex;
+            background: rgba(248, 249, 250, 0.8);
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
-        .event-unavailable {
-            background: var(--error);
-        }
-
-        /* Enhanced Quick Stats */
-        .quick-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .stat-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.15);
+        .settings-tab {
+            flex: 1;
             padding: 20px;
-            border-radius: var(--radius-lg);
-            backdrop-filter: blur(15px);
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--gray);
+            position: relative;
         }
 
-        .stat-item:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: rgba(255, 255, 255, 0.25);
+        .settings-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
         }
 
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 900;
+        .settings-tab.active {
+            color: var(--gallery-blue);
+            background: rgba(30, 136, 229, 0.05);
+        }
+
+        .settings-tab.active::after {
+            width: 60%;
+        }
+
+        .settings-tab:hover:not(.active) {
+            background: rgba(30, 136, 229, 0.03);
+        }
+
+        .settings-body {
+            padding: 40px;
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            // Setup enhanced event listeners including portal navigation
+            setupEventListeners() {
+                // Login form
+                const loginForm = document.getElementById('loginForm');
+                if (loginForm) {
+                    loginForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleLogin();
+                    });
+                }
+
+                // Registration form
+                const registrationForm = document.getElementById('registrationForm');
+                if (registrationForm) {
+                    registrationForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleRegistration();
+                    });
+                }
+
+                // Create account button
+                const createAccountBtn = document.getElementById('createAccountBtn');
+                if (createAccountBtn) {
+                    createAccountBtn.addEventListener('click', () => {
+                        this.showRegistrationModal();
+                    });
+                }
+
+                // Registration modal close
+                const registrationClose = document.getElementById('registrationClose');
+                if (registrationClose) {
+                    registrationClose.addEventListener('click', () => {
+                        this.closeRegistrationModal();
+                    });
+                }
+
+                // Registration modal backdrop
+                const registrationModal = document.getElementById('registrationModal');
+                if (registrationModal) {
+                    registrationModal.addEventListener('click', (e) => {
+                        if (e.target.id === 'registrationModal') {
+                            this.closeRegistrationModal();
+                        }
+                    });
+                }
+
+                // Password toggles
+                const passwordToggle = document.getElementById('passwordToggle');
+                if (passwordToggle) {
+                    passwordToggle.addEventListener('click', () => {
+                        this.togglePassword();
+                    });
+                }
+
+                const regPasswordToggle = document.getElementById('regPasswordToggle');
+                if (regPasswordToggle) {
+                    regPasswordToggle.addEventListener('click', () => {
+                        this.toggleRegistrationPassword();
+                    });
+                }
+
+                // Portal navigation - Logout
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', () => {
+                        this.handleLogout();
+                    });
+                }
+
+                // Calendar navigation
+                const prevMonth = document.getElementById('prevMonth');
+                const nextMonth = document.getElementById('nextMonth');
+                if (prevMonth) {
+                    prevMonth.addEventListener('click', () => {
+                        this.navigateMonth(-1);
+                    });
+                }
+                if (nextMonth) {
+                    nextMonth.addEventListener('click', () => {
+                        this.navigateMonth(1);
+                    });
+                }
+
+                // Modal controls
+                const modalClose = document.getElementById('modalClose');
+                const cancelBooking = document.getElementById('cancelBooking');
+                if (modalClose) {
+                    modalClose.addEventListener('click', () => {
+                        this.closeBookingModal();
+                    });
+                }
+                if (cancelBooking) {
+                    cancelBooking.addEventListener('click', () => {
+                        this.closeBookingModal();
+                    });
+                }
+
+                // Service selection
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        this.selectService(option.dataset.service);
+                    });
+                });
+
+                // Booking form
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) {
+                    bookingForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleBookingSubmission();
+                    });
+                }
+
+                // Form change listeners
+                ['duration', 'participants'].forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.addEventListener('change', () => {
+                            this.updateBookingSummary();
+                        });
+                    }
+                });
+
+                // Modal backdrop
+                const bookingModal = document.getElementById('bookingModal');
+                if (bookingModal) {
+                    bookingModal.addEventListener('click', (e) => {
+                        if (e.target.id === 'bookingModal') {
+                            this.closeBookingModal();
+                        }
+                    });
+                }
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeBookingModal();
+                        this.closeRegistrationModal();
+                        this.closeAccountSettings();
+                    }
+                });
+
+                console.log('✅ Event listeners setup complete');
+            }
+
+            // ==================== UTILITY FUNCTIONS ====================
+            
+            togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleBtn = document.getElementById('passwordToggle');
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            }
+
+            showLoadingState(button, text) {
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
+
+            hideLoadingState(button, text) {
+                button.disabled = false;
+                button.innerHTML = text;
+            }
+
+            hideMessage() {
+                const messageElement = document.getElementById('bookingMessage');
+                if (messageElement) {
+                    messageElement.classList.remove('show');
+                }
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+
+            isTomorrow(date) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                return date.toDateString() === tomorrow.toDateString();
+            }
+
+            showAllBookings() {
+                this.openBookingModal();
+            }
+        }
+
+        // ==================== GLOBAL FUNCTIONS ====================
+        
+        function openBookingModal(serviceType = null) {
+            if (window.portal) {
+                window.portal.openBookingModal(serviceType);
+            }
+        }
+
+        function showAllBookings() {
+            if (window.portal) {
+                window.portal.showAllBookings();
+            }
+        }
+
+        function showAccountSettings() {
+            if (window.portal) {
+                window.portal.showAccountSettings();
+            }
+        }
+
+        function closeRegistrationModal() {
+            if (window.portal) {
+                window.portal.closeRegistrationModal();
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            window.portal = new ClientPortal();
+            
+            console.log('🏊‍♂️ Enhanced 805 LifeGuard Client Portal - Production Ready');
+            console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
+            console.log('✨ Enhanced Features: Account Settings, Navigation, Notifications');
+            console.log('✅ All systems initialized');
+        });
+
+        // ==================== ERROR HANDLING ====================
+        
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Global Error:', event.error);
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'notification error show';
+            errorDiv.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 1.2rem;"></i>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; margin-bottom: 2px;">System Error</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Something went wrong. Please refresh the page or contact support.</div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; font-size: 1.1rem; cursor: pointer; opacity: 0.7;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                if (errorDiv.parentElement) {
+                    errorDiv.remove();
+                }
+            }, 8000);
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Unhandled Promise Rejection:', event.reason);
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
+
+            // Enhanced Calendar Generation with Water Theme
+            generateCalendar() {
+                const calendarGrid = document.getElementById('calendarGrid');
+                const currentMonthDisplay = document.getElementById('currentMonth');
+                
+                if (!calendarGrid || !currentMonthDisplay) {
+                    console.log('Calendar elements not found');
+                    return;
+                }
+                
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+
+                calendarGrid.innerHTML = '';
+
+                // Day headers with water theme
+                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayHeaders.forEach(day => {
+                    const header = document.createElement('div');
+                    header.className = 'calendar-day-header';
+                    header.textContent = day;
+                    calendarGrid.appendChild(header);
+                });
+
+                // Generate calendar days
+                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < 42; i++) {
+                    const currentDay = new Date(startDate);
+                    currentDay.setDate(startDate.getDate() + i);
+                    
+                    const dayElement = this.createCalendarDay(currentDay, today);
+                    calendarGrid.appendChild(dayElement);
+                }
+
+                console.log('✅ Calendar generated successfully');
+            }
+
+            createCalendarDay(date, today) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.setAttribute('tabindex', '0');
+                dayElement.setAttribute('role', 'button');
+                dayElement.setAttribute('aria-label', `Select ${date.toDateString()}`);
+
+                // Add classes for styling
+                if (date.getMonth() !== this.currentDate.getMonth()) {
+                    dayElement.classList.add('other-month');
+                }
+
+                if (date.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                }
+
+                if (date < today) {
+                    dayElement.classList.add('past-date');
+                }
+
+                // Check if this date is selected
+                if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+
+                // Add availability status
+                const availability = this.getDateAvailability(date);
+                dayElement.classList.add(availability.status);
+
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = date.getDate();
+                dayElement.appendChild(dayNumber);
+
+                // Events container
+                const eventsContainer = document.createElement('div');
+                eventsContainer.className = 'day-events';
+                
+                availability.events.forEach(event => {
+                    const eventDot = document.createElement('div');
+                    eventDot.className = `event-dot event-${event.type}`;
+                    eventsContainer.appendChild(eventDot);
+                });
+
+                dayElement.appendChild(eventsContainer);
+
+                // Click event
+                if (!dayElement.classList.contains('past-date') && !dayElement.classList.contains('other-month')) {
+                    dayElement.addEventListener('click', () => {
+                        console.log('📅 Calendar day clicked:', date.toDateString());
+                        this.selectCalendarDate(new Date(date));
+                    });
+
+                    // Keyboard event
+                    dayElement.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            console.log('📅 Calendar day selected via keyboard:', date.toDateString());
+                            this.selectCalendarDate(new Date(date));
+                        }
+                    });
+                }
+
+                return dayElement;
+            }
+
+            selectCalendarDate(date) {
+                console.log('📅 Calendar date selected:', date.toDateString());
+                
+                // Clear previous selection
+                document.querySelectorAll('.calendar-day.selected').forEach(day => {
+                    day.classList.remove('selected');
+                });
+                
+                // Set new selection
+                this.selectedDate = date;
+                
+                // Update visual selection
+                this.generateCalendar();
+                
+                // Open booking modal with pre-selected date
+                this.openBookingModal();
+                
+                // Update the date input in the modal
+                this.updateSelectedDateInput();
+            }
+
+            updateSelectedDateInput() {
+                const selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput && this.selectedDate) {
+                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    // Generate time slots if service is selected
+                    if (this.selectedService) {
+                        this.generateTimeSlots();
+                    }
+                }
+            }
+
+            navigateMonth(direction) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
+                this.generateCalendar();
+            }
+
+            getDateAvailability(date) {
+                const dateKey = date.toISOString().split('T')[0];
+                
+                // Check for user's existing bookings
+                const userBookings = this.bookings.filter(booking => 
+                    booking.date === dateKey && booking.status !== 'cancelled'
+                );
+                
+                if (userBookings.length > 0) {
+                    return {
+                        status: 'booked',
+                        events: [{ type: 'lesson' }]
+                    };
+                }
+                
+                // Default availability
+                const dayOfWeek = date.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
+                    return {
+                        status: 'available',
+                        events: [{ type: 'available' }]
+                    };
+                } else { // Weekday
+                    return {
+                        status: 'available',
+                        events: [{ type: 'available' }]
+                    };
+                }
+            }
+
+            // ==================== BOOKING FUNCTIONALITY ====================
+            
+            quickBook(serviceType) {
+                this.selectedService = serviceType;
+                this.openBookingModal();
+                
+                // Pre-select the service
+                setTimeout(() => {
+                    this.selectService(serviceType);
+                }, 100);
+            }
+
+            openBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                console.log('🔄 Opening booking modal');
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                // Update date input if date is already selected
+                if (this.selectedDate) {
+                    this.updateSelectedDateInput();
+                }
+                
+                // Pre-select service if already chosen
+                if (this.selectedService) {
+                    setTimeout(() => {
+                        this.selectService(this.selectedService);
+                    }, 100);
+                }
+
+                // Focus management
+                setTimeout(() => {
+                    const firstFocusable = modal.querySelector('button, input, select, textarea');
+                    if (firstFocusable) {
+                        firstFocusable.focus();
+                    }
+                }, 100);
+            }
+
+            closeBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                this.resetBookingForm();
+            }
+
+            selectService(serviceType) {
+                console.log('🎯 Service selected:', serviceType);
+                
+                // Clear previous selection
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // Select new service
+                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                    this.selectedService = serviceType;
+                    
+                    // Generate time slots if date is selected
+                    if (this.selectedDate) {
+                        this.generateTimeSlots();
+                    }
+                    
+                    this.updateBookingSummary();
+                }
+            }
+
+            async generateTimeSlots() {
+                const timeSlotsContainer = document.getElementById('timeSlots');
+                if (!timeSlotsContainer || !this.selectedDate || !this.selectedService) return;
+                
+                console.log('⏰ Generating time slots for', this.selectedDate.toDateString(), this.selectedService);
+                
+                timeSlotsContainer.innerHTML = '<div class="loading"><div class="spinner"></div>Loading available times...</div>';
+
+                try {
+                    const availableSlots = await this.getAvailableTimeSlots(this.selectedDate, this.selectedService);
+                    
+                    timeSlotsContainer.innerHTML = '';
+
+                    if (availableSlots.length === 0) {
+                        timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error); padding: 20px;">No available time slots for this date</p>';
+                        return;
+                    }
+
+                    availableSlots.forEach(slot => {
+                        const timeSlot = document.createElement('div');
+                        timeSlot.className = 'time-slot';
+                        timeSlot.textContent = slot.time;
+                        timeSlot.dataset.time = slot.time;
+
+                        if (!slot.available) {
+                            timeSlot.classList.add('unavailable');
+                            timeSlot.title = 'This time slot is not available';
+                        } else {
+                            timeSlot.addEventListener('click', () => {
+                                this.selectTimeSlot(timeSlot);
+                            });
+                            
+                            timeSlot.addEventListener('keydown', (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    this.selectTimeSlot(timeSlot);
+                                }
+                            });
+                            
+                            timeSlot.setAttribute('tabindex', '0');
+                            timeSlot.setAttribute('role', 'button');
+                        }
+
+                        timeSlotsContainer.appendChild(timeSlot);
+                    });
+                } catch (error) {
+                    console.error('Error generating time slots:', error);
+                    timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading time slots</p>';
+                }
+            }
+
+            async getAvailableTimeSlots(date, serviceType) {
+                // Generate base time slots based on service type
+                let baseSlots = [];
+                
+                if (serviceType === 'swim-lesson') {
+                    baseSlots = [
+                        '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+                    ];
+                } else if (serviceType === 'lifeguard') {
+                    baseSlots = [
+                        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+                        '6:00 PM', '7:00 PM', '8:00 PM'
+                    ];
+                } else if (serviceType === 'event') {
+                    baseSlots = [
+                        '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
+                        '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'
+                    ];
+                }
+
+                // Check against existing bookings
+                const dateStr = date.toISOString().split('T')[0];
+                const existingBookings = this.bookings.filter(booking => 
+                    booking.date === dateStr && booking.status !== 'cancelled'
+                );
+
+                return baseSlots.map(time => ({
+                    time,
+                    available: !existingBookings.some(booking => booking.time === time)
+                }));
+            }
+
+            selectTimeSlot(timeSlotElement) {
+                if (timeSlotElement.classList.contains('unavailable')) return;
+
+                console.log('⏰ Time slot selected:', timeSlotElement.dataset.time);
+
+                // Clear previous selection
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+
+                // Select new time slot
+                timeSlotElement.classList.add('selected');
+                this.selectedTime = timeSlotElement.dataset.time;
+                
+                this.updateBookingSummary();
+                this.validateBookingForm();
+            }
+
+            updateBookingSummary() {
+                const summaryContainer = document.getElementById('bookingSummary');
+                if (!summaryContainer) return;
+                
+                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
+                    summaryContainer.style.display = 'none';
+                    return;
+                }
+
+                summaryContainer.style.display = 'block';
+
+                // Update summary fields
+                const summaryService = document.getElementById('summaryService');
+                const summaryDate = document.getElementById('summaryDate');
+                const summaryTime = document.getElementById('summaryTime');
+                const summaryDuration = document.getElementById('summaryDuration');
+                const summaryParticipants = document.getElementById('summaryParticipants');
+
+                if (summaryService) summaryService.textContent = this.serviceNames[this.selectedService];
+                if (summaryDate) summaryDate.textContent = this.selectedDate.toLocaleDateString();
+                if (summaryTime) summaryTime.textContent = this.selectedTime;
+                
+                const duration = document.getElementById('duration')?.value || '1';
+                if (summaryDuration) summaryDuration.textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
+                
+                const participants = document.getElementById('participants')?.value || '1';
+                if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
+            }
+
+            validateBookingForm() {
+                const submitBtn = document.getElementById('submitBooking');
+                if (!submitBtn) return;
+                
+                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
+                
+                submitBtn.disabled = !isValid;
+                
+                if (isValid) {
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                } else {
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
+                }
+            }
+
+            async handleBookingSubmission() {
+                console.log('📝 Submitting booking...');
+                
+                const submitBtn = document.getElementById('submitBooking');
+                this.showLoadingState(submitBtn, 'Processing...');
+
+                try {
+                    const bookingData = {
+                        service: this.selectedService,
+                        date: this.selectedDate.toISOString().split('T')[0],
+                        time: this.selectedTime,
+                        duration: parseFloat(document.getElementById('duration').value),
+                        participants: parseInt(document.getElementById('participants').value),
+                        specialRequests: document.getElementById('specialRequests').value || '',
+                        cost: 0
+                    };
+
+                    console.log('📤 Sending booking data:', JSON.stringify(bookingData, null, 2));
+
+                    let response;
+
+                    if (this.isEditingBooking) {
+                        console.log('✏️ Updating existing booking:', this.editingBookingId);
+                        const updateData = {
+                            service_type: bookingData.service,
+                            booking_date: bookingData.date,
+                            booking_time: bookingData.time,
+                            duration: bookingData.duration,
+                            participants: bookingData.participants,
+                            special_requests: bookingData.specialRequests
+                        };
+                        response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', updateData);
+                    } else {
+                        console.log('🆕 Creating new booking');
+                        response = await this.apiCall('/api/bookings', 'POST', bookingData);
+                    }
+
+                    console.log('📥 API Response:', response);
+
+                    if (response && response.success) {
+                        if (this.isEditingBooking) {
+                            const bookingIndex = this.bookings.findIndex(b => b.id === this.editingBookingId);
+                            if (bookingIndex !== -1) {
+                                this.bookings[bookingIndex] = { 
+                                    ...this.bookings[bookingIndex], 
+                                    service: bookingData.service,
+                                    date: bookingData.date,
+                                    time: bookingData.time,
+                                    duration: bookingData.duration,
+                                    participants: bookingData.participants,
+                                    specialRequests: bookingData.specialRequests
+                                };
+                            }
+                            this.showNotification('Booking updated successfully!', 'success');
+                        } else {
+                            if (response.booking) {
+                                this.bookings.push(response.booking);
+                            }
+                            this.showNotification('Booking request submitted successfully! You will receive a confirmation email shortly.', 'success');
+                        }
+                        
+                        this.updateStats();
+                        this.updateUpcomingBookings();
+                        this.generateCalendar();
+                        
+                        setTimeout(() => {
+                            this.closeBookingModal();
+                        }, 2000);
+                    } else {
+                        throw new Error(response?.error || 'Booking submission failed');
+                    }
+
+                } catch (error) {
+                    console.error('❌ Booking submission error:', error);
+                    
+                    let errorMessage = 'Failed to submit booking. ';
+                    if (error.message.includes('Internal Server Error')) {
+                        errorMessage += 'Please check that all fields are filled correctly and try again.';
+                    } else {
+                        errorMessage += error.message;
+                    }
+                    
+                    this.showNotification(`Error: ${errorMessage}`, 'error');
+                } finally {
+                    this.hideLoadingState(submitBtn, this.isEditingBooking ? 'Update Booking' : 'Request Booking');
+                }
+            }
+
+            async editBooking(bookingId) {
+                const booking = this.bookings.find(b => b.id === bookingId);
+                if (!booking) return;
+                
+                console.log('✏️ Editing booking:', bookingId);
+                
+                this.isEditingBooking = true;
+                this.editingBookingId = bookingId;
+                
+                this.selectedService = booking.service;
+                this.selectedDate = new Date(booking.date + 'T00:00:00');
+                this.selectedTime = booking.time;
+                
+                this.openBookingModal();
+                
+                setTimeout(() => {
+                    this.selectService(booking.service);
+                    this.updateSelectedDateInput();
+                    
+                    document.getElementById('duration').value = booking.duration;
+                    document.getElementById('participants').value = booking.participants;
+                    document.getElementById('specialRequests').value = booking.specialRequests || '';
+                    
+                    this.generateTimeSlots().then(() => {
+                        const timeSlot = document.querySelector(`[data-time="${booking.time}"]`);
+                        if (timeSlot) {
+                            this.selectTimeSlot(timeSlot);
+                        }
+                    });
+                    
+                    const submitBtn = document.getElementById('submitBooking');
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Booking';
+                }, 200);
+            }
+
+            async cancelBooking(bookingId) {
+                if (!confirm('Are you sure you want to cancel this booking?')) return;
+                
+                try {
+                    const response = await this.apiCall(`/api/bookings/${bookingId}`, 'DELETE');
+                    
+                    if (response && response.success) {
+                        const booking = this.bookings.find(b => b.id === bookingId);
+                        if (booking) {
+                            booking.status = 'cancelled';
+                        }
+                        
+                        this.updateUpcomingBookings();
+                        this.updateStats();
+                        this.generateCalendar();
+                        
+                        this.showNotification('Booking cancelled successfully.', 'success');
+                    } else {
+                        throw new Error(response.error || 'Cancellation failed');
+                    }
+                } catch (error) {
+                    console.error('Booking cancellation error:', error);
+                    this.showNotification(`Error: ${error.message}`, 'error');
+                }
+            }
+
+            resetBookingForm() {
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) bookingForm.reset();
+                
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+
+                this.selectedService = null;
+                this.selectedTime = null;
+                this.isEditingBooking = false;
+                this.editingBookingId = null;
+
+                const bookingSummary = document.getElementById('bookingSummary');
+                if (bookingSummary) bookingSummary.style.display = 'none';
+                
+                const timeSlots = document.getElementById('timeSlots');
+                if (timeSlots) timeSlots.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>';
+                
+                const submitBtn = document.getElementById('submitBooking');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                }
+                
+                this.hideMessage();
+            }
+
+            // ==================== UI UPDATES ====================
+            
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                this.updatePortalUserInfo();
+                document.body.style.overflow = 'auto';
+                
+                // Initialize calendar after portal is shown
+                setTimeout(() => {
+                    this.generateCalendar();
+                }, 100);
+                
+                console.log('🎉 Portal loaded successfully!');
+            }
+
+            updatePortalUserInfo() {
+                if (!this.currentUser) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const welcomeName = document.getElementById('welcomeName');
+                const memberSince = document.getElementById('memberSince');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
+                if (userName) userName.textContent = this.currentUser.name || 'User';
+                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
+                
+                if (memberSince && this.currentUser.member_since) {
+                    const memberSinceDate = new Date(this.currentUser.member_since);
+                    memberSince.textContent = memberSinceDate.getFullYear();
+                }
+            }
+
+            getInitials(name) {
+                if (!name) return 'U';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
+            }
+
+            updateStats() {
+                const totalBookings = this.bookings.length;
+                const upcomingBookings = this.bookings.filter(booking => 
+                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
+                ).length;
+                
+                const thisMonth = new Date();
+                const monthlyLessons = this.bookings.filter(booking => {
+                    const bookingDate = new Date(booking.date);
+                    return bookingDate.getMonth() === thisMonth.getMonth() &&
+                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
+                           booking.service === 'swim-lesson' &&
+                           booking.status !== 'cancelled';
+                }).length;
+
+                this.animateNumber('totalBookings', totalBookings);
+                this.animateNumber('upcomingBookings', upcomingBookings);
+                this.animateNumber('monthlyLessons', monthlyLessons);
+            }
+
+            animateNumber(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = parseInt(element.textContent) || 0;
+                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 20));
+                
+                const timer = setInterval(() => {
+                    if (currentValue < targetValue) {
+                        currentValue = Math.min(currentValue + increment, targetValue);
+                        element.textContent = currentValue;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+
+            updateUpcomingBookings() {
+                const container = document.getElementById('upcomingBookingsList');
+                if (!container) return;
+                
+                const upcomingBookings = this.bookings
+                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+
+                container.innerHTML = '';
+
+                if (upcomingBookings.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
+                            <i class="fas fa-calendar-plus" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                            <p>No upcoming bookings</p>
+                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Book Now
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                upcomingBookings.forEach(booking => {
+                    const bookingElement = this.createBookingElement(booking);
+                    container.appendChild(bookingElement);
+                });
+            }
+
+            createBookingElement(booking) {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.className = 'booking-item';
+                
+                const statusClass = `status-${booking.status}`;
+                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+                
+                const bookingDate = new Date(booking.date);
+                const isToday = this.isToday(bookingDate);
+                const isTomorrow = this.isTomorrow(bookingDate);
+                
+                let dateDisplay = bookingDate.toLocaleDateString();
+                if (isToday) dateDisplay = 'Today';
+                else if (isTomorrow) dateDisplay = 'Tomorrow';
+
+                const serviceName = this.serviceNames[booking.service] || booking.service;
+
+                bookingDiv.innerHTML = `
+                    <div class="booking-header">
+                        <div class="booking-title">${serviceName}</div>
+                        <div class="booking-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="booking-details">
+                        <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
+                        <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                        ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
+                    </div>
+                    <div class="booking-actions">
+                        <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        ${booking.status === 'pending' || booking.status === 'confirmed' ? `
+                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+
+                return bookingDiv;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .settings-form-group {
+            margin-bottom: 25px;
+        }
+
+        .settings-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .settings-form-label {
+            display: block;
             margin-bottom: 8px;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
         }
 
-        /* Enhanced Messages and Notifications */
-        .error-message {
+        .settings-save-btn {
+            background: var(--gradient-cosmic);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            width: auto;
+            min-width: 150px;
+        }
+
+        .settings-save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ==================== BOOKING COMPONENTS ==================== */
+        .service-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .service-option {
+            background: rgba(30, 136, 229, 0.05);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .service-option:hover {
+            background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .service-option.selected {
+            border-color: var(--gallery-blue);
+            background: rgba(30, 136, 229, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .service-option i {
+            font-size: 2rem;
+            color: var(--gallery-blue);
+            margin-bottom: 10px;
+        }
+
+        .service-option h4 {
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: var(--radius-md);
+        }
+
+        .time-slot {
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .time-slot:hover:not(.unavailable) {
+            background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .time-slot.selected {
+            border-color: var(--gallery-blue);
+            background: var(--gallery-blue);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f8f9fa;
+            text-decoration: line-through;
+        }
+
+        .booking-summary {
+            background: rgba(30, 136, 229, 0.05);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .summary-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px solid rgba(30, 136, 229, 0.2);
+            font-weight: 700;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        /* ==================== BOOKING ITEMS ==================== */
+        .booking-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+            border-left: 4px solid var(--gallery-blue);
+            transition: var(--transition-smooth);
+            margin-bottom: 15px;
+        }
+
+        .booking-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .booking-title {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .booking-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .status-confirmed {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+
+        .status-cancelled {
+            background: rgba(244, 67, 54, 0.1);
             color: var(--error);
+        }
+
+        .booking-details {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .booking-details div {
+            margin-bottom: 5px;
+        }
+
+        .booking-details i {
+            width: 18px;
+            margin-right: 8px;
+            text-align: center;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ==================== MESSAGES & NOTIFICATIONS ==================== */
+        .error-message,
+        .success-message {
             font-size: 0.9rem;
             margin-top: 10px;
             padding: 10px;
-            background: rgba(244, 67, 54, 0.1);
             border-radius: var(--radius-md);
             display: none;
         }
 
-        .error-message.show {
-            display: block;
+        .error-message {
+            color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
         }
 
         .success-message {
             color: var(--success);
-            font-size: 0.9rem;
-            margin-top: 10px;
-            padding: 10px;
             background: rgba(76, 175, 80, 0.1);
-            border-radius: var(--radius-md);
-            display: none;
         }
 
+        .error-message.show,
         .success-message.show {
             display: block;
         }
 
-        .login-footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e9ecef;
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .create-account-link {
-            margin-top: 20px;
-            text-align: center;
-        }
         .notification {
             position: fixed;
             top: 100px;
@@ -1224,187 +2492,7 @@
             color: white;
         }
 
-        /* Enhanced Responsive Design */
-        @media (max-width: 1200px) {
-            .nav-container {
-                padding: 0 20px;
-            }
-            
-            .portal-content {
-                padding: 30px 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .login-card {
-                padding: 40px 30px;
-                margin: 10px;
-                max-width: 420px;
-            }
-            
-            .welcome-title {
-                font-size: 2.2rem;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .settings-tabs {
-                flex-direction: column;
-            }
-            
-            .settings-form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .quick-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* Mobile Modal Fixes */
-            .registration-content, 
-            .modal-content {
-                margin: 10px;
-                padding: 25px 20px;
-                max-width: 95vw;
-            }
-
-            .settings-content {
-                margin: 10px;
-                max-width: 95vw;
-            }
-
-            .calendar-container {
-                padding: 20px 15px;
-            }
-
-            .calendar-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-            }
-
-            .calendar-title {
-                text-align: center;
-            }
-
-            .calendar-nav {
-                justify-content: center;
-            }
-
-            .calendar-day {
-                min-height: 60px;
-                padding: 5px;
-            }
-
-            .calendar-day-header {
-                padding: 10px 3px;
-                font-size: 0.75rem;
-            }
-
-            .service-selection {
-                grid-template-columns: 1fr;
-            }
-
-            .time-slots {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .modal-actions {
-                flex-direction: column-reverse;
-                gap: 10px;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-            }
-
-            .booking-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .settings-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 15px;
-            }
-            
-            .portal-content {
-                padding: 20px 15px;
-            }
-            
-            .login-card {
-                padding: 30px 20px;
-                max-width: 360px;
-            }
-            
-            .welcome-section {
-                padding: 40px 25px;
-            }
-            
-            .dashboard-card {
-                padding: 25px;
-            }
-            
-            .settings-body {
-                padding: 25px;
-            }
-            
-            .quick-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .calendar-day {
-                min-height: 50px;
-                padding: 3px;
-            }
-
-            .day-number {
-                font-size: 0.85rem;
-            }
-
-            .service-selection {
-                grid-template-columns: 1fr;
-            }
-
-            .time-slots {
-                grid-template-columns: 1fr;
-            }
-
-            /* Extra small modal adjustments */
-            .registration-content, 
-            .modal-content,
-            .settings-content {
-                padding: 20px 15px;
-                border-radius: var(--radius-lg);
-            }
-
-            .modal-title,
-            .settings-title {
-                font-size: 1.4rem;
-            }
-        }
-
-        /* Enhanced Loading States with Theme */
+        /* ==================== LOADING STATES ==================== */
         .loading {
             display: inline-flex;
             align-items: center;
@@ -1454,7 +2542,72 @@
             100% { opacity: 1; }
         }
 
-        /* Enhanced Focus States */
+        /* ==================== TOGGLE SWITCHES ==================== */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition-smooth);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition-smooth);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: var(--gradient-primary);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--gallery-blue);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* ==================== FOOTER ELEMENTS ==================== */
+        .login-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .create-account-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* ==================== FOCUS STATES ==================== */
         .form-input:focus,
         .btn-primary:focus,
         .nav-link:focus,
@@ -1463,45 +2616,7 @@
             outline-offset: 2px;
         }
 
-        /* Additional Enhancements */
-        .feature-highlight {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-highlight::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient-cosmic);
-            border-radius: inherit;
-            z-index: -1;
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .feature-highlight:hover::before {
-            opacity: 0.7;
-        }
-
-        .premium-badge {
-            background: var(--gradient-gold);
-            color: #8b4513;
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-        }
-
-        /* Scrollbar Styling */
+        /* ==================== SCROLLBAR STYLING ==================== */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1518,6 +2633,161 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gradient-cosmic);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 1200px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .portal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .login-card {
+                padding: 40px 30px;
+                margin: 10px;
+                max-width: 420px;
+            }
+            
+            .welcome-title {
+                font-size: 2.2rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .settings-tabs {
+                flex-direction: column;
+            }
+            
+            .settings-form-row,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .registration-content, 
+            .modal-content,
+            .settings-content {
+                margin: 10px;
+                padding: 25px 20px;
+                max-width: 95vw;
+            }
+
+            .calendar-container {
+                padding: 20px 15px;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .calendar-title {
+                text-align: center;
+            }
+
+            .calendar-nav {
+                justify-content: center;
+            }
+
+            .calendar-day {
+                min-height: 60px;
+                padding: 5px;
+            }
+
+            .calendar-day-header {
+                padding: 10px 3px;
+                font-size: 0.75rem;
+            }
+
+            .service-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-actions {
+                flex-direction: column-reverse;
+                gap: 10px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .portal-content {
+                padding: 20px 15px;
+            }
+            
+            .login-card {
+                padding: 30px 20px;
+                max-width: 360px;
+            }
+            
+            .welcome-section {
+                padding: 40px 25px;
+            }
+            
+            .dashboard-card {
+                padding: 25px;
+            }
+            
+            .settings-body {
+                padding: 25px;
+            }
+            
+            .quick-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-day {
+                min-height: 50px;
+                padding: 3px;
+            }
+
+            .day-number {
+                font-size: 0.85rem;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+
+            .registration-content, 
+            .modal-content,
+            .settings-content {
+                padding: 20px 15px;
+                border-radius: var(--radius-lg);
+            }
+
+            .modal-title,
+            .settings-title {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -1617,72 +2887,73 @@
     <div class="registration-modal" id="registrationModal">
         <div class="registration-content glass-card">
             <div class="registration-header">
-                <h2 class="registration-title">Create Your Account</h2>
+                <div>
+                    <h2 class="registration-title">Create Your Account</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin-top: 10px;">Join 805 LifeGuard and start booking professional aquatic services today!</p>
+                </div>
                 <button class="close-btn" id="registrationClose">&times;</button>
             </div>
             
-            <p style="color: var(--gray); margin-bottom: 30px; text-align: center;">
-                Join 805 LifeGuard and start booking professional aquatic services today!
-            </p>
-            
-            <form id="registrationForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regName" class="form-label">Full Name *</label>
-                        <input type="text" id="regName" class="form-input" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="regEmail" class="form-label">Email Address *</label>
-                        <input type="email" id="regEmail" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regPassword" class="form-label">Password *</label>
-                        <div class="password-container">
-                            <input type="password" id="regPassword" class="form-input" placeholder="Create a password" required>
-                            <button type="button" class="password-toggle" id="regPasswordToggle">
-                                <i class="fas fa-eye"></i>
-                            </button>
+            <div style="padding: 40px;">
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regName" class="form-label">Full Name *</label>
+                            <input type="text" id="regName" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regEmail" class="form-label">Email Address *</label>
+                            <input type="email" id="regEmail" class="form-input" placeholder="Enter your email" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="regConfirmPassword" class="form-label">Confirm Password *</label>
-                        <input type="password" id="regConfirmPassword" class="form-input" placeholder="Confirm your password" required>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regPassword" class="form-label">Password *</label>
+                            <div class="password-container">
+                                <input type="password" id="regPassword" class="form-input" placeholder="Create a password" required>
+                                <button type="button" class="password-toggle" id="regPasswordToggle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regConfirmPassword" class="form-label">Confirm Password *</label>
+                            <input type="password" id="regConfirmPassword" class="form-input" placeholder="Confirm your password" required>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="regPhone" class="form-label">Phone Number</label>
-                    <input type="tel" id="regPhone" class="form-input" placeholder="(805) 555-0123">
-                </div>
-                
-                <div class="form-group">
-                    <label for="regAddress" class="form-label">Address</label>
-                    <input type="text" id="regAddress" class="form-input" placeholder="Enter your address">
-                </div>
-                
-                <div class="form-group">
-                    <label for="regEmergencyContact" class="form-label">Emergency Contact</label>
-                    <input type="text" id="regEmergencyContact" class="form-input" placeholder="Emergency contact name and phone">
-                </div>
-                
-                <button type="submit" class="btn-primary" id="registrationBtn" style="margin-bottom: 15px;">
-                    <span class="btn-text">Create Account</span>
-                    <span class="loading" style="display: none;">
-                        <span class="spinner"></span>
-                        Creating Account...
-                    </span>
-                </button>
-                
-                <div class="error-message" id="registrationError"></div>
-                <div class="success-message" id="registrationSuccess"></div>
-            </form>
+                    
+                    <div class="form-group">
+                        <label for="regPhone" class="form-label">Phone Number</label>
+                        <input type="tel" id="regPhone" class="form-input" placeholder="(805) 555-0123">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regAddress" class="form-label">Address</label>
+                        <input type="text" id="regAddress" class="form-input" placeholder="Enter your address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regEmergencyContact" class="form-label">Emergency Contact</label>
+                        <input type="text" id="regEmergencyContact" class="form-input" placeholder="Emergency contact name and phone">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="registrationBtn" style="margin-bottom: 15px;">
+                        <span class="btn-text">Create Account</span>
+                        <span class="loading" style="display: none;">
+                            <span class="spinner"></span>
+                            Creating Account...
+                        </span>
+                    </button>
+                    
+                    <div class="error-message" id="registrationError"></div>
+                    <div class="success-message" id="registrationSuccess"></div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Enhanced Portal Dashboard -->
+    <!-- Portal Dashboard -->
     <div class="portal-container" id="portalContainer">
         <!-- Portal Header -->
         <header class="portal-header">
@@ -1704,7 +2975,7 @@
 
         <!-- Portal Content -->
         <main class="portal-content">
-            <!-- Enhanced Welcome Section -->
+            <!-- Welcome Section -->
             <section class="welcome-section">
                 <div class="welcome-content">
                     <h1 class="welcome-title">Welcome back, <span id="welcomeName">John</span>!</h1>
@@ -1731,7 +3002,7 @@
                 </div>
             </section>
 
-            <!-- Enhanced Dashboard Cards -->
+            <!-- Dashboard Cards -->
             <section class="dashboard-grid">
                 <!-- Quick Book Card -->
                 <div class="dashboard-card feature-highlight">
@@ -1806,7 +3077,7 @@
                 </div>
             </section>
 
-            <!-- Enhanced Calendar Section -->
+            <!-- Calendar Section -->
             <section class="calendar-container">
                 <div class="calendar-header">
                     <h2 class="calendar-title">Available Dates & Times</h2>
@@ -1847,7 +3118,7 @@
         </main>
     </div>
 
-    <!-- Enhanced Account Settings Modal -->
+    <!-- Account Settings Modal -->
     <div class="account-settings-modal" id="accountSettingsModal">
         <div class="settings-content">
             <div class="settings-header">
@@ -1957,19 +3228,6 @@
                             <i class="fas fa-key"></i> Update Password
                         </button>
                     </form>
-                    
-                    <hr style="margin: 40px 0; border: none; height: 1px; background: var(--light-gray);">
-                    
-                    <h4 style="margin-bottom: 15px; color: var(--dark);">Two-Factor Authentication</h4>
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(76, 175, 80, 0.05); border-radius: var(--radius-md); margin-bottom: 20px;">
-                        <div>
-                            <strong style="color: var(--success);">Recommended</strong>
-                            <p style="color: var(--gray); margin-top: 5px;">Add an extra layer of security to your account</p>
-                        </div>
-                        <button class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
-                            <i class="fas fa-mobile-alt"></i> Enable 2FA
-                        </button>
-                    </div>
                 </div>
                 
                 <!-- Preferences Section -->
@@ -2091,7 +3349,7 @@
         </div>
     </div>
 
-    <!-- Booking Modal (keeping existing modal with enhanced styling) -->
+    <!-- Booking Modal -->
     <div class="booking-modal" id="bookingModal">
         <div class="modal-content glass-card">
             <div class="loading-overlay" id="modalLoading">
@@ -2099,108 +3357,112 @@
             </div>
             
             <div class="modal-header">
-                <h2 class="modal-title">Book a Service</h2>
+                <div>
+                    <h2 class="modal-title">Book a Service</h2>
+                </div>
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label class="form-label">Select Service</label>
-                    <div class="service-selection">
-                        <div class="service-option" data-service="swim-lesson">
-                            <i class="fas fa-swimmer"></i>
-                            <h4>Swim Lesson</h4>
+            <div style="padding: 40px;">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label class="form-label">Select Service</label>
+                        <div class="service-selection">
+                            <div class="service-option" data-service="swim-lesson">
+                                <i class="fas fa-swimmer"></i>
+                                <h4>Swim Lesson</h4>
+                            </div>
+                            <div class="service-option" data-service="lifeguard">
+                                <i class="fas fa-user-shield"></i>
+                                <h4>Lifeguard Service</h4>
+                            </div>
+                            <div class="service-option" data-service="event">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h4>Special Event</h4>
+                            </div>
                         </div>
-                        <div class="service-option" data-service="lifeguard">
-                            <i class="fas fa-user-shield"></i>
-                            <h4>Lifeguard Service</h4>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Selected Date</label>
+                        <input type="text" id="selectedDate" class="form-input" readonly placeholder="Click on a calendar date to select">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Available Time Slots</label>
+                        <div class="time-slots" id="timeSlots">
+                            <p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>
                         </div>
-                        <div class="service-option" data-service="event">
-                            <i class="fas fa-calendar-alt"></i>
-                            <h4>Special Event</h4>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration" class="form-label">Duration</label>
+                        <select id="duration" class="form-input">
+                            <option value="1">1 Hour</option>
+                            <option value="1.5">1.5 Hours</option>
+                            <option value="2">2 Hours</option>
+                            <option value="3">3 Hours</option>
+                            <option value="4">4 Hours</option>
+                            <option value="6">6 Hours</option>
+                            <option value="8">8 Hours</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="participants" class="form-label">Number of Participants</label>
+                        <select id="participants" class="form-input">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5+ People</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+                        <textarea id="specialRequests" class="form-input" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                    </div>
+                    
+                    <div class="booking-summary" id="bookingSummary" style="display: none;">
+                        <div class="summary-title">Booking Summary</div>
+                        <div class="summary-row">
+                            <span>Service:</span>
+                            <span id="summaryService">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Date:</span>
+                            <span id="summaryDate">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Time:</span>
+                            <span id="summaryTime">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Duration:</span>
+                            <span id="summaryDuration">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Participants:</span>
+                            <span id="summaryParticipants">-</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Selected Date</label>
-                    <input type="text" id="selectedDate" class="form-input" readonly placeholder="Click on a calendar date to select">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Available Time Slots</label>
-                    <div class="time-slots" id="timeSlots">
-                        <p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>
+                    
+                    <div class="error-message" id="bookingMessage"></div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
+                        <button type="submit" class="btn-primary" id="submitBooking" disabled>
+                            <i class="fas fa-calendar-check"></i>
+                            Request Booking
+                        </button>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="duration" class="form-label">Duration</label>
-                    <select id="duration" class="form-input">
-                        <option value="1">1 Hour</option>
-                        <option value="1.5">1.5 Hours</option>
-                        <option value="2">2 Hours</option>
-                        <option value="3">3 Hours</option>
-                        <option value="4">4 Hours</option>
-                        <option value="6">6 Hours</option>
-                        <option value="8">8 Hours</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="participants" class="form-label">Number of Participants</label>
-                    <select id="participants" class="form-input">
-                        <option value="1">1 Person</option>
-                        <option value="2">2 People</option>
-                        <option value="3">3 People</option>
-                        <option value="4">4 People</option>
-                        <option value="5">5+ People</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
-                    <textarea id="specialRequests" class="form-input" rows="3" placeholder="Any special requirements or notes..."></textarea>
-                </div>
-                
-                <div class="booking-summary" id="bookingSummary" style="display: none;">
-                    <div class="summary-title">Booking Summary</div>
-                    <div class="summary-row">
-                        <span>Service:</span>
-                        <span id="summaryService">-</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Date:</span>
-                        <span id="summaryDate">-</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Time:</span>
-                        <span id="summaryTime">-</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Duration:</span>
-                        <span id="summaryDuration">-</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Participants:</span>
-                        <span id="summaryParticipants">-</span>
-                    </div>
-                </div>
-                
-                <div class="message" id="bookingMessage"></div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
-                    <button type="submit" class="btn-primary" id="submitBooking" disabled>
-                        <i class="fas fa-calendar-check"></i>
-                        Request Booking
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Enhanced JavaScript with Account Settings -->
+    <!-- JavaScript remains the same as original -->
     <script>
         // Enhanced Client Portal System
         class ClientPortal {
@@ -2881,1484 +4143,3 @@
                     throw error;
                 }
             }
-
-            // Enhanced Calendar Generation with Water Theme
-            generateCalendar() {
-                const calendarGrid = document.getElementById('calendarGrid');
-                const currentMonthDisplay = document.getElementById('currentMonth');
-                
-                if (!calendarGrid || !currentMonthDisplay) {
-                    console.log('Calendar elements not found');
-                    return;
-                }
-                
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
-
-                calendarGrid.innerHTML = '';
-
-                // Day headers with water theme
-                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayHeaders.forEach(day => {
-                    const header = document.createElement('div');
-                    header.className = 'calendar-day-header';
-                    header.textContent = day;
-                    header.style.background = 'var(--gradient-primary)';
-                    header.style.color = 'white';
-                    header.style.padding = '15px 5px';
-                    header.style.textAlign = 'center';
-                    header.style.fontSize = '0.85rem';
-                    header.style.fontWeight = '600';
-                    header.style.textTransform = 'uppercase';
-                    header.style.letterSpacing = '1px';
-                    calendarGrid.appendChild(header);
-                });
-
-                // Generate calendar days
-                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-                const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                for (let i = 0; i < 42; i++) {
-                    const currentDay = new Date(startDate);
-                    currentDay.setDate(startDate.getDate() + i);
-                    
-                    const dayElement = this.createCalendarDay(currentDay, today);
-                    calendarGrid.appendChild(dayElement);
-                }
-
-                console.log('✅ Calendar generated successfully');
-            }
-
-            createCalendarDay(date, today) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.setAttribute('tabindex', '0');
-                dayElement.setAttribute('role', 'button');
-                dayElement.setAttribute('aria-label', `Select ${date.toDateString()}`);
-
-                // Styling
-                dayElement.style.background = 'rgba(255, 255, 255, 0.9)';
-                dayElement.style.minHeight = '85px';
-                dayElement.style.padding = '10px';
-                dayElement.style.position = 'relative';
-                dayElement.style.cursor = 'pointer';
-                dayElement.style.transition = 'var(--transition-smooth)';
-                dayElement.style.display = 'flex';
-                dayElement.style.flexDirection = 'column';
-                dayElement.style.borderRadius = 'var(--radius-sm)';
-                dayElement.style.margin = '1px';
-                dayElement.style.border = '1px solid rgba(30, 136, 229, 0.1)';
-
-                // Add classes for styling
-                if (date.getMonth() !== this.currentDate.getMonth()) {
-                    dayElement.classList.add('other-month');
-                    dayElement.style.color = '#ccc';
-                    dayElement.style.background = '#f8f9fa';
-                    dayElement.style.cursor = 'default';
-                }
-
-                if (date.getTime() === today.getTime()) {
-                    dayElement.classList.add('today');
-                    dayElement.style.background = 'rgba(30, 136, 229, 0.15)';
-                    dayElement.style.fontWeight = '700';
-                    dayElement.style.border = '2px solid var(--gallery-blue)';
-                    dayElement.style.boxShadow = 'var(--shadow-glow)';
-                }
-
-                if (date < today) {
-                    dayElement.classList.add('past-date');
-                    dayElement.style.opacity = '0.4';
-                    dayElement.style.cursor = 'not-allowed';
-                }
-
-                // Check if this date is selected
-                if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
-                    dayElement.classList.add('selected');
-                    dayElement.style.background = 'var(--gradient-primary)';
-                    dayElement.style.color = 'white';
-                    dayElement.style.transform = 'scale(1.05)';
-                    dayElement.style.boxShadow = 'var(--shadow-glow)';
-                }
-
-                // Add availability status
-                const availability = this.getDateAvailability(date);
-                dayElement.classList.add(availability.status);
-
-                // Add border color based on availability
-                if (availability.status === 'available') {
-                    dayElement.style.borderLeft = '4px solid var(--success)';
-                } else if (availability.status === 'booked') {
-                    dayElement.style.borderLeft = '4px solid var(--warning)';
-                } else if (availability.status === 'unavailable') {
-                    dayElement.style.borderLeft = '4px solid var(--error)';
-                }
-
-                // Day number
-                const dayNumber = document.createElement('div');
-                dayNumber.className = 'day-number';
-                dayNumber.textContent = date.getDate();
-                dayNumber.style.fontWeight = '600';
-                dayNumber.style.marginBottom = '5px';
-                dayElement.appendChild(dayNumber);
-
-                // Events container
-                const eventsContainer = document.createElement('div');
-                eventsContainer.className = 'day-events';
-                eventsContainer.style.flex = '1';
-                eventsContainer.style.display = 'flex';
-                eventsContainer.style.flexDirection = 'column';
-                eventsContainer.style.gap = '2px';
-                
-                availability.events.forEach(event => {
-                    const eventDot = document.createElement('div');
-                    eventDot.className = `event-dot event-${event.type}`;
-                    eventDot.style.width = '100%';
-                    eventDot.style.height = '4px';
-                    eventDot.style.borderRadius = '2px';
-                    
-                    if (event.type === 'available') {
-                        eventDot.style.background = 'var(--success)';
-                    } else if (event.type === 'booked') {
-                        eventDot.style.background = 'var(--warning)';
-                    } else if (event.type === 'lesson') {
-                        eventDot.style.background = 'var(--gallery-blue)';
-                    } else if (event.type === 'unavailable') {
-                        eventDot.style.background = 'var(--error)';
-                    }
-                    
-                    eventsContainer.appendChild(eventDot);
-                });
-
-                dayElement.appendChild(eventsContainer);
-
-                // Hover effects
-                if (!dayElement.classList.contains('past-date') && !dayElement.classList.contains('other-month')) {
-                    dayElement.addEventListener('mouseenter', () => {
-                        if (!dayElement.classList.contains('selected')) {
-                            dayElement.style.background = 'var(--gradient-aurora)';
-                            dayElement.style.transform = 'scale(1.02)';
-                            dayElement.style.boxShadow = 'var(--shadow-soft)';
-                            dayElement.style.zIndex = '10';
-                        }
-                    });
-
-                    dayElement.addEventListener('mouseleave', () => {
-                        if (!dayElement.classList.contains('selected')) {
-                            // Reset to original styling
-                            if (dayElement.classList.contains('today')) {
-                                dayElement.style.background = 'rgba(30, 136, 229, 0.15)';
-                                dayElement.style.boxShadow = 'var(--shadow-glow)';
-                            } else {
-                                dayElement.style.background = 'rgba(255, 255, 255, 0.9)';
-                                dayElement.style.boxShadow = 'none';
-                            }
-                            dayElement.style.transform = 'scale(1)';
-                            dayElement.style.zIndex = '1';
-                        }
-                    });
-
-                    // Click event
-                    dayElement.addEventListener('click', () => {
-                        console.log('📅 Calendar day clicked:', date.toDateString());
-                        this.selectCalendarDate(new Date(date));
-                    });
-
-                    // Keyboard event
-                    dayElement.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            console.log('📅 Calendar day selected via keyboard:', date.toDateString());
-                            this.selectCalendarDate(new Date(date));
-                        }
-                    });
-                }
-
-                return dayElement;
-            }
-
-            selectCalendarDate(date) {
-                console.log('📅 Calendar date selected:', date.toDateString());
-                
-                // Clear previous selection
-                document.querySelectorAll('.calendar-day.selected').forEach(day => {
-                    day.classList.remove('selected');
-                    // Reset styling
-                    if (day.classList.contains('today')) {
-                        day.style.background = 'rgba(30, 136, 229, 0.15)';
-                        day.style.color = 'inherit';
-                        day.style.transform = 'scale(1)';
-                        day.style.boxShadow = 'var(--shadow-glow)';
-                    } else if (!day.classList.contains('other-month') && !day.classList.contains('past-date')) {
-                        day.style.background = 'rgba(255, 255, 255, 0.9)';
-                        day.style.color = 'inherit';
-                        day.style.transform = 'scale(1)';
-                        day.style.boxShadow = 'none';
-                    }
-                });
-                
-                // Set new selection
-                this.selectedDate = date;
-                
-                // Update visual selection
-                this.generateCalendar();
-                
-                // Open booking modal with pre-selected date
-                this.openBookingModal();
-                
-                // Update the date input in the modal
-                this.updateSelectedDateInput();
-            }
-
-            updateSelectedDateInput() {
-                const selectedDateInput = document.getElementById('selectedDate');
-                if (selectedDateInput && this.selectedDate) {
-                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                    
-                    // Generate time slots if service is selected
-                    if (this.selectedService) {
-                        this.generateTimeSlots();
-                    }
-                }
-            }
-
-            navigateMonth(direction) {
-                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
-                this.generateCalendar();
-            }
-
-            getDateAvailability(date) {
-                const dateKey = date.toISOString().split('T')[0];
-                
-                // Check for user's existing bookings
-                const userBookings = this.bookings.filter(booking => 
-                    booking.date === dateKey && booking.status !== 'cancelled'
-                );
-                
-                if (userBookings.length > 0) {
-                    return {
-                        status: 'booked',
-                        events: [{ type: 'lesson' }]
-                    };
-                }
-                
-                // Default availability
-                const dayOfWeek = date.getDay();
-                if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
-                    return {
-                        status: 'available',
-                        events: [{ type: 'available' }]
-                    };
-                } else { // Weekday
-                    return {
-                        status: 'available',
-                        events: [{ type: 'available' }]
-                    };
-                }
-            }
-
-            // ==================== BOOKING FUNCTIONALITY ====================
-            
-            quickBook(serviceType) {
-                this.selectedService = serviceType;
-                this.openBookingModal();
-                
-                // Pre-select the service
-                setTimeout(() => {
-                    this.selectService(serviceType);
-                }, 100);
-            }
-
-            openBookingModal() {
-                const modal = document.getElementById('bookingModal');
-                if (!modal) return;
-                
-                console.log('🔄 Opening booking modal');
-                
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-                
-                // Update date input if date is already selected
-                if (this.selectedDate) {
-                    this.updateSelectedDateInput();
-                }
-                
-                // Pre-select service if already chosen
-                if (this.selectedService) {
-                    setTimeout(() => {
-                        this.selectService(this.selectedService);
-                    }, 100);
-                }
-
-                // Focus management
-                setTimeout(() => {
-                    const firstFocusable = modal.querySelector('button, input, select, textarea');
-                    if (firstFocusable) {
-                        firstFocusable.focus();
-                    }
-                }, 100);
-            }
-
-            closeBookingModal() {
-                const modal = document.getElementById('bookingModal');
-                if (!modal) return;
-                
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                
-                this.resetBookingForm();
-            }
-
-            selectService(serviceType) {
-                console.log('🎯 Service selected:', serviceType);
-                
-                // Clear previous selection
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-
-                // Select new service
-                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
-                if (selectedOption) {
-                    selectedOption.classList.add('selected');
-                    this.selectedService = serviceType;
-                    
-                    // Generate time slots if date is selected
-                    if (this.selectedDate) {
-                        this.generateTimeSlots();
-                    }
-                    
-                    this.updateBookingSummary();
-                }
-            }
-
-            async generateTimeSlots() {
-                const timeSlotsContainer = document.getElementById('timeSlots');
-                if (!timeSlotsContainer || !this.selectedDate || !this.selectedService) return;
-                
-                console.log('⏰ Generating time slots for', this.selectedDate.toDateString(), this.selectedService);
-                
-                timeSlotsContainer.innerHTML = '<div class="loading"><div class="spinner"></div>Loading available times...</div>';
-
-                try {
-                    const availableSlots = await this.getAvailableTimeSlots(this.selectedDate, this.selectedService);
-                    
-                    timeSlotsContainer.innerHTML = '';
-
-                    if (availableSlots.length === 0) {
-                        timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error); padding: 20px;">No available time slots for this date</p>';
-                        return;
-                    }
-
-                    availableSlots.forEach(slot => {
-                        const timeSlot = document.createElement('div');
-                        timeSlot.className = 'time-slot';
-                        timeSlot.textContent = slot.time;
-                        timeSlot.dataset.time = slot.time;
-
-                        if (!slot.available) {
-                            timeSlot.classList.add('unavailable');
-                            timeSlot.title = 'This time slot is not available';
-                        } else {
-                            timeSlot.addEventListener('click', () => {
-                                this.selectTimeSlot(timeSlot);
-                            });
-                            
-                            timeSlot.addEventListener('keydown', (e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault();
-                                    this.selectTimeSlot(timeSlot);
-                                }
-                            });
-                            
-                            timeSlot.setAttribute('tabindex', '0');
-                            timeSlot.setAttribute('role', 'button');
-                        }
-
-                        timeSlotsContainer.appendChild(timeSlot);
-                    });
-                } catch (error) {
-                    console.error('Error generating time slots:', error);
-                    timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading time slots</p>';
-                }
-            }
-
-            async getAvailableTimeSlots(date, serviceType) {
-                // Generate base time slots based on service type
-                let baseSlots = [];
-                
-                if (serviceType === 'swim-lesson') {
-                    baseSlots = [
-                        '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
-                    ];
-                } else if (serviceType === 'lifeguard') {
-                    baseSlots = [
-                        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
-                        '6:00 PM', '7:00 PM', '8:00 PM'
-                    ];
-                } else if (serviceType === 'event') {
-                    baseSlots = [
-                        '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
-                        '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'
-                    ];
-                }
-
-                // Check against existing bookings
-                const dateStr = date.toISOString().split('T')[0];
-                const existingBookings = this.bookings.filter(booking => 
-                    booking.date === dateStr && booking.status !== 'cancelled'
-                );
-
-                return baseSlots.map(time => ({
-                    time,
-                    available: !existingBookings.some(booking => booking.time === time)
-                }));
-            }
-
-            selectTimeSlot(timeSlotElement) {
-                if (timeSlotElement.classList.contains('unavailable')) return;
-
-                console.log('⏰ Time slot selected:', timeSlotElement.dataset.time);
-
-                // Clear previous selection
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-
-                // Select new time slot
-                timeSlotElement.classList.add('selected');
-                this.selectedTime = timeSlotElement.dataset.time;
-                
-                this.updateBookingSummary();
-                this.validateBookingForm();
-            }
-
-            updateBookingSummary() {
-                const summaryContainer = document.getElementById('bookingSummary');
-                if (!summaryContainer) return;
-                
-                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
-                    summaryContainer.style.display = 'none';
-                    return;
-                }
-
-                summaryContainer.style.display = 'block';
-
-                // Update summary fields
-                const summaryService = document.getElementById('summaryService');
-                const summaryDate = document.getElementById('summaryDate');
-                const summaryTime = document.getElementById('summaryTime');
-                const summaryDuration = document.getElementById('summaryDuration');
-                const summaryParticipants = document.getElementById('summaryParticipants');
-
-                if (summaryService) summaryService.textContent = this.serviceNames[this.selectedService];
-                if (summaryDate) summaryDate.textContent = this.selectedDate.toLocaleDateString();
-                if (summaryTime) summaryTime.textContent = this.selectedTime;
-                
-                const duration = document.getElementById('duration')?.value || '1';
-                if (summaryDuration) summaryDuration.textContent = `${duration} hour${duration > 1 ? 's' : ''}`;
-                
-                const participants = document.getElementById('participants')?.value || '1';
-                if (summaryParticipants) summaryParticipants.textContent = participants === '5' ? '5+ people' : `${participants} ${participants > 1 ? 'people' : 'person'}`;
-            }
-
-            validateBookingForm() {
-                const submitBtn = document.getElementById('submitBooking');
-                if (!submitBtn) return;
-                
-                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
-                
-                submitBtn.disabled = !isValid;
-                
-                if (isValid) {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
-                }
-            }
-
-            async handleBookingSubmission() {
-                console.log('📝 Submitting booking...');
-                
-                const submitBtn = document.getElementById('submitBooking');
-                this.showLoadingState(submitBtn, 'Processing...');
-
-                try {
-                    const bookingData = {
-                        service: this.selectedService,
-                        date: this.selectedDate.toISOString().split('T')[0],
-                        time: this.selectedTime,
-                        duration: parseFloat(document.getElementById('duration').value),
-                        participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value || '',
-                        cost: 0
-                    };
-
-                    console.log('📤 Sending booking data:', JSON.stringify(bookingData, null, 2));
-
-                    let response;
-
-                    if (this.isEditingBooking) {
-                        console.log('✏️ Updating existing booking:', this.editingBookingId);
-                        const updateData = {
-                            service_type: bookingData.service,
-                            booking_date: bookingData.date,
-                            booking_time: bookingData.time,
-                            duration: bookingData.duration,
-                            participants: bookingData.participants,
-                            special_requests: bookingData.specialRequests
-                        };
-                        response = await this.apiCall(`/api/bookings/${this.editingBookingId}`, 'PUT', updateData);
-                    } else {
-                        console.log('🆕 Creating new booking');
-                        response = await this.apiCall('/api/bookings', 'POST', bookingData);
-                    }
-
-                    console.log('📥 API Response:', response);
-
-                    if (response && response.success) {
-                        if (this.isEditingBooking) {
-                            const bookingIndex = this.bookings.findIndex(b => b.id === this.editingBookingId);
-                            if (bookingIndex !== -1) {
-                                this.bookings[bookingIndex] = { 
-                                    ...this.bookings[bookingIndex], 
-                                    service: bookingData.service,
-                                    date: bookingData.date,
-                                    time: bookingData.time,
-                                    duration: bookingData.duration,
-                                    participants: bookingData.participants,
-                                    specialRequests: bookingData.specialRequests
-                                };
-                            }
-                            this.showNotification('Booking updated successfully!', 'success');
-                        } else {
-                            if (response.booking) {
-                                this.bookings.push(response.booking);
-                            }
-                            this.showNotification('Booking request submitted successfully! You will receive a confirmation email shortly.', 'success');
-                        }
-                        
-                        this.updateStats();
-                        this.updateUpcomingBookings();
-                        this.generateCalendar();
-                        
-                        setTimeout(() => {
-                            this.closeBookingModal();
-                        }, 2000);
-                    } else {
-                        throw new Error(response?.error || 'Booking submission failed');
-                    }
-
-                } catch (error) {
-                    console.error('❌ Booking submission error:', error);
-                    
-                    let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('Internal Server Error')) {
-                        errorMessage += 'Please check that all fields are filled correctly and try again.';
-                    } else {
-                        errorMessage += error.message;
-                    }
-                    
-                    this.showNotification(`Error: ${errorMessage}`, 'error');
-                } finally {
-                    this.hideLoadingState(submitBtn, this.isEditingBooking ? 'Update Booking' : 'Request Booking');
-                }
-            }
-
-            async editBooking(bookingId) {
-                const booking = this.bookings.find(b => b.id === bookingId);
-                if (!booking) return;
-                
-                console.log('✏️ Editing booking:', bookingId);
-                
-                this.isEditingBooking = true;
-                this.editingBookingId = bookingId;
-                
-                this.selectedService = booking.service;
-                this.selectedDate = new Date(booking.date + 'T00:00:00');
-                this.selectedTime = booking.time;
-                
-                this.openBookingModal();
-                
-                setTimeout(() => {
-                    this.selectService(booking.service);
-                    this.updateSelectedDateInput();
-                    
-                    document.getElementById('duration').value = booking.duration;
-                    document.getElementById('participants').value = booking.participants;
-                    document.getElementById('specialRequests').value = booking.specialRequests || '';
-                    
-                    this.generateTimeSlots().then(() => {
-                        const timeSlot = document.querySelector(`[data-time="${booking.time}"]`);
-                        if (timeSlot) {
-                            this.selectTimeSlot(timeSlot);
-                        }
-                    });
-                    
-                    const submitBtn = document.getElementById('submitBooking');
-                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Booking';
-                }, 200);
-            }
-
-            async cancelBooking(bookingId) {
-                if (!confirm('Are you sure you want to cancel this booking?')) return;
-                
-                try {
-                    const response = await this.apiCall(`/api/bookings/${bookingId}`, 'DELETE');
-                    
-                    if (response && response.success) {
-                        const booking = this.bookings.find(b => b.id === bookingId);
-                        if (booking) {
-                            booking.status = 'cancelled';
-                        }
-                        
-                        this.updateUpcomingBookings();
-                        this.updateStats();
-                        this.generateCalendar();
-                        
-                        this.showNotification('Booking cancelled successfully.', 'success');
-                    } else {
-                        throw new Error(response.error || 'Cancellation failed');
-                    }
-                } catch (error) {
-                    console.error('Booking cancellation error:', error);
-                    this.showNotification(`Error: ${error.message}`, 'error');
-                }
-            }
-
-            resetBookingForm() {
-                const bookingForm = document.getElementById('bookingForm');
-                if (bookingForm) bookingForm.reset();
-                
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-
-                this.selectedService = null;
-                this.selectedTime = null;
-                this.isEditingBooking = false;
-                this.editingBookingId = null;
-
-                const bookingSummary = document.getElementById('bookingSummary');
-                if (bookingSummary) bookingSummary.style.display = 'none';
-                
-                const timeSlots = document.getElementById('timeSlots');
-                if (timeSlots) timeSlots.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">Select a service and date to see available times</p>';
-                
-                const submitBtn = document.getElementById('submitBooking');
-                if (submitBtn) {
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
-                }
-                
-                this.hideMessage();
-            }
-
-            // ==================== UI UPDATES ====================
-            
-            showLogin() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('portalContainer');
-                if (loginContainer) loginContainer.style.display = 'flex';
-                if (portalContainer) portalContainer.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-
-            showPortal() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('portalContainer');
-                if (loginContainer) loginContainer.style.display = 'none';
-                if (portalContainer) portalContainer.style.display = 'block';
-                
-                this.updatePortalUserInfo();
-                document.body.style.overflow = 'auto';
-                
-                // Initialize calendar after portal is shown
-                setTimeout(() => {
-                    this.generateCalendar();
-                }, 100);
-                
-                console.log('🎉 Portal loaded successfully!');
-            }
-
-            updatePortalUserInfo() {
-                if (!this.currentUser) return;
-
-                const userAvatar = document.getElementById('userAvatar');
-                const userName = document.getElementById('userName');
-                const welcomeName = document.getElementById('welcomeName');
-                const memberSince = document.getElementById('memberSince');
-
-                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
-                if (userName) userName.textContent = this.currentUser.name || 'User';
-                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
-                
-                if (memberSince && this.currentUser.member_since) {
-                    const memberSinceDate = new Date(this.currentUser.member_since);
-                    memberSince.textContent = memberSinceDate.getFullYear();
-                }
-            }
-
-            getInitials(name) {
-                if (!name) return 'U';
-                const names = name.split(' ');
-                if (names.length >= 2) {
-                    return (names[0][0] + names[1][0]).toUpperCase();
-                }
-                return name[0].toUpperCase();
-            }
-
-            updateStats() {
-                const totalBookings = this.bookings.length;
-                const upcomingBookings = this.bookings.filter(booking => 
-                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
-                ).length;
-                
-                const thisMonth = new Date();
-                const monthlyLessons = this.bookings.filter(booking => {
-                    const bookingDate = new Date(booking.date);
-                    return bookingDate.getMonth() === thisMonth.getMonth() &&
-                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
-                           booking.service === 'swim-lesson' &&
-                           booking.status !== 'cancelled';
-                }).length;
-
-                this.animateNumber('totalBookings', totalBookings);
-                this.animateNumber('upcomingBookings', upcomingBookings);
-                this.animateNumber('monthlyLessons', monthlyLessons);
-            }
-
-            animateNumber(elementId, targetValue) {
-                const element = document.getElementById(elementId);
-                if (!element) return;
-                
-                let currentValue = parseInt(element.textContent) || 0;
-                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 20));
-                
-                const timer = setInterval(() => {
-                    if (currentValue < targetValue) {
-                        currentValue = Math.min(currentValue + increment, targetValue);
-                        element.textContent = currentValue;
-                    } else {
-                        clearInterval(timer);
-                    }
-                }, 50);
-            }
-
-            updateUpcomingBookings() {
-                const container = document.getElementById('upcomingBookingsList');
-                if (!container) return;
-                
-                const upcomingBookings = this.bookings
-                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .slice(0, 3);
-
-                container.innerHTML = '';
-
-                if (upcomingBookings.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
-                            <i class="fas fa-calendar-plus" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
-                            <p>No upcoming bookings</p>
-                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: 15px;">
-                                <i class="fas fa-plus"></i> Book Now
-                            </button>
-                        </div>
-                    `;
-                    return;
-                }
-
-                upcomingBookings.forEach(booking => {
-                    const bookingElement = this.createBookingElement(booking);
-                    container.appendChild(bookingElement);
-                });
-            }
-
-            createBookingElement(booking) {
-                const bookingDiv = document.createElement('div');
-                bookingDiv.className = 'booking-item';
-                
-                const statusClass = `status-${booking.status}`;
-                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
-                
-                const bookingDate = new Date(booking.date);
-                const isToday = this.isToday(bookingDate);
-                const isTomorrow = this.isTomorrow(bookingDate);
-                
-                let dateDisplay = bookingDate.toLocaleDateString();
-                if (isToday) dateDisplay = 'Today';
-                else if (isTomorrow) dateDisplay = 'Tomorrow';
-
-                const serviceName = this.serviceNames[booking.service] || booking.service;
-
-                bookingDiv.innerHTML = `
-                    <div class="booking-header">
-                        <div class="booking-title">${serviceName}</div>
-                        <div class="booking-status ${statusClass}">${statusText}</div>
-                    </div>
-                    <div class="booking-details">
-                        <div><i class="fas fa-calendar"></i> ${dateDisplay}</div>
-                        <div><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
-                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
-                        ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
-                    </div>
-                    <div class="booking-actions">
-                        <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        ${booking.status === 'pending' || booking.status === 'confirmed' ? `
-                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
-                                <i class="fas fa-times"></i> Cancel
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
-
-                return bookingDiv;
-            }
-
-            // Setup enhanced event listeners including portal navigation
-            setupEventListeners() {
-                // Login form
-                const loginForm = document.getElementById('loginForm');
-                if (loginForm) {
-                    loginForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.handleLogin();
-                    });
-                }
-
-                // Registration form
-                const registrationForm = document.getElementById('registrationForm');
-                if (registrationForm) {
-                    registrationForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.handleRegistration();
-                    });
-                }
-
-                // Create account button
-                const createAccountBtn = document.getElementById('createAccountBtn');
-                if (createAccountBtn) {
-                    createAccountBtn.addEventListener('click', () => {
-                        this.showRegistrationModal();
-                    });
-                }
-
-                // Registration modal close
-                const registrationClose = document.getElementById('registrationClose');
-                if (registrationClose) {
-                    registrationClose.addEventListener('click', () => {
-                        this.closeRegistrationModal();
-                    });
-                }
-
-                // Registration modal backdrop
-                const registrationModal = document.getElementById('registrationModal');
-                if (registrationModal) {
-                    registrationModal.addEventListener('click', (e) => {
-                        if (e.target.id === 'registrationModal') {
-                            this.closeRegistrationModal();
-                        }
-                    });
-                }
-
-                // Password toggles
-                const passwordToggle = document.getElementById('passwordToggle');
-                if (passwordToggle) {
-                    passwordToggle.addEventListener('click', () => {
-                        this.togglePassword();
-                    });
-                }
-
-                const regPasswordToggle = document.getElementById('regPasswordToggle');
-                if (regPasswordToggle) {
-                    regPasswordToggle.addEventListener('click', () => {
-                        this.toggleRegistrationPassword();
-                    });
-                }
-
-                // Portal navigation - Logout
-                const logoutBtn = document.getElementById('logoutBtn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        this.handleLogout();
-                    });
-                }
-
-                // Calendar navigation
-                const prevMonth = document.getElementById('prevMonth');
-                const nextMonth = document.getElementById('nextMonth');
-                if (prevMonth) {
-                    prevMonth.addEventListener('click', () => {
-                        this.navigateMonth(-1);
-                    });
-                }
-                if (nextMonth) {
-                    nextMonth.addEventListener('click', () => {
-                        this.navigateMonth(1);
-                    });
-                }
-
-                // Modal controls
-                const modalClose = document.getElementById('modalClose');
-                const cancelBooking = document.getElementById('cancelBooking');
-                if (modalClose) {
-                    modalClose.addEventListener('click', () => {
-                        this.closeBookingModal();
-                    });
-                }
-                if (cancelBooking) {
-                    cancelBooking.addEventListener('click', () => {
-                        this.closeBookingModal();
-                    });
-                }
-
-                // Service selection
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.addEventListener('click', () => {
-                        this.selectService(option.dataset.service);
-                    });
-                });
-
-                // Booking form
-                const bookingForm = document.getElementById('bookingForm');
-                if (bookingForm) {
-                    bookingForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.handleBookingSubmission();
-                    });
-                }
-
-                // Form change listeners
-                ['duration', 'participants'].forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.addEventListener('change', () => {
-                            this.updateBookingSummary();
-                        });
-                    }
-                });
-
-                // Modal backdrop
-                const bookingModal = document.getElementById('bookingModal');
-                if (bookingModal) {
-                    bookingModal.addEventListener('click', (e) => {
-                        if (e.target.id === 'bookingModal') {
-                            this.closeBookingModal();
-                        }
-                    });
-                }
-
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeBookingModal();
-                        this.closeRegistrationModal();
-                        this.closeAccountSettings();
-                    }
-                });
-
-                console.log('✅ Event listeners setup complete');
-            }
-
-            // ==================== UTILITY FUNCTIONS ====================
-            
-            togglePassword() {
-                const passwordInput = document.getElementById('password');
-                const toggleBtn = document.getElementById('passwordToggle');
-                const icon = toggleBtn.querySelector('i');
-
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    icon.className = 'fas fa-eye-slash';
-                } else {
-                    passwordInput.type = 'password';
-                    icon.className = 'fas fa-eye';
-                }
-            }
-
-            showLoadingState(button, text) {
-                button.disabled = true;
-                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
-            }
-
-            hideLoadingState(button, text) {
-                button.disabled = false;
-                button.innerHTML = text;
-            }
-
-            hideMessage() {
-                const messageElement = document.getElementById('bookingMessage');
-                if (messageElement) {
-                    messageElement.classList.remove('show');
-                }
-            }
-
-            isToday(date) {
-                const today = new Date();
-                return date.toDateString() === today.toDateString();
-            }
-
-            isTomorrow(date) {
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                return date.toDateString() === tomorrow.toDateString();
-            }
-
-            showAllBookings() {
-                this.openBookingModal();
-            }
-        }
-
-        // ==================== GLOBAL FUNCTIONS ====================
-        
-        function openBookingModal(serviceType = null) {
-            if (window.portal) {
-                window.portal.openBookingModal(serviceType);
-            }
-        }
-
-        function showAllBookings() {
-            if (window.portal) {
-                window.portal.showAllBookings();
-            }
-        }
-
-        function showAccountSettings() {
-            if (window.portal) {
-                window.portal.showAccountSettings();
-            }
-        }
-
-        function closeRegistrationModal() {
-            if (window.portal) {
-                window.portal.closeRegistrationModal();
-            }
-        }
-
-        // ==================== ADDITIONAL CSS FOR ENHANCED FEATURES ====================
-        
-        // Add toggle switch styles
-        const additionalCSS = `
-            .switch {
-                position: relative;
-                display: inline-block;
-                width: 60px;
-                height: 34px;
-            }
-
-            .switch input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-
-            .slider {
-                position: absolute;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #ccc;
-                transition: var(--transition-smooth);
-                border-radius: 34px;
-            }
-
-            .slider:before {
-                position: absolute;
-                content: "";
-                height: 26px;
-                width: 26px;
-                left: 4px;
-                bottom: 4px;
-                background-color: white;
-                transition: var(--transition-smooth);
-                border-radius: 50%;
-            }
-
-            input:checked + .slider {
-                background: var(--gradient-primary);
-            }
-
-            input:focus + .slider {
-                box-shadow: 0 0 1px var(--gallery-blue);
-            }
-
-            input:checked + .slider:before {
-                transform: translateX(26px);
-            }
-
-            .btn-small {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-                border-radius: var(--radius-sm);
-                border: none;
-                cursor: pointer;
-                font-weight: 600;
-                transition: var(--transition-smooth);
-            }
-
-            .btn-edit {
-                background: rgba(30, 136, 229, 0.1);
-                color: var(--gallery-blue);
-            }
-
-            .btn-edit:hover {
-                background: rgba(30, 136, 229, 0.2);
-                transform: translateY(-1px);
-            }
-
-            .btn-cancel {
-                background: rgba(244, 67, 54, 0.1);
-                color: var(--error);
-            }
-
-            .btn-cancel:hover {
-                background: rgba(244, 67, 54, 0.2);
-                transform: translateY(-1px);
-            }
-
-            .booking-item {
-                background: var(--white);
-                border-radius: var(--radius-md);
-                padding: 20px;
-                box-shadow: var(--shadow-soft);
-                border-left: 4px solid var(--gallery-blue);
-                transition: var(--transition-smooth);
-                margin-bottom: 15px;
-            }
-
-            .booking-item:hover {
-                transform: translateX(5px);
-                box-shadow: var(--shadow-medium);
-            }
-
-            .booking-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-            }
-
-            .booking-title {
-                font-weight: 700;
-                color: var(--dark);
-            }
-
-            .booking-status {
-                padding: 4px 12px;
-                border-radius: 20px;
-                font-size: 0.8rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .status-pending {
-                background: rgba(255, 152, 0, 0.1);
-                color: var(--warning);
-            }
-
-            .status-confirmed {
-                background: rgba(76, 175, 80, 0.1);
-                color: var(--success);
-            }
-
-            .status-cancelled {
-                background: rgba(244, 67, 54, 0.1);
-                color: var(--error);
-            }
-
-            .booking-details {
-                color: var(--gray);
-                font-size: 0.95rem;
-                line-height: 1.6;
-                margin-bottom: 12px;
-            }
-
-            .booking-details div {
-                margin-bottom: 5px;
-            }
-
-            .booking-details i {
-                width: 18px;
-                margin-right: 8px;
-                text-align: center;
-            }
-
-            .booking-actions {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .service-selection {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
-                margin-bottom: 25px;
-            }
-
-            .service-option {
-                background: rgba(30, 136, 229, 0.05);
-                border: 2px solid transparent;
-                border-radius: var(--radius-md);
-                padding: 20px 15px;
-                text-align: center;
-                cursor: pointer;
-                transition: var(--transition-smooth);
-            }
-
-            .service-option:hover {
-                background: rgba(30, 136, 229, 0.1);
-                transform: translateY(-2px);
-            }
-
-            .service-option.selected {
-                border-color: var(--gallery-blue);
-                background: rgba(30, 136, 229, 0.15);
-                transform: translateY(-2px);
-            }
-
-            .service-option i {
-                font-size: 2rem;
-                color: var(--gallery-blue);
-                margin-bottom: 10px;
-            }
-
-            .service-option h4 {
-                font-size: 0.9rem;
-                color: var(--dark);
-                font-weight: 600;
-            }
-
-            .time-slots {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 10px;
-                margin-bottom: 25px;
-                max-height: 200px;
-                overflow-y: auto;
-                padding: 10px;
-                border: 1px solid #e9ecef;
-                border-radius: var(--radius-md);
-            }
-
-            .time-slot {
-                background: var(--light-gray);
-                border: 2px solid transparent;
-                border-radius: var(--radius-sm);
-                padding: 10px;
-                text-align: center;
-                cursor: pointer;
-                transition: var(--transition-smooth);
-                font-weight: 600;
-                font-size: 0.9rem;
-            }
-
-            .time-slot:hover:not(.unavailable) {
-                background: rgba(30, 136, 229, 0.1);
-                transform: translateY(-1px);
-            }
-
-            .time-slot.selected {
-                border-color: var(--gallery-blue);
-                background: var(--gallery-blue);
-                color: var(--white);
-                transform: translateY(-1px);
-            }
-
-            .time-slot.unavailable {
-                opacity: 0.5;
-                cursor: not-allowed;
-                background: #f8f9fa;
-                text-decoration: line-through;
-            }
-
-            .booking-summary {
-                background: rgba(30, 136, 229, 0.05);
-                border-radius: var(--radius-md);
-                padding: 20px;
-                margin-bottom: 25px;
-            }
-
-            .summary-title {
-                font-weight: 700;
-                margin-bottom: 15px;
-                color: var(--dark);
-            }
-
-            .summary-row {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 8px;
-            }
-
-            .summary-row:last-child {
-                margin-bottom: 0;
-                padding-top: 10px;
-                border-top: 1px solid rgba(30, 136, 229, 0.2);
-                font-weight: 700;
-            }
-
-            .modal-actions {
-                display: flex;
-                gap: 15px;
-                justify-content: flex-end;
-            }
-
-            .btn-secondary {
-                background: var(--light-gray);
-                color: var(--dark);
-                border: none;
-                padding: 12px 24px;
-                border-radius: var(--radius-md);
-                cursor: pointer;
-                font-weight: 600;
-                transition: var(--transition-smooth);
-            }
-
-            .btn-secondary:hover {
-                background: #e9ecef;
-                transform: translateY(-2px);
-            }
-
-            .calendar-grid {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                gap: 1px;
-                background: #e9ecef;
-                border-radius: var(--radius-md);
-                overflow: hidden;
-            }
-
-            .calendar-day-header {
-                background: var(--gallery-blue);
-                color: var(--white);
-                padding: 15px 5px;
-                text-align: center;
-                font-size: 0.85rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
-            .calendar-btn {
-                background: var(--gradient-primary);
-                color: var(--white);
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                transition: var(--transition-smooth);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .calendar-btn:hover {
-                transform: scale(1.1);
-                box-shadow: var(--shadow-soft);
-            }
-
-            .current-month {
-                font-size: 1.2rem;
-                font-weight: 600;
-                color: var(--gallery-blue);
-                min-width: 150px;
-                text-align: center;
-            }
-
-            .calendar-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 25px;
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .calendar-title {
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: var(--dark);
-            }
-
-            .calendar-nav {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-        `;
-
-        // Inject additional CSS
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = additionalCSS;
-        document.head.appendChild(styleSheet);
-
-        // ==================== INITIALIZATION ====================
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            window.portal = new ClientPortal();
-            
-            console.log('🏊‍♂️ Enhanced 805 LifeGuard Client Portal - Production Ready');
-            console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
-            console.log('✨ Enhanced Features: Account Settings, Navigation, Notifications');
-            console.log('✅ All systems initialized');
-        });
-
-        // ==================== ERROR HANDLING ====================
-        
-        window.addEventListener('error', (event) => {
-            console.error('🚨 Global Error:', event.error);
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'notification error show';
-            errorDiv.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 1.2rem;"></i>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; margin-bottom: 2px;">System Error</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">Something went wrong. Please refresh the page or contact support.</div>
-                    </div>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; font-size: 1.1rem; cursor: pointer; opacity: 0.7;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-            
-            document.body.appendChild(errorDiv);
-            
-            setTimeout(() => {
-                if (errorDiv.parentElement) {
-                    errorDiv.remove();
-                }
-            }, 8000);
-        });
-
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('🚨 Unhandled Promise Rejection:', event.reason);
-            event.preventDefault();
-        });
-    </script>
-</body>
-</html>
