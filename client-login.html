@@ -1376,6 +1376,48 @@
             showAllBookings() {
                 this.openBookingModal();
             }
+
+            // ==================== DEBUG HELPER FUNCTIONS ====================
+            
+            async testAPI() {
+                console.log('🧪 Testing API connection...');
+                try {
+                    const response = await fetch(`${this.apiBaseUrl}/api/test`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ API Connection Test:', data);
+                        this.showNotification('API connection successful!', 'success');
+                        return data;
+                    } else {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                } catch (error) {
+                    console.error('❌ API Connection Test Failed:', error);
+                    this.showNotification(`API connection failed: ${error.message}`, 'error');
+                    return null;
+                }
+            }
+
+            debugRegistration() {
+                console.log('🔍 Registration Debug Info:');
+                console.log('- API URL:', this.apiBaseUrl);
+                console.log('- Create Account Button:', document.getElementById('createAccountBtn'));
+                console.log('- Registration Modal:', document.getElementById('registrationModal'));
+                console.log('- Registration Form:', document.getElementById('registrationForm'));
+                
+                const formElements = {
+                    name: document.getElementById('regName'),
+                    email: document.getElementById('regEmail'),
+                    password: document.getElementById('regPassword'),
+                    confirmPassword: document.getElementById('regConfirmPassword')
+                };
+                
+                console.log('- Form Elements:', formElements);
+                
+                // Test modal opening
+                console.log('🧪 Testing modal open...');
+                this.showRegistrationModal();
+            }
         }
 
         // ==================== GLOBAL FUNCTIONS ====================
@@ -1403,6 +1445,57 @@
                 window.portal.closeRegistrationModal();
             }
         }
+        
+        function openBookingModal(serviceType = null) {
+            if (window.portal) {
+                window.portal.openBookingModal(serviceType);
+            }
+        }
+
+        function showAllBookings() {
+            if (window.portal) {
+                window.portal.showAllBookings();
+            }
+        }
+
+        function showAccountSettings() {
+            if (window.portal) {
+                window.portal.showAccountSettings();
+            }
+        }
+
+        function closeRegistrationModal() {
+            if (window.portal) {
+                window.portal.closeRegistrationModal();
+            }
+        }
+
+        // ==================== DEBUG HELPER FUNCTIONS ====================
+        
+        // Make these available in console for debugging
+        window.testAPI = function() {
+            if (window.portal) {
+                return window.portal.testAPI();
+            } else {
+                console.error('Portal not initialized');
+            }
+        };
+
+        window.debugRegistration = function() {
+            if (window.portal) {
+                return window.portal.debugRegistration();
+            } else {
+                console.error('Portal not initialized');
+            }
+        };
+
+        window.openRegistration = function() {
+            if (window.portal) {
+                return window.portal.showRegistrationModal();
+            } else {
+                console.error('Portal not initialized');
+            }
+        };
 
         // ==================== INITIALIZATION ====================
         
@@ -1411,54 +1504,123 @@
             
             window.portal = new ClientPortal();
             
-            // Double-check critical event listeners are attached
+            // Wait a moment for DOM to be fully ready, then set up critical listeners
             setTimeout(() => {
-                const loginForm = document.getElementById('loginForm');
+                console.log('🔧 Setting up event listeners...');
+                
+                // Create Account Button
                 const createAccountBtn = document.getElementById('createAccountBtn');
-                const registrationForm = document.getElementById('registrationForm');
-                
-                console.log('📋 Form elements check:');
-                console.log('- Login form:', loginForm ? '✅ Found' : '❌ Missing');
-                console.log('- Create account button:', createAccountBtn ? '✅ Found' : '❌ Missing');
-                console.log('- Registration form:', registrationForm ? '✅ Found' : '❌ Missing');
-                
-                // Ensure create account button works
                 if (createAccountBtn) {
+                    console.log('✅ Found create account button');
                     // Remove any existing listeners and add fresh one
-                    createAccountBtn.replaceWith(createAccountBtn.cloneNode(true));
-                    const newCreateAccountBtn = document.getElementById('createAccountBtn');
-                    newCreateAccountBtn.addEventListener('click', (e) => {
+                    createAccountBtn.onclick = null; // Clear any existing onclick
+                    createAccountBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        console.log('🔄 Create account clicked');
+                        e.stopPropagation();
+                        console.log('🎯 Create account button clicked!');
                         window.portal.showRegistrationModal();
                     });
+                } else {
+                    console.error('❌ Create account button not found!');
                 }
 
-                // Ensure login form works
+                // Login Form
+                const loginForm = document.getElementById('loginForm');
                 if (loginForm) {
+                    console.log('✅ Found login form');
                     loginForm.addEventListener('submit', (e) => {
                         e.preventDefault();
                         console.log('🔐 Login form submitted');
                         window.portal.handleLogin();
                     });
+                } else {
+                    console.error('❌ Login form not found!');
                 }
 
-                // Ensure registration form works
+                // Registration Form
+                const registrationForm = document.getElementById('registrationForm');
                 if (registrationForm) {
+                    console.log('✅ Found registration form');
                     registrationForm.addEventListener('submit', (e) => {
                         e.preventDefault();
                         console.log('📝 Registration form submitted');
                         window.portal.handleRegistration();
                     });
+                } else {
+                    console.error('❌ Registration form not found!');
                 }
 
-                console.log('✅ All event listeners verified and attached');
-            }, 100);
+                // Registration Modal Close
+                const registrationClose = document.getElementById('registrationClose');
+                if (registrationClose) {
+                    console.log('✅ Found registration close button');
+                    registrationClose.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        console.log('❌ Registration modal closed');
+                        window.portal.closeRegistrationModal();
+                    });
+                }
+
+                // Registration Modal Backdrop
+                const registrationModal = document.getElementById('registrationModal');
+                if (registrationModal) {
+                    console.log('✅ Found registration modal');
+                    registrationModal.addEventListener('click', (e) => {
+                        if (e.target.id === 'registrationModal') {
+                            console.log('❌ Registration modal backdrop clicked');
+                            window.portal.closeRegistrationModal();
+                        }
+                    });
+                }
+
+                // Password Toggles
+                const passwordToggle = document.getElementById('passwordToggle');
+                if (passwordToggle) {
+                    passwordToggle.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const passwordInput = document.getElementById('password');
+                        const icon = passwordToggle.querySelector('i');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.className = 'fas fa-eye-slash';
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.className = 'fas fa-eye';
+                        }
+                    });
+                }
+
+                const regPasswordToggle = document.getElementById('regPasswordToggle');
+                if (regPasswordToggle) {
+                    regPasswordToggle.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const passwordInput = document.getElementById('regPassword');
+                        const icon = regPasswordToggle.querySelector('i');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.className = 'fas fa-eye-slash';
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.className = 'fas fa-eye';
+                        }
+                    });
+                }
+
+                console.log('✅ All event listeners attached successfully');
+                
+                // Test the create account button immediately
+                if (createAccountBtn) {
+                    console.log('🧪 Testing create account button...');
+                    // You can uncomment this line to test if the button works:
+                    // createAccountBtn.click();
+                }
+                
+            }, 200);
             
             console.log('🏊‍♂️ Enhanced 805 LifeGuard Client Portal - Production Ready');
             console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
             console.log('✨ Enhanced Features: Account Settings, Navigation, Notifications');
-            console.log('✅ All systems initialized');
+            console.log('✅ Portal initialization complete');
         });
 
         // ==================== ERROR HANDLING ====================
@@ -3977,21 +4139,26 @@
             }
 
             async handleRegistration() {
-                const name = document.getElementById('regName').value.trim();
-                const email = document.getElementById('regEmail').value.trim();
-                const password = document.getElementById('regPassword').value;
-                const confirmPassword = document.getElementById('regConfirmPassword').value;
-                const phone = document.getElementById('regPhone').value.trim();
-                const address = document.getElementById('regAddress').value.trim();
-                const emergencyContact = document.getElementById('regEmergencyContact').value.trim();
+                console.log('📝 Registration form submitted');
+                
+                const name = document.getElementById('regName')?.value?.trim();
+                const email = document.getElementById('regEmail')?.value?.trim();
+                const password = document.getElementById('regPassword')?.value;
+                const confirmPassword = document.getElementById('regConfirmPassword')?.value;
+                const phone = document.getElementById('regPhone')?.value?.trim();
+                const address = document.getElementById('regAddress')?.value?.trim();
+                const emergencyContact = document.getElementById('regEmergencyContact')?.value?.trim();
+
+                console.log('📋 Form data:', { name, email, phone, address, emergencyContact });
 
                 const registrationBtn = document.getElementById('registrationBtn');
                 const errorDiv = document.getElementById('registrationError');
                 const successDiv = document.getElementById('registrationSuccess');
 
-                errorDiv.classList.remove('show');
-                successDiv.classList.remove('show');
+                if (errorDiv) errorDiv.classList.remove('show');
+                if (successDiv) successDiv.classList.remove('show');
 
+                // Validation
                 const errors = [];
                 if (!name) errors.push('Full name is required');
                 if (!email) errors.push('Email address is required');
@@ -4003,11 +4170,15 @@
                 }
 
                 if (errors.length > 0) {
-                    errorDiv.innerHTML = errors.join('<br>');
-                    errorDiv.classList.add('show');
+                    console.log('❌ Validation errors:', errors);
+                    if (errorDiv) {
+                        errorDiv.innerHTML = errors.join('<br>');
+                        errorDiv.classList.add('show');
+                    }
                     return;
                 }
 
+                console.log('✅ Validation passed, submitting to API...');
                 this.showLoadingState(registrationBtn, 'Creating Account...');
 
                 try {
@@ -4020,66 +4191,100 @@
                         emergency_contact: emergencyContact || null
                     };
 
+                    console.log('📤 Sending registration data to API...');
                     const response = await this.apiCall('/api/auth/register', 'POST', registrationData);
+                    console.log('📥 Registration API response:', response);
 
                     if (response && response.success) {
-                        successDiv.innerHTML = `
-                            <strong>Account created successfully!</strong><br>
-                            You can now sign in with your email and password.
-                        `;
-                        successDiv.classList.add('show');
+                        console.log('✅ Registration successful!');
+                        if (successDiv) {
+                            successDiv.innerHTML = `
+                                <strong>Account created successfully!</strong><br>
+                                You can now sign in with your email and password.
+                            `;
+                            successDiv.classList.add('show');
+                        }
 
-                        document.getElementById('registrationForm').reset();
+                        const form = document.getElementById('registrationForm');
+                        if (form) form.reset();
 
                         setTimeout(() => {
                             this.closeRegistrationModal();
-                            document.getElementById('email').value = email;
+                            const emailInput = document.getElementById('email');
+                            if (emailInput) emailInput.value = email;
                             setTimeout(() => {
                                 this.showNotification('Account created! Please sign in with your new credentials.', 'success');
                             }, 500);
                         }, 2000);
 
                     } else {
-                        throw new Error(response.error || 'Registration failed');
+                        throw new Error(response?.error || 'Registration failed');
                     }
 
                 } catch (error) {
-                    console.error('Registration error:', error);
+                    console.error('❌ Registration error:', error);
                     let errorMessage = error.message || 'Registration failed. Please try again.';
                     
                     if (errorMessage.includes('already exists') || errorMessage.includes('duplicate')) {
                         errorMessage = 'An account with this email already exists. Please use a different email or try signing in.';
-                    } else if (error.message.includes('fetch') || error.message.includes('Failed to fetch')) {
+                    } else if (error.message.includes('fetch') || error.message.includes('Failed to fetch') || error.message.includes('Network error')) {
                         errorMessage = 'Connection error. Please check your internet connection and try again.';
                     }
                     
-                    errorDiv.textContent = errorMessage;
-                    errorDiv.classList.add('show');
+                    if (errorDiv) {
+                        errorDiv.textContent = errorMessage;
+                        errorDiv.classList.add('show');
+                    }
                 } finally {
                     this.hideLoadingState(registrationBtn, 'Create Account');
                 }
             }
 
             isValidEmail(email) {
+                if (!email) return false;
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
+                const isValid = emailRegex.test(email);
+                console.log(`📧 Email validation for "${email}":`, isValid ? '✅ Valid' : '❌ Invalid');
+                return isValid;
             }
 
             isValidPassword(password) {
+                if (!password) return false;
                 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
-                return passwordRegex.test(password);
+                const isValid = passwordRegex.test(password);
+                console.log(`🔒 Password validation:`, isValid ? '✅ Valid' : '❌ Invalid (needs 8+ chars, uppercase, lowercase, number)');
+                return isValid;
             }
 
             showRegistrationModal() {
+                console.log('🚀 Opening registration modal...');
                 const modal = document.getElementById('registrationModal');
-                if (modal) {
-                    modal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                    
-                    setTimeout(() => {
-                        document.getElementById('regName').focus();
-                    }, 100);
+                if (!modal) {
+                    console.error('❌ Registration modal not found!');
+                    return;
                 }
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                // Clear any previous form data and messages
+                const form = document.getElementById('registrationForm');
+                if (form) {
+                    form.reset();
+                }
+                
+                const errorDiv = document.getElementById('registrationError');
+                const successDiv = document.getElementById('registrationSuccess');
+                if (errorDiv) errorDiv.classList.remove('show');
+                if (successDiv) successDiv.classList.remove('show');
+                
+                setTimeout(() => {
+                    const nameInput = document.getElementById('regName');
+                    if (nameInput) {
+                        nameInput.focus();
+                        console.log('✅ Registration modal opened and focused');
+                    }
+                }, 100);
             }
 
             closeRegistrationModal() {
