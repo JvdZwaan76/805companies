@@ -8,9 +8,9 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Enhanced Employee Portal CSS Variables - Matching Client Portal Theme */
+        /* Enhanced Employee Portal CSS Variables */
         :root {
-            /* Core Colors - Matching Client Portal */
+            /* Core Colors */
             --primary: #1e88e5;
             --primary-light: #42a5f5;
             --primary-dark: #1565c0;
@@ -28,7 +28,7 @@
             --dark: #023e8a;
             --black: #1a1a1a;
             
-            /* Enhanced Gradients - Matching Client Portal */
+            /* Enhanced Gradients */
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             --gradient-primary-vivid: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
             --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #fff176 100%);
@@ -37,7 +37,7 @@
             --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(30, 136, 229, 0.15) 0%, transparent 50%),
                              radial-gradient(circle at 80% 20%, rgba(38, 166, 154, 0.15) 0%, transparent 50%);
             
-            /* Shadows - Matching Client Portal */
+            /* Shadows */
             --shadow-soft: 0 2px 20px rgba(0,0,0,0.08);
             --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
             --shadow-strong: 0 15px 40px rgba(0,0,0,0.15);
@@ -46,7 +46,7 @@
             --shadow-float: 0 20px 60px rgba(0,0,0,0.1);
             --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.06);
             
-            /* Border Radius - Matching Client Portal */
+            /* Border Radius */
             --radius-xs: 4px;
             --radius-sm: 8px;
             --radius-md: 16px;
@@ -55,7 +55,7 @@
             --radius-2xl: 40px;
             --radius-full: 50px;
             
-            /* Transitions - Matching Client Portal */
+            /* Transitions */
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -94,7 +94,7 @@
         }
 
         ::selection {
-            background: var(--employee-primary);
+            background: var(--primary);
             color: white;
         }
 
@@ -114,7 +114,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Enhanced Animated Background - Matching Client Portal */
+        /* Enhanced Animated Background */
         .enhanced-background {
             position: fixed;
             top: 0;
@@ -449,7 +449,7 @@
             background: rgba(30, 136, 229, 0.1);
         }
 
-        /* Enhanced Buttons - Matching Client Portal */
+        /* Enhanced Buttons */
         .btn-primary {
             background: var(--gradient-primary-vivid);
             color: white;
@@ -628,7 +628,7 @@
             padding: var(--space-10) var(--space-8);
         }
 
-        /* Enhanced Welcome Section - Matching Client Portal */
+        /* Enhanced Welcome Section */
         .welcome-section {
             background: var(--gradient-primary-vivid);
             color: white;
@@ -650,18 +650,6 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
             animation: rotate 30s linear infinite;
-            pointer-events: none;
-        }
-
-        .welcome-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.03)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.04)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
             pointer-events: none;
         }
 
@@ -733,7 +721,7 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: var(--gradient-employee-vivid);
+            background: var(--gradient-primary-vivid);
             border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
         }
 
@@ -756,13 +744,13 @@
             gap: var(--space-4);
             font-size: var(--font-xl);
             font-weight: 800;
-            color: var(--employee-dark);
+            color: var(--dark);
         }
 
         .card-icon {
             width: 60px;
             height: 60px;
-            background: var(--gradient-employee);
+            background: var(--gradient-primary);
             border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
@@ -779,8 +767,8 @@
         }
 
         .card-action {
-            background: rgba(26, 35, 126, 0.1);
-            color: var(--employee-primary);
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--primary);
             border: 2px solid transparent;
             padding: var(--space-2) var(--space-4);
             border-radius: var(--radius-lg);
@@ -793,9 +781,9 @@
         }
 
         .card-action:hover {
-            background: rgba(26, 35, 126, 0.2);
+            background: rgba(30, 136, 229, 0.2);
             transform: translateY(-2px);
-            border-color: var(--employee-primary);
+            border-color: var(--primary);
         }
 
         /* Quick Stats */
@@ -825,7 +813,7 @@
             font-size: var(--font-4xl);
             font-weight: 900;
             margin-bottom: var(--space-2);
-            background: var(--gradient-accent);
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -868,13 +856,99 @@
         }
 
         .notification.info {
-            background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(57, 73, 171, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%);
             color: white;
         }
 
         .notification.warning {
             background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
             color: white;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(25px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-float);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: scale(0.9) translateY(50px);
+            transition: var(--transition-spring);
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid rgba(30, 136, 229, 0.1);
+        }
+
+        .modal-title {
+            font-size: var(--font-2xl);
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--font-2xl);
+            color: var(--gray);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            margin-bottom: var(--space-6);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: flex-end;
+            padding-top: var(--space-4);
+            border-top: 2px solid rgba(30, 136, 229, 0.1);
         }
 
         /* Enhanced Utility Classes */
@@ -892,25 +966,49 @@
         }
 
         .btn-employee {
-            background: rgba(26, 35, 126, 0.1);
-            color: var(--employee-primary);
-            border: 1px solid rgba(26, 35, 126, 0.2);
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(30, 136, 229, 0.2);
         }
 
         .btn-employee:hover {
-            background: rgba(26, 35, 126, 0.2);
+            background: rgba(30, 136, 229, 0.2);
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
 
         .btn-accent {
-            background: rgba(255, 111, 0, 0.1);
-            color: var(--employee-accent);
-            border: 1px solid rgba(255, 111, 0, 0.2);
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 152, 0, 0.2);
         }
 
         .btn-accent:hover {
-            background: rgba(255, 111, 0, 0.2);
+            background: rgba(255, 152, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .btn-success:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-danger {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(244, 67, 54, 0.2);
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
@@ -937,6 +1035,87 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table th {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: var(--font-sm);
+            letter-spacing: 1px;
+        }
+
+        .data-table tr:hover {
+            background: rgba(30, 136, 229, 0.05);
+        }
+
+        /* Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-base);
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-base);
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
         }
 
         /* Responsive Design */
@@ -982,6 +1161,15 @@
 
             .logout-btn {
                 padding: var(--space-2);
+            }
+
+            .modal {
+                margin: var(--space-4);
+                max-width: calc(100vw - 2rem);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1061,7 +1249,7 @@
                         <input type="checkbox" id="rememberMe">
                         <span>Keep me signed in</span>
                     </label>
-                    <a href="#" style="color: var(--employee-primary); text-decoration: none; font-weight: 600;" onclick="forgotPassword()">Reset Password</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="forgotPassword()">Reset Password</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="loginBtn">
@@ -1082,22 +1270,22 @@
             </div>
 
             <!-- Demo Credentials Info -->
-            <div style="background: rgba(26, 35, 126, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-6);">
-                <h4 style="color: var(--employee-primary); margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 700; text-align: center;">Demo Employee Credentials</h4>
+            <div style="background: rgba(30, 136, 229, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-6);">
+                <h4 style="color: var(--primary); margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 700; text-align: center;">Demo Employee Credentials</h4>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
-                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
                         <strong>Administrator</strong><br>
                         <code>ADMIN</code> / <code>admin123</code>
                     </div>
-                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
                         <strong>Pool Manager</strong><br>
                         <code>EMP003</code> / <code>manager789</code>
                     </div>
-                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
                         <strong>Senior Lifeguard</strong><br>
                         <code>EMP001</code> / <code>lifeguard123</code>
                     </div>
-                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
                         <strong>Swim Instructor</strong><br>
                         <code>EMP002</code> / <code>instructor456</code>
                     </div>
@@ -1180,7 +1368,7 @@
                             <i class="fas fa-calendar-times"></i> Request Time Off
                         </button>
                     </div>
-                    <div class="schedule-preview" id="schedulePreview" style="margin-top: var(--space-5); padding: var(--space-4); background: rgba(26, 35, 126, 0.05); border-radius: var(--radius-md);">
+                    <div class="schedule-preview" id="schedulePreview" style="margin-top: var(--space-5); padding: var(--space-4); background: rgba(30, 136, 229, 0.05); border-radius: var(--radius-md);">
                         <p style="text-align: center; color: var(--gray);">Loading schedule...</p>
                     </div>
                 </div>
@@ -1245,6 +1433,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="margin-top: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.viewTimeSheets()">
+                                <i class="fas fa-file-alt"></i> View Timesheets
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1278,7 +1471,7 @@
                             Team Communication
                         </h2>
                         <button class="card-action" onclick="employeePortal.openMessaging()">
-                            <i class="fas fa-envelope"></i> Messages
+                            <i class="fas fa-envelope"></i> Messages <span id="unreadCount" class="badge">3</span>
                         </button>
                     </div>
                     <p>Stay connected with your team and access important resources.</p>
@@ -1295,19 +1488,31 @@
         </main>
     </div>
 
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Modal Title</h2>
+                <button class="modal-close" onclick="employeePortal.closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Modal content goes here...
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn-secondary" onclick="employeePortal.closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Enhanced JavaScript -->
     <script>
-        // Enhanced Employee Portal System
+        // Enhanced Employee Portal System with Working Features
         class EnhancedEmployeePortal {
             constructor() {
                 this.currentEmployee = null;
                 this.clockedIn = false;
                 this.shiftStartTime = null;
                 this.shiftTimer = null;
-                
-                // Employee API Configuration
-                this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
-                this.isMockMode = true; // Enable mock mode for demo
                 
                 // Demo employee credentials
                 this.validEmployees = {
@@ -1337,6 +1542,16 @@
                     }
                 };
                 
+                // Mock data storage
+                this.mockData = {
+                    schedules: [],
+                    assignments: [],
+                    trainings: [],
+                    incidents: [],
+                    messages: [],
+                    timeSheets: []
+                };
+                
                 this.init();
             }
 
@@ -1345,6 +1560,7 @@
                 
                 this.setupEventListeners();
                 this.setupScrollEffects();
+                this.initializeMockData();
                 
                 // Check if employee is already logged in
                 const token = this.getEmployeeToken();
@@ -1357,7 +1573,132 @@
                 console.log('✨ Enhanced employee portal initialized successfully!');
             }
 
-            // Authentication
+            initializeMockData() {
+                // Initialize mock data for demo
+                this.mockData.schedules = [
+                    {
+                        id: 1,
+                        date: new Date().toISOString().split('T')[0],
+                        startTime: '09:00',
+                        endTime: '17:00',
+                        location: 'Westlake Pool',
+                        type: 'Lifeguard Duty',
+                        status: 'confirmed'
+                    },
+                    {
+                        id: 2,
+                        date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+                        startTime: '14:00',
+                        endTime: '18:00',
+                        location: 'Oak Park Community Center',
+                        type: 'Swim Lessons',
+                        status: 'confirmed'
+                    },
+                    {
+                        id: 3,
+                        date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        startTime: '10:00',
+                        endTime: '16:00',
+                        location: 'Thousand Oaks Recreation Center',
+                        type: 'Pool Maintenance',
+                        status: 'pending'
+                    }
+                ];
+
+                this.mockData.assignments = [
+                    {
+                        id: 1,
+                        title: 'Pool Safety Inspection',
+                        description: 'Conduct comprehensive safety inspection of all pool equipment and facilities.',
+                        dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        priority: 'high',
+                        status: 'pending',
+                        assignedBy: 'Pool Manager',
+                        location: 'Westlake Pool'
+                    },
+                    {
+                        id: 2,
+                        title: 'Equipment Maintenance Check',
+                        description: 'Perform routine maintenance on rescue equipment and test emergency systems.',
+                        dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
+                        priority: 'medium',
+                        status: 'in-progress',
+                        assignedBy: 'Admin User',
+                        location: 'All Locations'
+                    },
+                    {
+                        id: 3,
+                        title: 'New Employee Training',
+                        description: 'Assist with training new lifeguard recruits on safety protocols.',
+                        dueDate: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0],
+                        priority: 'medium',
+                        status: 'pending',
+                        assignedBy: 'HR Department',
+                        location: 'Training Center'
+                    }
+                ];
+
+                this.mockData.trainings = [
+                    {
+                        id: 1,
+                        title: 'CPR Certification Renewal',
+                        description: 'Annual CPR certification renewal training',
+                        duration: '4 hours',
+                        status: 'required',
+                        dueDate: new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0],
+                        type: 'certification'
+                    },
+                    {
+                        id: 2,
+                        title: 'Water Safety Protocols',
+                        description: 'Updated water safety and rescue procedures',
+                        duration: '2 hours',
+                        status: 'completed',
+                        completedDate: new Date(Date.now() - 86400000 * 10).toISOString().split('T')[0],
+                        type: 'training'
+                    },
+                    {
+                        id: 3,
+                        title: 'Chemical Safety Training',
+                        description: 'Pool chemical handling and safety procedures',
+                        duration: '3 hours',
+                        status: 'available',
+                        type: 'training'
+                    }
+                ];
+
+                this.mockData.messages = [
+                    {
+                        id: 1,
+                        from: 'Pool Manager',
+                        subject: 'Schedule Change - Tomorrow',
+                        message: 'Please note that tomorrow\'s shift has been moved to 10:00 AM start time.',
+                        timestamp: new Date(Date.now() - 3600000).toISOString(),
+                        read: false,
+                        priority: 'high'
+                    },
+                    {
+                        id: 2,
+                        from: 'HR Department',
+                        subject: 'Training Reminder',
+                        message: 'Don\'t forget your CPR certification renewal is due next month.',
+                        timestamp: new Date(Date.now() - 86400000).toISOString(),
+                        read: false,
+                        priority: 'normal'
+                    },
+                    {
+                        id: 3,
+                        from: 'Admin',
+                        subject: 'New Safety Equipment',
+                        message: 'New rescue equipment has arrived. Please familiarize yourself with the new gear.',
+                        timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+                        read: true,
+                        priority: 'normal'
+                    }
+                ];
+            }
+
+            // Authentication methods
             getEmployeeToken() {
                 return localStorage.getItem('employeeToken') || sessionStorage.getItem('employeeToken');
             }
@@ -1366,7 +1707,6 @@
                 try {
                     const employeeData = JSON.parse(token);
                     
-                    // In a real app, validate with server
                     if (employeeData && employeeData.employeeId) {
                         this.currentEmployee = employeeData;
                         await this.loadEmployeeData();
@@ -1408,7 +1748,6 @@
                         throw new Error('Invalid password. Please try again.');
                     }
 
-                    // Create employee session data
                     const employeeData = {
                         employeeId: employeeId.toUpperCase(),
                         name: employee.name,
@@ -1417,7 +1756,6 @@
                         loginTime: new Date().toISOString()
                     };
 
-                    // Store token
                     const token = JSON.stringify(employeeData);
                     if (rememberMe) {
                         localStorage.setItem('employeeToken', token);
@@ -1449,60 +1787,17 @@
                 try {
                     console.log('📊 Loading employee data...');
                     
-                    // Load mock data for demo
-                    this.loadDemoEmployeeData();
                     this.updateEmployeeInfo();
                     this.updateEmployeeStats();
                     this.updateSchedulePreview();
                     this.updateAssignmentsList();
+                    this.updateUnreadCount();
                     
                     console.log('✅ Employee data loaded successfully');
                 } catch (error) {
                     console.error('Error loading employee data:', error);
                     this.showNotification('Some data could not be loaded.', 'warning');
                 }
-            }
-
-            loadDemoEmployeeData() {
-                // Demo schedule data
-                this.scheduleData = [
-                    {
-                        id: 1,
-                        date: new Date().toISOString().split('T')[0],
-                        startTime: '09:00',
-                        endTime: '17:00',
-                        location: 'Westlake Pool',
-                        type: 'Lifeguard Duty'
-                    },
-                    {
-                        id: 2,
-                        date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-                        startTime: '14:00',
-                        endTime: '18:00',
-                        location: 'Oak Park Community Center',
-                        type: 'Swim Lessons'
-                    }
-                ];
-
-                // Demo assignments
-                this.assignments = [
-                    {
-                        id: 1,
-                        title: 'Pool Safety Inspection',
-                        dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
-                        priority: 'high',
-                        status: 'pending'
-                    },
-                    {
-                        id: 2,
-                        title: 'Equipment Maintenance Check',
-                        dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
-                        priority: 'medium',
-                        status: 'in-progress'
-                    }
-                ];
-
-                console.log('🎭 Demo employee data loaded');
             }
 
             // UI Updates
@@ -1537,7 +1832,6 @@
             }
 
             updateEmployeeStats() {
-                // Demo stats based on role
                 const stats = this.getStatsForRole(this.currentEmployee.role);
                 
                 this.animateNumber('todayShifts', stats.todayShifts);
@@ -1561,7 +1855,7 @@
                 const container = document.getElementById('schedulePreview');
                 if (!container) return;
                 
-                const todaySchedule = this.scheduleData.filter(shift => 
+                const todaySchedule = this.mockData.schedules.filter(shift => 
                     shift.date === new Date().toISOString().split('T')[0]
                 );
 
@@ -1576,8 +1870,9 @@
                             <strong>${shift.type}</strong><br>
                             <small style="color: var(--gray);">${shift.location}</small>
                         </div>
-                        <div style="text-align: right; font-weight: 600; color: var(--employee-primary);">
+                        <div style="text-align: right; font-weight: 600; color: var(--primary);">
                             ${shift.startTime} - ${shift.endTime}
+                            <br><small style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'});">${shift.status}</small>
                         </div>
                     </div>
                 `).join('');
@@ -1587,27 +1882,348 @@
                 const container = document.getElementById('assignmentsList');
                 if (!container) return;
                 
-                if (this.assignments.length === 0) {
+                if (this.mockData.assignments.length === 0) {
                     container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">No active assignments</p>';
                     return;
                 }
 
-                container.innerHTML = this.assignments.slice(0, 3).map(assignment => {
+                container.innerHTML = this.mockData.assignments.slice(0, 3).map(assignment => {
                     const priorityColor = assignment.priority === 'high' ? 'var(--error)' : 
                                         assignment.priority === 'medium' ? 'var(--warning)' : 'var(--success)';
                     
                     return `
-                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid ${priorityColor};">
+                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid ${priorityColor}; cursor: pointer;" onclick="employeePortal.viewAssignment(${assignment.id})">
                             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
                                 <strong>${assignment.title}</strong>
-                                <span style="background: rgba(26, 35, 126, 0.1); color: var(--employee-primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); text-transform: uppercase;">${assignment.status}</span>
+                                <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); text-transform: uppercase;">${assignment.status}</span>
                             </div>
                             <div style="color: var(--gray); font-size: var(--font-sm);">
                                 <i class="fas fa-calendar"></i> Due: ${new Date(assignment.dueDate).toLocaleDateString()}
+                                <br><i class="fas fa-map-marker-alt"></i> ${assignment.location}
                             </div>
                         </div>
                     `;
                 }).join('');
+            }
+
+            updateUnreadCount() {
+                const unreadMessages = this.mockData.messages.filter(msg => !msg.read).length;
+                const badge = document.getElementById('unreadCount');
+                if (badge) {
+                    badge.textContent = unreadMessages;
+                    badge.style.display = unreadMessages > 0 ? 'inline' : 'none';
+                }
+            }
+
+            // Feature Implementations
+
+            // Schedule Management
+            openScheduleModal() {
+                const content = `
+                    <div style="min-width: 600px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.showScheduleView('week')">Week View</button>
+                                <button class="btn-small btn-employee" onclick="employeePortal.showScheduleView('month')">Month View</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.requestTimeOff()">Request Time Off</button>
+                            </div>
+                        </div>
+                        <div id="scheduleContent">
+                            <h3 style="margin-bottom: var(--space-4);">Upcoming Shifts</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${this.mockData.schedules.map(shift => `
+                                        <tr>
+                                            <td>${new Date(shift.date).toLocaleDateString()}</td>
+                                            <td>${shift.startTime} - ${shift.endTime}</td>
+                                            <td>${shift.location}</td>
+                                            <td>${shift.type}</td>
+                                            <td><span style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'}); font-weight: 600;">${shift.status}</span></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('My Schedule', content);
+            }
+
+            viewTodaySchedule() {
+                const todayShifts = this.mockData.schedules.filter(shift => 
+                    shift.date === new Date().toISOString().split('T')[0]
+                );
+                
+                if (todayShifts.length === 0) {
+                    this.showNotification('No shifts scheduled for today', 'info');
+                    return;
+                }
+                
+                const content = `
+                    <h3>Today's Schedule</h3>
+                    <div style="margin-top: var(--space-4);">
+                        ${todayShifts.map(shift => `
+                            <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
+                                <h4>${shift.type}</h4>
+                                <p><strong>Time:</strong> ${shift.startTime} - ${shift.endTime}</p>
+                                <p><strong>Location:</strong> ${shift.location}</p>
+                                <p><strong>Status:</strong> <span style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'})">${shift.status}</span></p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                this.showModal('Today\'s Schedule', content);
+            }
+
+            requestTimeOff() {
+                const content = `
+                    <form onsubmit="employeePortal.submitTimeOffRequest(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-input" name="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-input" name="endDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Reason</label>
+                            <select class="form-select" name="reason" required>
+                                <option value="">Select a reason</option>
+                                <option value="vacation">Vacation</option>
+                                <option value="sick">Sick Leave</option>
+                                <option value="personal">Personal</option>
+                                <option value="family">Family Emergency</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-textarea" name="notes" placeholder="Any additional information..."></textarea>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Request</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Request Time Off', content);
+            }
+
+            submitTimeOffRequest(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                
+                // Simulate submission
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Time off request submitted successfully!', 'success');
+                }, 1000);
+            }
+
+            // Assignment Management
+            viewAllAssignments() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.filterAssignments('all')">All</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.filterAssignments('pending')">Pending</button>
+                                <button class="btn-small btn-success" onclick="employeePortal.filterAssignments('in-progress')">In Progress</button>
+                            </div>
+                        </div>
+                        <div id="assignmentsContent">
+                            ${this.mockData.assignments.map(assignment => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4); border-left: 4px solid var(--${assignment.priority === 'high' ? 'error' : assignment.priority === 'medium' ? 'warning' : 'success'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${assignment.title}</h4>
+                                        <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${assignment.status}</span>
+                                    </div>
+                                    <p style="margin-bottom: var(--space-3);">${assignment.description}</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-calendar"></i> Due: ${new Date(assignment.dueDate).toLocaleDateString()}</div>
+                                            <div><i class="fas fa-user"></i> Assigned by: ${assignment.assignedBy}</div>
+                                            <div><i class="fas fa-map-marker-alt"></i> Location: ${assignment.location}</div>
+                                        </div>
+                                        <div style="display: flex; gap: var(--space-2);">
+                                            <button class="btn-small btn-employee" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'in-progress')">Start</button>
+                                            <button class="btn-small btn-success" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'completed')">Complete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('All Assignments', content);
+            }
+
+            viewAssignment(id) {
+                const assignment = this.mockData.assignments.find(a => a.id === id);
+                if (!assignment) return;
+                
+                const content = `
+                    <div style="min-width: 500px;">
+                        <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                            <h3>${assignment.title}</h3>
+                            <p style="margin: var(--space-2) 0;">${assignment.description}</p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-4);">
+                                <div>
+                                    <strong>Due Date:</strong><br>
+                                    ${new Date(assignment.dueDate).toLocaleDateString()}
+                                </div>
+                                <div>
+                                    <strong>Priority:</strong><br>
+                                    <span style="color: var(--${assignment.priority === 'high' ? 'error' : assignment.priority === 'medium' ? 'warning' : 'success'}); text-transform: capitalize;">${assignment.priority}</span>
+                                </div>
+                                <div>
+                                    <strong>Assigned By:</strong><br>
+                                    ${assignment.assignedBy}
+                                </div>
+                                <div>
+                                    <strong>Location:</strong><br>
+                                    ${assignment.location}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
+                            <button class="btn-small btn-employee" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'in-progress')">Start Assignment</button>
+                            <button class="btn-small btn-success" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'completed')">Mark Complete</button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Assignment Details', content);
+            }
+
+            updateAssignmentStatus(id, status) {
+                const assignment = this.mockData.assignments.find(a => a.id === id);
+                if (assignment) {
+                    assignment.status = status;
+                    this.updateAssignmentsList();
+                    this.closeModal();
+                    this.showNotification(`Assignment ${status === 'completed' ? 'completed' : 'updated'}!`, 'success');
+                }
+            }
+
+            // Training Center
+            openTrainingCenter() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.filterTraining('all')">All Courses</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.filterTraining('required')">Required</button>
+                                <button class="btn-small btn-success" onclick="employeePortal.filterTraining('completed')">Completed</button>
+                            </div>
+                        </div>
+                        <div id="trainingContent">
+                            <h3 style="margin-bottom: var(--space-4);">Available Training</h3>
+                            ${this.mockData.trainings.map(training => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4); border-left: 4px solid var(--${training.status === 'required' ? 'error' : training.status === 'completed' ? 'success' : 'info'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${training.title}</h4>
+                                        <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${training.status}</span>
+                                    </div>
+                                    <p style="margin-bottom: var(--space-3);">${training.description}</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-clock"></i> Duration: ${training.duration}</div>
+                                            ${training.dueDate ? `<div><i class="fas fa-calendar"></i> Due: ${new Date(training.dueDate).toLocaleDateString()}</div>` : ''}
+                                            ${training.completedDate ? `<div><i class="fas fa-check"></i> Completed: ${new Date(training.completedDate).toLocaleDateString()}</div>` : ''}
+                                        </div>
+                                        <div>
+                                            ${training.status !== 'completed' ? `<button class="btn-small btn-employee" onclick="employeePortal.startTraining(${training.id})">Start Training</button>` : `<span style="color: var(--success); font-weight: 600;"><i class="fas fa-check-circle"></i> Completed</span>`}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Training Center', content);
+            }
+
+            viewCertifications() {
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Certifications</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>Lifeguard Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Red Cross</p>
+                                        <p style="color: var(--success); font-weight: 600;">Valid until: March 2026</p>
+                                    </div>
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--warning);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>CPR/AED Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Heart Association</p>
+                                        <p style="color: var(--warning); font-weight: 600;">Expires: ${new Date(Date.now() + 86400000 * 30).toLocaleDateString()}</p>
+                                    </div>
+                                    <i class="fas fa-exclamation-triangle" style="color: var(--warning); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>First Aid Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Red Cross</p>
+                                        <p style="color: var(--success); font-weight: 600;">Valid until: August 2025</p>
+                                    </div>
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-6); text-align: center;">
+                            <button class="btn-small btn-accent" onclick="employeePortal.downloadCertificates()">
+                                <i class="fas fa-download"></i> Download Certificates
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('My Certifications', content);
+            }
+
+            startTraining(id) {
+                const training = this.mockData.trainings.find(t => t.id === id);
+                if (!training) return;
+                
+                // Simulate starting training
+                this.showNotification(`Starting "${training.title}" training module...`, 'info');
+                this.closeModal();
+                
+                // In a real app, this would redirect to the training platform
+                setTimeout(() => {
+                    this.showNotification('Training module loaded successfully!', 'success');
+                }, 2000);
+            }
+
+            downloadCertificates() {
+                this.showNotification('Certificate download started...', 'info');
+                // In a real app, this would generate and download PDF certificates
             }
 
             // Time Tracking
@@ -1644,7 +2260,7 @@
                 const shiftInfo = document.getElementById('currentShiftInfo');
                 
                 clockBtn.innerHTML = '<i class="fas fa-play"></i> Clock In';
-                clockBtn.style.background = 'var(--gradient-employee-vivid)';
+                clockBtn.style.background = 'var(--gradient-primary-vivid)';
                 
                 if (shiftInfo) shiftInfo.style.display = 'none';
                 
@@ -1652,6 +2268,9 @@
                 
                 const duration = this.calculateShiftDuration();
                 this.showNotification(`Clocked out! Shift duration: ${duration}`, 'info');
+                
+                // Add to timesheet
+                this.addToTimesheet(this.shiftStartTime, new Date(), duration);
             }
 
             startShiftTimer() {
@@ -1680,57 +2299,459 @@
                 return `${hours}:${minutes.toString().padStart(2, '0')}`;
             }
 
-            // Feature Methods (Placeholders for full implementation)
-            openScheduleModal() {
-                this.showNotification('Schedule management opening soon!', 'info');
+            addToTimesheet(startTime, endTime, duration) {
+                const entry = {
+                    id: Date.now(),
+                    date: startTime.toISOString().split('T')[0],
+                    startTime: startTime.toLocaleTimeString(),
+                    endTime: endTime.toLocaleTimeString(),
+                    duration: duration,
+                    status: 'pending'
+                };
+                
+                this.mockData.timeSheets.unshift(entry);
             }
 
-            viewTodaySchedule() {
-                this.showNotification('Displaying today\'s schedule...', 'info');
+            viewTimeSheets() {
+                // Generate some mock timesheet data if empty
+                if (this.mockData.timeSheets.length === 0) {
+                    this.mockData.timeSheets = [
+                        {
+                            id: 1,
+                            date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+                            startTime: '09:00:00',
+                            endTime: '17:00:00',
+                            duration: '8:00',
+                            status: 'approved'
+                        },
+                        {
+                            id: 2,
+                            date: new Date(Date.now() - 86400000 * 2).toISOString().split('T')[0],
+                            startTime: '14:00:00',
+                            endTime: '18:00:00',
+                            duration: '4:00',
+                            status: 'approved'
+                        }
+                    ];
+                }
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Timesheets</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${this.mockData.timeSheets.map(entry => `
+                                    <tr>
+                                        <td>${new Date(entry.date).toLocaleDateString()}</td>
+                                        <td>${entry.startTime}</td>
+                                        <td>${entry.endTime}</td>
+                                        <td>${entry.duration}</td>
+                                        <td><span style="color: var(--${entry.status === 'approved' ? 'success' : 'warning'}); font-weight: 600;">${entry.status}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                this.showModal('My Timesheets', content);
             }
 
-            requestTimeOff() {
-                this.showNotification('Time off request form coming soon!', 'info');
-            }
-
-            viewAllAssignments() {
-                this.showNotification('Full assignments view opening soon!', 'info');
-            }
-
-            openTrainingCenter() {
-                this.showNotification('Training center launching soon!', 'info');
-            }
-
-            viewCertifications() {
-                this.showNotification('Certifications overview coming soon!', 'info');
-            }
-
-            browseTraining() {
-                this.showNotification('Training catalog opening soon!', 'info');
-            }
-
+            // Incident Reports
             createIncidentReport() {
-                this.showNotification('Incident report form opening soon!', 'info');
+                const content = `
+                    <form onsubmit="employeePortal.submitIncidentReport(event)" style="min-width: 600px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date of Incident</label>
+                                <input type="date" class="form-input" name="incidentDate" required value="${new Date().toISOString().split('T')[0]}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Time of Incident</label>
+                                <input type="time" class="form-input" name="incidentTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <select class="form-select" name="location" required>
+                                <option value="">Select location</option>
+                                <option value="Westlake Pool">Westlake Pool</option>
+                                <option value="Oak Park Community Center">Oak Park Community Center</option>
+                                <option value="Thousand Oaks Recreation Center">Thousand Oaks Recreation Center</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Incident Type</label>
+                            <select class="form-select" name="incidentType" required>
+                                <option value="">Select type</option>
+                                <option value="injury">Injury</option>
+                                <option value="near-drowning">Near Drowning</option>
+                                <option value="equipment-failure">Equipment Failure</option>
+                                <option value="behavioral">Behavioral Issue</option>
+                                <option value="facility">Facility Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Severity Level</label>
+                            <select class="form-select" name="severity" required>
+                                <option value="">Select severity</option>
+                                <option value="low">Low - Minor issue</option>
+                                <option value="medium">Medium - Moderate concern</option>
+                                <option value="high">High - Serious incident</option>
+                                <option value="critical">Critical - Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description of Incident</label>
+                            <textarea class="form-textarea" name="description" placeholder="Provide detailed description of what happened..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Actions Taken</label>
+                            <textarea class="form-textarea" name="actionsTaken" placeholder="Describe what actions were taken to address the incident..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Witnesses</label>
+                                <input type="text" class="form-input" name="witnesses" placeholder="Names of any witnesses">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Emergency Services Called</label>
+                                <select class="form-select" name="emergencyServices">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Incident Report</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Create Incident Report', content);
+            }
+
+            submitIncidentReport(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                
+                const report = {
+                    id: Date.now(),
+                    date: formData.get('incidentDate'),
+                    time: formData.get('incidentTime'),
+                    location: formData.get('location'),
+                    type: formData.get('incidentType'),
+                    severity: formData.get('severity'),
+                    description: formData.get('description'),
+                    actionsTaken: formData.get('actionsTaken'),
+                    witnesses: formData.get('witnesses'),
+                    emergencyServices: formData.get('emergencyServices'),
+                    reportedBy: this.currentEmployee.name,
+                    status: 'submitted',
+                    submittedAt: new Date().toISOString()
+                };
+                
+                this.mockData.incidents.unshift(report);
+                
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Incident report submitted successfully!', 'success');
+                }, 1000);
             }
 
             viewMyReports() {
-                this.showNotification('Your reports overview coming soon!', 'info');
+                const content = `
+                    <div style="min-width: 700px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Incident Reports</h3>
+                        ${this.mockData.incidents.length > 0 ? `
+                            <div style="display: grid; gap: var(--space-4);">
+                                ${this.mockData.incidents.map(report => `
+                                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--${report.severity === 'critical' ? 'error' : report.severity === 'high' ? 'warning' : 'info'});">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                            <h4>${report.type.charAt(0).toUpperCase() + report.type.slice(1)} Incident</h4>
+                                            <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${report.status}</span>
+                                        </div>
+                                        <p style="margin-bottom: var(--space-3);">${report.description}</p>
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-calendar"></i> ${new Date(report.date).toLocaleDateString()}</div>
+                                            <div><i class="fas fa-clock"></i> ${report.time}</div>
+                                            <div><i class="fas fa-map-marker-alt"></i> ${report.location}</div>
+                                            <div><i class="fas fa-exclamation-circle"></i> ${report.severity} severity</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : `
+                            <div style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                <i class="fas fa-file-alt" style="font-size: var(--font-4xl); margin-bottom: var(--space-4);"></i>
+                                <p>No incident reports submitted yet.</p>
+                                <button class="btn-small btn-employee" onclick="employeePortal.closeModal(); employeePortal.createIncidentReport();" style="margin-top: var(--space-4);">
+                                    <i class="fas fa-plus"></i> Create First Report
+                                </button>
+                            </div>
+                        `}
+                    </div>
+                `;
+                
+                this.showModal('My Incident Reports', content);
             }
 
             emergencyProtocols() {
-                this.showNotification('Emergency protocols guide opening soon!', 'info');
+                const protocols = [
+                    {
+                        title: 'Drowning Emergency',
+                        steps: [
+                            'Immediately enter water if safe to do so',
+                            'Perform rescue breathing if needed',
+                            'Call 911 immediately',
+                            'Begin CPR if no pulse',
+                            'Continue until EMS arrives'
+                        ]
+                    },
+                    {
+                        title: 'Spinal Injury',
+                        steps: [
+                            'DO NOT move the victim',
+                            'Stabilize head and neck',
+                            'Call 911 immediately',
+                            'Monitor breathing and pulse',
+                            'Keep victim calm and still'
+                        ]
+                    },
+                    {
+                        title: 'Chemical Emergency',
+                        steps: [
+                            'Clear the area immediately',
+                            'Flush affected area with water',
+                            'Call Poison Control: 1-800-222-1222',
+                            'Notify facility management',
+                            'Document the incident'
+                        ]
+                    }
+                ];
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">Emergency Protocols</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            ${protocols.map(protocol => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--error);">
+                                    <h4 style="color: var(--error); margin-bottom: var(--space-3);">${protocol.title}</h4>
+                                    <ol style="margin-left: var(--space-4);">
+                                        ${protocol.steps.map(step => `<li style="margin-bottom: var(--space-2);">${step}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-top: var(--space-6); text-align: center;">
+                            <h4 style="color: var(--error); margin-bottom: var(--space-2);">Emergency Contacts</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3);">
+                                <div><strong>Emergency:</strong> 911</div>
+                                <div><strong>Poison Control:</strong> 1-800-222-1222</div>
+                                <div><strong>Facility Manager:</strong> (805) 555-0123</div>
+                                <div><strong>Safety Supervisor:</strong> (805) 555-0456</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Emergency Protocols', content);
             }
 
+            // Messaging
             openMessaging() {
-                this.showNotification('Team messaging system coming soon!', 'info');
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.filterMessages('all')">All Messages</button>
+                            <button class="btn-small btn-accent" onclick="employeePortal.filterMessages('unread')">Unread</button>
+                            <button class="btn-small btn-success" onclick="employeePortal.composeMessage()">Compose</button>
+                        </div>
+                        <div id="messagesContent">
+                            ${this.mockData.messages.map(message => `
+                                <div style="background: ${message.read ? 'white' : 'rgba(30, 136, 229, 0.05)'}; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid var(--${message.priority === 'high' ? 'error' : 'info'}); cursor: pointer;" onclick="employeePortal.openMessage(${message.id})">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
+                                        <div>
+                                            <strong style="color: ${message.read ? 'var(--dark)' : 'var(--primary)'};">${message.subject}</strong>
+                                            <div style="color: var(--gray); font-size: var(--font-sm);">From: ${message.from}</div>
+                                        </div>
+                                        <div style="text-align: right; color: var(--gray); font-size: var(--font-sm);">
+                                            ${new Date(message.timestamp).toLocaleDateString()}
+                                            ${!message.read ? '<div style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-left: auto; margin-top: var(--space-1);"></div>' : ''}
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--gray); font-size: var(--font-sm); margin: 0;">${message.message.substring(0, 100)}...</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Team Messages', content);
+            }
+
+            openMessage(id) {
+                const message = this.mockData.messages.find(m => m.id === id);
+                if (!message) return;
+                
+                // Mark as read
+                message.read = true;
+                this.updateUnreadCount();
+                
+                const content = `
+                    <div style="min-width: 500px;">
+                        <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                            <h3>${message.subject}</h3>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin: var(--space-2) 0; color: var(--gray); font-size: var(--font-sm);">
+                                <span>From: ${message.from}</span>
+                                <span>${new Date(message.timestamp).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); line-height: 1.6;">
+                            ${message.message}
+                        </div>
+                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.replyToMessage(${message.id})">
+                                <i class="fas fa-reply"></i> Reply
+                            </button>
+                            <button class="btn-small btn-accent" onclick="employeePortal.closeModal(); employeePortal.openMessaging();">
+                                <i class="fas fa-arrow-left"></i> Back to Messages
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Message', content);
             }
 
             viewAnnouncements() {
-                this.showNotification('Company announcements coming soon!', 'info');
+                const announcements = [
+                    {
+                        title: 'Pool Closure Notice',
+                        content: 'Westlake Pool will be closed for maintenance on Friday, June 7th.',
+                        date: new Date(Date.now() - 86400000).toISOString(),
+                        priority: 'high'
+                    },
+                    {
+                        title: 'New Safety Equipment',
+                        content: 'Updated rescue equipment has been installed at all locations. Please review the new procedures.',
+                        date: new Date(Date.now() - 86400000 * 3).toISOString(),
+                        priority: 'normal'
+                    },
+                    {
+                        title: 'Summer Schedule Changes',
+                        content: 'Summer operating hours will begin June 15th. Check your updated schedules.',
+                        date: new Date(Date.now() - 86400000 * 7).toISOString(),
+                        priority: 'normal'
+                    }
+                ];
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">Company Announcements</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            ${announcements.map(announcement => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--${announcement.priority === 'high' ? 'error' : 'info'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${announcement.title}</h4>
+                                        <span style="color: var(--gray); font-size: var(--font-sm);">${new Date(announcement.date).toLocaleDateString()}</span>
+                                    </div>
+                                    <p>${announcement.content}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Announcements', content);
             }
 
             contactSupport() {
-                this.showNotification('Support contact form opening soon!', 'info');
+                const content = `
+                    <form onsubmit="employeePortal.submitSupportRequest(event)" style="min-width: 500px;">
+                        <div class="form-group">
+                            <label class="form-label">Support Category</label>
+                            <select class="form-select" name="category" required>
+                                <option value="">Select category</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="hr">HR/Payroll</option>
+                                <option value="scheduling">Scheduling</option>
+                                <option value="training">Training</option>
+                                <option value="equipment">Equipment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Priority Level</label>
+                            <select class="form-select" name="priority" required>
+                                <option value="">Select priority</option>
+                                <option value="low">Low - General question</option>
+                                <option value="medium">Medium - Need assistance</option>
+                                <option value="high">High - Urgent issue</option>
+                                <option value="critical">Critical - Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" name="subject" placeholder="Brief description of your issue" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-textarea" name="description" placeholder="Please provide detailed information about your issue or question..." required></textarea>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Support Request</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Contact Support', content);
+            }
+
+            submitSupportRequest(event) {
+                event.preventDefault();
+                
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Support request submitted! You will receive a response within 24 hours.', 'success');
+                }, 1000);
+            }
+
+            // Modal Management
+            showModal(title, content, footer = null) {
+                const modalOverlay = document.getElementById('modalOverlay');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                const modalFooter = document.getElementById('modalFooter');
+                
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                
+                if (footer) {
+                    modalFooter.innerHTML = footer;
+                } else {
+                    modalFooter.innerHTML = '<button class="btn-secondary" onclick="employeePortal.closeModal()">Close</button>';
+                }
+                
+                modalOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeModal() {
+                const modalOverlay = document.getElementById('modalOverlay');
+                modalOverlay.classList.remove('show');
+                document.body.style.overflow = '';
             }
 
             // Event Listeners
@@ -1751,10 +2772,17 @@
                     this.handleLogout();
                 });
 
+                // Modal close on overlay click
+                document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'modalOverlay') {
+                        this.closeModal();
+                    }
+                });
+
                 // Keyboard shortcuts
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
-                        // Close any open modals
+                        this.closeModal();
                     }
                 });
 
@@ -1943,5 +2971,71 @@
             event.preventDefault();
         });
     </script>
+
+    <!-- Additional Styles for Badge and Enhanced UI -->
+    <style>
+        .badge {
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+            min-width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Enhanced form animations */
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            animation: focusGlow 0.3s ease-out;
+        }
+
+        @keyframes focusGlow {
+            0% { box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.4); }
+            100% { box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium); }
+        }
+
+        /* Enhanced table styles */
+        .data-table tbody tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(30, 136, 229, 0.05);
+            transform: scale(1.01);
+        }
+
+        /* Loading states for forms */
+        form[data-loading="true"] {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        form[data-loading="true"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </body>
 </html>
