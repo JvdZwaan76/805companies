@@ -1561,10 +1561,10 @@
                 this.bookings = [];
                 this.availabilityData = {};
                 
-                // Enable mock mode for bookings while debugging backend
+                // Real API with correct Worker field names
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
                 this.isMockMode = false;
-                this.mockBookingsOnly = true; // Enable mock for booking endpoint only
+                this.mockBookingsOnly = false; // Disabled - now using real API with correct Worker field names
                 
                 this.serviceNames = {
                     'swim-lesson': 'Private Swim Lesson',
@@ -2076,24 +2076,22 @@
                         throw new Error('Number of participants is required');
                     }
 
-                    // Create booking data with EXACT field names from database schema
+                    // Create booking data with EXACT field names that the Worker expects
                     const bookingData = {
-                        user_id: this.currentUser?.id || null,                    // Required field
-                        service_type: this.selectedService,                       // Required field  
-                        service_name: this.serviceNames[this.selectedService],   // Optional but helpful
-                        booking_date: this.selectedDate.toISOString().split('T')[0], // Required field
-                        booking_time: this.selectedTime,                         // Required field
-                        duration: parseFloat(duration),                          // Required field
-                        participants: parseInt(participants),                    // Optional (has default)
-                        special_requests: specialRequests || null,               // Optional field
-                        status: 'pending',                                       // Optional (has default)
-                        cost: 0.0                                               // Required field (set to 0 for now)
+                        service: this.selectedService,                        // Worker expects "service"
+                        date: this.selectedDate.toISOString().split('T')[0],  // Worker expects "date"
+                        time: this.selectedTime,                             // Worker expects "time"
+                        duration: parseFloat(duration),                      // Worker expects "duration"
+                        participants: parseInt(participants),                // Worker expects "participants"
+                        specialRequests: specialRequests || null,            // Worker expects "specialRequests"
+                        cost: 0.0                                            // Worker expects "cost"
                     };
+                    // Note: Worker gets user_id from authentication and sets status automatically
 
-                    console.log('🎯 Sending data with EXACT database field names:', JSON.stringify(bookingData, null, 2));
+                    console.log('🎯 Sending data with EXACT Worker field names:', JSON.stringify(bookingData, null, 2));
 
                     // Validate no required fields are missing
-                    const requiredFields = ['user_id', 'service_type', 'booking_date', 'booking_time', 'duration', 'cost'];
+                    const requiredFields = ['service', 'date', 'time', 'duration', 'participants', 'cost'];
                     for (const field of requiredFields) {
                         if (bookingData[field] === null || bookingData[field] === undefined) {
                             console.error(`❌ Required field '${field}' is missing or null`);
@@ -2106,7 +2104,7 @@
                     console.log('📥 API Response:', response);
 
                     if (response && response.success) {
-                        console.log('🎉 Booking successful with correct database field names!');
+                        console.log('🎉 Booking successful with correct Worker field names!');
                         
                         if (response.booking) {
                             this.bookings.push(response.booking);
@@ -2129,12 +2127,12 @@
                     console.error('❌ Booking submission error:', error);
                     
                     let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('user_id')) {
-                        errorMessage += 'User authentication error - please try logging out and back in.';
+                    if (error.message.includes('Unauthorized')) {
+                        errorMessage += 'Authentication error - please try logging out and back in.';
                     } else if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
                         errorMessage += 'Database field error - this should now be fixed.';
                     } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                        errorMessage += 'Server error - the database fields should now match.';
+                        errorMessage += 'Server error - the field names should now match your Worker code.';
                     } else {
                         errorMessage += error.message;
                     }
@@ -2390,12 +2388,6 @@
             async apiCall(endpoint, method = 'GET', data = null, token = null) {
                 // Use mock API for development/testing
                 if (this.isMockMode) {
-                    return this.mockApiCall(endpoint, method, data, token);
-                }
-
-                // Use mock for booking endpoint only while backend is being fixed
-                if (this.mockBookingsOnly && endpoint === '/api/bookings' && method === 'POST') {
-                    console.log('🧪 Using mock for booking endpoint due to backend issue');
                     return this.mockApiCall(endpoint, method, data, token);
                 }
 
