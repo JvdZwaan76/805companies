@@ -2075,88 +2075,109 @@
                         throw new Error('Number of participants is required');
                     }
 
-                    // FORMAT 1: Original simple format (most likely to work)
-                    const originalFormat = {
-                        service: this.selectedService,
-                        date: this.selectedDate.toISOString().split('T')[0],
-                        time: this.selectedTime,
-                        duration: parseFloat(duration),
-                        participants: parseInt(participants),
-                        specialRequests: specialRequests || ''
-                    };
-
-                    console.log('🧪 Trying ORIGINAL format first:', JSON.stringify(originalFormat, null, 2));
+                    // Multiple format attempts to avoid undefined values
+                    const formatAttempts = [
+                        // Attempt 1: Exact original working format
+                        {
+                            service: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants),
+                            notes: specialRequests || null  // Try 'notes' instead of 'specialRequests'
+                        },
+                        
+                        // Attempt 2: Without optional fields
+                        {
+                            service: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants)
+                        },
+                        
+                        // Attempt 3: Common backend field names
+                        {
+                            service_type: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants),
+                            notes: specialRequests || null
+                        },
+                        
+                        // Attempt 4: Database-style naming
+                        {
+                            type: this.selectedService,
+                            booking_date: this.selectedDate.toISOString().split('T')[0],
+                            booking_time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participant_count: parseInt(participants),
+                            special_notes: specialRequests || null
+                        },
+                        
+                        // Attempt 5: Minimal essential fields only
+                        {
+                            service: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants),
+                            user_id: this.currentUser?.id || null,
+                            status: 'pending'
+                        }
+                    ];
 
                     let response;
                     let lastError;
+                    let successfulFormat = null;
 
-                    // Try original format first
-                    try {
-                        response = await this.apiCall('/api/bookings', 'POST', originalFormat);
+                    // Try each format until one works
+                    for (let i = 0; i < formatAttempts.length; i++) {
+                        const currentFormat = formatAttempts[i];
                         
-                        if (response && response.success) {
-                            console.log('✅ SUCCESS with original format!');
-                        }
-                    } catch (error) {
-                        console.log('❌ Original format failed:', error.message);
-                        lastError = error;
+                        console.log(`🧪 Attempting Format ${i + 1}:`, JSON.stringify(currentFormat, null, 2));
 
-                        // Only try alternatives if we get specific field-related errors
-                        if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                            console.log('🔄 500 error detected - trying alternative formats...');
-                            
-                            // FORMAT 2: Without specialRequests (in case that field is causing issues)
-                            const noSpecialRequestsFormat = {
-                                service: this.selectedService,
-                                date: this.selectedDate.toISOString().split('T')[0],
-                                time: this.selectedTime,
-                                duration: parseFloat(duration),
-                                participants: parseInt(participants)
-                            };
-
-                            console.log('🧪 Trying format WITHOUT specialRequests:', JSON.stringify(noSpecialRequestsFormat, null, 2));
-                            
-                            try {
-                                response = await this.apiCall('/api/bookings', 'POST', noSpecialRequestsFormat);
-                                
-                                if (response && response.success) {
-                                    console.log('✅ SUCCESS without specialRequests!');
-                                }
-                            } catch (altError) {
-                                console.log('❌ No specialRequests format failed:', altError.message);
-                                lastError = altError;
-
-                                // FORMAT 3: Snake case format
-                                const snakeCaseFormat = {
-                                    service_type: this.selectedService,
-                                    booking_date: this.selectedDate.toISOString().split('T')[0],
-                                    booking_time: this.selectedTime,
-                                    duration: parseFloat(duration),
-                                    participants: parseInt(participants)
-                                };
-
-                                console.log('🧪 Trying SNAKE_CASE format:', JSON.stringify(snakeCaseFormat, null, 2));
-                                
-                                try {
-                                    response = await this.apiCall('/api/bookings', 'POST', snakeCaseFormat);
-                                    
-                                    if (response && response.success) {
-                                        console.log('✅ SUCCESS with snake_case format!');
-                                    }
-                                } catch (snakeError) {
-                                    console.log('❌ Snake_case format failed:', snakeError.message);
-                                    lastError = snakeError;
-                                }
+                        // Remove any undefined values to prevent D1 errors
+                        const cleanedFormat = {};
+                        for (const [key, value] of Object.entries(currentFormat)) {
+                            if (value !== undefined && value !== null && value !== '') {
+                                cleanedFormat[key] = value;
                             }
-                        } else {
-                            // If it's not a 500 error, don't try alternatives
-                            throw error;
+                        }
+
+                        console.log(`🧽 Cleaned Format ${i + 1}:`, JSON.stringify(cleanedFormat, null, 2));
+
+                        try {
+                            response = await this.apiCall('/api/bookings', 'POST', cleanedFormat);
+                            
+                            if (response && response.success) {
+                                console.log(`✅ SUCCESS with Format ${i + 1}!`);
+                                successfulFormat = i + 1;
+                                break;
+                            }
+                        } catch (error) {
+                            console.log(`❌ Format ${i + 1} failed:`, error.message);
+                            lastError = error;
+                            
+                            // If we get a specific D1 undefined error, continue trying other formats
+                            if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
+                                console.log(`🔄 D1 undefined error detected, trying next format...`);
+                                continue;
+                            }
+                            
+                            // If it's a different type of error, don't continue
+                            if (!error.message.includes('500') && !error.message.includes('Internal Server Error')) {
+                                break;
+                            }
                         }
                     }
 
                     console.log('📥 Final API Response:', response);
 
                     if (response && response.success) {
+                        console.log(`🎉 Booking successful using Format ${successfulFormat}!`);
+                        
                         if (response.booking) {
                             this.bookings.push(response.booking);
                         }
@@ -2171,30 +2192,21 @@
                             this.closeBookingModal();
                         }, 2000);
                     } else {
-                        console.error('🚨 ALL FORMATS FAILED. Backend issue detected.');
-                        console.error('🔧 Check your Cloudflare Worker code for /api/bookings POST endpoint');
-                        console.error('📋 Expected data formats tried:', {
-                            original: originalFormat,
-                            minimal: {
-                                service: this.selectedService,
-                                date: this.selectedDate.toISOString().split('T')[0],
-                                time: this.selectedTime,
-                                duration: parseFloat(duration),
-                                participants: parseInt(participants)
-                            }
-                        });
+                        console.error('🚨 ALL FORMATS FAILED');
+                        console.error('🔧 Backend expecting different field names than provided');
+                        console.error('📋 Last attempted format:', formatAttempts[formatAttempts.length - 1]);
                         
-                        throw lastError || new Error('Backend server error - please check Cloudflare Worker logs');
+                        throw lastError || new Error('All booking format attempts failed. Backend expects different field names - check worker code.');
                     }
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
                     
                     let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                        errorMessage += 'Server error detected. Please check your Cloudflare Worker backend code and database configuration.';
-                    } else if (error.message.includes('undefined')) {
-                        errorMessage += 'Database field error - some required fields may be missing.';
+                    if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
+                        errorMessage += 'Database field mismatch - your backend expects different field names. Check the console for details.';
+                    } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+                        errorMessage += 'Server error - check Cloudflare Worker code and database.';
                     } else {
                         errorMessage += error.message;
                     }
