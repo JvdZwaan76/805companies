@@ -1561,7 +1561,9 @@
                 this.bookings = [];
                 this.availabilityData = {};
                 
+                // Disable mock mode to use real API
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
+                this.isMockMode = false; // Changed to false to use real API
                 
                 this.serviceNames = {
                     'swim-lesson': 'Private Swim Lesson',
@@ -2051,16 +2053,53 @@
                 this.showLoadingState(submitBtn, 'Processing...');
 
                 try {
+                    // Validate all required fields are present
+                    if (!this.selectedService) {
+                        throw new Error('Please select a service type');
+                    }
+                    if (!this.selectedDate) {
+                        throw new Error('Please select a date');
+                    }
+                    if (!this.selectedTime) {
+                        throw new Error('Please select a time slot');
+                    }
+
+                    const duration = document.getElementById('duration')?.value;
+                    const participants = document.getElementById('participants')?.value;
+                    const specialRequests = document.getElementById('specialRequests')?.value;
+
+                    if (!duration) {
+                        throw new Error('Duration is required');
+                    }
+                    if (!participants) {
+                        throw new Error('Number of participants is required');
+                    }
+
+                    // Prepare booking data with proper field names that match backend expectations
                     const bookingData = {
-                        service: this.selectedService,
-                        date: this.selectedDate.toISOString().split('T')[0],
-                        time: this.selectedTime,
-                        duration: parseFloat(document.getElementById('duration').value),
-                        participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value || ''
+                        service_type: this.selectedService, // Use snake_case for backend
+                        booking_date: this.selectedDate.toISOString().split('T')[0],
+                        booking_time: this.selectedTime,
+                        duration: parseFloat(duration),
+                        participants: parseInt(participants),
+                        special_requests: specialRequests || '', // Use snake_case and ensure it's never undefined
+                        status: 'pending' // Add explicit status
                     };
 
+                    // Debug: Log exactly what we're sending
+                    console.log('📤 Sending booking data:', JSON.stringify(bookingData, null, 2));
+
+                    // Validate no undefined values
+                    for (const [key, value] of Object.entries(bookingData)) {
+                        if (value === undefined || value === null) {
+                            console.error(`❌ Field '${key}' is ${value}`);
+                            throw new Error(`Required field '${key}' is missing`);
+                        }
+                    }
+
                     const response = await this.apiCall('/api/bookings', 'POST', bookingData);
+
+                    console.log('📥 API Response:', response);
 
                     if (response && response.success) {
                         if (response.booking) {
@@ -2082,7 +2121,17 @@
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
-                    this.showNotification(`Error: ${error.message}`, 'error');
+                    
+                    let errorMessage = 'Failed to submit booking. ';
+                    if (error.message.includes('undefined')) {
+                        errorMessage += 'Please ensure all required fields are filled out correctly.';
+                    } else if (error.message.includes('D1_TYPE_ERROR')) {
+                        errorMessage += 'Database error - please contact support if this persists.';
+                    } else {
+                        errorMessage += error.message;
+                    }
+                    
+                    this.showNotification(`Error: ${errorMessage}`, 'error');
                 } finally {
                     this.hideLoadingState(submitBtn, 'Request Booking');
                 }
@@ -2331,6 +2380,11 @@
 
             // Utility Functions
             async apiCall(endpoint, method = 'GET', data = null, token = null) {
+                // Use mock API for development/testing
+                if (this.isMockMode) {
+                    return this.mockApiCall(endpoint, method, data, token);
+                }
+
                 const url = `${this.apiBaseUrl}${endpoint}`;
                 const headers = {
                     'Content-Type': 'application/json',
@@ -2348,6 +2402,7 @@
 
                 if (data && (method === 'POST' || method === 'PUT')) {
                     config.body = JSON.stringify(data);
+                    console.log(`🔍 Request body:`, JSON.stringify(data, null, 2));
                 }
 
                 try {
@@ -2356,12 +2411,31 @@
                     
                     if (!response.ok) {
                         let errorMessage = `HTTP ${response.status}`;
+                        let errorDetails = '';
+                        
                         try {
                             const errorData = await response.json();
                             errorMessage = errorData.error || errorMessage;
+                            errorDetails = errorData.details || '';
+                            
+                            // Handle specific D1 database errors
+                            if (errorMessage.includes('D1_TYPE_ERROR') || errorMessage.includes('undefined')) {
+                                errorMessage = 'Database validation error - some required fields may be missing or invalid';
+                                console.error('🗃️ D1 Database Error:', errorData);
+                            }
                         } catch (e) {
                             errorMessage = response.statusText || errorMessage;
                         }
+                        
+                        console.error(`❌ API Error Details:`, {
+                            status: response.status,
+                            statusText: response.statusText,
+                            url: url,
+                            method: method,
+                            errorMessage: errorMessage,
+                            errorDetails: errorDetails
+                        });
+                        
                         throw new Error(errorMessage);
                     }
 
@@ -2377,6 +2451,113 @@
                     }
                     
                     throw error;
+                }
+            }
+
+            // Mock API for testing without a backend
+            async mockApiCall(endpoint, method, data, token) {
+                console.log(`🧪 Mock API ${method} ${endpoint}`, data);
+                
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+                
+                // Mock responses based on endpoint
+                switch (endpoint) {
+                    case '/api/auth/login':
+                        if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
+                            return {
+                                success: true,
+                                token: 'mock-jwt-token-' + Date.now(),
+                                user: {
+                                    id: 1,
+                                    name: 'Demo User',
+                                    email: data.email,
+                                    phone: '(805) 555-0123',
+                                    member_since: '2024-01-01'
+                                }
+                            };
+                        } else {
+                            throw new Error('Invalid email or password');
+                        }
+                    
+                    case '/api/auth/register':
+                        if (!data.name || !data.email || !data.password) {
+                            throw new Error('Missing required fields');
+                        }
+                        return {
+                            success: true,
+                            message: 'Account created successfully'
+                        };
+                    
+                    case '/api/user/profile':
+                        return {
+                            success: true,
+                            user: {
+                                id: 1,
+                                name: 'Demo User',
+                                email: 'demo@805lifeguard.com',
+                                phone: '(805) 555-0123',
+                                address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                member_since: '2024-01-01'
+                            }
+                        };
+                    
+                    case '/api/bookings':
+                        if (method === 'GET') {
+                            // Return mock bookings
+                            const mockBookings = [
+                                {
+                                    id: 1,
+                                    service: 'swim-lesson',
+                                    date: new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0], // 3 days from now
+                                    time: '10:00 AM',
+                                    duration: 1,
+                                    participants: 1,
+                                    status: 'confirmed',
+                                    specialRequests: 'Beginner level'
+                                },
+                                {
+                                    id: 2,
+                                    service: 'lifeguard',
+                                    date: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0], // 1 week from now
+                                    time: '2:00 PM',
+                                    duration: 4,
+                                    participants: 1,
+                                    status: 'pending',
+                                    specialRequests: 'Pool party supervision'
+                                }
+                            ];
+                            return {
+                                success: true,
+                                bookings: mockBookings
+                            };
+                        } else if (method === 'POST') {
+                            // Create new booking
+                            const newBooking = {
+                                id: Date.now(),
+                                ...data,
+                                status: 'pending',
+                                created_at: new Date().toISOString()
+                            };
+                            return {
+                                success: true,
+                                booking: newBooking,
+                                message: 'Booking request submitted successfully'
+                            };
+                        }
+                        break;
+                    
+                    case '/api/availability':
+                        return {
+                            success: true,
+                            availability: {}
+                        };
+                    
+                    default:
+                        return {
+                            success: true,
+                            message: 'Mock API response'
+                        };
                 }
             }
 
