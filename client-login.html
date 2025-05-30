@@ -3593,6 +3593,312 @@
                 };
             }
 
+            // Backward Compatibility Methods (aliases for enhanced methods)
+            generateCalendar() {
+                return this.generateEnhancedCalendar();
+            }
+
+            openBookingModal() {
+                return this.openEnhancedBookingModal();
+            }
+
+            // Essential Utility Methods
+            showLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
+
+            hideLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = false;
+                button.innerHTML = text;
+            }
+
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                this.updatePortalUserInfo();
+                
+                setTimeout(() => {
+                    this.generateCalendar();
+                }, 100);
+                
+                console.log('🎉 Enhanced portal loaded successfully!');
+            }
+
+            updatePortalUserInfo() {
+                if (!this.currentUser) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const welcomeName = document.getElementById('welcomeName');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
+                if (userName) userName.textContent = this.currentUser.name || 'User';
+                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
+            }
+
+            getInitials(name) {
+                if (!name) return 'U';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
+            }
+
+            updateUpcomingBookings() {
+                const container = document.getElementById('upcomingBookingsList');
+                if (!container) return;
+                
+                const upcomingBookings = this.bookings
+                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+
+                container.innerHTML = '';
+
+                if (upcomingBookings.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: var(--space-10) var(--space-5); color: var(--gray);">
+                            <i class="fas fa-calendar-plus" style="font-size: var(--font-4xl); margin-bottom: var(--space-4); opacity: 0.3;"></i>
+                            <p style="margin-bottom: var(--space-4);">No upcoming bookings</p>
+                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: var(--space-4);">
+                                <i class="fas fa-plus"></i> Book Now
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                upcomingBookings.forEach(booking => {
+                    const bookingElement = this.createBookingElement(booking);
+                    container.appendChild(bookingElement);
+                });
+            }
+
+            createBookingElement(booking) {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.className = 'booking-item';
+                
+                const statusClass = `status-${booking.status}`;
+                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+                
+                const bookingDate = new Date(booking.date);
+                const isToday = this.isToday(bookingDate);
+                const isTomorrow = this.isTomorrow(bookingDate);
+                
+                let dateDisplay = bookingDate.toLocaleDateString();
+                if (isToday) dateDisplay = 'Today';
+                else if (isTomorrow) dateDisplay = 'Tomorrow';
+
+                const serviceName = this.serviceNames[booking.service] || booking.service;
+
+                bookingDiv.innerHTML = `
+                    <div class="booking-header">
+                        <div style="font-weight: 700; color: var(--dark);">${serviceName}</div>
+                        <div class="booking-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="booking-details">
+                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-calendar"></i> ${dateDisplay}</div>
+                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                    </div>
+                `;
+
+                return bookingDiv;
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+
+            isTomorrow(date) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                return date.toDateString() === tomorrow.toDateString();
+            }
+
+            navigateMonth(direction) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
+                this.generateCalendar();
+            }
+
+            closeBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                this.resetBookingForm();
+            }
+
+            resetBookingForm() {
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) bookingForm.reset();
+                
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                    option.setAttribute('aria-checked', 'false');
+                });
+                
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                    slot.setAttribute('aria-checked', 'false');
+                });
+
+                this.selectedService = null;
+                this.selectedTime = null;
+
+                const timeSlots = document.getElementById('timeSlots');
+                if (timeSlots) timeSlots.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
+                
+                const submitBtn = document.getElementById('submitBooking');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                }
+            }
+
+            updateSelectedDateInput() {
+                const selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput && this.selectedDate) {
+                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    if (this.selectedService) {
+                        this.generateEnhancedTimeSlots();
+                    }
+                }
+            }
+
+            async getEnhancedAvailableTimeSlots(date, serviceType) {
+                let baseSlots = [];
+                
+                if (serviceType === 'swim-lesson') {
+                    baseSlots = [
+                        '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+                    ];
+                } else if (serviceType === 'lifeguard') {
+                    baseSlots = [
+                        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+                        '6:00 PM', '7:00 PM', '8:00 PM'
+                    ];
+                } else if (serviceType === 'event') {
+                    baseSlots = [
+                        '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
+                        '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'
+                    ];
+                }
+
+                const dateStr = date.toISOString().split('T')[0];
+                const existingBookings = this.bookings.filter(booking => 
+                    booking.date === dateStr && booking.status !== 'cancelled'
+                );
+
+                return baseSlots.map(time => ({
+                    time,
+                    available: !existingBookings.some(booking => booking.time === time)
+                }));
+            }
+
+            togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleBtn = document.getElementById('passwordToggle');
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            }
+
+            toggleRegistrationPassword() {
+                const passwordInput = document.getElementById('regPassword');
+                const toggleBtn = document.getElementById('regPasswordToggle');
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            }
+
+            showRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            closeRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    
+                    document.getElementById('registrationForm').reset();
+                    document.getElementById('registrationError').classList.add('hidden');
+                }
+            }
+
+            showAccountSettings() {
+                this.showEnhancedNotification('Account settings coming soon!', 'info');
+            }
+
+            showAllBookings() {
+                this.openBookingModal();
+            }
+
+            handleLogout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    this.clearSecureToken();
+                    this.currentUser = null;
+                    this.bookings = [];
+                    this.availabilityData = {};
+                    
+                    document.getElementById('loginForm').reset();
+                    this.showLogin();
+                    this.showEnhancedNotification('Successfully logged out. See you next time!', 'info');
+                }
+            }
+
+            selectDifferentDate() {
+                this.closeBookingModal();
+                setTimeout(() => {
+                    const calendar = document.getElementById('calendarGrid');
+                    if (calendar) {
+                        calendar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
+            }
+
             scrollToSection(sectionId) {
                 const element = document.getElementById(sectionId);
                 if (element) {
@@ -3637,8 +3943,91 @@
                             throw new Error('Invalid email or password');
                         }
                     
+                    case '/api/auth/register':
+                        if (!data.name || !data.email || !data.password) {
+                            throw new Error('Missing required fields');
+                        }
+                        return {
+                            success: true,
+                            message: 'Account created successfully'
+                        };
+                    
+                    case '/api/user/profile':
+                        return {
+                            success: true,
+                            user: {
+                                id: 1,
+                                name: 'Demo User',
+                                email: 'demo@805lifeguard.com',
+                                phone: '(805) 555-0123',
+                                address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                member_since: '2024-01-01'
+                            }
+                        };
+                    
+                    case '/api/bookings':
+                        if (method === 'GET') {
+                            // Return mock bookings
+                            const mockBookings = [
+                                {
+                                    id: 1,
+                                    service: 'swim-lesson',
+                                    date: new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0], // 3 days from now
+                                    time: '10:00 AM',
+                                    duration: 1,
+                                    participants: 1,
+                                    status: 'confirmed',
+                                    specialRequests: 'Beginner level'
+                                },
+                                {
+                                    id: 2,
+                                    service: 'lifeguard',
+                                    date: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0], // 1 week from now
+                                    time: '2:00 PM',
+                                    duration: 4,
+                                    participants: 1,
+                                    status: 'pending',
+                                    specialRequests: 'Pool party supervision'
+                                }
+                            ];
+                            return {
+                                success: true,
+                                bookings: mockBookings
+                            };
+                        } else if (method === 'POST') {
+                            // Create new booking
+                            const newBooking = {
+                                id: Date.now(),
+                                ...data,
+                                status: 'pending',
+                                created_at: new Date().toISOString()
+                            };
+                            return {
+                                success: true,
+                                booking: newBooking,
+                                message: 'Booking request submitted successfully'
+                            };
+                        }
+                        break;
+                    
+                    case '/api/availability':
+                        return {
+                            success: true,
+                            availability: {}
+                        };
+                        
+                    case '/api/user/preferences':
+                        return {
+                            success: true,
+                            preferences: {
+                                notifications: true,
+                                newsletter: true,
+                                theme: 'light'
+                            }
+                        };
+                    
                     default:
-                        return super.mockApiCall?.call(this, endpoint, method, data, token) || {
+                        return {
                             success: true,
                             message: 'Enhanced mock API response'
                         };
