@@ -34,9 +34,9 @@ class LifeGuardPortalSystem {
                 }
             },
             
-            // Unified API Endpoints
+            // Unified API Endpoints - Enhanced Mapping
             endpoints: {
-                // Authentication
+                // Authentication Endpoints
                 login: '/api/auth/login',
                 register: '/api/auth/register',
                 logout: '/api/auth/logout',
@@ -49,6 +49,8 @@ class LifeGuardPortalSystem {
                 adminBookings: '/api/admin/bookings',
                 adminStats: '/api/admin/bookings/stats',
                 adminExport: '/api/admin/export',
+                adminStaff: '/api/admin/staff',
+                adminAnalytics: '/api/admin/analytics',
                 
                 // Staff Endpoints
                 staffLogin: '/api/staff/login',
@@ -57,6 +59,10 @@ class LifeGuardPortalSystem {
                 staffTimeTracking: '/api/staff/time-tracking',
                 staffIncidents: '/api/staff/incidents',
                 staffTraining: '/api/staff/training',
+                staffClockIn: '/api/staff/clock-in',
+                staffClockOut: '/api/staff/clock-out',
+                staffBreak: '/api/staff/break',
+                staffReturn: '/api/staff/return',
                 
                 // Client Endpoints
                 clientProfile: '/api/user/profile',
@@ -67,7 +73,8 @@ class LifeGuardPortalSystem {
                 
                 // Shared Endpoints
                 systemStatus: '/api/system/status',
-                emergencyAlert: '/api/emergency/alert'
+                emergencyAlert: '/api/emergency/alert',
+                systemLogError: '/api/system/log-error'
             },
             
             // Unified Styling Configuration
@@ -84,6 +91,9 @@ class LifeGuardPortalSystem {
                 
                 gradients: {
                     primary: 'linear-gradient(135deg, #1e88e5 0%, #26a69a 100%)',
+                    admin: 'linear-gradient(135deg, #1e88e5 0%, #ff6b35 50%, #1565c0 100%)',
+                    staff: 'linear-gradient(135deg, #1e88e5 0%, #26a69a 50%, #1565c0 100%)',
+                    client: 'linear-gradient(135deg, #1e88e5 0%, #42a5f5 50%, #26a69a 100%)',
                     gold: 'linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #fff176 100%)',
                     glass: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%)'
                 },
@@ -143,6 +153,8 @@ class LifeGuardPortalSystem {
         };
         
         // Initialize system
+        this.requestCache = new Map();
+        this.rateLimitTracker = new Map();
         this.init();
     }
     
@@ -164,17 +176,18 @@ class LifeGuardPortalSystem {
         console.log('✅ Portal system initialized successfully');
     }
     
-    // Unified API Call Method
+    // Enhanced API Call Method with Better Error Handling
     async apiCall(endpoint, method = 'GET', data = null, options = {}) {
         const {
-            portal = 'client',
+            portal = this.detectCurrentPortal(),
             useCache = true,
             timeout = 30000,
-            retries = 3
+            retries = 3,
+            mockMode = false
         } = options;
         
-        // Check if we should use mock mode
-        if (this.shouldUseMockMode()) {
+        // Check if we should use mock mode for demo
+        if (mockMode || this.shouldUseMockMode()) {
             return this.mockApiCall(endpoint, method, data, portal);
         }
         
@@ -208,7 +221,7 @@ class LifeGuardPortalSystem {
             headers['Authorization'] = `Bearer ${token}`;
         }
         
-        // Add CSRF token if enabled
+        // Add CSRF token if enabled (simplified for CORS compatibility)
         if (this.config.security.csrfProtection) {
             const csrfToken = this.getCSRFToken();
             if (csrfToken) {
@@ -219,7 +232,7 @@ class LifeGuardPortalSystem {
         const requestConfig = {
             method,
             headers,
-            credentials: 'omit'
+            credentials: 'omit' // For cross-origin requests
         };
         
         if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
@@ -228,7 +241,7 @@ class LifeGuardPortalSystem {
         
         let lastError;
         
-        // Retry logic
+        // Retry logic with exponential backoff
         for (let attempt = 1; attempt <= retries; attempt++) {
             try {
                 console.log(`🌐 API ${method} ${endpoint} (attempt ${attempt}/${retries})`);
@@ -277,325 +290,368 @@ class LifeGuardPortalSystem {
             }
         }
         
+        // If all retries failed, fall back to mock mode for demo purposes
+        if (this.config.environment === 'development' || this.config.environment === 'demo') {
+            console.warn('🎭 API failed, falling back to mock mode for demo');
+            return this.mockApiCall(endpoint, method, data, portal);
+        }
+        
         throw lastError;
     }
     
-    // Mock API for development and demo purposes
+    // Enhanced Mock API for Demo Mode
     async mockApiCall(endpoint, method, data, portal) {
-        console.log(`🧪 Mock API ${method} ${endpoint}`, data);
+        console.log(`🎭 Mock API ${method} ${endpoint}`, data);
         
         // Simulate realistic network delay
         await new Promise(resolve => 
             setTimeout(resolve, 300 + Math.random() * 700)
         );
         
-        // Enhanced mock responses
+        // Enhanced mock responses based on endpoint and portal
         switch (endpoint) {
-            case 'adminLogin':
-            case '/api/admin/login':
-                if (method === 'POST') {
-                    if (data.email === 'admin@805lifeguard.com' && data.password === 'admin123') {
-                        return {
-                            success: true,
-                            token: 'mock-admin-token-' + Date.now(),
-                            admin: {
-                                id: 1,
-                                name: 'Admin User',
-                                email: data.email,
-                                role: 'admin',
-                                permissions: ['all']
-                            }
-                        };
-                    } else {
-                        throw new Error('Invalid admin credentials');
-                    }
-                } else if (method === 'GET') {
-                    return {
-                        success: true,
-                        admin: {
-                            id: 1,
-                            name: 'Admin User',
-                            email: 'admin@805lifeguard.com',
-                            role: 'admin',
-                            permissions: ['all']
-                        }
-                    };
-                }
-                break;
-                
-            case 'staffLogin':
-            case '/api/staff/login':
-                if (method === 'POST') {
-                    if (data.email === 'staff@805lifeguard.com' && data.password === 'staff123') {
-                        return {
-                            success: true,
-                            token: 'mock-staff-token-' + Date.now(),
-                            staff: {
-                                id: 2,
-                                name: 'Staff Member',
-                                email: data.email,
-                                role: 'employee',
-                                department: 'Lifeguards',
-                                rating: 4.8
-                            }
-                        };
-                    } else {
-                        throw new Error('Invalid staff credentials');
-                    }
-                }
-                break;
-                
-            case 'staffProfile':
-            case '/api/staff/profile':
-                return {
-                    success: true,
-                    staff: {
-                        id: 2,
-                        name: 'Staff Member',
-                        email: 'staff@805lifeguard.com',
-                        role: 'employee',
-                        department: 'Lifeguards',
-                        rating: 4.8,
-                        hireDate: '2024-01-15'
-                    }
-                };
-                
-            case 'staffSchedule':
-            case '/api/staff/schedule':
-                const mockSchedule = [];
-                for (let i = 1; i <= 7; i++) {
-                    const date = new Date();
-                    date.setDate(date.getDate() + i);
-                    mockSchedule.push({
-                        id: i,
-                        date: date.toISOString().split('T')[0],
-                        startTime: '09:00',
-                        endTime: '17:00',
-                        location: 'Main Pool',
-                        type: 'Regular Shift'
-                    });
-                }
-                return {
-                    success: true,
-                    schedule: mockSchedule
-                };
-                
-            case 'staffTimeTracking':
-            case '/api/staff/time-tracking':
-                const mockTimeEntries = [];
-                for (let i = 0; i < 5; i++) {
-                    const date = new Date();
-                    date.setDate(date.getDate() - i);
-                    mockTimeEntries.push({
-                        id: i + 1,
-                        date: date.toISOString().split('T')[0],
-                        hours: 8,
-                        clockIn: '09:00',
-                        clockOut: '17:00',
-                        breaks: 1
-                    });
-                }
-                return {
-                    success: true,
-                    entries: mockTimeEntries
-                };
-                
-            case 'staffTraining':
-            case '/api/staff/training':
-                return {
-                    success: true,
-                    training: [
-                        { id: 1, name: 'CPR Certification', completed: true, expires: '2025-12-31' },
-                        { id: 2, name: 'First Aid', completed: true, expires: '2025-12-31' },
-                        { id: 3, name: 'Water Safety', completed: false, deadline: '2025-02-15' },
-                        { id: 4, name: 'Customer Service', completed: true, expires: '2026-01-15' }
-                    ]
-                };
-                
-            case 'adminCustomers':
-            case '/api/admin/customers':
-                const mockCustomers = [];
-                for (let i = 1; i <= 25; i++) {
-                    mockCustomers.push({
-                        id: i,
-                        name: `Customer ${i}`,
-                        email: `customer${i}@example.com`,
-                        phone: `(805) 555-0${i.toString().padStart(3, '0')}`,
-                        joinDate: '2024-01-15',
-                        totalBookings: Math.floor(Math.random() * 20) + 1,
-                        status: Math.random() > 0.1 ? 'active' : 'inactive'
-                    });
-                }
-                return {
-                    success: true,
-                    customers: mockCustomers
-                };
-                
-            case 'adminBookings':
-            case '/api/admin/bookings':
-                const mockBookings = [];
-                for (let i = 1; i <= 50; i++) {
-                    const date = new Date();
-                    date.setDate(date.getDate() + Math.floor(Math.random() * 30) - 15);
-                    mockBookings.push({
-                        id: i,
-                        customerId: Math.floor(Math.random() * 25) + 1,
-                        customerName: `Customer ${Math.floor(Math.random() * 25) + 1}`,
-                        service: ['swim-lesson', 'lifeguard', 'event'][Math.floor(Math.random() * 3)],
-                        date: date.toISOString().split('T')[0],
-                        time: ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'][Math.floor(Math.random() * 4)],
-                        duration: [1, 1.5, 2, 3][Math.floor(Math.random() * 4)],
-                        status: ['pending', 'confirmed', 'completed', 'cancelled'][Math.floor(Math.random() * 4)],
-                        cost: Math.floor(Math.random() * 200) + 50
-                    });
-                }
-                return {
-                    success: true,
-                    bookings: mockBookings
-                };
-                
-            case 'adminStats':
-            case '/api/admin/bookings/stats':
-                return {
-                    success: true,
-                    analytics: {
-                        totalRevenue: 25680,
-                        monthlyBookings: 120,
-                        customerSatisfaction: 4.7,
-                        averageBookingValue: 85
-                    }
-                };
-                
+            // Authentication Endpoints
             case 'login':
-            case '/api/auth/login':
-                if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
-                    return {
-                        success: true,
-                        token: 'mock-client-token-' + Date.now(),
-                        user: {
-                            id: 3,
-                            name: 'Demo User',
-                            email: data.email,
-                            phone: '(805) 555-0123',
-                            address: '123 Ocean View Dr, Thousand Oaks, CA',
-                            member_since: '2024-01-15'
-                        }
-                    };
-                } else {
-                    throw new Error('Invalid email or password');
-                }
-                
+            case 'adminLogin':
+            case 'staffLogin':
+                return this.mockLogin(data, portal);
+            
             case 'register':
-            case '/api/auth/register':
-                if (!data.name || !data.email || !data.password) {
-                    throw new Error('Missing required fields');
-                }
-                return {
-                    success: true,
-                    message: 'Account created successfully'
-                };
-                
+                return this.mockRegister(data);
+            
+            // Profile Endpoints
             case 'clientProfile':
-            case '/api/user/profile':
-                if (method === 'GET') {
-                    return {
-                        success: true,
-                        user: {
-                            id: 3,
-                            name: 'Demo User',
-                            email: 'demo@805lifeguard.com',
-                            phone: '(805) 555-0123',
-                            address: '123 Ocean View Dr, Thousand Oaks, CA',
-                            member_since: '2024-01-01'
-                        }
-                    };
-                } else if (method === 'PUT') {
-                    return {
-                        success: true,
-                        message: 'Profile updated successfully',
-                        user: { id: 3, ...data }
-                    };
-                }
-                break;
-                
+            case 'staffProfile':
+                return this.mockProfile(portal);
+            
+            // Admin Endpoints
+            case 'adminCustomers':
+                return this.mockAdminCustomers();
+            
+            case 'adminBookings':
+                return this.mockAdminBookings();
+            
+            case 'adminStats':
+                return this.mockAdminStats();
+            
+            case 'adminStaff':
+                return this.mockAdminStaff();
+            
+            // Staff Endpoints
+            case 'staffSchedule':
+                return this.mockStaffSchedule();
+            
+            case 'staffTimeTracking':
+                return this.mockStaffTimeTracking();
+            
+            case 'staffTraining':
+                return this.mockStaffTraining();
+            
+            case 'staffClockIn':
+            case 'staffClockOut':
+            case 'staffBreak':
+            case 'staffReturn':
+                return this.mockClockOperation(endpoint, data);
+            
+            // Client Endpoints
             case 'clientBookings':
-            case '/api/bookings':
-                if (method === 'GET') {
-                    const mockClientBookings = [
-                        {
-                            id: 1,
-                            service: 'swim-lesson',
-                            date: new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0],
-                            time: '10:00 AM',
-                            duration: 1,
-                            participants: 1,
-                            status: 'confirmed',
-                            cost: 75
-                        },
-                        {
-                            id: 2,
-                            service: 'lifeguard',
-                            date: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0],
-                            time: '2:00 PM',
-                            duration: 4,
-                            participants: 1,
-                            status: 'pending',
-                            cost: 200
-                        }
-                    ];
-                    return {
-                        success: true,
-                        bookings: mockClientBookings
-                    };
-                } else if (method === 'POST') {
-                    const newBooking = {
-                        id: Date.now(),
-                        ...data,
-                        status: 'pending',
-                        created_at: new Date().toISOString()
-                    };
-                    return {
-                        success: true,
-                        booking: newBooking,
-                        message: 'Booking request submitted successfully'
-                    };
-                }
-                break;
-                
+                return this.mockClientBookings();
+            
             case 'clientAvailability':
-            case '/api/availability':
-                return {
-                    success: true,
-                    availability: {}
-                };
-                
+                return this.mockClientAvailability();
+            
+            case 'clientPreferences':
+                return this.mockClientPreferences(method, data);
+            
+            // Booking Operations
+            case '/api/bookings':
+                if (method === 'POST') {
+                    return this.mockCreateBooking(data);
+                }
+                return this.mockClientBookings();
+            
+            // System Endpoints
+            case 'systemStatus':
+                return { success: true, status: 'operational', timestamp: new Date().toISOString() };
+            
             default:
-                return {
-                    success: true,
-                    message: 'Mock API response for ' + endpoint
-                };
+                return { success: true, message: 'Mock API response for ' + endpoint };
         }
+    }
+    
+    // Mock Response Generators
+    mockLogin(credentials, portal) {
+        const validCredentials = {
+            admin: { email: 'admin@805lifeguard.com', password: 'admin123' },
+            staff: { email: 'staff@805lifeguard.com', password: 'staff123' },
+            client: { email: 'demo@805lifeguard.com', password: 'demo123' }
+        };
+        
+        const valid = validCredentials[portal];
+        if (valid && credentials.email === valid.email && credentials.password === valid.password) {
+            return {
+                success: true,
+                token: `mock-${portal}-token-${Date.now()}`,
+                [portal]: {
+                    id: 1,
+                    name: portal === 'admin' ? 'Admin User' : portal === 'staff' ? 'Staff Member' : 'Demo User',
+                    email: credentials.email,
+                    role: portal,
+                    member_since: '2024-01-15',
+                    preferences: this.getDefaultPreferences()
+                }
+            };
+        } else {
+            throw new Error('Invalid email or password');
+        }
+    }
+    
+    mockRegister(data) {
+        if (!data.name || !data.email || !data.password) {
+            throw new Error('Missing required fields');
+        }
+        return {
+            success: true,
+            message: 'Account created successfully'
+        };
+    }
+    
+    mockProfile(portal) {
+        return {
+            success: true,
+            [portal]: {
+                id: 1,
+                name: portal === 'admin' ? 'Admin User' : portal === 'staff' ? 'Staff Member' : 'Demo User',
+                email: `${portal}@805lifeguard.com`,
+                role: portal,
+                member_since: '2024-01-15',
+                preferences: this.getDefaultPreferences()
+            }
+        };
+    }
+    
+    mockAdminCustomers() {
+        return {
+            success: true,
+            customers: [
+                { id: 1, name: 'John Smith', email: 'john@example.com', bookings: 5, status: 'active' },
+                { id: 2, name: 'Sarah Johnson', email: 'sarah@example.com', bookings: 3, status: 'active' },
+                { id: 3, name: 'Mike Brown', email: 'mike@example.com', bookings: 8, status: 'active' }
+            ]
+        };
+    }
+    
+    mockAdminBookings() {
+        return {
+            success: true,
+            bookings: this.generateMockBookings(15)
+        };
+    }
+    
+    mockAdminStats() {
+        return {
+            success: true,
+            analytics: {
+                totalRevenue: 45750,
+                totalBookings: 127,
+                totalCustomers: 89,
+                activeStaff: 12,
+                monthlyGrowth: 15.3
+            }
+        };
+    }
+    
+    mockAdminStaff() {
+        return {
+            success: true,
+            staff: [
+                { id: 1, name: 'Alex Wilson', role: 'Senior Lifeguard', status: 'active', certifications: 4 },
+                { id: 2, name: 'Emma Davis', role: 'Swim Instructor', status: 'active', certifications: 3 },
+                { id: 3, name: 'Ryan Miller', role: 'Pool Manager', status: 'active', certifications: 5 }
+            ]
+        };
+    }
+    
+    mockStaffSchedule() {
+        const schedule = [];
+        const startDate = new Date();
+        for (let i = 0; i < 14; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+            if (i % 3 !== 0) { // Not every day
+                schedule.push({
+                    id: i + 1,
+                    date: date.toISOString().split('T')[0],
+                    start_time: '09:00',
+                    end_time: '17:00',
+                    position: 'Lifeguard',
+                    location: 'Main Pool'
+                });
+            }
+        }
+        return { success: true, schedule };
+    }
+    
+    mockStaffTimeTracking() {
+        const entries = [];
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7);
+        
+        for (let i = 0; i < 5; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+            entries.push({
+                id: i + 1,
+                date: date.toISOString().split('T')[0],
+                clock_in: '09:00',
+                clock_out: '17:00',
+                break_time: 60,
+                hours: 7.0
+            });
+        }
+        return { success: true, entries };
+    }
+    
+    mockStaffTraining() {
+        return {
+            success: true,
+            training: [
+                { id: 1, title: 'CPR Certification', completed: true, expires: '2025-12-31' },
+                { id: 2, title: 'First Aid Training', completed: true, expires: '2025-06-30' },
+                { id: 3, title: 'Water Safety Instructor', completed: false, required: true },
+                { id: 4, title: 'Emergency Response', completed: true, expires: '2025-09-15' }
+            ]
+        };
+    }
+    
+    mockClockOperation(operation, data) {
+        const operationMap = {
+            'staffClockIn': 'clocked in',
+            'staffClockOut': 'clocked out',
+            'staffBreak': 'started break',
+            'staffReturn': 'returned from break'
+        };
         
         return {
-            success: false,
-            error: 'Mock endpoint not implemented: ' + endpoint
+            success: true,
+            message: `Successfully ${operationMap[operation]}`,
+            timestamp: data.timestamp || new Date().toISOString()
+        };
+    }
+    
+    mockClientBookings() {
+        return {
+            success: true,
+            bookings: this.generateMockBookings(5, true)
+        };
+    }
+    
+    mockClientAvailability() {
+        return {
+            success: true,
+            availability: {}
+        };
+    }
+    
+    mockClientPreferences(method, data) {
+        if (method === 'PUT') {
+            return {
+                success: true,
+                message: 'Preferences updated successfully',
+                preferences: data
+            };
+        }
+        return {
+            success: true,
+            preferences: this.getDefaultPreferences()
+        };
+    }
+    
+    mockCreateBooking(data) {
+        const newBooking = {
+            id: Date.now(),
+            ...data,
+            status: 'pending',
+            cost: this.calculateBookingCost(data),
+            created_at: new Date().toISOString()
+        };
+        
+        return {
+            success: true,
+            booking: newBooking,
+            message: 'Booking request submitted successfully'
+        };
+    }
+    
+    // Helper Methods
+    generateMockBookings(count, clientView = false) {
+        const bookings = [];
+        const services = ['swim-lesson', 'lifeguard', 'event'];
+        const statuses = ['confirmed', 'pending', 'cancelled'];
+        
+        for (let i = 0; i < count; i++) {
+            const futureDate = new Date();
+            futureDate.setDate(futureDate.getDate() + Math.floor(Math.random() * 30));
+            
+            bookings.push({
+                id: i + 1,
+                service: services[Math.floor(Math.random() * services.length)],
+                date: futureDate.toISOString().split('T')[0],
+                time: ['9:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'][Math.floor(Math.random() * 4)],
+                duration: [1, 1.5, 2, 3][Math.floor(Math.random() * 4)],
+                participants: Math.floor(Math.random() * 4) + 1,
+                status: clientView ? 'confirmed' : statuses[Math.floor(Math.random() * statuses.length)],
+                cost: Math.floor(Math.random() * 200) + 50,
+                customer_name: clientView ? undefined : ['John Smith', 'Sarah Johnson', 'Mike Brown'][Math.floor(Math.random() * 3)]
+            });
+        }
+        
+        return bookings;
+    }
+    
+    calculateBookingCost(booking) {
+        const baseCosts = {
+            'swim-lesson': 75,
+            'lifeguard': 45,
+            'event': 100
+        };
+        
+        const baseCost = baseCosts[booking.service] || 50;
+        return baseCost * booking.duration * booking.participants;
+    }
+    
+    getDefaultPreferences() {
+        return {
+            emailBookingConfirmations: true,
+            emailReminders: true,
+            emailPromotions: false,
+            emailNewsletter: true,
+            smsReminders: false,
+            smsUpdates: false,
+            theme: 'light',
+            language: 'en',
+            dateFormat: 'MM/DD/YYYY',
+            reducedMotion: false,
+            highContrast: false,
+            largeFonts: false
         };
     }
     
     shouldUseMockMode() {
-        // Use mock mode if:
-        // 1. Running on localhost
-        // 2. No internet connection
-        // 3. API is down
-        // 4. Explicitly enabled for demo
+        // Auto-enable mock mode if API is unreachable or in development
+        return this.config.environment === 'development' || 
+               this.config.environment === 'demo' ||
+               !navigator.onLine;
+    }
+    
+    detectCurrentPortal() {
+        const path = window.location.pathname;
         
-        const isLocalhost = window.location.hostname === 'localhost' || 
-                          window.location.hostname === '127.0.0.1' ||
-                          window.location.hostname === '';
+        if (path.includes('admin')) return 'admin';
+        if (path.includes('employee') || path.includes('staff')) return 'staff';
+        if (path.includes('client')) return 'client';
         
-        const isDemoMode = localStorage.getItem('lifeguard_demo_mode') === 'true';
-        
-        return isLocalhost || isDemoMode || this.config.environment === 'development';
+        return 'client'; // Default fallback
     }
     
     // Authentication Methods
@@ -695,24 +751,14 @@ class LifeGuardPortalSystem {
         });
         
         // Add navigation tracking
-        url.searchParams.set('from', this.getCurrentPortalType());
+        url.searchParams.set('from', this.detectCurrentPortal());
         url.searchParams.set('t', Date.now().toString());
         
         console.log(`🔄 Navigating to ${portalType} portal`);
         window.location.href = url.toString();
     }
     
-    getCurrentPortalType() {
-        const path = window.location.pathname;
-        
-        if (path.includes('admin')) return 'admin';
-        if (path.includes('employee') || path.includes('staff')) return 'staff';
-        if (path.includes('client')) return 'client';
-        
-        return 'hub';
-    }
-    
-    // Unified Notification System
+    // Enhanced Notification System
     showNotification(message, type = 'info', options = {}) {
         const {
             title = type.charAt(0).toUpperCase() + type.slice(1),
@@ -742,7 +788,7 @@ class LifeGuardPortalSystem {
                     ${actions.length > 0 ? `
                         <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
                             ${actions.map(action => `
-                                <button onclick="${action.handler}" style="
+                                <button onclick="${action.action ? action.action.toString() : ''}" style="
                                     background: rgba(255,255,255,0.2);
                                     border: 1px solid rgba(255,255,255,0.3);
                                     color: inherit;
@@ -834,7 +880,7 @@ class LifeGuardPortalSystem {
                 message,
                 location,
                 timestamp: new Date().toISOString(),
-                portalType: this.getCurrentPortalType()
+                portalType: this.detectCurrentPortal()
             });
             
             // Show urgent notification
@@ -842,8 +888,8 @@ class LifeGuardPortalSystem {
                 title: '🚨 EMERGENCY ALERT',
                 persistent: true,
                 actions: [
-                    { text: 'Call 911', handler: 'window.open("tel:911")' },
-                    { text: 'Contact Manager', handler: 'window.open("tel:8053676432")' }
+                    { text: 'Call 911', action: () => window.open('tel:911') },
+                    { text: 'Contact Manager', action: () => window.open('tel:8053676432') }
                 ]
             });
             
@@ -985,7 +1031,12 @@ class LifeGuardPortalSystem {
         const windowStart = now - 60000; // 1 minute window
         
         const key = `lg_rate_${endpoint}`;
-        const requests = JSON.parse(sessionStorage.getItem(key) || '[]');
+        
+        if (!this.rateLimitTracker.has(key)) {
+            this.rateLimitTracker.set(key, []);
+        }
+        
+        const requests = this.rateLimitTracker.get(key);
         
         // Remove old requests
         const recentRequests = requests.filter(time => time > windowStart);
@@ -995,7 +1046,7 @@ class LifeGuardPortalSystem {
         }
         
         recentRequests.push(now);
-        sessionStorage.setItem(key, JSON.stringify(recentRequests));
+        this.rateLimitTracker.set(key, recentRequests);
         
         return true;
     }
@@ -1037,7 +1088,7 @@ class LifeGuardPortalSystem {
                 stack: event.error?.stack,
                 filename: event.filename,
                 line: event.lineno,
-                portal: this.getCurrentPortalType(),
+                portal: this.detectCurrentPortal(),
                 userAgent: navigator.userAgent,
                 timestamp: new Date().toISOString()
             });
@@ -1050,7 +1101,7 @@ class LifeGuardPortalSystem {
             this.logError({
                 message: 'Unhandled Promise Rejection',
                 reason: event.reason?.toString(),
-                portal: this.getCurrentPortalType(),
+                portal: this.detectCurrentPortal(),
                 timestamp: new Date().toISOString()
             });
             
@@ -1060,7 +1111,7 @@ class LifeGuardPortalSystem {
     
     async logError(errorData) {
         try {
-            await this.apiCall('/api/system/log-error', 'POST', errorData, {
+            await this.apiCall('systemLogError', 'POST', errorData, {
                 timeout: 5000,
                 retries: 1
             });
