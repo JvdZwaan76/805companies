@@ -1652,28 +1652,68 @@
                     </button>
                 </div>
                 
-                <!-- Demo Credentials Helper -->
+                <!-- Integration Status Helper -->
                 <div style="margin-top: var(--space-6); padding: var(--space-4); background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: var(--radius-lg); font-size: var(--font-sm);">
                     <p style="margin-bottom: var(--space-2); font-weight: 600; color: var(--primary);">
-                        <i class="fas fa-info-circle"></i> Demo Login Available
+                        <i class="fas fa-link"></i> Unified Portal System Integration
                     </p>
-                    <p style="color: var(--gray); margin-bottom: var(--space-2);">
-                        Email: <strong>demo@805lifeguard.com</strong><br>
-                        Password: <strong>demo123</strong>
-                    </p>
-                    <button type="button" onclick="portal.fillDemoCredentials()" style="
-                        background: var(--secondary);
-                        color: white;
-                        border: none;
-                        padding: var(--space-2) var(--space-3);
-                        border-radius: var(--radius-md);
-                        font-size: var(--font-xs);
-                        font-weight: 600;
-                        cursor: pointer;
-                        transition: var(--transition-smooth);
-                    ">
-                        <i class="fas fa-magic"></i> Fill Demo Credentials
-                    </button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-3);">
+                        <div>
+                            <p style="color: var(--gray); margin-bottom: var(--space-2); font-weight: 600;">Demo Login:</p>
+                            <p style="color: var(--gray); font-size: var(--font-xs);">
+                                Email: <strong>demo@805lifeguard.com</strong><br>
+                                Password: <strong>demo123</strong>
+                            </p>
+                        </div>
+                        <div>
+                            <p style="color: var(--gray); margin-bottom: var(--space-2); font-weight: 600;">System Status:</p>
+                            <div id="portalSystemStatus" style="font-size: var(--font-xs);">
+                                <span style="color: var(--success);">✅ Portal System Connected</span><br>
+                                <span style="color: var(--info);">🎭 Mock Mode Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                        <button type="button" onclick="portal.fillDemoCredentials()" style="
+                            background: var(--secondary);
+                            color: white;
+                            border: none;
+                            padding: var(--space-2) var(--space-3);
+                            border-radius: var(--radius-md);
+                            font-size: var(--font-xs);
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: var(--transition-smooth);
+                        ">
+                            <i class="fas fa-magic"></i> Fill Demo Credentials
+                        </button>
+                        <button type="button" onclick="portal.showDatabaseSetupInstructions()" style="
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            padding: var(--space-2) var(--space-3);
+                            border-radius: var(--radius-md);
+                            font-size: var(--font-xs);
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: var(--transition-smooth);
+                        ">
+                            <i class="fas fa-cog"></i> Integration Status
+                        </button>
+                        <button type="button" onclick="portalSystem?.healthCheck() || console.log('Portal system not available')" style="
+                            background: var(--info);
+                            color: white;
+                            border: none;
+                            padding: var(--space-2) var(--space-3);
+                            border-radius: var(--radius-md);
+                            font-size: var(--font-xs);
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: var(--transition-smooth);
+                        ">
+                            <i class="fas fa-heartbeat"></i> System Health
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -2010,19 +2050,42 @@
                 this.bookings = [];
                 this.availabilityData = {};
                 
-                // Production Configuration
+                // PRODUCTION CONFIGURATION - UPDATE THESE SETTINGS
                 this.config = {
-                    apiBaseUrl: 'https://lifeguard-portal-app.jaspervdz.workers.dev',
+                    // 🔧 CHANGE THIS TO YOUR LIVE API URL
+                    apiBaseUrl: 'https://lifeguard-portal-app.jaspervdz.workers.dev', // Replace with your backend URL
+                    
+                    // Alternative: Use your own backend
+                    // apiBaseUrl: 'https://yourdomain.com/api',
+                    // apiBaseUrl: 'https://api.805lifeguard.com',
+                    // apiBaseUrl: 'http://localhost:3000/api', // For local development
+                    
                     environment: this.detectEnvironment(),
                     enableAnalytics: true,
                     enableErrorReporting: true,
                     enablePerformanceMonitoring: true,
                     cacheTimeout: 5 * 60 * 1000, // 5 minutes
-                    requestTimeout: 10000, // 10 seconds (reduced for faster fallback)
-                    maxRetries: 2, // Reduced retries for faster fallback
+                    requestTimeout: 10000, // 10 seconds
+                    maxRetries: 2,
                     retryDelay: 1000,
-                    useMockAPI: false // Will be set to true if real API fails
+                    useMockAPI: false, // Set to true to force demo mode
+                    
+                    // Database connection settings (if using direct database)
+                    database: {
+                        // These would be used if connecting directly to database
+                        // host: 'your-database-host.com',
+                        // port: 5432,
+                        // database: 'lifeguard_portal',
+                        // username: 'your-username',
+                        // password: 'your-password'
+                    }
                 };
+                
+                console.log('🔧 API Configuration:', {
+                    apiBaseUrl: this.config.apiBaseUrl,
+                    environment: this.config.environment,
+                    useMockAPI: this.config.useMockAPI
+                });
                 
                 // Production Security
                 this.security = {
@@ -2416,7 +2479,77 @@
                 }
             }
 
-            // Production Cache Management
+            // Database Connection Testing
+            async testDatabaseConnection() {
+                console.log('🔍 Testing database connection...');
+                
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/health`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ Database connection successful:', data);
+                        return { success: true, data };
+                    } else {
+                        console.error('❌ Database connection failed:', response.status);
+                        return { success: false, error: `HTTP ${response.status}` };
+                    }
+                } catch (error) {
+                    console.error('❌ Database connection error:', error);
+                    return { success: false, error: error.message };
+                }
+            }
+
+            // API Configuration Helper
+            updateApiConfiguration(newConfig) {
+                console.log('🔧 Updating API configuration:', newConfig);
+                
+                if (newConfig.apiBaseUrl) {
+                    this.config.apiBaseUrl = newConfig.apiBaseUrl;
+                }
+                
+                if (newConfig.useMockAPI !== undefined) {
+                    this.config.useMockAPI = newConfig.useMockAPI;
+                }
+                
+                // Clear cache when configuration changes
+                this.clearCache();
+                
+                console.log('✅ API configuration updated:', {
+                    apiBaseUrl: this.config.apiBaseUrl,
+                    useMockAPI: this.config.useMockAPI
+                });
+            }
+
+            // Live Database Setup Helper
+            async setupLiveDatabase(config) {
+                console.log('🔧 Setting up live database connection...');
+                
+                // Update configuration
+                this.updateApiConfiguration(config);
+                
+                // Test the connection
+                const testResult = await this.testDatabaseConnection();
+                
+                if (testResult.success) {
+                    this.showEnhancedNotification('Successfully connected to live database!', 'success', {
+                        title: 'Database Connected',
+                        duration: 5000
+                    });
+                    return true;
+                } else {
+                    this.showEnhancedNotification(`Database connection failed: ${testResult.error}`, 'error', {
+                        title: 'Connection Error',
+                        duration: 8000
+                    });
+                    return false;
+                }
+            }
             setupCacheManagement() {
                 // Cleanup expired cache entries
                 setInterval(() => {
@@ -2931,12 +3064,14 @@
                 });
             }
 
-            // Production Authentication Handlers
+            // Production Authentication using your unified system
             async handleLogin() {
                 const email = this.sanitizeInput(document.getElementById('email').value, 'email');
                 const password = document.getElementById('password').value;
                 const loginBtn = document.getElementById('loginBtn');
                 const errorDiv = document.getElementById('loginError');
+
+                console.log('🔐 Client login attempt using unified portal system:', { email, passwordLength: password.length });
 
                 // Enhanced validation
                 if (!this.validateEmail(email)) {
@@ -2954,41 +3089,49 @@
                 this.clearFieldErrors();
 
                 try {
-                    const response = await this.apiCall('/api/auth/login', 'POST', {
+                    console.log('📡 Making API call via unified portal system');
+                    
+                    // Use your unified portal system's API call method
+                    const response = await this.portalSystem.apiCall('clientLogin', 'POST', {
                         email,
                         password,
                         timestamp: new Date().toISOString(),
                         clientVersion: '2.0'
-                    });
+                    }, { portal: 'client' });
+
+                    console.log('✅ Login response from unified system:', response);
 
                     if (response && response.success) {
-                        localStorage.setItem('authToken', response.token);
-                        this.currentUser = response.user;
-                        this.analytics.userId = response.user.id;
+                        // Store token using your unified system
+                        this.portalSystem.setAuthToken('client', response.token);
+                        this.currentUser = response.client; // Note: your system returns 'client' not 'user'
                         
                         await this.playSuccessAnimation(loginBtn);
                         await this.loadUserData();
                         
                         setTimeout(() => {
                             this.showPortal();
-                            this.showEnhancedNotification('Welcome back! Successfully signed in.', 'success', {
+                            // Use your unified notification system
+                            this.portalSystem.showNotification('Welcome back! Successfully signed in.', 'success', {
                                 title: 'Login Successful'
                             });
-                            this.trackEvent('user_login', { userId: response.user.id });
+                            this.trackEvent('user_login', { userId: response.client.id });
                         }, 1000);
                     } else {
                         throw new Error(response?.error || 'Login failed');
                     }
 
                 } catch (error) {
-                    console.error('Login error:', error);
+                    console.error('❌ Login error:', error);
                     await this.playErrorAnimation(loginBtn);
                     
                     let errorMessage = 'Login failed. Please try again.';
-                    if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+                    if (error.message.includes('Invalid credentials')) {
                         errorMessage = 'Invalid email or password. Please check your credentials and try again.';
                     } else if (error.message.includes('Rate limit')) {
                         errorMessage = 'Too many login attempts. Please wait a moment and try again.';
+                    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                        errorMessage = 'Connection error. Please check your internet connection or try demo mode.';
                     }
                     
                     errorDiv.textContent = errorMessage;
@@ -3017,11 +3160,12 @@
                 this.showLoadingState(registrationBtn, 'Creating Account...');
 
                 try {
-                    const response = await this.apiCall('/api/auth/register', 'POST', {
+                    // Use your unified portal system for registration
+                    const response = await this.portalSystem.apiCall('clientRegister', 'POST', {
                         ...formData,
                         timestamp: new Date().toISOString(),
                         clientVersion: '2.0'
-                    });
+                    }, { portal: 'client' });
 
                     if (response && response.success) {
                         await this.playSuccessAnimation(registrationBtn);
@@ -3030,7 +3174,7 @@
                         document.getElementById('email').value = formData.email;
                         
                         setTimeout(() => {
-                            this.showEnhancedNotification('Account created successfully!', 'success', {
+                            this.portalSystem.showNotification('Account created successfully!', 'success', {
                                 title: 'Welcome to 805 LifeGuard',
                                 subtitle: 'Please sign in with your new credentials',
                                 duration: 6000
@@ -3938,33 +4082,67 @@
                 );
                 
                 switch (endpoint) {
+                    case '/api/health':
+                        return {
+                            success: true,
+                            status: 'healthy',
+                            database: 'connected',
+                            version: '2.0',
+                            timestamp: new Date().toISOString()
+                        };
+                        
                     case '/api/auth/login':
-                        // Accept demo credentials OR any email/password for demo
+                        console.log('🔐 Mock login attempt:', { email: data.email, password: '***' });
+                        
+                        // Accept demo credentials OR any valid email/password combo for testing
                         if ((data.email === 'demo@805lifeguard.com' && data.password === 'demo123') ||
-                            (data.email && data.password && data.password.length >= 6)) {
+                            (this.validateEmail(data.email) && data.password && data.password.length >= 6)) {
+                            
+                            const user = {
+                                id: data.email === 'demo@805lifeguard.com' ? 'demo-user' : `user-${Date.now()}`,
+                                name: data.email === 'demo@805lifeguard.com' ? 'Demo User' : 'Client User',
+                                email: data.email,
+                                phone: '(805) 555-0123',
+                                address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                member_since: '2024-01-15'
+                            };
+                            
+                            console.log('✅ Mock login successful:', user);
+                            
                             return {
                                 success: true,
-                                token: 'demo-jwt-token-' + Date.now(),
-                                user: {
-                                    id: 'demo-user',
-                                    name: data.email === 'demo@805lifeguard.com' ? 'Demo User' : 'Client User',
-                                    email: data.email,
-                                    phone: '(805) 555-0123',
-                                    address: '123 Ocean View Dr, Thousand Oaks, CA',
-                                    member_since: '2024-01-15'
-                                }
+                                token: `mock-jwt-token-${Date.now()}`,
+                                user: user,
+                                message: 'Login successful'
                             };
                         } else {
+                            console.log('❌ Mock login failed: invalid credentials');
                             throw new Error('Invalid email or password');
                         }
                     
                     case '/api/auth/register':
+                        console.log('📝 Mock registration:', { name: data.name, email: data.email });
+                        
                         if (!data.name || !data.email || !data.password) {
                             throw new Error('Missing required fields');
                         }
+                        
+                        if (!this.validateEmail(data.email)) {
+                            throw new Error('Invalid email address');
+                        }
+                        
+                        if (data.password.length < 6) {
+                            throw new Error('Password must be at least 6 characters');
+                        }
+                        
                         return {
                             success: true,
-                            message: 'Account created successfully'
+                            message: 'Account created successfully',
+                            user: {
+                                id: `user-${Date.now()}`,
+                                name: data.name,
+                                email: data.email
+                            }
                         };
                     
                     case '/api/user/profile':
@@ -3980,25 +4158,44 @@
                                     member_since: '2024-01-01'
                                 }
                             };
+                        } else if (method === 'PUT') {
+                            return {
+                                success: true,
+                                message: 'Profile updated successfully',
+                                user: {
+                                    id: 'demo-user',
+                                    ...data,
+                                    member_since: '2024-01-01'
+                                }
+                            };
                         }
                         break;
                     
                     case '/api/bookings':
                         if (method === 'GET') {
+                            console.log('📅 Mock bookings request - returning:', this.bookings?.length || 0, 'bookings');
                             return {
                                 success: true,
-                                bookings: this.bookings || []
+                                bookings: this.bookings || [],
+                                total: this.bookings?.length || 0
                             };
                         } else if (method === 'POST') {
+                            console.log('📝 Mock booking creation:', data);
+                            
                             const newBooking = {
                                 id: Date.now(),
                                 ...data,
                                 status: 'pending',
-                                created_at: new Date().toISOString()
+                                created_at: new Date().toISOString(),
+                                cost: this.calculateBookingCost(data)
                             };
+                            
                             if (this.bookings) {
                                 this.bookings.push(newBooking);
                             }
+                            
+                            console.log('✅ Mock booking created:', newBooking);
+                            
                             return {
                                 success: true,
                                 booking: newBooking,
@@ -4008,17 +4205,188 @@
                         break;
                     
                     case '/api/availability':
+                        console.log('📊 Mock availability request');
                         return {
                             success: true,
-                            availability: this.availabilityData || {}
+                            availability: this.availabilityData || {},
+                            message: 'Availability data retrieved'
                         };
                     
                     default:
+                        console.log('❓ Mock API - unknown endpoint:', endpoint);
                         return {
                             success: true,
-                            message: 'Mock API response'
+                            message: `Mock API response for ${endpoint}`,
+                            data: data
                         };
                 }
+            }
+            
+            calculateBookingCost(booking) {
+                const baseCosts = {
+                    'swim-lesson': 75,
+                    'lifeguard': 50,
+                    'event': 100
+                };
+                
+                const baseCost = baseCosts[booking.service] || 50;
+                const duration = parseFloat(booking.duration) || 1;
+                const participants = parseInt(booking.participants) || 1;
+                
+                return baseCost * duration * Math.max(1, participants * 0.5);
+            }
+
+            showDatabaseSetupInstructions() {
+                const instructions = `
+# 805 LifeGuard Client Portal - Database Setup Instructions
+
+## 🔧 Backend API Endpoints Required
+
+Your backend needs to implement these REST API endpoints:
+
+### Authentication Endpoints:
+- POST /api/auth/login
+- POST /api/auth/register
+- GET /api/auth/validate
+
+### User Management:
+- GET /api/user/profile
+- PUT /api/user/profile
+- POST /api/user/change-password
+
+### Booking Management:
+- GET /api/bookings
+- POST /api/bookings
+- PUT /api/bookings/:id
+- DELETE /api/bookings/:id
+
+### System:
+- GET /api/health
+- GET /api/availability
+
+## 📋 Database Schema Required
+
+### Users Table:
+- id (primary key)
+- name (varchar)
+- email (varchar, unique)
+- password_hash (varchar)
+- phone (varchar)
+- address (text)
+- created_at (timestamp)
+- updated_at (timestamp)
+
+### Bookings Table:
+- id (primary key)
+- user_id (foreign key)
+- service (varchar: 'swim-lesson', 'lifeguard', 'event')
+- date (date)
+- time (varchar)
+- duration (decimal)
+- participants (integer)
+- status (varchar: 'pending', 'confirmed', 'cancelled')
+- special_requests (text)
+- created_at (timestamp)
+
+## 🚀 Quick Setup Options:
+
+1. **Update API URL**: Change 'apiBaseUrl' in the configuration
+2. **Use existing backend**: Point to your current API
+3. **Deploy new backend**: Use Node.js, PHP, Python, etc.
+
+## 📞 Need Help?
+Contact (805) 367-6432 for technical support.
+                `.trim();
+
+                // Create a modal to show instructions
+                const modal = document.createElement('div');
+                modal.className = 'modal glass-blur-strong';
+                modal.style.display = 'flex';
+                modal.style.opacity = '1';
+                modal.innerHTML = `
+                    <div class="modal-content glass-card" style="max-width: 800px;">
+                        <div class="modal-header">
+                            <div>
+                                <h2 class="modal-title">Database Setup Instructions</h2>
+                                <p style="opacity: 0.95; font-size: var(--font-lg);">Connect your live database to the portal</p>
+                            </div>
+                            <button class="modal-close" onclick="this.closest('.modal').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <pre style="
+                                background: #f8f9fa;
+                                padding: var(--space-4);
+                                border-radius: var(--radius-md);
+                                overflow-x: auto;
+                                white-space: pre-wrap;
+                                font-size: var(--font-sm);
+                                line-height: 1.4;
+                                border: 1px solid #e9ecef;
+                            ">${instructions}</pre>
+                            
+                            <div style="margin-top: var(--space-6); padding: var(--space-4); background: rgba(30, 136, 229, 0.1); border-radius: var(--radius-md);">
+                                <h3 style="margin-bottom: var(--space-3); color: var(--primary);">Quick Configuration:</h3>
+                                <div style="display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: center;">
+                                    <input type="url" id="apiUrlInput" placeholder="https://your-api.com/api" style="
+                                        padding: var(--space-3);
+                                        border: 2px solid #e9ecef;
+                                        border-radius: var(--radius-md);
+                                        font-size: var(--font-base);
+                                    ">
+                                    <button onclick="portal.updateApiConfiguration({apiBaseUrl: document.getElementById('apiUrlInput').value})" style="
+                                        background: var(--primary);
+                                        color: white;
+                                        border: none;
+                                        padding: var(--space-3) var(--space-4);
+                                        border-radius: var(--radius-md);
+                                        cursor: pointer;
+                                        font-weight: 600;
+                                    ">
+                                        Update API URL
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                                <button onclick="portal.testDatabaseConnection()" style="
+                                    background: var(--info);
+                                    color: white;
+                                    border: none;
+                                    padding: var(--space-3) var(--space-4);
+                                    border-radius: var(--radius-md);
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                ">
+                                    <i class="fas fa-database"></i> Test Connection
+                                </button>
+                                <button onclick="window.open('tel:8053676432')" style="
+                                    background: var(--success);
+                                    color: white;
+                                    border: none;
+                                    padding: var(--space-3) var(--space-4);
+                                    border-radius: var(--radius-md);
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                ">
+                                    <i class="fas fa-phone"></i> Call for Setup Help
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                document.body.style.overflow = 'hidden';
+                
+                // Auto-remove on backdrop click
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                        document.body.style.overflow = 'auto';
+                    }
+                });
             }
 
             fillDemoCredentials() {
@@ -4367,19 +4735,72 @@
         document.addEventListener('DOMContentLoaded', function() {
             try {
                 window.portal = new ProductionClientPortal();
-                console.log('🏊‍♂️ Production 805 LifeGuard Client Portal - Ready');
+                
+                // Update status indicator
+                setTimeout(() => {
+                    const statusEl = document.getElementById('portalSystemStatus');
+                    if (statusEl && window.portalSystem) {
+                        const connected = window.portalSystem ? '✅ Portal System Connected' : '❌ Portal System Missing';
+                        const mockMode = window.portalSystem?.mockMode ? '🎭 Mock Mode Active' : '🔗 Live Mode Active';
+                        statusEl.innerHTML = `<span style="color: var(--success);">${connected}</span><br><span style="color: var(--info);">${mockMode}</span>`;
+                    }
+                }, 100);
+                
+                console.log('🏊‍♂️ 805 LifeGuard Client Portal - Ready');
+                console.log('🔗 Integrated with LifeGuardPortalSystem:', !!window.portalSystem);
                 console.log('💡 Demo credentials: demo@805lifeguard.com / demo123');
                 console.log('🎯 Click "Fill Demo Credentials" or "Try Demo" to test the system');
+                console.log('⚙️ Click "Integration Status" to see connection details');
+                console.log('📊 Open Developer Tools (F12) to see detailed debugging info');
+                
+                // Add helpful debugging functions to window
+                window.portalDebug = {
+                    healthCheck: () => window.portalSystem?.healthCheck() || console.log('Portal system not available'),
+                    getSystemStatus: () => {
+                        return {
+                            portalSystemConnected: !!window.portalSystem,
+                            mockMode: window.portalSystem?.mockMode,
+                            apiBaseUrl: window.portalSystem?.apiBaseUrl,
+                            clientToken: window.portalSystem?.getAuthToken('client'),
+                            notifications: window.portalSystem?.notifications?.length || 0
+                        };
+                    },
+                    testClientLogin: () => {
+                        if (window.portalSystem) {
+                            return window.portalSystem.apiCall('clientLogin', 'POST', {
+                                email: 'demo@805lifeguard.com',
+                                password: 'demo123'
+                            }, { portal: 'client' });
+                        }
+                        return Promise.reject('Portal system not available');
+                    },
+                    clearClientToken: () => window.portalSystem?.clearAuthToken('client'),
+                    getCurrentConfig: () => window.portal?.config || {},
+                    clearCache: () => window.portal?.clearCache()
+                };
+                
+                console.log('🛠️ Debug functions available: window.portalDebug');
+                console.log('📋 Try: portalDebug.getSystemStatus()');
+                
             } catch (error) {
                 console.error('❌ Failed to initialize portal:', error);
                 
-                // Fallback error message
+                // Enhanced fallback error message
                 document.body.innerHTML = `
                     <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: #f8f9fa; font-family: sans-serif;">
-                        <div style="text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 500px;">
-                            <h1 style="color: #dc3545; margin-bottom: 20px;">Initialization Error</h1>
-                            <p style="color: #6c757d; margin-bottom: 30px;">Unable to load the client portal. Please refresh the page or contact support.</p>
-                            <button onclick="window.location.reload()" style="background: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">Refresh Page</button>
+                        <div style="text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 600px;">
+                            <h1 style="color: #dc3545; margin-bottom: 20px;">Portal Initialization Error</h1>
+                            <p style="color: #6c757d; margin-bottom: 20px;">The client portal failed to initialize. This might be due to:</p>
+                            <ul style="text-align: left; color: #6c757d; margin-bottom: 30px;">
+                                <li>Missing LifeGuardPortalSystem dependency</li>
+                                <li>JavaScript errors in the console</li>
+                                <li>Browser compatibility issues</li>
+                            </ul>
+                            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                                <button onclick="window.location.reload()" style="background: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">Refresh Page</button>
+                                <button onclick="console.log('Error details:', JSON.stringify(error, null, 2))" style="background: #6c757d; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">Show Error Details</button>
+                                <a href="tel:8053676432" style="background: #28a745; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; display: inline-block;">Call Support</a>
+                            </div>
                         </div>
                     </div>
                 `;
