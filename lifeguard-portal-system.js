@@ -183,11 +183,12 @@ class LifeGuardPortalSystem {
             useCache = true,
             timeout = 30000,
             retries = 3,
-            mockMode = false
+            mockMode = true // Always use mock mode for demo
         } = options;
         
+        console.log(`🌐 API Call: ${method} ${endpoint} (portal: ${portal}, mock: ${mockMode})`);
+        
         // Always use mock mode for now (since we're in demo)
-        console.log(`🎭 Using mock mode for ${endpoint} (portal: ${portal})`);
         return this.mockApiCall(endpoint, method, data, portal);
         
         // Get the full endpoint URL
@@ -313,9 +314,19 @@ class LifeGuardPortalSystem {
             case 'login':
                 return this.mockLogin(data, 'client');
             case 'adminLogin':
-                return this.mockLogin(data, 'admin');
+                if (method === 'POST') {
+                    return this.mockLogin(data, 'admin');
+                } else {
+                    // For GET (token validation), return admin profile
+                    return this.mockProfile('admin');
+                }
             case 'staffLogin':
-                return this.mockLogin(data, 'staff');
+                if (method === 'POST') {
+                    return this.mockLogin(data, 'staff');
+                } else {
+                    // For GET (token validation), return staff profile
+                    return this.mockProfile('staff');
+                }
             
             case 'register':
                 return this.mockRegister(data);
