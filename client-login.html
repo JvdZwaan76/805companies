@@ -1446,6 +1446,230 @@
             box-shadow: var(--shadow-medium);
         }
 
+        /* Enhanced Account Settings Styles */
+        .settings-nav {
+            display: flex;
+            background: rgba(248, 249, 250, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .settings-tab {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-4) var(--space-6);
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .settings-tab:hover {
+            background: rgba(30, 136, 229, 0.05);
+            color: var(--primary);
+        }
+
+        .settings-tab.active {
+            color: var(--primary);
+            background: rgba(30, 136, 229, 0.1);
+            border-bottom-color: var(--primary);
+        }
+
+        .settings-tab i {
+            font-size: var(--font-lg);
+        }
+
+        .settings-content {
+            min-height: 400px;
+        }
+
+        .settings-panel {
+            display: none;
+        }
+
+        .settings-panel.active {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .security-section {
+            padding: var(--space-6);
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .security-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4);
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .security-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .security-info h5 {
+            margin: 0 0 var(--space-1) 0;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .security-info p {
+            margin: 0;
+            font-size: var(--font-sm);
+            color: var(--gray);
+        }
+
+        /* Enhanced Switch Component */
+        .switch-container {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            cursor: pointer;
+        }
+
+        .switch-container input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            border-radius: 34px;
+            transition: var(--transition-smooth);
+        }
+
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .switch-container input:checked + .switch-slider {
+            background: var(--primary);
+        }
+
+        .switch-container input:checked + .switch-slider:before {
+            transform: translateX(26px);
+        }
+
+        .switch-container:hover .switch-slider {
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1);
+        }
+
+        .notification-section {
+            margin-bottom: var(--space-6);
+        }
+
+        .notification-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .notification-info {
+            flex: 1;
+        }
+
+        .notification-info h5 {
+            margin: 0 0 var(--space-1) 0;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .notification-info p {
+            margin: 0;
+            font-size: var(--font-sm);
+            color: var(--gray);
+        }
+
+        .preferences-section {
+            padding: var(--space-6);
+            background: rgba(248, 249, 250, 0.3);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: var(--space-6);
+        }
+
+        /* Enhanced Password Toggles for Settings */
+        .password-toggle[data-target] {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: var(--font-lg);
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .password-toggle[data-target]:hover {
+            color: var(--primary);
+            background: rgba(30, 136, 229, 0.1);
+        }
+
         /* Accessibility & Performance Enhancements */
         .hidden { 
             display: none !important; 
@@ -1534,6 +1758,56 @@
             
             .calendar-container {
                 padding: var(--space-6);
+            }
+
+            /* Account Settings Mobile Styles */
+            .settings-nav {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .settings-tab {
+                min-width: 120px;
+                padding: var(--space-3) var(--space-4);
+                font-size: var(--font-sm);
+            }
+
+            .settings-tab span {
+                display: none;
+            }
+
+            .settings-tab i {
+                font-size: var(--font-xl);
+            }
+
+            .settings-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .security-item,
+            .notification-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-3);
+            }
+
+            .security-item .btn-secondary,
+            .security-item .btn-cancel {
+                width: 100%;
+            }
+
+            .notification-item {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-actions .btn-primary,
+            .form-actions .btn-secondary {
+                width: 100%;
             }
         }
 
@@ -1910,7 +2184,358 @@
         </main>
     </div>
 
-    <!-- Enhanced Booking Modal -->
+    <!-- Enhanced Account Settings Modal -->
+    <div class="modal glass-blur-strong" id="accountSettingsModal" role="dialog" aria-labelledby="settings-title" aria-modal="true">
+        <div class="modal-content glass-card" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="settings-title">Account Settings</h2>
+                    <p style="opacity: 0.95; font-size: var(--font-lg);">Manage your account preferences and security</p>
+                </div>
+                <button class="modal-close" id="settingsClose" aria-label="Close account settings">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body" style="padding: 0;">
+                <!-- Settings Navigation Tabs -->
+                <div class="settings-nav" role="tablist" aria-label="Settings categories">
+                    <button class="settings-tab active" data-tab="profile" role="tab" aria-selected="true" aria-controls="profile-panel">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </button>
+                    <button class="settings-tab" data-tab="security" role="tab" aria-selected="false" aria-controls="security-panel">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </button>
+                    <button class="settings-tab" data-tab="notifications" role="tab" aria-selected="false" aria-controls="notifications-panel">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </button>
+                    <button class="settings-tab" data-tab="preferences" role="tab" aria-selected="false" aria-controls="preferences-panel">
+                        <i class="fas fa-cog"></i>
+                        <span>Preferences</span>
+                    </button>
+                </div>
+                
+                <!-- Settings Content Panels -->
+                <div class="settings-content" style="padding: var(--space-8);">
+                    
+                    <!-- Profile Panel -->
+                    <div class="settings-panel active" id="profile-panel" role="tabpanel" aria-labelledby="profile-tab">
+                        <h3 style="margin-bottom: var(--space-6); font-size: var(--font-xl); font-weight: 700;">Personal Information</h3>
+                        
+                        <form id="profileForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileName" class="form-label">Full Name</label>
+                                    <input type="text" id="profileName" class="form-input" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileEmail" class="form-label">Email Address</label>
+                                    <input type="email" id="profileEmail" class="form-input" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profilePhone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="profilePhone" class="form-input" placeholder="(805) 555-0123">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileTimezone" class="form-label">Timezone</label>
+                                    <select id="profileTimezone" class="form-input">
+                                        <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                                        <option value="America/Denver">Mountain Time (MT)</option>
+                                        <option value="America/Chicago">Central Time (CT)</option>
+                                        <option value="America/New_York">Eastern Time (ET)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profileAddress" class="form-label">Address</label>
+                                <textarea id="profileAddress" class="form-input" rows="3" placeholder="Enter your full address"></textarea>
+                            </div>
+                            
+                            <div class="form-actions" style="margin-top: var(--space-6);">
+                                <button type="submit" class="btn-primary" id="saveProfileBtn">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="portal.resetProfileForm()">
+                                    <i class="fas fa-undo"></i> Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Security Panel -->
+                    <div class="settings-panel" id="security-panel" role="tabpanel" aria-labelledby="security-tab">
+                        <h3 style="margin-bottom: var(--space-6); font-size: var(--font-xl); font-weight: 700;">Security & Privacy</h3>
+                        
+                        <!-- Change Password Section -->
+                        <div class="security-section" style="margin-bottom: var(--space-8);">
+                            <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">Change Password</h4>
+                            
+                            <form id="passwordForm">
+                                <div class="form-group">
+                                    <label for="currentPassword" class="form-label">Current Password</label>
+                                    <div class="password-container">
+                                        <input type="password" id="currentPassword" class="form-input" placeholder="Enter current password" required>
+                                        <button type="button" class="password-toggle" data-target="currentPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <div class="password-container">
+                                            <input type="password" id="newPassword" class="form-input" placeholder="Enter new password" required>
+                                            <button type="button" class="password-toggle" data-target="newPassword">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                        <div class="password-container">
+                                            <input type="password" id="confirmNewPassword" class="form-input" placeholder="Confirm new password" required>
+                                            <button type="button" class="password-toggle" data-target="confirmNewPassword">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary" id="changePasswordBtn">
+                                        <i class="fas fa-key"></i> Change Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Account Security Section -->
+                        <div class="security-section">
+                            <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">Account Security</h4>
+                            
+                            <div class="security-options">
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <h5>Two-Factor Authentication</h5>
+                                        <p style="color: var(--gray); font-size: var(--font-sm);">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <button class="btn-secondary" id="setup2FABtn">
+                                        <i class="fas fa-mobile-alt"></i> Setup 2FA
+                                    </button>
+                                </div>
+                                
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <h5>Login Sessions</h5>
+                                        <p style="color: var(--gray); font-size: var(--font-sm);">Manage active sessions across devices</p>
+                                    </div>
+                                    <button class="btn-secondary" id="manageSessionsBtn">
+                                        <i class="fas fa-devices"></i> View Sessions
+                                    </button>
+                                </div>
+                                
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <h5>Account Deletion</h5>
+                                        <p style="color: var(--gray); font-size: var(--font-sm);">Permanently delete your account and all data</p>
+                                    </div>
+                                    <button class="btn-cancel" id="deleteAccountBtn">
+                                        <i class="fas fa-trash-alt"></i> Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications Panel -->
+                    <div class="settings-panel" id="notifications-panel" role="tabpanel" aria-labelledby="notifications-tab">
+                        <h3 style="margin-bottom: var(--space-6); font-size: var(--font-xl); font-weight: 700;">Notification Preferences</h3>
+                        
+                        <form id="notificationsForm">
+                            <div class="notification-section">
+                                <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">Email Notifications</h4>
+                                
+                                <div class="notification-options">
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="emailBookingConfirmations" checked>
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Booking Confirmations</h5>
+                                            <p>Receive email confirmations for new bookings</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="emailReminders" checked>
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Appointment Reminders</h5>
+                                            <p>Get reminder emails 24 hours before appointments</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="emailPromotions">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Promotions & Offers</h5>
+                                            <p>Receive special offers and promotional emails</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="emailNewsletter">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Newsletter</h5>
+                                            <p>Monthly newsletter with tips and updates</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-section" style="margin-top: var(--space-8);">
+                                <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">SMS Notifications</h4>
+                                
+                                <div class="notification-options">
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="smsReminders">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>SMS Reminders</h5>
+                                            <p>Text message reminders for upcoming appointments</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="smsUpdates">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Booking Updates</h5>
+                                            <p>SMS notifications for booking changes or cancellations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions" style="margin-top: var(--space-8);">
+                                <button type="submit" class="btn-primary" id="saveNotificationsBtn">
+                                    <i class="fas fa-bell"></i> Save Preferences
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Preferences Panel -->
+                    <div class="settings-panel" id="preferences-panel" role="tabpanel" aria-labelledby="preferences-tab">
+                        <h3 style="margin-bottom: var(--space-6); font-size: var(--font-xl); font-weight: 700;">App Preferences</h3>
+                        
+                        <form id="preferencesForm">
+                            <div class="preferences-section">
+                                <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">Display Settings</h4>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="themeSelect" class="form-label">Theme</label>
+                                        <select id="themeSelect" class="form-input">
+                                            <option value="light">Light Theme</option>
+                                            <option value="dark">Dark Theme (Coming Soon)</option>
+                                            <option value="auto">Auto (System Preference)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="languageSelect" class="form-label">Language</label>
+                                        <select id="languageSelect" class="form-input">
+                                            <option value="en">English</option>
+                                            <option value="es">Español (Coming Soon)</option>
+                                            <option value="fr">Français (Coming Soon)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="dateFormat" class="form-label">Date Format</label>
+                                    <select id="dateFormat" class="form-input">
+                                        <option value="MM/DD/YYYY">MM/DD/YYYY (US Format)</option>
+                                        <option value="DD/MM/YYYY">DD/MM/YYYY (International)</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD (ISO Format)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="preferences-section" style="margin-top: var(--space-8);">
+                                <h4 style="margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 600;">Accessibility</h4>
+                                
+                                <div class="notification-options">
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="reducedMotion">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Reduce Motion</h5>
+                                            <p>Minimize animations and transitions</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="highContrast">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>High Contrast</h5>
+                                            <p>Increase contrast for better visibility</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <label class="switch-container">
+                                            <input type="checkbox" id="largeFonts">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                        <div class="notification-info">
+                                            <h5>Large Fonts</h5>
+                                            <p>Increase font size for better readability</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions" style="margin-top: var(--space-8);">
+                                <button type="submit" class="btn-primary" id="savePreferencesBtn">
+                                    <i class="fas fa-cog"></i> Save Preferences
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="portal.resetPreferences()">
+                                    <i class="fas fa-undo"></i> Reset to Default
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal glass-blur-strong" id="bookingModal" role="dialog" aria-labelledby="booking-title" aria-modal="true">
         <div class="modal-content glass-card">
             <div class="modal-header">
@@ -3520,6 +4145,84 @@
                 document.getElementById('logoutBtn')?.addEventListener('click', () => {
                     this.handleLogout();
                 });
+
+                // Account Settings Event Listeners
+                this.setupAccountSettingsListeners();
+            }
+
+            setupAccountSettingsListeners() {
+                // Settings modal close
+                document.getElementById('settingsClose')?.addEventListener('click', () => {
+                    this.closeAccountSettings();
+                });
+
+                // Tab switching
+                document.querySelectorAll('.settings-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabName = tab.dataset.tab;
+                        this.switchSettingsTab(tabName);
+                    });
+                });
+
+                // Profile form submission
+                document.getElementById('profileForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleProfileUpdate(), 300)();
+                });
+
+                // Password form submission
+                document.getElementById('passwordForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handlePasswordChange(), 300)();
+                });
+
+                // Notifications form submission
+                document.getElementById('notificationsForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleNotificationPreferences(), 300)();
+                });
+
+                // Preferences form submission
+                document.getElementById('preferencesForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleAppPreferences(), 300)();
+                });
+
+                // Password toggles for settings forms
+                document.querySelectorAll('.password-toggle[data-target]').forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        this.togglePasswordField(toggle.dataset.target);
+                    });
+                });
+
+                // Security feature buttons
+                document.getElementById('setup2FABtn')?.addEventListener('click', () => {
+                    this.setup2FA();
+                });
+
+                document.getElementById('manageSessionsBtn')?.addEventListener('click', () => {
+                    this.manageSessions();
+                });
+
+                document.getElementById('deleteAccountBtn')?.addEventListener('click', () => {
+                    this.deleteAccount();
+                });
+
+                console.log('⚙️ Account settings event listeners setup complete');
+            }
+
+            togglePasswordField(targetId) {
+                const passwordInput = document.getElementById(targetId);
+                const toggleBtn = document.querySelector(`[data-target="${targetId}"]`);
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
             }
 
             setupCalendarEventListeners() {
@@ -3553,6 +4256,12 @@
                         this.closeRegistrationModal();
                     }
                 });
+
+                document.getElementById('accountSettingsModal')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'accountSettingsModal') {
+                        this.closeAccountSettings();
+                    }
+                });
             }
 
             setupServiceSelectionListeners() {
@@ -3577,16 +4286,18 @@
                         // Close any open modals
                         const bookingModal = document.getElementById('bookingModal');
                         const registrationModal = document.getElementById('registrationModal');
+                        const settingsModal = document.getElementById('accountSettingsModal');
                         
-                        if (bookingModal && bookingModal.classList.contains('show')) {
+                        if (settingsModal && settingsModal.classList.contains('show')) {
+                            this.closeAccountSettings();
+                        } else if (bookingModal && bookingModal.classList.contains('show')) {
                             this.closeBookingModal();
-                        }
-                        if (registrationModal && registrationModal.classList.contains('show')) {
+                        } else if (registrationModal && registrationModal.classList.contains('show')) {
                             this.closeRegistrationModal();
                         }
                     }
                     
-                    // Quick booking shortcuts
+                    // Quick access shortcuts
                     if (e.ctrlKey || e.metaKey) {
                         switch (e.key) {
                             case '1':
@@ -3600,6 +4311,10 @@
                             case '3':
                                 e.preventDefault();
                                 this.quickBook('event');
+                                break;
+                            case ',':
+                                e.preventDefault();
+                                this.showAccountSettings();
                                 break;
                         }
                     }
@@ -3931,8 +4646,369 @@
                 }
             }
 
-            showAccountSettings() {
-                this.showEnhancedNotification('Account settings coming soon!', 'info');
+            showAccountSettings(section = 'profile') {
+                const modal = document.getElementById('accountSettingsModal');
+                if (!modal) return;
+                
+                console.log('⚙️ Opening account settings');
+                
+                // Load current user data into forms
+                this.loadAccountSettingsData();
+                
+                // Enhanced modal opening animation
+                modal.style.display = 'flex';
+                modal.style.opacity = '0';
+                
+                requestAnimationFrame(() => {
+                    modal.classList.add('show');
+                    modal.style.opacity = '1';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Switch to requested section
+                    this.switchSettingsTab(section);
+                    
+                    // Focus management for accessibility
+                    const firstFocusable = modal.querySelector('button, input, select, textarea');
+                    if (firstFocusable) {
+                        firstFocusable.focus();
+                    }
+                });
+            }
+
+            closeAccountSettings() {
+                const modal = document.getElementById('accountSettingsModal');
+                if (!modal) return;
+                
+                // Enhanced modal closing with proper animation
+                modal.classList.remove('show');
+                modal.style.opacity = '0';
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+                
+                console.log('⚙️ Account settings closed');
+            }
+
+            switchSettingsTab(tabName) {
+                // Update tab buttons
+                document.querySelectorAll('.settings-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                });
+                
+                document.querySelectorAll('.settings-panel').forEach(panel => {
+                    panel.classList.remove('active');
+                });
+                
+                // Activate selected tab and panel
+                const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
+                const selectedPanel = document.getElementById(`${tabName}-panel`);
+                
+                if (selectedTab && selectedPanel) {
+                    selectedTab.classList.add('active');
+                    selectedTab.setAttribute('aria-selected', 'true');
+                    selectedPanel.classList.add('active');
+                }
+                
+                console.log(`⚙️ Switched to ${tabName} settings`);
+            }
+
+            loadAccountSettingsData() {
+                if (!this.currentUser) return;
+                
+                // Load profile data
+                document.getElementById('profileName').value = this.currentUser.name || '';
+                document.getElementById('profileEmail').value = this.currentUser.email || '';
+                document.getElementById('profilePhone').value = this.currentUser.phone || '';
+                document.getElementById('profileAddress').value = this.currentUser.address || '';
+                document.getElementById('profileTimezone').value = this.currentUser.timezone || 'America/Los_Angeles';
+                
+                // Load notification preferences
+                const preferences = this.currentUser.preferences || {};
+                document.getElementById('emailBookingConfirmations').checked = preferences.emailBookingConfirmations !== false;
+                document.getElementById('emailReminders').checked = preferences.emailReminders !== false;
+                document.getElementById('emailPromotions').checked = preferences.emailPromotions || false;
+                document.getElementById('emailNewsletter').checked = preferences.emailNewsletter || false;
+                document.getElementById('smsReminders').checked = preferences.smsReminders || false;
+                document.getElementById('smsUpdates').checked = preferences.smsUpdates || false;
+                
+                // Load app preferences
+                document.getElementById('themeSelect').value = preferences.theme || 'light';
+                document.getElementById('languageSelect').value = preferences.language || 'en';
+                document.getElementById('dateFormat').value = preferences.dateFormat || 'MM/DD/YYYY';
+                document.getElementById('reducedMotion').checked = preferences.reducedMotion || false;
+                document.getElementById('highContrast').checked = preferences.highContrast || false;
+                document.getElementById('largeFonts').checked = preferences.largeFonts || false;
+                
+                console.log('⚙️ Account settings data loaded');
+            }
+
+            async handleProfileUpdate() {
+                const form = document.getElementById('profileForm');
+                const saveBtn = document.getElementById('saveProfileBtn');
+                
+                this.showLoadingState(saveBtn, 'Saving...');
+                
+                try {
+                    const formData = new FormData(form);
+                    const profileData = {
+                        name: document.getElementById('profileName').value.trim(),
+                        email: document.getElementById('profileEmail').value.trim(),
+                        phone: document.getElementById('profilePhone').value.trim(),
+                        address: document.getElementById('profileAddress').value.trim(),
+                        timezone: document.getElementById('profileTimezone').value
+                    };
+                    
+                    const response = await this.apiCall('/api/user/profile', 'PUT', profileData);
+                    
+                    if (response && response.success) {
+                        // Update current user data
+                        this.currentUser = { ...this.currentUser, ...profileData };
+                        this.updatePortalUserInfo();
+                        
+                        await this.playSuccessAnimation(saveBtn);
+                        this.showEnhancedNotification('Profile updated successfully!', 'success', {
+                            title: 'Profile Saved',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error(response?.error || 'Failed to update profile');
+                    }
+                    
+                } catch (error) {
+                    console.error('Profile update error:', error);
+                    await this.playErrorAnimation(saveBtn);
+                    this.showEnhancedNotification(`Failed to update profile: ${error.message}`, 'error', {
+                        title: 'Update Error',
+                        duration: 6000
+                    });
+                } finally {
+                    this.hideLoadingState(saveBtn, 'Save Changes');
+                }
+            }
+
+            async handlePasswordChange() {
+                const form = document.getElementById('passwordForm');
+                const changeBtn = document.getElementById('changePasswordBtn');
+                
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmNewPassword').value;
+                
+                // Validation
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    this.showEnhancedNotification('Please fill in all password fields', 'error');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    this.showEnhancedNotification('New passwords do not match', 'error');
+                    return;
+                }
+                
+                if (!this.validatePassword(newPassword)) {
+                    this.showEnhancedNotification('Password must be at least 8 characters with uppercase, lowercase, and number', 'error');
+                    return;
+                }
+                
+                this.showLoadingState(changeBtn, 'Changing...');
+                
+                try {
+                    const response = await this.apiCall('/api/user/change-password', 'POST', {
+                        currentPassword,
+                        newPassword
+                    });
+                    
+                    if (response && response.success) {
+                        form.reset();
+                        await this.playSuccessAnimation(changeBtn);
+                        this.showEnhancedNotification('Password changed successfully!', 'success', {
+                            title: 'Password Updated',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error(response?.error || 'Failed to change password');
+                    }
+                    
+                } catch (error) {
+                    console.error('Password change error:', error);
+                    await this.playErrorAnimation(changeBtn);
+                    this.showEnhancedNotification(`Failed to change password: ${error.message}`, 'error', {
+                        title: 'Password Error',
+                        duration: 6000
+                    });
+                } finally {
+                    this.hideLoadingState(changeBtn, 'Change Password');
+                }
+            }
+
+            async handleNotificationPreferences() {
+                const saveBtn = document.getElementById('saveNotificationsBtn');
+                
+                this.showLoadingState(saveBtn, 'Saving...');
+                
+                try {
+                    const preferences = {
+                        emailBookingConfirmations: document.getElementById('emailBookingConfirmations').checked,
+                        emailReminders: document.getElementById('emailReminders').checked,
+                        emailPromotions: document.getElementById('emailPromotions').checked,
+                        emailNewsletter: document.getElementById('emailNewsletter').checked,
+                        smsReminders: document.getElementById('smsReminders').checked,
+                        smsUpdates: document.getElementById('smsUpdates').checked
+                    };
+                    
+                    const response = await this.apiCall('/api/user/notifications', 'PUT', preferences);
+                    
+                    if (response && response.success) {
+                        // Update current user preferences
+                        this.currentUser.preferences = { ...this.currentUser.preferences, ...preferences };
+                        
+                        await this.playSuccessAnimation(saveBtn);
+                        this.showEnhancedNotification('Notification preferences saved!', 'success', {
+                            title: 'Preferences Updated',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error(response?.error || 'Failed to save preferences');
+                    }
+                    
+                } catch (error) {
+                    console.error('Notification preferences error:', error);
+                    await this.playErrorAnimation(saveBtn);
+                    this.showEnhancedNotification(`Failed to save preferences: ${error.message}`, 'error', {
+                        title: 'Save Error',
+                        duration: 6000
+                    });
+                } finally {
+                    this.hideLoadingState(saveBtn, 'Save Preferences');
+                }
+            }
+
+            async handleAppPreferences() {
+                const saveBtn = document.getElementById('savePreferencesBtn');
+                
+                this.showLoadingState(saveBtn, 'Saving...');
+                
+                try {
+                    const preferences = {
+                        theme: document.getElementById('themeSelect').value,
+                        language: document.getElementById('languageSelect').value,
+                        dateFormat: document.getElementById('dateFormat').value,
+                        reducedMotion: document.getElementById('reducedMotion').checked,
+                        highContrast: document.getElementById('highContrast').checked,
+                        largeFonts: document.getElementById('largeFonts').checked
+                    };
+                    
+                    const response = await this.apiCall('/api/user/preferences', 'PUT', preferences);
+                    
+                    if (response && response.success) {
+                        // Update current user preferences
+                        this.currentUser.preferences = { ...this.currentUser.preferences, ...preferences };
+                        
+                        // Apply preferences immediately
+                        this.applyUserPreferences(preferences);
+                        
+                        await this.playSuccessAnimation(saveBtn);
+                        this.showEnhancedNotification('App preferences saved!', 'success', {
+                            title: 'Preferences Updated',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error(response?.error || 'Failed to save preferences');
+                    }
+                    
+                } catch (error) {
+                    console.error('App preferences error:', error);
+                    await this.playErrorAnimation(saveBtn);
+                    this.showEnhancedNotification(`Failed to save preferences: ${error.message}`, 'error', {
+                        title: 'Save Error',
+                        duration: 6000
+                    });
+                } finally {
+                    this.hideLoadingState(saveBtn, 'Save Preferences');
+                }
+            }
+
+            applyUserPreferences(preferences) {
+                // Apply reduced motion
+                if (preferences.reducedMotion) {
+                    document.documentElement.style.setProperty('--transition-smooth', 'none');
+                    document.documentElement.style.setProperty('--transition-spring', 'none');
+                    document.documentElement.style.setProperty('--transition-bounce', 'none');
+                } else {
+                    document.documentElement.style.removeProperty('--transition-smooth');
+                    document.documentElement.style.removeProperty('--transition-spring');
+                    document.documentElement.style.removeProperty('--transition-bounce');
+                }
+                
+                // Apply high contrast (placeholder for future implementation)
+                if (preferences.highContrast) {
+                    document.body.classList.add('high-contrast');
+                } else {
+                    document.body.classList.remove('high-contrast');
+                }
+                
+                // Apply large fonts
+                if (preferences.largeFonts) {
+                    document.documentElement.style.fontSize = '18px';
+                } else {
+                    document.documentElement.style.fontSize = '16px';
+                }
+                
+                console.log('✨ User preferences applied');
+            }
+
+            resetProfileForm() {
+                this.loadAccountSettingsData();
+                this.showEnhancedNotification('Profile form reset to saved values', 'info');
+            }
+
+            resetPreferences() {
+                // Reset to default values
+                document.getElementById('themeSelect').value = 'light';
+                document.getElementById('languageSelect').value = 'en';
+                document.getElementById('dateFormat').value = 'MM/DD/YYYY';
+                document.getElementById('reducedMotion').checked = false;
+                document.getElementById('highContrast').checked = false;
+                document.getElementById('largeFonts').checked = false;
+                
+                this.showEnhancedNotification('Preferences reset to defaults', 'info');
+            }
+
+            // Security feature handlers
+            setup2FA() {
+                this.showEnhancedNotification('Two-factor authentication setup is coming soon!', 'info', {
+                    title: 'Feature Coming Soon',
+                    subtitle: 'We\'re working on enhanced security features',
+                    duration: 6000
+                });
+            }
+
+            manageSessions() {
+                this.showEnhancedNotification('Session management is coming soon!', 'info', {
+                    title: 'Feature Coming Soon',
+                    subtitle: 'View and manage active login sessions',
+                    duration: 6000
+                });
+            }
+
+            deleteAccount() {
+                const confirmed = confirm('⚠️ WARNING: This will permanently delete your account and all data. This action cannot be undone. Are you absolutely sure?');
+                
+                if (confirmed) {
+                    const doubleConfirm = confirm('⚠️ FINAL WARNING: Type your email to confirm account deletion.');
+                    
+                    if (doubleConfirm) {
+                        this.showEnhancedNotification('Account deletion is not implemented in demo mode', 'error', {
+                            title: 'Demo Restriction',
+                            subtitle: 'Account deletion would be handled by your backend API',
+                            duration: 8000
+                        });
+                    }
+                }
             }
 
             showAllBookings() {
@@ -4122,9 +5198,20 @@
                                     phone: '(805) 555-0123',
                                     address: '123 Ocean View Dr, Thousand Oaks, CA',
                                     member_since: '2024-01-15',
+                                    timezone: 'America/Los_Angeles',
                                     preferences: {
-                                        notifications: true,
-                                        newsletter: true
+                                        emailBookingConfirmations: true,
+                                        emailReminders: true,
+                                        emailPromotions: false,
+                                        emailNewsletter: true,
+                                        smsReminders: false,
+                                        smsUpdates: false,
+                                        theme: 'light',
+                                        language: 'en',
+                                        dateFormat: 'MM/DD/YYYY',
+                                        reducedMotion: false,
+                                        highContrast: false,
+                                        largeFonts: false
                                     }
                                 }
                             };
@@ -4142,17 +5229,95 @@
                         };
                     
                     case '/api/user/profile':
-                        return {
-                            success: true,
-                            user: {
-                                id: 1,
-                                name: 'Demo User',
-                                email: 'demo@805lifeguard.com',
-                                phone: '(805) 555-0123',
-                                address: '123 Ocean View Dr, Thousand Oaks, CA',
-                                member_since: '2024-01-01'
+                        if (method === 'GET') {
+                            return {
+                                success: true,
+                                user: {
+                                    id: 1,
+                                    name: 'Demo User',
+                                    email: 'demo@805lifeguard.com',
+                                    phone: '(805) 555-0123',
+                                    address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                    member_since: '2024-01-01',
+                                    timezone: 'America/Los_Angeles',
+                                    preferences: {
+                                        emailBookingConfirmations: true,
+                                        emailReminders: true,
+                                        emailPromotions: false,
+                                        emailNewsletter: true,
+                                        smsReminders: false,
+                                        smsUpdates: false,
+                                        theme: 'light',
+                                        language: 'en',
+                                        dateFormat: 'MM/DD/YYYY',
+                                        reducedMotion: false,
+                                        highContrast: false,
+                                        largeFonts: false
+                                    }
+                                }
+                            };
+                        } else if (method === 'PUT') {
+                            return {
+                                success: true,
+                                message: 'Profile updated successfully',
+                                user: {
+                                    id: 1,
+                                    ...data,
+                                    member_since: '2024-01-01'
+                                }
+                            };
+                        }
+                        break;
+                    
+                    case '/api/user/change-password':
+                        if (method === 'POST') {
+                            if (!data.currentPassword || !data.newPassword) {
+                                throw new Error('Current password and new password are required');
                             }
-                        };
+                            return {
+                                success: true,
+                                message: 'Password changed successfully'
+                            };
+                        }
+                        break;
+                    
+                    case '/api/user/notifications':
+                        if (method === 'PUT') {
+                            return {
+                                success: true,
+                                message: 'Notification preferences updated successfully',
+                                preferences: data
+                            };
+                        }
+                        break;
+                    
+                    case '/api/user/preferences':
+                        if (method === 'GET') {
+                            return {
+                                success: true,
+                                preferences: {
+                                    theme: 'light',
+                                    language: 'en',
+                                    dateFormat: 'MM/DD/YYYY',
+                                    reducedMotion: false,
+                                    highContrast: false,
+                                    largeFonts: false,
+                                    emailBookingConfirmations: true,
+                                    emailReminders: true,
+                                    emailPromotions: false,
+                                    emailNewsletter: true,
+                                    smsReminders: false,
+                                    smsUpdates: false
+                                }
+                            };
+                        } else if (method === 'PUT') {
+                            return {
+                                success: true,
+                                message: 'App preferences updated successfully',
+                                preferences: data
+                            };
+                        }
+                        break;
                     
                     case '/api/bookings':
                         if (method === 'GET') {
@@ -4203,16 +5368,6 @@
                         return {
                             success: true,
                             availability: {}
-                        };
-                        
-                    case '/api/user/preferences':
-                        return {
-                            success: true,
-                            preferences: {
-                                notifications: true,
-                                newsletter: true,
-                                theme: 'light'
-                            }
                         };
                     
                     default:
