@@ -2075,31 +2075,86 @@
                         throw new Error('Number of participants is required');
                     }
 
-                    // Prepare booking data with proper field names that match backend expectations
-                    const bookingData = {
-                        service_type: this.selectedService, // Use snake_case for backend
-                        booking_date: this.selectedDate.toISOString().split('T')[0],
-                        booking_time: this.selectedTime,
+                    // Try the original format that was working yesterday first
+                    const originalFormat = {
+                        service: this.selectedService,
+                        date: this.selectedDate.toISOString().split('T')[0],
+                        time: this.selectedTime,
                         duration: parseFloat(duration),
                         participants: parseInt(participants),
-                        special_requests: specialRequests || '', // Use snake_case and ensure it's never undefined
-                        status: 'pending' // Add explicit status
+                        specialRequests: specialRequests || ''
                     };
 
-                    // Debug: Log exactly what we're sending
-                    console.log('📤 Sending booking data:', JSON.stringify(bookingData, null, 2));
+                    // Then fallback formats if needed
+                    const alternativeFormats = [
+                        // Format 2: Without specialRequests if it's causing issues
+                        {
+                            service: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants)
+                        },
+                        // Format 3: Snake case with different field names
+                        {
+                            service_type: this.selectedService,
+                            booking_date: this.selectedDate.toISOString().split('T')[0],
+                            booking_time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants),
+                            special_requests: specialRequests || ''
+                        },
+                        // Format 4: Minimal with just core fields
+                        {
+                            type: this.selectedService,
+                            date: this.selectedDate.toISOString().split('T')[0],
+                            time: this.selectedTime,
+                            duration: parseFloat(duration),
+                            participants: parseInt(participants)
+                        }
+                    ];
 
-                    // Validate no undefined values
-                    for (const [key, value] of Object.entries(bookingData)) {
-                        if (value === undefined || value === null) {
-                            console.error(`❌ Field '${key}' is ${value}`);
-                            throw new Error(`Required field '${key}' is missing`);
+                    console.log('🧪 Trying original format first:', JSON.stringify(originalFormat, null, 2));
+
+                    let response;
+                    let lastError;
+
+                    // Try original format first
+                    try {
+                        response = await this.apiCall('/api/bookings', 'POST', originalFormat);
+                        
+                        if (response && response.success) {
+                            console.log('✅ Success with original format!');
+                        }
+                    } catch (error) {
+                        console.log('❌ Original format failed:', error.message);
+                        lastError = error;
+
+                        // If we get a 500 error, try alternative formats
+                        if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+                            console.log('🔄 Trying alternative formats due to 500 error...');
+                            
+                            for (let i = 0; i < alternativeFormats.length; i++) {
+                                try {
+                                    console.log(`🔄 Attempting alternative format ${i + 1}:`, JSON.stringify(alternativeFormats[i], null, 2));
+                                    response = await this.apiCall('/api/bookings', 'POST', alternativeFormats[i]);
+                                    
+                                    if (response && response.success) {
+                                        console.log(`✅ Success with alternative format ${i + 1}!`);
+                                        break;
+                                    }
+                                } catch (altError) {
+                                    console.log(`❌ Alternative format ${i + 1} failed:`, altError.message);
+                                    lastError = altError;
+                                }
+                            }
+                        } else {
+                            // If it's not a 500 error, don't try alternatives
+                            throw error;
                         }
                     }
 
-                    const response = await this.apiCall('/api/bookings', 'POST', bookingData);
-
-                    console.log('📥 API Response:', response);
+                    console.log('📥 Final API Response:', response);
 
                     if (response && response.success) {
                         if (response.booking) {
@@ -2116,17 +2171,17 @@
                             this.closeBookingModal();
                         }, 2000);
                     } else {
-                        throw new Error(response?.error || 'Booking submission failed');
+                        throw lastError || new Error('Booking submission failed - please check Cloudflare Worker logs for details');
                     }
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
                     
                     let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('undefined')) {
-                        errorMessage += 'Please ensure all required fields are filled out correctly.';
-                    } else if (error.message.includes('D1_TYPE_ERROR')) {
-                        errorMessage += 'Database error - please contact support if this persists.';
+                    if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+                        errorMessage += 'Server error - please check your Cloudflare Worker logs and database configuration.';
+                    } else if (error.message.includes('undefined')) {
+                        errorMessage += 'Database field error - some required fields may be missing.';
                     } else {
                         errorMessage += error.message;
                     }
