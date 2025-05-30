@@ -1839,7 +1839,7 @@
                             <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                             Upcoming Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="View all bookings">View All</button>
+                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="Scroll to view all bookings">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList" role="region" aria-label="Upcoming bookings list">
                         <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading your bookings...</p>
@@ -3194,25 +3194,14 @@
                         this.updateUpcomingBookings();
                         this.generateEnhancedCalendar();
                         
-                        this.showEnhancedNotification('Booking request submitted successfully!', 'success', {
+                        this.showEnhancedNotification('Booking request submitted successfully! You will receive a confirmation email shortly.', 'success', {
                             title: 'Booking Confirmed',
-                            subtitle: 'You will receive a confirmation email shortly',
-                            duration: 8000,
-                            actions: [{
-                                text: 'Close Modal',
-                                action: () => this.closeBookingModal()
-                            }, {
-                                text: 'View Bookings',
-                                action: () => {
-                                    this.closeBookingModal();
-                                    setTimeout(() => this.showAllBookings(), 300);
-                                }
-                            }]
+                            duration: 4000
                         });
                         
                         setTimeout(() => {
                             this.closeBookingModal();
-                        }, 3000); // Auto-close after 3 seconds, but users can close manually with the button
+                        }, 1500); // Close modal quickly after success, notification will show the details
                     } else {
                         throw new Error(response?.error || 'Booking submission failed');
                     }
@@ -3947,7 +3936,34 @@
             }
 
             showAllBookings() {
-                this.openBookingModal();
+                // Close any open modals first
+                this.closeBookingModal();
+                this.closeRegistrationModal();
+                
+                // Scroll to the upcoming bookings section
+                setTimeout(() => {
+                    const bookingsSection = document.getElementById('upcomingBookingsList');
+                    if (bookingsSection) {
+                        bookingsSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                        // Add a subtle highlight effect
+                        const card = bookingsSection.closest('.dashboard-card');
+                        if (card) {
+                            card.style.transform = 'scale(1.02)';
+                            card.style.boxShadow = 'var(--shadow-glow)';
+                            
+                            setTimeout(() => {
+                                card.style.transform = '';
+                                card.style.boxShadow = '';
+                            }, 2000);
+                        }
+                    }
+                }, 300);
+                
+                console.log('📋 Scrolled to bookings section');
             }
 
             handleLogout() {
@@ -4057,10 +4073,18 @@
             }
 
             startDemoTour() {
-                this.showEnhancedNotification('Interactive tour coming soon!', 'info', {
+                // Highlight the main features in sequence
+                this.showEnhancedNotification('Welcome to the demo tour!', 'info', {
                     title: 'Demo Tour',
-                    subtitle: 'For now, feel free to explore all the features',
-                    duration: 4000
+                    subtitle: 'Let me show you around the portal',
+                    duration: 4000,
+                    actions: [{
+                        text: 'View Bookings',
+                        action: () => this.showAllBookings()
+                    }, {
+                        text: 'Try Booking',
+                        action: () => this.openBookingModal()
+                    }]
                 });
             }
 
