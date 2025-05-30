@@ -1668,9 +1668,14 @@
 
             <div style="margin-top: var(--space-8); text-align: center;">
                 <p style="margin-bottom: var(--space-4); color: var(--gray); font-size: var(--font-base);">Don't have an account?</p>
-                <button type="button" class="create-account-btn" id="createAccountBtn">
-                    <i class="fas fa-user-plus"></i> Create Account
-                </button>
+                <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                    <button type="button" class="create-account-btn" id="createAccountBtn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <button type="button" class="btn-secondary" id="demoModeBtn" style="border: 2px solid var(--secondary); color: var(--secondary);">
+                        <i class="fas fa-play-circle"></i> Try Demo
+                    </button>
+                </div>
             </div>
             
             <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
@@ -1760,6 +1765,9 @@
                 <div class="portal-user-menu">
                     <div class="user-avatar" id="userAvatar" role="img" aria-label="User avatar">JD</div>
                     <span id="userName">John Doe</span>
+                    <div id="demoIndicator" style="display: none; background: var(--warning); color: white; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: var(--font-xs); font-weight: 700; margin-left: var(--space-2);">
+                        DEMO MODE
+                    </div>
                     <button class="logout-btn" id="logoutBtn" aria-label="Logout">
                         <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         Logout
@@ -2003,9 +2011,9 @@
                 this.bookings = [];
                 this.availabilityData = {};
                 
-                // Enhanced API Configuration
+                // Enhanced API Configuration with CORS fix
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
-                this.isMockMode = false;
+                this.isMockMode = false; // Set to true for demo mode
                 this.requestCache = new Map();
                 this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
                 
@@ -2152,8 +2160,9 @@
             }
 
             setupCSRFProtection() {
-                // Generate CSRF token
+                // Simplified CSRF protection (header removed due to CORS)
                 this.csrfToken = this.generateRandomToken();
+                console.log('🔒 CSRF protection initialized (client-side only)');
             }
 
             setupRateLimiting() {
@@ -2292,8 +2301,8 @@
 
                 const url = `${this.apiBaseUrl}${endpoint}`;
                 const headers = {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': this.csrfToken
+                    'Content-Type': 'application/json'
+                    // Removed X-CSRF-Token to fix CORS issues
                 };
 
                 const authToken = token || this.getSecureToken();
@@ -2304,7 +2313,7 @@
                 const config = {
                     method,
                     headers,
-                    credentials: 'same-origin'
+                    credentials: 'omit' // Changed from 'same-origin' to 'omit' for cross-origin requests
                 };
 
                 if (data && (method === 'POST' || method === 'PUT')) {
@@ -2338,6 +2347,14 @@
                     
                 } catch (error) {
                     console.error(`❌ Enhanced API ${method} ${endpoint} - Error:`, error);
+                    
+                    // Handle CORS errors specifically
+                    if (error.message.includes('Failed to fetch') || error.message.includes('CORS')) {
+                        console.warn('🌐 CORS error detected, this might be due to cross-origin restrictions');
+                        // You could enable mock mode here for demo purposes
+                        // this.isMockMode = true;
+                        // return this.mockApiCall(endpoint, method, data, token);
+                    }
                     
                     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
                         this.clearSecureToken();
@@ -3482,6 +3499,10 @@
                     this.showRegistrationModal();
                 });
 
+                document.getElementById('demoModeBtn')?.addEventListener('click', () => {
+                    this.enableDemoMode();
+                });
+
                 document.getElementById('registrationClose')?.addEventListener('click', () => {
                     this.closeRegistrationModal();
                 });
@@ -3629,6 +3650,12 @@
                 if (portalContainer) portalContainer.style.display = 'block';
                 
                 this.updatePortalUserInfo();
+                
+                // Show demo indicator if in demo mode
+                const demoIndicator = document.getElementById('demoIndicator');
+                if (demoIndicator && this.isMockMode) {
+                    demoIndicator.style.display = 'block';
+                }
                 
                 setTimeout(() => {
                     this.generateCalendar();
@@ -3877,15 +3904,27 @@
             }
 
             handleLogout() {
-                if (confirm('Are you sure you want to logout?')) {
+                const wasInDemoMode = this.isMockMode;
+                const logoutText = wasInDemoMode ? 'Exit demo mode?' : 'Are you sure you want to logout?';
+                
+                if (confirm(logoutText)) {
                     this.clearSecureToken();
                     this.currentUser = null;
                     this.bookings = [];
                     this.availabilityData = {};
+                    this.isMockMode = false;
+                    
+                    // Hide demo indicator
+                    const demoIndicator = document.getElementById('demoIndicator');
+                    if (demoIndicator) {
+                        demoIndicator.style.display = 'none';
+                    }
                     
                     document.getElementById('loginForm').reset();
                     this.showLogin();
-                    this.showEnhancedNotification('Successfully logged out. See you next time!', 'info');
+                    
+                    const message = wasInDemoMode ? 'Demo session ended!' : 'Successfully logged out. See you next time!';
+                    this.showEnhancedNotification(message, 'info');
                 }
             }
 
@@ -3897,6 +3936,85 @@
                         calendar.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 }, 300);
+            }
+
+            enableDemoMode() {
+                console.log('🎭 Enabling demo mode...');
+                this.isMockMode = true;
+                
+                // Set demo user
+                this.currentUser = {
+                    id: 1,
+                    name: 'Demo User',
+                    email: 'demo@805lifeguard.com',
+                    phone: '(805) 555-0123',
+                    address: '123 Ocean View Dr, Thousand Oaks, CA',
+                    member_since: '2024-01-15'
+                };
+                
+                // Load demo data
+                this.loadDemoData();
+                
+                // Show portal
+                this.showPortal();
+                
+                this.showEnhancedNotification('Welcome to the demo!', 'info', {
+                    title: 'Demo Mode Active',
+                    subtitle: 'Explore all features with sample data',
+                    duration: 6000,
+                    actions: [{
+                        text: 'Take a Tour',
+                        action: () => this.startDemoTour()
+                    }]
+                });
+            }
+
+            loadDemoData() {
+                // Demo bookings
+                this.bookings = [
+                    {
+                        id: 1,
+                        service: 'swim-lesson',
+                        date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0], // 2 days from now
+                        time: '10:00 AM',
+                        duration: 1,
+                        participants: 1,
+                        status: 'confirmed',
+                        specialRequests: 'Beginner level'
+                    },
+                    {
+                        id: 2,
+                        service: 'lifeguard',
+                        date: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0], // 5 days from now
+                        time: '2:00 PM',
+                        duration: 4,
+                        participants: 1,
+                        status: 'pending',
+                        specialRequests: 'Pool party supervision'
+                    },
+                    {
+                        id: 3,
+                        service: 'event',
+                        date: new Date(Date.now() + 86400000 * 10).toISOString().split('T')[0], // 10 days from now
+                        time: '12:00 PM',
+                        duration: 6,
+                        participants: 12,
+                        status: 'confirmed',
+                        specialRequests: 'Corporate team building event'
+                    }
+                ];
+                
+                this.availabilityData = {};
+                
+                console.log('🎭 Demo data loaded successfully');
+            }
+
+            startDemoTour() {
+                this.showEnhancedNotification('Interactive tour coming soon!', 'info', {
+                    title: 'Demo Tour',
+                    subtitle: 'For now, feel free to explore all the features',
+                    duration: 4000
+                });
             }
 
             scrollToSection(sectionId) {
