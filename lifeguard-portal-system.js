@@ -186,10 +186,9 @@ class LifeGuardPortalSystem {
             mockMode = false
         } = options;
         
-        // Check if we should use mock mode for demo
-        if (mockMode || this.shouldUseMockMode()) {
-            return this.mockApiCall(endpoint, method, data, portal);
-        }
+        // Always use mock mode for now (since we're in demo)
+        console.log(`🎭 Using mock mode for ${endpoint} (portal: ${portal})`);
+        return this.mockApiCall(endpoint, method, data, portal);
         
         // Get the full endpoint URL
         const url = this.getEndpointUrl(endpoint);
@@ -312,9 +311,11 @@ class LifeGuardPortalSystem {
         switch (endpoint) {
             // Authentication Endpoints
             case 'login':
+                return this.mockLogin(data, 'client');
             case 'adminLogin':
+                return this.mockLogin(data, 'admin');
             case 'staffLogin':
-                return this.mockLogin(data, portal);
+                return this.mockLogin(data, 'staff');
             
             case 'register':
                 return this.mockRegister(data);
@@ -381,6 +382,8 @@ class LifeGuardPortalSystem {
     
     // Mock Response Generators
     mockLogin(credentials, portal) {
+        console.log(`🔐 Mock login attempt for portal: ${portal}`, credentials);
+        
         const validCredentials = {
             admin: { email: 'admin@805lifeguard.com', password: 'admin123' },
             staff: { email: 'staff@805lifeguard.com', password: 'staff123' },
@@ -388,7 +391,10 @@ class LifeGuardPortalSystem {
         };
         
         const valid = validCredentials[portal];
+        console.log(`🔍 Checking against valid credentials for ${portal}:`, valid);
+        
         if (valid && credentials.email === valid.email && credentials.password === valid.password) {
+            console.log(`✅ Login successful for ${portal}`);
             return {
                 success: true,
                 token: `mock-${portal}-token-${Date.now()}`,
@@ -402,6 +408,7 @@ class LifeGuardPortalSystem {
                 }
             };
         } else {
+            console.log(`❌ Login failed for ${portal} - Invalid credentials`);
             throw new Error('Invalid email or password');
         }
     }
@@ -638,20 +645,37 @@ class LifeGuardPortalSystem {
     }
     
     shouldUseMockMode() {
-        // Auto-enable mock mode if API is unreachable or in development
-        return this.config.environment === 'development' || 
-               this.config.environment === 'demo' ||
-               !navigator.onLine;
+        // Always use mock mode for demo/development
+        return true;
     }
     
     detectCurrentPortal() {
         const path = window.location.pathname;
+        const filename = path.split('/').pop() || '';
         
-        if (path.includes('admin')) return 'admin';
-        if (path.includes('employee') || path.includes('staff')) return 'staff';
-        if (path.includes('client')) return 'client';
+        console.log(`🔍 Detecting portal from path: ${path}, filename: ${filename}`);
         
-        return 'client'; // Default fallback
+        // More specific detection based on filenames
+        if (filename === 'admin.html' || path.includes('admin')) {
+            console.log('📊 Detected ADMIN portal');
+            return 'admin';
+        }
+        if (filename === 'employee-login.html' || path.includes('employee') || path.includes('staff')) {
+            console.log('👤 Detected STAFF portal');
+            return 'staff';
+        }
+        if (filename === 'client-login.html' || path.includes('client')) {
+            console.log('🏊‍♀️ Detected CLIENT portal');
+            return 'client';
+        }
+        
+        // Default fallback - check for specific portal indicators
+        const title = document.title || '';
+        if (title.includes('Admin')) return 'admin';
+        if (title.includes('Staff') || title.includes('Employee')) return 'staff';
+        
+        console.log('🏊‍♀️ Defaulting to CLIENT portal');
+        return 'client';
     }
     
     // Authentication Methods
