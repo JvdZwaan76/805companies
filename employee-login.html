@@ -3,269 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Login - 805 LifeGuard | Staff Portal</title>
-    <meta name="description" content="Employee login portal for 805 LifeGuard staff to manage schedules, view assignments, and access training materials.">
-    <meta name="keywords" content="lifeguard employee login, staff portal, schedule management, swimming instructor login">
+    <title>Employee Portal - 805 LifeGuard | Staff Dashboard</title>
+    <meta name="description" content="Professional employee portal for 805 LifeGuard staff to manage schedules, view assignments, and access training materials.">
     <meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Staff Portal - 805 LifeGuard">
-    <meta property="og:description" content="Secure employee portal for 805 LifeGuard team members.">
-    <meta property="og:image" content="/images/805-lifeguard-logo.png">
-    <meta property="og:url" content="https://www.805lifeguard.com/employee-login.html">
-    <link rel="canonical" href="https://www.805lifeguard.com/employee-login.html">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preload" href="/images/805-lifeguard-logo.png" as="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Employee Login Specific Styles */
+        /* Enhanced Employee Portal CSS Variables - Matching Client Portal Theme */
         :root {
-            --employee-primary: #1a237e;
-            --employee-secondary: #3949ab;
-            --employee-accent: #ff6f00;
-            --employee-light: #e8eaf6;
-            --employee-dark: #0d1457;
+            /* Core Colors - Matching Client Portal */
+            --primary: #1e88e5;
+            --primary-light: #42a5f5;
+            --primary-dark: #1565c0;
+            --secondary: #26a69a;
+            --secondary-light: #4db6ac;
+            --accent: #ffd700;
+            --accent-gradient: linear-gradient(135deg, #ffd700, #ffed4a, #fff176);
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --info: #2196f3;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --dark: #023e8a;
+            --black: #1a1a1a;
+            
+            /* Enhanced Gradients - Matching Client Portal */
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-primary-vivid: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #fff176 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+            --gradient-glass-strong: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
+            --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(30, 136, 229, 0.15) 0%, transparent 50%),
+                             radial-gradient(circle at 80% 20%, rgba(38, 166, 154, 0.15) 0%, transparent 50%);
+            
+            /* Shadows - Matching Client Portal */
+            --shadow-soft: 0 2px 20px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-strong: 0 15px 40px rgba(0,0,0,0.15);
+            --shadow-glow: 0 0 30px rgba(30, 136, 229, 0.3);
+            --shadow-glow-strong: 0 0 50px rgba(30, 136, 229, 0.4);
+            --shadow-float: 0 20px 60px rgba(0,0,0,0.1);
+            --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.06);
+            
+            /* Border Radius - Matching Client Portal */
+            --radius-xs: 4px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-2xl: 40px;
+            --radius-full: 50px;
+            
+            /* Transitions - Matching Client Portal */
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Typography */
+            --font-xs: 0.75rem;
+            --font-sm: 0.875rem;
+            --font-base: 1rem;
+            --font-lg: 1.125rem;
+            --font-xl: 1.25rem;
+            --font-2xl: 1.5rem;
+            --font-3xl: 1.875rem;
+            --font-4xl: 2.25rem;
+            --font-5xl: 3rem;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
         }
 
-        .employee-login-page {
-            background: linear-gradient(135deg, var(--employee-primary) 0%, var(--employee-secondary) 50%, var(--gallery-blue) 100%);
-            min-height: 100vh;
-            position: relative;
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background: var(--employee-primary);
+            color: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 25%, #e8f4fd 50%, #f3f8ff 75%, #e3f2fd 100%);
+            color: var(--dark);
+            line-height: 1.6;
             overflow-x: hidden;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Professional Grid Background */
-        .employee-grid-background {
+        /* Enhanced Animated Background - Matching Client Portal */
+        .enhanced-background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            background-image: 
-                linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: var(--gradient-mesh);
+            overflow: hidden;
         }
 
-        /* Professional Floating Elements */
-        .employee-floating-elements {
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.12) 0%, rgba(38, 166, 154, 0.08) 50%, transparent 70%);
+            filter: blur(1px);
+            animation: float 12s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .floating-element:nth-child(1) { 
+            top: 10%; left: 10%; width: 120px; height: 120px; animation-delay: 0s; 
+            animation-duration: 15s;
+        }
+        .floating-element:nth-child(2) { 
+            top: 20%; right: 20%; width: 180px; height: 180px; animation-delay: 3s;
+            animation-duration: 18s;
+        }
+        .floating-element:nth-child(3) { 
+            bottom: 30%; left: 15%; width: 100px; height: 100px; animation-delay: 6s;
+            animation-duration: 12s;
+        }
+        .floating-element:nth-child(4) { 
+            top: 60%; right: 10%; width: 140px; height: 140px; animation-delay: 9s;
+            animation-duration: 20s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); 
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-20px) translateX(10px) rotate(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-40px) translateX(-5px) rotate(180deg) scale(0.9);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translateY(-15px) translateX(-10px) rotate(270deg) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        /* Enhanced Navigation */
+        .main-nav {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .employee-floating-icon {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.04);
-            font-size: 2.5rem;
-            animation: float-professional 25s infinite linear;
-        }
-
-        .employee-floating-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .employee-floating-icon:nth-child(2) { left: 80%; top: 80%; animation-delay: 6s; }
-        .employee-floating-icon:nth-child(3) { left: 60%; top: 10%; animation-delay: 12s; }
-        .employee-floating-icon:nth-child(4) { left: 20%; top: 70%; animation-delay: 18s; }
-        .employee-floating-icon:nth-child(5) { left: 90%; top: 30%; animation-delay: 24s; }
-
-        @keyframes float-professional {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-25px) rotate(90deg); }
-            50% { transform: translateY(0px) rotate(180deg); }
-            75% { transform: translateY(-15px) rotate(270deg); }
-        }
-
-        /* Employee Login Container */
-        .employee-login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 180px 20px 50px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .employee-login-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
-            padding: 50px;
-            width: 100%;
-            max-width: 520px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .employee-login-card::before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--employee-primary), var(--employee-secondary), var(--employee-accent));
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: var(--space-3) 0;
+            transition: var(--transition-smooth);
         }
 
-        .employee-login-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .main-nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-medium);
+            padding: var(--space-2) 0;
         }
 
-        .employee-login-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
-            border-radius: 20px;
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 2.5rem;
-            margin: 0 auto 25px;
-            animation: professional-glow 3s ease-in-out infinite;
-            position: relative;
-            box-shadow: var(--shadow-heavy);
+            text-decoration: none;
+            transition: var(--transition-spring);
         }
 
-        .employee-login-icon::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary), var(--employee-accent));
-            border-radius: 25px;
-            z-index: -1;
-            opacity: 0.3;
-            animation: professional-pulse 2s ease-in-out infinite;
+        .nav-logo:hover { 
+            transform: scale(1.05) translateY(-2px);
         }
 
-        @keyframes professional-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(26, 35, 126, 0.4), var(--shadow-heavy); }
-            50% { box-shadow: 0 0 30px rgba(26, 35, 126, 0.6), 0 0 40px rgba(57, 73, 171, 0.3), var(--shadow-heavy); }
+        .nav-logo img {
+            height: 45px;
+            margin-right: var(--space-3);
         }
 
-        @keyframes professional-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.1; }
-        }
-
-        .employee-badge {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--employee-accent), #ff8f00);
-            color: var(--white);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-light);
-        }
-
-        .employee-login-title {
-            font-size: 2.5rem;
-            color: var(--employee-primary);
-            margin-bottom: 15px;
+        .nav-logo-text {
+            font-size: var(--font-xl);
             font-weight: 800;
-            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
+            background: var(--gradient-primary-vivid);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .employee-login-subtitle {
-            color: var(--gray);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            font-weight: 500;
+        .nav-links {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
         }
 
-        /* Alert Messages */
-        .employee-alert {
-            padding: 16px 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-            font-weight: 500;
-            display: none;
-            border-left: 4px solid;
-        }
-
-        .employee-alert.show {
-            display: block;
-            animation: slideDown 0.4s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .employee-alert-success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-            border-left-color: var(--success);
-        }
-
-        .employee-alert-error {
-            background: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-            border-left-color: var(--error);
-        }
-
-        .employee-alert-warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: var(--warning);
-            border-left-color: var(--warning);
-        }
-
-        /* Form Styling */
-        .employee-login-form {
-            margin-bottom: 30px;
-        }
-
-        .employee-form-group {
-            margin-bottom: 25px;
+        .nav-link {
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: var(--transition-elastic);
             position: relative;
+            overflow: hidden;
         }
 
-        .employee-form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: var(--employee-primary);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .employee-form-control {
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            padding: 18px 20px;
-            border: 2px solid #e9ecef;
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            transition: var(--transition);
-            background: var(--white);
-            font-weight: 500;
+            height: 100%;
+            background: var(--gradient-primary-vivid);
+            transition: var(--transition-elastic);
+            z-index: -1;
+            border-radius: var(--radius-full);
         }
 
-        .employee-form-control:focus {
-            outline: none;
-            border-color: var(--employee-secondary);
-            box-shadow: 0 0 0 4px rgba(57, 73, 171, 0.1);
+        .nav-link:hover::before { 
+            left: 0; 
+        }
+
+        .nav-link:hover { 
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .nav-link.active {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            box-shadow: var(--shadow-glow);
             transform: translateY(-2px);
         }
 
-        .employee-form-control.error {
+        /* Enhanced Login Screen */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: var(--space-5);
+            padding-top: 120px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-16) var(--space-12);
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-float);
+            animation: slideInUp 0.8s var(--transition-spring);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+        }
+
+        .employee-login-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary-vivid);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-4xl);
+            margin: 0 auto var(--space-6);
+            animation: professional-glow 3s ease-in-out infinite;
+            position: relative;
+            box-shadow: var(--shadow-strong);
+        }
+
+        @keyframes professional-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(30, 136, 229, 0.4), var(--shadow-strong); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(30, 136, 229, 0.6), 0 0 60px rgba(38, 166, 154, 0.3), var(--shadow-strong);
+                transform: scale(1.05);
+            }
+        }
+
+        .employee-badge {
+            display: inline-block;
+            background: var(--gradient-gold);
+            color: white;
+            padding: var(--space-2) var(--space-5);
+            border-radius: var(--radius-full);
+            font-size: var(--font-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .login-title {
+            font-size: var(--font-4xl);
+            color: var(--primary);
+            margin-bottom: var(--space-4);
+            font-weight: 900;
+            background: var(--gradient-primary-vivid);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-subtitle {
+            color: var(--gray);
+            font-size: var(--font-lg);
+            margin-bottom: var(--space-8);
+            font-weight: 500;
+        }
+
+        /* Enhanced Form Elements */
+        .form-group {
+            margin-bottom: var(--space-6);
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-weight: 700;
+            color: var(--dark);
+            font-size: var(--font-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-5) var(--space-6);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-base);
+            transition: var(--transition-spring);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .form-input.error {
             border-color: var(--error);
             animation: shake 0.5s ease-in-out;
         }
@@ -276,730 +425,1522 @@
             75% { transform: translateX(8px); }
         }
 
-        .employee-password-toggle {
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
             position: absolute;
-            right: 18px;
+            right: var(--space-4);
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
             color: var(--gray);
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: var(--transition);
+            font-size: var(--font-lg);
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth);
         }
 
-        .employee-password-toggle:hover {
-            color: var(--employee-secondary);
+        .password-toggle:hover {
+            color: var(--primary);
+            background: rgba(30, 136, 229, 0.1);
         }
 
-        .employee-form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-        }
-
-        .employee-remember-me {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .employee-remember-me input {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--employee-secondary);
-        }
-
-        .employee-forgot-password {
-            color: var(--employee-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .employee-forgot-password:hover {
-            color: var(--employee-primary);
-            text-decoration: underline;
-        }
-
-        .employee-login-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, var(--employee-primary), var(--employee-secondary));
-            color: var(--white);
+        /* Enhanced Buttons - Matching Client Portal */
+        .btn-primary {
+            background: var(--gradient-primary-vivid);
+            color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-lg);
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-bounce);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
+            width: 100%;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(26, 35, 126, 0.3);
-        }
-
-        .employee-login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .employee-login-btn:hover::before {
-            left: 100%;
-        }
-
-        .employee-login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(26, 35, 126, 0.4);
-        }
-
-        .employee-login-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .employee-login-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .employee-login-btn.loading::after {
-            content: '';
-            width: 22px;
-            height: 22px;
-            border: 3px solid transparent;
-            border-top: 3px solid var(--white);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        @keyframes spin {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            100% { transform: translateY(-50%) rotate(360deg); }
-        }
-
-        /* Security Info */
-        .employee-security-info {
-            background: rgba(76, 175, 80, 0.05);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-        }
-
-        .employee-security-info i {
-            color: var(--success);
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .employee-security-info p {
-            color: var(--success);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        /* Employee Resources */
-        .employee-resources {
-            background: rgba(26, 35, 126, 0.05);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-top: 30px;
-        }
-
-        .employee-resources h4 {
-            color: var(--employee-primary);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .employee-resource-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-        }
-
-        .employee-resource-link {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            color: var(--employee-primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            border: 1px solid rgba(26, 35, 126, 0.1);
-            box-shadow: var(--shadow-light);
-        }
-
-        .employee-resource-link:hover {
-            background: var(--employee-primary);
-            color: var(--white);
-            transform: translateY(-3px);
             box-shadow: var(--shadow-medium);
         }
 
-        .employee-resource-link i {
-            margin-right: 10px;
-            font-size: 1.1rem;
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: 2px solid transparent;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary);
+        }
+
+        /* Enhanced Portal Layout */
+        .portal-container {
+            display: none;
+            min-height: 100vh;
+            padding-top: 90px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .portal-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: var(--space-4) var(--space-5);
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .portal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portal-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .portal-logo img {
+            height: 45px;
+            margin-right: var(--space-3);
+        }
+
+        .portal-logo-text {
+            font-size: var(--font-xl);
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .portal-user-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary-vivid);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            transition: var(--transition-spring);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-glow-strong);
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .user-role {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            margin: 0;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .logout-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .portal-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-10) var(--space-8);
+        }
+
+        /* Enhanced Welcome Section - Matching Client Portal */
+        .welcome-section {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            padding: var(--space-16) var(--space-10);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--space-10);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-float);
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+            pointer-events: none;
+        }
+
+        .welcome-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.03)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.04)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-title {
+            font-size: clamp(var(--font-3xl), 5vw, var(--font-5xl));
+            margin-bottom: var(--space-4);
+            font-weight: 900;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: var(--font-xl);
+            opacity: 0.95;
+            margin-bottom: var(--space-8);
+            font-weight: 500;
+        }
+
+        /* Enhanced Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: var(--space-8);
+            margin-bottom: var(--space-10);
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            animation: slideInCard 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-employee-vivid);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: var(--shadow-float);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-5);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            font-size: var(--font-xl);
+            font-weight: 800;
+            color: var(--employee-dark);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-employee);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-xl);
+            transition: var(--transition-spring);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .dashboard-card:hover .card-icon {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-action {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--employee-primary);
+            border: 2px solid transparent;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .card-action:hover {
+            background: rgba(26, 35, 126, 0.2);
+            transform: translateY(-2px);
+            border-color: var(--employee-primary);
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            transition: var(--transition-spring);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-float);
+        }
+
+        .stat-number {
+            font-size: var(--font-4xl);
+            font-weight: 900;
+            margin-bottom: var(--space-2);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            opacity: 0.9;
+            font-size: var(--font-sm);
+        }
+
+        /* Enhanced Notifications */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: var(--space-8);
+            max-width: 450px;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(25px);
+            box-shadow: var(--shadow-float);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: var(--transition-spring);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(57, 73, 171, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
+            color: white;
+        }
+
+        /* Enhanced Utility Classes */
+        .btn-small {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-sm);
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-employee {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--employee-primary);
+            border: 1px solid rgba(26, 35, 126, 0.2);
+        }
+
+        .btn-employee:hover {
+            background: rgba(26, 35, 126, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-accent {
+            background: rgba(255, 111, 0, 0.1);
+            color: var(--employee-accent);
+            border: 1px solid rgba(255, 111, 0, 0.2);
+        }
+
+        .btn-accent:hover {
+            background: rgba(255, 111, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hidden { display: none !important; }
+        .show { display: block !important; }
+
+        /* Loading States */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .employee-login-container {
-                padding: 160px 15px 30px;
+            .nav-links { display: none; }
+            
+            .login-card {
+                padding: var(--space-10) var(--space-6);
+                margin: var(--space-3);
+                max-width: 450px;
             }
-
-            .employee-login-card {
-                padding: 40px 30px;
-                margin: 0 10px;
-            }
-
-            .employee-login-title {
-                font-size: 2rem;
-            }
-
-            .employee-login-icon {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
-            }
-
-            .employee-form-options {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-
-            .employee-resource-links {
+            
+            .welcome-title { font-size: var(--font-3xl); }
+            
+            .dashboard-grid {
                 grid-template-columns: 1fr;
+                gap: var(--space-5);
             }
-        }
-
-        @media (max-width: 576px) {
-            .employee-login-card {
-                padding: 30px 25px;
-                border-radius: 15px;
+            
+            .quick-stats { 
+                grid-template-columns: repeat(2, 1fr); 
             }
-
-            .employee-login-title {
-                font-size: 1.8rem;
+            
+            .portal-content { 
+                padding: var(--space-5) var(--space-4); 
             }
-
-            .employee-login-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 1.8rem;
+            
+            .welcome-section { 
+                padding: var(--space-10) var(--space-6); 
             }
-
-            .employee-form-control {
-                padding: 15px 18px;
-                font-size: 1rem;
+            
+            .dashboard-card { 
+                padding: var(--space-6); 
             }
 
-            .employee-login-btn {
-                padding: 15px;
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Loading Overlay */
-        .employee-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(26, 35, 126, 0.9);
-            backdrop-filter: blur(5px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .employee-loading-overlay.show {
-            display: flex;
-        }
-
-        .employee-loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid var(--white);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* Accessibility Improvements */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Focus styles for accessibility */
-        .employee-form-control:focus,
-        .employee-login-btn:focus,
-        .employee-resource-link:focus {
-            outline: 3px solid var(--employee-accent);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .employee-login-card {
-                border: 3px solid var(--employee-primary);
-                background: var(--white);
+            .portal-user-menu {
+                gap: var(--space-2);
             }
 
-            .employee-form-control {
-                border-width: 3px;
-            }
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .employee-floating-icon {
+            .user-info {
                 display: none;
             }
+
+            .logout-btn {
+                padding: var(--space-2);
+            }
         }
 
-        /* Staff Portal Badge Styling */
-        .nav-link.active {
-            color: var(--gallery-blue);
-        }
+        @media (max-width: 480px) {
+            .login-card {
+                padding: var(--space-8) var(--space-5);
+                max-width: 380px;
+            }
+            
+            .quick-stats { 
+                grid-template-columns: 1fr; 
+            }
 
-        .nav-link.active::before {
-            width: 100%;
+            .notification {
+                right: var(--space-4);
+                left: var(--space-4);
+                max-width: none;
+            }
         }
     </style>
 </head>
-<body class="employee-login-page">
-    <!-- Professional Grid Background -->
-    <div class="employee-grid-background"></div>
-    
-    <!-- Professional Floating Elements -->
-    <div class="employee-floating-elements">
-        <i class="employee-floating-icon fas fa-shield-alt"></i>
-        <i class="employee-floating-icon fas fa-calendar-check"></i>
-        <i class="employee-floating-icon fas fa-users"></i>
-        <i class="employee-floating-icon fas fa-clipboard-list"></i>
-        <i class="employee-floating-icon fas fa-user-tie"></i>
+<body>
+    <!-- Enhanced Animated Background -->
+    <div class="enhanced-background">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="employee-loading-overlay" id="loadingOverlay">
-        <div class="employee-loading-spinner"></div>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <span class="service-area">Serving Southern California since 2016</span>
-                <div class="top-bar-contact">
-                    <a href="tel:8053676432" class="phone-link">
-                        <i class="fas fa-phone"></i> (805) 367-6432
-                    </a>
-                    <a href="mailto:info@805lifeguard.com" class="email-link">
-                        <i class="fas fa-envelope"></i> info@805lifeguard.com
-                    </a>
-                </div>
+    <!-- Enhanced Navigation -->
+    <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="/" class="nav-logo" aria-label="805 LifeGuard Home">
+                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                <span class="nav-logo-text">805 LifeGuard</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/services" class="nav-link">Services</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/client-login" class="nav-link">Client Portal</a>
+                <a href="/employee-login" class="nav-link active">Staff Portal</a>
             </div>
         </div>
-        <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
-                <div class="logo-text">
-                    <span class="logo-main">805 LifeGuard</span>
-                    <span class="logo-subtitle">Professional Pool Safety</span>
-                </div>
-            </a>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="hoa-services.html" class="nav-link">HOA Services</a></li>
-                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="client-login.html" class="nav-link client-portal" title="Client Portal Access">Client Portal</a></li>
-                <li><a href="employee-login.html" class="nav-link staff-portal active" title="Staff Portal Access">Staff Portal</a></li>
-            </ul>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-        </nav>
-    </header>
+    </nav>
 
-    <!-- Employee Login Container -->
-    <div class="employee-login-container">
-        <div class="employee-login-card">
-            <div class="employee-login-header">
-                <div class="employee-login-icon">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <div class="employee-badge">Staff Portal</div>
-                <h1 class="employee-login-title">Employee Access</h1>
-                <p class="employee-login-subtitle">Secure login for 805 LifeGuard team members and staff</p>
+    <!-- Enhanced Employee Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="employee-login-icon">
+                <i class="fas fa-user-shield"></i>
             </div>
-
-            <!-- Alert Messages -->
-            <div class="employee-alert employee-alert-error" id="errorAlert"></div>
-            <div class="employee-alert employee-alert-success" id="successAlert"></div>
-            <div class="employee-alert employee-alert-warning" id="warningAlert"></div>
-
-            <!-- Employee Login Form -->
-            <form class="employee-login-form" id="loginForm">
-                <div class="employee-form-group">
-                    <label for="employeeId" class="employee-form-label">Employee ID</label>
-                    <input 
-                        type="text" 
-                        id="employeeId" 
-                        class="employee-form-control" 
-                        required 
-                        autocomplete="username"
-                        placeholder="Enter your employee ID"
-                        aria-describedby="employeeId-help"
-                    >
-                    <div id="employeeId-help" class="sr-only">Enter your assigned employee identification number</div>
+            <div class="employee-badge">Staff Portal</div>
+            <h1 class="login-title">Employee Access</h1>
+            <p class="login-subtitle">Secure login for 805 LifeGuard team members and staff</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="employeeId" class="form-label">Employee ID</label>
+                    <input type="text" id="employeeId" class="form-input" placeholder="Enter your employee ID" required autocomplete="username">
                 </div>
-
-                <div class="employee-form-group">
-                    <label for="password" class="employee-form-label">Password</label>
-                    <div style="position: relative;">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            class="employee-form-control" 
-                            required 
-                            autocomplete="current-password"
-                            placeholder="Enter your password"
-                            aria-describedby="password-help"
-                        >
-                        <button type="button" class="employee-password-toggle" onclick="togglePassword()">
-                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
                         </button>
                     </div>
-                    <div id="password-help" class="sr-only">Enter your secure employee password</div>
                 </div>
-
-                <div class="employee-form-options">
-                    <label class="employee-remember-me">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8); font-size: var(--font-base);">
+                    <label style="display: flex; align-items: center; gap: var(--space-2); cursor: pointer;">
                         <input type="checkbox" id="rememberMe">
                         <span>Keep me signed in</span>
                     </label>
-                    <a href="#" class="employee-forgot-password" onclick="forgotPassword()">Reset Password</a>
+                    <a href="#" style="color: var(--employee-primary); text-decoration: none; font-weight: 600;" onclick="forgotPassword()">Reset Password</a>
                 </div>
-
-                <button type="submit" class="employee-login-btn" id="loginBtn">
-                    Access Dashboard
+                
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Access Dashboard</span>
+                    <span class="loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Authenticating...
+                    </span>
                 </button>
+                
+                <div class="error-message hidden" id="loginError" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
             </form>
 
             <!-- Security Info -->
-            <div class="employee-security-info">
-                <i class="fas fa-lock"></i>
-                <p>This is a secure employee portal. All access is monitored and logged for security purposes.</p>
+            <div style="background: rgba(76, 175, 80, 0.05); border: 1px solid rgba(76, 175, 80, 0.2); border-radius: var(--radius-lg); padding: var(--space-5); margin: var(--space-6) 0; text-align: center;">
+                <i class="fas fa-lock" style="color: var(--success); font-size: var(--font-2xl); margin-bottom: var(--space-3);"></i>
+                <p style="color: var(--success); font-weight: 600; font-size: var(--font-base); margin: 0;">This is a secure employee portal. All access is monitored and logged for security purposes.</p>
             </div>
 
-            <!-- Employee Resources -->
-            <div class="employee-resources">
-                <h4>Quick Access Resources</h4>
-                <div class="employee-resource-links">
-                    <a href="#" class="employee-resource-link">
-                        <i class="fas fa-book"></i>
-                        <span>Training</span>
-                    </a>
-                    <a href="#" class="employee-resource-link">
-                        <i class="fas fa-calendar"></i>
-                        <span>Schedule</span>
-                    </a>
-                    <a href="#" class="employee-resource-link">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Reports</span>
-                    </a>
-                    <a href="#" class="employee-resource-link">
-                        <i class="fas fa-headset"></i>
-                        <span>Support</span>
-                    </a>
+            <!-- Demo Credentials Info -->
+            <div style="background: rgba(26, 35, 126, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-6);">
+                <h4 style="color: var(--employee-primary); margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 700; text-align: center;">Demo Employee Credentials</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                        <strong>Administrator</strong><br>
+                        <code>ADMIN</code> / <code>admin123</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                        <strong>Pool Manager</strong><br>
+                        <code>EMP003</code> / <code>manager789</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                        <strong>Senior Lifeguard</strong><br>
+                        <code>EMP001</code> / <code>lifeguard123</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(26, 35, 126, 0.1);">
+                        <strong>Swim Instructor</strong><br>
+                        <code>EMP002</code> / <code>instructor456</code>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <!-- Enhanced Employee Portal Dashboard -->
+    <div class="portal-container" id="portalContainer">
+        <!-- Enhanced Portal Header -->
+        <header class="portal-header">
+            <nav class="portal-nav" role="navigation" aria-label="Portal navigation">
+                <div class="portal-logo">
+                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                    <span class="portal-logo-text">Staff Portal</span>
+                </div>
+                <div class="portal-user-menu">
+                    <div class="user-avatar" id="userAvatar">JS</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Smith</div>
+                        <div class="user-role" id="userRole">Senior Lifeguard</div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Enhanced Portal Content -->
+        <main class="portal-content">
+            <!-- Enhanced Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h1 class="welcome-title">Welcome back, <span id="welcomeName">John</span>!</h1>
+                    <p class="welcome-subtitle">Your staff dashboard for managing schedules, assignments, and accessing resources.</p>
+                    
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="todayShifts">0</div>
+                            <div class="stat-label">Today's Shifts</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="weeklyHours">0</div>
+                            <div class="stat-label">Weekly Hours</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="upcomingAssignments">0</div>
+                            <div class="stat-label">Upcoming Jobs</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pendingReports">0</div>
+                            <div class="stat-label">Pending Reports</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enhanced Dashboard Cards -->
+            <section class="dashboard-grid">
+                <!-- Schedule Management Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                            My Schedule
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.openScheduleModal()">
+                            <i class="fas fa-eye"></i> View All
+                        </button>
+                    </div>
+                    <p>View your upcoming shifts, request time off, and manage your availability.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewTodaySchedule()">
+                            <i class="fas fa-clock"></i> Today's Schedule
+                        </button>
+                        <button class="btn-small btn-accent" onclick="employeePortal.requestTimeOff()">
+                            <i class="fas fa-calendar-times"></i> Request Time Off
+                        </button>
+                    </div>
+                    <div class="schedule-preview" id="schedulePreview" style="margin-top: var(--space-5); padding: var(--space-4); background: rgba(26, 35, 126, 0.05); border-radius: var(--radius-md);">
+                        <p style="text-align: center; color: var(--gray);">Loading schedule...</p>
+                    </div>
+                </div>
+
+                <!-- Assignments Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                            Active Assignments
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.viewAllAssignments()">View All</button>
+                    </div>
+                    <div class="assignments-list" id="assignmentsList">
+                        <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading assignments...</p>
+                    </div>
+                </div>
+
+                <!-- Training & Certifications Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                            Training & Certifications
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.openTrainingCenter()">
+                            <i class="fas fa-play"></i> Start Training
+                        </button>
+                    </div>
+                    <p>Keep your certifications up to date and complete required training modules.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewCertifications()">
+                            <i class="fas fa-certificate"></i> My Certs
+                        </button>
+                        <button class="btn-small btn-accent" onclick="employeePortal.browseTraining()">
+                            <i class="fas fa-book-open"></i> Browse Training
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Time Tracking Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-stopwatch"></i></div>
+                            Time Tracking
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.toggleClockInOut()" id="clockActionBtn">
+                            <i class="fas fa-play"></i> Clock In
+                        </button>
+                    </div>
+                    <p>Track your work hours and manage timesheets.</p>
+                    <div style="margin-top: var(--space-5);">
+                        <div id="currentShiftInfo" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(76, 175, 80, 0.2); display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="color: var(--success);">Currently Clocked In</strong>
+                                    <div style="font-size: var(--font-sm); color: var(--gray);">Started: <span id="shiftStartTime"></span></div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div id="shiftDuration" style="font-size: var(--font-lg); font-weight: 700; color: var(--success);">0:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident Reports Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            Incident Reports
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.createIncidentReport()">
+                            <i class="fas fa-plus"></i> New Report
+                        </button>
+                    </div>
+                    <p>Submit and manage incident reports and safety documentation.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewMyReports()">
+                            <i class="fas fa-file-alt"></i> My Reports
+                        </button>
+                        <button class="btn-small btn-accent" onclick="employeePortal.emergencyProtocols()">
+                            <i class="fas fa-first-aid"></i> Emergency Protocols
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resources & Communication Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-comments"></i></div>
+                            Team Communication
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.openMessaging()">
+                            <i class="fas fa-envelope"></i> Messages
+                        </button>
+                    </div>
+                    <p>Stay connected with your team and access important resources.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewAnnouncements()">
+                            <i class="fas fa-bullhorn"></i> Announcements
+                        </button>
+                        <button class="btn-small btn-accent" onclick="employeePortal.contactSupport()">
+                            <i class="fas fa-headset"></i> Support
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Enhanced JavaScript -->
     <script>
-        // Password Toggle
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('passwordToggleIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-
-        // Form Validation
-        function validateForm() {
-            const employeeId = document.getElementById('employeeId');
-            const password = document.getElementById('password');
-            let isValid = true;
-
-            // Reset previous error states
-            employeeId.classList.remove('error');
-            password.classList.remove('error');
-
-            // Employee ID validation
-            if (!employeeId.value || employeeId.value.length < 3) {
-                employeeId.classList.add('error');
-                showAlert('Please enter a valid employee ID', 'error');
-                isValid = false;
-            }
-
-            // Password validation
-            if (!password.value || password.value.length < 6) {
-                password.classList.add('error');
-                showAlert('Password must be at least 6 characters long', 'error');
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        // Show Alert Messages
-        function showAlert(message, type) {
-            hideAlerts();
-            const alertElement = document.getElementById(type + 'Alert');
-            alertElement.textContent = message;
-            alertElement.classList.add('show');
-            
-            // Hide alert after 6 seconds
-            setTimeout(() => {
-                alertElement.classList.remove('show');
-            }, 6000);
-        }
-
-        // Hide all alerts
-        function hideAlerts() {
-            document.querySelectorAll('.employee-alert').forEach(alert => {
-                alert.classList.remove('show');
-            });
-        }
-
-        // Login Form Submit
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            hideAlerts();
-            
-            if (!validateForm()) {
-                return;
-            }
-
-            const loginBtn = document.getElementById('loginBtn');
-            const employeeId = document.getElementById('employeeId').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-
-            // Show loading state
-            loginBtn.classList.add('loading');
-            loginBtn.textContent = 'Authenticating...';
-
-            try {
-                // Simulate API call
-                await simulateEmployeeLogin(employeeId, password, rememberMe);
+        // Enhanced Employee Portal System
+        class EnhancedEmployeePortal {
+            constructor() {
+                this.currentEmployee = null;
+                this.clockedIn = false;
+                this.shiftStartTime = null;
+                this.shiftTimer = null;
                 
-                showAlert('Authentication successful! Loading dashboard...', 'success');
+                // Employee API Configuration
+                this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
+                this.isMockMode = true; // Enable mock mode for demo
                 
-                // Redirect after successful login
-                setTimeout(() => {
-                    window.location.href = 'employee-dashboard.html';
-                }, 2000);
+                // Demo employee credentials
+                this.validEmployees = {
+                    'ADMIN': { 
+                        name: 'Admin User', 
+                        role: 'Administrator', 
+                        password: 'admin123',
+                        permissions: ['all']
+                    },
+                    'EMP001': { 
+                        name: 'John Smith', 
+                        role: 'Senior Lifeguard', 
+                        password: 'lifeguard123',
+                        permissions: ['schedule_view', 'reports', 'training', 'incident_reporting']
+                    },
+                    'EMP002': { 
+                        name: 'Sarah Johnson', 
+                        role: 'Swimming Instructor', 
+                        password: 'instructor456',
+                        permissions: ['schedule_view', 'student_progress', 'training']
+                    },
+                    'EMP003': { 
+                        name: 'Mike Wilson', 
+                        role: 'Pool Manager', 
+                        password: 'manager789',
+                        permissions: ['schedule_management', 'staff_management', 'reports', 'client_management']
+                    }
+                };
                 
-            } catch (error) {
-                showAlert(error.message, 'error');
-            } finally {
-                // Remove loading state
-                loginBtn.classList.remove('loading');
-                loginBtn.textContent = 'Access Dashboard';
+                this.init();
             }
-        });
 
-        // Simulate Employee Login API Call
-        async function simulateEmployeeLogin(employeeId, password, rememberMe) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    // Demo employee credentials
-                    const validEmployees = {
-                        'EMP001': { name: 'John Smith', role: 'Senior Lifeguard', password: 'lifeguard123' },
-                        'EMP002': { name: 'Sarah Johnson', role: 'Swimming Instructor', password: 'instructor456' },
-                        'EMP003': { name: 'Mike Wilson', role: 'Pool Manager', password: 'manager789' },
-                        'ADMIN': { name: 'Admin User', role: 'Administrator', password: 'admin123' }
-                    };
+            async init() {
+                console.log('👥 Initializing Enhanced Employee Portal...');
+                
+                this.setupEventListeners();
+                this.setupScrollEffects();
+                
+                // Check if employee is already logged in
+                const token = this.getEmployeeToken();
+                if (token) {
+                    await this.validateEmployeeToken(token);
+                } else {
+                    this.showLogin();
+                }
+                
+                console.log('✨ Enhanced employee portal initialized successfully!');
+            }
 
-                    const employee = validEmployees[employeeId.toUpperCase()];
+            // Authentication
+            getEmployeeToken() {
+                return localStorage.getItem('employeeToken') || sessionStorage.getItem('employeeToken');
+            }
+
+            async validateEmployeeToken(token) {
+                try {
+                    const employeeData = JSON.parse(token);
+                    
+                    // In a real app, validate with server
+                    if (employeeData && employeeData.employeeId) {
+                        this.currentEmployee = employeeData;
+                        await this.loadEmployeeData();
+                        this.showPortal();
+                    } else {
+                        this.clearEmployeeToken();
+                        this.showLogin();
+                    }
+                } catch (error) {
+                    console.error('Token validation error:', error);
+                    this.clearEmployeeToken();
+                    this.showLogin();
+                }
+            }
+
+            clearEmployeeToken() {
+                localStorage.removeItem('employeeToken');
+                sessionStorage.removeItem('employeeToken');
+            }
+
+            async handleLogin() {
+                const employeeId = document.getElementById('employeeId').value.trim();
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+                const loginBtn = document.getElementById('loginBtn');
+                const errorDiv = document.getElementById('loginError');
+
+                this.showLoadingState(loginBtn, 'Authenticating...');
+                errorDiv.classList.add('hidden');
+
+                try {
+                    const employee = this.validEmployees[employeeId.toUpperCase()];
                     
                     if (!employee) {
-                        reject(new Error('Invalid employee ID. Please check your credentials.'));
-                        return;
+                        throw new Error('Invalid employee ID. Please check your credentials.');
                     }
                     
                     if (employee.password !== password) {
-                        reject(new Error('Invalid password. Please try again.'));
-                        return;
-                    }
-                    
-                    if (employeeId.toUpperCase() === 'BLOCKED') {
-                        reject(new Error('Your account has been temporarily suspended. Contact HR.'));
-                        return;
+                        throw new Error('Invalid password. Please try again.');
                     }
 
-                    // Store employee login info
+                    // Create employee session data
                     const employeeData = {
                         employeeId: employeeId.toUpperCase(),
                         name: employee.name,
                         role: employee.role,
-                        loginTime: new Date().toISOString(),
-                        rememberMe: rememberMe,
-                        permissions: getEmployeePermissions(employee.role)
+                        permissions: employee.permissions,
+                        loginTime: new Date().toISOString()
                     };
-                    
+
+                    // Store token
+                    const token = JSON.stringify(employeeData);
                     if (rememberMe) {
-                        localStorage.setItem('805lg_employee', JSON.stringify(employeeData));
+                        localStorage.setItem('employeeToken', token);
                     } else {
-                        sessionStorage.setItem('805lg_employee', JSON.stringify(employeeData));
+                        sessionStorage.setItem('employeeToken', token);
                     }
+
+                    this.currentEmployee = employeeData;
                     
-                    resolve(employeeData);
-                }, 2500);
-            });
+                    await this.loadEmployeeData();
+                    
+                    setTimeout(() => {
+                        this.showPortal();
+                        this.showNotification('Welcome back! Successfully signed in.', 'success');
+                    }, 1000);
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorDiv.textContent = error.message;
+                    errorDiv.classList.remove('hidden');
+                    this.shakeElement(errorDiv);
+                } finally {
+                    this.hideLoadingState(loginBtn, 'Access Dashboard');
+                }
+            }
+
+            // Data Loading
+            async loadEmployeeData() {
+                try {
+                    console.log('📊 Loading employee data...');
+                    
+                    // Load mock data for demo
+                    this.loadDemoEmployeeData();
+                    this.updateEmployeeInfo();
+                    this.updateEmployeeStats();
+                    this.updateSchedulePreview();
+                    this.updateAssignmentsList();
+                    
+                    console.log('✅ Employee data loaded successfully');
+                } catch (error) {
+                    console.error('Error loading employee data:', error);
+                    this.showNotification('Some data could not be loaded.', 'warning');
+                }
+            }
+
+            loadDemoEmployeeData() {
+                // Demo schedule data
+                this.scheduleData = [
+                    {
+                        id: 1,
+                        date: new Date().toISOString().split('T')[0],
+                        startTime: '09:00',
+                        endTime: '17:00',
+                        location: 'Westlake Pool',
+                        type: 'Lifeguard Duty'
+                    },
+                    {
+                        id: 2,
+                        date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+                        startTime: '14:00',
+                        endTime: '18:00',
+                        location: 'Oak Park Community Center',
+                        type: 'Swim Lessons'
+                    }
+                ];
+
+                // Demo assignments
+                this.assignments = [
+                    {
+                        id: 1,
+                        title: 'Pool Safety Inspection',
+                        dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        priority: 'high',
+                        status: 'pending'
+                    },
+                    {
+                        id: 2,
+                        title: 'Equipment Maintenance Check',
+                        dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
+                        priority: 'medium',
+                        status: 'in-progress'
+                    }
+                ];
+
+                console.log('🎭 Demo employee data loaded');
+            }
+
+            // UI Updates
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                console.log('🎉 Employee portal loaded successfully!');
+            }
+
+            updateEmployeeInfo() {
+                if (!this.currentEmployee) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const userRole = document.getElementById('userRole');
+                const welcomeName = document.getElementById('welcomeName');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentEmployee.name);
+                if (userName) userName.textContent = this.currentEmployee.name;
+                if (userRole) userRole.textContent = this.currentEmployee.role;
+                if (welcomeName) welcomeName.textContent = this.currentEmployee.name.split(' ')[0];
+            }
+
+            updateEmployeeStats() {
+                // Demo stats based on role
+                const stats = this.getStatsForRole(this.currentEmployee.role);
+                
+                this.animateNumber('todayShifts', stats.todayShifts);
+                this.animateNumber('weeklyHours', stats.weeklyHours);
+                this.animateNumber('upcomingAssignments', stats.upcomingAssignments);
+                this.animateNumber('pendingReports', stats.pendingReports);
+            }
+
+            getStatsForRole(role) {
+                const baseStats = {
+                    'Administrator': { todayShifts: 0, weeklyHours: 40, upcomingAssignments: 12, pendingReports: 3 },
+                    'Pool Manager': { todayShifts: 1, weeklyHours: 38, upcomingAssignments: 8, pendingReports: 2 },
+                    'Senior Lifeguard': { todayShifts: 2, weeklyHours: 32, upcomingAssignments: 5, pendingReports: 1 },
+                    'Swimming Instructor': { todayShifts: 3, weeklyHours: 28, upcomingAssignments: 4, pendingReports: 0 }
+                };
+                
+                return baseStats[role] || { todayShifts: 1, weeklyHours: 25, upcomingAssignments: 3, pendingReports: 0 };
+            }
+
+            updateSchedulePreview() {
+                const container = document.getElementById('schedulePreview');
+                if (!container) return;
+                
+                const todaySchedule = this.scheduleData.filter(shift => 
+                    shift.date === new Date().toISOString().split('T')[0]
+                );
+
+                if (todaySchedule.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--gray);">No shifts scheduled for today</p>';
+                    return;
+                }
+
+                container.innerHTML = todaySchedule.map(shift => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+                        <div>
+                            <strong>${shift.type}</strong><br>
+                            <small style="color: var(--gray);">${shift.location}</small>
+                        </div>
+                        <div style="text-align: right; font-weight: 600; color: var(--employee-primary);">
+                            ${shift.startTime} - ${shift.endTime}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateAssignmentsList() {
+                const container = document.getElementById('assignmentsList');
+                if (!container) return;
+                
+                if (this.assignments.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">No active assignments</p>';
+                    return;
+                }
+
+                container.innerHTML = this.assignments.slice(0, 3).map(assignment => {
+                    const priorityColor = assignment.priority === 'high' ? 'var(--error)' : 
+                                        assignment.priority === 'medium' ? 'var(--warning)' : 'var(--success)';
+                    
+                    return `
+                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid ${priorityColor};">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
+                                <strong>${assignment.title}</strong>
+                                <span style="background: rgba(26, 35, 126, 0.1); color: var(--employee-primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); text-transform: uppercase;">${assignment.status}</span>
+                            </div>
+                            <div style="color: var(--gray); font-size: var(--font-sm);">
+                                <i class="fas fa-calendar"></i> Due: ${new Date(assignment.dueDate).toLocaleDateString()}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Time Tracking
+            toggleClockInOut() {
+                if (this.clockedIn) {
+                    this.clockOut();
+                } else {
+                    this.clockIn();
+                }
+            }
+
+            clockIn() {
+                this.clockedIn = true;
+                this.shiftStartTime = new Date();
+                
+                const clockBtn = document.getElementById('clockActionBtn');
+                const shiftInfo = document.getElementById('currentShiftInfo');
+                const startTimeSpan = document.getElementById('shiftStartTime');
+                
+                clockBtn.innerHTML = '<i class="fas fa-stop"></i> Clock Out';
+                clockBtn.style.background = 'var(--gradient-secondary)';
+                
+                if (shiftInfo) shiftInfo.style.display = 'block';
+                if (startTimeSpan) startTimeSpan.textContent = this.shiftStartTime.toLocaleTimeString();
+                
+                this.startShiftTimer();
+                this.showNotification('Successfully clocked in!', 'success');
+            }
+
+            clockOut() {
+                this.clockedIn = false;
+                
+                const clockBtn = document.getElementById('clockActionBtn');
+                const shiftInfo = document.getElementById('currentShiftInfo');
+                
+                clockBtn.innerHTML = '<i class="fas fa-play"></i> Clock In';
+                clockBtn.style.background = 'var(--gradient-employee-vivid)';
+                
+                if (shiftInfo) shiftInfo.style.display = 'none';
+                
+                this.stopShiftTimer();
+                
+                const duration = this.calculateShiftDuration();
+                this.showNotification(`Clocked out! Shift duration: ${duration}`, 'info');
+            }
+
+            startShiftTimer() {
+                this.shiftTimer = setInterval(() => {
+                    const duration = this.calculateShiftDuration();
+                    const durationSpan = document.getElementById('shiftDuration');
+                    if (durationSpan) durationSpan.textContent = duration;
+                }, 1000);
+            }
+
+            stopShiftTimer() {
+                if (this.shiftTimer) {
+                    clearInterval(this.shiftTimer);
+                    this.shiftTimer = null;
+                }
+            }
+
+            calculateShiftDuration() {
+                if (!this.shiftStartTime) return '0:00';
+                
+                const now = new Date();
+                const diff = now - this.shiftStartTime;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                return `${hours}:${minutes.toString().padStart(2, '0')}`;
+            }
+
+            // Feature Methods (Placeholders for full implementation)
+            openScheduleModal() {
+                this.showNotification('Schedule management opening soon!', 'info');
+            }
+
+            viewTodaySchedule() {
+                this.showNotification('Displaying today\'s schedule...', 'info');
+            }
+
+            requestTimeOff() {
+                this.showNotification('Time off request form coming soon!', 'info');
+            }
+
+            viewAllAssignments() {
+                this.showNotification('Full assignments view opening soon!', 'info');
+            }
+
+            openTrainingCenter() {
+                this.showNotification('Training center launching soon!', 'info');
+            }
+
+            viewCertifications() {
+                this.showNotification('Certifications overview coming soon!', 'info');
+            }
+
+            browseTraining() {
+                this.showNotification('Training catalog opening soon!', 'info');
+            }
+
+            createIncidentReport() {
+                this.showNotification('Incident report form opening soon!', 'info');
+            }
+
+            viewMyReports() {
+                this.showNotification('Your reports overview coming soon!', 'info');
+            }
+
+            emergencyProtocols() {
+                this.showNotification('Emergency protocols guide opening soon!', 'info');
+            }
+
+            openMessaging() {
+                this.showNotification('Team messaging system coming soon!', 'info');
+            }
+
+            viewAnnouncements() {
+                this.showNotification('Company announcements coming soon!', 'info');
+            }
+
+            contactSupport() {
+                this.showNotification('Support contact form opening soon!', 'info');
+            }
+
+            // Event Listeners
+            setupEventListeners() {
+                // Login form
+                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+
+                // Password toggle
+                document.getElementById('passwordToggle')?.addEventListener('click', () => {
+                    this.togglePassword();
+                });
+
+                // Logout button
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    this.handleLogout();
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        // Close any open modals
+                    }
+                });
+
+                console.log('✅ Employee portal event listeners setup complete');
+            }
+
+            setupScrollEffects() {
+                let ticking = false;
+                
+                const handleScroll = () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            this.updateScrollEffects();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                };
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+            }
+
+            updateScrollEffects() {
+                const scrollY = window.scrollY;
+                const navbar = document.getElementById('mainNav');
+                
+                if (navbar) {
+                    if (scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }
+            }
+
+            // Utility Functions
+            togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleBtn = document.getElementById('passwordToggle');
+                const icon = toggleBtn.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            }
+
+            handleLogout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    this.stopShiftTimer();
+                    this.clearEmployeeToken();
+                    this.currentEmployee = null;
+                    this.clockedIn = false;
+                    
+                    document.getElementById('loginForm').reset();
+                    this.showLogin();
+                    this.showNotification('Successfully logged out!', 'info');
+                }
+            }
+
+            showLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
+
+            hideLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = false;
+                button.innerHTML = text;
+            }
+
+            showNotification(message, type = 'success') {
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                           type === 'error' ? 'exclamation-triangle' : 
+                           type === 'warning' ? 'exclamation-circle' : 'info-circle';
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; margin-bottom: var(--space-1);">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95;">${message}</div>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none; border: none; color: inherit; font-size: var(--font-lg); cursor: pointer; opacity: 0.7; padding: var(--space-1);
+                        ">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 100);
+                
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.classList.remove('show');
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 5000);
+            }
+
+            animateNumber(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = parseInt(element.textContent) || 0;
+                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 20));
+                
+                const timer = setInterval(() => {
+                    if (currentValue < targetValue) {
+                        currentValue = Math.min(currentValue + increment, targetValue);
+                        element.textContent = currentValue;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+
+            shakeElement(element) {
+                element.style.animation = 'shake 0.6s ease-in-out';
+                setTimeout(() => {
+                    element.style.animation = '';
+                }, 600);
+            }
+
+            getInitials(name) {
+                if (!name) return 'E';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
+            }
         }
 
-        // Get Employee Permissions
-        function getEmployeePermissions(role) {
-            const permissions = {
-                'Administrator': ['all'],
-                'Pool Manager': ['schedule_management', 'staff_management', 'reports', 'client_management'],
-                'Senior Lifeguard': ['schedule_view', 'reports', 'training', 'incident_reporting'],
-                'Swimming Instructor': ['schedule_view', 'student_progress', 'training'],
-                'Lifeguard': ['schedule_view', 'incident_reporting', 'training']
-            };
-            
-            return permissions[role] || ['schedule_view', 'training'];
-        }
-
-        // Forgot Password
+        // Forgot Password Function
         function forgotPassword() {
             const employeeId = document.getElementById('employeeId').value;
             
             if (employeeId) {
-                showAlert(`Password reset request submitted for ${employeeId}. Check your email for instructions.`, 'success');
+                employeePortal.showNotification(`Password reset request submitted for ${employeeId}. Check your email for instructions.`, 'success');
             } else {
-                showAlert('Please enter your employee ID first', 'warning');
+                employeePortal.showNotification('Please enter your employee ID first', 'warning');
                 document.getElementById('employeeId').focus();
             }
         }
 
-        // Check if employee is already logged in
-        window.addEventListener('load', () => {
-            const employeeData = localStorage.getItem('805lg_employee') || sessionStorage.getItem('805lg_employee');
+        // Initialize Employee Portal
+        document.addEventListener('DOMContentLoaded', function() {
+            window.employeePortal = new EnhancedEmployeePortal();
             
-            if (employeeData) {
-                showAlert('You are already logged in. Redirecting to dashboard...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'employee-dashboard.html';
-                }, 1500);
-            }
-        });
-
-        // Auto-focus employee ID field
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('employeeId').focus();
-        });
-
-        // Handle Enter key navigation
-        document.getElementById('employeeId').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('password').focus();
-            }
-        });
-
-        // Format Employee ID input
-        document.getElementById('employeeId').addEventListener('input', (e) => {
-            // Convert to uppercase for consistency
-            e.target.value = e.target.value.toUpperCase();
-        });
-
-        // Add professional hover effects
-        document.querySelectorAll('.employee-resource-link').forEach(link => {
-            link.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px) scale(1.02)';
+            // Auto-focus employee ID field
+            document.getElementById('employeeId')?.focus();
+            
+            // Format Employee ID input
+            document.getElementById('employeeId')?.addEventListener('input', (e) => {
+                e.target.value = e.target.value.toUpperCase();
             });
             
-            link.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+            console.log('👥 Enhanced Employee Portal - Ready');
         });
 
-        // Security monitoring simulation
-        function logAccessAttempt(employeeId, success) {
-            // In a real application, this would send data to a security monitoring system
-            console.log(`Access attempt: ${employeeId} at ${new Date().toISOString()} - ${success ? 'SUCCESS' : 'FAILED'}`);
-        }
+        // Enhanced Error Handling
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Employee Portal Error:', event.error);
+        });
 
-        // Enhanced form submission with security logging
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            const employeeId = document.getElementById('employeeId').value;
-            
-            // Log the attempt (in real app, this would be server-side)
-            setTimeout(() => {
-                logAccessAttempt(employeeId, true);
-            }, 100);
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Employee Portal Promise Rejection:', event.reason);
+            event.preventDefault();
         });
     </script>
 </body>
