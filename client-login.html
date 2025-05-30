@@ -1561,9 +1561,10 @@
                 this.bookings = [];
                 this.availabilityData = {};
                 
-                // Disable mock mode to use real API
+                // Real API with correct database field names
                 this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
-                this.isMockMode = false; // Changed to false to use real API
+                this.isMockMode = false;
+                this.mockBookingsOnly = false; // Disabled - now using real API with correct field names
                 
                 this.serviceNames = {
                     'swim-lesson': 'Private Swim Lesson',
@@ -2075,108 +2076,37 @@
                         throw new Error('Number of participants is required');
                     }
 
-                    // Multiple format attempts to avoid undefined values
-                    const formatAttempts = [
-                        // Attempt 1: Exact original working format
-                        {
-                            service: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants),
-                            notes: specialRequests || null  // Try 'notes' instead of 'specialRequests'
-                        },
-                        
-                        // Attempt 2: Without optional fields
-                        {
-                            service: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants)
-                        },
-                        
-                        // Attempt 3: Common backend field names
-                        {
-                            service_type: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants),
-                            notes: specialRequests || null
-                        },
-                        
-                        // Attempt 4: Database-style naming
-                        {
-                            type: this.selectedService,
-                            booking_date: this.selectedDate.toISOString().split('T')[0],
-                            booking_time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participant_count: parseInt(participants),
-                            special_notes: specialRequests || null
-                        },
-                        
-                        // Attempt 5: Minimal essential fields only
-                        {
-                            service: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants),
-                            user_id: this.currentUser?.id || null,
-                            status: 'pending'
-                        }
-                    ];
+                    // Create booking data with EXACT field names from database schema
+                    const bookingData = {
+                        user_id: this.currentUser?.id || null,                    // Required field
+                        service_type: this.selectedService,                       // Required field  
+                        service_name: this.serviceNames[this.selectedService],   // Optional but helpful
+                        booking_date: this.selectedDate.toISOString().split('T')[0], // Required field
+                        booking_time: this.selectedTime,                         // Required field
+                        duration: parseFloat(duration),                          // Required field
+                        participants: parseInt(participants),                    // Optional (has default)
+                        special_requests: specialRequests || null,               // Optional field
+                        status: 'pending',                                       // Optional (has default)
+                        cost: 0.0                                               // Required field (set to 0 for now)
+                    };
 
-                    let response;
-                    let lastError;
-                    let successfulFormat = null;
+                    console.log('🎯 Sending data with EXACT database field names:', JSON.stringify(bookingData, null, 2));
 
-                    // Try each format until one works
-                    for (let i = 0; i < formatAttempts.length; i++) {
-                        const currentFormat = formatAttempts[i];
-                        
-                        console.log(`🧪 Attempting Format ${i + 1}:`, JSON.stringify(currentFormat, null, 2));
-
-                        // Remove any undefined values to prevent D1 errors
-                        const cleanedFormat = {};
-                        for (const [key, value] of Object.entries(currentFormat)) {
-                            if (value !== undefined && value !== null && value !== '') {
-                                cleanedFormat[key] = value;
-                            }
-                        }
-
-                        console.log(`🧽 Cleaned Format ${i + 1}:`, JSON.stringify(cleanedFormat, null, 2));
-
-                        try {
-                            response = await this.apiCall('/api/bookings', 'POST', cleanedFormat);
-                            
-                            if (response && response.success) {
-                                console.log(`✅ SUCCESS with Format ${i + 1}!`);
-                                successfulFormat = i + 1;
-                                break;
-                            }
-                        } catch (error) {
-                            console.log(`❌ Format ${i + 1} failed:`, error.message);
-                            lastError = error;
-                            
-                            // If we get a specific D1 undefined error, continue trying other formats
-                            if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
-                                console.log(`🔄 D1 undefined error detected, trying next format...`);
-                                continue;
-                            }
-                            
-                            // If it's a different type of error, don't continue
-                            if (!error.message.includes('500') && !error.message.includes('Internal Server Error')) {
-                                break;
-                            }
+                    // Validate no required fields are missing
+                    const requiredFields = ['user_id', 'service_type', 'booking_date', 'booking_time', 'duration', 'cost'];
+                    for (const field of requiredFields) {
+                        if (bookingData[field] === null || bookingData[field] === undefined) {
+                            console.error(`❌ Required field '${field}' is missing or null`);
+                            throw new Error(`Required field '${field}' is missing`);
                         }
                     }
 
-                    console.log('📥 Final API Response:', response);
+                    const response = await this.apiCall('/api/bookings', 'POST', bookingData);
+
+                    console.log('📥 API Response:', response);
 
                     if (response && response.success) {
-                        console.log(`🎉 Booking successful using Format ${successfulFormat}!`);
+                        console.log('🎉 Booking successful with correct database field names!');
                         
                         if (response.booking) {
                             this.bookings.push(response.booking);
@@ -2192,21 +2122,19 @@
                             this.closeBookingModal();
                         }, 2000);
                     } else {
-                        console.error('🚨 ALL FORMATS FAILED');
-                        console.error('🔧 Backend expecting different field names than provided');
-                        console.error('📋 Last attempted format:', formatAttempts[formatAttempts.length - 1]);
-                        
-                        throw lastError || new Error('All booking format attempts failed. Backend expects different field names - check worker code.');
+                        throw new Error(response?.error || 'Booking submission failed');
                     }
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
                     
                     let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
-                        errorMessage += 'Database field mismatch - your backend expects different field names. Check the console for details.';
+                    if (error.message.includes('user_id')) {
+                        errorMessage += 'User authentication error - please try logging out and back in.';
+                    } else if (error.message.includes('undefined') || error.message.includes('D1_TYPE_ERROR')) {
+                        errorMessage += 'Database field error - this should now be fixed.';
                     } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                        errorMessage += 'Server error - check Cloudflare Worker code and database.';
+                        errorMessage += 'Server error - the database fields should now match.';
                     } else {
                         errorMessage += error.message;
                     }
@@ -2462,6 +2390,12 @@
             async apiCall(endpoint, method = 'GET', data = null, token = null) {
                 // Use mock API for development/testing
                 if (this.isMockMode) {
+                    return this.mockApiCall(endpoint, method, data, token);
+                }
+
+                // Use mock for booking endpoint only while backend is being fixed
+                if (this.mockBookingsOnly && endpoint === '/api/bookings' && method === 'POST') {
+                    console.log('🧪 Using mock for booking endpoint due to backend issue');
                     return this.mockApiCall(endpoint, method, data, token);
                 }
 
