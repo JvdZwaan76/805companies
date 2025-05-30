@@ -2075,7 +2075,7 @@
                         throw new Error('Number of participants is required');
                     }
 
-                    // Try the original format that was working yesterday first
+                    // FORMAT 1: Original simple format (most likely to work)
                     const originalFormat = {
                         service: this.selectedService,
                         date: this.selectedDate.toISOString().split('T')[0],
@@ -2085,36 +2085,7 @@
                         specialRequests: specialRequests || ''
                     };
 
-                    // Then fallback formats if needed
-                    const alternativeFormats = [
-                        // Format 2: Without specialRequests if it's causing issues
-                        {
-                            service: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants)
-                        },
-                        // Format 3: Snake case with different field names
-                        {
-                            service_type: this.selectedService,
-                            booking_date: this.selectedDate.toISOString().split('T')[0],
-                            booking_time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants),
-                            special_requests: specialRequests || ''
-                        },
-                        // Format 4: Minimal with just core fields
-                        {
-                            type: this.selectedService,
-                            date: this.selectedDate.toISOString().split('T')[0],
-                            time: this.selectedTime,
-                            duration: parseFloat(duration),
-                            participants: parseInt(participants)
-                        }
-                    ];
-
-                    console.log('🧪 Trying original format first:', JSON.stringify(originalFormat, null, 2));
+                    console.log('🧪 Trying ORIGINAL format first:', JSON.stringify(originalFormat, null, 2));
 
                     let response;
                     let lastError;
@@ -2124,28 +2095,57 @@
                         response = await this.apiCall('/api/bookings', 'POST', originalFormat);
                         
                         if (response && response.success) {
-                            console.log('✅ Success with original format!');
+                            console.log('✅ SUCCESS with original format!');
                         }
                     } catch (error) {
                         console.log('❌ Original format failed:', error.message);
                         lastError = error;
 
-                        // If we get a 500 error, try alternative formats
+                        // Only try alternatives if we get specific field-related errors
                         if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                            console.log('🔄 Trying alternative formats due to 500 error...');
+                            console.log('🔄 500 error detected - trying alternative formats...');
                             
-                            for (let i = 0; i < alternativeFormats.length; i++) {
+                            // FORMAT 2: Without specialRequests (in case that field is causing issues)
+                            const noSpecialRequestsFormat = {
+                                service: this.selectedService,
+                                date: this.selectedDate.toISOString().split('T')[0],
+                                time: this.selectedTime,
+                                duration: parseFloat(duration),
+                                participants: parseInt(participants)
+                            };
+
+                            console.log('🧪 Trying format WITHOUT specialRequests:', JSON.stringify(noSpecialRequestsFormat, null, 2));
+                            
+                            try {
+                                response = await this.apiCall('/api/bookings', 'POST', noSpecialRequestsFormat);
+                                
+                                if (response && response.success) {
+                                    console.log('✅ SUCCESS without specialRequests!');
+                                }
+                            } catch (altError) {
+                                console.log('❌ No specialRequests format failed:', altError.message);
+                                lastError = altError;
+
+                                // FORMAT 3: Snake case format
+                                const snakeCaseFormat = {
+                                    service_type: this.selectedService,
+                                    booking_date: this.selectedDate.toISOString().split('T')[0],
+                                    booking_time: this.selectedTime,
+                                    duration: parseFloat(duration),
+                                    participants: parseInt(participants)
+                                };
+
+                                console.log('🧪 Trying SNAKE_CASE format:', JSON.stringify(snakeCaseFormat, null, 2));
+                                
                                 try {
-                                    console.log(`🔄 Attempting alternative format ${i + 1}:`, JSON.stringify(alternativeFormats[i], null, 2));
-                                    response = await this.apiCall('/api/bookings', 'POST', alternativeFormats[i]);
+                                    response = await this.apiCall('/api/bookings', 'POST', snakeCaseFormat);
                                     
                                     if (response && response.success) {
-                                        console.log(`✅ Success with alternative format ${i + 1}!`);
-                                        break;
+                                        console.log('✅ SUCCESS with snake_case format!');
                                     }
-                                } catch (altError) {
-                                    console.log(`❌ Alternative format ${i + 1} failed:`, altError.message);
-                                    lastError = altError;
+                                } catch (snakeError) {
+                                    console.log('❌ Snake_case format failed:', snakeError.message);
+                                    lastError = snakeError;
                                 }
                             }
                         } else {
@@ -2171,7 +2171,20 @@
                             this.closeBookingModal();
                         }, 2000);
                     } else {
-                        throw lastError || new Error('Booking submission failed - please check Cloudflare Worker logs for details');
+                        console.error('🚨 ALL FORMATS FAILED. Backend issue detected.');
+                        console.error('🔧 Check your Cloudflare Worker code for /api/bookings POST endpoint');
+                        console.error('📋 Expected data formats tried:', {
+                            original: originalFormat,
+                            minimal: {
+                                service: this.selectedService,
+                                date: this.selectedDate.toISOString().split('T')[0],
+                                time: this.selectedTime,
+                                duration: parseFloat(duration),
+                                participants: parseInt(participants)
+                            }
+                        });
+                        
+                        throw lastError || new Error('Backend server error - please check Cloudflare Worker logs');
                     }
 
                 } catch (error) {
@@ -2179,7 +2192,7 @@
                     
                     let errorMessage = 'Failed to submit booking. ';
                     if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
-                        errorMessage += 'Server error - please check your Cloudflare Worker logs and database configuration.';
+                        errorMessage += 'Server error detected. Please check your Cloudflare Worker backend code and database configuration.';
                     } else if (error.message.includes('undefined')) {
                         errorMessage += 'Database field error - some required fields may be missing.';
                     } else {
