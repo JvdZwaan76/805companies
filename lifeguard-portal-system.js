@@ -1,1244 +1,516 @@
-// 805 LifeGuard - Unified Portal Configuration System
-// This file should be included in all three portals for consistent functionality
+/**
+ * 805 LifeGuard Unified Portal System
+ * Handles authentication, API calls, notifications, and shared functionality
+ * across all portals (admin, client, employee)
+ */
 
 class LifeGuardPortalSystem {
     constructor() {
-        // Unified API Configuration
-        this.config = {
-            apiBaseUrl: 'https://lifeguard-portal-app.jaspervdz.workers.dev',
-            version: '2.0',
-            environment: 'production', // 'development', 'staging', 'production'
-            
-            // Portal Types
-            portals: {
-                admin: {
-                    name: 'Admin Portal',
-                    url: './admin.html',
-                    icon: 'fas fa-shield-alt',
-                    description: 'Business management and oversight',
-                    requiredRole: 'admin'
-                },
-                staff: {
-                    name: 'Staff Portal', 
-                    url: './employee-login.html',
-                    icon: 'fas fa-user-shield',
-                    description: 'Employee management and operations',
-                    requiredRole: 'employee'
-                },
-                client: {
-                    name: 'Client Portal',
-                    url: './client-login.html', 
-                    icon: 'fas fa-swimmer',
-                    description: 'Customer booking and account management',
-                    requiredRole: 'client'
-                }
-            },
-            
-            // Unified API Endpoints - Enhanced Mapping
-            endpoints: {
-                // Authentication Endpoints
-                login: '/api/auth/login',
-                register: '/api/auth/register',
-                logout: '/api/auth/logout',
-                validateToken: '/api/auth/validate',
-                resetPassword: '/api/auth/reset-password',
-                
-                // Admin Endpoints
-                adminLogin: '/api/admin/login',
-                adminCustomers: '/api/admin/customers',
-                adminBookings: '/api/admin/bookings',
-                adminStats: '/api/admin/bookings/stats',
-                adminExport: '/api/admin/export',
-                adminStaff: '/api/admin/staff',
-                adminAnalytics: '/api/admin/analytics',
-                
-                // Staff Endpoints
-                staffLogin: '/api/staff/login',
-                staffProfile: '/api/staff/profile',
-                staffSchedule: '/api/staff/schedule',
-                staffTimeTracking: '/api/staff/time-tracking',
-                staffIncidents: '/api/staff/incidents',
-                staffTraining: '/api/staff/training',
-                staffClockIn: '/api/staff/clock-in',
-                staffClockOut: '/api/staff/clock-out',
-                staffBreak: '/api/staff/break',
-                staffReturn: '/api/staff/return',
-                
-                // Client Endpoints
-                clientProfile: '/api/user/profile',
-                clientBookings: '/api/bookings',
-                clientAvailability: '/api/availability',
-                clientPreferences: '/api/user/preferences',
-                clientNotifications: '/api/user/notifications',
-                
-                // Shared Endpoints
-                systemStatus: '/api/system/status',
-                emergencyAlert: '/api/emergency/alert',
-                systemLogError: '/api/system/log-error'
-            },
-            
-            // Unified Styling Configuration
-            theme: {
-                colors: {
-                    primary: '#1e88e5',
-                    secondary: '#26a69a',
-                    accent: '#ffd700',
-                    success: '#4caf50',
-                    warning: '#ff9800',
-                    error: '#f44336',
-                    info: '#2196f3'
-                },
-                
-                gradients: {
-                    primary: 'linear-gradient(135deg, #1e88e5 0%, #26a69a 100%)',
-                    admin: 'linear-gradient(135deg, #1e88e5 0%, #ff6b35 50%, #1565c0 100%)',
-                    staff: 'linear-gradient(135deg, #1e88e5 0%, #26a69a 50%, #1565c0 100%)',
-                    client: 'linear-gradient(135deg, #1e88e5 0%, #42a5f5 50%, #26a69a 100%)',
-                    gold: 'linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #fff176 100%)',
-                    glass: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%)'
-                },
-                
-                shadows: {
-                    soft: '0 2px 20px rgba(0,0,0,0.08)',
-                    medium: '0 8px 30px rgba(0,0,0,0.12)',
-                    strong: '0 15px 40px rgba(0,0,0,0.15)',
-                    glow: '0 0 30px rgba(30, 136, 229, 0.3)'
-                }
-            },
-            
-            // Feature Flags
-            features: {
-                crossPortalNavigation: true,
-                unifiedNotifications: true,
-                realTimeUpdates: true,
-                emergencyAlerts: true,
-                dataSync: true,
-                auditLogging: true,
-                twoFactorAuth: false, // Coming soon
-                mobilePush: false     // Coming soon
-            },
-            
-            // Cache Configuration
-            cache: {
-                ttl: 300000, // 5 minutes
-                maxSize: 100,
-                enabled: true
-            },
-            
-            // Rate Limiting
-            rateLimits: {
-                maxRequestsPerMinute: 60,
-                burstLimit: 10,
-                enabled: true
-            },
-            
-            // Security Configuration
-            security: {
-                tokenExpiry: 3600000, // 1 hour
-                refreshTokenExpiry: 86400000, // 24 hours
-                maxLoginAttempts: 5,
-                lockoutDuration: 900000, // 15 minutes
-                csrfProtection: true,
-                httpsOnly: true
-            },
-            
-            // Notification Configuration
-            notifications: {
-                position: 'top-right',
-                duration: 5000,
-                maxVisible: 3,
-                types: ['success', 'error', 'warning', 'info'],
-                sounds: false // Can be enabled per user preference
-            }
+        this.authTokens = {
+            admin: null,
+            client: null,
+            employee: null
         };
+        this.apiBaseUrl = '/api';
+        this.mockMode = true; // Enable mock mode for demonstration
+        this.notifications = [];
         
-        // Initialize system
-        this.requestCache = new Map();
-        this.rateLimitTracker = new Map();
         this.init();
     }
-    
+
     init() {
-        console.log('🏊‍♂️ Initializing 805 LifeGuard Portal System v' + this.config.version);
+        console.log('🌊 Initializing 805 LifeGuard Portal System...');
         
-        // Setup global error handling
-        this.setupGlobalErrorHandling();
+        // Load stored auth tokens
+        this.loadStoredTokens();
         
-        // Setup performance monitoring
-        this.setupPerformanceMonitoring();
+        // Setup notification system
+        this.setupNotificationSystem();
         
-        // Setup security measures
-        this.setupSecurityMeasures();
-        
-        // Setup cross-portal communication
-        this.setupCrossPortalCommunication();
-        
-        console.log('✅ Portal system initialized successfully');
+        console.log('✅ Portal System initialized successfully');
     }
-    
-    // Enhanced API Call Method with Better Error Handling
+
+    loadStoredTokens() {
+        try {
+            // Note: Using sessionStorage instead of localStorage for demo
+            // In production, you might want to use secure token storage
+            const storedTokens = sessionStorage.getItem('lifeguard_auth_tokens');
+            if (storedTokens) {
+                this.authTokens = { ...this.authTokens, ...JSON.parse(storedTokens) };
+            }
+        } catch (error) {
+            console.error('Error loading stored tokens:', error);
+        }
+    }
+
+    saveTokens() {
+        try {
+            sessionStorage.setItem('lifeguard_auth_tokens', JSON.stringify(this.authTokens));
+        } catch (error) {
+            console.error('Error saving tokens:', error);
+        }
+    }
+
+    // Authentication Management
+    setAuthToken(portal, token) {
+        this.authTokens[portal] = token;
+        this.saveTokens();
+        console.log(`🔐 Auth token set for ${portal} portal`);
+    }
+
+    getAuthToken(portal) {
+        return this.authTokens[portal];
+    }
+
+    clearAuthToken(portal) {
+        this.authTokens[portal] = null;
+        this.saveTokens();
+        console.log(`🚪 Auth token cleared for ${portal} portal`);
+    }
+
+    clearAllTokens() {
+        this.authTokens = { admin: null, client: null, employee: null };
+        this.saveTokens();
+        console.log('🧹 All auth tokens cleared');
+    }
+
+    // API Call Management
     async apiCall(endpoint, method = 'GET', data = null, options = {}) {
-        const {
-            portal = this.detectCurrentPortal(),
-            useCache = true,
-            timeout = 30000,
-            retries = 3,
-            mockMode = true // Always use mock mode for demo
-        } = options;
+        console.log(`📡 API Call: ${method} ${endpoint}`, { data, options });
+
+        // Determine portal type from endpoint or options
+        const portal = options.portal || this.detectPortalFromEndpoint(endpoint);
         
-        console.log(`🌐 API Call: ${method} ${endpoint} (portal: ${portal}, mock: ${mockMode})`);
-        
-        // Always use mock mode for now (since we're in demo)
-        return this.mockApiCall(endpoint, method, data, portal);
-        
-        // Get the full endpoint URL
-        const url = this.getEndpointUrl(endpoint);
-        
-        // Check cache first (for GET requests)
-        if (method === 'GET' && useCache) {
-            const cached = this.getFromCache(url);
-            if (cached) {
-                console.log('📋 Cache hit for:', endpoint);
-                return cached;
+        // Use mock mode for demonstration
+        if (this.mockMode || options.mockMode) {
+            return await this.mockApiCall(endpoint, method, data, portal);
+        }
+
+        // Real API call implementation
+        try {
+            const config = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...this.getAuthHeaders(portal)
+                }
+            };
+
+            if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+                config.body = JSON.stringify(data);
             }
+
+            const response = await fetch(`${this.apiBaseUrl}${endpoint}`, config);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('API call failed:', error);
+            throw error;
         }
-        
-        // Check rate limits
-        if (this.config.rateLimits.enabled && !this.checkRateLimit(endpoint)) {
-            throw new Error('Rate limit exceeded. Please try again later.');
-        }
-        
-        // Prepare headers
-        const headers = {
-            'Content-Type': 'application/json',
-            'X-Portal-Type': portal,
-            'X-Portal-Version': this.config.version
-        };
-        
-        // Add auth token if available
+    }
+
+    detectPortalFromEndpoint(endpoint) {
+        if (endpoint.includes('admin') || endpoint.includes('Admin')) return 'admin';
+        if (endpoint.includes('client') || endpoint.includes('Client')) return 'client';
+        if (endpoint.includes('employee') || endpoint.includes('staff') || endpoint.includes('Employee')) return 'employee';
+        return 'admin'; // Default to admin
+    }
+
+    getAuthHeaders(portal) {
         const token = this.getAuthToken(portal);
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-        
-        // Add CSRF token if enabled (simplified for CORS compatibility)
-        if (this.config.security.csrfProtection) {
-            const csrfToken = this.getCSRFToken();
-            if (csrfToken) {
-                headers['X-CSRF-Token'] = csrfToken;
-            }
-        }
-        
-        const requestConfig = {
-            method,
-            headers,
-            credentials: 'omit' // For cross-origin requests
-        };
-        
-        if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-            requestConfig.body = JSON.stringify(this.sanitizeData(data));
-        }
-        
-        let lastError;
-        
-        // Retry logic with exponential backoff
-        for (let attempt = 1; attempt <= retries; attempt++) {
-            try {
-                console.log(`🌐 API ${method} ${endpoint} (attempt ${attempt}/${retries})`);
-                
-                // Create timeout promise
-                const timeoutPromise = new Promise((_, reject) => {
-                    setTimeout(() => reject(new Error('Request timeout')), timeout);
-                });
-                
-                // Make the request
-                const response = await Promise.race([
-                    fetch(url, requestConfig),
-                    timeoutPromise
-                ]);
-                
-                if (!response.ok) {
-                    const errorData = await this.parseErrorResponse(response);
-                    throw new Error(errorData.message || `HTTP ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                // Cache successful GET requests
-                if (method === 'GET' && useCache && result.success) {
-                    this.setCache(url, result);
-                }
-                
-                // Log successful request
-                console.log(`✅ API ${method} ${endpoint} - Success`);
-                
-                return result;
-                
-            } catch (error) {
-                console.error(`❌ API ${method} ${endpoint} - Error:`, error);
-                lastError = error;
-                
-                // Don't retry on certain errors
-                if (error.message.includes('401') || error.message.includes('403')) {
-                    break;
-                }
-                
-                // Wait before retry (exponential backoff)
-                if (attempt < retries) {
-                    await this.delay(Math.pow(2, attempt) * 1000);
-                }
-            }
-        }
-        
-        // If all retries failed, fall back to mock mode for demo purposes
-        if (this.config.environment === 'development' || this.config.environment === 'demo') {
-            console.warn('🎭 API failed, falling back to mock mode for demo');
-            return this.mockApiCall(endpoint, method, data, portal);
-        }
-        
-        throw lastError;
+        return token ? { 'Authorization': `Bearer ${token}` } : {};
     }
-    
-    // Enhanced Mock API for Demo Mode
+
+    // Mock API Implementation for Demo
     async mockApiCall(endpoint, method, data, portal) {
-        console.log(`🎭 Mock API ${method} ${endpoint}`, data);
-        
-        // Simulate realistic network delay
-        await new Promise(resolve => 
-            setTimeout(resolve, 300 + Math.random() * 700)
-        );
-        
-        // Enhanced mock responses based on endpoint and portal
-        switch (endpoint) {
-            // Authentication Endpoints
-            case 'login':
-                return this.mockLogin(data, 'client');
-            case 'adminLogin':
-                if (method === 'POST') {
-                    return this.mockLogin(data, 'admin');
-                } else {
-                    // For GET (token validation), return admin profile
-                    return this.mockProfile('admin');
-                }
-            case 'staffLogin':
-                if (method === 'POST') {
-                    return this.mockLogin(data, 'staff');
-                } else {
-                    // For GET (token validation), return staff profile
-                    return this.mockProfile('staff');
-                }
-            
-            case 'register':
-                return this.mockRegister(data);
-            
-            // Profile Endpoints
-            case 'clientProfile':
-            case 'staffProfile':
-                return this.mockProfile(portal);
-            
-            // Admin Endpoints
-            case 'adminCustomers':
-                return this.mockAdminCustomers();
-            
-            case 'adminBookings':
-                return this.mockAdminBookings();
-            
-            case 'adminStats':
-                return this.mockAdminStats();
-            
-            case 'adminStaff':
-                return this.mockAdminStaff();
-            
-            // Staff Endpoints
-            case 'staffSchedule':
-                return this.mockStaffSchedule();
-            
-            case 'staffTimeTracking':
-                return this.mockStaffTimeTracking();
-            
-            case 'staffTraining':
-                return this.mockStaffTraining();
-            
-            case 'staffClockIn':
-            case 'staffClockOut':
-            case 'staffBreak':
-            case 'staffReturn':
-                return this.mockClockOperation(endpoint, data);
-            
-            // Client Endpoints
-            case 'clientBookings':
-                return this.mockClientBookings();
-            
-            case 'clientAvailability':
-                return this.mockClientAvailability();
-            
-            case 'clientPreferences':
-                return this.mockClientPreferences(method, data);
-            
-            // Booking Operations
-            case '/api/bookings':
-                if (method === 'POST') {
-                    return this.mockCreateBooking(data);
-                }
-                return this.mockClientBookings();
-            
-            // System Endpoints
-            case 'systemStatus':
-                return { success: true, status: 'operational', timestamp: new Date().toISOString() };
-            
-            default:
-                return { success: true, message: 'Mock API response for ' + endpoint };
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 200));
+
+        console.log(`🎭 Mock API: ${method} ${endpoint} for ${portal} portal`);
+
+        // Mock authentication endpoints
+        if (endpoint === 'adminLogin' || endpoint.includes('admin/login')) {
+            return this.mockAdminLogin(method, data);
         }
-    }
-    
-    // Mock Response Generators
-    mockLogin(credentials, portal) {
-        console.log(`🔐 Mock login attempt for portal: ${portal}`, credentials);
-        
-        const validCredentials = {
-            admin: { email: 'admin@805lifeguard.com', password: 'admin123' },
-            staff: { email: 'staff@805lifeguard.com', password: 'staff123' },
-            client: { email: 'demo@805lifeguard.com', password: 'demo123' }
-        };
-        
-        const valid = validCredentials[portal];
-        console.log(`🔍 Checking against valid credentials for ${portal}:`, valid);
-        
-        if (valid && credentials.email === valid.email && credentials.password === valid.password) {
-            console.log(`✅ Login successful for ${portal}`);
-            return {
-                success: true,
-                token: `mock-${portal}-token-${Date.now()}`,
-                [portal]: {
-                    id: 1,
-                    name: portal === 'admin' ? 'Admin User' : portal === 'staff' ? 'Staff Member' : 'Demo User',
-                    email: credentials.email,
-                    role: portal,
-                    member_since: '2024-01-15',
-                    preferences: this.getDefaultPreferences()
-                }
-            };
-        } else {
-            console.log(`❌ Login failed for ${portal} - Invalid credentials`);
-            throw new Error('Invalid email or password');
+
+        if (endpoint === 'clientLogin' || endpoint.includes('client/login')) {
+            return this.mockClientLogin(method, data);
         }
-    }
-    
-    mockRegister(data) {
-        if (!data.name || !data.email || !data.password) {
-            throw new Error('Missing required fields');
+
+        if (endpoint === 'employeeLogin' || endpoint.includes('employee/login')) {
+            return this.mockEmployeeLogin(method, data);
         }
-        return {
-            success: true,
-            message: 'Account created successfully'
-        };
+
+        // Mock data endpoints
+        if (endpoint === 'adminCustomers') {
+            return { success: true, customers: this.generateMockCustomers() };
+        }
+
+        if (endpoint === 'adminBookings') {
+            return { success: true, bookings: this.generateMockBookings() };
+        }
+
+        if (endpoint === 'adminStats') {
+            return { success: true, analytics: this.generateMockAnalytics() };
+        }
+
+        if (endpoint.includes('/api/admin/staff')) {
+            return { success: true, staff: this.generateMockStaff() };
+        }
+
+        // Default success response
+        return { success: true, message: 'Mock API call successful' };
     }
-    
-    mockProfile(portal) {
-        return {
-            success: true,
-            [portal]: {
-                id: 1,
-                name: portal === 'admin' ? 'Admin User' : portal === 'staff' ? 'Staff Member' : 'Demo User',
-                email: `${portal}@805lifeguard.com`,
-                role: portal,
-                member_since: '2024-01-15',
-                preferences: this.getDefaultPreferences()
+
+    mockAdminLogin(method, data) {
+        if (method === 'GET') {
+            // Token validation
+            const token = this.getAuthToken('admin');
+            if (token) {
+                return {
+                    success: true,
+                    admin: {
+                        id: 'admin_1',
+                        name: 'System Administrator',
+                        email: 'admin@805lifeguard.com',
+                        role: 'admin'
+                    }
+                };
             }
-        };
-    }
-    
-    mockAdminCustomers() {
-        return {
-            success: true,
-            customers: [
-                { id: 1, name: 'John Smith', email: 'john@example.com', bookings: 5, status: 'active' },
-                { id: 2, name: 'Sarah Johnson', email: 'sarah@example.com', bookings: 3, status: 'active' },
-                { id: 3, name: 'Mike Brown', email: 'mike@example.com', bookings: 8, status: 'active' }
-            ]
-        };
-    }
-    
-    mockAdminBookings() {
-        return {
-            success: true,
-            bookings: this.generateMockBookings(15)
-        };
-    }
-    
-    mockAdminStats() {
-        return {
-            success: true,
-            analytics: {
-                totalRevenue: 45750,
-                totalBookings: 127,
-                totalCustomers: 89,
-                activeStaff: 12,
-                monthlyGrowth: 15.3
+            return { success: false, error: 'Invalid token' };
+        }
+
+        if (method === 'POST') {
+            // Mock login validation - accept any email/password for demo
+            if (data.email && data.password) {
+                const mockToken = `admin_token_${Date.now()}`;
+                return {
+                    success: true,
+                    token: mockToken,
+                    admin: {
+                        id: 'admin_1',
+                        name: 'System Administrator',
+                        email: data.email,
+                        role: 'admin'
+                    }
+                };
             }
-        };
+            return { success: false, error: 'Invalid credentials' };
+        }
+
+        return { success: false, error: 'Method not supported' };
     }
-    
-    mockAdminStaff() {
-        return {
-            success: true,
-            staff: [
-                { id: 1, name: 'Alex Wilson', role: 'Senior Lifeguard', status: 'active', certifications: 4 },
-                { id: 2, name: 'Emma Davis', role: 'Swim Instructor', status: 'active', certifications: 3 },
-                { id: 3, name: 'Ryan Miller', role: 'Pool Manager', status: 'active', certifications: 5 }
-            ]
-        };
-    }
-    
-    mockStaffSchedule() {
-        const schedule = [];
-        const startDate = new Date();
-        for (let i = 0; i < 14; i++) {
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + i);
-            if (i % 3 !== 0) { // Not every day
-                schedule.push({
-                    id: i + 1,
-                    date: date.toISOString().split('T')[0],
-                    start_time: '09:00',
-                    end_time: '17:00',
-                    position: 'Lifeguard',
-                    location: 'Main Pool'
-                });
+
+    mockClientLogin(method, data) {
+        if (method === 'POST') {
+            if (data.email && data.password) {
+                const mockToken = `client_token_${Date.now()}`;
+                return {
+                    success: true,
+                    token: mockToken,
+                    client: {
+                        id: 'client_1',
+                        name: 'John Smith',
+                        email: data.email,
+                        plan: 'premium'
+                    }
+                };
             }
+            return { success: false, error: 'Invalid credentials' };
         }
-        return { success: true, schedule };
+        return { success: false, error: 'Method not supported' };
     }
-    
-    mockStaffTimeTracking() {
-        const entries = [];
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 7);
-        
-        for (let i = 0; i < 5; i++) {
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + i);
-            entries.push({
-                id: i + 1,
-                date: date.toISOString().split('T')[0],
-                clock_in: '09:00',
-                clock_out: '17:00',
-                break_time: 60,
-                hours: 7.0
-            });
-        }
-        return { success: true, entries };
-    }
-    
-    mockStaffTraining() {
-        return {
-            success: true,
-            training: [
-                { id: 1, title: 'CPR Certification', completed: true, expires: '2025-12-31' },
-                { id: 2, title: 'First Aid Training', completed: true, expires: '2025-06-30' },
-                { id: 3, title: 'Water Safety Instructor', completed: false, required: true },
-                { id: 4, title: 'Emergency Response', completed: true, expires: '2025-09-15' }
-            ]
-        };
-    }
-    
-    mockClockOperation(operation, data) {
-        const operationMap = {
-            'staffClockIn': 'clocked in',
-            'staffClockOut': 'clocked out',
-            'staffBreak': 'started break',
-            'staffReturn': 'returned from break'
-        };
-        
-        return {
-            success: true,
-            message: `Successfully ${operationMap[operation]}`,
-            timestamp: data.timestamp || new Date().toISOString()
-        };
-    }
-    
-    mockClientBookings() {
-        return {
-            success: true,
-            bookings: this.generateMockBookings(5, true)
-        };
-    }
-    
-    mockClientAvailability() {
-        return {
-            success: true,
-            availability: {}
-        };
-    }
-    
-    mockClientPreferences(method, data) {
-        if (method === 'PUT') {
-            return {
-                success: true,
-                message: 'Preferences updated successfully',
-                preferences: data
-            };
-        }
-        return {
-            success: true,
-            preferences: this.getDefaultPreferences()
-        };
-    }
-    
-    mockCreateBooking(data) {
-        const newBooking = {
-            id: Date.now(),
-            ...data,
-            status: 'pending',
-            cost: this.calculateBookingCost(data),
-            created_at: new Date().toISOString()
-        };
-        
-        return {
-            success: true,
-            booking: newBooking,
-            message: 'Booking request submitted successfully'
-        };
-    }
-    
-    // Helper Methods
-    generateMockBookings(count, clientView = false) {
-        const bookings = [];
-        const services = ['swim-lesson', 'lifeguard', 'event'];
-        const statuses = ['confirmed', 'pending', 'cancelled'];
-        
-        for (let i = 0; i < count; i++) {
-            const futureDate = new Date();
-            futureDate.setDate(futureDate.getDate() + Math.floor(Math.random() * 30));
-            
-            bookings.push({
-                id: i + 1,
-                service: services[Math.floor(Math.random() * services.length)],
-                date: futureDate.toISOString().split('T')[0],
-                time: ['9:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'][Math.floor(Math.random() * 4)],
-                duration: [1, 1.5, 2, 3][Math.floor(Math.random() * 4)],
-                participants: Math.floor(Math.random() * 4) + 1,
-                status: clientView ? 'confirmed' : statuses[Math.floor(Math.random() * statuses.length)],
-                cost: Math.floor(Math.random() * 200) + 50,
-                customer_name: clientView ? undefined : ['John Smith', 'Sarah Johnson', 'Mike Brown'][Math.floor(Math.random() * 3)]
-            });
-        }
-        
-        return bookings;
-    }
-    
-    calculateBookingCost(booking) {
-        const baseCosts = {
-            'swim-lesson': 75,
-            'lifeguard': 45,
-            'event': 100
-        };
-        
-        const baseCost = baseCosts[booking.service] || 50;
-        return baseCost * booking.duration * booking.participants;
-    }
-    
-    getDefaultPreferences() {
-        return {
-            emailBookingConfirmations: true,
-            emailReminders: true,
-            emailPromotions: false,
-            emailNewsletter: true,
-            smsReminders: false,
-            smsUpdates: false,
-            theme: 'light',
-            language: 'en',
-            dateFormat: 'MM/DD/YYYY',
-            reducedMotion: false,
-            highContrast: false,
-            largeFonts: false
-        };
-    }
-    
-    shouldUseMockMode() {
-        // Always use mock mode for demo/development
-        return true;
-    }
-    
-    detectCurrentPortal() {
-        const path = window.location.pathname;
-        const filename = path.split('/').pop() || '';
-        
-        console.log(`🔍 Detecting portal from path: ${path}, filename: ${filename}`);
-        
-        // More specific detection based on filenames
-        if (filename === 'admin.html' || path.includes('admin')) {
-            console.log('📊 Detected ADMIN portal');
-            return 'admin';
-        }
-        if (filename === 'employee-login.html' || path.includes('employee') || path.includes('staff')) {
-            console.log('👤 Detected STAFF portal');
-            return 'staff';
-        }
-        if (filename === 'client-login.html' || path.includes('client')) {
-            console.log('🏊‍♀️ Detected CLIENT portal');
-            return 'client';
-        }
-        
-        // Default fallback - check for specific portal indicators
-        const title = document.title || '';
-        if (title.includes('Admin')) return 'admin';
-        if (title.includes('Staff') || title.includes('Employee')) return 'staff';
-        
-        console.log('🏊‍♀️ Defaulting to CLIENT portal');
-        return 'client';
-    }
-    
-    // Authentication Methods
-    getAuthToken(portal = 'client') {
-        const tokenKeys = {
-            admin: 'adminToken',
-            staff: 'employeeToken', 
-            client: 'authToken'
-        };
-        
-        const key = tokenKeys[portal] || 'authToken';
-        
-        try {
-            const token = localStorage.getItem(key) || sessionStorage.getItem(key);
-            
-            // Validate token expiry
-            if (token && this.isTokenExpired(token)) {
-                this.clearAuthToken(portal);
-                return null;
+
+    mockEmployeeLogin(method, data) {
+        if (method === 'POST') {
+            if (data.email && data.password) {
+                const mockToken = `employee_token_${Date.now()}`;
+                return {
+                    success: true,
+                    token: mockToken,
+                    employee: {
+                        id: 'employee_1',
+                        name: 'Alex Thompson',
+                        email: data.email,
+                        role: 'lifeguard'
+                    }
+                };
             }
-            
-            return token;
-        } catch (error) {
-            console.error('Error getting auth token:', error);
-            return null;
+            return { success: false, error: 'Invalid credentials' };
         }
+        return { success: false, error: 'Method not supported' };
     }
-    
-    setAuthToken(portal, token, remember = false) {
-        const tokenKeys = {
-            admin: 'adminToken',
-            staff: 'employeeToken',
-            client: 'authToken'
+
+    generateMockCustomers() {
+        // This will be populated by the admin portal's generateSampleCustomers method
+        // Return empty array here as placeholder
+        return [];
+    }
+
+    generateMockBookings() {
+        // This will be populated by the admin portal's generateSampleBookings method
+        // Return empty array here as placeholder
+        return [];
+    }
+
+    generateMockStaff() {
+        // This will be populated by the admin portal's generateSampleStaff method
+        // Return empty array here as placeholder
+        return [];
+    }
+
+    generateMockAnalytics() {
+        return {
+            totalRevenue: 125000,
+            monthlyRevenue: 15000,
+            totalCustomers: 47,
+            activeCustomers: 38,
+            totalBookings: 156,
+            completedBookings: 142,
+            pendingBookings: 8,
+            cancelledBookings: 6,
+            averageBookingValue: 175,
+            customerSatisfaction: 94
         };
-        
-        const key = tokenKeys[portal] || 'authToken';
-        
-        try {
-            if (remember) {
-                localStorage.setItem(key, token);
-            } else {
-                sessionStorage.setItem(key, token);
-            }
-            
-            // Set expiry tracking
-            const expiryTime = Date.now() + this.config.security.tokenExpiry;
-            localStorage.setItem(`${key}_expiry`, expiryTime.toString());
-            
-        } catch (error) {
-            console.error('Error setting auth token:', error);
+    }
+
+    // Notification System
+    setupNotificationSystem() {
+        // Create notification container if it doesn't exist
+        if (!document.getElementById('notification-container')) {
+            const container = document.createElement('div');
+            container.id = 'notification-container';
+            container.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 20000;
+                pointer-events: none;
+            `;
+            document.body.appendChild(container);
         }
     }
-    
-    clearAuthToken(portal = 'client') {
-        const tokenKeys = {
-            admin: 'adminToken',
-            staff: 'employeeToken',
-            client: 'authToken'
-        };
-        
-        const key = tokenKeys[portal] || 'authToken';
-        
-        try {
-            localStorage.removeItem(key);
-            sessionStorage.removeItem(key);
-            localStorage.removeItem(`${key}_expiry`);
-        } catch (error) {
-            console.error('Error clearing auth token:', error);
-        }
-    }
-    
-    isTokenExpired(token) {
-        try {
-            if (token.startsWith('mock-')) {
-                return false; // Mock tokens don't expire
-            }
-            
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            return payload.exp * 1000 < Date.now();
-        } catch {
-            return true;
-        }
-    }
-    
-    // Cross-Portal Navigation
-    navigateToPortal(portalType, params = {}) {
-        const portal = this.config.portals[portalType];
-        if (!portal) {
-            console.error('Unknown portal type:', portalType);
-            return;
-        }
-        
-        // Build URL with parameters
-        const url = new URL(portal.url, window.location.origin);
-        Object.entries(params).forEach(([key, value]) => {
-            url.searchParams.set(key, value);
-        });
-        
-        // Add navigation tracking
-        url.searchParams.set('from', this.detectCurrentPortal());
-        url.searchParams.set('t', Date.now().toString());
-        
-        console.log(`🔄 Navigating to ${portalType} portal`);
-        window.location.href = url.toString();
-    }
-    
-    // Enhanced Notification System
+
     showNotification(message, type = 'info', options = {}) {
-        const {
-            title = type.charAt(0).toUpperCase() + type.slice(1),
-            duration = this.config.notifications.duration,
-            persistent = false,
-            actions = []
-        } = options;
+        const notification = {
+            id: `notification_${Date.now()}`,
+            message,
+            type,
+            title: options.title || '',
+            subtitle: options.subtitle || '',
+            duration: options.duration || 5000,
+            actions: options.actions || []
+        };
+
+        this.notifications.push(notification);
+        this.renderNotification(notification);
+
+        // Auto-remove notification
+        setTimeout(() => {
+            this.removeNotification(notification.id);
+        }, notification.duration);
+
+        console.log(`🔔 Notification: ${type.toUpperCase()} - ${message}`);
+    }
+
+    renderNotification(notification) {
+        const container = document.getElementById('notification-container');
+        if (!container) return;
+
+        const notificationEl = document.createElement('div');
+        notificationEl.id = notification.id;
+        notificationEl.className = `notification ${notification.type}`;
+        notificationEl.style.cssText = `
+            background: ${this.getNotificationColor(notification.type)};
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 400px;
+            pointer-events: auto;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        `;
+
+        let content = '';
         
-        // Remove old notifications if at max
-        const existing = document.querySelectorAll('.lifeguard-notification');
-        if (existing.length >= this.config.notifications.maxVisible) {
-            existing[0].remove();
+        if (notification.title) {
+            content += `<div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">${notification.title}</div>`;
         }
         
-        const notification = document.createElement('div');
-        notification.className = `lifeguard-notification notification-${type}`;
-        notification.style.cssText = this.getNotificationStyles(type);
+        content += `<div style="font-size: 14px; opacity: 0.95;">${notification.message}</div>`;
         
-        const icon = this.getNotificationIcon(type);
-        
-        notification.innerHTML = `
-            <div style="display: flex; align-items: flex-start; gap: 16px;">
-                <i class="fas fa-${icon}" style="font-size: 20px; margin-top: 2px;"></i>
-                <div style="flex: 1; min-width: 0;">
-                    <div style="font-weight: 700; margin-bottom: 4px;">${title}</div>
-                    <div style="opacity: 0.95; line-height: 1.4;">${message}</div>
-                    ${actions.length > 0 ? `
-                        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
-                            ${actions.map(action => `
-                                <button onclick="${action.action ? action.action.toString() : ''}" style="
-                                    background: rgba(255,255,255,0.2);
-                                    border: 1px solid rgba(255,255,255,0.3);
-                                    color: inherit;
-                                    padding: 4px 12px;
-                                    border-radius: 8px;
-                                    font-size: 14px;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                ">${action.text}</button>
-                            `).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-                <button onclick="this.parentElement.parentElement.remove()" style="
-                    background: none; border: none; color: inherit; font-size: 18px; 
-                    cursor: pointer; opacity: 0.7; padding: 4px; border-radius: 4px;
-                    line-height: 1;
-                ">×</button>
-            </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
+        if (notification.subtitle) {
+            content += `<div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">${notification.subtitle}</div>`;
+        }
+
+        if (notification.actions && notification.actions.length > 0) {
+            content += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
+            notification.actions.forEach(action => {
+                content += `<button onclick="${action.action}" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600;">${action.text}</button>`;
+            });
+            content += '</div>';
+        }
+
+        // Add close button
+        content += `<button onclick="portalSystem.removeNotification('${notification.id}')" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: rgba(255,255,255,0.8); font-size: 16px; cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='none'">×</button>`;
+
+        notificationEl.innerHTML = content;
+        container.appendChild(notificationEl);
+
         // Animate in
         requestAnimationFrame(() => {
-            notification.style.transform = 'translateX(0)';
-            notification.style.opacity = '1';
+            notificationEl.style.transform = 'translateX(0)';
         });
-        
-        // Auto-remove (unless persistent)
-        if (!persistent && duration > 0) {
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.style.transform = 'translateX(100%)';
-                    notification.style.opacity = '0';
-                    setTimeout(() => notification.remove(), 300);
-                }
-            }, duration);
-        }
-    }
-    
-    getNotificationStyles(type) {
-        const colors = {
-            success: 'linear-gradient(135deg, rgba(76, 175, 80, 0.95), rgba(129, 199, 132, 0.95))',
-            error: 'linear-gradient(135deg, rgba(244, 67, 54, 0.95), rgba(239, 83, 80, 0.95))',
-            warning: 'linear-gradient(135deg, rgba(255, 152, 0, 0.95), rgba(255, 193, 7, 0.95))',
-            info: 'linear-gradient(135deg, rgba(30, 136, 229, 0.95), rgba(66, 165, 245, 0.95))'
-        };
-        
-        return `
-            position: fixed;
-            top: 120px;
-            right: 24px;
-            max-width: 450px;
-            padding: 24px;
-            border-radius: 16px;
-            backdrop-filter: blur(25px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            z-index: 10000;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: ${colors[type] || colors.info};
-            color: white;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+
+        // Add progress bar
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 0 0 12px 12px;
+            transition: width ${notification.duration}ms linear;
+            width: 100%;
         `;
+        notificationEl.appendChild(progressBar);
+
+        // Animate progress bar
+        requestAnimationFrame(() => {
+            progressBar.style.width = '0%';
+        });
     }
-    
-    getNotificationIcon(type) {
-        const icons = {
-            success: 'check-circle',
-            error: 'exclamation-triangle', 
-            warning: 'exclamation-circle',
-            info: 'info-circle'
-        };
-        
-        return icons[type] || 'info-circle';
+
+    getNotificationColor(type) {
+        switch (type) {
+            case 'success': return 'linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%)';
+            case 'error': return 'linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%)';
+            case 'warning': return 'linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 183, 77, 0.95) 100%)';
+            case 'info':
+            default: return 'linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%)';
+        }
     }
-    
-    // Emergency Alert System
-    async triggerEmergencyAlert(type, message, location = null) {
-        console.log('🚨 EMERGENCY ALERT:', type, message);
-        
+
+    removeNotification(notificationId) {
+        const notificationEl = document.getElementById(notificationId);
+        if (notificationEl) {
+            notificationEl.style.transform = 'translateX(100%)';
+            notificationEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (notificationEl.parentNode) {
+                    notificationEl.parentNode.removeChild(notificationEl);
+                }
+            }, 400);
+        }
+
+        // Remove from array
+        this.notifications = this.notifications.filter(n => n.id !== notificationId);
+    }
+
+    // Utility Functions
+    formatCurrency(amount) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(amount);
+    }
+
+    formatDate(date) {
+        return new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }).format(new Date(date));
+    }
+
+    formatDateTime(date) {
+        return new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+        }).format(new Date(date));
+    }
+
+    // Data Validation
+    validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    validatePhone(phone) {
+        const phoneRegex = /^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$/;
+        return phoneRegex.test(phone);
+    }
+
+    // Local Storage Helpers (for non-auth data)
+    setLocalData(key, data) {
         try {
-            // Send to backend
-            await this.apiCall('emergencyAlert', 'POST', {
-                type,
-                message,
-                location,
-                timestamp: new Date().toISOString(),
-                portalType: this.detectCurrentPortal()
-            });
-            
-            // Show urgent notification
-            this.showNotification(message, 'error', {
-                title: '🚨 EMERGENCY ALERT',
-                persistent: true,
-                actions: [
-                    { text: 'Call 911', action: () => window.open('tel:911') },
-                    { text: 'Contact Manager', action: () => window.open('tel:8053676432') }
-                ]
-            });
-            
-            // Play alert sound if enabled
-            this.playAlertSound();
-            
+            localStorage.setItem(`lifeguard_${key}`, JSON.stringify(data));
         } catch (error) {
-            console.error('Failed to send emergency alert:', error);
+            console.error('Error saving local data:', error);
         }
     }
-    
-    playAlertSound() {
+
+    getLocalData(key) {
         try {
-            // Create audio context for emergency alert
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 1);
+            const data = localStorage.getItem(`lifeguard_${key}`);
+            return data ? JSON.parse(data) : null;
         } catch (error) {
-            console.warn('Could not play alert sound:', error);
-        }
-    }
-    
-    // Utility Methods
-    getEndpointUrl(endpoint) {
-        if (endpoint.startsWith('http')) {
-            return endpoint;
-        }
-        
-        const baseUrl = this.config.apiBaseUrl;
-        const fullEndpoint = this.config.endpoints[endpoint] || endpoint;
-        
-        return `${baseUrl}${fullEndpoint}`;
-    }
-    
-    sanitizeData(data) {
-        if (typeof data !== 'object' || data === null) {
-            return data;
-        }
-        
-        const sanitized = {};
-        for (const [key, value] of Object.entries(data)) {
-            if (typeof value === 'string') {
-                // Basic XSS protection
-                sanitized[key] = value.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-            } else {
-                sanitized[key] = value;
-            }
-        }
-        
-        return sanitized;
-    }
-    
-    async parseErrorResponse(response) {
-        try {
-            const errorData = await response.json();
-            return {
-                message: errorData.error || errorData.message || `HTTP ${response.status}`,
-                code: errorData.code || response.status,
-                details: errorData.details || ''
-            };
-        } catch {
-            return {
-                message: response.statusText || `HTTP ${response.status}`,
-                code: response.status,
-                details: ''
-            };
-        }
-    }
-    
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
-    // Cache Management
-    getFromCache(key) {
-        if (!this.config.cache.enabled) return null;
-        
-        try {
-            const cached = sessionStorage.getItem(`lg_cache_${key}`);
-            if (!cached) return null;
-            
-            const { data, timestamp } = JSON.parse(cached);
-            
-            if (Date.now() - timestamp > this.config.cache.ttl) {
-                sessionStorage.removeItem(`lg_cache_${key}`);
-                return null;
-            }
-            
-            return data;
-        } catch {
+            console.error('Error loading local data:', error);
             return null;
         }
     }
-    
-    setCache(key, data) {
-        if (!this.config.cache.enabled) return;
-        
+
+    clearLocalData(key) {
         try {
-            const cacheData = {
-                data,
-                timestamp: Date.now()
-            };
-            
-            sessionStorage.setItem(`lg_cache_${key}`, JSON.stringify(cacheData));
+            localStorage.removeItem(`lifeguard_${key}`);
         } catch (error) {
-            console.warn('Cache storage failed:', error);
+            console.error('Error clearing local data:', error);
         }
     }
-    
-    clearCache() {
-        try {
-            Object.keys(sessionStorage).forEach(key => {
-                if (key.startsWith('lg_cache_')) {
-                    sessionStorage.removeItem(key);
-                }
-            });
-        } catch (error) {
-            console.warn('Cache clear failed:', error);
-        }
-    }
-    
-    // Rate Limiting
-    checkRateLimit(endpoint) {
-        if (!this.config.rateLimits.enabled) return true;
-        
-        const now = Date.now();
-        const windowStart = now - 60000; // 1 minute window
-        
-        const key = `lg_rate_${endpoint}`;
-        
-        if (!this.rateLimitTracker.has(key)) {
-            this.rateLimitTracker.set(key, []);
-        }
-        
-        const requests = this.rateLimitTracker.get(key);
-        
-        // Remove old requests
-        const recentRequests = requests.filter(time => time > windowStart);
-        
-        if (recentRequests.length >= this.config.rateLimits.maxRequestsPerMinute) {
-            return false;
-        }
-        
-        recentRequests.push(now);
-        this.rateLimitTracker.set(key, recentRequests);
-        
-        return true;
-    }
-    
-    // Security Methods
-    getCSRFToken() {
-        return sessionStorage.getItem('lg_csrf_token') || 
-               this.generateCSRFToken();
-    }
-    
-    generateCSRFToken() {
-        const token = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-            .map(b => b.toString(16).padStart(2, '0'))
-            .join('');
-        
-        sessionStorage.setItem('lg_csrf_token', token);
-        return token;
-    }
-    
-    // Performance Monitoring
-    setupPerformanceMonitoring() {
-        if ('performance' in window) {
-            // Monitor page load time
-            window.addEventListener('load', () => {
-                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-                console.log(`📊 Page load time: ${loadTime}ms`);
-            });
-        }
-    }
-    
-    // Error Handling
-    setupGlobalErrorHandling() {
-        window.addEventListener('error', (event) => {
-            console.error('🚨 Global Error:', event.error);
-            
-            // Log to backend if available
-            this.logError({
-                message: event.error?.message || 'Unknown error',
-                stack: event.error?.stack,
-                filename: event.filename,
-                line: event.lineno,
-                portal: this.detectCurrentPortal(),
-                userAgent: navigator.userAgent,
-                timestamp: new Date().toISOString()
-            });
-        });
-        
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('🚨 Unhandled Promise Rejection:', event.reason);
-            
-            // Log to backend if available
-            this.logError({
-                message: 'Unhandled Promise Rejection',
-                reason: event.reason?.toString(),
-                portal: this.detectCurrentPortal(),
-                timestamp: new Date().toISOString()
-            });
-            
-            event.preventDefault();
-        });
-    }
-    
-    async logError(errorData) {
-        try {
-            await this.apiCall('systemLogError', 'POST', errorData, {
-                timeout: 5000,
-                retries: 1
-            });
-        } catch (error) {
-            console.warn('Failed to log error to backend:', error);
-        }
-    }
-    
-    // Cross-Portal Communication
-    setupCrossPortalCommunication() {
-        if (!this.config.features.crossPortalNavigation) return;
-        
-        // Listen for cross-portal messages
-        window.addEventListener('message', (event) => {
-            if (event.origin !== window.location.origin) return;
-            
-            const { type, data } = event.data;
-            
-            switch (type) {
-                case 'PORTAL_NAVIGATION':
-                    this.navigateToPortal(data.portal, data.params);
-                    break;
-                case 'EMERGENCY_ALERT':
-                    this.triggerEmergencyAlert(data.alertType, data.message, data.location);
-                    break;
-                case 'NOTIFICATION':
-                    this.showNotification(data.message, data.type, data.options);
-                    break;
-                default:
-                    console.warn('Unknown cross-portal message type:', type);
-            }
-        });
-    }
-    
-    // Send message to other portals
-    sendCrossPortalMessage(type, data) {
-        const message = { type, data, timestamp: Date.now() };
-        
-        try {
-            // Send to other windows/tabs
-            window.postMessage(message, window.location.origin);
-            
-            // Store in localStorage for persistence
-            localStorage.setItem('lg_cross_portal_message', JSON.stringify(message));
-        } catch (error) {
-            console.warn('Failed to send cross-portal message:', error);
-        }
-    }
-    
-    // System Methods
-    async checkSystemHealth() {
-        try {
-            const response = await this.apiCall('systemStatus', 'GET', null, {
-                timeout: 5000,
-                useCache: false
-            });
-            
-            return {
-                healthy: response.success,
-                status: response.status,
-                timestamp: new Date().toISOString()
-            };
-        } catch (error) {
-            return {
-                healthy: false,
-                error: error.message,
-                timestamp: new Date().toISOString()
-            };
-        }
-    }
-    
-    // Security Methods
-    setupSecurityMeasures() {
-        // Prevent clickjacking
-        if (window.self !== window.top) {
-            window.top.location = window.self.location;
-        }
-        
-        // Generate CSRF token
-        this.generateCSRFToken();
-        
-        // Setup secure headers simulation
-        console.log('🔒 Security measures initialized');
+
+    // System Health Check
+    healthCheck() {
+        const health = {
+            system: 'LifeGuard Portal System',
+            version: '1.0.0',
+            status: 'operational',
+            timestamp: new Date().toISOString(),
+            auth: {
+                admin: !!this.getAuthToken('admin'),
+                client: !!this.getAuthToken('client'),
+                employee: !!this.getAuthToken('employee')
+            },
+            notifications: this.notifications.length,
+            mockMode: this.mockMode
+        };
+
+        console.log('🏥 System Health Check:', health);
+        return health;
     }
 }
 
-// Create global instance
-window.LifeGuardPortalSystem = window.LifeGuardPortalSystem || new LifeGuardPortalSystem();
+// Initialize the portal system and make it globally available
+window.LifeGuardPortalSystem = new LifeGuardPortalSystem();
+window.portalSystem = window.LifeGuardPortalSystem; // Shorthand reference
 
-// Export for ES6 modules
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LifeGuardPortalSystem;
 }
 
-console.log('🏊‍♂️ 805 LifeGuard Portal System Configuration Loaded');
+console.log('🌊 805 LifeGuard Portal System loaded and ready!');
