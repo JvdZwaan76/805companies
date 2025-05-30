@@ -1072,7 +1072,7 @@
             z-index: 2000;
             padding: var(--space-5);
             opacity: 0;
-            transition: var(--transition-spring);
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .modal.show {
@@ -1089,7 +1089,7 @@
             overflow-y: auto;
             position: relative;
             transform: scale(0.8) translateY(60px);
-            transition: var(--transition-spring);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: var(--shadow-float);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
@@ -2924,7 +2924,7 @@
                 
                 console.log('🔄 Opening enhanced booking modal');
                 
-                // Enhanced modal animation
+                // Enhanced modal opening animation
                 modal.style.display = 'flex';
                 modal.style.opacity = '0';
                 
@@ -3176,6 +3176,13 @@
                         
                         await this.playSuccessAnimation(submitBtn);
                         
+                        // Disable form to prevent duplicate submissions
+                        const bookingForm = document.getElementById('bookingForm');
+                        if (bookingForm) {
+                            const inputs = bookingForm.querySelectorAll('input, select, textarea, button');
+                            inputs.forEach(input => input.disabled = true);
+                        }
+                        
                         if (response.booking) {
                             this.bookings.push(response.booking);
                         }
@@ -3192,14 +3199,20 @@
                             subtitle: 'You will receive a confirmation email shortly',
                             duration: 8000,
                             actions: [{
+                                text: 'Close Modal',
+                                action: () => this.closeBookingModal()
+                            }, {
                                 text: 'View Bookings',
-                                action: () => this.showAllBookings()
+                                action: () => {
+                                    this.closeBookingModal();
+                                    setTimeout(() => this.showAllBookings(), 300);
+                                }
                             }]
                         });
                         
                         setTimeout(() => {
                             this.closeBookingModal();
-                        }, 2000);
+                        }, 3000); // Auto-close after 3 seconds, but users can close manually with the button
                     } else {
                         throw new Error(response?.error || 'Booking submission failed');
                     }
@@ -3572,8 +3585,16 @@
                 document.addEventListener('keydown', (e) => {
                     // Enhanced keyboard shortcuts
                     if (e.key === 'Escape') {
-                        this.closeBookingModal();
-                        this.closeRegistrationModal();
+                        // Close any open modals
+                        const bookingModal = document.getElementById('bookingModal');
+                        const registrationModal = document.getElementById('registrationModal');
+                        
+                        if (bookingModal && bookingModal.classList.contains('show')) {
+                            this.closeBookingModal();
+                        }
+                        if (registrationModal && registrationModal.classList.contains('show')) {
+                            this.closeRegistrationModal();
+                        }
                     }
                     
                     // Quick booking shortcuts
@@ -3767,15 +3788,29 @@
                 const modal = document.getElementById('bookingModal');
                 if (!modal) return;
                 
+                // Enhanced modal closing with proper animation
                 modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
+                modal.style.opacity = '0';
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
                 
                 this.resetBookingForm();
+                console.log('🔄 Booking modal closed');
             }
 
             resetBookingForm() {
                 const bookingForm = document.getElementById('bookingForm');
-                if (bookingForm) bookingForm.reset();
+                if (bookingForm) {
+                    bookingForm.reset();
+                    
+                    // Re-enable all form elements
+                    const inputs = bookingForm.querySelectorAll('input, select, textarea, button');
+                    inputs.forEach(input => input.disabled = false);
+                }
                 
                 document.querySelectorAll('.service-option').forEach(option => {
                     option.classList.remove('selected');
@@ -3797,7 +3832,10 @@
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                    submitBtn.style.background = 'var(--gray)';
                 }
+                
+                console.log('🔄 Booking form reset and re-enabled');
             }
 
             updateSelectedDateInput() {
@@ -3887,11 +3925,20 @@
             closeRegistrationModal() {
                 const modal = document.getElementById('registrationModal');
                 if (modal) {
+                    // Enhanced modal closing with proper animation
                     modal.classList.remove('show');
-                    document.body.style.overflow = 'auto';
+                    modal.style.opacity = '0';
+                    
+                    // Wait for animation to complete before hiding
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
                     
                     document.getElementById('registrationForm').reset();
                     document.getElementById('registrationError').classList.add('hidden');
+                    this.clearFieldErrors();
+                    console.log('🔄 Registration modal closed');
                 }
             }
 
