@@ -1,5 +1,5 @@
 /**
- * 805 LifeGuard Unified Portal System
+ * 805 LifeGuard Production Portal System
  * Handles authentication, API calls, notifications, and shared functionality
  * across all portals (admin, client, employee)
  */
@@ -11,11 +11,22 @@ class LifeGuardPortalSystem {
             client: null,
             employee: null
         };
-        this.apiBaseUrl = '/api';
-        this.mockMode = true; // Enable mock mode for demonstration
+        this.apiBaseUrl = this.getApiBaseUrl();
         this.notifications = [];
+        this.requestCache = new Map();
+        this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
         
         this.init();
+    }
+
+    getApiBaseUrl() {
+        // Determine API base URL based on environment
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            return 'http://localhost:8787'; // Local development
+        } else {
+            // Production - replace with your actual Cloudflare Workers URL
+            return 'https://your-worker-name.your-subdomain.workers.dev';
+        }
     }
 
     init() {
@@ -27,13 +38,15 @@ class LifeGuardPortalSystem {
         // Setup notification system
         this.setupNotificationSystem();
         
+        // Setup request interceptors
+        this.setupRequestInterceptors();
+        
         console.log('✅ Portal System initialized successfully');
     }
 
     loadStoredTokens() {
         try {
-            // Note: Using sessionStorage instead of localStorage for demo
-            // In production, you might want to use secure token storage
+            // Use sessionStorage for better security
             const storedTokens = sessionStorage.getItem('lifeguard_auth_tokens');
             if (storedTokens) {
                 this.authTokens = { ...this.authTokens, ...JSON.parse(storedTokens) };
@@ -48,6 +61,46 @@ class LifeGuardPortalSystem {
             sessionStorage.setItem('lifeguard_auth_tokens', JSON.stringify(this.authTokens));
         } catch (error) {
             console.error('Error saving tokens:', error);
+        }
+    }
+
+    setupRequestInterceptors() {
+        // Setup automatic token refresh
+        this.tokenRefreshInterval = setInterval(() => {
+            this.checkTokenExpiry();
+        }, 60000); // Check every minute
+    }
+
+    checkTokenExpiry() {
+        Object.keys(this.authTokens).forEach(portal => {
+            const token = this.authTokens[portal];
+            if (token && this.isTokenExpiringSoon(token)) {
+                this.refreshToken(portal);
+            }
+        });
+    }
+
+    isTokenExpiringSoon(token) {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const exp = payload.exp * 1000; // Convert to milliseconds
+            const now = Date.now();
+            const timeUntilExpiry = exp - now;
+            return timeUntilExpiry < 5 * 60 * 1000; // 5 minutes
+        } catch (error) {
+            return true; // If we can't parse, assume it's expiring
+        }
+    }
+
+    async refreshToken(portal) {
+        try {
+            const response = await this.apiCall(`/api/auth/refresh`, 'POST', null, { portal });
+            if (response.success && response.token) {
+                this.setAuthToken(portal, response.token);
+            }
+        } catch (error) {
+            console.error(`Token refresh failed for ${portal}:`, error);
+            this.clearAuthToken(portal);
         }
     }
 
@@ -74,50 +127,121 @@ class LifeGuardPortalSystem {
         console.log('🧹 All auth tokens cleared');
     }
 
-    // API Call Management
+    // Enhanced API Call Management
     async apiCall(endpoint, method = 'GET', data = null, options = {}) {
-        console.log(`📡 API Call: ${method} ${endpoint}`, { data, options });
+        console.log(`📡 API Call: ${method} ${endpoint}`, { data: data ? 'present' : 'none', options });
 
-        // Determine portal type from endpoint or options
         const portal = options.portal || this.detectPortalFromEndpoint(endpoint);
         
-        // Use mock mode for demonstration
-        if (this.mockMode || options.mockMode) {
-            return await this.mockApiCall(endpoint, method, data, portal);
+        // Check cache for GET requests
+        if (method === 'GET' && options.cache !== false) {
+            const cacheKey = `${endpoint}_${JSON.stringify(data)}`;
+            const cached = this.getFromCache(cacheKey);
+            if (cached) {
+                console.log(`📋 Returning cached response for ${endpoint}`);
+                return cached;
+            }
         }
 
-        // Real API call implementation
         try {
             const config = {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     ...this.getAuthHeaders(portal)
-                }
+                },
+                credentials: 'omit' // For CORS
             };
 
             if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
                 config.body = JSON.stringify(data);
             }
 
-            const response = await fetch(`${this.apiBaseUrl}${endpoint}`, config);
+            const url = `${this.apiBaseUrl}${endpoint}`;
+            console.log(`🌐 Making request to: ${url}`);
+
+            const response = await this.fetchWithTimeout(url, config, 30000);
             
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                const errorText = await response.text();
+                let errorData;
+                try {
+                    errorData = JSON.parse(errorText);
+                } catch {
+                    errorData = { message: errorText || `HTTP ${response.status}` };
+                }
+                throw new Error(errorData.message || `HTTP ${response.status}`);
             }
 
-            return await response.json();
+            const result = await response.json();
+            
+            // Cache successful GET requests
+            if (method === 'GET' && result.success && options.cache !== false) {
+                const cacheKey = `${endpoint}_${JSON.stringify(data)}`;
+                this.setCache(cacheKey, result);
+            }
+
+            console.log(`✅ API ${method} ${endpoint} - Success`);
+            return result;
+            
         } catch (error) {
-            console.error('API call failed:', error);
+            console.error(`❌ API ${method} ${endpoint} - Error:`, error);
+            
+            // Handle authentication errors
+            if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+                this.clearAuthToken(portal);
+                this.showNotification('Session expired. Please log in again.', 'warning');
+                // Redirect to login based on portal
+                this.redirectToLogin(portal);
+            }
+            
+            // Handle network errors
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                throw new Error('Network error. Please check your connection and try again.');
+            }
+            
             throw error;
         }
+    }
+
+    async fetchWithTimeout(url, config, timeout = 30000) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+        
+        try {
+            const response = await fetch(url, {
+                ...config,
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            return response;
+        } catch (error) {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                throw new Error('Request timeout. Please try again.');
+            }
+            throw error;
+        }
+    }
+
+    redirectToLogin(portal) {
+        const loginUrls = {
+            admin: '/admin.html',
+            client: '/client-login.html',
+            employee: '/employee-login.html'
+        };
+        
+        setTimeout(() => {
+            window.location.href = loginUrls[portal] || '/';
+        }, 2000);
     }
 
     detectPortalFromEndpoint(endpoint) {
         if (endpoint.includes('admin') || endpoint.includes('Admin')) return 'admin';
         if (endpoint.includes('client') || endpoint.includes('Client')) return 'client';
         if (endpoint.includes('employee') || endpoint.includes('staff') || endpoint.includes('Employee')) return 'employee';
-        return 'admin'; // Default to admin
+        return 'client'; // Default to client
     }
 
     getAuthHeaders(portal) {
@@ -125,162 +249,29 @@ class LifeGuardPortalSystem {
         return token ? { 'Authorization': `Bearer ${token}` } : {};
     }
 
-    // Mock API Implementation for Demo
-    async mockApiCall(endpoint, method, data, portal) {
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 200));
-
-        console.log(`🎭 Mock API: ${method} ${endpoint} for ${portal} portal`);
-
-        // Mock authentication endpoints
-        if (endpoint === 'adminLogin' || endpoint.includes('admin/login')) {
-            return this.mockAdminLogin(method, data);
+    // Cache Management
+    getFromCache(key) {
+        const cached = this.requestCache.get(key);
+        if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+            return cached.data;
         }
-
-        if (endpoint === 'clientLogin' || endpoint.includes('client/login')) {
-            return this.mockClientLogin(method, data);
-        }
-
-        if (endpoint === 'employeeLogin' || endpoint.includes('employee/login')) {
-            return this.mockEmployeeLogin(method, data);
-        }
-
-        // Mock data endpoints
-        if (endpoint === 'adminCustomers') {
-            return { success: true, customers: this.generateMockCustomers() };
-        }
-
-        if (endpoint === 'adminBookings') {
-            return { success: true, bookings: this.generateMockBookings() };
-        }
-
-        if (endpoint === 'adminStats') {
-            return { success: true, analytics: this.generateMockAnalytics() };
-        }
-
-        if (endpoint.includes('/api/admin/staff')) {
-            return { success: true, staff: this.generateMockStaff() };
-        }
-
-        // Default success response
-        return { success: true, message: 'Mock API call successful' };
+        this.requestCache.delete(key);
+        return null;
     }
 
-    mockAdminLogin(method, data) {
-        if (method === 'GET') {
-            // Token validation
-            const token = this.getAuthToken('admin');
-            if (token) {
-                return {
-                    success: true,
-                    admin: {
-                        id: 'admin_1',
-                        name: 'System Administrator',
-                        email: 'admin@805lifeguard.com',
-                        role: 'admin'
-                    }
-                };
-            }
-            return { success: false, error: 'Invalid token' };
-        }
-
-        if (method === 'POST') {
-            // Mock login validation - accept any email/password for demo
-            if (data.email && data.password) {
-                const mockToken = `admin_token_${Date.now()}`;
-                return {
-                    success: true,
-                    token: mockToken,
-                    admin: {
-                        id: 'admin_1',
-                        name: 'System Administrator',
-                        email: data.email,
-                        role: 'admin'
-                    }
-                };
-            }
-            return { success: false, error: 'Invalid credentials' };
-        }
-
-        return { success: false, error: 'Method not supported' };
+    setCache(key, data) {
+        this.requestCache.set(key, {
+            data,
+            timestamp: Date.now()
+        });
     }
 
-    mockClientLogin(method, data) {
-        if (method === 'POST') {
-            if (data.email && data.password) {
-                const mockToken = `client_token_${Date.now()}`;
-                return {
-                    success: true,
-                    token: mockToken,
-                    client: {
-                        id: 'client_1',
-                        name: 'John Smith',
-                        email: data.email,
-                        plan: 'premium'
-                    }
-                };
-            }
-            return { success: false, error: 'Invalid credentials' };
-        }
-        return { success: false, error: 'Method not supported' };
-    }
-
-    mockEmployeeLogin(method, data) {
-        if (method === 'POST') {
-            if (data.email && data.password) {
-                const mockToken = `employee_token_${Date.now()}`;
-                return {
-                    success: true,
-                    token: mockToken,
-                    employee: {
-                        id: 'employee_1',
-                        name: 'Alex Thompson',
-                        email: data.email,
-                        role: 'lifeguard'
-                    }
-                };
-            }
-            return { success: false, error: 'Invalid credentials' };
-        }
-        return { success: false, error: 'Method not supported' };
-    }
-
-    generateMockCustomers() {
-        // This will be populated by the admin portal's generateSampleCustomers method
-        // Return empty array here as placeholder
-        return [];
-    }
-
-    generateMockBookings() {
-        // This will be populated by the admin portal's generateSampleBookings method
-        // Return empty array here as placeholder
-        return [];
-    }
-
-    generateMockStaff() {
-        // This will be populated by the admin portal's generateSampleStaff method
-        // Return empty array here as placeholder
-        return [];
-    }
-
-    generateMockAnalytics() {
-        return {
-            totalRevenue: 125000,
-            monthlyRevenue: 15000,
-            totalCustomers: 47,
-            activeCustomers: 38,
-            totalBookings: 156,
-            completedBookings: 142,
-            pendingBookings: 8,
-            cancelledBookings: 6,
-            averageBookingValue: 175,
-            customerSatisfaction: 94
-        };
+    clearCache() {
+        this.requestCache.clear();
     }
 
     // Notification System
     setupNotificationSystem() {
-        // Create notification container if it doesn't exist
         if (!document.getElementById('notification-container')) {
             const container = document.createElement('div');
             container.id = 'notification-container';
@@ -309,10 +300,11 @@ class LifeGuardPortalSystem {
         this.notifications.push(notification);
         this.renderNotification(notification);
 
-        // Auto-remove notification
-        setTimeout(() => {
-            this.removeNotification(notification.id);
-        }, notification.duration);
+        if (notification.duration > 0) {
+            setTimeout(() => {
+                this.removeNotification(notification.id);
+            }, notification.duration);
+        }
 
         console.log(`🔔 Notification: ${type.toUpperCase()} - ${message}`);
     }
@@ -344,24 +336,27 @@ class LifeGuardPortalSystem {
         let content = '';
         
         if (notification.title) {
-            content += `<div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">${notification.title}</div>`;
+            content += `<div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">${this.escapeHtml(notification.title)}</div>`;
         }
         
-        content += `<div style="font-size: 14px; opacity: 0.95;">${notification.message}</div>`;
+        content += `<div style="font-size: 14px; opacity: 0.95;">${this.escapeHtml(notification.message)}</div>`;
         
         if (notification.subtitle) {
-            content += `<div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">${notification.subtitle}</div>`;
+            content += `<div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">${this.escapeHtml(notification.subtitle)}</div>`;
         }
 
         if (notification.actions && notification.actions.length > 0) {
             content += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
-            notification.actions.forEach(action => {
-                content += `<button onclick="${action.action}" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600;">${action.text}</button>`;
+            notification.actions.forEach((action, index) => {
+                content += `<button onclick="window.notificationActions['${notification.id}_${index}']()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600;">${this.escapeHtml(action.text)}</button>`;
+                
+                // Store action function globally
+                if (!window.notificationActions) window.notificationActions = {};
+                window.notificationActions[`${notification.id}_${index}`] = action.action;
             });
             content += '</div>';
         }
 
-        // Add close button
         content += `<button onclick="portalSystem.removeNotification('${notification.id}')" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: rgba(255,255,255,0.8); font-size: 16px; cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='none'">×</button>`;
 
         notificationEl.innerHTML = content;
@@ -372,24 +367,25 @@ class LifeGuardPortalSystem {
             notificationEl.style.transform = 'translateX(0)';
         });
 
-        // Add progress bar
-        const progressBar = document.createElement('div');
-        progressBar.style.cssText = `
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 0 0 12px 12px;
-            transition: width ${notification.duration}ms linear;
-            width: 100%;
-        `;
-        notificationEl.appendChild(progressBar);
+        // Add progress bar if duration is set
+        if (notification.duration > 0) {
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                background: rgba(255,255,255,0.3);
+                border-radius: 0 0 12px 12px;
+                transition: width ${notification.duration}ms linear;
+                width: 100%;
+            `;
+            notificationEl.appendChild(progressBar);
 
-        // Animate progress bar
-        requestAnimationFrame(() => {
-            progressBar.style.width = '0%';
-        });
+            requestAnimationFrame(() => {
+                progressBar.style.width = '0%';
+            });
+        }
     }
 
     getNotificationColor(type) {
@@ -417,9 +413,24 @@ class LifeGuardPortalSystem {
 
         // Remove from array
         this.notifications = this.notifications.filter(n => n.id !== notificationId);
+        
+        // Clean up action functions
+        if (window.notificationActions) {
+            Object.keys(window.notificationActions).forEach(key => {
+                if (key.startsWith(notificationId)) {
+                    delete window.notificationActions[key];
+                }
+            });
+        }
     }
 
     // Utility Functions
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
     formatCurrency(amount) {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -456,10 +467,10 @@ class LifeGuardPortalSystem {
         return phoneRegex.test(phone);
     }
 
-    // Local Storage Helpers (for non-auth data)
+    // Secure Storage Helpers (for non-auth data)
     setLocalData(key, data) {
         try {
-            localStorage.setItem(`lifeguard_${key}`, JSON.stringify(data));
+            sessionStorage.setItem(`lifeguard_${key}`, JSON.stringify(data));
         } catch (error) {
             console.error('Error saving local data:', error);
         }
@@ -467,7 +478,7 @@ class LifeGuardPortalSystem {
 
     getLocalData(key) {
         try {
-            const data = localStorage.getItem(`lifeguard_${key}`);
+            const data = sessionStorage.getItem(`lifeguard_${key}`);
             return data ? JSON.parse(data) : null;
         } catch (error) {
             console.error('Error loading local data:', error);
@@ -477,7 +488,7 @@ class LifeGuardPortalSystem {
 
     clearLocalData(key) {
         try {
-            localStorage.removeItem(`lifeguard_${key}`);
+            sessionStorage.removeItem(`lifeguard_${key}`);
         } catch (error) {
             console.error('Error clearing local data:', error);
         }
@@ -487,7 +498,7 @@ class LifeGuardPortalSystem {
     healthCheck() {
         const health = {
             system: 'LifeGuard Portal System',
-            version: '1.0.0',
+            version: '2.0.0',
             status: 'operational',
             timestamp: new Date().toISOString(),
             auth: {
@@ -496,11 +507,43 @@ class LifeGuardPortalSystem {
                 employee: !!this.getAuthToken('employee')
             },
             notifications: this.notifications.length,
-            mockMode: this.mockMode
+            apiBaseUrl: this.apiBaseUrl,
+            cacheSize: this.requestCache.size
         };
 
         console.log('🏥 System Health Check:', health);
         return health;
+    }
+
+    // Error Handling
+    handleGlobalError(error, context = 'Unknown') {
+        console.error(`🚨 Global Error in ${context}:`, error);
+        
+        this.showNotification(
+            'An unexpected error occurred. Please try again or contact support if the issue persists.',
+            'error',
+            {
+                title: 'System Error',
+                duration: 8000
+            }
+        );
+    }
+
+    // Cleanup
+    destroy() {
+        if (this.tokenRefreshInterval) {
+            clearInterval(this.tokenRefreshInterval);
+        }
+        this.clearCache();
+        this.clearAllTokens();
+        
+        // Remove notification container
+        const container = document.getElementById('notification-container');
+        if (container) {
+            container.remove();
+        }
+        
+        console.log('🧹 Portal System destroyed');
     }
 }
 
@@ -513,4 +556,24 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = LifeGuardPortalSystem;
 }
 
-console.log('🌊 805 LifeGuard Portal System loaded and ready!');
+// Global error handling
+window.addEventListener('error', (event) => {
+    if (window.portalSystem) {
+        window.portalSystem.handleGlobalError(event.error, 'Window Error');
+    }
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    if (window.portalSystem) {
+        window.portalSystem.handleGlobalError(event.reason, 'Unhandled Promise');
+    }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.portalSystem) {
+        window.portalSystem.destroy();
+    }
+});
+
+console.log('🌊 805 LifeGuard Production Portal System loaded and ready!');
