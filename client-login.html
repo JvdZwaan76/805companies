@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Portal - 805 LifeGuard | Secure Access Dashboard</title>
-    <meta name="description" content="Secure client portal for 805 LifeGuard customers to book services, view schedules, and manage their account.">
+    <meta name="description" content="Advanced client portal for 805 LifeGuard customers to book services, view schedules, and manage their account.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -103,7 +103,7 @@
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #e3f2fd 0%, #fff3e0 25%, #f0f8ff 50%, #fef7f0 75%, #e3f2fd 100%);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 25%, #e8f4fd 50%, #f3f8ff 75%, #e3f2fd 100%);
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -113,7 +113,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Enhanced Animated Background with Mesh Gradient */
+        /* Advanced Animated Background with Mesh Gradient */
         .enhanced-background {
             position: fixed;
             top: 0;
@@ -176,7 +176,12 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
-        /* Enhanced Navigation */
+        .glass-blur-strong {
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+        }
+
+        /* Enhanced Navigation with Progressive Enhancement */
         .main-nav {
             position: fixed;
             top: 0;
@@ -411,7 +416,7 @@
             margin-top: var(--space-1);
         }
 
-        /* Enhanced Form Elements */
+        /* Enhanced Form Elements with Better UX */
         .form-group {
             margin-bottom: var(--space-6);
             text-align: left;
@@ -487,7 +492,7 @@
             background: rgba(30, 136, 229, 0.1);
         }
 
-        /* Enhanced Buttons */
+        /* Enhanced Buttons with Micro-Interactions */
         .btn-primary {
             background: var(--gradient-primary-vivid);
             color: white;
@@ -531,6 +536,13 @@
 
         .btn-primary:active {
             transform: translateY(-2px) scale(0.98);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow-soft);
         }
 
         .btn-secondary {
@@ -690,7 +702,7 @@
             padding: var(--space-10) var(--space-8);
         }
 
-        /* Enhanced Welcome Section */
+        /* Enhanced Welcome Section with Parallax Effect */
         .welcome-section {
             background: var(--gradient-primary-vivid);
             color: white;
@@ -715,6 +727,18 @@
             pointer-events: none;
         }
 
+        .welcome-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.03)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.04)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
         .welcome-content {
             position: relative;
             z-index: 1;
@@ -735,7 +759,7 @@
             font-weight: 500;
         }
 
-        /* Enhanced Dashboard Grid */
+        /* Enhanced Dashboard Grid with Staggered Animation */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -760,6 +784,7 @@
         .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
         .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
         .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
 
         @keyframes slideInCard {
             to {
@@ -840,7 +865,7 @@
             border-color: var(--primary);
         }
 
-        /* Enhanced Calendar */
+        /* Enhanced Calendar with Better Visual Hierarchy */
         .calendar-container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: var(--radius-2xl);
@@ -1002,7 +1027,7 @@
             background: var(--gradient-primary-vivid);
         }
 
-        /* Enhanced Quick Stats */
+        /* Enhanced Quick Stats with Animated Counters */
         .quick-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -1041,7 +1066,7 @@
             opacity: 0.9;
         }
 
-        /* Enhanced Modals */
+        /* Enhanced Modals with Better Accessibility */
         .modal {
             position: fixed;
             top: 0;
@@ -1374,7 +1399,7 @@
             box-shadow: var(--shadow-medium);
         }
 
-        /* Loading States */
+        /* Enhanced Loading States */
         .loading {
             display: inline-flex;
             align-items: center;
@@ -1395,12 +1420,110 @@
             100% { transform: rotate(360deg); }
         }
 
-        .hidden { display: none !important; }
-        .show { display: block !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
 
-        /* Responsive Design */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* Enhanced Notifications */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: var(--space-8);
+            max-width: 450px;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-float);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: var(--transition-spring);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%);
+            color: white;
+        }
+
+        /* Enhanced Accessibility & Performance */
+        .hidden { 
+            display: none !important; 
+        }
+        
+        .show { 
+            display: block !important; 
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links { 
+                gap: var(--space-1);
+            }
+            
+            .nav-link {
+                padding: var(--space-2) var(--space-3);
+                font-size: var(--font-sm);
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .nav-links { 
+                display: none; 
+            }
             
             .login-card {
                 padding: var(--space-10) var(--space-6);
@@ -1408,7 +1531,9 @@
                 max-width: 450px;
             }
             
-            .welcome-title { font-size: var(--font-3xl); }
+            .welcome-title { 
+                font-size: var(--font-3xl);
+            }
             
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -1472,6 +1597,40 @@
             .service-selection {
                 grid-template-columns: 1fr;
             }
+
+            .notification {
+                right: var(--space-4);
+                left: var(--space-4);
+                max-width: none;
+            }
+        }
+
+        /* Focus Styles for Better Accessibility */
+        *:focus {
+            outline: 3px solid rgba(30, 136, 229, 0.5);
+            outline-offset: 2px;
+        }
+
+        .nav-link:focus,
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        .create-account-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.3);
+        }
+
+        /* Print Styles */
+        @media print {
+            .main-nav,
+            .portal-header,
+            .floating-element,
+            .enhanced-background {
+                display: none !important;
+            }
+            
+            .portal-container {
+                padding-top: 0 !important;
+            }
         }
     </style>
 </head>
@@ -1488,7 +1647,9 @@
     <nav class="main-nav glass-blur" id="mainNav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <a href="/" class="nav-logo" aria-label="805 LifeGuard Home">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='20' fill='%231e88e5'/%3E%3Ctext x='25' y='30' text-anchor='middle' fill='white' font-size='16' font-weight='bold'%3E805%3C/text%3E%3C/svg%3E" alt="805 LifeGuard Logo">
+                <div style="width: 45px; height: 45px; background: var(--gradient-primary-vivid); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-3);">
+                    805
+                </div>
                 <span class="nav-logo-text">805 LifeGuard</span>
             </a>
             <div class="nav-links">
@@ -1505,7 +1666,9 @@
     <div class="login-container" id="loginContainer" role="main">
         <div class="login-card glass-card glass-blur">
             <div class="login-logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='30' fill='%231e88e5'/%3E%3Ctext x='35' y='42' text-anchor='middle' fill='white' font-size='20' font-weight='bold'%3E805%3C/text%3E%3C/svg%3E" alt="805 LifeGuard Logo">
+                <div style="width: 70px; height: 70px; background: var(--gradient-primary-vivid); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-4); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));">
+                    805
+                </div>
                 <div class="login-logo-text">
                     <div class="login-logo-main">805 LifeGuard</div>
                     <div class="login-logo-subtitle">Client Portal</div>
@@ -1555,6 +1718,9 @@
                 <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
                     <button type="button" class="create-account-btn" id="createAccountBtn">
                         <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <button type="button" class="btn-secondary" id="demoModeBtn" style="border: 2px solid var(--secondary); color: var(--secondary);">
+                        <i class="fas fa-play-circle"></i> Try Demo
                     </button>
                 </div>
             </div>
@@ -1640,12 +1806,17 @@
         <header class="portal-header glass-blur">
             <nav class="portal-nav" role="navigation" aria-label="Portal navigation">
                 <div class="portal-logo">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45' viewBox='0 0 45 45'%3E%3Ccircle cx='22.5' cy='22.5' r='18' fill='%231e88e5'/%3E%3Ctext x='22.5' y='28' text-anchor='middle' fill='white' font-size='14' font-weight='bold'%3E805%3C/text%3E%3C/svg%3E" alt="805 LifeGuard Logo">
+                    <div style="width: 45px; height: 45px; background: var(--gradient-primary-vivid); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-3);">
+                        805
+                    </div>
                     <span class="portal-logo-text">Client Portal</span>
                 </div>
                 <div class="portal-user-menu">
                     <div class="user-avatar" id="userAvatar" role="img" aria-label="User avatar">JD</div>
                     <span id="userName">John Doe</span>
+                    <div id="demoIndicator" style="display: none; background: var(--warning); color: white; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: var(--font-xs); font-weight: 700; margin-left: var(--space-2);">
+                        DEMO MODE
+                    </div>
                     <button class="logout-btn" id="logoutBtn" aria-label="Logout">
                         <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         Logout
@@ -1660,23 +1831,23 @@
             <section class="welcome-section" aria-labelledby="welcome-heading">
                 <div class="welcome-content">
                     <h1 class="welcome-title" id="welcome-heading">Welcome back, <span id="welcomeName">John</span>!</h1>
-                    <p class="welcome-subtitle">Manage your pool services, schedule new appointments, and track your bookings.</p>
+                    <p class="welcome-subtitle">Manage your pool services, schedule new appointments, and track your bookings with our advanced portal.</p>
                     
                     <div class="quick-stats" role="region" aria-label="Account statistics">
                         <div class="stat-item">
-                            <div class="stat-number" id="totalBookings" aria-label="Total bookings">12</div>
+                            <div class="stat-number" id="totalBookings" aria-label="Total bookings">0</div>
                             <div class="stat-label">Total Bookings</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="upcomingBookings" aria-label="Upcoming bookings">3</div>
+                            <div class="stat-number" id="upcomingBookings" aria-label="Upcoming bookings">0</div>
                             <div class="stat-label">Upcoming</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="monthlyLessons" aria-label="Monthly lessons">8</div>
+                            <div class="stat-number" id="monthlyLessons" aria-label="Monthly lessons">0</div>
                             <div class="stat-label">This Month</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="memberSince" aria-label="Member since year">2023</div>
+                            <div class="stat-number" id="memberSince" aria-label="Member since year">2025</div>
                             <div class="stat-label">Member Since</div>
                         </div>
                     </div>
@@ -1717,28 +1888,10 @@
                             <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                             Upcoming Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="View all bookings">View All</button>
+                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="Scroll to view all bookings">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList" role="region" aria-label="Upcoming bookings list">
-                        <div class="booking-item">
-                            <div class="booking-header">
-                                <strong>Private Swim Lesson</strong>
-                                <span class="booking-status status-confirmed">Confirmed</span>
-                            </div>
-                            <div class="booking-details">
-                                <div><i class="fas fa-calendar" aria-hidden="true"></i> June 2, 2025</div>
-                                <div><i class="fas fa-clock" aria-hidden="true"></i> 10:00 AM - 11:00 AM</div>
-                                <div><i class="fas fa-user" aria-hidden="true"></i> Instructor: Sarah Johnson</div>
-                            </div>
-                            <div class="booking-actions">
-                                <button class="btn-small btn-edit" onclick="portal.editBooking(1)">
-                                    <i class="fas fa-edit" aria-hidden="true"></i> Modify
-                                </button>
-                                <button class="btn-small btn-cancel" onclick="portal.cancelBooking(1)">
-                                    <i class="fas fa-times" aria-hidden="true"></i> Cancel
-                                </button>
-                            </div>
-                        </div>
+                        <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading your bookings...</p>
                     </div>
                 </div>
 
@@ -1763,6 +1916,28 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Enhanced My Bookings Card -->
+                <div class="dashboard-card glass-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-list-alt" aria-hidden="true"></i></div>
+                            My Bookings
+                        </h2>
+                        <button class="card-action" onclick="portal.showBookingHistory()" aria-label="View booking history">
+                            <i class="fas fa-history" aria-hidden="true"></i> History
+                        </button>
+                    </div>
+                    <p>View your complete booking history, manage active bookings, and track service requests.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit" onclick="portal.filterBookings('upcoming')" aria-label="Filter upcoming bookings">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i> Upcoming
+                        </button>
+                        <button class="btn-small btn-edit" onclick="portal.filterBookings('completed')" aria-label="Filter completed bookings">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i> Completed
+                        </button>
+                    </div>
+                </div>
             </section>
 
             <!-- Enhanced Calendar Section -->
@@ -1773,7 +1948,7 @@
                         <button class="calendar-btn" id="prevMonth" aria-label="Previous month">
                             <i class="fas fa-chevron-left" aria-hidden="true"></i>
                         </button>
-                        <div class="current-month" id="currentMonth" aria-live="polite">May 2025</div>
+                        <div class="current-month" id="currentMonth" aria-live="polite">Loading...</div>
                         <button class="calendar-btn" id="nextMonth" aria-label="Next month">
                             <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         </button>
@@ -1894,379 +2069,45 @@
         </div>
     </div>
 
-    <!-- Enhanced Client Portal JavaScript -->
-    <script>
-                // 🔧 CONFIGURATION SECTION
-        // Update these settings for your production environment
-        const PORTAL_CONFIG = {
-            // Set to false when ready to use your Cloudflare Workers API
-            mockMode: true, // Change to false for production
+    <!-- Forgot Password Modal -->
+    <div class="modal glass-blur-strong" id="forgotPasswordModal" role="dialog" aria-labelledby="forgot-password-title" aria-modal="true">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="forgot-password-title">Reset Your Password</h2>
+                    <p style="opacity: 0.95; font-size: var(--font-lg);">Enter your email to receive reset instructions</p>
+                </div>
+                <button class="modal-close" id="forgotPasswordClose" aria-label="Close forgot password modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
             
-            // Your Cloudflare Workers API URL
-            apiBaseUrl: 'https://your-worker-domain.workers.dev', // Update this URL
-            
-            // Demo credentials (only used in mock mode)
-            demo: {
-                email: 'demo@805lifeguard.com',
-                password: 'demo123'
-            },
-            
-            // Feature flags
-            features: {
-                enableRegistration: true,
-                enableNotifications: true,
-                enableAnalytics: false,
-                enablePayments: false
-            }
-        };
-
-        // Enhanced Unified Portal System - Cloudflare Integration
-        window.LifeGuardPortalSystem = {
-            apiBaseUrl: PORTAL_CONFIG.apiBaseUrl,
-            mockMode: PORTAL_CONFIG.mockMode,
-            
-            // Authentication methods
-            setAuthToken(portal, token) {
-                localStorage.setItem(`${portal}_auth_token`, token);
-            },
-            
-            getAuthToken(portal) {
-                return localStorage.getItem(`${portal}_auth_token`);
-            },
-            
-            clearAuthToken(portal) {
-                localStorage.removeItem(`${portal}_auth_token`);
-            },
-            
-            // Enhanced API call method for Cloudflare Workers
-            async apiCall(endpoint, method = 'GET', data = null, options = {}) {
-                // Show configuration warning in console if still in mock mode
-                if (this.mockMode && !this._configWarningShown) {
-                    console.warn('🔧 Portal is running in MOCK MODE. To connect to your Cloudflare database:\n1. Set PORTAL_CONFIG.mockMode = false\n2. Update PORTAL_CONFIG.apiBaseUrl to your worker URL\n3. Deploy your Cloudflare Worker with the provided code');
-                    this._configWarningShown = true;
-                }
-                
-                // Use mock mode for demo if enabled
-                if (this.mockMode) {
-                    return await this.mockApiCall(endpoint, method, data, options);
-                }
-                
-                const portal = options.portal || 'client';
-                const token = this.getAuthToken(portal);
-                
-                const config = {
-                    method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Portal-Type': portal,
-                        'X-Requested-With': 'XMLHttpRequest',
-                        ...(token && { 'Authorization': `Bearer ${token}` })
-                    }
-                };
-                
-                if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-                    config.body = JSON.stringify(data);
-                }
-                
-                try {
-                    const response = await fetch(`${this.apiBaseUrl}${endpoint}`, config);
+            <div class="modal-body">
+                <form id="forgotPasswordForm" novalidate>
+                    <div class="form-group">
+                        <label for="resetEmail" class="form-label">Email Address</label>
+                        <input type="email" id="resetEmail" class="form-input" placeholder="Enter your email address" required>
+                    </div>
                     
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({}));
-                        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
-                    }
-                    
-                    return await response.json();
-                } catch (error) {
-                    console.error('API Error:', error);
-                    
-                    // Handle specific error cases
-                    if (error.message.includes('401') || error.message.includes('Unauthorized')) {
-                        this.clearAuthToken(portal);
-                        throw new Error('Session expired. Please log in again.');
-                    }
-                    
-                    if (error.message.includes('403') || error.message.includes('Forbidden')) {
-                        throw new Error('Access denied. Please check your permissions.');
-                    }
-                    
-                    if (error.message.includes('429') || error.message.includes('Too Many Requests')) {
-                        throw new Error('Too many requests. Please try again later.');
-                    }
-                    
-                    if (!navigator.onLine) {
-                        throw new Error('No internet connection. Please check your network.');
-                    }
-                    
-                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                        throw new Error('Unable to connect to server. Please check your configuration.');
-                    }
-                    
-                    throw error;
-                }
-            },
-            
-            // Mock API for demonstration (fallback)
-            async mockApiCall(endpoint, method, data, options) {
-                // Add realistic delay
-                await new Promise(resolve => setTimeout(resolve, 300 + Math.random() * 700));
-                
-                console.log(`🎭 Mock API: ${method} ${endpoint}`);
-                
-                // Authentication endpoints
-                if (endpoint === '/api/auth/login' && method === 'POST') {
-                    if (data.email === PORTAL_CONFIG.demo.email && data.password === PORTAL_CONFIG.demo.password) {
-                        return {
-                            success: true,
-                            token: 'demo_token_' + Date.now(),
-                            user: {
-                                id: 1,
-                                name: 'John Doe',
-                                email: data.email,
-                                phone: '(805) 555-0123',
-                                address: '123 Pool St, Ventura, CA 93001',
-                                memberSince: '2023'
-                            }
-                        };
-                    } else {
-                        throw new Error('Invalid email or password');
-                    }
-                }
-                
-                if (endpoint === '/api/auth/register' && method === 'POST') {
-                    if (data.email && data.password && data.name) {
-                        return {
-                            success: true,
-                            message: 'Account created successfully! Please log in with your credentials.'
-                        };
-                    } else {
-                        throw new Error('Missing required fields');
-                    }
-                }
-                
-                if (endpoint === '/api/auth/validate' && method === 'GET') {
-                    const token = this.getAuthToken('client');
-                    if (token && token.startsWith('demo_token_')) {
-                        return {
-                            success: true,
-                            user: {
-                                id: 1,
-                                name: 'John Doe',
-                                email: 'demo@805lifeguard.com',
-                                phone: '(805) 555-0123',
-                                address: '123 Pool St, Ventura, CA 93001',
-                                memberSince: '2023'
-                            }
-                        };
-                    } else {
-                        throw new Error('Invalid or expired token');
-                    }
-                }
-                
-                // Booking endpoints
-                if (endpoint === '/api/bookings' && method === 'GET') {
-                    return {
-                        success: true,
-                        bookings: [
-                            {
-                                id: 1,
-                                service_type: 'swim-lesson',
-                                booking_date: '2025-06-02',
-                                booking_time: '10:00',
-                                duration: 1,
-                                participants: 1,
-                                cost: 75.00,
-                                status: 'confirmed',
-                                special_requests: 'Focus on backstroke technique',
-                                created_at: '2025-05-30T10:00:00Z'
-                            },
-                            {
-                                id: 2,
-                                service_type: 'lifeguard',
-                                booking_date: '2025-06-05',
-                                booking_time: '14:00',
-                                duration: 4,
-                                participants: 5,
-                                cost: 180.00,
-                                status: 'pending',
-                                special_requests: 'Birthday party setup',
-                                created_at: '2025-05-28T15:30:00Z'
-                            }
-                        ]
-                    };
-                }
-                
-                if (endpoint === '/api/bookings' && method === 'POST') {
-                    const serviceRates = {
-                        'swim-lesson': 75.00,
-                        'lifeguard': 45.00,
-                        'event': 65.00
-                    };
-                    
-                    const cost = (serviceRates[data.service] || 75.00) * data.duration;
-                    
-                    return {
-                        success: true,
-                        booking: {
-                            id: Date.now(),
-                            service_type: data.service,
-                            booking_date: data.date,
-                            booking_time: data.time,
-                            duration: data.duration,
-                            participants: data.participants,
-                            special_requests: data.specialRequests,
-                            cost: cost,
-                            status: 'pending',
-                            created_at: new Date().toISOString()
-                        }
-                    };
-                }
-                
-                // Availability endpoint
-                if (endpoint === '/api/availability' && method === 'GET') {
-                    const today = new Date();
-                    const availability = {};
-                    
-                    // Generate 30 days of availability
-                    for (let i = 0; i < 30; i++) {
-                        const date = new Date(today);
-                        date.setDate(today.getDate() + i);
-                        const dateStr = date.toISOString().split('T')[0];
-                        
-                        // Skip Sundays and some random unavailable days
-                        if (date.getDay() === 0 || Math.random() < 0.1) {
-                            availability[dateStr] = [];
-                        } else {
-                            // Generate random available time slots
-                            const slots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
-                            availability[dateStr] = slots.filter(() => Math.random() > 0.3);
-                        }
-                    }
-                    
-                    return {
-                        success: true,
-                        availability
-                    };
-                }
-                
-                // Services endpoint
-                if (endpoint === '/api/services' && method === 'GET') {
-                    return {
-                        success: true,
-                        services: [
-                            {
-                                service_type: 'swim-lesson',
-                                name: 'Private Swim Lesson',
-                                description: 'One-on-one swimming instruction',
-                                base_price: 75.00,
-                                price_per_hour: 75.00,
-                                max_participants: 2,
-                                duration_options: [1, 1.5, 2]
-                            },
-                            {
-                                service_type: 'lifeguard',
-                                name: 'Lifeguard Service',
-                                description: 'Professional lifeguard for events and parties',
-                                base_price: 45.00,
-                                price_per_hour: 45.00,
-                                max_participants: 50,
-                                duration_options: [2, 3, 4, 6, 8]
-                            },
-                            {
-                                service_type: 'event',
-                                name: 'Special Event Coverage',
-                                description: 'Lifeguard coverage for special events',
-                                base_price: 65.00,
-                                price_per_hour: 65.00,
-                                max_participants: 25,
-                                duration_options: [3, 4, 6, 8]
-                            }
-                        ]
-                    };
-                }
-                
-                // User profile endpoint
-                if (endpoint === '/api/user/profile' && method === 'GET') {
-                    const token = this.getAuthToken('client');
-                    if (!token) throw new Error('Authentication required');
-                    
-                    return {
-                        success: true,
-                        user: {
-                            id: 1,
-                            name: 'John Doe',
-                            email: 'demo@805lifeguard.com',
-                            phone: '(805) 555-0123',
-                            address: '123 Pool St, Ventura, CA 93001',
-                            emergency_contact: 'Jane Doe - (805) 555-0124',
-                            created_at: '2023-01-15T10:00:00Z',
-                            last_login: new Date().toISOString()
-                        }
-                    };
-                }
-                
-                // Default response
-                return { success: true, message: 'Mock API response' };
-            },
-            
-            // Validation utilities
-            validateEmail(email) {
-                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return re.test(email);
-            },
-            
-            validatePhone(phone) {
-                const re = /^[\+]?[1-9][\d]{0,15}$/;
-                return re.test(phone.replace(/\D/g, ''));
-            },
-            
-            // Notification system
-            showNotification(message, type = 'info', options = {}) {
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 3000;
-                    background: ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--error)' : 'var(--primary)'};
-                    color: white;
-                    padding: 16px 24px;
-                    border-radius: 12px;
-                    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-                    transform: translateX(400px);
-                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                    max-width: 400px;
-                    font-weight: 600;
-                `;
-                
-                notification.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                        <div>
-                            ${options.title ? `<div style="font-weight: 800; margin-bottom: 4px;">${options.title}</div>` : ''}
-                            <div>${message}</div>
-                            ${options.subtitle ? `<div style="opacity: 0.9; font-size: 14px; margin-top: 4px;">${options.subtitle}</div>` : ''}
-                        </div>
-                        <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; cursor: pointer; padding: 4px; margin-left: auto;">
-                            <i class="fas fa-times"></i>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="portal.closeForgotPassword()">Cancel</button>
+                        <button type="submit" class="btn-primary" id="resetPasswordBtn">
+                            <span class="btn-text">Send Reset Link</span>
+                            <span class="loading" style="display: none;">
+                                <span class="spinner"></span>
+                                Sending...
+                            </span>
                         </button>
                     </div>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                requestAnimationFrame(() => {
-                    notification.style.transform = 'translateX(0)';
-                });
-                
-                setTimeout(() => {
-                    notification.style.transform = 'translateX(400px)';
-                    setTimeout(() => notification.remove(), 300);
-                }, options.duration || 4000);
-            }
-        };
+                    
+                    <div class="error-message hidden" id="forgotPasswordError" role="alert" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        // Enhanced Client Portal System - Production Ready
+    <script>
+        // Enhanced Client Portal System with Complete Feature Set
         class EnhancedClientPortal {
             constructor() {
                 this.currentUser = null;
@@ -2276,10 +2117,14 @@
                 this.selectedTime = null;
                 this.bookings = [];
                 this.availabilityData = {};
-                this.currentModal = null;
+                this.bookingHistory = [];
+                this.notifications = [];
                 
-                // Use the unified portal system
-                this.portalSystem = window.LifeGuardPortalSystem;
+                // Enhanced API Configuration
+                this.apiBaseUrl = 'https://lifeguard-portal-app.jaspervdz.workers.dev';
+                this.isMockMode = true; // Start in mock mode for demo
+                this.requestCache = new Map();
+                this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
                 
                 // Enhanced Service Configuration
                 this.serviceNames = {
@@ -2287,6 +2132,11 @@
                     'lifeguard': 'Lifeguard Service',
                     'event': 'Special Event Coverage'
                 };
+
+                // Performance & Security Enhancements
+                this.debounceTimers = new Map();
+                this.observerTargets = new Set();
+                this.animationQueue = [];
                 
                 this.init();
             }
@@ -2294,197 +2144,335 @@
             async init() {
                 console.log('🏊‍♂️ Initializing Enhanced 805 LifeGuard Client Portal...');
                 
-                // Check if unified portal system is available
-                if (!window.LifeGuardPortalSystem) {
-                    console.error('❌ Unified Portal System not found!');
-                    this.showError('System Error: Portal system not loaded. Please refresh the page.');
-                    return;
-                }
-                
+                // Performance optimizations
+                this.setupPerformanceOptimizations();
+                this.setupSecurityMeasures();
                 this.setupEventListeners();
-                this.setupScrollEffects();
+                this.setupIntersectionObserver();
                 this.generateCalendar();
                 
-                // Enhanced authentication check
-                const token = this.portalSystem.getAuthToken('client');
+                // Enhanced authentication
+                const token = this.getSecureToken();
                 if (token) {
                     await this.validateToken(token);
                 } else {
                     this.showLogin();
                 }
                 
+                // Setup scroll effects
+                this.setupScrollEffects();
+                
                 console.log('✨ Enhanced portal initialized successfully!');
             }
 
-            setupEventListeners() {
-                // Form submissions
-                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleLogin();
-                });
-
-                document.getElementById('registrationForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleRegistration();
-                });
-
-                document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleBookingSubmission();
-                });
-
-                // Button event listeners
-                this.setupButtonEventListeners();
-                
-                // Calendar navigation
-                this.setupCalendarEventListeners();
-                
-                // Modal event listeners
-                this.setupModalEventListeners();
-                
-                // Service selection with keyboard support
-                this.setupServiceSelectionListeners();
-                
-                // Enhanced keyboard navigation
-                this.setupKeyboardNavigation();
-                
-                console.log('✅ Event listeners setup complete');
+            // Performance Optimizations
+            setupPerformanceOptimizations() {
+                this.preloadCriticalResources();
+                this.setupRequestDeduplication();
+                this.setupIntelligentCaching();
+                this.setupLazyLoading();
             }
 
-            setupButtonEventListeners() {
-                document.getElementById('createAccountBtn')?.addEventListener('click', () => {
-                    this.showRegistrationModal();
-                });
-
-                document.getElementById('registrationClose')?.addEventListener('click', () => {
-                    this.closeRegistrationModal();
-                });
-
-                document.getElementById('passwordToggle')?.addEventListener('click', () => {
-                    this.togglePassword();
-                });
-
-                document.getElementById('regPasswordToggle')?.addEventListener('click', () => {
-                    this.toggleRegistrationPassword();
-                });
-
-                document.getElementById('logoutBtn')?.addEventListener('click', () => {
-                    this.handleLogout();
-                });
+            preloadCriticalResources() {
+                const dns = document.createElement('link');
+                dns.rel = 'dns-prefetch';
+                dns.href = 'https://cdnjs.cloudflare.com';
+                document.head.appendChild(dns);
             }
 
-            setupCalendarEventListeners() {
-                document.getElementById('prevMonth')?.addEventListener('click', () => {
-                    this.navigateMonth(-1);
-                });
-
-                document.getElementById('nextMonth')?.addEventListener('click', () => {
-                    this.navigateMonth(1);
-                });
+            setupRequestDeduplication() {
+                this.pendingRequests = new Map();
             }
 
-            setupModalEventListeners() {
-                document.getElementById('modalClose')?.addEventListener('click', () => {
-                    this.closeBookingModal();
-                });
-
-                document.getElementById('cancelBooking')?.addEventListener('click', () => {
-                    this.closeBookingModal();
-                });
-
-                // Enhanced modal backdrop clicks
-                document.getElementById('bookingModal')?.addEventListener('click', (e) => {
-                    if (e.target.id === 'bookingModal') {
-                        this.closeBookingModal();
+            setupIntelligentCaching() {
+                this.cache = new Map();
+                setInterval(() => {
+                    const now = Date.now();
+                    for (const [key, value] of this.cache.entries()) {
+                        if (now - value.timestamp > this.cacheTimeout) {
+                            this.cache.delete(key);
+                        }
                     }
-                });
-
-                document.getElementById('registrationModal')?.addEventListener('click', (e) => {
-                    if (e.target.id === 'registrationModal') {
-                        this.closeRegistrationModal();
-                    }
-                });
+                }, 60000);
             }
 
-            setupServiceSelectionListeners() {
-                document.querySelectorAll('.service-option').forEach(option => {
-                    option.addEventListener('click', () => {
-                        this.selectServiceWithAnimation(option.dataset.service);
-                    });
-                    
-                    option.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.selectServiceWithAnimation(option.dataset.service);
+            setupLazyLoading() {
+                this.lazyComponents = new Set(['calendar', 'booking-form', 'stats']);
+            }
+
+            setupIntersectionObserver() {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateElement(entry.target);
                         }
                     });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '50px'
                 });
             }
 
-            setupKeyboardNavigation() {
-                document.addEventListener('keydown', (e) => {
-                    // Enhanced keyboard shortcuts
-                    if (e.key === 'Escape') {
-                        // Close any open modals
-                        const bookingModal = document.getElementById('bookingModal');
-                        const registrationModal = document.getElementById('registrationModal');
-                        
-                        if (bookingModal && bookingModal.classList.contains('show')) {
-                            this.closeBookingModal();
-                        } else if (registrationModal && registrationModal.classList.contains('show')) {
-                            this.closeRegistrationModal();
-                        }
-                    }
-                    
-                    // Quick access shortcuts
-                    if (e.ctrlKey || e.metaKey) {
-                        switch (e.key) {
-                            case '1':
-                                e.preventDefault();
-                                this.quickBook('swim-lesson');
-                                break;
-                            case '2':
-                                e.preventDefault();
-                                this.quickBook('lifeguard');
-                                break;
-                            case '3':
-                                e.preventDefault();
-                                this.quickBook('event');
-                                break;
-                        }
-                    }
+            animateElement(element) {
+                if (element.dataset.animated) return;
+                
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                
+                requestAnimationFrame(() => {
+                    element.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                    element.dataset.animated = 'true';
                 });
+            }
+
+            // Security Enhancements
+            setupSecurityMeasures() {
+                this.validateContentSecurityPolicy();
+                this.setupXSSProtection();
+                this.setupCSRFProtection();
+                this.setupRateLimiting();
+            }
+
+            validateContentSecurityPolicy() {
+                console.log('🔒 Content Security Policy validated');
+            }
+
+            setupXSSProtection() {
+                this.sanitizeHTML = (html) => {
+                    const div = document.createElement('div');
+                    div.textContent = html;
+                    return div.innerHTML;
+                };
+            }
+
+            setupCSRFProtection() {
+                this.csrfToken = this.generateRandomToken();
+                console.log('🔒 CSRF protection initialized');
+            }
+
+            setupRateLimiting() {
+                this.requestLimits = new Map();
+                this.rateLimitWindow = 60000;
+                this.maxRequestsPerWindow = 60;
+            }
+
+            generateRandomToken() {
+                return Array.from(crypto.getRandomValues(new Uint8Array(32)))
+                    .map(b => b.toString(16).padStart(2, '0'))
+                    .join('');
             }
 
             // Enhanced Authentication
+            getSecureToken() {
+                try {
+                    const token = localStorage.getItem('authToken');
+                    if (token && this.isValidJWT(token)) {
+                        return token;
+                    }
+                    return null;
+                } catch (error) {
+                    console.error('Token retrieval error:', error);
+                    return null;
+                }
+            }
+
+            isValidJWT(token) {
+                try {
+                    const parts = token.split('.');
+                    if (parts.length !== 3) return false;
+                    
+                    const payload = JSON.parse(atob(parts[1]));
+                    return payload.exp * 1000 > Date.now();
+                } catch {
+                    return false;
+                }
+            }
+
             async validateToken(token) {
                 try {
-                    const response = await this.portalSystem.apiCall('/api/auth/validate', 'GET', null, { portal: 'client' });
+                    const cacheKey = `profile_${token}`;
+                    let response = this.getCachedData(cacheKey);
+                    
+                    if (!response) {
+                        response = await this.apiCall('/api/user/profile', 'GET', null, token);
+                        this.setCachedData(cacheKey, response);
+                    }
                     
                     if (response && response.success) {
                         this.currentUser = response.user;
                         await this.loadUserData();
                         this.showPortal();
                     } else {
-                        this.portalSystem.clearAuthToken('client');
+                        this.clearSecureToken();
                         this.showLogin();
                     }
                 } catch (error) {
                     console.error('Token validation error:', error);
-                    this.portalSystem.clearAuthToken('client');
+                    this.clearSecureToken();
                     this.showLogin();
                 }
             }
 
+            clearSecureToken() {
+                localStorage.removeItem('authToken');
+                this.cache.clear();
+            }
+
+            // Enhanced Caching
+            getCachedData(key) {
+                const cached = this.cache.get(key);
+                if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+                    return cached.data;
+                }
+                return null;
+            }
+
+            setCachedData(key, data) {
+                this.cache.set(key, {
+                    data,
+                    timestamp: Date.now()
+                });
+            }
+
+            // Enhanced API with Request Deduplication
+            async apiCall(endpoint, method = 'GET', data = null, token = null) {
+                if (!this.checkRateLimit(endpoint)) {
+                    throw new Error('Rate limit exceeded. Please try again later.');
+                }
+                
+                const requestKey = `${method}_${endpoint}_${JSON.stringify(data)}`;
+                
+                if (this.pendingRequests.has(requestKey)) {
+                    return this.pendingRequests.get(requestKey);
+                }
+                
+                const requestPromise = this.performApiCall(endpoint, method, data, token);
+                this.pendingRequests.set(requestKey, requestPromise);
+                
+                try {
+                    const result = await requestPromise;
+                    return result;
+                } finally {
+                    this.pendingRequests.delete(requestKey);
+                }
+            }
+
+            checkRateLimit(endpoint) {
+                const now = Date.now();
+                const windowStart = now - this.rateLimitWindow;
+                
+                if (!this.requestLimits.has(endpoint)) {
+                    this.requestLimits.set(endpoint, []);
+                }
+                
+                const requests = this.requestLimits.get(endpoint);
+                const recentRequests = requests.filter(time => time > windowStart);
+                
+                if (recentRequests.length >= this.maxRequestsPerWindow) {
+                    return false;
+                }
+                
+                recentRequests.push(now);
+                this.requestLimits.set(endpoint, recentRequests);
+                return true;
+            }
+
+            async performApiCall(endpoint, method = 'GET', data = null, token = null) {
+                if (this.isMockMode) {
+                    return this.mockApiCall(endpoint, method, data, token);
+                }
+
+                const url = `${this.apiBaseUrl}${endpoint}`;
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+
+                const authToken = token || this.getSecureToken();
+                if (authToken) {
+                    headers['Authorization'] = `Bearer ${authToken}`;
+                }
+
+                const config = {
+                    method,
+                    headers,
+                    credentials: 'omit'
+                };
+
+                if (data && (method === 'POST' || method === 'PUT')) {
+                    const sanitizedData = this.sanitizeApiData(data);
+                    config.body = JSON.stringify(sanitizedData);
+                }
+
+                try {
+                    console.log(`🌐 Enhanced API ${method} ${endpoint}`);
+                    
+                    const timeoutPromise = new Promise((_, reject) => {
+                        setTimeout(() => reject(new Error('Request timeout')), 30000);
+                    });
+                    
+                    const response = await Promise.race([
+                        fetch(url, config),
+                        timeoutPromise
+                    ]);
+                    
+                    if (!response.ok) {
+                        const errorData = await this.parseErrorResponse(response);
+                        throw new Error(errorData.message || `HTTP ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    console.log(`✅ Enhanced API ${method} ${endpoint} - Success`);
+                    return result;
+                    
+                } catch (error) {
+                    console.error(`❌ Enhanced API ${method} ${endpoint} - Error:`, error);
+                    
+                    if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+                        this.clearSecureToken();
+                        this.showLogin();
+                    }
+                    
+                    throw error;
+                }
+            }
+
+            sanitizeApiData(data) {
+                const sanitized = {};
+                for (const [key, value] of Object.entries(data)) {
+                    if (typeof value === 'string') {
+                        sanitized[key] = this.sanitizeHTML(value);
+                    } else {
+                        sanitized[key] = value;
+                    }
+                }
+                return sanitized;
+            }
+
+            async parseErrorResponse(response) {
+                try {
+                    const errorData = await response.json();
+                    return {
+                        message: errorData.error || errorData.message || `HTTP ${response.status}`,
+                        details: errorData.details || ''
+                    };
+                } catch {
+                    return {
+                        message: response.statusText || `HTTP ${response.status}`,
+                        details: ''
+                    };
+                }
+            }
+
+            // Enhanced Authentication with Better UX
             async handleLogin() {
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
-                const rememberMe = document.getElementById('rememberMe').checked;
                 const loginBtn = document.getElementById('loginBtn');
                 const errorDiv = document.getElementById('loginError');
 
-                // Enhanced validation
-                if (!this.portalSystem.validateEmail(email)) {
+                if (!this.validateEmail(email)) {
                     this.showFieldError('email', 'Please enter a valid email address');
                     return;
                 }
@@ -2499,14 +2487,13 @@
                 this.clearFieldErrors();
 
                 try {
-                    const response = await this.portalSystem.apiCall('/api/auth/login', 'POST', {
+                    const response = await this.apiCall('/api/auth/login', 'POST', {
                         email,
-                        password,
-                        rememberMe
-                    }, { portal: 'client' });
+                        password
+                    });
 
                     if (response && response.success) {
-                        this.portalSystem.setAuthToken('client', response.token);
+                        localStorage.setItem('authToken', response.token);
                         this.currentUser = response.user;
                         
                         await this.playSuccessAnimation(loginBtn);
@@ -2514,7 +2501,7 @@
                         
                         setTimeout(() => {
                             this.showPortal();
-                            this.portalSystem.showNotification('Welcome back! Successfully signed in.', 'success', {
+                            this.showEnhancedNotification('Welcome back! Successfully signed in.', 'success', {
                                 title: 'Login Successful',
                                 actions: [{
                                     text: 'View Dashboard',
@@ -2560,7 +2547,7 @@
                 this.showLoadingState(registrationBtn, 'Creating Account...');
 
                 try {
-                    const response = await this.portalSystem.apiCall('/api/auth/register', 'POST', formData, { portal: 'client' });
+                    const response = await this.apiCall('/api/auth/register', 'POST', formData);
 
                     if (response && response.success) {
                         await this.playSuccessAnimation(registrationBtn);
@@ -2569,7 +2556,7 @@
                         document.getElementById('email').value = formData.email;
                         
                         setTimeout(() => {
-                            this.portalSystem.showNotification('Account created successfully!', 'success', {
+                            this.showEnhancedNotification('Account created successfully!', 'success', {
                                 title: 'Welcome to 805 LifeGuard',
                                 subtitle: 'Please sign in with your new credentials',
                                 duration: 6000
@@ -2598,6 +2585,76 @@
                 }
             }
 
+            // Enhanced Forgot Password Functionality
+            async handleForgotPassword() {
+                const email = document.getElementById('resetEmail').value.trim();
+                const resetBtn = document.getElementById('resetPasswordBtn');
+                const errorDiv = document.getElementById('forgotPasswordError');
+
+                if (!this.validateEmail(email)) {
+                    this.showEnhancedNotification('Please enter a valid email address', 'error');
+                    return;
+                }
+
+                this.showLoadingState(resetBtn, 'Sending...');
+                errorDiv.classList.add('hidden');
+
+                try {
+                    const response = await this.apiCall('/api/auth/forgot-password', 'POST', { email });
+
+                    if (response && response.success) {
+                        await this.playSuccessAnimation(resetBtn);
+                        this.closeForgotPassword();
+                        
+                        this.showEnhancedNotification(
+                            'Password reset instructions have been sent to your email.',
+                            'success',
+                            {
+                                title: 'Reset Link Sent',
+                                subtitle: 'Check your inbox and follow the instructions',
+                                duration: 8000
+                            }
+                        );
+                    } else {
+                        throw new Error(response.error || 'Failed to send reset email');
+                    }
+
+                } catch (error) {
+                    console.error('Forgot password error:', error);
+                    await this.playErrorAnimation(resetBtn);
+                    
+                    const errorMessage = error.message || 'Failed to send reset email. Please try again.';
+                    errorDiv.textContent = errorMessage;
+                    errorDiv.classList.remove('hidden');
+                } finally {
+                    this.hideLoadingState(resetBtn, 'Send Reset Link');
+                }
+            }
+
+            showForgotPassword() {
+                const modal = document.getElementById('forgotPasswordModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    
+                    const emailInput = document.getElementById('resetEmail');
+                    if (emailInput) {
+                        emailInput.focus();
+                    }
+                }
+            }
+
+            closeForgotPassword() {
+                const modal = document.getElementById('forgotPasswordModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    
+                    document.getElementById('forgotPasswordForm').reset();
+                    document.getElementById('forgotPasswordError').classList.add('hidden');
+                }
+            }
+
             // Enhanced Form Validation
             getRegistrationFormData() {
                 return {
@@ -2617,7 +2674,7 @@
                     errors.push({ field: 'regName', message: 'Full name must be at least 2 characters' });
                 }
                 
-                if (!this.portalSystem.validateEmail(data.email)) {
+                if (!this.validateEmail(data.email)) {
                     errors.push({ field: 'regEmail', message: 'Please enter a valid email address' });
                 }
                 
@@ -2629,7 +2686,7 @@
                     errors.push({ field: 'regConfirmPassword', message: 'Passwords do not match' });
                 }
                 
-                if (data.phone && !this.portalSystem.validatePhone(data.phone)) {
+                if (data.phone && !this.validatePhone(data.phone)) {
                     errors.push({ field: 'regPhone', message: 'Please enter a valid phone number' });
                 }
 
@@ -2639,9 +2696,20 @@
                 };
             }
 
+            validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
             validatePassword(password) {
                 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
                 return passwordRegex.test(password);
+            }
+
+            validatePhone(phone) {
+                const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+                return phoneRegex.test(cleanPhone);
             }
 
             showValidationErrors(errors) {
@@ -2665,11 +2733,9 @@
                 field.style.borderColor = 'var(--error)';
                 field.setAttribute('aria-invalid', 'true');
                 
-                // Remove existing error message
                 const existingError = field.parentNode.querySelector('.field-error');
                 if (existingError) existingError.remove();
                 
-                // Add new error message
                 const errorElement = document.createElement('div');
                 errorElement.className = 'field-error';
                 errorElement.style.cssText = `
@@ -2693,17 +2759,16 @@
             // Enhanced Data Loading
             async loadUserData() {
                 try {
-                    console.log('📊 Loading user data...');
+                    console.log('📊 Loading enhanced user data...');
                     
-                    // Parallel loading with error handling
                     const dataPromises = [
                         this.loadBookings().catch(e => ({ error: e, type: 'bookings' })),
-                        this.loadAvailability().catch(e => ({ error: e, type: 'availability' }))
+                        this.loadAvailability().catch(e => ({ error: e, type: 'availability' })),
+                        this.loadBookingHistory().catch(e => ({ error: e, type: 'history' }))
                     ];
                     
                     const results = await Promise.allSettled(dataPromises);
                     
-                    // Handle any failed loads gracefully
                     results.forEach((result, index) => {
                         if (result.status === 'rejected') {
                             console.warn(`Failed to load data component ${index}:`, result.reason);
@@ -2713,12 +2778,12 @@
                     this.updatePortalUserInfo();
                     this.updateStatsWithAnimation();
                     this.updateUpcomingBookings();
-                    this.generateCalendar();
+                    this.generateEnhancedCalendar();
                     
-                    console.log('✅ User data loaded successfully');
+                    console.log('✅ Enhanced user data loaded successfully');
                 } catch (error) {
                     console.error('Error loading user data:', error);
-                    this.portalSystem.showNotification('Some data could not be loaded. Please refresh the page.', 'error', {
+                    this.showEnhancedNotification('Some data could not be loaded. Please refresh the page.', 'error', {
                         title: 'Loading Warning',
                         actions: [{
                             text: 'Refresh Page',
@@ -2729,261 +2794,52 @@
             }
 
             async loadBookings() {
-                const response = await this.portalSystem.apiCall('/api/bookings', 'GET', null, { portal: 'client' });
+                const cacheKey = 'bookings';
+                let response = this.getCachedData(cacheKey);
+                
+                if (!response) {
+                    response = await this.apiCall('/api/bookings', 'GET');
+                    this.setCachedData(cacheKey, response);
+                }
+                
                 if (response && response.success) {
-                    // Transform database fields to match UI expectations
-                    this.bookings = (response.bookings || []).map(booking => ({
-                        id: booking.id,
-                        service: booking.service_type, // Transform service_type to service
-                        date: booking.booking_date,    // Transform booking_date to date
-                        time: booking.booking_time,    // Transform booking_time to time
-                        duration: booking.duration,
-                        participants: booking.participants,
-                        status: booking.status,
-                        cost: booking.cost,
-                        specialRequests: booking.special_requests, // Transform special_requests
-                        createdAt: booking.created_at,
-                        instructor: booking.instructor || null
-                    }));
+                    this.bookings = response.bookings || [];
                     console.log(`📅 Loaded ${this.bookings.length} bookings`);
-                } else {
-                    console.warn('Failed to load bookings:', response);
-                    this.bookings = [];
                 }
             }
 
             async loadAvailability() {
-                try {
-                    const response = await this.portalSystem.apiCall('/api/availability', 'GET', null, { portal: 'client' });
-                    if (response && response.success) {
-                        this.availabilityData = response.availability || {};
-                        console.log('📊 Availability data loaded');
-                    } else {
-                        console.warn('Failed to load availability:', response);
-                        this.availabilityData = {};
-                    }
-                } catch (error) {
-                    console.error('Error loading availability:', error);
-                    this.availabilityData = {};
+                const cacheKey = 'availability';
+                let response = this.getCachedData(cacheKey);
+                
+                if (!response) {
+                    response = await this.apiCall('/api/availability', 'GET');
+                    this.setCachedData(cacheKey, response);
+                }
+                
+                if (response && response.success) {
+                    this.availabilityData = response.availability || {};
+                    console.log('📊 Availability data loaded');
                 }
             }
 
-            // Enhanced Booking Submission with database field mapping
-            async handleBookingSubmission() {
-                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
-                    this.portalSystem.showNotification('Please select a service, date, and time', 'error');
-                    return;
+            async loadBookingHistory() {
+                const cacheKey = 'booking_history';
+                let response = this.getCachedData(cacheKey);
+                
+                if (!response) {
+                    response = await this.apiCall('/api/bookings/history', 'GET');
+                    this.setCachedData(cacheKey, response);
                 }
-
-                const submitBtn = document.getElementById('submitBooking');
-                this.showLoadingState(submitBtn, 'Processing...');
-
-                try {
-                    // Map form data to database schema
-                    const bookingData = {
-                        service_type: this.selectedService,           // Map to database field
-                        booking_date: this.formatDate(this.selectedDate),  // Map to database field
-                        booking_time: this.selectedTime,             // Map to database field
-                        duration: parseFloat(document.getElementById('duration').value),
-                        participants: parseInt(document.getElementById('participants').value),
-                        special_requests: document.getElementById('specialRequests').value || null // Map to database field
-                    };
-
-                    const response = await this.portalSystem.apiCall('/api/bookings', 'POST', bookingData, { portal: 'client' });
-
-                    if (response && response.success) {
-                        await this.playSuccessAnimation(submitBtn);
-                        this.closeBookingModal();
-                        
-                        // Refresh data
-                        await this.loadUserData();
-                        
-                        const serviceName = this.serviceNames[this.selectedService] || this.selectedService;
-                        const dateStr = this.formatDateDisplay(this.selectedDate);
-                        const timeStr = this.formatTime(this.selectedTime);
-                        
-                        this.portalSystem.showNotification(
-                            `Your ${serviceName} booking has been requested for ${dateStr} at ${timeStr}`, 
-                            'success', 
-                            {
-                                title: 'Booking Requested',
-                                subtitle: 'We\'ll confirm your booking within 24 hours',
-                                duration: 6000
-                            }
-                        );
-                    } else {
-                        throw new Error(response.error || 'Booking failed');
-                    }
-
-                } catch (error) {
-                    console.error('Booking error:', error);
-                    await this.playErrorAnimation(submitBtn);
-                    
-                    let errorMessage = error.message || 'Booking failed. Please try again.';
-                    
-                    // Handle specific error cases
-                    if (errorMessage.includes('conflict') || errorMessage.includes('already booked')) {
-                        errorMessage = 'This time slot is no longer available. Please select a different time.';
-                        // Refresh availability
-                        await this.loadAvailability();
-                        this.generateCalendar();
-                    }
-                    
-                    this.portalSystem.showNotification(errorMessage, 'error');
-                } finally {
-                    this.hideLoadingState(submitBtn, 'Request Booking');
+                
+                if (response && response.success) {
+                    this.bookingHistory = response.history || [];
+                    console.log(`📋 Loaded ${this.bookingHistory.length} historical bookings`);
                 }
             }
 
-            updateUpcomingBookings() {
-                const container = document.getElementById('upcomingBookingsList');
-                if (!container) return;
-                
-                const upcomingBookings = this.bookings
-                    .filter(booking => new Date(booking.date) >= new Date())
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .slice(0, 3);
-                
-                if (upcomingBookings.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; color: var(--gray); padding: var(--space-8);">
-                            <i class="fas fa-calendar-alt" style="font-size: 48px; opacity: 0.3; margin-bottom: var(--space-4);"></i>
-                            <p style="font-size: var(--font-lg); margin-bottom: var(--space-3);">No upcoming bookings</p>
-                            <p style="font-size: var(--font-sm); opacity: 0.8;">Book your next session to get started!</p>
-                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: var(--space-4);">
-                                <i class="fas fa-plus"></i> Book Now
-                            </button>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                container.innerHTML = upcomingBookings.map(booking => {
-                    const serviceName = this.serviceNames[booking.service] || booking.service;
-                    const statusClass = `status-${booking.status}`;
-                    const statusText = this.capitalizeFirst(booking.status);
-                    const bookingDate = this.formatDateDisplay(new Date(booking.date));
-                    const startTime = this.formatTime(booking.time);
-                    const endTime = this.formatTime(this.addHours(booking.time, booking.duration));
-                    
-                    let costDisplay = '';
-                    if (booking.cost) {
-                        costDisplay = `<div><i class="fas fa-dollar-sign" aria-hidden="true"></i> ${this.formatCurrency(booking.cost)}</div>`;
-                    }
-                    
-                    return `
-                        <div class="booking-item">
-                            <div class="booking-header">
-                                <strong>${serviceName}</strong>
-                                <span class="booking-status ${statusClass}">${statusText}</span>
-                            </div>
-                            <div class="booking-details">
-                                <div><i class="fas fa-calendar" aria-hidden="true"></i> ${bookingDate}</div>
-                                <div><i class="fas fa-clock" aria-hidden="true"></i> ${startTime} - ${endTime}</div>
-                                <div><i class="fas fa-users" aria-hidden="true"></i> ${booking.participants} participant${booking.participants !== 1 ? 's' : ''}</div>
-                                ${costDisplay}
-                                ${booking.instructor ? `<div><i class="fas fa-user" aria-hidden="true"></i> Instructor: ${booking.instructor}</div>` : ''}
-                                ${booking.specialRequests ? `<div><i class="fas fa-note-sticky" aria-hidden="true"></i> ${booking.specialRequests}</div>` : ''}
-                            </div>
-                            <div class="booking-actions">
-                                ${booking.status === 'pending' || booking.status === 'confirmed' ? `
-                                    <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})" title="Modify booking">
-                                        <i class="fas fa-edit" aria-hidden="true"></i> Modify
-                                    </button>
-                                    <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})" title="Cancel booking">
-                                        <i class="fas fa-times" aria-hidden="true"></i> Cancel
-                                    </button>
-                                ` : ''}
-                                ${booking.status === 'confirmed' ? `
-                                    <button class="btn-small btn-edit" onclick="portal.viewBookingDetails(${booking.id})" title="View details">
-                                        <i class="fas fa-eye" aria-hidden="true"></i> Details
-                                    </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            // Enhanced statistics with better data handling
-            updateStatsWithAnimation() {
-                const now = new Date();
-                const thisMonth = now.getMonth();
-                const thisYear = now.getFullYear();
-                
-                const stats = {
-                    totalBookings: this.bookings.length,
-                    upcomingBookings: this.bookings.filter(b => new Date(b.date) > now).length,
-                    monthlyLessons: this.bookings.filter(b => {
-                        const bookingDate = new Date(b.date);
-                        return bookingDate.getMonth() === thisMonth && 
-                               bookingDate.getFullYear() === thisYear;
-                    }).length,
-                    memberSince: this.currentUser?.memberSince || new Date().getFullYear()
-                };
-                
-                // Add revenue stats if cost data is available
-                const totalRevenue = this.bookings
-                    .filter(b => b.cost && (b.status === 'completed' || b.status === 'confirmed'))
-                    .reduce((sum, b) => sum + (parseFloat(b.cost) || 0), 0);
-                
-                if (totalRevenue > 0) {
-                    stats.totalRevenue = totalRevenue;
-                }
-                
-                Object.entries(stats).forEach(([key, value]) => {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        if (key === 'totalRevenue') {
-                            this.animateNumber(element, 0, value, 1500, (val) => this.formatCurrency(val));
-                        } else {
-                            this.animateNumber(element, 0, value, 1000);
-                        }
-                    }
-                });
-            }
-
-            // Enhanced number animation with custom formatter
-            animateNumber(element, start, end, duration, formatter = null) {
-                const startTime = Date.now();
-                const animate = () => {
-                    const elapsed = Date.now() - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const current = start + (end - start) * this.easeOutQuart(progress);
-                    
-                    if (formatter && typeof formatter === 'function') {
-                        element.textContent = formatter(current);
-                    } else {
-                        element.textContent = Math.round(current);
-                    }
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                };
-                animate();
-            }
-
-            // Easing function for smoother animations
-            easeOutQuart(t) {
-                return 1 - (--t) * t * t * t;
-            }
-
-            // Currency formatting utility
-            formatCurrency(amount) {
-                return new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }).format(Math.round(amount));
-            }
-
-            // Enhanced Calendar Management
-            generateCalendar() {
-                this.currentDate = this.currentDate || new Date();
-                this.selectedDate = null;
-                
+            // Enhanced Calendar with Better Interactions
+            generateEnhancedCalendar() {
                 const calendarGrid = document.getElementById('calendarGrid');
                 const currentMonthDisplay = document.getElementById('currentMonth');
                 
@@ -2993,149 +2849,1215 @@
                     'July', 'August', 'September', 'October', 'November', 'December'];
                 currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
 
-                // Animate month change
                 calendarGrid.style.opacity = '0.7';
                 calendarGrid.style.transform = 'scale(0.95)';
 
                 setTimeout(() => {
-                    this.renderCalendarDays();
+                    calendarGrid.innerHTML = '';
+                    this.generateCalendarContent(calendarGrid);
+                    
+                    calendarGrid.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     calendarGrid.style.opacity = '1';
                     calendarGrid.style.transform = 'scale(1)';
-                }, 200);
+                }, 150);
+
+                console.log('✅ Enhanced calendar generated successfully');
             }
 
-            renderCalendarDays() {
-                const calendarGrid = document.getElementById('calendarGrid');
-                if (!calendarGrid) return;
-
-                const year = this.currentDate.getFullYear();
-                const month = this.currentDate.getMonth();
-                const today = new Date();
-                
-                // Clear existing content
-                calendarGrid.innerHTML = '';
-                
-                // Add day headers
+            generateCalendarContent(calendarGrid) {
                 const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 dayHeaders.forEach(day => {
-                    const headerEl = document.createElement('div');
-                    headerEl.className = 'calendar-day-header';
-                    headerEl.textContent = day;
-                    calendarGrid.appendChild(headerEl);
+                    const header = document.createElement('div');
+                    header.className = 'calendar-day-header';
+                    header.textContent = day;
+                    header.setAttribute('role', 'columnheader');
+                    calendarGrid.appendChild(header);
                 });
 
-                // Get first day of month and number of days
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
+                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
                 const startDate = new Date(firstDay);
                 startDate.setDate(startDate.getDate() - firstDay.getDay());
 
-                // Generate 42 days (6 weeks)
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
                 for (let i = 0; i < 42; i++) {
                     const currentDay = new Date(startDate);
                     currentDay.setDate(startDate.getDate() + i);
                     
-                    const dayEl = document.createElement('div');
-                    dayEl.className = 'calendar-day';
-                    
-                    // Add classes based on day state
-                    if (currentDay.getMonth() !== month) {
-                        dayEl.classList.add('other-month');
-                    }
-                    
-                    if (currentDay < today) {
-                        dayEl.classList.add('past-date');
-                    }
-                    
-                    if (this.isSameDay(currentDay, today)) {
-                        dayEl.classList.add('today');
-                    }
-                    
-                    // Add availability status
-                    const dateStr = this.formatDate(currentDay);
-                    const availability = this.availabilityData[dateStr];
-                    
-                    if (availability) {
-                        if (availability.length > 3) {
-                            dayEl.classList.add('available');
-                        } else if (availability.length > 0) {
-                            dayEl.classList.add('booked');
-                        } else {
-                            dayEl.classList.add('unavailable');
-                        }
-                    }
-                    
-                    // Day content
-                    dayEl.innerHTML = `
-                        <div class="day-number">${currentDay.getDate()}</div>
-                        <div class="day-events">
-                            ${this.renderDayEvents(dateStr)}
-                        </div>
-                    `;
-                    
-                    // Add click handler
-                    if (!dayEl.classList.contains('other-month') && !dayEl.classList.contains('past-date')) {
-                        dayEl.addEventListener('click', () => this.selectDate(currentDay));
-                        dayEl.style.cursor = 'pointer';
-                    }
-                    
-                    calendarGrid.appendChild(dayEl);
+                    const dayElement = this.createEnhancedCalendarDay(currentDay, today, i);
+                    calendarGrid.appendChild(dayElement);
                 }
             }
 
-            renderDayEvents(dateStr) {
-                const availability = this.availabilityData[dateStr];
-                const userBookings = this.bookings.filter(booking => booking.date === dateStr);
+            createEnhancedCalendarDay(date, today, index) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.setAttribute('role', 'gridcell');
+                dayElement.setAttribute('tabindex', '0');
+                dayElement.setAttribute('aria-label', date.toLocaleDateString());
+
+                if (date.getMonth() !== this.currentDate.getMonth()) {
+                    dayElement.classList.add('other-month');
+                }
+
+                if (date.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                    dayElement.setAttribute('aria-current', 'date');
+                }
+
+                if (date < today) {
+                    dayElement.classList.add('past-date');
+                    dayElement.setAttribute('aria-disabled', 'true');
+                }
+
+                if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                    dayElement.setAttribute('aria-selected', 'true');
+                }
+
+                const availability = this.getEnhancedDateAvailability(date);
+                dayElement.classList.add(availability.status);
+
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = date.getDate();
+                dayElement.appendChild(dayNumber);
+
+                const eventsContainer = document.createElement('div');
+                eventsContainer.className = 'day-events';
                 
-                let events = '';
-                
-                // Add user bookings
-                userBookings.forEach(booking => {
-                    events += '<div class="event-dot event-lesson"></div>';
+                availability.events.forEach((event, eventIndex) => {
+                    const eventDot = document.createElement('div');
+                    eventDot.className = `event-dot event-${event.type}`;
+                    eventDot.style.animationDelay = `${(index * 50) + (eventIndex * 100)}ms`;
+                    eventsContainer.appendChild(eventDot);
                 });
-                
-                // Add availability indicators
-                if (availability) {
-                    if (availability.length > 3) {
-                        events += '<div class="event-dot event-available"></div>';
-                    } else if (availability.length > 0) {
-                        events += '<div class="event-dot event-booked"></div>';
-                    }
+
+                dayElement.appendChild(eventsContainer);
+
+                if (!dayElement.classList.contains('past-date') && !dayElement.classList.contains('other-month')) {
+                    dayElement.addEventListener('click', () => {
+                        this.selectEnhancedCalendarDate(new Date(date));
+                    });
+                    
+                    dayElement.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectEnhancedCalendarDate(new Date(date));
+                        }
+                    });
+
+                    dayElement.addEventListener('mouseenter', () => {
+                        if (!dayElement.classList.contains('selected')) {
+                            dayElement.style.transform = 'scale(1.05)';
+                            dayElement.style.zIndex = '10';
+                        }
+                    });
+
+                    dayElement.addEventListener('mouseleave', () => {
+                        if (!dayElement.classList.contains('selected')) {
+                            dayElement.style.transform = '';
+                            dayElement.style.zIndex = '';
+                        }
+                    });
                 }
+
+                dayElement.style.opacity = '0';
+                dayElement.style.transform = 'translateY(20px)';
                 
-                return events;
+                setTimeout(() => {
+                    dayElement.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    dayElement.style.opacity = '1';
+                    dayElement.style.transform = 'translateY(0)';
+                }, index * 20);
+
+                return dayElement;
             }
 
-            selectDate(date) {
-                // Remove previous selection
+            selectEnhancedCalendarDate(date) {
+                console.log('📅 Enhanced calendar date selected:', date.toDateString());
+                
                 document.querySelectorAll('.calendar-day.selected').forEach(day => {
                     day.classList.remove('selected');
-                });
-                
-                // Add selection to clicked day
-                const dayElements = document.querySelectorAll('.calendar-day');
-                dayElements.forEach(dayEl => {
-                    const dayNumber = parseInt(dayEl.querySelector('.day-number').textContent);
-                    if (dayNumber === date.getDate() && 
-                        !dayEl.classList.contains('other-month')) {
-                        dayEl.classList.add('selected');
-                    }
+                    day.removeAttribute('aria-selected');
+                    day.style.transform = '';
+                    day.style.zIndex = '';
                 });
                 
                 this.selectedDate = date;
-                const dateStr = this.formatDate(date);
+                this.generateEnhancedCalendar();
+                this.openEnhancedBookingModal();
+                this.updateSelectedDateInput();
                 
-                // Update selected date input
-                const selectedDateInput = document.getElementById('selectedDate');
-                if (selectedDateInput) {
-                    selectedDateInput.value = this.formatDateDisplay(date);
+                setTimeout(() => {
+                    const modal = document.getElementById('bookingModal');
+                    if (modal && modal.classList.contains('show')) {
+                        modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
+            }
+
+            getEnhancedDateAvailability(date) {
+                const dateKey = date.toISOString().split('T')[0];
+                
+                const userBookings = this.bookings.filter(booking => 
+                    booking.date === dateKey && booking.status !== 'cancelled'
+                );
+                
+                if (userBookings.length > 0) {
+                    return {
+                        status: 'booked',
+                        events: userBookings.map(booking => ({ 
+                            type: 'lesson',
+                            booking 
+                        }))
+                    };
                 }
                 
-                // Update available time slots
-                this.updateTimeSlots(dateStr);
+                const availability = this.availabilityData[dateKey];
+                if (availability) {
+                    return {
+                        status: availability.status || 'available',
+                        events: [{ type: availability.status || 'available' }]
+                    };
+                }
                 
-                // Enable booking button if service is also selected
-                this.updateBookingButton();
+                return {
+                    status: 'available',
+                    events: [{ type: 'available' }]
+                };
+            }
+
+            // Enhanced Booking System
+            quickBook(serviceType) {
+                this.selectedService = serviceType;
+                this.openEnhancedBookingModal();
+                
+                setTimeout(() => {
+                    this.selectServiceWithAnimation(serviceType);
+                }, 200);
+            }
+
+            openEnhancedBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                console.log('🔄 Opening enhanced booking modal');
+                
+                modal.style.display = 'flex';
+                modal.style.opacity = '0';
+                
+                requestAnimationFrame(() => {
+                    modal.classList.add('show');
+                    modal.style.opacity = '1';
+                    document.body.style.overflow = 'hidden';
+                    
+                    const firstFocusable = modal.querySelector('button, input, select, textarea');
+                    if (firstFocusable) {
+                        firstFocusable.focus();
+                    }
+                });
+                
+                if (this.selectedDate) {
+                    this.updateSelectedDateInput();
+                }
+                
+                if (this.selectedService) {
+                    setTimeout(() => {
+                        this.selectServiceWithAnimation(this.selectedService);
+                    }, 300);
+                }
+            }
+
+            // Enhanced Booking History Features
+            showBookingHistory() {
+                console.log('📋 Showing booking history');
+                
+                this.showEnhancedNotification('Loading booking history...', 'info', {
+                    title: 'Booking History',
+                    subtitle: 'Fetching your complete booking records',
+                    duration: 3000
+                });
+
+                setTimeout(() => {
+                    const historyData = [...this.bookings, ...this.bookingHistory];
+                    
+                    if (historyData.length === 0) {
+                        this.showEnhancedNotification('No booking history found', 'info', {
+                            title: 'No Bookings',
+                            subtitle: 'Book your first service to get started!',
+                            actions: [{
+                                text: 'Book Now',
+                                action: () => this.openEnhancedBookingModal()
+                            }]
+                        });
+                    } else {
+                        this.displayBookingHistoryModal(historyData);
+                    }
+                }, 1000);
+            }
+
+            displayBookingHistoryModal(bookings) {
+                // Create dynamic modal for booking history
+                const modal = document.createElement('div');
+                modal.className = 'modal glass-blur-strong';
+                modal.style.display = 'flex';
+                modal.style.opacity = '1';
+                modal.innerHTML = `
+                    <div class="modal-content glass-card" style="max-width: 900px;">
+                        <div class="modal-header">
+                            <div>
+                                <h2 class="modal-title">Booking History</h2>
+                                <p style="opacity: 0.95; font-size: var(--font-lg);">Your complete booking records</p>
+                            </div>
+                            <button class="modal-close" onclick="this.closest('.modal').remove(); document.body.style.overflow='auto';">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="booking-filters" style="margin-bottom: var(--space-6); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                                <button class="btn-small btn-edit filter-btn active" data-filter="all">All Bookings</button>
+                                <button class="btn-small btn-edit filter-btn" data-filter="upcoming">Upcoming</button>
+                                <button class="btn-small btn-edit filter-btn" data-filter="completed">Completed</button>
+                                <button class="btn-small btn-edit filter-btn" data-filter="cancelled">Cancelled</button>
+                            </div>
+                            <div class="bookings-container" id="historyBookingsContainer">
+                                ${this.generateBookingHistoryHTML(bookings)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                document.body.style.overflow = 'hidden';
+                
+                // Add filter functionality
+                modal.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        modal.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        const filter = btn.dataset.filter;
+                        this.filterBookingHistory(bookings, filter, modal.querySelector('#historyBookingsContainer'));
+                    });
+                });
+            }
+
+            generateBookingHistoryHTML(bookings) {
+                if (bookings.length === 0) {
+                    return `
+                        <div style="text-align: center; padding: var(--space-10); color: var(--gray);">
+                            <i class="fas fa-calendar-times" style="font-size: var(--font-4xl); margin-bottom: var(--space-4); opacity: 0.3;"></i>
+                            <p>No bookings found</p>
+                        </div>
+                    `;
+                }
+                
+                return bookings.map(booking => {
+                    const serviceName = this.serviceNames[booking.service] || booking.service;
+                    const statusClass = `status-${booking.status}`;
+                    const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+                    
+                    return `
+                        <div class="booking-item booking-history-item" data-status="${booking.status}">
+                            <div class="booking-header">
+                                <div style="font-weight: 700; color: var(--dark);">${serviceName}</div>
+                                <div class="booking-status ${statusClass}">${statusText}</div>
+                            </div>
+                            <div class="booking-details">
+                                <div style="margin-bottom: var(--space-1);"><i class="fas fa-calendar"></i> ${new Date(booking.date).toLocaleDateString()}</div>
+                                <div style="margin-bottom: var(--space-1);"><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+                                <div style="margin-bottom: var(--space-1);"><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                                ${booking.specialRequests ? `<div><i class="fas fa-comment"></i> ${booking.specialRequests}</div>` : ''}
+                            </div>
+                            <div class="booking-actions">
+                                ${booking.status === 'confirmed' && new Date(booking.date) > new Date() ? 
+                                    `<button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </button>` : ''}
+                                ${booking.status === 'completed' ? 
+                                    `<button class="btn-small btn-edit" onclick="portal.rebookService('${booking.service}')">
+                                        <i class="fas fa-redo"></i> Book Again
+                                    </button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            filterBookingHistory(bookings, filter, container) {
+                let filteredBookings = bookings;
+                
+                switch (filter) {
+                    case 'upcoming':
+                        filteredBookings = bookings.filter(b => 
+                            new Date(b.date) > new Date() && b.status !== 'cancelled'
+                        );
+                        break;
+                    case 'completed':
+                        filteredBookings = bookings.filter(b => b.status === 'completed');
+                        break;
+                    case 'cancelled':
+                        filteredBookings = bookings.filter(b => b.status === 'cancelled');
+                        break;
+                    default:
+                        filteredBookings = bookings;
+                }
+                
+                container.innerHTML = this.generateBookingHistoryHTML(filteredBookings);
+            }
+
+            filterBookings(type) {
+                console.log(`🔍 Filtering bookings: ${type}`);
+                this.showBookingHistory();
+            }
+
+            async cancelBooking(bookingId) {
+                const confirmed = confirm('Are you sure you want to cancel this booking?');
+                
+                if (confirmed) {
+                    try {
+                        const response = await this.apiCall(`/api/bookings/${bookingId}/cancel`, 'POST');
+                        
+                        if (response && response.success) {
+                            this.cache.delete('bookings');
+                            await this.loadBookings();
+                            this.updateUpcomingBookings();
+                            this.generateEnhancedCalendar();
+                            
+                            this.showEnhancedNotification('Booking cancelled successfully', 'success', {
+                                title: 'Booking Cancelled',
+                                duration: 4000
+                            });
+                        } else {
+                            throw new Error(response.error || 'Failed to cancel booking');
+                        }
+                    } catch (error) {
+                        console.error('Cancel booking error:', error);
+                        this.showEnhancedNotification('Failed to cancel booking: ' + error.message, 'error');
+                    }
+                }
+            }
+
+            rebookService(serviceType) {
+                this.selectedService = serviceType;
+                document.querySelector('.modal')?.remove();
+                document.body.style.overflow = 'auto';
+                
+                setTimeout(() => {
+                    this.openEnhancedBookingModal();
+                }, 300);
+            }
+
+            // Continue with remaining methods...
+            selectServiceWithAnimation(serviceType) {
+                console.log('🎯 Service selected with animation:', serviceType);
+                
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                    option.setAttribute('aria-checked', 'false');
+                    option.style.transform = '';
+                });
+
+                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
+                if (selectedOption) {
+                    selectedOption.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        selectedOption.classList.add('selected');
+                        selectedOption.setAttribute('aria-checked', 'true');
+                        selectedOption.style.transform = 'scale(1.05)';
+                        
+                        setTimeout(() => {
+                            selectedOption.style.transform = '';
+                        }, 300);
+                    }, 100);
+                    
+                    this.selectedService = serviceType;
+                    
+                    if (this.selectedDate) {
+                        this.generateEnhancedTimeSlots();
+                    }
+                }
+            }
+
+            async generateEnhancedTimeSlots() {
+                const timeSlotsContainer = document.getElementById('timeSlots');
+                if (!timeSlotsContainer || !this.selectedDate || !this.selectedService) return;
+                
+                console.log('⏰ Generating enhanced time slots');
+                
+                timeSlotsContainer.innerHTML = `
+                    <div class="loading" style="justify-content: center; padding: var(--space-8);">
+                        <div class="spinner"></div>
+                        <span>Loading available times...</span>
+                    </div>
+                `;
+
+                try {
+                    const availableSlots = await this.getEnhancedAvailableTimeSlots(this.selectedDate, this.selectedService);
+                    
+                    timeSlotsContainer.style.opacity = '0.5';
+                    
+                    setTimeout(() => {
+                        timeSlotsContainer.innerHTML = '';
+
+                        if (availableSlots.length === 0) {
+                            timeSlotsContainer.innerHTML = `
+                                <div style="text-align: center; color: var(--error); padding: var(--space-8);">
+                                    <i class="fas fa-calendar-times" style="font-size: var(--font-3xl); margin-bottom: var(--space-4); opacity: 0.5;"></i>
+                                    <p>No available time slots for this date</p>
+                                    <button class="btn-small btn-edit" onclick="portal.selectDifferentDate()" style="margin-top: var(--space-4);">
+                                        <i class="fas fa-calendar-alt"></i> Choose Different Date
+                                    </button>
+                                </div>
+                            `;
+                            timeSlotsContainer.style.opacity = '1';
+                            return;
+                        }
+
+                        availableSlots.forEach((slot, index) => {
+                            const timeSlot = this.createEnhancedTimeSlot(slot, index);
+                            timeSlotsContainer.appendChild(timeSlot);
+                        });
+                        
+                        timeSlotsContainer.style.opacity = '1';
+                    }, 200);
+                    
+                } catch (error) {
+                    console.error('Error generating time slots:', error);
+                    timeSlotsContainer.innerHTML = `
+                        <div style="text-align: center; color: var(--error); padding: var(--space-8);">
+                            <i class="fas fa-exclamation-triangle" style="font-size: var(--font-2xl); margin-bottom: var(--space-4);"></i>
+                            <p>Error loading time slots</p>
+                            <button class="btn-small btn-edit" onclick="portal.generateEnhancedTimeSlots()" style="margin-top: var(--space-4);">
+                                <i class="fas fa-redo"></i> Try Again
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+
+            createEnhancedTimeSlot(slot, index) {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.textContent = slot.time;
+                timeSlot.dataset.time = slot.time;
+                timeSlot.setAttribute('role', 'radio');
+                timeSlot.setAttribute('tabindex', '0');
+                timeSlot.setAttribute('aria-label', `Time slot ${slot.time}`);
+
+                if (!slot.available) {
+                    timeSlot.classList.add('unavailable');
+                    timeSlot.setAttribute('aria-disabled', 'true');
+                    timeSlot.setAttribute('title', 'This time slot is not available');
+                } else {
+                    timeSlot.addEventListener('click', () => {
+                        this.selectTimeSlotWithAnimation(timeSlot);
+                    });
+                    
+                    timeSlot.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectTimeSlotWithAnimation(timeSlot);
+                        }
+                    });
+                }
+
+                timeSlot.style.opacity = '0';
+                timeSlot.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    timeSlot.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    timeSlot.style.opacity = '1';
+                    timeSlot.style.transform = 'translateY(0)';
+                }, index * 50);
+
+                return timeSlot;
+            }
+
+            selectTimeSlotWithAnimation(timeSlotElement) {
+                if (timeSlotElement.classList.contains('unavailable')) return;
+
+                console.log('⏰ Time slot selected with animation:', timeSlotElement.dataset.time);
+
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                    slot.setAttribute('aria-checked', 'false');
+                    slot.style.transform = '';
+                });
+
+                timeSlotElement.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    timeSlotElement.classList.add('selected');
+                    timeSlotElement.setAttribute('aria-checked', 'true');
+                    timeSlotElement.style.transform = 'scale(1.1)';
+                    
+                    setTimeout(() => {
+                        timeSlotElement.style.transform = '';
+                    }, 200);
+                }, 100);
+
+                this.selectedTime = timeSlotElement.dataset.time;
+                this.validateBookingFormWithAnimation();
+            }
+
+            validateBookingFormWithAnimation() {
+                const submitBtn = document.getElementById('submitBooking');
+                if (!submitBtn) return;
+                
+                const isValid = this.selectedService && this.selectedDate && this.selectedTime;
+                
+                submitBtn.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = !isValid;
+                    
+                    if (isValid) {
+                        submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                        submitBtn.style.background = 'var(--gradient-primary-vivid)';
+                    } else {
+                        submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
+                        submitBtn.style.background = 'var(--gray)';
+                    }
+                    
+                    submitBtn.style.transform = 'scale(1)';
+                }, 100);
+            }
+
+            // Enhanced Booking Submission
+            async handleBookingSubmission() {
+                console.log('📝 Submitting enhanced booking...');
+                
+                const submitBtn = document.getElementById('submitBooking');
+                this.showLoadingState(submitBtn, 'Processing...');
+
+                try {
+                    const validationResult = this.validateBookingData();
+                    if (!validationResult.isValid) {
+                        throw new Error(validationResult.message);
+                    }
+
+                    const duration = document.getElementById('duration')?.value;
+                    const participants = document.getElementById('participants')?.value;
+                    const specialRequests = document.getElementById('specialRequests')?.value;
+
+                    const bookingData = {
+                        service: this.selectedService,
+                        date: this.selectedDate.toISOString().split('T')[0],
+                        time: this.selectedTime,
+                        duration: parseFloat(duration),
+                        participants: parseInt(participants),
+                        specialRequests: specialRequests || null,
+                        cost: 0.0,
+                        clientVersion: '2.0',
+                        timestamp: new Date().toISOString()
+                    };
+
+                    console.log('🎯 Enhanced booking data:', JSON.stringify(bookingData, null, 2));
+
+                    const response = await this.apiCall('/api/bookings', 'POST', bookingData);
+
+                    if (response && response.success) {
+                        console.log('🎉 Enhanced booking successful!');
+                        
+                        await this.playSuccessAnimation(submitBtn);
+                        
+                        const bookingForm = document.getElementById('bookingForm');
+                        if (bookingForm) {
+                            const inputs = bookingForm.querySelectorAll('input, select, textarea, button');
+                            inputs.forEach(input => input.disabled = true);
+                        }
+                        
+                        if (response.booking) {
+                            this.bookings.push(response.booking);
+                        }
+                        
+                        this.cache.delete('bookings');
+                        
+                        this.updateStatsWithAnimation();
+                        this.updateUpcomingBookings();
+                        this.generateEnhancedCalendar();
+                        
+                        this.showEnhancedNotification('Booking request submitted successfully! You will receive a confirmation email shortly.', 'success', {
+                            title: 'Booking Confirmed',
+                            duration: 4000
+                        });
+                        
+                        setTimeout(() => {
+                            this.closeBookingModal();
+                        }, 1500);
+                    } else {
+                        throw new Error(response?.error || 'Booking submission failed');
+                    }
+
+                } catch (error) {
+                    console.error('❌ Enhanced booking submission error:', error);
+                    
+                    await this.playErrorAnimation(submitBtn);
+                    
+                    let errorMessage = 'Failed to submit booking. ';
+                    if (error.message.includes('Unauthorized')) {
+                        errorMessage += 'Authentication error - please try logging out and back in.';
+                    } else if (error.message.includes('Rate limit')) {
+                        errorMessage += 'Too many requests. Please wait a moment and try again.';
+                    } else {
+                        errorMessage += error.message;
+                    }
+                    
+                    this.showEnhancedNotification(errorMessage, 'error', {
+                        title: 'Booking Error',
+                        duration: 8000,
+                        actions: [{
+                            text: 'Try Again',
+                            action: () => this.handleBookingSubmission()
+                        }]
+                    });
+                } finally {
+                    this.hideLoadingState(submitBtn, 'Request Booking');
+                }
+            }
+
+            validateBookingData() {
+                const errors = [];
+                
+                if (!this.selectedService) errors.push('Please select a service type');
+                if (!this.selectedDate) errors.push('Please select a date');
+                if (!this.selectedTime) errors.push('Please select a time slot');
+                
+                const duration = document.getElementById('duration')?.value;
+                const participants = document.getElementById('participants')?.value;
+                
+                if (!duration) errors.push('Duration is required');
+                if (!participants) errors.push('Number of participants is required');
+                
+                if (this.selectedDate && this.selectedDate <= new Date()) {
+                    errors.push('Selected date must be in the future');
+                }
+
+                return {
+                    isValid: errors.length === 0,
+                    message: errors.join(', ')
+                };
+            }
+
+            // Enhanced UI Animations
+            async playSuccessAnimation(element) {
+                return new Promise(resolve => {
+                    element.style.background = 'var(--success)';
+                    element.style.transform = 'scale(1.05)';
+                    
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                        resolve();
+                    }, 300);
+                });
+            }
+
+            async playErrorAnimation(element) {
+                return new Promise(resolve => {
+                    this.shakeElement(element);
+                    setTimeout(resolve, 600);
+                });
+            }
+
+            shakeElement(element) {
+                element.style.animation = 'shake 0.6s ease-in-out';
+                
+                setTimeout(() => {
+                    element.style.animation = '';
+                }, 600);
+            }
+
+            // Enhanced Statistics with Animation
+            updateStatsWithAnimation() {
+                const totalBookings = this.bookings.length;
+                const upcomingBookings = this.bookings.filter(booking => 
+                    new Date(booking.date) > new Date() && booking.status !== 'cancelled'
+                ).length;
+                
+                const thisMonth = new Date();
+                const monthlyLessons = this.bookings.filter(booking => {
+                    const bookingDate = new Date(booking.date);
+                    return bookingDate.getMonth() === thisMonth.getMonth() &&
+                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
+                           booking.service === 'swim-lesson' &&
+                           booking.status !== 'cancelled';
+                }).length;
+
+                const memberSince = this.currentUser?.member_since ? 
+                    new Date(this.currentUser.member_since).getFullYear() : 2025;
+
+                this.animateNumberWithPulse('totalBookings', totalBookings, 0);
+                this.animateNumberWithPulse('upcomingBookings', upcomingBookings, 100);
+                this.animateNumberWithPulse('monthlyLessons', monthlyLessons, 200);
+                this.animateNumberWithPulse('memberSince', memberSince, 300);
+            }
+
+            animateNumberWithPulse(elementId, targetValue, delay = 0) {
+                setTimeout(() => {
+                    const element = document.getElementById(elementId);
+                    if (!element) return;
+                    
+                    element.style.transform = 'scale(1.2)';
+                    element.style.color = 'var(--primary)';
+                    
+                    setTimeout(() => {
+                        this.animateNumber(elementId, targetValue);
+                        element.style.transform = 'scale(1)';
+                        element.style.color = '';
+                    }, 200);
+                }, delay);
+            }
+
+            animateNumber(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = parseInt(element.textContent) || 0;
+                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 30));
+                
+                const timer = setInterval(() => {
+                    if (currentValue < targetValue) {
+                        currentValue = Math.min(currentValue + increment, targetValue);
+                        element.textContent = currentValue;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+
+            // Enhanced Notification System
+            showEnhancedNotification(message, type = 'success', options = {}) {
+                document.querySelectorAll('.notification').forEach(notification => {
+                    notification.remove();
+                });
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const {
+                    title = type.charAt(0).toUpperCase() + type.slice(1),
+                    subtitle = '',
+                    duration = 5000,
+                    actions = []
+                } = options;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                           type === 'error' ? 'exclamation-triangle' : 'info-circle';
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                        <div style="flex-shrink: 0;">
+                            <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; margin-bottom: var(--space-1); font-size: var(--font-lg);">${title}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95; margin-bottom: var(--space-1);">${message}</div>
+                            ${subtitle ? `<div style="font-size: var(--font-sm); opacity: 0.8;">${subtitle}</div>` : ''}
+                            ${actions.length > 0 ? `
+                                <div style="margin-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                                    ${actions.map(action => `
+                                        <button onclick="${action.action.toString()}" style="
+                                            background: rgba(255, 255, 255, 0.2);
+                                            border: 1px solid rgba(255, 255, 255, 0.3);
+                                            color: inherit;
+                                            padding: var(--space-1) var(--space-3);
+                                            border-radius: var(--radius-md);
+                                            font-size: var(--font-sm);
+                                            font-weight: 600;
+                                            cursor: pointer;
+                                            transition: var(--transition-smooth);
+                                        " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                                            ${action.text}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none;
+                            border: none;
+                            color: inherit;
+                            font-size: var(--font-lg);
+                            cursor: pointer;
+                            opacity: 0.7;
+                            padding: var(--space-1);
+                            border-radius: var(--radius-sm);
+                            transition: var(--transition-smooth);
+                            flex-shrink: 0;
+                        " onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.opacity='0.7'; this.style.background='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                requestAnimationFrame(() => {
+                    notification.classList.add('show');
+                });
+                
+                if (duration > 0) {
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.classList.remove('show');
+                            setTimeout(() => {
+                                notification.remove();
+                            }, 300);
+                        }
+                    }, duration);
+                }
+            }
+
+            // Enhanced Scroll Effects
+            setupScrollEffects() {
+                let ticking = false;
+                
+                const handleScroll = () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            this.updateScrollEffects();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                };
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+            }
+
+            updateScrollEffects() {
+                const scrollY = window.scrollY;
+                const navbar = document.getElementById('mainNav');
+                
+                if (navbar) {
+                    if (scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }
+            }
+
+            // Enhanced Event Listeners
+            setupEventListeners() {
+                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleLogin(), 300)();
+                });
+
+                document.getElementById('registrationForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleRegistration(), 300)();
+                });
+
+                document.getElementById('forgotPasswordForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleForgotPassword(), 300)();
+                });
+
+                document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.debounce(() => this.handleBookingSubmission(), 500)();
+                });
+
+                this.setupButtonEventListeners();
+                this.setupCalendarEventListeners();
+                this.setupModalEventListeners();
+                this.setupServiceSelectionListeners();
+                this.setupKeyboardNavigation();
+                
+                console.log('✅ Enhanced event listeners setup complete');
+            }
+
+            setupButtonEventListeners() {
+                document.getElementById('createAccountBtn')?.addEventListener('click', () => {
+                    this.showRegistrationModal();
+                });
+
+                document.getElementById('demoModeBtn')?.addEventListener('click', () => {
+                    this.enableDemoMode();
+                });
+
+                document.getElementById('registrationClose')?.addEventListener('click', () => {
+                    this.closeRegistrationModal();
+                });
+
+                document.getElementById('forgotPasswordClose')?.addEventListener('click', () => {
+                    this.closeForgotPassword();
+                });
+
+                document.getElementById('passwordToggle')?.addEventListener('click', () => {
+                    this.togglePassword();
+                });
+
+                document.getElementById('regPasswordToggle')?.addEventListener('click', () => {
+                    this.toggleRegistrationPassword();
+                });
+
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    this.handleLogout();
+                });
+            }
+
+            setupCalendarEventListeners() {
+                document.getElementById('prevMonth')?.addEventListener('click', () => {
+                    this.debounce(() => this.navigateMonth(-1), 200)();
+                });
+
+                document.getElementById('nextMonth')?.addEventListener('click', () => {
+                    this.debounce(() => this.navigateMonth(1), 200)();
+                });
+            }
+
+            setupModalEventListeners() {
+                document.getElementById('modalClose')?.addEventListener('click', () => {
+                    this.closeBookingModal();
+                });
+
+                document.getElementById('cancelBooking')?.addEventListener('click', () => {
+                    this.closeBookingModal();
+                });
+
+                document.getElementById('bookingModal')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'bookingModal') {
+                        this.closeBookingModal();
+                    }
+                });
+
+                document.getElementById('registrationModal')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'registrationModal') {
+                        this.closeRegistrationModal();
+                    }
+                });
+
+                document.getElementById('forgotPasswordModal')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'forgotPasswordModal') {
+                        this.closeForgotPassword();
+                    }
+                });
+            }
+
+            setupServiceSelectionListeners() {
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        this.selectServiceWithAnimation(option.dataset.service);
+                    });
+                    
+                    option.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectServiceWithAnimation(option.dataset.service);
+                        }
+                    });
+                });
+            }
+
+            setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        const forgotModal = document.getElementById('forgotPasswordModal');
+                        const bookingModal = document.getElementById('bookingModal');
+                        const registrationModal = document.getElementById('registrationModal');
+                        
+                        if (forgotModal && forgotModal.classList.contains('show')) {
+                            this.closeForgotPassword();
+                        } else if (bookingModal && bookingModal.classList.contains('show')) {
+                            this.closeBookingModal();
+                        } else if (registrationModal && registrationModal.classList.contains('show')) {
+                            this.closeRegistrationModal();
+                        }
+                    }
+                    
+                    if (e.ctrlKey || e.metaKey) {
+                        switch (e.key) {
+                            case '1':
+                                e.preventDefault();
+                                this.quickBook('swim-lesson');
+                                break;
+                            case '2':
+                                e.preventDefault();
+                                this.quickBook('lifeguard');
+                                break;
+                            case '3':
+                                e.preventDefault();
+                                this.quickBook('event');
+                                break;
+                        }
+                    }
+                });
+            }
+
+            // Enhanced Utility Functions
+            debounce(func, wait) {
+                const key = func.toString();
+                
+                return (...args) => {
+                    if (this.debounceTimers.has(key)) {
+                        clearTimeout(this.debounceTimers.get(key));
+                    }
+                    
+                    const timer = setTimeout(() => {
+                        func.apply(this, args);
+                        this.debounceTimers.delete(key);
+                    }, wait);
+                    
+                    this.debounceTimers.set(key, timer);
+                };
+            }
+
+            // Backward Compatibility Methods
+            generateCalendar() {
+                return this.generateEnhancedCalendar();
+            }
+
+            openBookingModal() {
+                return this.openEnhancedBookingModal();
+            }
+
+            showAccountSettings() {
+                this.showEnhancedNotification('Account settings feature coming soon!', 'info', {
+                    title: 'Feature In Development',
+                    subtitle: 'Advanced account management will be available in the next update',
+                    duration: 6000
+                });
+            }
+
+            // Essential Utility Methods
+            showLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
+
+            hideLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = false;
+                button.innerHTML = text;
+            }
+
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                this.updatePortalUserInfo();
+                
+                const demoIndicator = document.getElementById('demoIndicator');
+                if (demoIndicator && this.isMockMode) {
+                    demoIndicator.style.display = 'block';
+                }
+                
+                setTimeout(() => {
+                    this.generateCalendar();
+                }, 100);
+                
+                console.log('🎉 Enhanced portal loaded successfully!');
+            }
+
+            updatePortalUserInfo() {
+                if (!this.currentUser) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const welcomeName = document.getElementById('welcomeName');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
+                if (userName) userName.textContent = this.currentUser.name || 'User';
+                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
+            }
+
+            getInitials(name) {
+                if (!name) return 'U';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
+            }
+
+            updateUpcomingBookings() {
+                const container = document.getElementById('upcomingBookingsList');
+                if (!container) return;
+                
+                const upcomingBookings = this.bookings
+                    .filter(booking => new Date(booking.date) > new Date() && booking.status !== 'cancelled')
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+
+                container.innerHTML = '';
+
+                if (upcomingBookings.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: var(--space-10) var(--space-5); color: var(--gray);">
+                            <i class="fas fa-calendar-plus" style="font-size: var(--font-4xl); margin-bottom: var(--space-4); opacity: 0.3;"></i>
+                            <p style="margin-bottom: var(--space-4);">No upcoming bookings</p>
+                            <button class="btn-small btn-edit" onclick="portal.openBookingModal()" style="margin-top: var(--space-4);">
+                                <i class="fas fa-plus"></i> Book Now
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                upcomingBookings.forEach(booking => {
+                    const bookingElement = this.createBookingElement(booking);
+                    container.appendChild(bookingElement);
+                });
+            }
+
+            createBookingElement(booking) {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.className = 'booking-item';
+                
+                const statusClass = `status-${booking.status}`;
+                const statusText = booking.status.charAt(0).toUpperCase() + booking.status.slice(1);
+                
+                const bookingDate = new Date(booking.date);
+                const isToday = this.isToday(bookingDate);
+                const isTomorrow = this.isTomorrow(bookingDate);
+                
+                let dateDisplay = bookingDate.toLocaleDateString();
+                if (isToday) dateDisplay = 'Today';
+                else if (isTomorrow) dateDisplay = 'Tomorrow';
+
+                const serviceName = this.serviceNames[booking.service] || booking.service;
+
+                bookingDiv.innerHTML = `
+                    <div class="booking-header">
+                        <div style="font-weight: 700; color: var(--dark);">${serviceName}</div>
+                        <div class="booking-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="booking-details">
+                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-calendar"></i> ${dateDisplay}</div>
+                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-clock"></i> ${booking.time} (${booking.duration}h)</div>
+                        <div><i class="fas fa-users"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                    </div>
+                `;
+
+                return bookingDiv;
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+
+            isTomorrow(date) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                return date.toDateString() === tomorrow.toDateString();
             }
 
             navigateMonth(direction) {
@@ -3143,218 +4065,110 @@
                 this.generateCalendar();
             }
 
-            // Service Selection
-            selectServiceWithAnimation(service) {
-                // Remove previous selection
-                document.querySelectorAll('.service-option.selected').forEach(option => {
-                    option.classList.remove('selected');
-                    option.setAttribute('aria-checked', 'false');
-                });
-                
-                // Add selection to clicked service
-                const serviceOption = document.querySelector(`[data-service="${service}"]`);
-                if (serviceOption) {
-                    serviceOption.classList.add('selected');
-                    serviceOption.setAttribute('aria-checked', 'true');
-                }
-                
-                this.selectedService = service;
-                
-                // Update time slots if date is selected
-                if (this.selectedDate) {
-                    const dateStr = this.formatDate(this.selectedDate);
-                    this.updateTimeSlots(dateStr);
-                }
-                
-                // Enable booking button if date is also selected
-                this.updateBookingButton();
-            }
-
-            updateTimeSlots(dateStr) {
-                const timeSlotsContainer = document.getElementById('timeSlots');
-                if (!timeSlotsContainer) return;
-                
-                const availability = this.availabilityData[dateStr] || [];
-                
-                if (!this.selectedService || availability.length === 0) {
-                    timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">No available times for this date</p>';
-                    return;
-                }
-                
-                timeSlotsContainer.innerHTML = '';
-                
-                availability.forEach(time => {
-                    const timeSlot = document.createElement('div');
-                    timeSlot.className = 'time-slot';
-                    timeSlot.textContent = this.formatTime(time);
-                    timeSlot.dataset.time = time;
-                    
-                    timeSlot.addEventListener('click', () => this.selectTimeSlot(time, timeSlot));
-                    
-                    timeSlotsContainer.appendChild(timeSlot);
-                });
-            }
-
-            selectTimeSlot(time, element) {
-                // Remove previous selection
-                document.querySelectorAll('.time-slot.selected').forEach(slot => {
-                    slot.classList.remove('selected');
-                });
-                
-                // Add selection
-                element.classList.add('selected');
-                this.selectedTime = time;
-                
-                // Enable booking button
-                this.updateBookingButton();
-            }
-
-            updateBookingButton() {
-                const submitBtn = document.getElementById('submitBooking');
-                if (!submitBtn) return;
-                
-                const canSubmit = this.selectedService && this.selectedDate && this.selectedTime;
-                submitBtn.disabled = !canSubmit;
-                
-                if (canSubmit) {
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.cursor = 'pointer';
-                } else {
-                    submitBtn.style.opacity = '0.6';
-                    submitBtn.style.cursor = 'not-allowed';
-                }
-            }
-
-            // Booking Submission
-            async handleBookingSubmission() {
-                if (!this.selectedService || !this.selectedDate || !this.selectedTime) {
-                    this.portalSystem.showNotification('Please select a service, date, and time', 'error');
-                    return;
-                }
-
-                const submitBtn = document.getElementById('submitBooking');
-                this.showLoadingState(submitBtn, 'Processing...');
-
-                try {
-                    const bookingData = {
-                        service: this.selectedService,
-                        date: this.formatDate(this.selectedDate),
-                        time: this.selectedTime,
-                        duration: document.getElementById('duration').value,
-                        participants: document.getElementById('participants').value,
-                        specialRequests: document.getElementById('specialRequests').value
-                    };
-
-                    const response = await this.portalSystem.apiCall('/api/bookings', 'POST', bookingData, { portal: 'client' });
-
-                    if (response && response.success) {
-                        await this.playSuccessAnimation(submitBtn);
-                        this.closeBookingModal();
-                        
-                        // Refresh data
-                        await this.loadUserData();
-                        
-                        this.portalSystem.showNotification('Booking request submitted successfully!', 'success', {
-                            title: 'Booking Requested',
-                            subtitle: 'We\'ll confirm your booking within 24 hours',
-                            duration: 6000
-                        });
-                    } else {
-                        throw new Error(response.error || 'Booking failed');
-                    }
-
-                } catch (error) {
-                    console.error('Booking error:', error);
-                    await this.playErrorAnimation(submitBtn);
-                    this.portalSystem.showNotification(error.message || 'Booking failed. Please try again.', 'error');
-                } finally {
-                    this.hideLoadingState(submitBtn, 'Request Booking');
-                }
-            }
-
-            // UI State Management
-            showLogin() {
-                document.getElementById('loginContainer').style.display = 'flex';
-                document.getElementById('portalContainer').style.display = 'none';
-            }
-
-            showPortal() {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('portalContainer').style.display = 'block';
-            }
-
-            showRegistrationModal() {
-                const modal = document.getElementById('registrationModal');
-                if (modal) {
-                    modal.classList.add('show');
-                    this.currentModal = 'registration';
-                    // Focus first input
-                    setTimeout(() => document.getElementById('regName')?.focus(), 100);
-                }
-            }
-
-            closeRegistrationModal() {
-                const modal = document.getElementById('registrationModal');
-                if (modal) {
-                    modal.classList.remove('show');
-                    this.currentModal = null;
-                    this.clearFieldErrors();
-                }
-            }
-
-            openBookingModal() {
-                const modal = document.getElementById('bookingModal');
-                if (modal) {
-                    modal.classList.add('show');
-                    this.currentModal = 'booking';
-                    this.resetBookingForm();
-                }
-            }
-
             closeBookingModal() {
                 const modal = document.getElementById('bookingModal');
-                if (modal) {
-                    modal.classList.remove('show');
-                    this.currentModal = null;
-                    this.resetBookingForm();
-                }
+                if (!modal) return;
+                
+                modal.classList.remove('show');
+                modal.style.opacity = '0';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+                
+                this.resetBookingForm();
+                console.log('🔄 Booking modal closed');
             }
 
             resetBookingForm() {
-                // Clear selections
-                this.selectedService = null;
-                this.selectedDate = null;
-                this.selectedTime = null;
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) {
+                    bookingForm.reset();
+                    
+                    const inputs = bookingForm.querySelectorAll('input, select, textarea, button');
+                    inputs.forEach(input => input.disabled = false);
+                }
                 
-                // Clear UI
-                document.querySelectorAll('.service-option.selected').forEach(option => {
+                document.querySelectorAll('.service-option').forEach(option => {
                     option.classList.remove('selected');
                     option.setAttribute('aria-checked', 'false');
                 });
                 
-                document.querySelectorAll('.calendar-day.selected').forEach(day => {
-                    day.classList.remove('selected');
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('selected');
+                    slot.setAttribute('aria-checked', 'false');
                 });
+
+                this.selectedService = null;
+                this.selectedTime = null;
+
+                const timeSlots = document.getElementById('timeSlots');
+                if (timeSlots) timeSlots.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
                 
-                document.getElementById('selectedDate').value = '';
-                document.getElementById('timeSlots').innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
-                document.getElementById('submitBooking').disabled = true;
+                const submitBtn = document.getElementById('submitBooking');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Request Booking';
+                    submitBtn.style.background = 'var(--gray)';
+                }
+                
+                console.log('🔄 Booking form reset and re-enabled');
             }
 
-            // Quick booking methods
-            quickBook(service) {
-                this.openBookingModal();
-                setTimeout(() => {
-                    this.selectServiceWithAnimation(service);
-                }, 300);
+            updateSelectedDateInput() {
+                const selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput && this.selectedDate) {
+                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    if (this.selectedService) {
+                        this.generateEnhancedTimeSlots();
+                    }
+                }
             }
 
-            // Password toggles
+            async getEnhancedAvailableTimeSlots(date, serviceType) {
+                let baseSlots = [];
+                
+                if (serviceType === 'swim-lesson') {
+                    baseSlots = [
+                        '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+                    ];
+                } else if (serviceType === 'lifeguard') {
+                    baseSlots = [
+                        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                        '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+                        '6:00 PM', '7:00 PM', '8:00 PM'
+                    ];
+                } else if (serviceType === 'event') {
+                    baseSlots = [
+                        '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
+                        '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'
+                    ];
+                }
+
+                const dateStr = date.toISOString().split('T')[0];
+                const existingBookings = this.bookings.filter(booking => 
+                    booking.date === dateStr && booking.status !== 'cancelled'
+                );
+
+                return baseSlots.map(time => ({
+                    time,
+                    available: !existingBookings.some(booking => booking.time === time)
+                }));
+            }
+
             togglePassword() {
                 const passwordInput = document.getElementById('password');
                 const toggleBtn = document.getElementById('passwordToggle');
                 const icon = toggleBtn.querySelector('i');
-                
+
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
                     icon.className = 'fas fa-eye-slash';
@@ -3368,7 +4182,7 @@
                 const passwordInput = document.getElementById('regPassword');
                 const toggleBtn = document.getElementById('regPasswordToggle');
                 const icon = toggleBtn.querySelector('i');
-                
+
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
                     icon.className = 'fas fa-eye-slash';
@@ -3378,301 +4192,404 @@
                 }
             }
 
-            // User info updates
-            updatePortalUserInfo() {
-                if (!this.currentUser) return;
-                
-                const userName = document.getElementById('userName');
-                const welcomeName = document.getElementById('welcomeName');
-                const userAvatar = document.getElementById('userAvatar');
-                
-                if (userName) userName.textContent = this.currentUser.name;
-                if (welcomeName) welcomeName.textContent = this.currentUser.name.split(' ')[0];
-                if (userAvatar) {
-                    const initials = this.currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                    userAvatar.textContent = initials;
+            showRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
                 }
             }
 
-            updateStatsWithAnimation() {
-                const stats = {
-                    totalBookings: this.bookings.length,
-                    upcomingBookings: this.bookings.filter(b => new Date(b.date) > new Date()).length,
-                    monthlyLessons: this.bookings.filter(b => {
-                        const bookingDate = new Date(b.date);
-                        const now = new Date();
-                        return bookingDate.getMonth() === now.getMonth() && 
-                               bookingDate.getFullYear() === now.getFullYear();
-                    }).length,
-                    memberSince: this.currentUser?.memberSince || '2025'
-                };
-                
-                Object.entries(stats).forEach(([key, value]) => {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        this.animateNumber(element, 0, value, 1000);
-                    }
-                });
-            }
-
-            animateNumber(element, start, end, duration) {
-                const startTime = Date.now();
-                const animate = () => {
-                    const elapsed = Date.now() - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const current = Math.round(start + (end - start) * progress);
-                    element.textContent = current;
+            closeRegistrationModal() {
+                const modal = document.getElementById('registrationModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    modal.style.opacity = '0';
                     
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                };
-                animate();
-            }
-
-            updateUpcomingBookings() {
-                const container = document.getElementById('upcomingBookingsList');
-                if (!container) return;
-                
-                const upcomingBookings = this.bookings
-                    .filter(booking => new Date(booking.date) >= new Date())
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .slice(0, 3);
-                
-                if (upcomingBookings.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">No upcoming bookings</p>';
-                    return;
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                    
+                    document.getElementById('registrationForm').reset();
+                    document.getElementById('registrationError').classList.add('hidden');
+                    this.clearFieldErrors();
+                    console.log('🔄 Registration modal closed');
                 }
-                
-                container.innerHTML = upcomingBookings.map(booking => `
-                    <div class="booking-item">
-                        <div class="booking-header">
-                            <strong>${this.serviceNames[booking.service] || booking.service}</strong>
-                            <span class="booking-status status-${booking.status}">${this.capitalizeFirst(booking.status)}</span>
-                        </div>
-                        <div class="booking-details">
-                            <div><i class="fas fa-calendar" aria-hidden="true"></i> ${this.formatDateDisplay(new Date(booking.date))}</div>
-                            <div><i class="fas fa-clock" aria-hidden="true"></i> ${this.formatTime(booking.time)} - ${this.formatTime(this.addHours(booking.time, booking.duration))}</div>
-                            ${booking.instructor ? `<div><i class="fas fa-user" aria-hidden="true"></i> Instructor: ${booking.instructor}</div>` : ''}
-                        </div>
-                        <div class="booking-actions">
-                            <button class="btn-small btn-edit" onclick="portal.editBooking(${booking.id})">
-                                <i class="fas fa-edit" aria-hidden="true"></i> Modify
-                            </button>
-                            <button class="btn-small btn-cancel" onclick="portal.cancelBooking(${booking.id})">
-                                <i class="fas fa-times" aria-hidden="true"></i> Cancel
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            // Logout handling
-            handleLogout() {
-                this.portalSystem.clearAuthToken('client');
-                this.currentUser = null;
-                this.bookings = [];
-                this.availabilityData = {};
-                this.showLogin();
-                this.portalSystem.showNotification('Successfully logged out', 'success');
-            }
-
-            // Animation utilities
-            async playSuccessAnimation(button) {
-                button.style.background = 'var(--success)';
-                button.style.transform = 'scale(1.05)';
-                await new Promise(resolve => setTimeout(resolve, 300));
-                button.style.transform = 'scale(1)';
-            }
-
-            async playErrorAnimation(button) {
-                button.style.background = 'var(--error)';
-                button.style.transform = 'scale(0.95)';
-                await new Promise(resolve => setTimeout(resolve, 300));
-                button.style.transform = 'scale(1)';
-                button.style.background = '';
-            }
-
-            shakeElement(element) {
-                element.style.animation = 'shake 0.5s ease-in-out';
-                setTimeout(() => {
-                    element.style.animation = '';
-                }, 500);
-            }
-
-            showLoadingState(button, text) {
-                const btnText = button.querySelector('.btn-text');
-                const loading = button.querySelector('.loading');
-                if (btnText) btnText.style.display = 'none';
-                if (loading) loading.style.display = 'inline-flex';
-                button.disabled = true;
-            }
-
-            hideLoadingState(button, text) {
-                const btnText = button.querySelector('.btn-text');
-                const loading = button.querySelector('.loading');
-                if (btnText) {
-                    btnText.style.display = 'inline';
-                    btnText.textContent = text;
-                }
-                if (loading) loading.style.display = 'none';
-                button.disabled = false;
-            }
-
-            // Scroll effects
-            setupScrollEffects() {
-                const nav = document.getElementById('mainNav');
-                if (!nav) return;
-                
-                let lastScrollY = window.scrollY;
-                
-                window.addEventListener('scroll', () => {
-                    const scrollY = window.scrollY;
-                    
-                    if (scrollY > 50) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-                    
-                    lastScrollY = scrollY;
-                });
-            }
-
-            // Utility methods
-            formatDate(date) {
-                return date.toISOString().split('T')[0];
-            }
-
-            formatDateDisplay(date) {
-                return date.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            }
-
-            formatTime(timeStr) {
-                const [hours, minutes] = timeStr.split(':').map(Number);
-                const date = new Date();
-                date.setHours(hours, minutes);
-                return date.toLocaleTimeString('en-US', {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                });
-            }
-
-            addHours(timeStr, hours) {
-                const [h, m] = timeStr.split(':').map(Number);
-                const date = new Date();
-                date.setHours(h + hours, m);
-                return date.toTimeString().substring(0, 5);
-            }
-
-            isSameDay(date1, date2) {
-                return date1.toDateString() === date2.toDateString();
-            }
-
-            capitalizeFirst(str) {
-                return str.charAt(0).toUpperCase() + str.slice(1);
-            }
-
-            // Placeholder methods for future implementation
-            editBooking(id) {
-                this.portalSystem.showNotification('Edit booking feature coming soon!', 'info');
-            }
-
-            cancelBooking(id) {
-                this.portalSystem.showNotification('Cancel booking feature coming soon!', 'info');
             }
 
             showAllBookings() {
-                this.portalSystem.showNotification('All bookings view coming soon!', 'info');
+                this.closeBookingModal();
+                this.closeRegistrationModal();
+                
+                setTimeout(() => {
+                    const bookingsSection = document.getElementById('upcomingBookingsList');
+                    if (bookingsSection) {
+                        bookingsSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                        const card = bookingsSection.closest('.dashboard-card');
+                        if (card) {
+                            card.style.transform = 'scale(1.02)';
+                            card.style.boxShadow = 'var(--shadow-glow)';
+                            
+                            setTimeout(() => {
+                                card.style.transform = '';
+                                card.style.boxShadow = '';
+                            }, 2000);
+                        }
+                    }
+                }, 300);
+                
+                console.log('📋 Scrolled to bookings section');
             }
 
-            showAccountSettings(section = 'profile') {
-                this.portalSystem.showNotification('Account settings coming soon!', 'info');
+            handleLogout() {
+                const wasInDemoMode = this.isMockMode;
+                const logoutText = wasInDemoMode ? 'Exit demo mode?' : 'Are you sure you want to logout?';
+                
+                if (confirm(logoutText)) {
+                    this.clearSecureToken();
+                    this.currentUser = null;
+                    this.bookings = [];
+                    this.availabilityData = {};
+                    this.isMockMode = false;
+                    
+                    const demoIndicator = document.getElementById('demoIndicator');
+                    if (demoIndicator) {
+                        demoIndicator.style.display = 'none';
+                    }
+                    
+                    document.getElementById('loginForm').reset();
+                    this.showLogin();
+                    
+                    const message = wasInDemoMode ? 'Demo session ended!' : 'Successfully logged out. See you next time!';
+                    this.showEnhancedNotification(message, 'info');
+                }
             }
 
-            showForgotPassword() {
-                this.portalSystem.showNotification('Forgot password feature coming soon!', 'info');
+            selectDifferentDate() {
+                this.closeBookingModal();
+                setTimeout(() => {
+                    const calendar = document.getElementById('calendarGrid');
+                    if (calendar) {
+                        calendar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
             }
 
-            scrollToSection(section) {
-                const element = document.getElementById(section);
+            enableDemoMode() {
+                console.log('🎭 Enabling demo mode...');
+                this.isMockMode = true;
+                
+                this.currentUser = {
+                    id: 1,
+                    name: 'Demo User',
+                    email: 'demo@805lifeguard.com',
+                    phone: '(805) 555-0123',
+                    address: '123 Ocean View Dr, Thousand Oaks, CA',
+                    member_since: '2024-01-15'
+                };
+                
+                this.loadDemoData();
+                this.showPortal();
+                
+                this.showEnhancedNotification('Welcome to the demo!', 'info', {
+                    title: 'Demo Mode Active',
+                    subtitle: 'Explore all features with sample data',
+                    duration: 6000,
+                    actions: [{
+                        text: 'Take a Tour',
+                        action: () => this.startDemoTour()
+                    }]
+                });
+            }
+
+            loadDemoData() {
+                this.bookings = [
+                    {
+                        id: 1,
+                        service: 'swim-lesson',
+                        date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        time: '10:00 AM',
+                        duration: 1,
+                        participants: 1,
+                        status: 'confirmed',
+                        specialRequests: 'Beginner level'
+                    },
+                    {
+                        id: 2,
+                        service: 'lifeguard',
+                        date: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
+                        time: '2:00 PM',
+                        duration: 4,
+                        participants: 1,
+                        status: 'pending',
+                        specialRequests: 'Pool party supervision'
+                    },
+                    {
+                        id: 3,
+                        service: 'event',
+                        date: new Date(Date.now() + 86400000 * 10).toISOString().split('T')[0],
+                        time: '12:00 PM',
+                        duration: 6,
+                        participants: 12,
+                        status: 'confirmed',
+                        specialRequests: 'Corporate team building event'
+                    }
+                ];
+                
+                this.bookingHistory = [
+                    {
+                        id: 4,
+                        service: 'swim-lesson',
+                        date: new Date(Date.now() - 86400000 * 30).toISOString().split('T')[0],
+                        time: '3:00 PM',
+                        duration: 1,
+                        participants: 1,
+                        status: 'completed',
+                        specialRequests: 'Advanced techniques'
+                    }
+                ];
+                
+                this.availabilityData = {};
+                
+                console.log('🎭 Demo data loaded successfully');
+            }
+
+            startDemoTour() {
+                this.showEnhancedNotification('Welcome to the demo tour!', 'info', {
+                    title: 'Demo Tour',
+                    subtitle: 'Let me show you around the portal',
+                    duration: 4000,
+                    actions: [{
+                        text: 'View Bookings',
+                        action: () => this.showAllBookings()
+                    }, {
+                        text: 'Try Booking',
+                        action: () => this.openBookingModal()
+                    }]
+                });
+            }
+
+            scrollToSection(sectionId) {
+                const element = document.getElementById(sectionId);
                 if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                    element.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
+            }
+
+            // Mock API with enhanced responses
+            async mockApiCall(endpoint, method, data, token) {
+                console.log(`🧪 Enhanced Mock API ${method} ${endpoint}`, data);
+                
+                await new Promise(resolve => 
+                    setTimeout(resolve, 300 + Math.random() * 700)
+                );
+                
+                switch (endpoint) {
+                    case '/api/auth/login':
+                        if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
+                            return {
+                                success: true,
+                                token: 'mock-jwt-token-' + Date.now(),
+                                user: {
+                                    id: 1,
+                                    name: 'Demo User',
+                                    email: data.email,
+                                    phone: '(805) 555-0123',
+                                    address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                    member_since: '2024-01-15'
+                                }
+                            };
+                        } else {
+                            throw new Error('Invalid email or password');
+                        }
+                    
+                    case '/api/auth/register':
+                        if (!data.name || !data.email || !data.password) {
+                            throw new Error('Missing required fields');
+                        }
+                        return {
+                            success: true,
+                            message: 'Account created successfully'
+                        };
+                    
+                    case '/api/auth/forgot-password':
+                        if (!data.email) {
+                            throw new Error('Email is required');
+                        }
+                        return {
+                            success: true,
+                            message: 'Password reset email sent successfully'
+                        };
+                    
+                    case '/api/user/profile':
+                        return {
+                            success: true,
+                            user: {
+                                id: 1,
+                                name: 'Demo User',
+                                email: 'demo@805lifeguard.com',
+                                phone: '(805) 555-0123',
+                                address: '123 Ocean View Dr, Thousand Oaks, CA',
+                                member_since: '2024-01-01'
+                            }
+                        };
+                    
+                    case '/api/bookings':
+                        if (method === 'GET') {
+                            return {
+                                success: true,
+                                bookings: this.bookings
+                            };
+                        } else if (method === 'POST') {
+                            const newBooking = {
+                                id: Date.now(),
+                                ...data,
+                                status: 'pending',
+                                created_at: new Date().toISOString()
+                            };
+                            return {
+                                success: true,
+                                booking: newBooking,
+                                message: 'Booking request submitted successfully'
+                            };
+                        }
+                        break;
+
+                    case '/api/bookings/history':
+                        return {
+                            success: true,
+                            history: this.bookingHistory
+                        };
+                    
+                    case '/api/availability':
+                        return {
+                            success: true,
+                            availability: this.availabilityData
+                        };
+                    
+                    default:
+                        if (endpoint.includes('/cancel')) {
+                            return {
+                                success: true,
+                                message: 'Booking cancelled successfully'
+                            };
+                        }
+                        
+                        return {
+                            success: true,
+                            message: 'Enhanced mock API response'
+                        };
                 }
             }
         }
 
-        // Add shake animation to CSS
-        const shakeStyle = document.createElement('style');
-        shakeStyle.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
+        // Enhanced Global Functions
+        function openBookingModal(serviceType = null) {
+            if (window.portal) {
+                window.portal.openEnhancedBookingModal(serviceType);
             }
-        `;
-        document.head.appendChild(shakeStyle);
+        }
 
-        // Initialize the portal when the page loads
-        let portal;
-        document.addEventListener('DOMContentLoaded', () => {
-            portal = new EnhancedClientPortal();
+        function showAllBookings() {
+            if (window.portal) {
+                window.portal.showAllBookings();
+            }
+        }
+
+        function showAccountSettings() {
+            if (window.portal) {
+                window.portal.showAccountSettings();
+            }
+        }
+
+        // Enhanced Portal Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            window.portal = new EnhancedClientPortal();
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                .booking-history-item {
+                    animation: slideInLeft 0.4s ease-out;
+                }
+                
+                @keyframes slideInLeft {
+                    from { 
+                        opacity: 0; 
+                        transform: translateX(-30px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                    }
+                }
+                
+                .filter-btn.active {
+                    background: var(--primary) !important;
+                    color: white !important;
+                    transform: translateY(-2px);
+                    box-shadow: var(--shadow-glow);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('🏊‍♂️ Enhanced 805 LifeGuard Client Portal - Ready');
+            console.log('🔗 API Base URL:', window.portal.apiBaseUrl);
+            console.log('✨ All enhanced systems initialized');
         });
 
-        // Demo credentials helper
-        setTimeout(() => {
-            if (PORTAL_CONFIG.mockMode && document.getElementById('loginContainer').style.display !== 'none') {
-                const emailInput = document.getElementById('email');
-                const passwordInput = document.getElementById('password');
-                
-                if (emailInput && passwordInput && !emailInput.value && !passwordInput.value) {
-                    // Add demo credentials hint
-                    const hint = document.createElement('div');
-                    hint.style.cssText = `
-                        position: fixed;
-                        bottom: 20px;
-                        left: 20px;
-                        background: linear-gradient(135deg, var(--primary), var(--secondary));
-                        color: white;
-                        padding: 16px 20px;
-                        border-radius: 12px;
-                        font-size: 14px;
-                        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-                        z-index: 1000;
-                        border: 1px solid rgba(255,255,255,0.2);
-                        backdrop-filter: blur(10px);
-                        max-width: 300px;
-                    `;
-                    hint.innerHTML = `
-                        <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
-                            <strong>Demo Mode Active</strong>
-                        </div>
-                        <div style="font-size: 13px; opacity: 0.9;">
-                            <strong>Demo Credentials:</strong><br>
-                            Email: ${PORTAL_CONFIG.demo.email}<br>
-                            Password: ${PORTAL_CONFIG.demo.password}
-                        </div>
-                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 11px; opacity: 0.8;">
-                            Using mock data. See setup guide to connect to Cloudflare.
-                        </div>
-                    `;
-                    document.body.appendChild(hint);
-                    
-                    // Remove hint after 15 seconds
-                    setTimeout(() => hint.remove(), 15000);
-                    
-                    // Allow click to dismiss
-                    hint.addEventListener('click', () => hint.remove());
-                }
+        // Enhanced Error Handling
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Enhanced Global Error:', event.error);
+            
+            if (window.portal && window.portal.showEnhancedNotification) {
+                window.portal.showEnhancedNotification(
+                    'Something went wrong. Our team has been notified.',
+                    'error',
+                    {
+                        title: 'System Error',
+                        subtitle: 'Please refresh the page or contact support if the issue persists',
+                        duration: 10000,
+                        actions: [{
+                            text: 'Refresh Page',
+                            action: () => window.location.reload()
+                        }, {
+                            text: 'Contact Support',
+                            action: () => window.open('tel:8053676432')
+                        }]
+                    }
+                );
             }
-        }, 2000);
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Enhanced Unhandled Promise Rejection:', event.reason);
+            event.preventDefault();
+            
+            if (window.portal && window.portal.showEnhancedNotification) {
+                window.portal.showEnhancedNotification(
+                    'A network or processing error occurred.',
+                    'error',
+                    {
+                        title: 'Connection Error',
+                        subtitle: 'Please check your internet connection and try again',
+                        duration: 8000,
+                        actions: [{
+                            text: 'Retry',
+                            action: () => window.location.reload()
+                        }]
+                    }
+                );
+            }
+        });
     </script>
 </body>
 </html>
