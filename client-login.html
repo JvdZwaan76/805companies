@@ -1705,6 +1705,31 @@
             <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Welcome Back</h1>
             <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Sign in to access your account and manage your bookings</p>
             
+            <!-- Demo Credentials Helper -->
+            <div style="background: rgba(30, 136, 229, 0.1); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
+                <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-info-circle"></i>
+                    Demo Credentials
+                </div>
+                <div style="font-size: var(--font-sm); color: var(--dark); margin-bottom: var(--space-3);">
+                    <strong>Email:</strong> demo@805lifeguard.com<br>
+                    <strong>Password:</strong> demo123
+                </div>
+                <button type="button" onclick="fillDemoCredentials()" style="
+                    background: var(--primary);
+                    color: white;
+                    border: none;
+                    padding: var(--space-2) var(--space-3);
+                    border-radius: var(--radius-md);
+                    font-size: var(--font-sm);
+                    cursor: pointer;
+                    transition: var(--transition-smooth);
+                    font-weight: 600;
+                " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                    <i class="fas fa-magic"></i> Auto-fill Demo Credentials
+                </button>
+            </div>
+            
             <form id="loginForm" novalidate>
                 <div class="form-group">
                     <label for="email" class="form-label">Email Address</label>
@@ -1821,19 +1846,19 @@
                             <div class="card-icon"><i class="fas fa-calendar-plus" aria-hidden="true"></i></div>
                             Quick Book
                         </h2>
-                        <button class="card-action" onclick="portal.openBookingModal()" aria-label="Create new booking">
+                        <button class="card-action" onclick="window.portal?.openBookingModal()" aria-label="Create new booking">
                             <i class="fas fa-plus" aria-hidden="true"></i> New Booking
                         </button>
                     </div>
                     <p>Book swim lessons, lifeguard services, or special events with our streamlined booking system.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('swim-lesson')" aria-label="Quick book swim lesson">
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('swim-lesson')" aria-label="Quick book swim lesson">
                             <i class="fas fa-swimmer" aria-hidden="true"></i> Swim Lesson
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('lifeguard')" aria-label="Quick book lifeguard service">
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('lifeguard')" aria-label="Quick book lifeguard service">
                             <i class="fas fa-user-shield" aria-hidden="true"></i> Lifeguard
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('event')" aria-label="Quick book special event">
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('event')" aria-label="Quick book special event">
                             <i class="fas fa-calendar-alt" aria-hidden="true"></i> Event
                         </button>
                     </div>
@@ -1846,7 +1871,7 @@
                             <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                             Upcoming Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="Scroll to view all bookings">View All</button>
+                        <button class="card-action" onclick="window.portal?.showAllBookings()" aria-label="Scroll to view all bookings">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList" role="region" aria-label="Upcoming bookings list">
                         <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading your bookings...</p>
@@ -1860,16 +1885,16 @@
                             <div class="card-icon"><i class="fas fa-user-cog" aria-hidden="true"></i></div>
                             Account Settings
                         </h2>
-                        <button class="card-action" onclick="portal.showAccountSettings()" aria-label="Manage account settings">
+                        <button class="card-action" onclick="window.portal?.showAccountSettings()" aria-label="Manage account settings">
                             <i class="fas fa-cog" aria-hidden="true"></i> Manage
                         </button>
                     </div>
                     <p>Update your personal information, preferences, and security settings.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.showAccountSettings('profile')" aria-label="Edit profile">
+                        <button class="btn-small btn-edit" onclick="window.portal?.showAccountSettings('profile')" aria-label="Edit profile">
                             <i class="fas fa-user" aria-hidden="true"></i> Profile
                         </button>
-                        <button class="btn-small btn-cancel" onclick="portal.handleLogout()" aria-label="Logout from account">
+                        <button class="btn-small btn-cancel" onclick="window.portal?.handleLogout()" aria-label="Logout from account">
                             <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
                         </button>
                     </div>
@@ -1882,16 +1907,16 @@
                             <div class="card-icon"><i class="fas fa-list-alt" aria-hidden="true"></i></div>
                             My Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showBookingHistory()" aria-label="View booking history">
+                        <button class="card-action" onclick="window.portal?.showBookingHistory()" aria-label="View booking history">
                             <i class="fas fa-history" aria-hidden="true"></i> History
                         </button>
                     </div>
                     <p>View your complete booking history, manage active bookings, and track service requests.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.filterBookings('upcoming')" aria-label="Filter upcoming bookings">
+                        <button class="btn-small btn-edit" onclick="window.portal?.filterBookings('upcoming')" aria-label="Filter upcoming bookings">
                             <i class="fas fa-calendar-check" aria-hidden="true"></i> Upcoming
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.filterBookings('completed')" aria-label="Filter completed bookings">
+                        <button class="btn-small btn-edit" onclick="window.portal?.filterBookings('completed')" aria-label="Filter completed bookings">
                             <i class="fas fa-check-circle" aria-hidden="true"></i> Completed
                         </button>
                     </div>
@@ -2028,7 +2053,7 @@
     </div>
 
     <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
-    <div class="connection-status mock" id="connectionStatus" onclick="portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
+    <div class="connection-status mock" id="connectionStatus" onclick="window.portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
         <i class="fas fa-database"></i> Demo Mode Active
     </div>
 
@@ -2135,12 +2160,36 @@
                 console.log('🌍 Environment:', window.location.hostname);
                 
                 try {
-                    // 🔧 SETUP CORE SYSTEMS
-                    this.setupPerformanceOptimizations();
-                    this.setupSecurityMeasures();
-                    this.setupEventListeners();
-                    this.setupIntersectionObserver();
-                    this.setupFormValidation();
+                    // 🔧 SETUP CORE SYSTEMS (with error handling for each)
+                    try {
+                        this.setupPerformanceOptimizations();
+                    } catch (error) {
+                        console.warn('Performance optimizations setup failed:', error.message);
+                    }
+                    
+                    try {
+                        this.setupSecurityMeasures();
+                    } catch (error) {
+                        console.warn('Security measures setup failed:', error.message);
+                    }
+                    
+                    try {
+                        this.setupEventListeners();
+                    } catch (error) {
+                        console.warn('Event listeners setup failed:', error.message);
+                    }
+                    
+                    try {
+                        this.setupIntersectionObserver();
+                    } catch (error) {
+                        console.warn('Intersection observer setup failed:', error.message);
+                    }
+                    
+                    try {
+                        this.setupFormValidation();
+                    } catch (error) {
+                        console.warn('Form validation setup failed:', error.message);
+                    }
                     
                     // 🔐 AUTHENTICATION CHECK
                     const token = this.getSecureToken();
@@ -2152,28 +2201,74 @@
                     }
                     
                     // 🎨 SETUP UI ENHANCEMENTS
-                    this.setupScrollEffects();
-                    this.generateEnhancedCalendar();
-                    this.updateConnectionStatus();
+                    try {
+                        this.setupScrollEffects();
+                        this.generateEnhancedCalendar();
+                        this.updateConnectionStatus();
+                    } catch (error) {
+                        console.warn('UI enhancements setup failed:', error.message);
+                    }
                     
                     console.log('🎉 ENHANCED PORTAL DEPLOYED SUCCESSFULLY!');
                     console.log('🔗 Ready for production traffic at:', this.config.apiBaseUrl);
                     
                 } catch (error) {
                     console.error('🚨 Portal initialization error:', error);
-                    this.showEnhancedNotification('Portal initialization failed. Switching to demo mode.', 'error');
-                    this.config.mockMode = true;
+                    this.showEnhancedNotification('Portal initialized with limited functionality. Some features may be unavailable.', 'warning', {
+                        title: 'Initialization Warning',
+                        duration: 5000
+                    });
+                    
+                    // Ensure basic functionality still works
+                    this.showLogin();
                     this.updateConnectionStatus('mock');
+                    this.config.mockMode = true;
                 }
             }
 
             // 🚀 PERFORMANCE OPTIMIZATIONS
             setupPerformanceOptimizations() {
-                this.preloadCriticalResources();
-                this.setupRequestDeduplication();
-                this.setupIntelligentCaching();
-                this.setupLazyLoading();
-                this.setupPreemptiveLoading();
+                try {
+                    this.preloadCriticalResources();
+                } catch (error) {
+                    console.warn('Preload critical resources failed:', error.message);
+                }
+                
+                try {
+                    this.setupRequestDeduplication();
+                } catch (error) {
+                    console.warn('Request deduplication setup failed:', error.message);
+                }
+                
+                try {
+                    this.setupIntelligentCaching();
+                } catch (error) {
+                    console.warn('Intelligent caching setup failed:', error.message);
+                }
+                
+                try {
+                    this.setupLazyLoading();
+                } catch (error) {
+                    console.warn('Lazy loading setup failed:', error.message);
+                }
+                
+                try {
+                    this.setupPreemptiveLoading();
+                } catch (error) {
+                    console.warn('Preemptive loading setup failed:', error.message);
+                }
+            }
+
+            async preloadAvailability(date) {
+                try {
+                    const monthKey = `availability_${date.getFullYear()}_${date.getMonth()}`;
+                    if (!this.getCachedData(monthKey)) {
+                        console.log('🔄 Preloading availability for:', date.toISOString().slice(0, 7));
+                        await this.loadMonthAvailability(date);
+                    }
+                } catch (error) {
+                    console.log('Preload availability failed (non-critical):', error.message);
+                }
             }
 
             preloadCriticalResources() {
@@ -2237,8 +2332,32 @@
             }
 
             setupPreemptiveLoading() {
+                // Setup custom event handling for calendar navigation
+                this.eventListeners = new Map();
+                
+                // Add custom event listener method
+                this.addCustomEventListener = (event, callback) => {
+                    if (!this.eventListeners.has(event)) {
+                        this.eventListeners.set(event, []);
+                    }
+                    this.eventListeners.get(event).push(callback);
+                };
+                
+                // Add custom event emitter method
+                this.emitCustomEvent = (event, data) => {
+                    if (this.eventListeners.has(event)) {
+                        this.eventListeners.get(event).forEach(callback => {
+                            try {
+                                callback(data);
+                            } catch (error) {
+                                console.error('Event listener error:', error);
+                            }
+                        });
+                    }
+                };
+                
                 // Load next month's availability when current month is viewed
-                this.addEventListener('calendarNavigated', (monthData) => {
+                this.addCustomEventListener('calendarNavigated', (monthData) => {
                     const nextMonth = new Date(monthData.year, monthData.month + 1, 1);
                     this.preloadAvailability(nextMonth);
                 });
@@ -3885,11 +4004,23 @@
                 document.getElementById('prevMonth')?.addEventListener('click', () => {
                     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
                     this.generateEnhancedCalendar();
+                    
+                    // Emit custom event for preloading
+                    this.emitCustomEvent('calendarNavigated', {
+                        year: this.currentDate.getFullYear(),
+                        month: this.currentDate.getMonth()
+                    });
                 });
 
                 document.getElementById('nextMonth')?.addEventListener('click', () => {
                     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
                     this.generateEnhancedCalendar();
+                    
+                    // Emit custom event for preloading
+                    this.emitCustomEvent('calendarNavigated', {
+                        year: this.currentDate.getFullYear(),
+                        month: this.currentDate.getMonth()
+                    });
                 });
 
                 // Button controls
@@ -3914,6 +4045,33 @@
             }
 
             // Enhanced user data and portal management
+            fillDemoCredentials() {
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                
+                if (emailInput && passwordInput) {
+                    emailInput.value = 'demo@805lifeguard.com';
+                    passwordInput.value = 'demo123';
+                    
+                    // Clear any previous errors
+                    this.clearFieldErrors();
+                    
+                    // Add visual feedback
+                    emailInput.style.borderColor = 'var(--success)';
+                    passwordInput.style.borderColor = 'var(--success)';
+                    
+                    setTimeout(() => {
+                        emailInput.style.borderColor = '';
+                        passwordInput.style.borderColor = '';
+                    }, 2000);
+                    
+                    this.showEnhancedNotification('Demo credentials filled! Click Sign In to continue.', 'success', {
+                        title: 'Ready to Login',
+                        duration: 3000
+                    });
+                }
+            }
+
             enableDemoMode() {
                 console.log('🎭 Enabling enhanced demo mode...');
                 this.config.mockMode = true;
@@ -4233,20 +4391,33 @@
                 
                 switch (endpoint) {
                     case '/api/auth/login':
-                        if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
+                        // Support multiple demo accounts
+                        const validCredentials = [
+                            { email: 'demo@805lifeguard.com', password: 'demo123', name: 'Demo User' },
+                            { email: 'john@805lifeguard.com', password: 'demo123', name: 'John Doe' },
+                            { email: 'test@805lifeguard.com', password: 'test123', name: 'Test User' },
+                            { email: 'client@805lifeguard.com', password: 'client123', name: 'Client Demo' }
+                        ];
+                        
+                        const user = validCredentials.find(cred => 
+                            cred.email.toLowerCase() === data.email.toLowerCase() && 
+                            cred.password === data.password
+                        );
+                        
+                        if (user) {
                             return {
                                 success: true,
                                 token: 'mock-token-' + Date.now(),
                                 user: { 
                                     id: 1,
-                                    name: 'Demo User', 
-                                    email: data.email,
+                                    name: user.name, 
+                                    email: user.email,
                                     phone: '(805) 555-0123',
                                     member_since: '2024-01-15'
                                 }
                             };
                         } else {
-                            throw new Error('Invalid credentials');
+                            throw new Error('Invalid email or password. Try demo@805lifeguard.com / demo123');
                         }
                     
                     case '/api/user/profile':
@@ -4328,14 +4499,41 @@
             console.log('💾 Database: Cloudflare D1 Integration Ready');
             console.log('🎯 All calendar booking issues fixed and enhanced');
             
-            // Create enhanced portal instance
+            // Create enhanced portal instance and assign globally immediately
             portal = new EnhancedClientPortal();
+            
+            // Make sure portal is available for inline handlers
+            window.portal = portal;
             
             console.log('🎉 ENHANCED PORTAL READY FOR PRODUCTION TRAFFIC!');
             console.log('📊 All booking systems operational with D1 database support');
             console.log('🔧 Calendar system enhanced with real-time availability');
             console.log('💡 TIP: Click the connection status indicator to switch between Production/Demo modes');
         });
+
+        // Fallback function for auto-fill if portal isn't ready
+        window.fillDemoCredentials = function() {
+            if (window.portal && window.portal.fillDemoCredentials) {
+                window.portal.fillDemoCredentials();
+            } else {
+                // Fallback implementation
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                
+                if (emailInput && passwordInput) {
+                    emailInput.value = 'demo@805lifeguard.com';
+                    passwordInput.value = 'demo123';
+                    
+                    emailInput.style.borderColor = 'var(--success)';
+                    passwordInput.style.borderColor = 'var(--success)';
+                    
+                    setTimeout(() => {
+                        emailInput.style.borderColor = '';
+                        passwordInput.style.borderColor = '';
+                    }, 2000);
+                }
+            }
+        };
 
         // Global error handling
         window.addEventListener('error', (event) => {
