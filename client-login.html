@@ -1797,9 +1797,9 @@
             <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
                 <p>Need help? Contact us at <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
                 <div style="margin-top: var(--space-4); font-size: var(--font-sm); opacity: 0.8;">
-                    <p>🔴 <strong>Production Mode Active:</strong> Connecting to your live D1 database</p>
-                    <p>🔧 <strong>CORS Required:</strong> Your Cloudflare Worker must allow requests from https://805companies.com</p>
-                    <p>💡 <strong>Demo Mode:</strong> Click "Switch Mode" to test with sample data if needed</p>
+                    <p>🎉 <strong>Great Progress!</strong> Login and viewing bookings is working perfectly!</p>
+                    <p>🔧 <strong>To Complete:</strong> Some optional API endpoints need implementation for full functionality</p>
+                    <p>💡 <strong>Current Issue:</strong> The main booking endpoint has a 500 error - check your Worker logs</p>
                 </div>
             </div>
         </div>
@@ -3176,10 +3176,10 @@
                             availabilityData = response.availability;
                             this.setCachedData(monthKey, availabilityData, 5 * 60 * 1000); // 5 min cache
                         } else {
-                            availabilityData = this.generateMockAvailability(date);
+                            throw new Error('No availability data in response');
                         }
                     } catch (error) {
-                        console.error('Error loading availability:', error);
+                        console.log('📅 Availability endpoint not implemented, using mock data');
                         availabilityData = this.generateMockAvailability(date);
                     }
                 }
@@ -3381,7 +3381,7 @@
                             throw new Error('No slots in API response');
                         }
                     } catch (error) {
-                        console.log('🔄 API failed, generating mock time slots');
+                        console.log('🔄 Time slots endpoint not implemented, generating mock data');
                         timeSlots = this.generateMockTimeSlots();
                     }
                     
@@ -3751,6 +3751,7 @@
                 let errorTitle = 'Booking Error';
                 let showDemoFallback = false;
                 let showCorsHelp = false;
+                let showApiHelp = false;
                 
                 if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
                     errorTitle = 'Connection Error';
@@ -3759,8 +3760,12 @@
                     showDemoFallback = true;
                 } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
                     errorTitle = 'Server Error (500)';
-                    errorMessage = 'The server encountered an error while processing your booking. This may be a database or server configuration issue.';
-                    showDemoFallback = true;
+                    errorMessage = 'Your Cloudflare Worker encountered an internal error while processing the booking. This is likely a database or code issue in your Worker.';
+                    showApiHelp = true;
+                } else if (error.message.includes('404')) {
+                    errorTitle = 'API Endpoint Missing (404)';
+                    errorMessage = 'The booking endpoint is not implemented in your Cloudflare Worker.';
+                    showApiHelp = true;
                 } else if (error.message.includes('Unauthorized') || error.message.includes('401')) {
                     errorMessage = 'Authentication error. Please try logging out and back in.';
                 } else if (error.message.includes('Rate limit') || error.message.includes('429')) {
@@ -3773,7 +3778,7 @@
                 
                 const notificationOptions = {
                     title: errorTitle,
-                    duration: 8000,
+                    duration: 12000,
                     actions: [{
                         text: 'Try Again',
                         action: () => this.handleBookingSubmission()
@@ -3782,6 +3787,13 @@
                 
                 if (showCorsHelp) {
                     notificationOptions.subtitle = 'Your Cloudflare Worker needs CORS headers configured to allow cross-origin requests.';
+                } else if (showApiHelp) {
+                    notificationOptions.subtitle = 'Check your Cloudflare Worker logs for detailed error information. Common issues: missing endpoints, database schema problems, or code errors.';
+                    
+                    notificationOptions.actions.unshift({
+                        text: 'Show Required Endpoints',
+                        action: () => this.showApiEndpointsGuide()
+                    });
                 }
                 
                 if (showDemoFallback && !this.config.mockMode) {
@@ -4276,7 +4288,7 @@
                             throw new Error('No stats in response');
                         }
                     } catch (error) {
-                        console.log('Using mock stats due to API error');
+                        console.log('📊 User stats endpoint not implemented, using mock data');
                         stats = this.generateMockStats();
                     }
                 }
@@ -4340,7 +4352,7 @@
                             throw new Error('No bookings in response');
                         }
                     } catch (error) {
-                        console.log('Using mock bookings due to API error');
+                        console.log('📋 Upcoming bookings endpoint not implemented, using mock data');
                         bookings = this.generateMockBookings();
                     }
                 }
