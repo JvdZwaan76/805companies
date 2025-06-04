@@ -1,4 +1,54 @@
-// Add essential methods for troubleshooting buttons
+// Dashboard button event listeners
+            document.getElementById('newBookingBtn')?.addEventListener('click', () => {
+                portal.openBookingModal();
+            });
+
+            document.getElementById('quickSwimBtn')?.addEventListener('click', () => {
+                portal.quickBook('swim-lesson');
+            });
+
+            document.getElementById('quickLifeguardBtn')?.addEventListener('click', () => {
+                portal.quickBook('lifeguard');
+            });
+
+            document.getElementById('quickEventBtn')?.addEventListener('click', () => {
+                portal.quickBook('event');
+            });
+
+            document.getElementById('viewAllBookingsBtn')?.addEventListener('click', () => {
+                portal.showAllBookings();
+            });
+
+            document.getElementById('manageAccountBtn')?.addEventListener('click', () => {
+                portal.showAccountSettings();
+            });
+
+            document.getElementById('editProfileBtn')?.addEventListener('click', () => {
+                portal.showAccountSettings('profile');
+            });
+
+            document.getElementById('logoutDashBtn')?.addEventListener('click', () => {
+                portal.handleLogout();
+            });
+
+            document.getElementById('viewHistoryBtn')?.addEventListener('click', () => {
+                portal.showBookingHistory();
+            });
+
+            document.getElementById('filterUpcomingBtn')?.addEventListener('click', () => {
+                portal.filterBookings('upcoming');
+            });
+
+            document.getElementById('filterCompletedBtn')?.addEventListener('click', () => {
+                portal.filterBookings('completed');
+            });
+
+            // Handle dynamically created buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'bookNowBtn' || e.target.closest('#bookNowBtn')) {
+                    portal.openBookingModal();
+                }
+            });            // Add essential methods for troubleshooting buttons
             window.portal.clearStoredData = function() {
                 portal.clearStoredData();
             };
@@ -1744,7 +1794,7 @@
                         <input type="checkbox" id="rememberMe">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="showForgotPassword(); return false;">Forgot password?</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" id="forgotPasswordLink">Forgot password?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="loginBtn">
@@ -1769,19 +1819,18 @@
                     </button>
                 </div>
                 
-                <!-- 🚨 TROUBLESHOOTING SECTION -->
                 <div style="margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid #e9ecef;">
                     <p style="color: var(--gray); font-size: var(--font-sm); margin-bottom: var(--space-3);">
                         <strong>Login Issues?</strong>
                     </p>
                     <div style="display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap;">
-                        <button type="button" class="btn-small btn-edit" onclick="quickDemoLogin()" title="Login instantly with demo account">
-                            <i class="fas fa-rocket"></i> Quick Demo
+                        <button type="button" class="btn-small btn-edit" id="quickDemoBtn" title="Login instantly with demo account">
+                            <i class="fas fa-rocket"></i> Quick Demo Login
                         </button>
-                        <button type="button" class="btn-small btn-edit" onclick="clearStoredData()" title="Clear cached data">
+                        <button type="button" class="btn-small btn-edit" id="clearDataBtn" title="Clear cached data and tokens">
                             <i class="fas fa-broom"></i> Clear Data
                         </button>
-                        <button type="button" class="btn-small" onclick="toggleConnectionMode()" style="background: rgba(255, 152, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 152, 0, 0.3);" title="Switch API mode">
+                        <button type="button" class="btn-small" id="switchModeBtn" style="background: rgba(255, 152, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 152, 0, 0.3);" title="Switch between Production and Demo API">
                             <i class="fas fa-exchange-alt"></i> Switch Mode
                         </button>
                     </div>
@@ -1847,7 +1896,7 @@
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn-secondary" onclick="closeRegistrationModal()">Cancel</button>
+                        <button type="button" class="btn-secondary" id="cancelRegistration">Cancel</button>
                         <button type="submit" class="btn-primary" id="registrationBtn">
                             <span class="btn-text">Create Account</span>
                             <span class="loading" style="display: none;">
@@ -1884,7 +1933,7 @@
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn-secondary" onclick="closeForgotPassword()">Cancel</button>
+                        <button type="button" class="btn-secondary" id="cancelForgotPassword">Cancel</button>
                         <button type="submit" class="btn-primary" id="resetPasswordBtn">
                             <span class="btn-text">Send Reset Link</span>
                             <span class="loading" style="display: none;">
@@ -1963,19 +2012,19 @@
                             <div class="card-icon"><i class="fas fa-calendar-plus" aria-hidden="true"></i></div>
                             Quick Book
                         </h2>
-                        <button class="card-action" onclick="portal.openBookingModal()" aria-label="Create new booking">
+                        <button class="card-action" id="newBookingBtn" aria-label="Create new booking">
                             <i class="fas fa-plus" aria-hidden="true"></i> New Booking
                         </button>
                     </div>
                     <p>Book swim lessons, lifeguard services, or special events with our streamlined booking system.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('swim-lesson')" aria-label="Quick book swim lesson">
+                        <button class="btn-small btn-edit" id="quickSwimBtn" aria-label="Quick book swim lesson">
                             <i class="fas fa-swimmer" aria-hidden="true"></i> Swim Lesson
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('lifeguard')" aria-label="Quick book lifeguard service">
+                        <button class="btn-small btn-edit" id="quickLifeguardBtn" aria-label="Quick book lifeguard service">
                             <i class="fas fa-user-shield" aria-hidden="true"></i> Lifeguard
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.quickBook('event')" aria-label="Quick book special event">
+                        <button class="btn-small btn-edit" id="quickEventBtn" aria-label="Quick book special event">
                             <i class="fas fa-calendar-alt" aria-hidden="true"></i> Event
                         </button>
                     </div>
@@ -1988,7 +2037,7 @@
                             <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                             Upcoming Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showAllBookings()" aria-label="Scroll to view all bookings">View All</button>
+                        <button class="card-action" id="viewAllBookingsBtn" aria-label="Scroll to view all bookings">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList" role="region" aria-label="Upcoming bookings list">
                         <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading your bookings...</p>
@@ -2002,16 +2051,16 @@
                             <div class="card-icon"><i class="fas fa-user-cog" aria-hidden="true"></i></div>
                             Account Settings
                         </h2>
-                        <button class="card-action" onclick="portal.showAccountSettings()" aria-label="Manage account settings">
+                        <button class="card-action" id="manageAccountBtn" aria-label="Manage account settings">
                             <i class="fas fa-cog" aria-hidden="true"></i> Manage
                         </button>
                     </div>
                     <p>Update your personal information, preferences, and security settings.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.showAccountSettings('profile')" aria-label="Edit profile">
+                        <button class="btn-small btn-edit" id="editProfileBtn" aria-label="Edit profile">
                             <i class="fas fa-user" aria-hidden="true"></i> Profile
                         </button>
-                        <button class="btn-small btn-cancel" onclick="portal.handleLogout()" aria-label="Logout from account">
+                        <button class="btn-small btn-cancel" id="logoutDashBtn" aria-label="Logout from account">
                             <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
                         </button>
                     </div>
@@ -2024,16 +2073,16 @@
                             <div class="card-icon"><i class="fas fa-list-alt" aria-hidden="true"></i></div>
                             My Bookings
                         </h2>
-                        <button class="card-action" onclick="portal.showBookingHistory()" aria-label="View booking history">
+                        <button class="card-action" id="viewHistoryBtn" aria-label="View booking history">
                             <i class="fas fa-history" aria-hidden="true"></i> History
                         </button>
                     </div>
                     <p>View your complete booking history, manage active bookings, and track service requests.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="portal.filterBookings('upcoming')" aria-label="Filter upcoming bookings">
+                        <button class="btn-small btn-edit" id="filterUpcomingBtn" aria-label="Filter upcoming bookings">
                             <i class="fas fa-calendar-check" aria-hidden="true"></i> Upcoming
                         </button>
-                        <button class="btn-small btn-edit" onclick="portal.filterBookings('completed')" aria-label="Filter completed bookings">
+                        <button class="btn-small btn-edit" id="filterCompletedBtn" aria-label="Filter completed bookings">
                             <i class="fas fa-check-circle" aria-hidden="true"></i> Completed
                         </button>
                     </div>
@@ -2170,7 +2219,7 @@
     </div>
 
     <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
-    <div class="connection-status mock" id="connectionStatus" onclick="toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
+    <div class="connection-status mock" id="connectionStatus" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
         <i class="fas fa-database"></i> Mock Mode Active
     </div>
 
@@ -2776,14 +2825,16 @@
                     if (errorMessage.includes('401') || errorMessage.includes('Unauthorized') || errorMessage.includes('Invalid credentials')) {
                         errorMessage = 'Invalid email or password. Please check your credentials and try again.';
                         
-                        // Show helpful suggestions without complex HTML
+                        // Show helpful suggestions
                         if (!this.config.mockMode) {
                             errorDiv.innerHTML = `
-                                <div>${errorMessage}</div>
-                                <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
-                                    <strong>Try:</strong> demo@805lifeguard.com / demo123<br>
-                                    <a href="#" onclick="clearStoredData(); return false;" style="color: var(--primary);">Clear stored data</a> or 
-                                    <a href="#" onclick="switchToDemo(); return false;" style="color: var(--primary);">switch to demo mode</a>
+                                <div style="margin-bottom: var(--space-3);">${errorMessage}</div>
+                                <div style="font-size: var(--font-sm); opacity: 0.8;">
+                                    <strong>Troubleshooting:</strong><br>
+                                    • Try demo credentials: demo@805lifeguard.com / demo123<br>
+                                    • Check if your account exists in the database<br>
+                                    • Use the "Clear Data" button below and try again<br>
+                                    • Use the "Demo Mode" button for testing
                                 </div>
                             `;
                         } else {
@@ -2792,9 +2843,12 @@
                     } else if (errorMessage.includes('500') || errorMessage.includes('Internal Server Error')) {
                         errorMessage = 'Server error during login. The authentication service may be down.';
                         errorDiv.innerHTML = `
-                            <div>${errorMessage}</div>
-                            <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
-                                <a href="#" onclick="switchToDemo(); return false;" style="color: var(--primary);">Switch to Demo Mode</a> or try again later
+                            <div style="margin-bottom: var(--space-3);">${errorMessage}</div>
+                            <div style="font-size: var(--font-sm); opacity: 0.8;">
+                                <strong>Options:</strong><br>
+                                • Use the "Demo Mode" button below<br>
+                                • Check Cloudflare Worker logs for details<br>
+                                • Try again in a few minutes
                             </div>
                         `;
                     } else if (errorMessage.includes('timeout') || errorMessage.includes('Failed to fetch')) {
@@ -2858,18 +2912,21 @@
             setupServiceSelection() {
                 console.log('🎯 Setting up service selection listeners...');
                 
+                var self = this;
+                
                 // Add click listeners to all service options
-                document.querySelectorAll('.service-option').forEach(serviceOption => {
-                    serviceOption.addEventListener('click', () => {
-                        const serviceType = serviceOption.dataset.service;
-                        this.selectServiceWithAnimation(serviceType);
+                var serviceOptions = document.querySelectorAll('.service-option');
+                serviceOptions.forEach(function(serviceOption) {
+                    serviceOption.addEventListener('click', function() {
+                        var serviceType = serviceOption.dataset.service;
+                        self.selectServiceWithAnimation(serviceType);
                     });
                     
-                    serviceOption.addEventListener('keydown', (e) => {
+                    serviceOption.addEventListener('keydown', function(e) {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
-                            const serviceType = serviceOption.dataset.service;
-                            this.selectServiceWithAnimation(serviceType);
+                            var serviceType = serviceOption.dataset.service;
+                            self.selectServiceWithAnimation(serviceType);
                         }
                     });
                 });
@@ -3001,7 +3058,7 @@
             }
 
             showEnhancedNotification(message, type = 'success', options = {}) {
-                // Remove any existing notifications
+                // Remove any existing notifications first
                 document.querySelectorAll('.notification').forEach(notification => {
                     notification.remove();
                 });
@@ -3009,89 +3066,60 @@
                 const notification = document.createElement('div');
                 notification.className = `notification ${type}`;
                 
-                const {
-                    title = type.charAt(0).toUpperCase() + type.slice(1),
-                    subtitle = '',
-                    duration = 5000,
-                    actions = []
-                } = options;
+                const title = options.title || (type.charAt(0).toUpperCase() + type.slice(1));
+                const subtitle = options.subtitle || '';
+                const duration = options.duration || 5000;
+                const actions = options.actions || [];
                 
                 const icon = type === 'success' ? 'check-circle' : 
                            type === 'error' ? 'exclamation-triangle' : 'info-circle';
                 
-                // Create clean, simple HTML structure
-                const titleDiv = document.createElement('div');
-                titleDiv.style.fontWeight = '700';
-                titleDiv.style.marginBottom = 'var(--space-1)';
-                titleDiv.style.fontSize = 'var(--font-lg)';
-                titleDiv.textContent = title;
-                
-                const messageDiv = document.createElement('div');
-                messageDiv.style.fontSize = 'var(--font-base)';
-                messageDiv.style.opacity = '0.95';
-                messageDiv.style.marginBottom = 'var(--space-1)';
-                messageDiv.textContent = message;
-                
-                const contentDiv = document.createElement('div');
-                contentDiv.style.flex = '1';
-                contentDiv.style.minWidth = '0';
-                contentDiv.appendChild(titleDiv);
-                contentDiv.appendChild(messageDiv);
-                
-                if (subtitle) {
-                    const subtitleDiv = document.createElement('div');
-                    subtitleDiv.style.fontSize = 'var(--font-sm)';
-                    subtitleDiv.style.opacity = '0.8';
-                    subtitleDiv.textContent = subtitle;
-                    contentDiv.appendChild(subtitleDiv);
-                }
-                
-                const iconDiv = document.createElement('div');
-                iconDiv.style.flexShrink = '0';
-                iconDiv.innerHTML = `<i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>`;
-                
-                const closeBtn = document.createElement('button');
-                closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                closeBtn.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: inherit;
-                    font-size: var(--font-lg);
-                    cursor: pointer;
-                    opacity: 0.7;
-                    padding: var(--space-1);
-                    border-radius: var(--radius-sm);
-                    transition: var(--transition-smooth);
-                    flex-shrink: 0;
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                        <div style="flex-shrink: 0;">
+                            <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; margin-bottom: var(--space-1); font-size: var(--font-lg);">${title}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95; margin-bottom: var(--space-1);">${message}</div>
+                            ${subtitle ? `<div style="font-size: var(--font-sm); opacity: 0.8;">${subtitle}</div>` : ''}
+                        </div>
+                        <button class="notification-close" style="
+                            background: none;
+                            border: none;
+                            color: inherit;
+                            font-size: var(--font-lg);
+                            cursor: pointer;
+                            opacity: 0.7;
+                            padding: var(--space-1);
+                            border-radius: var(--radius-sm);
+                            transition: var(--transition-smooth);
+                            flex-shrink: 0;
+                        " onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.opacity='0.7'; this.style.background='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 `;
-                closeBtn.onclick = () => notification.remove();
-                closeBtn.onmouseover = () => {
-                    closeBtn.style.opacity = '1';
-                    closeBtn.style.background = 'rgba(255,255,255,0.2)';
-                };
-                closeBtn.onmouseout = () => {
-                    closeBtn.style.opacity = '0.7';
-                    closeBtn.style.background = 'none';
-                };
                 
-                const wrapper = document.createElement('div');
-                wrapper.style.cssText = 'display: flex; align-items: flex-start; gap: var(--space-4);';
-                wrapper.appendChild(iconDiv);
-                wrapper.appendChild(contentDiv);
-                wrapper.appendChild(closeBtn);
-                
-                notification.appendChild(wrapper);
                 document.body.appendChild(notification);
                 
-                requestAnimationFrame(() => {
+                // Add close button event listener
+                const closeBtn = notification.querySelector('.notification-close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function() {
+                        notification.remove();
+                    });
+                }
+                
+                requestAnimationFrame(function() {
                     notification.classList.add('show');
                 });
                 
                 if (duration > 0) {
-                    setTimeout(() => {
+                    setTimeout(function() {
                         if (notification.parentElement) {
                             notification.classList.remove('show');
-                            setTimeout(() => {
+                            setTimeout(function() {
                                 notification.remove();
                             }, 300);
                         }
@@ -3104,20 +3132,27 @@
                 console.log('🔧 Setting up event listeners...');
                 
                 // Login form
-                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleLogin();
-                });
+                var loginForm = document.getElementById('loginForm');
+                if (loginForm) {
+                    loginForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        portal.handleLogin();
+                    });
+                }
 
                 // Booking form and service selection
-                document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleBookingSubmission();
-                });
+                var bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) {
+                    bookingForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        portal.handleBookingSubmission();
+                    });
+                }
 
                 // CRITICAL FIX: Setup service selection after DOM is ready
-                setTimeout(() => {
-                    this.setupServiceSelection();
+                var self = this;
+                setTimeout(function() {
+                    self.setupServiceSelection();
                 }, 100);
 
                 console.log('✅ Event listeners setup complete');
@@ -3725,10 +3760,12 @@
 
             // Mock API for demo/fallback mode
             async mockApiCall(endpoint, method, data) {
-                console.log(`🧪 Mock API ${method} ${endpoint}`, data ? JSON.stringify(data, null, 2) : 'no data');
+                console.log('🧪 Mock API ' + method + ' ' + endpoint, data ? JSON.stringify(data, null, 2) : 'no data');
                 
                 // Simulate realistic API delay
-                await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
+                await new Promise(function(resolve) { 
+                    setTimeout(resolve, 800 + Math.random() * 400); 
+                });
                 
                 switch (endpoint) {
                     case '/api/auth/login':
@@ -3763,9 +3800,14 @@
                     case '/api/bookings':
                         if (method === 'POST') {
                             console.log('✅ Mock booking created successfully:', data);
-                            const newBooking = {
+                            var newBooking = {
                                 id: Date.now(),
-                                ...data,
+                                service: data.service,
+                                date: data.date,
+                                time: data.time,
+                                duration: data.duration,
+                                participants: data.participants,
+                                specialRequests: data.specialRequests,
                                 status: 'confirmed',
                                 cost: this.calculateMockCost(data.service, data.duration, data.participants),
                                 created_at: new Date().toISOString(),
@@ -3799,21 +3841,21 @@
                     default:
                         return {
                             success: true,
-                            message: `Mock API response for ${method} ${endpoint}`
+                            message: 'Mock API response for ' + method + ' ' + endpoint
                         };
                 }
             }
 
             calculateMockCost(service, duration, participants) {
-                const baseCosts = {
+                var baseCosts = {
                     'swim-lesson': 75,
                     'lifeguard': 50,
                     'event': 100
                 };
                 
-                const baseCost = baseCosts[service] || 50;
-                const durationMultiplier = parseFloat(duration) || 1;
-                const participantMultiplier = Math.max(1, parseInt(participants) || 1);
+                var baseCost = baseCosts[service] || 50;
+                var durationMultiplier = parseFloat(duration) || 1;
+                var participantMultiplier = Math.max(1, parseInt(participants) || 1);
                 
                 return Math.round(baseCost * durationMultiplier * participantMultiplier * 100) / 100;
             }
@@ -3865,6 +3907,19 @@
                 portal.enableDemoMode();
             });
 
+            // Troubleshooting buttons
+            document.getElementById('quickDemoBtn')?.addEventListener('click', () => {
+                portal.quickDemoLogin();
+            });
+
+            document.getElementById('clearDataBtn')?.addEventListener('click', () => {
+                portal.clearStoredData();
+            });
+
+            document.getElementById('switchModeBtn')?.addEventListener('click', () => {
+                portal.toggleConnectionMode();
+            });
+
             document.getElementById('passwordToggle')?.addEventListener('click', () => {
                 const passwordInput = document.getElementById('password');
                 const icon = document.getElementById('passwordToggle').querySelector('i');
@@ -3878,11 +3933,32 @@
                 }
             });
 
+            document.getElementById('forgotPasswordLink')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                portal.showForgotPassword();
+            });
+
             document.getElementById('logoutBtn')?.addEventListener('click', () => {
                 portal.handleLogout();
             });
 
             // Modal close handlers
+            document.getElementById('registrationClose')?.addEventListener('click', () => {
+                portal.closeRegistrationModal();
+            });
+
+            document.getElementById('cancelRegistration')?.addEventListener('click', () => {
+                portal.closeRegistrationModal();
+            });
+
+            document.getElementById('cancelForgotPassword')?.addEventListener('click', () => {
+                portal.closeForgotPassword();
+            });
+
+            document.getElementById('forgotPasswordClose')?.addEventListener('click', () => {
+                portal.closeForgotPassword();
+            });
+
             document.getElementById('modalClose')?.addEventListener('click', () => {
                 portal.closeBookingModal();
             });
@@ -3902,49 +3978,21 @@
                 portal.generateCalendar();
             });
 
+            // Connection status click handler
+            document.getElementById('connectionStatus')?.addEventListener('click', () => {
+                if (portal && portal.toggleConnectionMode) {
+                    portal.toggleConnectionMode();
+                }
+            });
+
             console.log('🎉 PRODUCTION PORTAL READY FOR LIVE TRAFFIC!');
             console.log('📊 All systems operational and connected to live database');
             console.log('💡 TIP: Click the connection status indicator in bottom-right to switch between Production/Demo modes');
         });
 
-        // Simple global functions for HTML onclick handlers
-        function showForgotPassword() {
-            if (window.portal) portal.showForgotPassword();
-        }
-
-        function closeForgotPassword() {
-            if (window.portal) portal.closeForgotPassword();
-        }
-
-        function closeRegistrationModal() {
-            if (window.portal) portal.closeRegistrationModal();
-        }
-
-        function clearStoredData() {
-            if (window.portal) portal.clearStoredData();
-        }
-
-        function quickDemoLogin() {
-            if (window.portal) portal.quickDemoLogin();
-        }
-
-        function switchToDemo() {
-            if (window.portal) portal.switchToDemo();
-        }
-
-        function toggleConnectionMode() {
-            if (window.portal) portal.toggleConnectionMode();
-        }
-
         // Global error handling
         window.addEventListener('error', (event) => {
             console.error('🚨 Global Error:', event.error);
-            console.error('🔍 Error details:', {
-                message: event.message,
-                filename: event.filename,
-                lineno: event.lineno,
-                colno: event.colno
-            });
         });
 
         window.addEventListener('unhandledrejection', (event) => {
