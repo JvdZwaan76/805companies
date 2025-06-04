@@ -2109,8 +2109,8 @@
         </div>
     </div>
 
-    <!-- 🔗 CONNECTION STATUS -->
-    <div class="connection-status mock" id="connectionStatus">
+    <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
+    <div class="connection-status mock" id="connectionStatus" onclick="portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
         <i class="fas fa-database"></i> Mock Mode Active
     </div>
 
@@ -2226,6 +2226,8 @@
                 
                 console.log('🎉 PRODUCTION PORTAL DEPLOYED SUCCESSFULLY!');
                 console.log('🔗 Ready to connect to:', this.config.apiBaseUrl);
+                console.log('💡 Tip: Click the connection status indicator to switch between Production and Demo modes');
+            }
             }
 
             // 🚀 PERFORMANCE OPTIMIZATIONS
@@ -2553,7 +2555,7 @@
                 }
             }
 
-            // 📊 CONNECTION STATUS
+            // 📊 CONNECTION STATUS WITH MODE SWITCHING
             updateConnectionStatus(status = null) {
                 const statusElement = document.getElementById('connectionStatus');
                 if (!statusElement) return;
@@ -2565,12 +2567,40 @@
                 statusElement.className = `connection-status ${status}`;
                 
                 const statusTexts = {
-                    connected: '<i class="fas fa-database"></i> Connected to Production',
-                    mock: '<i class="fas fa-flask"></i> Demo Mode Active',
+                    connected: '<i class="fas fa-database"></i> Production Mode',
+                    mock: '<i class="fas fa-flask"></i> Demo Mode',
                     error: '<i class="fas fa-exclamation-triangle"></i> Connection Error'
                 };
 
                 statusElement.innerHTML = statusTexts[status] || statusTexts.mock;
+                statusElement.title = `Click to switch to ${this.config.mockMode ? 'Production' : 'Demo'} mode`;
+            }
+
+            toggleConnectionMode() {
+                const currentMode = this.config.mockMode ? 'Demo' : 'Production';
+                const newMode = this.config.mockMode ? 'Production' : 'Demo';
+                
+                if (confirm(`Switch from ${currentMode} mode to ${newMode} mode?\n\n${currentMode === 'Demo' ? 'Production mode connects to the live database.' : 'Demo mode uses sample data for testing.'}`)) {
+                    this.config.mockMode = !this.config.mockMode;
+                    this.updateConnectionStatus();
+                    
+                    const message = this.config.mockMode ? 
+                        'Demo mode activated! All bookings will use sample data.' : 
+                        'Production mode activated! Connecting to live database.';
+                        
+                    const type = this.config.mockMode ? 'info' : 'success';
+                    
+                    this.showEnhancedNotification(message, type, {
+                        title: `${newMode} Mode Active`,
+                        subtitle: `Click the status indicator to switch back to ${currentMode} mode`,
+                        duration: 5000
+                    });
+                    
+                    console.log(`🔄 Switched to ${newMode} mode:`, {
+                        mockMode: this.config.mockMode,
+                        apiBaseUrl: this.config.apiBaseUrl
+                    });
+                }
             }
 
             // 🔐 ENHANCED LOGIN
@@ -3192,7 +3222,8 @@
                         timestamp: new Date().toISOString()
                     };
 
-                    console.log('🎯 Sending booking data to API:', bookingData);
+                    console.log('🎯 Sending booking data to API:', JSON.stringify(bookingData, null, 2));
+                    console.log('🌐 API Endpoint:', `${this.config.apiBaseUrl}/api/bookings`);
 
                     const response = await this.apiCall('/api/bookings', 'POST', bookingData);
 
@@ -3229,22 +3260,62 @@
 
                 } catch (error) {
                     console.error('❌ Booking submission error:', error);
+                    console.error('📊 Error details:', {
+                        message: error.message,
+                        stack: error.stack,
+                        apiEndpoint: `${this.config.apiBaseUrl}/api/bookings`,
+                        bookingData: {
+                            service: this.selectedService,
+                            date: this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : null,
+                            time: this.selectedTime
+                        }
+                    });
                     
                     await this.playErrorAnimation(submitBtn);
                     
-                    let errorMessage = 'Failed to submit booking. ';
-                    if (error.message.includes('Unauthorized')) {
-                        errorMessage += 'Please try logging out and back in.';
-                    } else if (error.message.includes('Rate limit')) {
-                        errorMessage += 'Too many requests. Please wait and try again.';
+                    let errorMessage = '';
+                    let errorTitle = 'Booking Error';
+                    
+                    if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+                        errorTitle = 'Server Error (500)';
+                        errorMessage = '🚨 The server encountered an error while processing your booking. This is likely a database or server configuration issue.';
+                        
+                        // Offer demo mode as fallback
+                        this.showEnhancedNotification(errorMessage, 'error', {
+                            title: errorTitle,
+                            subtitle: 'Try demo mode while we fix the server issue',
+                            duration: 10000,
+                            actions: [{
+                                text: 'Switch to Demo Mode',
+                                action: () => {
+                                    this.config.mockMode = true;
+                                    this.updateConnectionStatus('mock');
+                                    this.showEnhancedNotification('Demo mode activated! Try booking again.', 'info', {
+                                        title: 'Demo Mode Active',
+                                        duration: 5000
+                                    });
+                                    this.closeBookingModal();
+                                }
+                            }, {
+                                text: 'Try Again',
+                                action: () => this.handleBookingSubmission()
+                            }]
+                        });
+                        return;
+                    } else if (error.message.includes('Unauthorized') || error.message.includes('401')) {
+                        errorMessage = 'Authentication error. Please try logging out and back in.';
+                    } else if (error.message.includes('Rate limit') || error.message.includes('429')) {
+                        errorMessage = 'Too many requests. Please wait a moment and try again.';
                     } else if (error.message.includes('timeout')) {
-                        errorMessage += 'Request timed out. Please check your connection.';
+                        errorMessage = 'Request timed out. Please check your connection and try again.';
+                    } else if (error.message.includes('Failed to fetch') || error.message.includes('network')) {
+                        errorMessage = 'Network error. Please check your internet connection.';
                     } else {
-                        errorMessage += error.message;
+                        errorMessage = `Unexpected error: ${error.message}`;
                     }
                     
                     this.showEnhancedNotification(errorMessage, 'error', {
-                        title: 'Booking Error',
+                        title: errorTitle,
                         duration: 8000,
                         actions: [{
                             text: 'Try Again',
@@ -3412,25 +3483,99 @@
                 }, { passive: true });
             }
 
-            // Mock API for demo
+            // Mock API for demo/fallback mode
             async mockApiCall(endpoint, method, data) {
-                console.log(`🧪 Mock API ${method} ${endpoint}`);
+                console.log(`🧪 Mock API ${method} ${endpoint}`, data ? JSON.stringify(data, null, 2) : 'no data');
                 
-                await new Promise(resolve => setTimeout(resolve, 500));
+                // Simulate realistic API delay
+                await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
                 
-                if (endpoint === '/api/auth/login') {
-                    if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
+                switch (endpoint) {
+                    case '/api/auth/login':
+                        if (data.email === 'demo@805lifeguard.com' && data.password === 'demo123') {
+                            return {
+                                success: true,
+                                token: 'mock-token-' + Date.now(),
+                                user: { 
+                                    id: 1,
+                                    name: 'Demo User', 
+                                    email: data.email,
+                                    phone: '(805) 555-0123',
+                                    member_since: '2024-01-15'
+                                }
+                            };
+                        } else {
+                            throw new Error('Invalid credentials');
+                        }
+                    
+                    case '/api/user/profile':
                         return {
                             success: true,
-                            token: 'mock-token-' + Date.now(),
-                            user: { name: 'Demo User', email: data.email }
+                            user: {
+                                id: 1,
+                                name: 'Demo User',
+                                email: 'demo@805lifeguard.com',
+                                phone: '(805) 555-0123',
+                                member_since: '2024-01-15'
+                            }
                         };
-                    } else {
-                        throw new Error('Invalid credentials');
-                    }
+                    
+                    case '/api/bookings':
+                        if (method === 'POST') {
+                            console.log('✅ Mock booking created successfully:', data);
+                            const newBooking = {
+                                id: Date.now(),
+                                ...data,
+                                status: 'confirmed',
+                                cost: this.calculateMockCost(data.service, data.duration, data.participants),
+                                created_at: new Date().toISOString(),
+                                confirmation_code: 'DEMO' + Math.random().toString(36).substr(2, 6).toUpperCase()
+                            };
+                            
+                            return {
+                                success: true,
+                                booking: newBooking,
+                                message: 'Booking created successfully (Demo Mode)'
+                            };
+                        } else {
+                            return {
+                                success: true,
+                                bookings: this.bookings || []
+                            };
+                        }
+                    
+                    case '/api/bookings/history':
+                        return {
+                            success: true,
+                            history: this.bookingHistory || []
+                        };
+                    
+                    case '/api/availability':
+                        return {
+                            success: true,
+                            availability: this.availabilityData || {}
+                        };
+                    
+                    default:
+                        return {
+                            success: true,
+                            message: `Mock API response for ${method} ${endpoint}`
+                        };
                 }
+            }
+
+            calculateMockCost(service, duration, participants) {
+                const baseCosts = {
+                    'swim-lesson': 75,
+                    'lifeguard': 50,
+                    'event': 100
+                };
                 
-                return { success: true, message: 'Mock API response' };
+                const baseCost = baseCosts[service] || 50;
+                const durationMultiplier = parseFloat(duration) || 1;
+                const participantMultiplier = Math.max(1, parseInt(participants) || 1);
+                
+                return Math.round(baseCost * durationMultiplier * participantMultiplier * 100) / 100;
             }
 
             // Utility methods
@@ -3519,6 +3664,7 @@
 
             console.log('🎉 PRODUCTION PORTAL READY FOR LIVE TRAFFIC!');
             console.log('📊 All systems operational and connected to live database');
+            console.log('💡 TIP: Click the connection status indicator in bottom-right to switch between Production/Demo modes');
         });
 
         // Global error handling
