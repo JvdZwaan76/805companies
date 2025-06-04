@@ -1705,43 +1705,44 @@
             <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Welcome Back</h1>
             <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Sign in to access your account and manage your bookings</p>
             
-            <!-- Demo Credentials Helper -->
-            <div style="background: linear-gradient(135deg, rgba(30, 136, 229, 0.15), rgba(38, 166, 154, 0.15)); border: 2px solid rgba(30, 136, 229, 0.3); border-radius: var(--radius-lg); padding: var(--space-5); margin-bottom: var(--space-6); text-align: left; position: relative; overflow: hidden;">
-                <div style="position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(30, 136, 229, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
-                <div style="position: relative; z-index: 1;">
-                    <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-lg);">
-                        <i class="fas fa-rocket"></i>
-                        Demo Mode Active - Try Now!
+            <!-- Demo/Production Credentials Helper -->
+            <div style="background: rgba(30, 136, 229, 0.1); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
+                <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-info-circle"></i>
+                    Login Credentials
+                </div>
+                <div style="font-size: var(--font-sm); color: var(--dark); margin-bottom: var(--space-3);">
+                    <div id="credentialsHelp">
+                        <strong>🔴 Production Mode:</strong> Use your real account credentials to connect to the D1 database<br>
+                        <strong>🟡 Demo Mode:</strong> Use demo@805lifeguard.com / demo123 for testing
                     </div>
-                    <div style="font-size: var(--font-base); color: var(--dark); margin-bottom: var(--space-4);">
-                        <div style="display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); margin-bottom: var(--space-3);">
-                            <strong style="color: var(--primary);">Email:</strong>
-                            <code style="background: rgba(255,255,255,0.7); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-family: monospace;">demo@805lifeguard.com</code>
-                            <strong style="color: var(--primary);">Password:</strong>
-                            <code style="background: rgba(255,255,255,0.7); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-family: monospace;">demo123</code>
-                        </div>
-                        <div style="font-size: var(--font-sm); opacity: 0.8; margin-bottom: var(--space-3);">
-                            ✨ Full booking system with sample data • 📅 Interactive calendar • 🎯 Complete user experience
-                        </div>
-                    </div>
+                </div>
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
                     <button type="button" onclick="fillDemoCredentials()" style="
-                        background: var(--gradient-primary-vivid);
+                        background: var(--secondary);
                         color: white;
                         border: none;
-                        padding: var(--space-3) var(--space-5);
-                        border-radius: var(--radius-lg);
-                        font-size: var(--font-base);
+                        padding: var(--space-2) var(--space-3);
+                        border-radius: var(--radius-md);
+                        font-size: var(--font-sm);
                         cursor: pointer;
-                        transition: var(--transition-spring);
-                        font-weight: 700;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                        box-shadow: var(--shadow-medium);
-                        display: flex;
-                        align-items: center;
-                        gap: var(--space-2);
-                    " onmouseover="this.style.transform='translateY(-2px) scale(1.02)'; this.style.boxShadow='var(--shadow-glow)'" onmouseout="this.style.transform=''; this.style.boxShadow='var(--shadow-medium)'">
-                        <i class="fas fa-magic"></i> Auto-fill & Login
+                        transition: var(--transition-smooth);
+                        font-weight: 600;
+                    " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                        <i class="fas fa-flask"></i> Fill Demo Credentials
+                    </button>
+                    <button type="button" onclick="window.portal?.toggleConnectionMode()" style="
+                        background: var(--primary);
+                        color: white;
+                        border: none;
+                        padding: var(--space-2) var(--space-3);
+                        border-radius: var(--radius-md);
+                        font-size: var(--font-sm);
+                        cursor: pointer;
+                        transition: var(--transition-smooth);
+                        font-weight: 600;
+                    " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                        <i class="fas fa-exchange-alt"></i> Switch Mode
                     </button>
                 </div>
             </div>
@@ -1795,6 +1796,11 @@
             
             <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
                 <p>Need help? Contact us at <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
+                <div style="margin-top: var(--space-4); font-size: var(--font-sm); opacity: 0.8;">
+                    <p>🔴 <strong>Production Mode Active:</strong> Connecting to your live D1 database</p>
+                    <p>🔧 <strong>CORS Required:</strong> Your Cloudflare Worker must allow requests from https://805companies.com</p>
+                    <p>💡 <strong>Demo Mode:</strong> Click "Switch Mode" to test with sample data if needed</p>
+                </div>
             </div>
         </div>
     </div>
@@ -2069,8 +2075,8 @@
     </div>
 
     <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
-    <div class="connection-status mock" id="connectionStatus" onclick="window.portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Demo Mode: Uses sample data. Click to try Production mode.">
-        <i class="fas fa-flask"></i> Demo Mode
+    <div class="connection-status connected" id="connectionStatus" onclick="window.portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
+        <i class="fas fa-database"></i> Production Mode Active
     </div>
 
     <!-- 🚀 ENHANCED JAVASCRIPT PORTAL SYSTEM -->
@@ -2097,28 +2103,6 @@
          */
         
         class EnhancedClientPortal {
-            shouldUseMockMode() {
-                // Check if we're likely to have CORS issues
-                const currentOrigin = window.location.origin;
-                const apiOrigin = 'https://lifeguard-portal-api-production.jaspervdz.workers.dev';
-                
-                // If same origin, we can use production mode
-                if (currentOrigin === apiOrigin) {
-                    return false;
-                }
-                
-                // Check if we're on localhost or development
-                if (currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1')) {
-                    return true; // Use mock mode for local development
-                }
-                
-                // For cross-origin production deployments, start with mock mode to avoid CORS issues
-                // User can manually switch to production mode if CORS is properly configured
-                console.log(`🌐 Cross-origin detected: ${currentOrigin} → ${apiOrigin}`);
-                console.log('🎭 Starting in demo mode to avoid CORS issues. You can switch to production mode via the status indicator.');
-                return true;
-            }
-
             constructor() {
                 this.currentUser = null;
                 this.currentDate = new Date();
@@ -2135,8 +2119,8 @@
                     // 🌐 YOUR CLOUDFLARE WORKER URL
                     apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
                     
-                    // 🚀 DATABASE MODE - Auto-detect CORS issues
-                    mockMode: this.shouldUseMockMode(),
+                    // 🚀 DATABASE MODE
+                    mockMode: false, // Set to false for production D1 database
                     
                     // ⚡ PERFORMANCE & RELIABILITY
                     cacheTimeout: 5 * 60 * 1000, // 5 minutes
@@ -2315,12 +2299,14 @@
                 dns.href = new URL(this.config.apiBaseUrl).origin;
                 document.head.appendChild(dns);
                 
-                // Preload critical API endpoints
-                this.preloadEndpoints([
-                    '/api/user/profile',
-                    '/api/bookings',
-                    '/api/availability'
-                ]);
+                // Disable preloading to avoid CORS errors during initialization
+                // this.preloadEndpoints([
+                //     '/api/user/profile',
+                //     '/api/bookings',
+                //     '/api/availability'
+                // ]);
+                
+                console.log('🔗 DNS prefetch configured, skipping API preload to avoid CORS issues');
             }
 
             async preloadEndpoints(endpoints) {
@@ -2629,60 +2615,7 @@
                 }
             }
 
-            isCORSError(error) {
-                const corsIndicators = [
-                    'CORS policy',
-                    'Access-Control-Allow',
-                    'preflight',
-                    'cross-origin',
-                    'blocked by CORS'
-                ];
-                
-                return corsIndicators.some(indicator => 
-                    error.message.toLowerCase().includes(indicator.toLowerCase())
-                );
-            }
-
-            handleCORSError(endpoint) {
-                if (!this.config.mockMode) {
-                    console.log('🔄 CORS detected - automatically switching to demo mode');
-                    this.config.mockMode = true;
-                    this.updateConnectionStatus('mock');
-                    
-                    // Show user-friendly notification about switching to demo mode
-                    setTimeout(() => {
-                        this.showEnhancedNotification(
-                            'API connection blocked by CORS policy. Switched to demo mode for testing.', 
-                            'info', 
-                            {
-                                title: 'Demo Mode Activated',
-                                subtitle: 'You can test all features with sample data',
-                                duration: 6000,
-                                actions: [{
-                                    text: 'Learn More',
-                                    action: () => {
-                                        this.showEnhancedNotification(
-                                            'CORS (Cross-Origin Resource Sharing) prevents the browser from making requests to different domains. Contact your developer to configure CORS headers on the API server.', 
-                                            'info',
-                                            {
-                                                title: 'CORS Information',
-                                                duration: 8000
-                                            }
-                                        );
-                                    }
-                                }]
-                            }
-                        );
-                    }, 1000);
-                }
-            }
-
             shouldRetry(error) {
-                // Don't retry CORS errors - they won't be fixed by retrying
-                if (this.isCORSError(error) || error.message.includes('CORS_ERROR')) {
-                    return false;
-                }
-                
                 const retryableErrors = [
                     'timeout', 'network', 'Failed to fetch', 
                     'Connection refused', 'Service unavailable',
@@ -2728,8 +2661,7 @@
 
                 const url = `${this.config.apiBaseUrl}${endpoint}`;
                 const headers = {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Content-Type': 'application/json'
                 };
 
                 const authToken = token || this.getSecureToken();
@@ -2737,10 +2669,10 @@
                     headers['Authorization'] = `Bearer ${authToken}`;
                 }
 
-                // Only add CSRF token for same-origin requests or when explicitly enabled
-                if (this.csrfToken && window.location.origin === new URL(this.config.apiBaseUrl).origin) {
-                    headers['X-CSRF-Token'] = this.csrfToken;
-                }
+                // Remove CSRF token that causes CORS issues
+                // if (this.csrfToken) {
+                //     headers['X-CSRF-Token'] = this.csrfToken;
+                // }
 
                 const config = {
                     method,
@@ -2777,20 +2709,18 @@
                     
                 } catch (error) {
                     console.error(`❌ API ${method} ${endpoint} - Error:`, error.message);
-                    
-                    // Detect CORS errors and automatically switch to demo mode
-                    if (this.isCORSError(error)) {
-                        console.log('🚨 CORS Error detected - switching to demo mode');
-                        this.handleCORSError(endpoint);
-                        throw new Error(`CORS_ERROR: ${error.message}`);
-                    }
-                    
                     this.updateConnectionStatus('error');
                     
                     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
                         this.clearSecureToken();
                         this.showLogin();
                         throw new Error('Authentication required. Please log in again.');
+                    }
+                    
+                    // Don't auto-switch to demo mode - let user know about CORS
+                    if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                        console.error('🚨 CORS Error: Your Cloudflare Worker needs CORS headers configured');
+                        throw new Error('CORS Error: Unable to connect to API. Please configure CORS headers in your Cloudflare Worker to allow requests from https://805companies.com');
                     }
                     
                     throw error;
@@ -2850,14 +2780,8 @@
                     error: '<i class="fas fa-exclamation-triangle"></i> Connection Error'
                 };
 
-                const statusTooltips = {
-                    connected: 'Production Mode: Connected to live D1 database. Click to switch to Demo mode.',
-                    mock: 'Demo Mode: Using sample data for testing. Click to try Production mode.',
-                    error: 'Connection Error: API requests failed. Click to retry or switch modes.'
-                };
-
                 statusElement.innerHTML = statusTexts[status] || statusTexts.mock;
-                statusElement.title = statusTooltips[status] || statusTooltips.mock;
+                statusElement.title = `Click to switch to ${this.config.mockMode ? 'Production' : 'Demo'} mode`;
             }
 
             toggleConnectionMode() {
@@ -2866,10 +2790,11 @@
                 
                 let confirmMessage = `Switch from ${currentMode} mode to ${newMode} mode?\n\n`;
                 
-                if (this.config.mockMode) {
-                    confirmMessage += 'Production mode connects to the live D1 database.\n⚠️ Note: CORS errors may occur if the API server is not configured to allow cross-origin requests from this domain.';
+                if (currentMode === 'Demo') {
+                    confirmMessage += 'Production mode connects to the live D1 database.\n';
+                    confirmMessage += 'Note: Make sure your Cloudflare Worker has CORS configured to allow requests from this domain.';
                 } else {
-                    confirmMessage += 'Demo mode uses sample data for testing and development.';
+                    confirmMessage += 'Demo mode uses sample data for testing.';
                 }
                 
                 if (confirm(confirmMessage)) {
@@ -2879,26 +2804,18 @@
                     // Clear cache when switching modes
                     this.cache.clear();
                     
-                    let message, type, subtitle;
-                    
-                    if (this.config.mockMode) {
-                        message = 'Demo mode activated! All bookings will use sample data.';
-                        type = 'info';
-                        subtitle = 'Perfect for testing and demonstrations';
-                    } else {
-                        message = 'Production mode activated! Connecting to live D1 database.';
-                        type = 'success';
-                        subtitle = 'Real data and live API connections';
-                    }
+                    const message = this.config.mockMode ? 
+                        'Demo mode activated! All bookings will use sample data.' : 
+                        'Production mode activated! Connecting to live D1 database.';
                         
+                    const type = this.config.mockMode ? 'info' : 'success';
+                    
                     this.showEnhancedNotification(message, type, {
                         title: `${newMode} Mode Active`,
-                        subtitle: subtitle,
-                        duration: 5000,
-                        actions: [{
-                            text: `Switch back to ${currentMode}`,
-                            action: () => this.toggleConnectionMode()
-                        }]
+                        subtitle: this.config.mockMode ? 
+                            'Click the status indicator to switch back to Production mode' :
+                            'If CORS errors occur, the system will auto-switch back to Demo mode',
+                        duration: 5000
                     });
                     
                     console.log(`🔄 Switched to ${newMode} mode:`, {
@@ -2972,18 +2889,41 @@
                     console.error('Login error:', error);
                     await this.playErrorAnimation(loginBtn);
                     
-                    // Handle CORS errors specially
-                    if (error.message.includes('CORS_ERROR')) {
-                        // Automatically try demo login
-                        setTimeout(() => {
-                            this.attemptDemoLogin(email, password);
-                        }, 1000);
-                        return;
-                    }
-                    
                     let errorMessage = this.getUserFriendlyErrorMessage(error);
                     
-                    errorDiv.textContent = errorMessage;
+                    // Add helpful actions for CORS errors
+                    if (error.message.toLowerCase().includes('cors')) {
+                        errorDiv.innerHTML = `
+                            <div style="margin-bottom: var(--space-3);">
+                                <strong>CORS Configuration Required</strong>
+                            </div>
+                            <div style="margin-bottom: var(--space-3);">
+                                ${errorMessage}
+                            </div>
+                            <div style="font-size: var(--font-sm); opacity: 0.9;">
+                                <strong>Quick Fix:</strong> Add these headers to your Cloudflare Worker:<br>
+                                <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">Access-Control-Allow-Origin: https://805companies.com</code><br>
+                                <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">Access-Control-Allow-Headers: Content-Type, Authorization</code>
+                            </div>
+                            <div style="margin-top: var(--space-4);">
+                                <button onclick="window.portal?.toggleConnectionMode()" style="
+                                    background: var(--secondary);
+                                    color: white;
+                                    border: none;
+                                    padding: var(--space-2) var(--space-3);
+                                    border-radius: var(--radius-md);
+                                    font-size: var(--font-sm);
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                ">
+                                    <i class="fas fa-flask"></i> Switch to Demo Mode
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        errorDiv.textContent = errorMessage;
+                    }
+                    
                     errorDiv.classList.remove('hidden');
                     this.shakeElement(errorDiv);
                 } finally {
@@ -2994,14 +2934,14 @@
             getUserFriendlyErrorMessage(error) {
                 const message = error.message.toLowerCase();
                 
-                if (message.includes('cors_error') || message.includes('cors policy')) {
-                    return 'Connection blocked by browser security policy. Switched to demo mode - you can test all features with sample data.';
+                if (message.includes('cors')) {
+                    return 'CORS Error: Your Cloudflare Worker needs to be configured to allow requests from this domain. Please add the required CORS headers.';
                 } else if (message.includes('401') || message.includes('unauthorized') || message.includes('invalid credentials')) {
                     return 'Invalid email or password. Please check your credentials and try again.';
                 } else if (message.includes('rate limit')) {
                     return 'Too many login attempts. Please wait a moment before trying again.';
-                } else if (message.includes('network') || message.includes('fetch')) {
-                    return 'Network error. Please check your internet connection and try again.';
+                } else if (message.includes('network') || message.includes('fetch') || message.includes('failed to fetch')) {
+                    return 'Unable to connect to the API server. Please check if your Cloudflare Worker is running and has CORS configured.';
                 } else if (message.includes('timeout')) {
                     return 'Request timed out. Please try again.';
                 } else if (message.includes('500') || message.includes('internal server error')) {
@@ -3009,57 +2949,6 @@
                 } else {
                     return 'Login failed. Please try again or contact support if the problem persists.';
                 }
-            }
-
-            async attemptDemoLogin(originalEmail, originalPassword) {
-                console.log('🎭 Attempting demo login after CORS error');
-                
-                try {
-                    // Now we're in mock mode, so this should work
-                    const response = await this.apiCall('/api/auth/login', 'POST', {
-                        email: originalEmail,
-                        password: originalPassword,
-                        clientVersion: '2.0'
-                    });
-
-                    if (response?.success) {
-                        localStorage.setItem('authToken', response.token);
-                        this.currentUser = response.user;
-                        
-                        await this.loadUserData();
-                        this.showPortal();
-                        
-                        this.showEnhancedNotification(
-                            'Logged in successfully with demo mode!', 
-                            'success', 
-                            {
-                                title: 'Demo Login Successful',
-                                subtitle: 'All features available with sample data'
-                            }
-                        );
-                    } else {
-                        // If demo login also fails, show the demo credentials
-                        this.showDemoCredentialsHelper();
-                    }
-                } catch (error) {
-                    console.error('Demo login also failed:', error);
-                    this.showDemoCredentialsHelper();
-                }
-            }
-
-            showDemoCredentialsHelper() {
-                this.showEnhancedNotification(
-                    'Please use the demo credentials: demo@805lifeguard.com / demo123', 
-                    'info', 
-                    {
-                        title: 'Demo Credentials Required',
-                        duration: 6000,
-                        actions: [{
-                            text: 'Auto-fill Demo Credentials',
-                            action: () => this.fillDemoCredentials()
-                        }]
-                    }
-                );
             }
 
             // 🎯 ENHANCED SERVICE SELECTION SYSTEM
@@ -3861,8 +3750,14 @@
                 let errorMessage = '';
                 let errorTitle = 'Booking Error';
                 let showDemoFallback = false;
+                let showCorsHelp = false;
                 
-                if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+                if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                    errorTitle = 'Connection Error';
+                    errorMessage = 'Unable to connect to the API server. This is likely a CORS configuration issue.';
+                    showCorsHelp = true;
+                    showDemoFallback = true;
+                } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
                     errorTitle = 'Server Error (500)';
                     errorMessage = 'The server encountered an error while processing your booking. This may be a database or server configuration issue.';
                     showDemoFallback = true;
@@ -3872,8 +3767,6 @@
                     errorMessage = 'Too many requests. Please wait a moment and try again.';
                 } else if (error.message.includes('timeout')) {
                     errorMessage = 'Request timed out. Please check your connection and try again.';
-                } else if (error.message.includes('Failed to fetch') || error.message.includes('network')) {
-                    errorMessage = 'Network error. Please check your internet connection.';
                 } else {
                     errorMessage = `Booking failed: ${error.message}`;
                 }
@@ -3886,6 +3779,10 @@
                         action: () => this.handleBookingSubmission()
                     }]
                 };
+                
+                if (showCorsHelp) {
+                    notificationOptions.subtitle = 'Your Cloudflare Worker needs CORS headers configured to allow cross-origin requests.';
+                }
                 
                 if (showDemoFallback && !this.config.mockMode) {
                     notificationOptions.actions.unshift({
@@ -4258,15 +4155,10 @@
                         passwordInput.style.borderColor = '';
                     }, 2000);
                     
-                    this.showEnhancedNotification('Demo credentials filled! Logging you in...', 'success', {
-                        title: 'Auto-Login Starting',
-                        duration: 2000
+                    this.showEnhancedNotification('Demo credentials filled! Click Sign In to continue.', 'success', {
+                        title: 'Ready to Login',
+                        duration: 3000
                     });
-                    
-                    // Automatically submit the login form after a brief delay
-                    setTimeout(() => {
-                        this.handleLogin();
-                    }, 1000);
                 }
             }
 
@@ -4729,13 +4621,6 @@
                         emailInput.style.borderColor = '';
                         passwordInput.style.borderColor = '';
                     }, 2000);
-                    
-                    // Try to trigger login if portal is available
-                    setTimeout(() => {
-                        if (window.portal && window.portal.handleLogin) {
-                            window.portal.handleLogin();
-                        }
-                    }, 1000);
                 }
             }
         };
