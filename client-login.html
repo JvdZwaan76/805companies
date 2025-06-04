@@ -1744,7 +1744,7 @@
                         <input type="checkbox" id="rememberMe">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="portal.showForgotPassword(); return false;">Forgot password?</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="showForgotPassword(); return false;">Forgot password?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="loginBtn">
@@ -1775,13 +1775,13 @@
                         <strong>Login Issues?</strong>
                     </p>
                     <div style="display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap;">
-                        <button type="button" class="btn-small btn-edit" onclick="portal.quickDemoLogin()" title="Login instantly with demo account">
+                        <button type="button" class="btn-small btn-edit" onclick="quickDemoLogin()" title="Login instantly with demo account">
                             <i class="fas fa-rocket"></i> Quick Demo
                         </button>
-                        <button type="button" class="btn-small btn-edit" onclick="portal.clearStoredData()" title="Clear cached data">
+                        <button type="button" class="btn-small btn-edit" onclick="clearStoredData()" title="Clear cached data">
                             <i class="fas fa-broom"></i> Clear Data
                         </button>
-                        <button type="button" class="btn-small" onclick="portal.toggleConnectionMode()" style="background: rgba(255, 152, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 152, 0, 0.3);" title="Switch API mode">
+                        <button type="button" class="btn-small" onclick="toggleConnectionMode()" style="background: rgba(255, 152, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 152, 0, 0.3);" title="Switch API mode">
                             <i class="fas fa-exchange-alt"></i> Switch Mode
                         </button>
                     </div>
@@ -1847,7 +1847,7 @@
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn-secondary" onclick="portal.closeRegistrationModal()">Cancel</button>
+                        <button type="button" class="btn-secondary" onclick="closeRegistrationModal()">Cancel</button>
                         <button type="submit" class="btn-primary" id="registrationBtn">
                             <span class="btn-text">Create Account</span>
                             <span class="loading" style="display: none;">
@@ -1884,7 +1884,7 @@
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn-secondary" onclick="portal.closeForgotPassword()">Cancel</button>
+                        <button type="button" class="btn-secondary" onclick="closeForgotPassword()">Cancel</button>
                         <button type="submit" class="btn-primary" id="resetPasswordBtn">
                             <span class="btn-text">Send Reset Link</span>
                             <span class="loading" style="display: none;">
@@ -2170,7 +2170,7 @@
     </div>
 
     <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
-    <div class="connection-status mock" id="connectionStatus" onclick="portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
+    <div class="connection-status mock" id="connectionStatus" onclick="toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
         <i class="fas fa-database"></i> Mock Mode Active
     </div>
 
@@ -2782,8 +2782,8 @@
                                 <div>${errorMessage}</div>
                                 <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
                                     <strong>Try:</strong> demo@805lifeguard.com / demo123<br>
-                                    <a href="#" onclick="portal.clearStoredData(); return false;" style="color: var(--primary);">Clear stored data</a> or 
-                                    <a href="#" onclick="portal.switchToDemo(); return false;" style="color: var(--primary);">switch to demo mode</a>
+                                    <a href="#" onclick="clearStoredData(); return false;" style="color: var(--primary);">Clear stored data</a> or 
+                                    <a href="#" onclick="switchToDemo(); return false;" style="color: var(--primary);">switch to demo mode</a>
                                 </div>
                             `;
                         } else {
@@ -2794,7 +2794,7 @@
                         errorDiv.innerHTML = `
                             <div>${errorMessage}</div>
                             <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
-                                <a href="#" onclick="portal.switchToDemo(); return false;" style="color: var(--primary);">Switch to Demo Mode</a> or try again later
+                                <a href="#" onclick="switchToDemo(); return false;" style="color: var(--primary);">Switch to Demo Mode</a> or try again later
                             </div>
                         `;
                     } else if (errorMessage.includes('timeout') || errorMessage.includes('Failed to fetch')) {
@@ -3907,9 +3907,44 @@
             console.log('💡 TIP: Click the connection status indicator in bottom-right to switch between Production/Demo modes');
         });
 
+        // Simple global functions for HTML onclick handlers
+        function showForgotPassword() {
+            if (window.portal) portal.showForgotPassword();
+        }
+
+        function closeForgotPassword() {
+            if (window.portal) portal.closeForgotPassword();
+        }
+
+        function closeRegistrationModal() {
+            if (window.portal) portal.closeRegistrationModal();
+        }
+
+        function clearStoredData() {
+            if (window.portal) portal.clearStoredData();
+        }
+
+        function quickDemoLogin() {
+            if (window.portal) portal.quickDemoLogin();
+        }
+
+        function switchToDemo() {
+            if (window.portal) portal.switchToDemo();
+        }
+
+        function toggleConnectionMode() {
+            if (window.portal) portal.toggleConnectionMode();
+        }
+
         // Global error handling
         window.addEventListener('error', (event) => {
             console.error('🚨 Global Error:', event.error);
+            console.error('🔍 Error details:', {
+                message: event.message,
+                filename: event.filename,
+                lineno: event.lineno,
+                colno: event.colno
+            });
         });
 
         window.addEventListener('unhandledrejection', (event) => {
