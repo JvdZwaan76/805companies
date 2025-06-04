@@ -1,4 +1,46 @@
-<!DOCTYPE html>
+// Add essential methods for troubleshooting buttons
+            window.portal.clearStoredData = function() {
+                portal.clearStoredData();
+            };
+
+            window.portal.quickDemoLogin = function() {
+                portal.quickDemoLogin();
+            };
+
+            window.portal.switchToDemo = function() {
+                portal.switchToDemo();
+            };
+
+            window.portal.toggleConnectionMode = function() {
+                portal.toggleConnectionMode();
+            };            showForgotPassword() {
+                const modal = document.getElementById('forgotPasswordModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Pre-fill email if available
+                    const currentEmail = document.getElementById('email').value;
+                    if (currentEmail) {
+                        document.getElementById('resetEmail').value = currentEmail;
+                    }
+                    
+                    this.showEnhancedNotification('Password reset functionality available in production.', 'info', {
+                        title: 'Password Reset',
+                        subtitle: 'For now, try demo credentials: demo@805lifeguard.com / demo123',
+                        duration: 6000
+                    });
+                }
+            }
+
+            closeForgotPassword() {
+                const modal = document.getElementById('forgotPasswordModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('forgotPasswordForm').reset();
+                }
+            }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1702,7 +1744,7 @@
                         <input type="checkbox" id="rememberMe">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="portal.showForgotPassword()">Forgot password?</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="portal.showForgotPassword(); return false;">Forgot password?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="loginBtn">
@@ -1725,6 +1767,24 @@
                     <button type="button" class="btn-secondary" id="demoModeBtn" style="border: 2px solid var(--secondary); color: var(--secondary);">
                         <i class="fas fa-play-circle"></i> Demo Mode
                     </button>
+                </div>
+                
+                <!-- 🚨 TROUBLESHOOTING SECTION -->
+                <div style="margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid #e9ecef;">
+                    <p style="color: var(--gray); font-size: var(--font-sm); margin-bottom: var(--space-3);">
+                        <strong>Login Issues?</strong>
+                    </p>
+                    <div style="display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap;">
+                        <button type="button" class="btn-small btn-edit" onclick="portal.quickDemoLogin()" title="Login instantly with demo account">
+                            <i class="fas fa-rocket"></i> Quick Demo
+                        </button>
+                        <button type="button" class="btn-small btn-edit" onclick="portal.clearStoredData()" title="Clear cached data">
+                            <i class="fas fa-broom"></i> Clear Data
+                        </button>
+                        <button type="button" class="btn-small" onclick="portal.toggleConnectionMode()" style="background: rgba(255, 152, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 152, 0, 0.3);" title="Switch API mode">
+                            <i class="fas fa-exchange-alt"></i> Switch Mode
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -2356,27 +2416,64 @@
             }
 
             async validateToken(token) {
+                console.log('🔍 Validating stored token...', {
+                    tokenLength: token ? token.length : 0,
+                    apiMode: this.config.mockMode ? 'Demo' : 'Production'
+                });
+
                 try {
                     const cacheKey = `profile_${token}`;
                     let response = this.getCachedData(cacheKey);
                     
                     if (!response) {
+                        console.log('📤 Fetching user profile from API...');
                         response = await this.apiCall('/api/user/profile', 'GET', null, token);
                         this.setCachedData(cacheKey, response);
+                    } else {
+                        console.log('📋 Using cached profile data');
                     }
                     
                     if (response && response.success) {
+                        console.log('✅ Token validation successful:', response.user);
                         this.currentUser = response.user;
                         await this.loadUserData();
                         this.showPortal();
                     } else {
+                        console.log('❌ Token validation failed:', response);
                         this.clearSecureToken();
                         this.showLogin();
                     }
                 } catch (error) {
-                    console.error('Token validation error:', error);
-                    this.clearSecureToken();
-                    this.showLogin();
+                    console.error('❌ Token validation error:', {
+                        message: error.message,
+                        tokenProvided: !!token,
+                        apiMode: this.config.mockMode ? 'Demo' : 'Production'
+                    });
+                    
+                    if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+                        console.log('🔄 Token expired or invalid, clearing and showing login');
+                        this.clearSecureToken();
+                        this.showLogin();
+                        
+                        // Show helpful message
+                        setTimeout(() => {
+                            this.showEnhancedNotification('Your session has expired. Please log in again.', 'info', {
+                                title: 'Session Expired',
+                                duration: 5000
+                            });
+                        }, 500);
+                    } else {
+                        console.log('🔄 Network or server error during token validation');
+                        this.clearSecureToken();
+                        this.showLogin();
+                        
+                        setTimeout(() => {
+                            this.showEnhancedNotification('Unable to verify your session. Please log in again.', 'warning', {
+                                title: 'Connection Issue',
+                                duration: 5000
+                            });
+                        }, 500);
+                    }
                 }
             }
 
@@ -2603,12 +2700,19 @@
                 }
             }
 
-            // 🔐 ENHANCED LOGIN
+            // 🔐 ENHANCED LOGIN WITH DEBUGGING
             async handleLogin() {
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
                 const loginBtn = document.getElementById('loginBtn');
                 const errorDiv = document.getElementById('loginError');
+
+                console.log('🔐 Login attempt:', {
+                    email: email,
+                    passwordLength: password.length,
+                    apiMode: this.config.mockMode ? 'Demo' : 'Production',
+                    apiEndpoint: `${this.config.apiBaseUrl}/api/auth/login`
+                });
 
                 if (!this.validateEmail(email)) {
                     this.showFieldError('email', 'Please enter a valid email address');
@@ -2625,12 +2729,18 @@
                 this.clearFieldErrors();
 
                 try {
-                    const response = await this.apiCall('/api/auth/login', 'POST', {
-                        email,
-                        password
-                    });
+                    const loginData = { email, password };
+                    console.log('📤 Sending login request:', { email, passwordProvided: !!password });
+
+                    const response = await this.apiCall('/api/auth/login', 'POST', loginData);
+                    console.log('📥 Login response:', response);
 
                     if (response && response.success) {
+                        console.log('✅ Login successful:', {
+                            user: response.user,
+                            tokenReceived: !!response.token
+                        });
+
                         localStorage.setItem('authToken', response.token);
                         this.currentUser = response.user;
                         
@@ -2652,20 +2762,96 @@
                     }
 
                 } catch (error) {
-                    console.error('Login error:', error);
+                    console.error('❌ Login error details:', {
+                        message: error.message,
+                        email: email,
+                        apiMode: this.config.mockMode ? 'Demo' : 'Production',
+                        endpoint: `${this.config.apiBaseUrl}/api/auth/login`
+                    });
+                    
                     await this.playErrorAnimation(loginBtn);
                     
                     let errorMessage = error.message || 'Login failed. Please try again.';
-                    if (errorMessage.includes('401') || errorMessage.includes('Unauthorized')) {
+                    
+                    if (errorMessage.includes('401') || errorMessage.includes('Unauthorized') || errorMessage.includes('Invalid credentials')) {
                         errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+                        
+                        // Show helpful suggestions without complex HTML
+                        if (!this.config.mockMode) {
+                            errorDiv.innerHTML = `
+                                <div>${errorMessage}</div>
+                                <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
+                                    <strong>Try:</strong> demo@805lifeguard.com / demo123<br>
+                                    <a href="#" onclick="portal.clearStoredData(); return false;" style="color: var(--primary);">Clear stored data</a> or 
+                                    <a href="#" onclick="portal.switchToDemo(); return false;" style="color: var(--primary);">switch to demo mode</a>
+                                </div>
+                            `;
+                        } else {
+                            errorDiv.textContent = errorMessage;
+                        }
+                    } else if (errorMessage.includes('500') || errorMessage.includes('Internal Server Error')) {
+                        errorMessage = 'Server error during login. The authentication service may be down.';
+                        errorDiv.innerHTML = `
+                            <div>${errorMessage}</div>
+                            <div style="margin-top: var(--space-3); font-size: var(--font-sm); opacity: 0.9;">
+                                <a href="#" onclick="portal.switchToDemo(); return false;" style="color: var(--primary);">Switch to Demo Mode</a> or try again later
+                            </div>
+                        `;
+                    } else if (errorMessage.includes('timeout') || errorMessage.includes('Failed to fetch')) {
+                        errorMessage = 'Connection timeout. Please check your internet connection.';
+                        errorDiv.textContent = errorMessage;
+                    } else {
+                        errorDiv.textContent = errorMessage;
                     }
                     
-                    errorDiv.textContent = errorMessage;
+                    if (!errorDiv.innerHTML.includes('<div')) {
+                        errorDiv.textContent = errorMessage;
+                    }
+                    
                     errorDiv.classList.remove('hidden');
                     this.shakeElement(errorDiv);
                 } finally {
                     this.hideLoadingState(loginBtn, 'Sign In');
                 }
+            }
+
+            // 🧹 UTILITY METHODS FOR LOGIN TROUBLESHOOTING
+            clearStoredData() {
+                console.log('🧹 Clearing all stored authentication data...');
+                localStorage.removeItem('authToken');
+                sessionStorage.clear();
+                this.cache.clear();
+                this.currentUser = null;
+                
+                // Clear form
+                document.getElementById('loginForm').reset();
+                document.getElementById('loginError').classList.add('hidden');
+                
+                this.showEnhancedNotification('All stored data cleared. Please try logging in again.', 'info', {
+                    title: 'Data Cleared',
+                    duration: 5000
+                });
+                
+                console.log('✅ Stored data cleared successfully');
+            }
+
+            switchToDemo() {
+                console.log('🎭 Switching to demo mode for troubleshooting...');
+                this.config.mockMode = true;
+                this.updateConnectionStatus('mock');
+                
+                // Pre-fill demo credentials
+                document.getElementById('email').value = 'demo@805lifeguard.com';
+                document.getElementById('password').value = 'demo123';
+                
+                this.showEnhancedNotification('Demo mode activated! Demo credentials have been filled in.', 'info', {
+                    title: 'Demo Mode Active',
+                    subtitle: 'Click "Sign In" to continue with demo data',
+                    duration: 6000
+                });
+                
+                // Clear any error messages
+                document.getElementById('loginError').classList.add('hidden');
             }
 
             // 🎯 SERVICE SELECTION - THE MAIN FIX
@@ -2815,6 +3001,7 @@
             }
 
             showEnhancedNotification(message, type = 'success', options = {}) {
+                // Remove any existing notifications
                 document.querySelectorAll('.notification').forEach(notification => {
                     notification.remove();
                 });
@@ -2832,33 +3019,68 @@
                 const icon = type === 'success' ? 'check-circle' : 
                            type === 'error' ? 'exclamation-triangle' : 'info-circle';
                 
-                notification.innerHTML = `
-                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
-                        <div style="flex-shrink: 0;">
-                            <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
-                        </div>
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="font-weight: 700; margin-bottom: var(--space-1); font-size: var(--font-lg);">${title}</div>
-                            <div style="font-size: var(--font-base); opacity: 0.95; margin-bottom: var(--space-1);">${message}</div>
-                            ${subtitle ? `<div style="font-size: var(--font-sm); opacity: 0.8;">${subtitle}</div>` : ''}
-                        </div>
-                        <button onclick="this.parentElement.parentElement.remove()" style="
-                            background: none;
-                            border: none;
-                            color: inherit;
-                            font-size: var(--font-lg);
-                            cursor: pointer;
-                            opacity: 0.7;
-                            padding: var(--space-1);
-                            border-radius: var(--radius-sm);
-                            transition: var(--transition-smooth);
-                            flex-shrink: 0;
-                        " onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.opacity='0.7'; this.style.background='none'">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                `;
+                // Create clean, simple HTML structure
+                const titleDiv = document.createElement('div');
+                titleDiv.style.fontWeight = '700';
+                titleDiv.style.marginBottom = 'var(--space-1)';
+                titleDiv.style.fontSize = 'var(--font-lg)';
+                titleDiv.textContent = title;
                 
+                const messageDiv = document.createElement('div');
+                messageDiv.style.fontSize = 'var(--font-base)';
+                messageDiv.style.opacity = '0.95';
+                messageDiv.style.marginBottom = 'var(--space-1)';
+                messageDiv.textContent = message;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.style.flex = '1';
+                contentDiv.style.minWidth = '0';
+                contentDiv.appendChild(titleDiv);
+                contentDiv.appendChild(messageDiv);
+                
+                if (subtitle) {
+                    const subtitleDiv = document.createElement('div');
+                    subtitleDiv.style.fontSize = 'var(--font-sm)';
+                    subtitleDiv.style.opacity = '0.8';
+                    subtitleDiv.textContent = subtitle;
+                    contentDiv.appendChild(subtitleDiv);
+                }
+                
+                const iconDiv = document.createElement('div');
+                iconDiv.style.flexShrink = '0';
+                iconDiv.innerHTML = `<i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>`;
+                
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                closeBtn.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: inherit;
+                    font-size: var(--font-lg);
+                    cursor: pointer;
+                    opacity: 0.7;
+                    padding: var(--space-1);
+                    border-radius: var(--radius-sm);
+                    transition: var(--transition-smooth);
+                    flex-shrink: 0;
+                `;
+                closeBtn.onclick = () => notification.remove();
+                closeBtn.onmouseover = () => {
+                    closeBtn.style.opacity = '1';
+                    closeBtn.style.background = 'rgba(255,255,255,0.2)';
+                };
+                closeBtn.onmouseout = () => {
+                    closeBtn.style.opacity = '0.7';
+                    closeBtn.style.background = 'none';
+                };
+                
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'display: flex; align-items: flex-start; gap: var(--space-4);';
+                wrapper.appendChild(iconDiv);
+                wrapper.appendChild(contentDiv);
+                wrapper.appendChild(closeBtn);
+                
+                notification.appendChild(wrapper);
                 document.body.appendChild(notification);
                 
                 requestAnimationFrame(() => {
@@ -3400,18 +3622,36 @@
                 console.log('🎭 Enabling demo mode...');
                 this.config.mockMode = true;
                 
-                this.currentUser = {
-                    name: 'Demo User',
-                    email: 'demo@805lifeguard.com'
-                };
+                // Pre-fill demo credentials
+                document.getElementById('email').value = 'demo@805lifeguard.com';
+                document.getElementById('password').value = 'demo123';
                 
-                this.showPortal();
                 this.updateConnectionStatus('mock');
                 
-                this.showEnhancedNotification('Welcome to the demo!', 'info', {
+                this.showEnhancedNotification('Demo mode activated! Demo credentials filled in automatically.', 'info', {
                     title: 'Demo Mode Active',
-                    subtitle: 'Explore all features with sample data'
+                    subtitle: 'Click "Sign In" to continue, or manually enter: demo@805lifeguard.com / demo123',
+                    duration: 8000
                 });
+                
+                // Clear any existing errors
+                document.getElementById('loginError').classList.add('hidden');
+                
+                console.log('✅ Demo mode ready - credentials pre-filled');
+            }
+
+            // Quick demo login - logs in automatically
+            async quickDemoLogin() {
+                console.log('⚡ Quick demo login initiated...');
+                this.config.mockMode = true;
+                this.updateConnectionStatus('mock');
+                
+                // Set demo credentials
+                document.getElementById('email').value = 'demo@805lifeguard.com';
+                document.getElementById('password').value = 'demo123';
+                
+                // Auto-login
+                await this.handleLogin();
             }
 
             async loadUserData() {
