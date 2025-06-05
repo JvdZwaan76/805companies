@@ -1709,13 +1709,23 @@
             margin-top: var(--space-1);
         }
 
-/* Hide all cost and pricing displays for customized client pricing */
+        /* Hide all cost and pricing displays for customized client pricing */
         #costDisplay,
         .cost-display,
         .price-display,
         .pricing-info {
             display: none !important;
             visibility: hidden !important;
+        }
+
+        /* Enhanced booking summary styling */
+        #bookingSummary {
+            transition: var(--transition-spring);
+        }
+
+        #bookingSummary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
         }
     </style>
 </head>
@@ -2098,15 +2108,38 @@
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="participants" class="form-label">Participants</label>
-                        <select id="participants" class="form-input" aria-describedby="participants-help">
-                            <option value="1">1 Person</option>
-                            <option value="2">2 People</option>
-                            <option value="3">3 People</option>
-                            <option value="4">4 People</option>
-                            <option value="5">5+ People</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="participants" class="form-label">Participants</label>
+                            <select id="participants" class="form-input" aria-describedby="participants-help">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5+ People</option>
+                            </select>
+                            <div id="participants-help" style="font-size: var(--font-sm); color: var(--gray); margin-top: var(--space-1);">Number of people for this booking</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Booking Summary</label>
+                            <div style="
+                                padding: var(--space-5) var(--space-6);
+                                border: 2px solid rgba(30, 136, 229, 0.3);
+                                border-radius: var(--radius-lg);
+                                background: rgba(30, 136, 229, 0.1);
+                                font-size: var(--font-base);
+                                font-weight: 600;
+                                color: var(--primary);
+                                text-align: center;
+                                min-height: 80px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            " id="bookingSummary">
+                                Select all options to see summary
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -3083,6 +3116,11 @@
                     // 🏊‍♂️ Show and populate duration options
                     this.showDurationOptions(serviceType);
                     
+                    // Update booking summary if we have duration selected
+                    if (this.selectedDuration) {
+                        this.updateBookingSummary();
+                    }
+                    
                     // Generate time slots for current date if available
                     if (this.selectedDate && this.selectedDuration) {
                         this.generateEnhancedTimeSlots();
@@ -3195,8 +3233,8 @@
                 this.selectedDuration = duration;
                 console.log('✅ Duration stored and validated:', this.selectedDuration);
                 
-                // Cost display removed for customized client pricing
-                // this.updateCostDisplay();
+                // Update booking summary display
+                this.updateBookingSummary();
                 
                 // Show selection feedback
                 const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
@@ -3864,10 +3902,10 @@
                     this.handleLogout();
                 });
 
-                // Participants dropdown change event - cost display removed for customized pricing
-                // document.getElementById('participants')?.addEventListener('change', () => {
-                //     this.updateCostDisplay();
-                // });
+                // Participants dropdown change event - update booking summary
+                document.getElementById('participants')?.addEventListener('change', () => {
+                    this.updateBookingSummary();
+                });
 
                 // Setup service selection - will be called again when modal opens
                 setTimeout(() => {
@@ -4602,10 +4640,13 @@
                         timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
                     }
                     
-                    // Cost display hidden for customized client pricing
-                    const costDisplay = document.getElementById('costDisplay');
-                    if (costDisplay) {
-                        costDisplay.style.display = 'none';
+                    // Reset booking summary display
+                    const summaryDisplay = document.getElementById('bookingSummary');
+                    if (summaryDisplay) {
+                        summaryDisplay.innerHTML = 'Select all options to see summary';
+                        summaryDisplay.style.borderColor = 'rgba(108, 117, 125, 0.3)';
+                        summaryDisplay.style.background = 'rgba(248, 249, 250, 0.5)';
+                        summaryDisplay.style.color = 'var(--gray)';
                     }
                 }
             }
