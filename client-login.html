@@ -3251,8 +3251,9 @@
                 this.selectedDuration = duration;
                 console.log('✅ Duration stored and validated:', this.selectedDuration);
                 
-                // Update booking summary
-                this.updateBookingSummary();
+                // TEMPORARY: Disable booking summary update to avoid cost error
+                // this.updateBookingSummary();
+                console.log('📋 Booking summary update temporarily disabled to avoid cost error');
                 
                 // Show selection feedback
                 const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
@@ -3853,8 +3854,9 @@
                 this.selectedTimeData = slot;
                 console.log('✅ Time stored and validated:', this.selectedTime);
                 
-                // Update booking summary
-                this.updateBookingSummary();
+                // TEMPORARY: Disable booking summary update to avoid cost error
+                // this.updateBookingSummary();
+                console.log('📋 Booking summary update temporarily disabled for time selection');
                 
                 // Show selection feedback
                 this.showEnhancedNotification(
@@ -3983,7 +3985,9 @@
 
                 // Participants dropdown change
                 document.getElementById('participants')?.addEventListener('change', () => {
-                    this.updateBookingSummary();
+                    // TEMPORARY: Disable booking summary update to avoid cost error
+                    // this.updateBookingSummary();
+                    console.log('📋 Participants changed - booking summary update temporarily disabled');
                 });
 
                 // Setup service selection - will be called again when modal opens
