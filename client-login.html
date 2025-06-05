@@ -4597,6 +4597,18 @@
                 const participants = document.getElementById('participants')?.value || '1';
                 const specialRequests = document.getElementById('specialRequests')?.value || '';
 
+                // Clean timeSlotData to remove any cost references
+                let cleanTimeSlotData = null;
+                if (this.selectedTimeData) {
+                    cleanTimeSlotData = {
+                        time: this.selectedTimeData.time,
+                        hour: this.selectedTimeData.hour,
+                        minute: this.selectedTimeData.minute || 0,
+                        available: this.selectedTimeData.available
+                        // Explicitly exclude 'cost' field
+                    };
+                }
+
                 return {
                     service: this.selectedService,
                     serviceName: this.serviceConfig[this.selectedService].name,
@@ -4605,7 +4617,7 @@
                     duration: parseFloat(this.selectedDuration),
                     participants: parseInt(participants),
                     specialRequests: specialRequests.trim() || null,
-                    timeSlotData: this.selectedTimeData,
+                    timeSlotData: cleanTimeSlotData,
                     clientVersion: '2.0',
                     timestamp: new Date().toISOString()
                 };
@@ -4852,9 +4864,16 @@
                         };
                     
                     case '/api/availability/slots':
+                        // Generate mock time slots without cost data
+                        const mockTimeSlots = this.generateMockTimeSlots().map(slot => {
+                            // Remove any cost references from mock data
+                            const { cost, ...cleanSlot } = slot;
+                            return cleanSlot;
+                        });
+                        
                         return {
                             success: true,
-                            slots: this.generateMockTimeSlots()
+                            slots: mockTimeSlots
                         };
                     
                     default:
