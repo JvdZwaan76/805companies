@@ -1708,6 +1708,66 @@
             color: var(--gray);
             margin-top: var(--space-1);
         }
+
+        /* 📋 BOOKING SUMMARY STYLES */
+        .booking-summary {
+            background: rgba(30, 136, 229, 0.05);
+            border: 2px solid rgba(30, 136, 229, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-top: var(--space-6);
+            transition: var(--transition-spring);
+        }
+
+        .booking-summary-title {
+            color: var(--primary);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 800;
+            font-size: var(--font-lg);
+        }
+
+        .booking-summary-grid {
+            display: grid;
+            gap: var(--space-3);
+        }
+
+        .booking-summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2) 0;
+        }
+
+        .booking-summary-label {
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .booking-summary-value {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .booking-summary-total {
+            border-top: 1px solid rgba(30, 136, 229, 0.2);
+            padding-top: var(--space-3);
+            margin-top: var(--space-2);
+        }
+
+        .booking-summary-total .booking-summary-label {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: var(--font-lg);
+        }
+
+        .booking-summary-total .booking-summary-value {
+            font-weight: 900;
+            font-size: var(--font-xl);
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -2105,6 +2165,11 @@
                         <div id="requests-help" style="font-size: var(--font-sm); color: var(--gray); margin-top: var(--space-1);">Optional: Add any special requirements or notes</div>
                     </div>
                     
+                    <!-- 📋 BOOKING SUMMARY -->
+                    <div id="bookingSummary" class="booking-summary" style="display: none;">
+                        <!-- Booking summary will be populated by JavaScript -->
+                    </div>
+                    
                     <div class="modal-actions">
                         <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
                         <button type="submit" class="btn-primary" id="submitBooking" disabled>
@@ -2138,6 +2203,7 @@
          * 6. ✅ Improved User Experience with Duration Feedback
          * 7. ✅ Real-time Cost Updates
          * 8. ✅ Enhanced Form Validation
+         * 9. ✅ Interactive Booking Summary
          * 
          * CONFIGURATION:
          * - Update API URL below for your Cloudflare Worker
@@ -3185,8 +3251,8 @@
                 this.selectedDuration = duration;
                 console.log('✅ Duration stored and validated:', this.selectedDuration);
                 
-                // Update cost display
-                this.updateCostDisplay();
+                // Update booking summary
+                this.updateBookingSummary();
                 
                 // Show selection feedback
                 const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
@@ -3208,44 +3274,88 @@
                 this.validateBookingFormWithAnimation();
             }
 
-            // 🏊‍♂️ NEW: Enhanced Cost Calculation and Display
-            updateCostDisplay() {
-                const costDisplay = document.getElementById('costDisplay');
-                if (!costDisplay) return;
+            // 📋 NEW: Update Booking Summary Display (FIXED METHOD)
+            updateBookingSummary() {
+                const summaryContainer = document.getElementById('bookingSummary');
                 
-                if (!this.selectedService || !this.selectedDuration) {
-                    costDisplay.textContent = 'Select service & duration';
-                    costDisplay.style.borderColor = 'rgba(108, 117, 125, 0.3)';
-                    costDisplay.style.background = 'rgba(248, 249, 250, 0.5)';
-                    costDisplay.style.color = 'var(--gray)';
+                // If no summary container exists, skip gracefully
+                if (!summaryContainer) {
+                    console.log('📋 No booking summary container found, skipping summary update');
                     return;
                 }
                 
-                const participants = parseInt(document.getElementById('participants')?.value || '1');
-                const cost = this.calculateTotalCost();
-                
-                if (cost) {
-                    const serviceConfig = this.serviceConfig[this.selectedService];
-                    const durationLabel = serviceConfig.durationLabels[this.selectedDuration]?.label || `${this.selectedDuration}h`;
-                    
-                    costDisplay.innerHTML = `
-                        <div style="font-size: var(--font-2xl); margin-bottom: var(--space-1);">${cost}</div>
-                        <div style="font-size: var(--font-sm); opacity: 0.8;">${durationLabel} • ${participants} participant${participants > 1 ? 's' : ''}</div>
-                    `;
-                    costDisplay.style.borderColor = 'rgba(76, 175, 80, 0.5)';
-                    costDisplay.style.background = 'rgba(76, 175, 80, 0.1)';
-                    costDisplay.style.color = 'var(--success)';
-                    
-                    // Animate cost update
-                    costDisplay.style.transform = 'scale(1.05)';
-                    setTimeout(() => {
-                        costDisplay.style.transform = 'scale(1)';
-                    }, 200);
-                } else {
-                    costDisplay.textContent = 'Calculating...';
+                // If we don't have enough data, hide summary
+                if (!this.selectedService || !this.selectedDate) {
+                    summaryContainer.style.display = 'none';
+                    return;
                 }
+                
+                const serviceConfig = this.serviceConfig[this.selectedService];
+                const serviceName = serviceConfig?.name || this.selectedService;
+                const durationLabel = this.selectedDuration ? 
+                    (serviceConfig?.durationLabels[this.selectedDuration]?.label || `${this.selectedDuration}h`) : 
+                    'Not selected';
+                
+                const participants = parseInt(document.getElementById('participants')?.value || '1');
+                
+                summaryContainer.innerHTML = `
+                    <h4 class="booking-summary-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        Booking Summary
+                    </h4>
+                    
+                    <div class="booking-summary-grid">
+                        <div class="booking-summary-item">
+                            <span class="booking-summary-label">Service:</span>
+                            <span class="booking-summary-value">${serviceName}</span>
+                        </div>
+                        
+                        ${this.selectedDuration ? `
+                        <div class="booking-summary-item">
+                            <span class="booking-summary-label">Duration:</span>
+                            <span class="booking-summary-value">${durationLabel}</span>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="booking-summary-item">
+                            <span class="booking-summary-label">Date:</span>
+                            <span class="booking-summary-value">${this.selectedDate.toLocaleDateString('en-US', { 
+                                weekday: 'short', 
+                                month: 'short', 
+                                day: 'numeric' 
+                            })}</span>
+                        </div>
+                        
+                        ${this.selectedTime ? `
+                        <div class="booking-summary-item">
+                            <span class="booking-summary-label">Time:</span>
+                            <span class="booking-summary-value">${this.selectedTime}</span>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="booking-summary-item">
+                            <span class="booking-summary-label">Participants:</span>
+                            <span class="booking-summary-value">${participants}</span>
+                        </div>
+                        
+                        ${cost ? `
+                        <div class="booking-summary-item booking-summary-total">
+                            <span class="booking-summary-label">Estimated Cost:</span>
+                            <span class="booking-summary-value">${cost}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                // Show and animate the summary
+                summaryContainer.style.display = 'block';
+                summaryContainer.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    summaryContainer.style.transform = 'scale(1)';
+                }, 200);
             }
 
+            // 🏊‍♂️ NEW: Enhanced Cost Calculation and Display
             calculateTotalCost() {
                 if (!this.selectedService || !this.selectedDuration) return null;
                 
@@ -3620,8 +3730,8 @@
                     timeSlots.push({
                         time: time12,
                         hour: hour,
-                        available: isAvailable,
-                        cost: this.calculateSlotCost(this.selectedService, this.selectedDuration, 1)
+                        minute: 0,
+                        available: isAvailable
                     });
                 });
                 
@@ -3742,6 +3852,9 @@
                 this.selectedTime = slot.time;
                 this.selectedTimeData = slot;
                 console.log('✅ Time stored and validated:', this.selectedTime);
+                
+                // Update booking summary
+                this.updateBookingSummary();
                 
                 // Show selection feedback
                 this.showEnhancedNotification(
@@ -3870,7 +3983,7 @@
 
                 // Participants dropdown change
                 document.getElementById('participants')?.addEventListener('change', () => {
-                    this.updateCostDisplay();
+                    this.updateBookingSummary();
                 });
 
                 // Setup service selection - will be called again when modal opens
@@ -4488,7 +4601,6 @@
                     duration: parseFloat(this.selectedDuration),
                     participants: parseInt(participants),
                     specialRequests: specialRequests.trim() || null,
-                    estimatedCost: this.calculateTotalCost(),
                     timeSlotData: this.selectedTimeData,
                     clientVersion: '2.0',
                     timestamp: new Date().toISOString()
@@ -4600,16 +4712,16 @@
                         durationGroup.style.display = 'none';
                     }
                     
+                    // Hide booking summary
+                    const summaryContainer = document.getElementById('bookingSummary');
+                    if (summaryContainer) {
+                        summaryContainer.style.display = 'none';
+                    }
+                    
                     // Reset time slots container
                     const timeSlotsContainer = document.getElementById('timeSlots');
                     if (timeSlotsContainer) {
                         timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
-                    }
-                    
-                    // Cost display hidden for customized client pricing
-                    const costDisplay = document.getElementById('costDisplay');
-                    if (costDisplay) {
-                        costDisplay.style.display = 'none';
                     }
                 }
             }
@@ -4713,7 +4825,6 @@
                                 id: 'mock-' + Date.now(),
                                 ...data,
                                 status: 'confirmed',
-                                cost: this.calculateSlotCost(data.service, data.duration, data.participants),
                                 created_at: new Date().toISOString(),
                                 confirmation_code: 'DEMO' + Math.random().toString(36).substr(2, 6).toUpperCase()
                             };
