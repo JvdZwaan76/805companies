@@ -1708,25 +1708,6 @@
             color: var(--gray);
             margin-top: var(--space-1);
         }
-
-        /* Hide all cost and pricing displays for customized client pricing */
-        #costDisplay,
-        .cost-display,
-        .price-display,
-        .pricing-info {
-            display: none !important;
-            visibility: hidden !important;
-        }
-
-        /* Enhanced booking summary styling */
-        #bookingSummary {
-            transition: var(--transition-spring);
-        }
-
-        #bookingSummary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
     </style>
 </head>
 <body>
@@ -2096,8 +2077,7 @@
                     <div class="form-group duration-selection" id="durationGroup" style="display: none;">
                         <label class="form-label">Duration</label>
                         <div class="duration-grid" id="durationGrid" role="radiogroup" aria-label="Duration selection">
-                <!-- Duration options will be populated by JavaScript - pricing hidden for customized client rates -->
-                            </div>
+                            <!-- Duration options will be populated by JavaScript -->
                         </div>
                     </div>
                     
@@ -2108,38 +2088,15 @@
                         </div>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="participants" class="form-label">Participants</label>
-                            <select id="participants" class="form-input" aria-describedby="participants-help">
-                                <option value="1">1 Person</option>
-                                <option value="2">2 People</option>
-                                <option value="3">3 People</option>
-                                <option value="4">4 People</option>
-                                <option value="5">5+ People</option>
-                            </select>
-                            <div id="participants-help" style="font-size: var(--font-sm); color: var(--gray); margin-top: var(--space-1);">Number of people for this booking</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Booking Summary</label>
-                            <div style="
-                                padding: var(--space-5) var(--space-6);
-                                border: 2px solid rgba(30, 136, 229, 0.3);
-                                border-radius: var(--radius-lg);
-                                background: rgba(30, 136, 229, 0.1);
-                                font-size: var(--font-base);
-                                font-weight: 600;
-                                color: var(--primary);
-                                text-align: center;
-                                min-height: 80px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            " id="bookingSummary">
-                                Select all options to see summary
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="participants" class="form-label">Participants</label>
+                        <select id="participants" class="form-input" aria-describedby="participants-help">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5+ People</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
@@ -2237,7 +2194,7 @@
                 this.serviceConfig = {
                     'swim-lesson': {
                         name: 'Private Swim Lesson',
-                        // baseCost removed for customized client pricing
+                        baseCost: 75,
                         duration: [0.5, 0.75, 1, 1.5, 2], // REFINED: Added 30min and 45min options
                         maxParticipants: 4,
                         availableHours: [9, 10, 14, 15, 16, 17],
@@ -2251,7 +2208,7 @@
                     },
                     'lifeguard': {
                         name: 'Lifeguard Service',
-                        // baseCost removed for customized client pricing
+                        baseCost: 50,
                         duration: [2, 3, 4, 6, 8],
                         maxParticipants: 50,
                         availableHours: [8, 10, 12, 14, 16, 18],
@@ -2265,7 +2222,7 @@
                     },
                     'event': {
                         name: 'Special Event Coverage',
-                        // baseCost removed for customized client pricing
+                        baseCost: 100,
                         duration: [2, 3, 4, 6, 8],
                         maxParticipants: 100,
                         availableHours: [10, 12, 14, 16, 18],
@@ -3116,11 +3073,6 @@
                     // 🏊‍♂️ Show and populate duration options
                     this.showDurationOptions(serviceType);
                     
-                    // Update booking summary if we have duration selected
-                    if (this.selectedDuration) {
-                        this.updateBookingSummary();
-                    }
-                    
                     // Generate time slots for current date if available
                     if (this.selectedDate && this.selectedDuration) {
                         this.generateEnhancedTimeSlots();
@@ -3233,8 +3185,8 @@
                 this.selectedDuration = duration;
                 console.log('✅ Duration stored and validated:', this.selectedDuration);
                 
-                // Update booking summary display
-                this.updateBookingSummary();
+                // Update cost display
+                this.updateCostDisplay();
                 
                 // Show selection feedback
                 const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
@@ -3295,8 +3247,16 @@
             }
 
             calculateTotalCost() {
-                // Cost calculation hidden for customized client pricing
-                return null;
+                if (!this.selectedService || !this.selectedDuration) return null;
+                
+                const serviceConfig = this.serviceConfig[this.selectedService];
+                const participants = parseInt(document.getElementById('participants')?.value || '1');
+                
+                const baseCost = serviceConfig.baseCost;
+                const durationMultiplier = this.selectedDuration;
+                const participantMultiplier = Math.max(1, participants);
+                
+                return Math.round(baseCost * durationMultiplier * participantMultiplier);
             }
 
             // 📅 ENHANCED CALENDAR SYSTEM WITH D1 INTEGRATION
@@ -3661,7 +3621,7 @@
                         time: time12,
                         hour: hour,
                         available: isAvailable,
-                        cost: 0 // Set to 0 but keep property for compatibility
+                        cost: this.calculateSlotCost(this.selectedService, this.selectedDuration, 1)
                     });
                 });
                 
@@ -3676,8 +3636,14 @@
             }
 
             calculateSlotCost(service, duration, participants) {
-                // Cost calculation hidden for customized client pricing
-                return null;
+                const config = this.serviceConfig[service];
+                if (!config) return 0;
+                
+                const baseCost = config.baseCost;
+                const durationMultiplier = parseFloat(duration) || 1;
+                const participantMultiplier = Math.max(1, parseInt(participants) || 1);
+                
+                return Math.round(baseCost * durationMultiplier * participantMultiplier);
             }
 
             async renderTimeSlots(timeSlots, container) {
@@ -3902,9 +3868,9 @@
                     this.handleLogout();
                 });
 
-                // Participants dropdown change event - update booking summary
+                // Participants dropdown change
                 document.getElementById('participants')?.addEventListener('change', () => {
-                    this.updateBookingSummary();
+                    this.updateCostDisplay();
                 });
 
                 // Setup service selection - will be called again when modal opens
@@ -4522,7 +4488,7 @@
                     duration: parseFloat(this.selectedDuration),
                     participants: parseInt(participants),
                     specialRequests: specialRequests.trim() || null,
-                    // estimatedCost removed for customized client pricing
+                    estimatedCost: this.calculateTotalCost(),
                     timeSlotData: this.selectedTimeData,
                     clientVersion: '2.0',
                     timestamp: new Date().toISOString()
@@ -4640,13 +4606,10 @@
                         timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
                     }
                     
-                    // Reset booking summary display
-                    const summaryDisplay = document.getElementById('bookingSummary');
-                    if (summaryDisplay) {
-                        summaryDisplay.innerHTML = 'Select all options to see summary';
-                        summaryDisplay.style.borderColor = 'rgba(108, 117, 125, 0.3)';
-                        summaryDisplay.style.background = 'rgba(248, 249, 250, 0.5)';
-                        summaryDisplay.style.color = 'var(--gray)';
+                    // Cost display hidden for customized client pricing
+                    const costDisplay = document.getElementById('costDisplay');
+                    if (costDisplay) {
+                        costDisplay.style.display = 'none';
                     }
                 }
             }
@@ -4750,7 +4713,7 @@
                                 id: 'mock-' + Date.now(),
                                 ...data,
                                 status: 'confirmed',
-                                // cost removed for customized client pricing
+                                cost: this.calculateSlotCost(data.service, data.duration, data.participants),
                                 created_at: new Date().toISOString(),
                                 confirmation_code: 'DEMO' + Math.random().toString(36).substr(2, 6).toUpperCase()
                             };
