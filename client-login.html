@@ -1708,6 +1708,15 @@
             color: var(--gray);
             margin-top: var(--space-1);
         }
+
+/* Hide all cost and pricing displays for customized client pricing */
+        #costDisplay,
+        .cost-display,
+        .price-display,
+        .pricing-info {
+            display: none !important;
+            visibility: hidden !important;
+        }
     </style>
 </head>
 <body>
@@ -2077,7 +2086,8 @@
                     <div class="form-group duration-selection" id="durationGroup" style="display: none;">
                         <label class="form-label">Duration</label>
                         <div class="duration-grid" id="durationGrid" role="radiogroup" aria-label="Duration selection">
-                            <!-- Duration options will be populated by JavaScript -->
+                <!-- Duration options will be populated by JavaScript - pricing hidden for customized client rates -->
+                            </div>
                         </div>
                     </div>
                     
@@ -2194,7 +2204,7 @@
                 this.serviceConfig = {
                     'swim-lesson': {
                         name: 'Private Swim Lesson',
-                        baseCost: 75,
+                        // baseCost removed for customized client pricing
                         duration: [0.5, 0.75, 1, 1.5, 2], // REFINED: Added 30min and 45min options
                         maxParticipants: 4,
                         availableHours: [9, 10, 14, 15, 16, 17],
@@ -2208,7 +2218,7 @@
                     },
                     'lifeguard': {
                         name: 'Lifeguard Service',
-                        baseCost: 50,
+                        // baseCost removed for customized client pricing
                         duration: [2, 3, 4, 6, 8],
                         maxParticipants: 50,
                         availableHours: [8, 10, 12, 14, 16, 18],
@@ -2222,7 +2232,7 @@
                     },
                     'event': {
                         name: 'Special Event Coverage',
-                        baseCost: 100,
+                        // baseCost removed for customized client pricing
                         duration: [2, 3, 4, 6, 8],
                         maxParticipants: 100,
                         availableHours: [10, 12, 14, 16, 18],
@@ -3185,8 +3195,8 @@
                 this.selectedDuration = duration;
                 console.log('✅ Duration stored and validated:', this.selectedDuration);
                 
-                // Update cost display
-                this.updateCostDisplay();
+                // Cost display removed for customized client pricing
+                // this.updateCostDisplay();
                 
                 // Show selection feedback
                 const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
@@ -3247,16 +3257,8 @@
             }
 
             calculateTotalCost() {
-                if (!this.selectedService || !this.selectedDuration) return null;
-                
-                const serviceConfig = this.serviceConfig[this.selectedService];
-                const participants = parseInt(document.getElementById('participants')?.value || '1');
-                
-                const baseCost = serviceConfig.baseCost;
-                const durationMultiplier = this.selectedDuration;
-                const participantMultiplier = Math.max(1, participants);
-                
-                return Math.round(baseCost * durationMultiplier * participantMultiplier);
+                // Cost calculation hidden for customized client pricing
+                return null;
             }
 
             // 📅 ENHANCED CALENDAR SYSTEM WITH D1 INTEGRATION
@@ -3620,8 +3622,8 @@
                     timeSlots.push({
                         time: time12,
                         hour: hour,
-                        available: isAvailable,
-                        cost: this.calculateSlotCost(this.selectedService, this.selectedDuration, 1)
+                        available: isAvailable
+                        // cost removed for customized client pricing
                     });
                 });
                 
@@ -3636,14 +3638,8 @@
             }
 
             calculateSlotCost(service, duration, participants) {
-                const config = this.serviceConfig[service];
-                if (!config) return 0;
-                
-                const baseCost = config.baseCost;
-                const durationMultiplier = parseFloat(duration) || 1;
-                const participantMultiplier = Math.max(1, parseInt(participants) || 1);
-                
-                return Math.round(baseCost * durationMultiplier * participantMultiplier);
+                // Cost calculation hidden for customized client pricing
+                return null;
             }
 
             async renderTimeSlots(timeSlots, container) {
@@ -3868,10 +3864,10 @@
                     this.handleLogout();
                 });
 
-                // Participants dropdown change
-                document.getElementById('participants')?.addEventListener('change', () => {
-                    this.updateCostDisplay();
-                });
+                // Participants dropdown change event - cost display removed for customized pricing
+                // document.getElementById('participants')?.addEventListener('change', () => {
+                //     this.updateCostDisplay();
+                // });
 
                 // Setup service selection - will be called again when modal opens
                 setTimeout(() => {
@@ -4488,7 +4484,7 @@
                     duration: parseFloat(this.selectedDuration),
                     participants: parseInt(participants),
                     specialRequests: specialRequests.trim() || null,
-                    estimatedCost: this.calculateTotalCost(),
+                    // estimatedCost removed for customized client pricing
                     timeSlotData: this.selectedTimeData,
                     clientVersion: '2.0',
                     timestamp: new Date().toISOString()
@@ -4713,7 +4709,7 @@
                                 id: 'mock-' + Date.now(),
                                 ...data,
                                 status: 'confirmed',
-                                cost: this.calculateSlotCost(data.service, data.duration, data.participants),
+                                // cost removed for customized client pricing
                                 created_at: new Date().toISOString(),
                                 confirmation_code: 'DEMO' + Math.random().toString(36).substr(2, 6).toUpperCase()
                             };
