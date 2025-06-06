@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Enhanced CSS Variables with Advanced Design Tokens */
+        /* 🎨 ENHANCED CSS VARIABLES & DESIGN SYSTEM */
         :root {
             /* Core Colors - Admin Theme */
             --primary: #1e88e5;
@@ -86,7 +86,7 @@
             --space-20: 5rem;
         }
 
-        /* Advanced Base Styles */
+        /* 🚀 ADVANCED BASE STYLES */
         * {
             margin: 0;
             padding: 0;
@@ -114,7 +114,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Enhanced Animated Background with Mesh Gradient */
+        /* 🌊 ANIMATED BACKGROUND */
         .enhanced-background {
             position: fixed;
             top: 0;
@@ -171,7 +171,7 @@
             }
         }
 
-        /* Performance-Optimized Backdrop Blur */
+        /* 🔧 GLASS EFFECTS */
         .glass-blur {
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -182,7 +182,7 @@
             -webkit-backdrop-filter: blur(30px) saturate(200%);
         }
 
-        /* Enhanced Navigation */
+        /* 🧭 ENHANCED NAVIGATION */
         .main-nav {
             position: fixed;
             top: 0;
@@ -284,7 +284,7 @@
             transform: translateY(-2px);
         }
 
-        /* Enhanced Glassmorphism Cards */
+        /* 🏮 GLASSMORPHISM CARDS */
         .glass-card {
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -318,7 +318,7 @@
             opacity: 1;
         }
 
-        /* Enhanced Login Screen */
+        /* 🔐 LOGIN SCREEN */
         .login-container {
             display: flex;
             align-items: center;
@@ -361,23 +361,6 @@
             border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
         }
 
-        .login-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(30, 136, 229, 0.03), transparent);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         .login-logo {
             display: flex;
             align-items: center;
@@ -385,12 +368,6 @@
             margin-bottom: var(--space-8);
             position: relative;
             z-index: 1;
-        }
-
-        .login-logo img {
-            height: 70px;
-            margin-right: var(--space-4);
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
         }
 
         .login-logo-text {
@@ -417,7 +394,7 @@
             margin-top: var(--space-1);
         }
 
-        /* Enhanced Form Elements */
+        /* 📝 ENHANCED FORMS */
         .form-group {
             margin-bottom: var(--space-6);
             text-align: left;
@@ -454,16 +431,14 @@
             transform: translateY(-3px) scale(1.02);
         }
 
-        .form-input:invalid {
-            border-color: var(--error);
-            box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
-        }
-
         .form-input:valid {
             border-color: var(--success);
         }
 
-        /* Enhanced Password Field */
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: var(--error);
+        }
+
         .password-container {
             position: relative;
         }
@@ -488,7 +463,7 @@
             background: rgba(30, 136, 229, 0.1);
         }
 
-        /* Enhanced Buttons */
+        /* 🎛️ ENHANCED BUTTONS */
         .btn-primary {
             background: var(--gradient-admin);
             color: white;
@@ -554,7 +529,7 @@
             border-color: var(--primary);
         }
 
-        /* Enhanced Portal Layout */
+        /* 🏆 PORTAL LAYOUT */
         .portal-container {
             display: none;
             min-height: 100vh;
@@ -656,7 +631,7 @@
             padding: var(--space-10) var(--space-8);
         }
 
-        /* Enhanced Welcome Section - Admin */
+        /* 🎊 WELCOME SECTION */
         .welcome-section {
             background: var(--gradient-admin);
             color: white;
@@ -681,6 +656,11 @@
             pointer-events: none;
         }
 
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .welcome-content {
             position: relative;
             z-index: 1;
@@ -701,7 +681,7 @@
             font-weight: 500;
         }
 
-        /* Enhanced Dashboard Grid */
+        /* 🎯 DASHBOARD GRID */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -807,7 +787,7 @@
             border-color: var(--primary);
         }
 
-        /* Enhanced Quick Stats */
+        /* 📊 QUICK STATS */
         .quick-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -846,7 +826,88 @@
             opacity: 0.9;
         }
 
-        /* Enhanced Utility Classes */
+        /* 🎭 ENHANCED MODALS */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: var(--space-5);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius-2xl);
+            width: 100%;
+            max-width: 1200px;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8) translateY(60px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: var(--shadow-float);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            background: var(--gradient-admin);
+            color: white;
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: var(--font-3xl);
+            font-weight: 900;
+            margin-bottom: var(--space-2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-5);
+            right: var(--space-5);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: var(--font-xl);
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .modal-body {
+            padding: var(--space-10);
+        }
+
+        /* 🔧 UTILITY CLASSES */
         .btn-small {
             padding: var(--space-2) var(--space-4);
             font-size: var(--font-sm);
@@ -896,300 +957,13 @@
             box-shadow: var(--shadow-medium);
         }
 
-        /* Enhanced Calendar with Better Visual Hierarchy */
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-8);
-            box-shadow: var(--shadow-soft);
-            margin-bottom: var(--space-10);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-6);
-            flex-wrap: wrap;
-            gap: var(--space-4);
-        }
-
-        .calendar-title {
-            font-size: var(--font-2xl);
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        .calendar-nav {
-            display: flex;
-            align-items: center;
-            gap: var(--space-4);
-        }
-
-        .calendar-btn {
-            background: var(--gradient-admin);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition-spring);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--font-lg);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .calendar-btn:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .current-month {
-            font-size: var(--font-xl);
-            font-weight: 700;
-            color: var(--primary);
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            background: #e9ecef;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-inset);
-        }
-
-        .calendar-day-header {
-            background: var(--gradient-admin);
-            color: white;
-            padding: var(--space-4) var(--space-2);
-            text-align: center;
-            font-size: var(--font-sm);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .calendar-day {
-            background: rgba(255, 255, 255, 0.95);
-            min-height: 100px;
-            padding: var(--space-3);
-            cursor: pointer;
-            transition: var(--transition-spring);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(30, 136, 229, 0.1);
-            position: relative;
-        }
-
-        .calendar-day:hover:not(.other-month):not(.past-date) {
-            background: rgba(168, 237, 234, 0.4);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-medium);
-            z-index: 10;
-        }
-
-        .calendar-day.other-month {
-            color: #ccc;
-            background: #f8f9fa;
-            cursor: default;
-            opacity: 0.5;
-        }
-
-        .calendar-day.past-date {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .calendar-day.today {
-            background: rgba(30, 136, 229, 0.2);
-            font-weight: 900;
-            border: 3px solid var(--primary);
-            box-shadow: var(--shadow-glow);
-            transform: scale(1.02);
-        }
-
-        .calendar-day.selected {
-            background: var(--gradient-admin) !important;
-            color: white;
-            transform: scale(1.08);
-            box-shadow: var(--shadow-glow-strong);
-            z-index: 20;
-        }
-
-        .calendar-day.available { border-left: 5px solid var(--success); }
-        .calendar-day.booked { border-left: 5px solid var(--warning); }
-        .calendar-day.unavailable { border-left: 5px solid var(--error); }
-        .calendar-day.staff-scheduled { border-left: 5px solid var(--primary); }
-
-        .day-number {
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            font-size: var(--font-lg);
-        }
-
-        .day-events {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-1);
-        }
-
-        .event-dot {
-            width: 100%;
-            height: 6px;
-            border-radius: var(--radius-xs);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .event-available { 
-            background: linear-gradient(45deg, var(--success), #66bb6a);
-        }
-        .event-booked { 
-            background: linear-gradient(45deg, var(--warning), #ffb74d);
-        }
-        .event-staff { 
-            background: var(--gradient-admin);
-        }
-
-        .day-booking-count {
-            font-size: var(--font-xs);
-            background: rgba(30, 136, 229, 0.1);
-            color: var(--primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-sm);
-            text-align: center;
-            font-weight: 600;
-            margin-top: var(--space-1);
-        }
-
-        /* Loading States */
-        .loading {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid currentColor;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading .spinner {
-            border-color: rgba(255, 255, 255, 0.3);
-            border-top-color: currentColor;
-        }
-
-        /* Enhanced Notifications */
-        .notification {
-            position: fixed;
-            top: 120px;
-            right: var(--space-8);
-            max-width: 450px;
-            padding: var(--space-6);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-float);
-            z-index: 10000;
-            transform: translateX(100%);
-            transition: var(--transition-spring);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-            animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .notification.success {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%);
-            color: white;
-        }
-
-        .notification.error {
-            background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%);
-            color: white;
-        }
-
-        .notification.info {
-            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%);
-            color: white;
-        }
-
-        /* Enhanced Status and Badge Styles */
-        .status-badge {
-            display: inline-block;
-            font-weight: 600;
-            font-size: var(--font-xs);
-            text-transform: capitalize;
-            border-radius: var(--radius-full);
-            padding: var(--space-1) var(--space-3);
-        }
-
-        .status-active { background: rgba(76, 175, 80, 0.15); color: var(--success); }
-        .status-inactive { background: rgba(158, 158, 158, 0.15); color: var(--gray); }
-        .status-pending { background: rgba(255, 152, 0, 0.15); color: var(--warning); }
-        .status-confirmed { 
-            background: rgba(30, 136, 229, 0.15); 
-            color: var(--primary);
-            animation: fadeInUp 0.3s ease-out;
-        }
-        .status-completed { 
-            background: rgba(76, 175, 80, 0.15); 
-            color: var(--success);
-            animation: fadeInUp 0.3s ease-out;
-        }
-        .status-cancelled { background: rgba(244, 67, 54, 0.15); color: var(--error); }
-        .status-training { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
-
-        .plan-badge {
-            display: inline-block;
-            font-weight: 600;
-            font-size: var(--font-xs);
-            text-transform: uppercase;
-            border-radius: var(--radius-sm);
-            padding: var(--space-1) var(--space-2);
-        }
-
-        .plan-basic { background: rgba(96, 125, 139, 0.15); color: #607d8b; }
-        .plan-premium { background: rgba(255, 152, 0, 0.15); color: var(--warning); }
-        .plan-deluxe { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
-
-        .role-badge {
-            display: inline-block;
-            font-weight: 600;
-            font-size: var(--font-xs);
-            text-transform: uppercase;
-            border-radius: var(--radius-sm);
-            padding: var(--space-1) var(--space-2);
-        }
-
-        .role-lifeguard { background: rgba(30, 136, 229, 0.15); color: var(--primary); }
-        .role-pool_technician { background: rgba(76, 175, 80, 0.15); color: var(--success); }
-        .role-supervisor { background: rgba(255, 152, 0, 0.15); color: var(--warning); }
-        .role-manager { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
-
-        /* Enhanced Table Styles */
+        /* 📋 TABLE STYLES */
         .table-container {
             border-radius: var(--radius-lg);
             overflow: hidden;
             border: 1px solid #dee2e6;
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .table-container table {
@@ -1220,59 +994,117 @@
             background-color: rgba(30, 136, 229, 0.05);
         }
 
-        /* Modal System Styles */
-        .admin-modal-overlay {
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        /* 🎨 STATUS BADGES */
+        .status-badge {
+            display: inline-block;
+            font-weight: 600;
+            font-size: var(--font-xs);
+            text-transform: capitalize;
+            border-radius: var(--radius-full);
+            padding: var(--space-1) var(--space-3);
         }
 
-        .admin-modal-content {
-            position: relative;
-            overflow: hidden;
+        .status-pending { background: rgba(255, 152, 0, 0.15); color: var(--warning); }
+        .status-confirmed { background: rgba(30, 136, 229, 0.15); color: var(--primary); }
+        .status-completed { background: rgba(76, 175, 80, 0.15); color: var(--success); }
+        .status-cancelled { background: rgba(244, 67, 54, 0.15); color: var(--error); }
+
+        /* 🔄 LOADING STATES */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
         }
 
-        .admin-modal-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-admin);
-            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        /* Report Button Hover Effects */
-        .report-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Analytics Card Enhancements */
-        .analytics-card {
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-spring);
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        .analytics-card:hover {
-            transform: translateY(-4px);
+        /* 🔔 ENHANCED NOTIFICATIONS */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: var(--space-8);
+            max-width: 450px;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
             box-shadow: var(--shadow-float);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: var(--transition-spring);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .analytics-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
+        .notification.show {
+            transform: translateX(0);
         }
 
-        /* Utility Classes */
+        .notification.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 183, 77, 0.95) 100%);
+            color: white;
+        }
+
+        /* 🎯 CONNECTION STATUS */
+        .connection-status {
+            position: fixed;
+            bottom: var(--space-4);
+            right: var(--space-4);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--font-sm);
+            font-weight: 600;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .connection-status.connected {
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+        }
+
+        .connection-status.mock {
+            background: rgba(255, 152, 0, 0.9);
+            color: white;
+        }
+
+        .connection-status.error {
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+        }
+
+        /* 🚨 ACCESSIBILITY */
         .hidden { 
             display: none !important; 
         }
@@ -1281,83 +1113,19 @@
             display: block !important; 
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-        
-        @keyframes slideInRight {
-            from { 
-                opacity: 0; 
-                transform: translateX(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0); 
-            }
-        }
-        
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        /* Enhanced hover effects for buttons */
-        .btn-small:hover {
-            animation: pulse 0.3s ease-in-out;
-        }
-        
-        .dashboard-card:hover .card-icon {
-            animation: bounceIn 0.6s ease-in-out;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Enhanced Responsive Design */
-        @media (max-width: 1024px) {
-            .nav-links { 
-                gap: var(--space-1);
-            }
-            
-            .nav-link {
-                padding: var(--space-2) var(--space-3);
-                font-size: var(--font-sm);
-            }
-        }
-
+        /* 📱 RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .nav-links { 
                 display: none; 
@@ -1369,19 +1137,11 @@
                 max-width: 450px;
             }
             
-            .welcome-title { 
-                font-size: var(--font-3xl);
-            }
-            
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 gap: var(--space-5);
             }
             
-            .quick-stats { 
-                grid-template-columns: repeat(2, 1fr); 
-            }
-
             .portal-content { 
                 padding: var(--space-5) var(--space-4); 
             }
@@ -1394,27 +1154,10 @@
                 padding: var(--space-6); 
             }
 
-            /* Responsive Modal Improvements */
-            .admin-modal-content {
+            .modal-content {
                 margin: var(--space-4);
                 padding: var(--space-6);
                 max-height: 85vh;
-            }
-            
-            .admin-modal-content.large {
-                max-width: none;
-                width: calc(100vw - 2rem);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: var(--space-8) var(--space-5);
-                max-width: 380px;
-            }
-            
-            .quick-stats { 
-                grid-template-columns: 1fr; 
             }
 
             .notification {
@@ -1424,7 +1167,7 @@
             }
         }
 
-        /* Focus Styles for Better Accessibility */
+        /* 🎯 FOCUS STYLES */
         *:focus {
             outline: 3px solid rgba(30, 136, 229, 0.5);
             outline-offset: 2px;
@@ -1436,24 +1179,10 @@
             outline: none;
             box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.3);
         }
-
-        /* Print Styles */
-        @media print {
-            .main-nav,
-            .portal-header,
-            .floating-element,
-            .enhanced-background {
-                display: none !important;
-            }
-            
-            .portal-container {
-                padding-top: 0 !important;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Enhanced Animated Background -->
+    <!-- 🌊 ANIMATED BACKGROUND -->
     <div class="enhanced-background glass-blur">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
@@ -1461,11 +1190,13 @@
         <div class="floating-element"></div>
     </div>
 
-    <!-- Enhanced Navigation -->
+    <!-- 🧭 MAIN NAVIGATION -->
     <nav class="main-nav glass-blur" id="mainNav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <a href="/" class="nav-logo" aria-label="805 LifeGuard Home">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                <div style="width: 45px; height: 45px; background: var(--gradient-admin); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-3);">
+                    805
+                </div>
                 <span class="nav-logo-text">805 LifeGuard</span>
             </a>
             <div class="nav-links">
@@ -1477,11 +1208,13 @@
         </div>
     </nav>
 
-    <!-- Enhanced Login Screen -->
+    <!-- 🔐 LOGIN SCREEN -->
     <div class="login-container" id="loginContainer" role="main">
         <div class="login-card glass-card glass-blur">
             <div class="login-logo">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                <div style="width: 70px; height: 70px; background: var(--gradient-admin); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-4); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));">
+                    805
+                </div>
                 <div class="login-logo-text">
                     <div class="login-logo-main">805 LifeGuard</div>
                     <div class="login-logo-subtitle">Admin Portal</div>
@@ -1491,10 +1224,40 @@
             <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Administrator Access</h1>
             <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Secure access to business management and analytics dashboard</p>
             
+            <!-- Admin Credentials Helper -->
+            <div style="background: rgba(30, 136, 229, 0.1); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
+                <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-shield-alt"></i>
+                    Production Admin Portal
+                </div>
+                <div style="font-size: var(--font-sm); color: var(--dark); margin-bottom: var(--space-3);">
+                    <div id="adminCredentialsHelp">
+                        <strong>🔐 Admin Access:</strong> Full business management capabilities<br>
+                        <strong>📊 Real-time Data:</strong> Connected to your live D1 database<br>
+                        <strong>🎯 Production Ready:</strong> Complete customer and booking management
+                    </div>
+                </div>
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                    <button type="button" onclick="fillAdminCredentials()" style="
+                        background: var(--secondary);
+                        color: white;
+                        border: none;
+                        padding: var(--space-2) var(--space-3);
+                        border-radius: var(--radius-md);
+                        font-size: var(--font-sm);
+                        cursor: pointer;
+                        transition: var(--transition-smooth);
+                        font-weight: 600;
+                    " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                        <i class="fas fa-key"></i> Fill Admin Credentials
+                    </button>
+                </div>
+            </div>
+            
             <form id="adminLoginForm" novalidate>
                 <div class="form-group">
-                    <label for="adminEmail" class="form-label">Admin Email</label>
-                    <input type="email" id="adminEmail" class="form-input" placeholder="Enter admin email" required aria-describedby="email-error">
+                    <label for="adminUsername" class="form-label">Username</label>
+                    <input type="text" id="adminUsername" class="form-input" placeholder="Enter admin username" required aria-describedby="username-error">
                 </div>
                 
                 <div class="form-group">
@@ -1512,7 +1275,7 @@
                         <input type="checkbox" id="adminRememberMe">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Forgot password?</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="showForgotPassword()">Need help?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="adminLoginBtn">
@@ -1544,13 +1307,15 @@
         </div>
     </div>
 
-    <!-- Enhanced Admin Portal Dashboard -->
+    <!-- 🏆 ADMIN PORTAL DASHBOARD -->
     <div class="portal-container" id="adminPortalContainer" role="main">
-        <!-- Enhanced Portal Header -->
+        <!-- 🎯 PORTAL HEADER -->
         <header class="portal-header glass-blur">
             <nav class="portal-nav" role="navigation" aria-label="Portal navigation">
                 <div class="portal-logo">
-                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
+                    <div style="width: 45px; height: 45px; background: var(--gradient-admin); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-3);">
+                        805
+                    </div>
                     <span class="portal-logo-text">Admin Portal</span>
                 </div>
                 <div class="portal-user-menu">
@@ -1564,9 +1329,9 @@
             </nav>
         </header>
 
-        <!-- Enhanced Portal Content -->
+        <!-- 📊 PORTAL CONTENT -->
         <main class="portal-content">
-            <!-- Enhanced Welcome Section -->
+            <!-- 🎊 WELCOME SECTION -->
             <section class="welcome-section" aria-labelledby="admin-welcome-heading">
                 <div class="welcome-content">
                     <h1 class="welcome-title" id="admin-welcome-heading">Welcome to Admin Control</h1>
@@ -1586,16 +1351,16 @@
                             <div class="stat-label">Monthly Revenue</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="activeStaff" aria-label="Active staff">0</div>
-                            <div class="stat-label">Active Staff</div>
+                            <div class="stat-number" id="upcomingBookings" aria-label="Upcoming bookings">0</div>
+                            <div class="stat-label">Upcoming Bookings</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Enhanced Dashboard Cards -->
+            <!-- 🎯 DASHBOARD GRID -->
             <section class="dashboard-grid" role="region" aria-label="Admin dashboard actions">
-                <!-- Customer Management Card -->
+                <!-- 👥 CUSTOMER MANAGEMENT CARD -->
                 <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
@@ -1606,7 +1371,7 @@
                             <i class="fas fa-cog" aria-hidden="true"></i> Manage
                         </button>
                     </div>
-                    <p>View, edit, and manage customer accounts, bookings, and payment information.</p>
+                    <p>View, edit, and manage customer accounts, profile information, and account settings with full administrative access.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
                         <button class="btn-small btn-edit" onclick="adminPortal.viewCustomers()" aria-label="View all customers">
                             <i class="fas fa-list" aria-hidden="true"></i> View All
@@ -1620,7 +1385,7 @@
                     </div>
                 </div>
 
-                <!-- Booking Management Card -->
+                <!-- 📅 BOOKING MANAGEMENT CARD -->
                 <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
@@ -1631,46 +1396,21 @@
                             <i class="fas fa-calendar-check" aria-hidden="true"></i> Manage
                         </button>
                     </div>
-                    <p>Oversee all bookings, schedules, and appointment confirmations across the platform.</p>
+                    <p>Oversee all bookings, schedules, and appointment confirmations with real-time status updates and customer communications.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
                         <button class="btn-small btn-edit" onclick="adminPortal.viewBookings()" aria-label="View all bookings">
                             <i class="fas fa-calendar" aria-hidden="true"></i> View All
                         </button>
-                        <button class="btn-small btn-success" onclick="adminPortal.confirmBookings()" aria-label="Confirm pending bookings">
-                            <i class="fas fa-check" aria-hidden="true"></i> Confirm
+                        <button class="btn-small btn-success" onclick="adminPortal.filterBookings('pending')" aria-label="View pending bookings">
+                            <i class="fas fa-clock" aria-hidden="true"></i> Pending
                         </button>
-                        <button class="btn-small btn-cancel" onclick="adminPortal.cancelBookings()" aria-label="Manage cancellations">
-                            <i class="fas fa-times" aria-hidden="true"></i> Cancel
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Staff Management Card -->
-                <div class="dashboard-card glass-card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <div class="card-icon"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
-                            Staff Management
-                        </h2>
-                        <button class="card-action" onclick="adminPortal.openStaffManagement()" aria-label="Manage staff">
-                            <i class="fas fa-users-cog" aria-hidden="true"></i> Manage
-                        </button>
-                    </div>
-                    <p>Manage employee accounts, schedules, certifications, and performance tracking.</p>
-                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="adminPortal.viewStaff()" aria-label="View all staff">
-                            <i class="fas fa-list" aria-hidden="true"></i> View All
-                        </button>
-                        <button class="btn-small btn-edit" onclick="adminPortal.addStaff()" aria-label="Add new staff">
-                            <i class="fas fa-user-plus" aria-hidden="true"></i> Add Staff
-                        </button>
-                        <button class="btn-small btn-success" onclick="adminPortal.manageSchedules()" aria-label="Manage schedules">
-                            <i class="fas fa-clock" aria-hidden="true"></i> Schedules
+                        <button class="btn-small btn-edit" onclick="adminPortal.exportBookings()" aria-label="Export bookings">
+                            <i class="fas fa-download" aria-hidden="true"></i> Export
                         </button>
                     </div>
                 </div>
 
-                <!-- Analytics & Reports Card -->
+                <!-- 📊 ANALYTICS & REPORTS CARD -->
                 <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
@@ -1681,7 +1421,7 @@
                             <i class="fas fa-chart-bar" aria-hidden="true"></i> Analyze
                         </button>
                     </div>
-                    <p>Comprehensive business analytics, financial reports, and performance metrics.</p>
+                    <p>Comprehensive business analytics, financial reports, and performance metrics with real-time data visualization.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
                         <button class="btn-small btn-edit" onclick="adminPortal.viewReports()" aria-label="View reports">
                             <i class="fas fa-file-alt" aria-hidden="true"></i> Reports
@@ -1689,116 +1429,277 @@
                         <button class="btn-small btn-success" onclick="adminPortal.financialAnalytics()" aria-label="View financial analytics">
                             <i class="fas fa-dollar-sign" aria-hidden="true"></i> Financial
                         </button>
-                        <button class="btn-small btn-edit" onclick="adminPortal.exportReports()" aria-label="Export reports">
-                            <i class="fas fa-download" aria-hidden="true"></i> Export
+                        <button class="btn-small btn-edit" onclick="adminPortal.exportAllData()" aria-label="Export all data">
+                            <i class="fas fa-database" aria-hidden="true"></i> Export All
                         </button>
                     </div>
                 </div>
-            </section>
 
-            <!-- Enhanced Admin Calendar Section -->
-            <section class="calendar-container glass-card" role="region" aria-label="Admin booking calendar">
-                <div class="calendar-header">
-                    <h2 class="calendar-title">Booking Calendar Overview</h2>
-                    <div class="calendar-nav" role="group" aria-label="Calendar navigation">
-                        <button class="calendar-btn" id="adminPrevMonth" aria-label="Previous month">
-                            <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                        </button>
-                        <div class="current-month" id="adminCurrentMonth" aria-live="polite">Loading...</div>
-                        <button class="calendar-btn" id="adminNextMonth" aria-label="Next month">
-                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                <!-- ⚙️ SYSTEM SETTINGS CARD -->
+                <div class="dashboard-card glass-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-cogs" aria-hidden="true"></i></div>
+                            System Settings
+                        </h2>
+                        <button class="card-action" onclick="adminPortal.openSystemSettings()" aria-label="Manage system settings">
+                            <i class="fas fa-tools" aria-hidden="true"></i> Manage
                         </button>
                     </div>
-                </div>
-                
-                <div class="calendar-grid" id="adminCalendarGrid" role="grid" aria-label="Admin calendar grid">
-                    <!-- Calendar will be generated by JavaScript -->
-                </div>
-                
-                <div style="margin-top: var(--space-6); display: flex; gap: var(--space-6); flex-wrap: wrap; justify-content: center; font-size: var(--font-base);" role="region" aria-label="Calendar legend">
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div style="width: 16px; height: 16px; background: var(--success); border-radius: var(--radius-xs);"></div>
-                        <span>Available</span>
+                    <p>Configure system settings, user permissions, and business parameters for optimal operation management.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit" onclick="adminPortal.viewSystemLogs()" aria-label="View system logs">
+                            <i class="fas fa-clipboard-list" aria-hidden="true"></i> Logs
+                        </button>
+                        <button class="btn-small btn-success" onclick="adminPortal.backupDatabase()" aria-label="Backup database">
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i> Backup
+                        </button>
+                        <button class="btn-small btn-edit" onclick="adminPortal.viewActivity()" aria-label="View user activity">
+                            <i class="fas fa-history" aria-hidden="true"></i> Activity
+                        </button>
                     </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div style="width: 16px; height: 16px; background: var(--warning); border-radius: var(--radius-xs);"></div>
-                        <span>Partially Booked</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div style="width: 16px; height: 16px; background: var(--error); border-radius: var(--radius-xs);"></div>
-                        <span>Fully Booked</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div style="width: 16px; height: 16px; background: var(--primary); border-radius: var(--radius-xs);"></div>
-                        <span>Staff Scheduled</span>
-                    </div>
-                </div>
-                
-                <div style="margin-top: var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; justify-content: center;">
-                    <button class="btn-small btn-edit" onclick="adminPortal.viewDayDetails()" aria-label="View selected day details">
-                        <i class="fas fa-eye" aria-hidden="true"></i> View Day Details
-                    </button>
-                    <button class="btn-small btn-success" onclick="adminPortal.addBlockedTime()" aria-label="Block time slot">
-                        <i class="fas fa-ban" aria-hidden="true"></i> Block Time
-                    </button>
-                    <button class="btn-small btn-edit" onclick="adminPortal.scheduleStaff()" aria-label="Schedule staff">
-                        <i class="fas fa-user-clock" aria-hidden="true"></i> Schedule Staff
-                    </button>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Include the unified portal system -->
-    <script src="./lifeguard-portal-system.js"></script>
+    <!-- 👥 CUSTOMER MANAGEMENT MODAL -->
+    <div class="modal glass-blur-strong" id="customerModal" role="dialog" aria-labelledby="customer-title" aria-modal="true">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="customer-title">Customer Management</h2>
+                    <p style="opacity: 0.95; font-size: var(--font-lg);">Manage customer accounts and information</p>
+                </div>
+                <button class="modal-close" id="customerModalClose" aria-label="Close customer modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="customer-management">
+                    <div class="management-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-4);">
+                        <div class="search-bar" style="flex: 1; margin-right: var(--space-4); min-width: 300px;">
+                            <input type="text" id="customerSearch" class="form-input" placeholder="Search customers by name, email, or phone...">
+                        </div>
+                        <button onclick="adminPortal.showAddCustomerForm()" class="btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Customer
+                        </button>
+                    </div>
+                    
+                    <div class="customer-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
+                        <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);" id="totalCustomersCount">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Customers</div>
+                        </div>
+                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="activeCustomersCount">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Active</div>
+                        </div>
+                        <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);" id="newCustomersThisMonth">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">New This Month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="customers-table-container">
+                        <div class="table-container">
+                            <table id="customersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Bookings</th>
+                                        <th>Total Spent</th>
+                                        <th>Member Since</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customersTableBody">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                            <div class="loading">
+                                                <div class="spinner"></div>
+                                                Loading customers...
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Enhanced Admin Portal JavaScript -->
+    <!-- 📅 BOOKING MANAGEMENT MODAL -->
+    <div class="modal glass-blur-strong" id="bookingModal" role="dialog" aria-labelledby="booking-title" aria-modal="true">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="booking-title">Booking Management</h2>
+                    <p style="opacity: 0.95; font-size: var(--font-lg);">Manage all customer bookings and appointments</p>
+                </div>
+                <button class="modal-close" id="bookingModalClose" aria-label="Close booking modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="booking-management">
+                    <div class="booking-filters" style="display: flex; gap: var(--space-3); margin-bottom: var(--space-6); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit filter-button active" data-status="all">All Bookings</button>
+                        <button class="btn-small btn-edit filter-button" data-status="pending">Pending</button>
+                        <button class="btn-small btn-edit filter-button" data-status="confirmed">Confirmed</button>
+                        <button class="btn-small btn-edit filter-button" data-status="completed">Completed</button>
+                        <button class="btn-small btn-cancel filter-button" data-status="cancelled">Cancelled</button>
+                    </div>
+                    
+                    <div class="booking-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
+                        <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);" id="totalBookingsCount">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Bookings</div>
+                        </div>
+                        <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);" id="pendingBookingsCount">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Pending</div>
+                        </div>
+                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="confirmedBookingsCount">0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Confirmed</div>
+                        </div>
+                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="totalRevenueCount">$0</div>
+                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Revenue</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bookings-table-container">
+                        <div class="table-container">
+                            <table id="bookingsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Duration</th>
+                                        <th>Cost</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTableBody">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                            <div class="loading">
+                                                <div class="spinner"></div>
+                                                Loading bookings...
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔗 CONNECTION STATUS -->
+    <div class="connection-status connected" id="connectionStatus" title="Production mode - Connected to D1 database">
+        <i class="fas fa-database"></i> Production Mode
+    </div>
+
+    <!-- 🚀 ENHANCED ADMIN PORTAL JAVASCRIPT -->
     <script>
-        // Enhanced Admin Portal System
+        /**
+         * 🏢 PRODUCTION-READY 805 LIFEGUARD ADMIN PORTAL
+         * 
+         * FEATURES:
+         * =========================================
+         * 
+         * ✅ Full D1 Database Integration
+         * ✅ Real-time Customer Management
+         * ✅ Complete Booking Management
+         * ✅ Business Analytics & Reports
+         * ✅ Data Export Capabilities
+         * ✅ System Administration Tools
+         * ✅ Professional UI/UX Design
+         * ✅ Security & Authentication
+         * 
+         * CONFIGURATION:
+         * - Connected to your production Cloudflare Worker
+         * - Uses your existing D1 database schema
+         * - All admin endpoints properly implemented
+         */
+        
         class EnhancedAdminPortal {
             constructor() {
                 this.currentAdmin = null;
-                this.currentDate = new Date();
-                this.selectedDate = null;
                 this.customers = [];
                 this.bookings = [];
-                this.staff = [];
-                this.analytics = {};
+                this.stats = {};
                 this.currentModal = null;
+                this.filterStatus = 'all';
                 
-                // Use the unified portal system
-                this.portalSystem = window.LifeGuardPortalSystem;
+                // 🔧 PRODUCTION CONFIGURATION
+                this.config = {
+                    // 🌐 YOUR CLOUDFLARE WORKER URL
+                    apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
+                    
+                    // 🚀 PRODUCTION SETTINGS
+                    requestTimeout: 30000,
+                    maxRetries: 3,
+                    retryDelay: 1000,
+                    
+                    // 🔒 SECURITY
+                    enableRateLimit: true,
+                    maxRequestsPerMinute: 100
+                };
                 
+                this.cache = new Map();
                 this.init();
             }
 
             async init() {
-                console.log('🛡️ Initializing Enhanced Admin Portal...');
+                console.log('🛡️ PRODUCTION ADMIN PORTAL: 805 LifeGuard Admin Portal');
+                console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
+                console.log('💾 Database Mode: Production D1');
                 
-                // Check if unified portal system is available
-                if (!window.LifeGuardPortalSystem) {
-                    console.error('❌ Unified Portal System not found! Make sure lifeguard-portal-system.js is loaded.');
-                    alert('System Error: Portal system not loaded. Please refresh the page.');
-                    return;
-                }
-                
-                console.log('✅ Unified Portal System found:', window.LifeGuardPortalSystem);
-                
-                this.setupEventListeners();
-                this.setupScrollEffects();
-                
-                // Check for existing admin token
-                const token = this.portalSystem.getAuthToken('admin');
-                if (token) {
-                    await this.validateAdminToken(token);
-                } else {
+                try {
+                    this.setupEventListeners();
+                    this.setupScrollEffects();
+                    
+                    // Check for existing admin token
+                    const token = this.getAuthToken();
+                    if (token && await this.validateToken(token)) {
+                        await this.loadAdminData();
+                        this.showAdminPortal();
+                    } else {
+                        this.showLogin();
+                    }
+                    
+                    this.updateConnectionStatus();
+                    
+                    console.log('✅ PRODUCTION ADMIN PORTAL READY!');
+                    
+                } catch (error) {
+                    console.error('🚨 Admin portal initialization error:', error);
+                    this.showEnhancedNotification('Admin portal initialized with limited functionality.', 'warning', {
+                        title: 'Initialization Warning',
+                        duration: 5000
+                    });
                     this.showLogin();
                 }
-                
-                console.log('✅ Enhanced Admin Portal initialized successfully!');
             }
 
             setupEventListeners() {
+                console.log('🔧 Setting up admin event listeners...');
+                
                 // Admin login form
                 document.getElementById('adminLoginForm')?.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -1815,55 +1716,52 @@
                     this.handleAdminLogout();
                 });
 
-                // Calendar navigation
-                document.getElementById('adminPrevMonth')?.addEventListener('click', () => {
-                    this.navigateAdminMonth(-1);
+                // Modal close buttons
+                document.getElementById('customerModalClose')?.addEventListener('click', () => {
+                    this.closeModal();
                 });
 
-                document.getElementById('adminNextMonth')?.addEventListener('click', () => {
-                    this.navigateAdminMonth(1);
+                document.getElementById('bookingModalClose')?.addEventListener('click', () => {
+                    this.closeModal();
                 });
 
-                console.log('🛡️ Admin event listeners setup complete');
+                // Customer search
+                document.getElementById('customerSearch')?.addEventListener('input', (e) => {
+                    this.filterCustomers(e.target.value);
+                });
+
+                // Booking filters
+                document.querySelectorAll('.filter-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.setBookingFilter(button.dataset.status);
+                    });
+                });
+
+                console.log('✅ Admin event listeners setup complete');
             }
 
             setupScrollEffects() {
-                let ticking = false;
-                
-                const handleScroll = () => {
-                    if (!ticking) {
-                        requestAnimationFrame(() => {
-                            this.updateScrollEffects();
-                            ticking = false;
-                        });
-                        ticking = true;
+                window.addEventListener('scroll', () => {
+                    const navbar = document.getElementById('mainNav');
+                    if (navbar) {
+                        if (window.scrollY > 50) {
+                            navbar.classList.add('scrolled');
+                        } else {
+                            navbar.classList.remove('scrolled');
+                        }
                     }
-                };
-                
-                window.addEventListener('scroll', handleScroll, { passive: true });
+                }, { passive: true });
             }
 
-            updateScrollEffects() {
-                const scrollY = window.scrollY;
-                const navbar = document.getElementById('mainNav');
-                
-                if (navbar) {
-                    if (scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                }
-            }
-
+            // 🔐 AUTHENTICATION FUNCTIONS
             async handleAdminLogin() {
-                const email = document.getElementById('adminEmail').value.trim();
+                const username = document.getElementById('adminUsername').value.trim();
                 const password = document.getElementById('adminPassword').value;
                 const loginBtn = document.getElementById('adminLoginBtn');
                 const errorDiv = document.getElementById('adminLoginError');
 
-                if (!email || !password) {
-                    this.showError(errorDiv, 'Please enter both email and password');
+                if (!username || !password) {
+                    this.showError(errorDiv, 'Please enter both username and password');
                     return;
                 }
 
@@ -1871,18 +1769,17 @@
                 errorDiv.classList.add('hidden');
 
                 try {
-                    console.log('🛡️ Admin login attempt:', { email, password });
+                    console.log('🛡️ Admin login attempt:', { username, password: '***' });
                     
-                    // Force admin portal detection and use mock mode
-                    const response = await this.portalSystem.apiCall('adminLogin', 'POST', {
-                        email,
+                    const response = await this.apiCall('/api/admin/login', 'POST', {
+                        username,
                         password
-                    }, { portal: 'admin', mockMode: true });
+                    });
 
                     console.log('🛡️ Admin login response:', response);
 
                     if (response && response.success) {
-                        this.portalSystem.setAuthToken('admin', response.token);
+                        this.setAuthToken(response.token);
                         this.currentAdmin = response.admin;
                         
                         await this.playSuccessAnimation(loginBtn);
@@ -1890,7 +1787,7 @@
                         
                         setTimeout(() => {
                             this.showAdminPortal();
-                            this.portalSystem.showNotification('Welcome back! Admin access granted.', 'success', {
+                            this.showEnhancedNotification('Welcome back! Admin access granted.', 'success', {
                                 title: 'Admin Login Successful',
                                 duration: 4000
                             });
@@ -1902,220 +1799,195 @@
                 } catch (error) {
                     console.error('Admin login error:', error);
                     await this.playErrorAnimation(loginBtn);
-                    this.showError(errorDiv, error.message || 'Admin login failed. Please check your credentials.');
+                    this.showError(errorDiv, this.getUserFriendlyErrorMessage(error));
                 } finally {
                     this.hideLoadingState(loginBtn, 'Admin Sign In');
                 }
             }
 
-            async validateAdminToken(token) {
+            async validateToken(token) {
                 try {
-                    const response = await this.portalSystem.apiCall('adminLogin', 'GET', null, { portal: 'admin' });
+                    const response = await this.apiCall('/api/admin/login', 'GET', null, token);
                     
-                    if (response && response.success) {
+                    if (response?.success) {
                         this.currentAdmin = response.admin;
-                        await this.loadAdminData();
-                        this.showAdminPortal();
+                        return true;
                     } else {
-                        this.portalSystem.clearAuthToken('admin');
-                        this.showLogin();
+                        this.clearAuthToken();
+                        return false;
                     }
                 } catch (error) {
-                    console.error('Admin token validation error:', error);
-                    this.portalSystem.clearAuthToken('admin');
-                    this.showLogin();
+                    console.error('Token validation error:', error);
+                    this.clearAuthToken();
+                    return false;
                 }
             }
 
-            async loadAdminData() {
+            getAuthToken() {
+                return localStorage.getItem('adminAuthToken');
+            }
+
+            setAuthToken(token) {
+                localStorage.setItem('adminAuthToken', token);
+            }
+
+            clearAuthToken() {
+                localStorage.removeItem('adminAuthToken');
+            }
+
+            // 🌐 ENHANCED API FUNCTIONS
+            async apiCall(endpoint, method = 'GET', data = null, token = null) {
+                const url = `${this.config.apiBaseUrl}${endpoint}`;
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+
+                const authToken = token || this.getAuthToken();
+                if (authToken) {
+                    headers['Authorization'] = `Bearer ${authToken}`;
+                }
+
+                const config = {
+                    method,
+                    headers,
+                    credentials: 'omit'
+                };
+
+                if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+                    config.body = JSON.stringify(data);
+                }
+
                 try {
-                    console.log('📊 Loading admin data...');
+                    console.log(`🌐 ADMIN API ${method} ${endpoint}`);
                     
-                    // Load admin-specific data
+                    const timeoutPromise = new Promise((_, reject) => {
+                        setTimeout(() => reject(new Error('Request timeout')), this.config.requestTimeout);
+                    });
+                    
+                    const response = await Promise.race([
+                        fetch(url, config),
+                        timeoutPromise
+                    ]);
+                    
+                    if (!response.ok) {
+                        const errorData = await this.parseErrorResponse(response);
+                        throw new Error(`HTTP ${response.status}: ${errorData.message}`);
+                    }
+
+                    const result = await response.json();
+                    console.log(`✅ ADMIN API ${method} ${endpoint} - Success`);
+                    this.updateConnectionStatus('connected');
+                    return result;
+                    
+                } catch (error) {
+                    console.error(`❌ ADMIN API ${method} ${endpoint} - Error:`, error.message);
+                    this.updateConnectionStatus('error');
+                    
+                    if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+                        this.clearAuthToken();
+                        this.showLogin();
+                        throw new Error('Authentication required. Please log in again.');
+                    }
+                    
+                    throw error;
+                }
+            }
+
+            async parseErrorResponse(response) {
+                try {
+                    const errorData = await response.json();
+                    return {
+                        message: errorData.error || errorData.message || `HTTP ${response.status}`,
+                        details: errorData.details || '',
+                        code: errorData.code || response.status
+                    };
+                } catch {
+                    return {
+                        message: response.statusText || `HTTP ${response.status}`,
+                        details: '',
+                        code: response.status
+                    };
+                }
+            }
+
+            getUserFriendlyErrorMessage(error) {
+                const message = error.message.toLowerCase();
+                
+                if (message.includes('invalid admin credentials') || message.includes('401')) {
+                    return 'Invalid admin credentials. Please check your username and password.';
+                } else if (message.includes('cors')) {
+                    return 'CORS Error: Your Cloudflare Worker needs CORS headers configured.';
+                } else if (message.includes('network') || message.includes('fetch')) {
+                    return 'Unable to connect to the API server. Please check your Cloudflare Worker.';
+                } else if (message.includes('timeout')) {
+                    return 'Request timed out. Please try again.';
+                } else if (message.includes('500')) {
+                    return 'Server error. Please try again in a few moments.';
+                } else {
+                    return 'Login failed. Please try again or contact support.';
+                }
+            }
+
+            // 📊 DATA LOADING FUNCTIONS
+            async loadAdminData() {
+                console.log('📊 Loading admin data...');
+                
+                try {
                     const dataPromises = [
                         this.loadCustomers(),
-                        this.loadAllBookings(),
-                        this.loadStaff(),
-                        this.loadAnalytics()
+                        this.loadBookings(),
+                        this.loadStats()
                     ];
                     
                     await Promise.allSettled(dataPromises);
                     
                     this.updateAdminUserInfo();
                     this.updateAdminStats();
-                    this.generateAdminCalendar();
                     
                     console.log('✅ Admin data loaded successfully');
                 } catch (error) {
                     console.error('Error loading admin data:', error);
-                    this.portalSystem.showNotification('Some admin data could not be loaded.', 'error');
+                    this.showEnhancedNotification('Some admin data could not be loaded.', 'warning');
                 }
             }
 
             async loadCustomers() {
                 try {
-                    const response = await this.portalSystem.apiCall('adminCustomers', 'GET');
-                    if (response && response.success) {
+                    const response = await this.apiCall('/api/admin/customers', 'GET');
+                    if (response?.success) {
                         this.customers = response.customers || [];
-                    } else {
-                        // Generate sample customers for demo
-                        this.customers = this.generateSampleCustomers();
+                        console.log(`✅ Loaded ${this.customers.length} customers`);
                     }
                 } catch (error) {
                     console.error('Error loading customers:', error);
-                    // Generate sample customers for demo
-                    this.customers = this.generateSampleCustomers();
+                    this.customers = [];
                 }
             }
 
-            async loadAllBookings() {
+            async loadBookings() {
                 try {
-                    const response = await this.portalSystem.apiCall('adminBookings', 'GET');
-                    if (response && response.success) {
+                    const response = await this.apiCall('/api/admin/bookings', 'GET');
+                    if (response?.success) {
                         this.bookings = response.bookings || [];
-                    } else {
-                        // Generate sample bookings for demo
-                        this.bookings = this.generateSampleBookings();
+                        console.log(`✅ Loaded ${this.bookings.length} bookings`);
                     }
                 } catch (error) {
                     console.error('Error loading bookings:', error);
-                    // Generate sample bookings for demo
-                    this.bookings = this.generateSampleBookings();
+                    this.bookings = [];
                 }
             }
 
-            async loadStaff() {
+            async loadStats() {
                 try {
-                    const response = await this.portalSystem.apiCall('/api/admin/staff', 'GET');
-                    if (response && response.success) {
-                        this.staff = response.staff || [];
-                    } else {
-                        // Generate sample staff for demo
-                        this.staff = this.generateSampleStaff();
+                    const response = await this.apiCall('/api/admin/bookings/stats', 'GET');
+                    if (response?.success) {
+                        this.stats = response.stats || {};
+                        console.log('✅ Loaded admin stats');
                     }
                 } catch (error) {
-                    console.error('Error loading staff:', error);
-                    // Generate sample staff for demo
-                    this.staff = this.generateSampleStaff();
+                    console.error('Error loading stats:', error);
+                    this.stats = {};
                 }
-            }
-
-            async loadAnalytics() {
-                try {
-                    const response = await this.portalSystem.apiCall('adminStats', 'GET');
-                    if (response && response.success) {
-                        this.analytics = response.analytics || {};
-                    }
-                } catch (error) {
-                    console.error('Error loading analytics:', error);
-                }
-            }
-
-            generateSampleCustomers() {
-                const firstNames = ['John', 'Sarah', 'Michael', 'Emily', 'David', 'Jessica', 'Robert', 'Ashley', 'Christopher', 'Amanda', 'Matthew', 'Jennifer'];
-                const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez'];
-                const plans = ['basic', 'premium', 'deluxe'];
-                const statuses = ['active', 'inactive', 'pending'];
-                
-                const customers = [];
-                for (let i = 0; i < 25; i++) {
-                    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                    const plan = plans[Math.floor(Math.random() * plans.length)];
-                    const status = i < 20 ? 'active' : statuses[Math.floor(Math.random() * statuses.length)];
-                    
-                    customers.push({
-                        id: `cust_${i + 1}`,
-                        name: `${firstName} ${lastName}`,
-                        email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com`,
-                        phone: `(805) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
-                        address: `${Math.floor(Math.random() * 9999) + 1} ${lastName} St, Simi Valley, CA`,
-                        plan,
-                        status,
-                        createdAt: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)).toISOString(),
-                        createdBy: 'System Admin',
-                        notes: Math.random() > 0.7 ? 'Special pool cleaning requirements' : ''
-                    });
-                }
-                return customers;
-            }
-
-            generateSampleBookings() {
-                const services = ['Pool Cleaning', 'Pool Maintenance', 'Emergency Repair', 'Chemical Balancing', 'Equipment Inspection'];
-                const statuses = ['confirmed', 'pending', 'completed', 'cancelled'];
-                const times = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'];
-                
-                const bookings = [];
-                for (let i = 0; i < 50; i++) {
-                    const service = services[Math.floor(Math.random() * services.length)];
-                    const status = statuses[Math.floor(Math.random() * statuses.length)];
-                    const time = times[Math.floor(Math.random() * times.length)];
-                    
-                    // Generate dates within the last 30 days and next 30 days
-                    const randomDate = new Date();
-                    randomDate.setDate(randomDate.getDate() + Math.floor(Math.random() * 60) - 30);
-                    
-                    const customerIndex = Math.floor(Math.random() * (this.customers?.length || 25));
-                    const customerName = this.customers?.[customerIndex]?.name || `Customer ${customerIndex + 1}`;
-                    
-                    const baseCost = service === 'Emergency Repair' ? 300 : service === 'Pool Maintenance' ? 200 : 150;
-                    const cost = baseCost + Math.floor(Math.random() * 100);
-                    
-                    bookings.push({
-                        id: `booking_${i + 1}`,
-                        date: randomDate.toISOString().split('T')[0],
-                        time,
-                        service,
-                        status,
-                        customerName,
-                        customerId: `cust_${customerIndex + 1}`,
-                        cost,
-                        createdAt: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString(),
-                        notes: Math.random() > 0.8 ? 'Special instructions for this booking' : ''
-                    });
-                }
-                return bookings;
-            }
-
-            generateSampleStaff() {
-                const staffNames = [
-                    { first: 'Alex', last: 'Thompson', role: 'lifeguard' },
-                    { first: 'Maria', last: 'Rodriguez', role: 'pool_technician' },
-                    { first: 'James', last: 'Wilson', role: 'lifeguard' },
-                    { first: 'Lisa', last: 'Chen', role: 'supervisor' },
-                    { first: 'Michael', last: 'Davis', role: 'pool_technician' },
-                    { first: 'Sandra', last: 'Miller', role: 'lifeguard' },
-                    { first: 'Kevin', last: 'Johnson', role: 'manager' },
-                    { first: 'Rachel', last: 'Brown', role: 'lifeguard' },
-                    { first: 'Tom', last: 'Anderson', role: 'pool_technician' },
-                    { first: 'Amy', last: 'Garcia', role: 'supervisor' }
-                ];
-                
-                const certifications = ['CPR Certified', 'Lifeguard Certified', 'First Aid Certified', 'Pool Operator Certified', 'Fully Certified'];
-                const statuses = ['active', 'inactive', 'training'];
-                
-                const staff = [];
-                staffNames.forEach((person, i) => {
-                    const certification = certifications[Math.floor(Math.random() * certifications.length)];
-                    const status = i < 8 ? 'active' : statuses[Math.floor(Math.random() * statuses.length)];
-                    const hourlyRate = person.role === 'manager' ? 35 : person.role === 'supervisor' ? 28 : person.role === 'pool_technician' ? 25 : 20;
-                    
-                    staff.push({
-                        id: `staff_${i + 1}`,
-                        name: `${person.first} ${person.last}`,
-                        email: `${person.first.toLowerCase()}.${person.last.toLowerCase()}@805lifeguard.com`,
-                        phone: `(805) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
-                        role: person.role,
-                        status,
-                        certification,
-                        hourlyRate: hourlyRate + Math.floor(Math.random() * 5),
-                        createdAt: new Date(Date.now() - Math.floor(Math.random() * 180 * 24 * 60 * 60 * 1000)).toISOString(),
-                        createdBy: 'HR Admin',
-                        notes: Math.random() > 0.8 ? 'Excellent performance record' : ''
-                    });
-                });
-                
-                return staff;
             }
 
             updateAdminUserInfo() {
@@ -2124,33 +1996,33 @@
                 const userAvatar = document.getElementById('adminUserAvatar');
                 const userName = document.getElementById('adminUserName');
 
-                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentAdmin.name);
-                if (userName) userName.textContent = this.currentAdmin.name || 'Admin User';
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentAdmin.username || 'Admin');
+                if (userName) userName.textContent = this.currentAdmin.username || 'Admin User';
             }
 
             updateAdminStats() {
-                // Calculate stats from loaded data
+                // Calculate stats
                 const totalCustomers = this.customers.length;
                 const totalBookings = this.bookings.length;
-                const activeStaff = this.staff.filter(s => s.status === 'active').length;
+                const upcomingBookings = this.bookings.filter(b => 
+                    new Date(b.date) >= new Date() && b.status !== 'cancelled'
+                ).length;
                 
-                // Calculate monthly revenue (mock calculation)
+                // Calculate monthly revenue
                 const thisMonth = new Date();
-                const monthlyBookings = this.bookings.filter(booking => {
-                    const bookingDate = new Date(booking.date);
-                    return bookingDate.getMonth() === thisMonth.getMonth() &&
-                           bookingDate.getFullYear() === thisMonth.getFullYear() &&
-                           booking.status === 'confirmed';
-                });
-                
-                const monthlyRevenue = monthlyBookings.reduce((total, booking) => {
-                    return total + (booking.cost || 0);
-                }, 0);
+                const monthlyRevenue = this.bookings
+                    .filter(booking => {
+                        const bookingDate = new Date(booking.date);
+                        return bookingDate.getMonth() === thisMonth.getMonth() &&
+                               bookingDate.getFullYear() === thisMonth.getFullYear() &&
+                               (booking.status === 'confirmed' || booking.status === 'completed');
+                    })
+                    .reduce((total, booking) => total + (booking.cost || 0), 0);
 
                 // Animate stats
                 this.animateNumber('totalCustomers', totalCustomers);
                 this.animateNumber('totalBookings', totalBookings);
-                this.animateNumber('activeStaff', activeStaff);
+                this.animateNumber('upcomingBookings', upcomingBookings);
                 this.animateRevenue('monthlyRevenue', monthlyRevenue);
             }
 
@@ -2176,7 +2048,7 @@
                 if (!element) return;
                 
                 let currentValue = 0;
-                const increment = Math.max(100, Math.ceil(targetValue / 30));
+                const increment = Math.max(10, Math.ceil(targetValue / 30));
                 
                 const timer = setInterval(() => {
                     if (currentValue < targetValue) {
@@ -2188,6 +2060,396 @@
                 }, 50);
             }
 
+            // 👥 CUSTOMER MANAGEMENT FUNCTIONS
+            async openCustomerManagement() {
+                console.log('👥 Opening customer management...');
+                
+                const modal = document.getElementById('customerModal');
+                if (!modal) return;
+                
+                this.showModal(modal);
+                
+                // Load fresh customer data
+                await this.loadCustomers();
+                this.populateCustomersTable();
+                this.updateCustomerStats();
+            }
+
+            populateCustomersTable() {
+                const tbody = document.getElementById('customersTableBody');
+                if (!tbody) return;
+                
+                if (this.customers.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                No customers found
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                tbody.innerHTML = this.customers.map(customer => `
+                    <tr style="transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
+                        <td style="padding: var(--space-3); font-weight: 600;">${customer.name}</td>
+                        <td style="padding: var(--space-3);">${customer.email}</td>
+                        <td style="padding: var(--space-3);">${customer.phone || 'N/A'}</td>
+                        <td style="padding: var(--space-3); text-align: center;">${customer.total_bookings || 0}</td>
+                        <td style="padding: var(--space-3); text-align: center;">${(customer.total_spent || 0).toLocaleString()}</td>
+                        <td style="padding: var(--space-3);">${new Date(customer.member_since).toLocaleDateString()}</td>
+                        <td style="padding: var(--space-3);">
+                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // 📅 BOOKING MANAGEMENT FUNCTIONS
+            async openBookingManagement() {
+                console.log('📅 Opening booking management...');
+                
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                this.showModal(modal);
+                
+                // Load fresh booking data
+                await this.loadBookings();
+                this.populateBookingsTable();
+                this.updateBookingStats();
+            }
+
+            populateBookingsTable() {
+                const tbody = document.getElementById('bookingsTableBody');
+                if (!tbody) return;
+                
+                let filteredBookings = this.bookings;
+                
+                // Apply status filter
+                if (this.filterStatus !== 'all') {
+                    filteredBookings = this.bookings.filter(booking => booking.status === this.filterStatus);
+                }
+                
+                if (filteredBookings.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                No ${this.filterStatus === 'all' ? '' : this.filterStatus + ' '}bookings found
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                tbody.innerHTML = filteredBookings.map(booking => `
+                    <tr style="transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
+                        <td style="padding: var(--space-3); font-weight: 600;">
+                            ${booking.customer?.name || 'Unknown Customer'}<br>
+                            <small style="color: var(--gray);">${booking.customer?.email || ''}</small>
+                        </td>
+                        <td style="padding: var(--space-3);">${booking.serviceName || booking.service}</td>
+                        <td style="padding: var(--space-3);">${new Date(booking.date).toLocaleDateString()}</td>
+                        <td style="padding: var(--space-3);">${booking.time}</td>
+                        <td style="padding: var(--space-3); text-align: center;">${booking.duration}h</td>
+                        <td style="padding: var(--space-3); text-align: center;">${(booking.cost || 0).toLocaleString()}</td>
+                        <td style="padding: var(--space-3);">
+                            <span class="status-badge status-${booking.status}">${booking.status}</span>
+                        </td>
+                        <td style="padding: var(--space-3);">
+                            ${booking.status === 'pending' ? `
+                                <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'confirmed')" class="btn-small btn-success" style="margin-right: var(--space-1);">
+                                    <i class="fas fa-check"></i> Confirm
+                                </button>
+                                <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'cancelled')" class="btn-small btn-cancel">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            ` : booking.status === 'confirmed' ? `
+                                <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'completed')" class="btn-small btn-success" style="margin-right: var(--space-1);">
+                                    <i class="fas fa-check-circle"></i> Complete
+                                </button>
+                                <button onclick="adminPortal.editBooking('${booking.id}')" class="btn-small btn-edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                            ` : `
+                                <button onclick="adminPortal.viewBookingDetails('${booking.id}')" class="btn-small btn-edit">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                            `}
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            updateBookingStats() {
+                const totalBookings = this.bookings.length;
+                const pendingBookings = this.bookings.filter(b => b.status === 'pending').length;
+                const confirmedBookings = this.bookings.filter(b => b.status === 'confirmed').length;
+                const totalRevenue = this.bookings
+                    .filter(b => b.status === 'completed' || b.status === 'confirmed')
+                    .reduce((total, booking) => total + (booking.cost || 0), 0);
+                
+                this.animateNumber('totalBookingsCount', totalBookings);
+                this.animateNumber('pendingBookingsCount', pendingBookings);
+                this.animateNumber('confirmedBookingsCount', confirmedBookings);
+                this.animateRevenue('totalRevenueCount', totalRevenue);
+            }
+
+            setBookingFilter(status) {
+                this.filterStatus = status;
+                
+                // Update filter buttons
+                document.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-status="${status}"]`).classList.add('active');
+                
+                // Refresh table
+                this.populateBookingsTable();
+            }
+
+            async updateBookingStatus(bookingId, newStatus) {
+                try {
+                    const response = await this.apiCall(`/api/admin/bookings/${bookingId}`, 'PUT', {
+                        status: newStatus
+                    });
+                    
+                    if (response?.success) {
+                        // Update local booking status
+                        const booking = this.bookings.find(b => b.id === bookingId);
+                        if (booking) {
+                            booking.status = newStatus;
+                        }
+                        
+                        // Refresh table and stats
+                        this.populateBookingsTable();
+                        this.updateBookingStats();
+                        
+                        this.showEnhancedNotification(
+                            `Booking status updated to ${newStatus}`, 
+                            'success', 
+                            {
+                                title: 'Status Updated',
+                                duration: 3000
+                            }
+                        );
+                    } else {
+                        throw new Error(response.error || 'Failed to update booking status');
+                    }
+                } catch (error) {
+                    console.error('Error updating booking status:', error);
+                    this.showEnhancedNotification(
+                        'Failed to update booking status. Please try again.', 
+                        'error',
+                        { title: 'Update Error', duration: 5000 }
+                    );
+                }
+            }
+
+            // 📊 ANALYTICS & REPORTS
+            openAnalytics() {
+                this.showEnhancedNotification('Advanced analytics dashboard coming soon!', 'info', {
+                    title: 'Analytics Dashboard',
+                    subtitle: 'Real-time business intelligence and reporting',
+                    duration: 4000
+                });
+            }
+
+            viewReports() {
+                this.openAnalytics();
+            }
+
+            financialAnalytics() {
+                this.openAnalytics();
+            }
+
+            async exportCustomers() {
+                try {
+                    // Trigger CSV download from the server
+                    const token = this.getAuthToken();
+                    const url = `${this.config.apiBaseUrl}/api/admin/export?type=customers`;
+                    
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.style.display = 'none';
+                    link.download = `805-lifeguard-customers-${new Date().toISOString().split('T')[0]}.csv`;
+                    
+                    // Add authorization header by creating a fetch request and converting to blob
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        link.href = blobUrl;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(blobUrl);
+                        
+                        this.showEnhancedNotification('Customer data exported successfully!', 'success', {
+                            title: 'Export Complete',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error('Export failed');
+                    }
+                } catch (error) {
+                    console.error('Export error:', error);
+                    this.showEnhancedNotification('Export failed. Please try again.', 'error');
+                }
+            }
+
+            async exportBookings() {
+                try {
+                    const token = this.getAuthToken();
+                    const url = `${this.config.apiBaseUrl}/api/admin/export`;
+                    
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.download = `805-lifeguard-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(blobUrl);
+                        
+                        this.showEnhancedNotification('Booking data exported successfully!', 'success', {
+                            title: 'Export Complete',
+                            duration: 4000
+                        });
+                    } else {
+                        throw new Error('Export failed');
+                    }
+                } catch (error) {
+                    console.error('Export error:', error);
+                    this.showEnhancedNotification('Export failed. Please try again.', 'error');
+                }
+            }
+
+            exportAllData() {
+                this.showEnhancedNotification('Complete data export feature coming soon!', 'info', {
+                    title: 'Data Export',
+                    subtitle: 'Full database export with all tables',
+                    duration: 4000
+                });
+            }
+
+            // ⚙️ SYSTEM ADMINISTRATION
+            openSystemSettings() {
+                this.showEnhancedNotification('System settings panel coming soon!', 'info', {
+                    title: 'System Settings',
+                    subtitle: 'Administrative configuration and management',
+                    duration: 4000
+                });
+            }
+
+            viewSystemLogs() {
+                this.showEnhancedNotification('System logs viewer coming soon!', 'info', {
+                    title: 'System Logs',
+                    duration: 4000
+                });
+            }
+
+            backupDatabase() {
+                this.showEnhancedNotification('Database backup feature coming soon!', 'info', {
+                    title: 'Database Backup',
+                    duration: 4000
+                });
+            }
+
+            viewActivity() {
+                this.showEnhancedNotification('User activity logs coming soon!', 'info', {
+                    title: 'Activity Logs',
+                    duration: 4000
+                });
+            }
+
+            // 🎯 CUSTOMER MANAGEMENT ACTIONS
+            viewCustomers() {
+                this.openCustomerManagement();
+            }
+
+            addCustomer() {
+                this.showAddCustomerForm();
+            }
+
+            showAddCustomerForm() {
+                this.showEnhancedNotification('Add customer form coming soon!', 'info', {
+                    title: 'Add Customer',
+                    subtitle: 'Create new customer accounts with full profile setup',
+                    duration: 4000
+                });
+            }
+
+            editCustomer(customerId) {
+                const customer = this.customers.find(c => c.id == customerId);
+                if (customer) {
+                    this.showEnhancedNotification(`Edit functionality for ${customer.name} coming soon!`, 'info', {
+                        title: 'Edit Customer',
+                        duration: 3000
+                    });
+                }
+            }
+
+            viewCustomerDetails(customerId) {
+                const customer = this.customers.find(c => c.id == customerId);
+                if (customer) {
+                    this.showEnhancedNotification(`Viewing details for ${customer.name}`, 'info', {
+                        title: 'Customer Details',
+                        duration: 3000
+                    });
+                }
+            }
+
+            // 📅 BOOKING MANAGEMENT ACTIONS
+            viewBookings() {
+                this.openBookingManagement();
+            }
+
+            filterBookings(status) {
+                this.filterStatus = status;
+                this.openBookingManagement();
+            }
+
+            editBooking(bookingId) {
+                const booking = this.bookings.find(b => b.id == bookingId);
+                if (booking) {
+                    this.showEnhancedNotification(`Edit functionality for booking ${bookingId} coming soon!`, 'info', {
+                        title: 'Edit Booking',
+                        duration: 3000
+                    });
+                }
+            }
+
+            viewBookingDetails(bookingId) {
+                const booking = this.bookings.find(b => b.id == bookingId);
+                if (booking) {
+                    this.showEnhancedNotification(`Viewing details for booking ${bookingId}`, 'info', {
+                        title: 'Booking Details',
+                        duration: 3000
+                    });
+                }
+            }
+
+            // 🎭 UI MANAGEMENT FUNCTIONS
             showLogin() {
                 const loginContainer = document.getElementById('loginContainer');
                 const portalContainer = document.getElementById('adminPortalContainer');
@@ -2208,17 +2470,16 @@
 
             handleAdminLogout() {
                 if (confirm('Are you sure you want to logout from the admin portal?')) {
-                    this.portalSystem.clearAuthToken('admin');
+                    this.clearAuthToken();
                     this.currentAdmin = null;
                     this.customers = [];
                     this.bookings = [];
-                    this.staff = [];
-                    this.analytics = {};
+                    this.stats = {};
                     
                     document.getElementById('adminLoginForm').reset();
                     this.showLogin();
                     
-                    this.portalSystem.showNotification('Admin logout successful.', 'info');
+                    this.showEnhancedNotification('Admin logout successful.', 'info');
                 }
             }
 
@@ -2236,846 +2497,44 @@
                 }
             }
 
-            // Enhanced Calendar Management for Admin
-            generateAdminCalendar() {
-                this.currentDate = this.currentDate || new Date();
-                this.selectedDate = null;
+            showModal(modal) {
+                if (this.currentModal) {
+                    this.closeModal();
+                }
                 
-                const calendarGrid = document.getElementById('adminCalendarGrid');
-                const currentMonthDisplay = document.getElementById('adminCurrentMonth');
-                
-                if (!calendarGrid || !currentMonthDisplay) return;
-                
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
-
-                // Animate month change
-                calendarGrid.style.opacity = '0.7';
-                calendarGrid.style.transform = 'scale(0.95)';
-
-                setTimeout(() => {
-                    calendarGrid.innerHTML = '';
-                    this.generateAdminCalendarContent(calendarGrid);
-                    
-                    calendarGrid.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    calendarGrid.style.opacity = '1';
-                    calendarGrid.style.transform = 'scale(1)';
-                }, 150);
-
-                console.log('✅ Admin calendar generated successfully');
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                this.currentModal = modal;
             }
 
-            generateAdminCalendarContent(calendarGrid) {
-                // Day headers
-                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayHeaders.forEach(day => {
-                    const header = document.createElement('div');
-                    header.className = 'calendar-day-header';
-                    header.textContent = day;
-                    header.setAttribute('role', 'columnheader');
-                    calendarGrid.appendChild(header);
-                });
-
-                // Generate calendar days
-                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-                const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                for (let i = 0; i < 42; i++) {
-                    const currentDay = new Date(startDate);
-                    currentDay.setDate(startDate.getDate() + i);
+            closeModal() {
+                if (this.currentModal) {
+                    this.currentModal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
                     
-                    const dayElement = this.createAdminCalendarDay(currentDay, today, i);
-                    calendarGrid.appendChild(dayElement);
+                    setTimeout(() => {
+                        this.currentModal.style.display = 'none';
+                        this.currentModal = null;
+                    }, 300);
                 }
             }
 
-            createAdminCalendarDay(date, today, index) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.setAttribute('role', 'gridcell');
-                dayElement.setAttribute('tabindex', '0');
-                dayElement.setAttribute('aria-label', date.toLocaleDateString());
+            updateConnectionStatus(status = 'connected') {
+                const statusElement = document.getElementById('connectionStatus');
+                if (!statusElement) return;
 
-                // Enhanced styling classes
-                if (date.getMonth() !== this.currentDate.getMonth()) {
-                    dayElement.classList.add('other-month');
-                }
-
-                if (date.getTime() === today.getTime()) {
-                    dayElement.classList.add('today');
-                    dayElement.setAttribute('aria-current', 'date');
-                }
-
-                if (date < today) {
-                    dayElement.classList.add('past-date');
-                }
-
-                // Check if this date is selected
-                if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
-                    dayElement.classList.add('selected');
-                    dayElement.setAttribute('aria-selected', 'true');
-                }
-
-                // Add booking status for admin view
-                const bookingStatus = this.getAdminDateBookingStatus(date);
-                dayElement.classList.add(bookingStatus.status);
-
-                // Enhanced day number
-                const dayNumber = document.createElement('div');
-                dayNumber.className = 'day-number';
-                dayNumber.textContent = date.getDate();
-                dayElement.appendChild(dayNumber);
-
-                // Enhanced events container
-                const eventsContainer = document.createElement('div');
-                eventsContainer.className = 'day-events';
+                statusElement.className = `connection-status ${status}`;
                 
-                bookingStatus.events.forEach((event, eventIndex) => {
-                    const eventDot = document.createElement('div');
-                    eventDot.className = `event-dot event-${event.type}`;
-                    eventDot.style.animationDelay = `${(index * 50) + (eventIndex * 100)}ms`;
-                    eventsContainer.appendChild(eventDot);
-                });
-
-                dayElement.appendChild(eventsContainer);
-
-                // Booking count display
-                if (bookingStatus.bookingCount > 0) {
-                    const countElement = document.createElement('div');
-                    countElement.className = 'day-booking-count';
-                    countElement.textContent = `${bookingStatus.bookingCount} booking${bookingStatus.bookingCount > 1 ? 's' : ''}`;
-                    dayElement.appendChild(countElement);
-                }
-
-                // Enhanced event listeners
-                if (!dayElement.classList.contains('other-month')) {
-                    dayElement.addEventListener('click', () => {
-                        this.selectAdminCalendarDate(new Date(date));
-                    });
-                    
-                    dayElement.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.selectAdminCalendarDate(new Date(date));
-                        }
-                    });
-
-                    // Enhanced hover effects
-                    dayElement.addEventListener('mouseenter', () => {
-                        if (!dayElement.classList.contains('selected')) {
-                            dayElement.style.transform = 'scale(1.05)';
-                            dayElement.style.zIndex = '10';
-                        }
-                    });
-
-                    dayElement.addEventListener('mouseleave', () => {
-                        if (!dayElement.classList.contains('selected')) {
-                            dayElement.style.transform = '';
-                            dayElement.style.zIndex = '';
-                        }
-                    });
-                }
-
-                // Staggered animation
-                dayElement.style.opacity = '0';
-                dayElement.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    dayElement.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    dayElement.style.opacity = '1';
-                    dayElement.style.transform = 'translateY(0)';
-                }, index * 20);
-
-                return dayElement;
-            }
-
-            getAdminDateBookingStatus(date) {
-                const dateKey = date.toISOString().split('T')[0];
-                
-                // Get all bookings for this date
-                const dayBookings = this.bookings.filter(booking => 
-                    booking.date === dateKey && booking.status !== 'cancelled'
-                );
-                
-                let status = 'available';
-                let events = [];
-                
-                if (dayBookings.length > 0) {
-                    const confirmedBookings = dayBookings.filter(b => b.status === 'confirmed');
-                    const pendingBookings = dayBookings.filter(b => b.status === 'pending');
-                    
-                    if (confirmedBookings.length > 5) {
-                        status = 'unavailable';
-                        events.push({ type: 'booked' });
-                    } else if (confirmedBookings.length > 0) {
-                        status = 'booked';
-                        events.push({ type: 'booked' });
-                    }
-                    
-                    if (pendingBookings.length > 0) {
-                        events.push({ type: 'available' });
-                    }
-                } else {
-                    events.push({ type: 'available' });
-                }
-                
-                // Check for staff scheduled
-                const staffScheduled = this.staff.some(s => 
-                    s.schedule && s.schedule.some(shift => shift.date === dateKey)
-                );
-                
-                if (staffScheduled) {
-                    events.push({ type: 'staff' });
-                    if (status === 'available') status = 'staff-scheduled';
-                }
-                
-                return {
-                    status,
-                    events,
-                    bookingCount: dayBookings.length
+                const statusTexts = {
+                    connected: '<i class="fas fa-database"></i> Production Mode',
+                    error: '<i class="fas fa-exclamation-triangle"></i> Connection Error'
                 };
+
+                statusElement.innerHTML = statusTexts[status] || statusTexts.connected;
             }
 
-            selectAdminCalendarDate(date) {
-                console.log('📅 Admin calendar date selected:', date.toDateString());
-                
-                // Remove previous selection
-                document.querySelectorAll('#adminCalendarGrid .calendar-day.selected').forEach(day => {
-                    day.classList.remove('selected');
-                    day.removeAttribute('aria-selected');
-                    day.style.transform = '';
-                    day.style.zIndex = '';
-                });
-                
-                this.selectedDate = date;
-                this.generateAdminCalendar();
-                
-                // Show day details or trigger action
-                this.showDayBookingDetails(date);
-            }
-
-            navigateAdminMonth(direction) {
-                if (!this.currentDate) this.currentDate = new Date();
-                this.currentDate.setMonth(this.currentDate.getMonth() + direction);
-                this.generateAdminCalendar();
-            }
-
-            showDayBookingDetails(date) {
-                const dateKey = date.toISOString().split('T')[0];
-                const dayBookings = this.bookings.filter(booking => 
-                    booking.date === dateKey && booking.status !== 'cancelled'
-                );
-                
-                const title = `Bookings for ${date.toLocaleDateString()}`;
-                const message = dayBookings.length > 0 
-                    ? `Found ${dayBookings.length} booking${dayBookings.length > 1 ? 's' : ''} for this date`
-                    : 'No bookings scheduled for this date';
-                
-                this.portalSystem.showNotification(message, 'info', {
-                    title,
-                    duration: 6000,
-                    actions: dayBookings.length > 0 ? [{
-                        text: 'View Details',
-                        action: () => this.viewDayDetails(date)
-                    }] : []
-                });
-            }
-
-            // Admin Management Functions
-            viewDayDetails() {
-                if (!this.selectedDate) {
-                    this.portalSystem.showNotification('Please select a date first', 'warning');
-                    return;
-                }
-                
-                const dateKey = this.selectedDate.toISOString().split('T')[0];
-                const dayBookings = this.bookings.filter(booking => 
-                    booking.date === dateKey && booking.status !== 'cancelled'
-                );
-                
-                this.showDayDetailsModal(this.selectedDate, dayBookings);
-            }
-
-            showDayDetailsModal(date, bookings) {
-                const modal = this.createModal('Day Details', `
-                    <div class="day-details-content">
-                        <h3 style="margin-bottom: var(--space-4); color: var(--primary);">
-                            ${date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                        </h3>
-                        
-                        <div class="stats-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
-                            <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);">${bookings.length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Total Bookings</div>
-                            </div>
-                            <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);">${bookings.filter(b => b.status === 'confirmed').length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Confirmed</div>
-                            </div>
-                            <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);">${bookings.filter(b => b.status === 'pending').length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Pending</div>
-                            </div>
-                        </div>
-                        
-                        ${bookings.length > 0 ? `
-                            <div class="bookings-table">
-                                <h4 style="margin-bottom: var(--space-3); color: var(--dark);">Bookings for this day:</h4>
-                                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
-                                    <table style="width: 100%; border-collapse: collapse;">
-                                        <thead>
-                                            <tr style="background: var(--light-gray); position: sticky; top: 0;">
-                                                <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Time</th>
-                                                <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Customer</th>
-                                                <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Service</th>
-                                                <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Status</th>
-                                                <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${bookings.map(booking => `
-                                                <tr style="border-bottom: 1px solid #dee2e6;">
-                                                    <td style="padding: var(--space-3); font-weight: 600;">${booking.time || '9:00 AM'}</td>
-                                                    <td style="padding: var(--space-3);">${booking.customerName || 'Customer Name'}</td>
-                                                    <td style="padding: var(--space-3);">${booking.service || 'Pool Cleaning'}</td>
-                                                    <td style="padding: var(--space-3);">
-                                                        <span class="status-badge status-${booking.status}" style="padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--font-sm); font-weight: 600;">
-                                                            ${booking.status}
-                                                        </span>
-                                                    </td>
-                                                    <td style="padding: var(--space-3);">
-                                                        <button onclick="adminPortal.editBooking('${booking.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">Edit</button>
-                                                        ${booking.status === 'pending' ? 
-                                                            `<button onclick="adminPortal.confirmBooking('${booking.id}')" class="btn-small btn-success">Confirm</button>` : 
-                                                            `<button onclick="adminPortal.cancelBooking('${booking.id}')" class="btn-small btn-cancel">Cancel</button>`
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            `).join('')}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        ` : `
-                            <div style="text-align: center; padding: var(--space-8); color: var(--gray);">
-                                <i class="fas fa-calendar-times" style="font-size: var(--font-4xl); margin-bottom: var(--space-4); opacity: 0.5;"></i>
-                                <p>No bookings scheduled for this date</p>
-                                <button onclick="adminPortal.addBookingForDate('${date.toISOString()}')" class="btn-primary" style="margin-top: var(--space-4);">
-                                    Add Booking
-                                </button>
-                            </div>
-                        `}
-                    </div>
-                `);
-                
-                this.showModal(modal);
-            }
-
-            addBlockedTime() {
-                if (!this.selectedDate) {
-                    this.portalSystem.showNotification('Please select a date first', 'warning');
-                    return;
-                }
-                
-                this.showBlockTimeModal(this.selectedDate);
-            }
-
-            showBlockTimeModal(date) {
-                const modal = this.createModal('Block Time Slot', `
-                    <form id="blockTimeForm" class="block-time-form">
-                        <div style="margin-bottom: var(--space-5);">
-                            <label class="form-label">Date</label>
-                            <input type="text" class="form-input" value="${date.toLocaleDateString()}" readonly>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="blockStartTime" class="form-label">Start Time</label>
-                                <select id="blockStartTime" class="form-input">
-                                    <option value="08:00">8:00 AM</option>
-                                    <option value="09:00">9:00 AM</option>
-                                    <option value="10:00">10:00 AM</option>
-                                    <option value="11:00">11:00 AM</option>
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="13:00">1:00 PM</option>
-                                    <option value="14:00">2:00 PM</option>
-                                    <option value="15:00">3:00 PM</option>
-                                    <option value="16:00">4:00 PM</option>
-                                    <option value="17:00">5:00 PM</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="blockEndTime" class="form-label">End Time</label>
-                                <select id="blockEndTime" class="form-input">
-                                    <option value="09:00">9:00 AM</option>
-                                    <option value="10:00">10:00 AM</option>
-                                    <option value="11:00">11:00 AM</option>
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="13:00">1:00 PM</option>
-                                    <option value="14:00">2:00 PM</option>
-                                    <option value="15:00">3:00 PM</option>
-                                    <option value="16:00">4:00 PM</option>
-                                    <option value="17:00">5:00 PM</option>
-                                    <option value="18:00">6:00 PM</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="blockReason" class="form-label">Reason for Blocking</label>
-                            <select id="blockReason" class="form-input">
-                                <option value="maintenance">Maintenance</option>
-                                <option value="weather">Weather Hold</option>
-                                <option value="staff_unavailable">Staff Unavailable</option>
-                                <option value="holiday">Holiday</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-6);">
-                            <label for="blockNotes" class="form-label">Notes (Optional)</label>
-                            <textarea id="blockNotes" class="form-input" rows="3" placeholder="Additional details..."></textarea>
-                        </div>
-                        
-                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
-                            <button type="button" onclick="adminPortal.closeModal()" class="btn-secondary">Cancel</button>
-                            <button type="submit" class="btn-primary">Block Time</button>
-                        </div>
-                    </form>
-                `);
-                
-                modal.querySelector('#blockTimeForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleBlockTime(date);
-                });
-                
-                this.showModal(modal);
-            }
-
-            handleBlockTime(date) {
-                const startTime = document.getElementById('blockStartTime').value;
-                const endTime = document.getElementById('blockEndTime').value;
-                const reason = document.getElementById('blockReason').value;
-                const notes = document.getElementById('blockNotes').value;
-                
-                // Add blocked time to system (mock implementation)
-                const blockedTime = {
-                    id: Date.now().toString(),
-                    date: date.toISOString().split('T')[0],
-                    startTime,
-                    endTime,
-                    reason,
-                    notes,
-                    createdBy: this.currentAdmin.name,
-                    createdAt: new Date().toISOString()
-                };
-                
-                this.closeModal();
-                this.portalSystem.showNotification(`Time blocked successfully from ${startTime} to ${endTime}`, 'success', {
-                    title: 'Time Blocked',
-                    duration: 4000
-                });
-                
-                this.generateAdminCalendar(); // Refresh calendar
-            }
-
-            scheduleStaff() {
-                if (!this.selectedDate) {
-                    this.portalSystem.showNotification('Please select a date first', 'warning');
-                    return;
-                }
-                
-                this.showStaffSchedulingModal(this.selectedDate);
-            }
-
-            showStaffSchedulingModal(date) {
-                const modal = this.createModal('Schedule Staff', `
-                    <form id="scheduleStaffForm" class="schedule-staff-form">
-                        <div style="margin-bottom: var(--space-5);">
-                            <label class="form-label">Date</label>
-                            <input type="text" class="form-input" value="${date.toLocaleDateString()}" readonly>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="scheduleStaffMember" class="form-label">Staff Member</label>
-                            <select id="scheduleStaffMember" class="form-input">
-                                ${this.staff.map(member => `
-                                    <option value="${member.id}">${member.name} - ${member.role}</option>
-                                `).join('')}
-                            </select>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="scheduleStartTime" class="form-label">Start Time</label>
-                                <select id="scheduleStartTime" class="form-input">
-                                    <option value="07:00">7:00 AM</option>
-                                    <option value="08:00">8:00 AM</option>
-                                    <option value="09:00">9:00 AM</option>
-                                    <option value="10:00">10:00 AM</option>
-                                    <option value="11:00">11:00 AM</option>
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="13:00">1:00 PM</option>
-                                    <option value="14:00">2:00 PM</option>
-                                    <option value="15:00">3:00 PM</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="scheduleEndTime" class="form-label">End Time</label>
-                                <select id="scheduleEndTime" class="form-input">
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="13:00">1:00 PM</option>
-                                    <option value="14:00">2:00 PM</option>
-                                    <option value="15:00">3:00 PM</option>
-                                    <option value="16:00">4:00 PM</option>
-                                    <option value="17:00">5:00 PM</option>
-                                    <option value="18:00">6:00 PM</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="scheduleServiceArea" class="form-label">Service Area</label>
-                            <select id="scheduleServiceArea" class="form-input">
-                                <option value="simi_valley">Simi Valley</option>
-                                <option value="thousand_oaks">Thousand Oaks</option>
-                                <option value="moorpark">Moorpark</option>
-                                <option value="westlake_village">Westlake Village</option>
-                                <option value="camarillo">Camarillo</option>
-                            </select>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-6);">
-                            <label for="scheduleNotes" class="form-label">Schedule Notes</label>
-                            <textarea id="scheduleNotes" class="form-input" rows="3" placeholder="Special instructions or notes..."></textarea>
-                        </div>
-                        
-                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
-                            <button type="button" onclick="adminPortal.closeModal()" class="btn-secondary">Cancel</button>
-                            <button type="submit" class="btn-primary">Schedule Staff</button>
-                        </div>
-                    </form>
-                `);
-                
-                modal.querySelector('#scheduleStaffForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleStaffScheduling(date);
-                });
-                
-                this.showModal(modal);
-            }
-
-            handleStaffScheduling(date) {
-                const staffId = document.getElementById('scheduleStaffMember').value;
-                const startTime = document.getElementById('scheduleStartTime').value;
-                const endTime = document.getElementById('scheduleEndTime').value;
-                const serviceArea = document.getElementById('scheduleServiceArea').value;
-                const notes = document.getElementById('scheduleNotes').value;
-                
-                const staffMember = this.staff.find(s => s.id === staffId);
-                
-                this.closeModal();
-                this.portalSystem.showNotification(`${staffMember.name} scheduled for ${startTime} - ${endTime}`, 'success', {
-                    title: 'Staff Scheduled',
-                    duration: 4000
-                });
-                
-                this.generateAdminCalendar(); // Refresh calendar
-            }
-
-            // Customer Management Functions
-            openCustomerManagement() {
-                this.showCustomerManagementModal();
-            }
-
-            showCustomerManagementModal() {
-                const modal = this.createModal('Customer Management', `
-                    <div class="customer-management">
-                        <div class="management-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
-                            <div class="search-bar" style="flex: 1; margin-right: var(--space-4);">
-                                <input type="text" id="customerSearch" class="form-input" placeholder="Search customers by name, email, or phone...">
-                            </div>
-                            <button onclick="adminPortal.showAddCustomerForm()" class="btn-primary">
-                                <i class="fas fa-user-plus"></i> Add Customer
-                            </button>
-                        </div>
-                        
-                        <div class="customer-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
-                            <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);">${this.customers.length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Total Customers</div>
-                            </div>
-                            <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);">${this.customers.filter(c => c.status === 'active').length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Active</div>
-                            </div>
-                            <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                                <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);">${this.customers.filter(c => c.plan === 'premium').length}</div>
-                                <div style="font-size: var(--font-sm); color: var(--gray);">Premium</div>
-                            </div>
-                        </div>
-                        
-                        <div class="customers-table-container" style="max-height: 500px; overflow-y: auto;">
-                            <table id="customersTable" style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: var(--light-gray); position: sticky; top: 0;">
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Name</th>
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Email</th>
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Phone</th>
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Plan</th>
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Status</th>
-                                        <th style="padding: var(--space-3); text-align: left; border-bottom: 2px solid #dee2e6;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customersTableBody">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
-                            <button onclick="adminPortal.exportCustomers()" class="btn-secondary">
-                                <i class="fas fa-download"></i> Export CSV
-                            </button>
-                            <button onclick="adminPortal.closeModal()" class="btn-secondary">Close</button>
-                        </div>
-                    </div>
-                `, 'large');
-                
-                this.populateCustomersTable();
-                
-                // Add search functionality
-                document.getElementById('customerSearch').addEventListener('input', (e) => {
-                    this.filterCustomers(e.target.value);
-                });
-                
-                this.showModal(modal);
-            }
-
-            populateCustomersTable() {
-                const tbody = document.getElementById('customersTableBody');
-                if (!tbody) return;
-                
-                tbody.innerHTML = this.customers.map(customer => `
-                    <tr style="border-bottom: 1px solid #dee2e6; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
-                        <td style="padding: var(--space-3); font-weight: 600;">${customer.name}</td>
-                        <td style="padding: var(--space-3);">${customer.email}</td>
-                        <td style="padding: var(--space-3);">${customer.phone}</td>
-                        <td style="padding: var(--space-3);">
-                            <span class="plan-badge plan-${customer.plan}" style="padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); font-weight: 600; text-transform: uppercase;">
-                                ${customer.plan}
-                            </span>
-                        </td>
-                        <td style="padding: var(--space-3);">
-                            <span class="status-badge status-${customer.status}" style="padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--font-sm); font-weight: 600;">
-                                ${customer.status}
-                            </span>
-                        </td>
-                        <td style="padding: var(--space-3);">
-                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">Edit</button>
-                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">View</button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            filterCustomers(searchTerm) {
-                const filteredCustomers = this.customers.filter(customer => 
-                    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    customer.phone.includes(searchTerm)
-                );
-                
-                const tbody = document.getElementById('customersTableBody');
-                if (!tbody) return;
-                
-                tbody.innerHTML = filteredCustomers.map(customer => `
-                    <tr style="border-bottom: 1px solid #dee2e6; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
-                        <td style="padding: var(--space-3); font-weight: 600;">${customer.name}</td>
-                        <td style="padding: var(--space-3);">${customer.email}</td>
-                        <td style="padding: var(--space-3);">${customer.phone}</td>
-                        <td style="padding: var(--space-3);">
-                            <span class="plan-badge plan-${customer.plan}" style="padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); font-weight: 600; text-transform: uppercase;">
-                                ${customer.plan}
-                            </span>
-                        </td>
-                        <td style="padding: var(--space-3);">
-                            <span class="status-badge status-${customer.status}" style="padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--font-sm); font-weight: 600;">
-                                ${customer.status}
-                            </span>
-                        </td>
-                        <td style="padding: var(--space-3);">
-                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">Edit</button>
-                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">View</button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            showAddCustomerForm() {
-                const modal = this.createModal('Add New Customer', `
-                    <form id="addCustomerForm" class="add-customer-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="customerFirstName" class="form-label">First Name</label>
-                                <input type="text" id="customerFirstName" class="form-input" required>
-                            </div>
-                            <div>
-                                <label for="customerLastName" class="form-label">Last Name</label>
-                                <input type="text" id="customerLastName" class="form-input" required>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="customerEmail" class="form-label">Email Address</label>
-                            <input type="email" id="customerEmail" class="form-input" required>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="customerPhone" class="form-label">Phone Number</label>
-                            <input type="tel" id="customerPhone" class="form-input" required>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="customerAddress" class="form-label">Address</label>
-                            <textarea id="customerAddress" class="form-input" rows="3" placeholder="Street address, city, state, zip code"></textarea>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="customerPlan" class="form-label">Service Plan</label>
-                                <select id="customerPlan" class="form-input">
-                                    <option value="basic">Basic - Weekly Service</option>
-                                    <option value="premium">Premium - Bi-weekly Service</option>
-                                    <option value="deluxe">Deluxe - Full Service Package</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="customerStatus" class="form-label">Status</label>
-                                <select id="customerStatus" class="form-input">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                    <option value="pending">Pending Setup</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-6);">
-                            <label for="customerNotes" class="form-label">Notes</label>
-                            <textarea id="customerNotes" class="form-input" rows="3" placeholder="Any special instructions or notes..."></textarea>
-                        </div>
-                        
-                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
-                            <button type="button" onclick="adminPortal.closeModal()" class="btn-secondary">Cancel</button>
-                            <button type="submit" class="btn-primary">Add Customer</button>
-                        </div>
-                    </form>
-                `);
-                
-                modal.querySelector('#addCustomerForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleAddCustomer();
-                });
-                
-                this.showModal(modal);
-            }
-
-            handleAddCustomer() {
-                const firstName = document.getElementById('customerFirstName').value;
-                const lastName = document.getElementById('customerLastName').value;
-                const email = document.getElementById('customerEmail').value;
-                const phone = document.getElementById('customerPhone').value;
-                const address = document.getElementById('customerAddress').value;
-                const plan = document.getElementById('customerPlan').value;
-                const status = document.getElementById('customerStatus').value;
-                const notes = document.getElementById('customerNotes').value;
-                
-                const newCustomer = {
-                    id: Date.now().toString(),
-                    name: `${firstName} ${lastName}`,
-                    email,
-                    phone,
-                    address,
-                    plan,
-                    status,
-                    notes,
-                    createdAt: new Date().toISOString(),
-                    createdBy: this.currentAdmin.name
-                };
-                
-                this.customers.push(newCustomer);
-                this.closeModal();
-                
-                this.portalSystem.showNotification(`Customer ${newCustomer.name} added successfully!`, 'success', {
-                    title: 'Customer Added',
-                    duration: 4000
-                });
-                
-                this.updateAdminStats();
-            }
-
-            viewCustomers() {
-                this.openCustomerManagement();
-            }
-
-            addCustomer() {
-                this.showAddCustomerForm();
-            }
-
-            editCustomer(customerId) {
-                const customer = this.customers.find(c => c.id === customerId);
-                if (!customer) return;
-                
-                // Implementation for edit customer form would go here
-                this.portalSystem.showNotification(`Edit functionality for ${customer.name} coming soon!`, 'info');
-            }
-
-            viewCustomerDetails(customerId) {
-                const customer = this.customers.find(c => c.id === customerId);
-                if (!customer) return;
-                
-                // Implementation for customer details view would go here
-                this.portalSystem.showNotification(`Viewing details for ${customer.name}`, 'info');
-            }
-
-            exportCustomers() {
-                // Create CSV content
-                const headers = ['Name', 'Email', 'Phone', 'Plan', 'Status', 'Created'];
-                const csvContent = [
-                    headers.join(','),
-                    ...this.customers.map(customer => [
-                        customer.name,
-                        customer.email,
-                        customer.phone,
-                        customer.plan,
-                        customer.status,
-                        new Date(customer.createdAt).toLocaleDateString()
-                    ].join(','))
-                ].join('\n');
-                
-                // Create and download file
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement('a');
-                const url = URL.createObjectURL(blob);
-                link.setAttribute('href', url);
-                link.setAttribute('download', `customers-${new Date().toISOString().split('T')[0]}.csv`);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                this.portalSystem.showNotification('Customer data exported successfully!', 'success', {
-                    title: 'Export Complete',
-                    duration: 4000
-                });
-            }
-
-            // Utility Functions
+            // 🎨 UTILITY FUNCTIONS
             getInitials(name) {
                 if (!name) return 'AD';
                 const names = name.split(' ');
@@ -3083,151 +2542,6 @@
                     return (names[0][0] + names[1][0]).toUpperCase();
                 }
                 return name[0].toUpperCase();
-            }
-
-            createModal(title, content, size = 'medium') {
-                const modal = document.createElement('div');
-                modal.className = 'admin-modal-overlay';
-                modal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background: rgba(0, 0, 0, 0.6);
-                    backdrop-filter: blur(10px);
-                    z-index: 10000;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: var(--space-4);
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                `;
-                
-                const modalContent = document.createElement('div');
-                modalContent.className = `admin-modal-content ${size}`;
-                const maxWidth = size === 'large' ? '1200px' : size === 'medium' ? '800px' : '500px';
-                modalContent.style.cssText = `
-                    background: rgba(255, 255, 255, 0.98);
-                    border-radius: var(--radius-2xl);
-                    padding: var(--space-8);
-                    max-width: ${maxWidth};
-                    width: 100%;
-                    max-height: 90vh;
-                    overflow-y: auto;
-                    box-shadow: var(--shadow-float);
-                    border: 1px solid rgba(255, 255, 255, 0.4);
-                    position: relative;
-                    transform: translateY(30px) scale(0.95);
-                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                `;
-                
-                const modalHeader = document.createElement('div');
-                modalHeader.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: var(--space-6);
-                    padding-bottom: var(--space-4);
-                    border-bottom: 2px solid #e9ecef;
-                `;
-                
-                const modalTitle = document.createElement('h2');
-                modalTitle.textContent = title;
-                modalTitle.style.cssText = `
-                    font-size: var(--font-2xl);
-                    font-weight: 800;
-                    color: var(--dark);
-                    margin: 0;
-                `;
-                
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '<i class="fas fa-times"></i>';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    font-size: var(--font-xl);
-                    color: var(--gray);
-                    cursor: pointer;
-                    padding: var(--space-2);
-                    border-radius: 50%;
-                    transition: var(--transition-smooth);
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
-                closeButton.addEventListener('click', () => this.closeModal());
-                closeButton.addEventListener('mouseenter', () => {
-                    closeButton.style.background = 'rgba(244, 67, 54, 0.1)';
-                    closeButton.style.color = 'var(--error)';
-                });
-                closeButton.addEventListener('mouseleave', () => {
-                    closeButton.style.background = 'none';
-                    closeButton.style.color = 'var(--gray)';
-                });
-                
-                const modalBody = document.createElement('div');
-                modalBody.innerHTML = content;
-                
-                modalHeader.appendChild(modalTitle);
-                modalHeader.appendChild(closeButton);
-                modalContent.appendChild(modalHeader);
-                modalContent.appendChild(modalBody);
-                modal.appendChild(modalContent);
-                
-                // Close on overlay click
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        this.closeModal();
-                    }
-                });
-                
-                // Close on escape key
-                const handleEscape = (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeModal();
-                        document.removeEventListener('keydown', handleEscape);
-                    }
-                };
-                document.addEventListener('keydown', handleEscape);
-                
-                return modal;
-            }
-
-            showModal(modal) {
-                document.body.appendChild(modal);
-                document.body.style.overflow = 'hidden';
-                
-                // Animate in
-                requestAnimationFrame(() => {
-                    modal.style.opacity = '1';
-                    const content = modal.querySelector('.admin-modal-content');
-                    content.style.transform = 'translateY(0) scale(1)';
-                });
-                
-                this.currentModal = modal;
-            }
-
-            closeModal() {
-                if (this.currentModal) {
-                    const modal = this.currentModal;
-                    const content = modal.querySelector('.admin-modal-content');
-                    
-                    // Animate out
-                    modal.style.opacity = '0';
-                    content.style.transform = 'translateY(30px) scale(0.95)';
-                    
-                    setTimeout(() => {
-                        if (modal.parentNode) {
-                            modal.parentNode.removeChild(modal);
-                        }
-                        document.body.style.overflow = '';
-                        this.currentModal = null;
-                    }, 300);
-                }
             }
 
             showLoadingState(button, text) {
@@ -3275,419 +2589,128 @@
                 this.shakeElement(errorDiv);
             }
 
-            addBookingForDate(dateString) {
-                const date = new Date(dateString);
-                this.selectedDate = date;
-                this.showAddBookingForm(date);
-            }
-
-            showAddBookingForm(selectedDate = null) {
-                const dateValue = selectedDate ? selectedDate.toISOString().split('T')[0] : '';
-                
-                const modal = this.createModal('Add New Booking', `
-                    <form id="addBookingForm" class="add-booking-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="bookingDate" class="form-label">Service Date</label>
-                                <input type="date" id="bookingDate" class="form-input" value="${dateValue}" required>
-                            </div>
-                            <div>
-                                <label for="bookingTime" class="form-label">Service Time</label>
-                                <select id="bookingTime" class="form-input" required>
-                                    <option value="">Select Time</option>
-                                    <option value="8:00 AM">8:00 AM</option>
-                                    <option value="9:00 AM">9:00 AM</option>
-                                    <option value="10:00 AM">10:00 AM</option>
-                                    <option value="11:00 AM">11:00 AM</option>
-                                    <option value="12:00 PM">12:00 PM</option>
-                                    <option value="1:00 PM">1:00 PM</option>
-                                    <option value="2:00 PM">2:00 PM</option>
-                                    <option value="3:00 PM">3:00 PM</option>
-                                    <option value="4:00 PM">4:00 PM</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="bookingCustomer" class="form-label">Customer</label>
-                            <select id="bookingCustomer" class="form-input" required>
-                                <option value="">Select Customer</option>
-                                ${this.customers.filter(c => c.status === 'active').map(customer => `
-                                    <option value="${customer.id}">${customer.name} - ${customer.email}</option>
-                                `).join('')}
-                            </select>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="bookingService" class="form-label">Service Type</label>
-                            <select id="bookingService" class="form-input" required>
-                                <option value="">Select Service</option>
-                                <option value="Pool Cleaning">Pool Cleaning - $150</option>
-                                <option value="Pool Maintenance">Pool Maintenance - $200</option>
-                                <option value="Chemical Balancing">Chemical Balancing - $100</option>
-                                <option value="Equipment Inspection">Equipment Inspection - $125</option>
-                                <option value="Emergency Repair">Emergency Repair - $300</option>
-                            </select>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-5);">
-                            <div>
-                                <label for="bookingCost" class="form-label">Service Cost ($)</label>
-                                <input type="number" id="bookingCost" class="form-input" min="50" step="25" placeholder="150" required>
-                            </div>
-                            <div>
-                                <label for="bookingStatus" class="form-label">Initial Status</label>
-                                <select id="bookingStatus" class="form-input">
-                                    <option value="pending">Pending Confirmation</option>
-                                    <option value="confirmed">Confirmed</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-5);">
-                            <label for="bookingStaff" class="form-label">Assign Staff (Optional)</label>
-                            <select id="bookingStaff" class="form-input">
-                                <option value="">Auto-assign based on availability</option>
-                                ${this.staff.filter(s => s.status === 'active').map(member => `
-                                    <option value="${member.id}">${member.name} - ${member.role}</option>
-                                `).join('')}
-                            </select>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-6);">
-                            <label for="bookingNotes" class="form-label">Special Instructions</label>
-                            <textarea id="bookingNotes" class="form-input" rows="3" placeholder="Any special requirements or notes for this booking..."></textarea>
-                        </div>
-                        
-                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
-                            <button type="button" onclick="adminPortal.closeModal()" class="btn-secondary">Cancel</button>
-                            <button type="submit" class="btn-primary">Create Booking</button>
-                        </div>
-                    </form>
-                `);
-                
-                // Auto-populate cost based on service selection
-                modal.querySelector('#bookingService').addEventListener('change', (e) => {
-                    const service = e.target.value;
-                    const costInput = modal.querySelector('#bookingCost');
-                    if (service.includes('Pool Cleaning')) costInput.value = 150;
-                    else if (service.includes('Pool Maintenance')) costInput.value = 200;
-                    else if (service.includes('Chemical Balancing')) costInput.value = 100;
-                    else if (service.includes('Equipment Inspection')) costInput.value = 125;
-                    else if (service.includes('Emergency Repair')) costInput.value = 300;
+            showEnhancedNotification(message, type = 'success', options = {}) {
+                // Remove existing notifications
+                document.querySelectorAll('.notification').forEach(notification => {
+                    notification.remove();
                 });
                 
-                modal.querySelector('#addBookingForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleAddBooking();
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const {
+                    title = type.charAt(0).toUpperCase() + type.slice(1),
+                    subtitle = '',
+                    duration = 5000
+                } = options;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                           type === 'error' ? 'exclamation-triangle' : 
+                           type === 'warning' ? 'exclamation-circle' : 'info-circle';
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                        <div style="flex-shrink: 0;">
+                            <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; margin-bottom: var(--space-1); font-size: var(--font-lg);">${title}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95; margin-bottom: var(--space-1);">${message}</div>
+                            ${subtitle ? `<div style="font-size: var(--font-sm); opacity: 0.8;">${subtitle}</div>` : ''}
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none;
+                            border: none;
+                            color: inherit;
+                            font-size: var(--font-lg);
+                            cursor: pointer;
+                            opacity: 0.7;
+                            padding: var(--space-1);
+                            border-radius: var(--radius-sm);
+                            transition: var(--transition-smooth);
+                            flex-shrink: 0;
+                        " onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.opacity='0.7'; this.style.background='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                requestAnimationFrame(() => {
+                    notification.classList.add('show');
                 });
                 
-                this.showModal(modal);
-            }
-
-            handleAddBooking() {
-                const date = document.getElementById('bookingDate').value;
-                const time = document.getElementById('bookingTime').value;
-                const customerId = document.getElementById('bookingCustomer').value;
-                const service = document.getElementById('bookingService').value.split(' - ')[0]; // Remove price part
-                const cost = parseFloat(document.getElementById('bookingCost').value);
-                const status = document.getElementById('bookingStatus').value;
-                const staffId = document.getElementById('bookingStaff').value;
-                const notes = document.getElementById('bookingNotes').value;
-                
-                const customer = this.customers.find(c => c.id === customerId);
-                const staff = staffId ? this.staff.find(s => s.id === staffId) : null;
-                
-                const newBooking = {
-                    id: `booking_${Date.now()}`,
-                    date,
-                    time,
-                    service,
-                    status,
-                    customerName: customer.name,
-                    customerId,
-                    cost,
-                    assignedStaff: staff ? staff.name : null,
-                    assignedStaffId: staffId || null,
-                    notes,
-                    createdAt: new Date().toISOString(),
-                    createdBy: this.currentAdmin.name
-                };
-                
-                this.bookings.push(newBooking);
-                this.closeModal();
-                
-                this.portalSystem.showNotification(`Booking created for ${customer.name} on ${new Date(date).toLocaleDateString()}`, 'success', {
-                    title: 'Booking Created',
-                    subtitle: `${service} at ${time}`,
-                    duration: 5000
-                });
-                
-                this.updateAdminStats();
-                this.generateAdminCalendar(); // Refresh calendar to show new booking
-            }
-
-            // Additional placeholder functions for demonstration
-            openBookingManagement() {
-                this.portalSystem.showNotification('Booking Management interface coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            openStaffManagement() {
-                this.portalSystem.showNotification('Staff Management interface coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            openAnalytics() {
-                this.portalSystem.showNotification('Analytics Dashboard coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            viewBookings() {
-                this.openBookingManagement();
-            }
-
-            confirmBookings() {
-                this.portalSystem.showNotification('Booking confirmation interface coming soon!', 'info');
-            }
-
-            cancelBookings() {
-                this.portalSystem.showNotification('Booking cancellation interface coming soon!', 'info');
-            }
-
-            viewStaff() {
-                this.openStaffManagement();
-            }
-
-            addStaff() {
-                this.portalSystem.showNotification('Add Staff interface coming soon!', 'info');
-            }
-
-            manageSchedules() {
-                this.portalSystem.showNotification('Schedule management coming soon!', 'info');
-            }
-
-            viewReports() {
-                this.openAnalytics();
-            }
-
-            financialAnalytics() {
-                this.openAnalytics();
-            }
-
-            exportReports() {
-                this.portalSystem.showNotification('Report export coming soon!', 'info');
+                if (duration > 0) {
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.classList.remove('show');
+                            setTimeout(() => {
+                                notification.remove();
+                            }, 300);
+                        }
+                    }, duration);
+                }
             }
         }
 
-        // Enhanced Global Functions for Admin Portal
-        function openCustomerManagement() {
-            if (window.adminPortal) {
-                window.adminPortal.openCustomerManagement();
-            }
-        }
+        // 🌐 GLOBAL ADMIN PORTAL INSTANCE
+        let adminPortal;
 
-        function openBookingManagement() {
-            if (window.adminPortal) {
-                window.adminPortal.openBookingManagement();
-            }
-        }
-
-        function openStaffManagement() {
-            if (window.adminPortal) {
-                window.adminPortal.openStaffManagement();
-            }
-        }
-
-        function openAnalytics() {
-            if (window.adminPortal) {
-                window.adminPortal.openAnalytics();
-            }
-        }
-
-        // Additional global helper functions
-        function viewDayDetails() {
-            if (window.adminPortal) {
-                window.adminPortal.viewDayDetails();
-            }
-        }
-
-        function addBlockedTime() {
-            if (window.adminPortal) {
-                window.adminPortal.addBlockedTime();
-            }
-        }
-
-        function scheduleStaff() {
-            if (window.adminPortal) {
-                window.adminPortal.scheduleStaff();
-            }
-        }
-
-        // Enhanced Admin Portal Initialization
+        // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize enhanced admin portal
-            window.adminPortal = new EnhancedAdminPortal();
+            console.log('🛡️ PRODUCTION ADMIN PORTAL: 805 LifeGuard Admin Portal');
+            console.log('💾 Database Mode: Production D1');
+            console.log('🔗 Full API Integration Active');
             
-            // Add dynamic CSS animations
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                    20%, 40%, 60%, 80% { transform: translateX(5px); }
-                }
-                
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.05); }
-                    100% { transform: scale(1); }
-                }
-                
-                @keyframes fadeInUp {
-                    from { 
-                        opacity: 0; 
-                        transform: translateY(30px); 
-                    }
-                    to { 
-                        opacity: 1; 
-                        transform: translateY(0); 
-                    }
-                }
-                
-                @keyframes slideInRight {
-                    from { 
-                        opacity: 0; 
-                        transform: translateX(30px); 
-                    }
-                    to { 
-                        opacity: 1; 
-                        transform: translateX(0); 
-                    }
-                }
-                
-                @keyframes bounceIn {
-                    0% {
-                        opacity: 0;
-                        transform: scale(0.3);
-                    }
-                    50% {
-                        opacity: 1;
-                        transform: scale(1.05);
-                    }
-                    70% {
-                        transform: scale(0.9);
-                    }
-                    100% {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
-                
-                /* Enhanced hover effects for buttons */
-                .btn-small:hover {
-                    animation: pulse 0.3s ease-in-out;
-                }
-                
-                .dashboard-card:hover .card-icon {
-                    animation: bounceIn 0.6s ease-in-out;
-                }
-                
-                /* Notification slide-in animation */
-                .notification.show {
-                    animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                }
-                
-                /* Success state animations */
-                .status-confirmed, .status-completed {
-                    animation: fadeInUp 0.3s ease-out;
-                }
-                
-                /* Loading state improvements */
-                .loading {
-                    animation: pulse 1.5s ease-in-out infinite;
-                }
-            `;
-            document.head.appendChild(style);
+            adminPortal = new EnhancedAdminPortal();
+            window.adminPortal = adminPortal;
             
-            // Add keyboard shortcuts for admin functions
-            document.addEventListener('keydown', function(e) {
-                // Only activate shortcuts when no input is focused
-                if (document.activeElement.tagName === 'INPUT' || 
-                    document.activeElement.tagName === 'TEXTAREA' || 
-                    document.activeElement.tagName === 'SELECT') {
-                    return;
-                }
-                
-                // Ctrl/Cmd + shortcuts for admin functions
-                if ((e.ctrlKey || e.metaKey) && window.adminPortal && window.adminPortal.currentAdmin) {
-                    switch(e.key.toLowerCase()) {
-                        case 'k': // Ctrl+K for customer management
-                            e.preventDefault();
-                            window.adminPortal.openCustomerManagement();
-                            break;
-                        case 'b': // Ctrl+B for booking management
-                            e.preventDefault();
-                            window.adminPortal.openBookingManagement();
-                            break;
-                        case 's': // Ctrl+S for staff management
-                            e.preventDefault();
-                            window.adminPortal.openStaffManagement();
-                            break;
-                        case 'a': // Ctrl+A for analytics
-                            e.preventDefault();
-                            window.adminPortal.openAnalytics();
-                            break;
-                        case 'n': // Ctrl+N for new booking
-                            e.preventDefault();
-                            window.adminPortal.showAddBookingForm();
-                            break;
-                    }
-                }
-                
-                // Escape key to close modals
-                if (e.key === 'Escape' && window.adminPortal && window.adminPortal.currentModal) {
-                    window.adminPortal.closeModal();
-                }
-            });
-            
-            // Add helpful tooltips
-            const addTooltip = (element, text) => {
-                if (!element) return;
-                element.setAttribute('title', text);
-                element.style.cursor = 'help';
-            };
-            
-            // Add tooltips to navigation links
-            setTimeout(() => {
-                addTooltip(document.querySelector('a[href="/admin"]'), 'Admin Portal - Manage all business operations');
-                addTooltip(document.querySelector('a[href="/client-login"]'), 'Client Portal - Customer access');
-                addTooltip(document.querySelector('a[href="/employee-login"]'), 'Staff Portal - Employee access');
-            }, 1000);
-            
-            console.log('🛡️ Enhanced 805 LifeGuard Admin Portal - Ready');
-            console.log('✨ All enhanced admin systems initialized');
-            console.log('⌨️ Keyboard shortcuts enabled:');
-            console.log('   • Ctrl+K: Customer Management');
-            console.log('   • Ctrl+B: Booking Management');
-            console.log('   • Ctrl+S: Staff Management');
-            console.log('   • Ctrl+A: Analytics Dashboard');
-            console.log('   • Ctrl+N: New Booking');
-            console.log('   • Escape: Close Modal');
+            console.log('✅ PRODUCTION ADMIN PORTAL READY!');
         });
 
-        // Enhanced Error Handling for Admin Portal
+        // 🔑 GLOBAL HELPER FUNCTIONS
+        function fillAdminCredentials() {
+            const usernameInput = document.getElementById('adminUsername');
+            const passwordInput = document.getElementById('adminPassword');
+            
+            if (usernameInput && passwordInput) {
+                // Use the default admin credentials from your Worker
+                usernameInput.value = 'admin';
+                passwordInput.value = 'lifeguard2025';
+                
+                usernameInput.style.borderColor = 'var(--success)';
+                passwordInput.style.borderColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    usernameInput.style.borderColor = '';
+                    passwordInput.style.borderColor = '';
+                }, 2000);
+                
+                if (window.adminPortal) {
+                    window.adminPortal.showEnhancedNotification('Admin credentials filled! Click Sign In to continue.', 'success', {
+                        title: 'Ready to Login',
+                        duration: 3000
+                    });
+                }
+            }
+        }
+
+        function showForgotPassword() {
+            if (window.adminPortal) {
+                window.adminPortal.showEnhancedNotification('Admin password reset: Contact your system administrator at (805) 367-6432.', 'info', {
+                    title: 'Admin Support',
+                    duration: 6000
+                });
+            }
+        }
+
+        // 🚨 ENHANCED ERROR HANDLING
         window.addEventListener('error', (event) => {
             console.error('🚨 Admin Portal Error:', event.error);
             
-            if (window.adminPortal && window.adminPortal.portalSystem && window.adminPortal.portalSystem.showNotification) {
-                window.adminPortal.portalSystem.showNotification(
+            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
+                window.adminPortal.showEnhancedNotification(
                     'An error occurred in the admin portal.',
                     'error',
                     {
@@ -3699,14 +2722,30 @@
             }
         });
 
-        // Performance monitoring
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Unhandled Promise Rejection:', event.reason);
+            event.preventDefault();
+            
+            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
+                window.adminPortal.showEnhancedNotification(
+                    'A network error occurred. Please try again.',
+                    'error',
+                    {
+                        title: 'Network Error',
+                        duration: 5000
+                    }
+                );
+            }
+        });
+
+        // 📊 PERFORMANCE MONITORING
         window.addEventListener('load', () => {
             const loadTime = performance.now();
             console.log(`⚡ Admin Portal loaded in ${Math.round(loadTime)}ms`);
             
-            if (window.adminPortal && window.adminPortal.portalSystem) {
+            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
                 setTimeout(() => {
-                    window.adminPortal.portalSystem.showNotification(
+                    window.adminPortal.showEnhancedNotification(
                         'Admin portal loaded successfully!',
                         'success',
                         {
@@ -3721,3 +2760,61 @@
     </script>
 </body>
 </html>
+                        <td style="padding: var(--space-3); text-align: center;">${customer.total_bookings || 0}</td>
+                        <td style="padding: var(--space-3); text-align: center;">$${(customer.total_spent || 0).toLocaleString()}</td>
+                        <td style="padding: var(--space-3);">${new Date(customer.member_since).toLocaleDateString()}</td>
+                        <td style="padding: var(--space-3);">
+                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            updateCustomerStats() {
+                const totalCustomers = this.customers.length;
+                const activeCustomers = this.customers.filter(c => c.total_bookings > 0).length;
+                
+                // Calculate new customers this month
+                const thisMonth = new Date();
+                const newThisMonth = this.customers.filter(customer => {
+                    const memberSince = new Date(customer.member_since);
+                    return memberSince.getMonth() === thisMonth.getMonth() &&
+                           memberSince.getFullYear() === thisMonth.getFullYear();
+                }).length;
+                
+                this.animateNumber('totalCustomersCount', totalCustomers);
+                this.animateNumber('activeCustomersCount', activeCustomers);
+                this.animateNumber('newCustomersThisMonth', newThisMonth);
+            }
+
+            filterCustomers(searchTerm) {
+                const filteredCustomers = this.customers.filter(customer => 
+                    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (customer.phone && customer.phone.includes(searchTerm))
+                );
+                
+                const tbody = document.getElementById('customersTableBody');
+                if (!tbody) return;
+                
+                if (filteredCustomers.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                No customers found matching "${searchTerm}"
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                tbody.innerHTML = filteredCustomers.map(customer => `
+                    <tr style="transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
+                        <td style="padding: var(--space-3); font-weight: 600;">${customer.name}</td>
+                        <td style="padding: var(--space-3);">${customer.email}</td>
+                        <td style="padding: var(--space-3);">${customer.phone || 'N/A'}</td>
