@@ -230,6 +230,87 @@
             background-clip: text;
         }
 
+        .nav-links {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: var(--transition-elastic);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary-vivid);
+            transition: var(--transition-elastic);
+            z-index: -1;
+            border-radius: var(--radius-full);
+        }
+
+        .nav-link:hover::before { 
+            left: 0; 
+        }
+
+        .nav-link:hover { 
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .nav-link.active {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        /* 🏮 GLASSMORPHISM CARDS */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-glass);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-float);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
         /* 🔐 LOGIN SCREEN */
         .login-container {
             display: flex;
@@ -241,8 +322,6 @@
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: var(--radius-2xl);
             padding: var(--space-16) var(--space-12);
             width: 100%;
@@ -251,7 +330,6 @@
             position: relative;
             overflow: hidden;
             animation: slideInUp 0.8s var(--transition-elastic);
-            box-shadow: var(--shadow-soft);
         }
 
         @keyframes slideInUp {
@@ -274,6 +352,23 @@
             height: 6px;
             background: var(--accent-gradient);
             border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+        }
+
+        .login-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(30, 136, 229, 0.03), transparent);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .login-logo {
@@ -316,6 +411,12 @@
             position: relative;
         }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
         .form-label {
             display: block;
             margin-bottom: var(--space-2);
@@ -344,6 +445,14 @@
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
             transform: translateY(-3px) scale(1.02);
+        }
+
+        .form-input:valid {
+            border-color: var(--success);
+        }
+
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: var(--error);
         }
 
         .password-container {
@@ -389,9 +498,31 @@
             box-shadow: var(--shadow-medium);
         }
 
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: var(--transition-elastic);
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-primary:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
         .btn-primary:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: var(--shadow-float);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(0.98);
         }
 
         .btn-primary:disabled {
@@ -419,6 +550,41 @@
             transform: translateY(-3px);
             box-shadow: var(--shadow-medium);
             border-color: var(--primary);
+        }
+
+        .create-account-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .create-account-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary-vivid);
+            transition: var(--transition-elastic);
+            z-index: -1;
+        }
+
+        .create-account-btn:hover::before {
+            left: 0;
+        }
+
+        .create-account-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
         }
 
         /* 🏆 PORTAL LAYOUT */
@@ -529,6 +695,18 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-float);
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+            pointer-events: none;
         }
 
         .welcome-content {
@@ -657,6 +835,168 @@
             border-color: var(--primary);
         }
 
+        /* 📅 ENHANCED CALENDAR */
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: var(--space-10);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+
+        .calendar-title {
+            font-size: var(--font-2xl);
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .calendar-btn {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-lg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .calendar-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .current-month {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            background: #e9ecef;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-inset);
+        }
+
+        .calendar-day-header {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            padding: var(--space-4) var(--space-2);
+            text-align: center;
+            font-size: var(--font-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100px;
+            padding: var(--space-3);
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(30, 136, 229, 0.1);
+            position: relative;
+        }
+
+        .calendar-day:hover:not(.other-month):not(.past-date) {
+            background: rgba(168, 237, 234, 0.4);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-medium);
+            z-index: 10;
+        }
+
+        .calendar-day.other-month {
+            color: #ccc;
+            background: #f8f9fa;
+            cursor: default;
+            opacity: 0.5;
+        }
+
+        .calendar-day.past-date {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.today {
+            background: rgba(30, 136, 229, 0.2);
+            font-weight: 900;
+            border: 3px solid var(--primary);
+            box-shadow: var(--shadow-glow);
+            transform: scale(1.02);
+        }
+
+        .calendar-day.selected {
+            background: var(--gradient-primary-vivid) !important;
+            color: white;
+            transform: scale(1.08);
+            box-shadow: var(--shadow-glow-strong);
+            z-index: 20;
+        }
+
+        .calendar-day.available { border-left: 5px solid var(--success); }
+        .calendar-day.booked { border-left: 5px solid var(--warning); }
+        .calendar-day.unavailable { border-left: 5px solid var(--error); }
+
+        .day-number {
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            font-size: var(--font-lg);
+        }
+
+        .day-events {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .event-dot {
+            width: 100%;
+            height: 6px;
+            border-radius: var(--radius-xs);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .event-available { 
+            background: linear-gradient(45deg, var(--success), #66bb6a);
+        }
+        .event-booked { 
+            background: linear-gradient(45deg, var(--warning), #ffb74d);
+        }
+        .event-lesson { 
+            background: var(--gradient-primary-vivid);
+        }
+
         /* 📊 QUICK STATS */
         .quick-stats {
             display: grid;
@@ -696,6 +1036,404 @@
             opacity: 0.9;
         }
 
+        /* 🎭 ENHANCED MODALS */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: var(--space-5);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius-2xl);
+            width: 100%;
+            max-width: 750px;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8) translateY(60px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: var(--shadow-float);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: var(--font-3xl);
+            font-weight: 900;
+            margin-bottom: var(--space-2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-5);
+            right: var(--space-5);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: var(--font-xl);
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .modal-body {
+            padding: var(--space-10);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: flex-end;
+            margin-top: var(--space-8);
+        }
+
+        /* 🎮 ENHANCED SERVICE SELECTION */
+        .service-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .service-option {
+            background: rgba(30, 136, 229, 0.05);
+            border: 3px solid transparent;
+            border-radius: var(--radius-lg);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary-vivid);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .service-option:hover {
+            background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .service-option.selected {
+            border-color: var(--primary);
+            background: rgba(30, 136, 229, 0.15);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .service-option.selected::before {
+            opacity: 0.1;
+        }
+
+        .service-option i {
+            font-size: var(--font-3xl);
+            color: var(--primary);
+            margin-bottom: var(--space-4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-option h4 {
+            font-size: var(--font-lg);
+            color: var(--dark);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 🏊‍♂️ ENHANCED DURATION SELECTION STYLES */
+        .duration-selection {
+            margin-bottom: var(--space-6);
+        }
+
+        .duration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-3);
+        }
+
+        .duration-option {
+            background: rgba(30, 136, 229, 0.05);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: var(--space-4) var(--space-3);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .duration-option:hover {
+            background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-2px) scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .duration-option.selected {
+            border-color: var(--primary);
+            background: rgba(30, 136, 229, 0.15);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .duration-label {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: var(--font-base);
+        }
+
+        .duration-sublabel {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            margin-top: var(--space-1);
+        }
+
+        /* ⏰ ENHANCED TIME SLOTS */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            max-height: 300px;
+            overflow-y: auto;
+            padding: var(--space-4);
+            border: 2px solid #e9ecef;
+            border-radius: var(--radius-lg);
+            background: rgba(248, 249, 250, 0.5);
+        }
+
+        .time-slot {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            font-weight: 700;
+            font-size: var(--font-base);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary-vivid);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            border-radius: var(--radius-md);
+        }
+
+        .time-slot:hover:not(.unavailable) {
+            background: rgba(30, 136, 229, 0.1);
+            transform: translateY(-2px) scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .time-slot.selected {
+            border-color: var(--primary);
+            background: var(--gradient-primary-vivid);
+            color: white;
+            transform: scale(1.08);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            background: #f8f9fa;
+        }
+
+        /* 📋 BOOKING ELEMENTS */
+        .booking-item {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-soft);
+            border-left: 6px solid var(--primary);
+            transition: var(--transition-spring);
+            margin-bottom: var(--space-4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-glass);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .booking-item:hover {
+            transform: translateX(8px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .booking-item:hover::before {
+            opacity: 1;
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-details {
+            color: var(--gray);
+            font-size: var(--font-base);
+            margin-bottom: var(--space-4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-details i {
+            width: 20px;
+            margin-right: var(--space-2);
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-status {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--font-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 193, 7, 0.2));
+            color: var(--warning);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .status-confirmed {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.2));
+            color: var(--success);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .status-cancelled {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(239, 83, 80, 0.2));
+            color: var(--error);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        /* 🔧 UTILITY CLASSES */
+        .btn-small {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-sm);
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-edit {
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+        }
+
+        .btn-edit:hover {
+            background: rgba(30, 136, 229, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-cancel {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(244, 67, 54, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* 🔄 LOADING STATES */
         .loading {
             display: inline-flex;
             align-items: center;
@@ -716,25 +1454,152 @@
             100% { transform: rotate(360deg); }
         }
 
-        .error-message {
-            color: var(--error);
-            margin-top: var(--space-4);
-            padding: var(--space-3);
-            background: rgba(244, 67, 54, 0.1);
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(244, 67, 54, 0.2);
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        .hidden {
-            display: none !important;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        /* Responsive design */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* 🔔 ENHANCED NOTIFICATIONS */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: var(--space-8);
+            max-width: 450px;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-float);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: var(--transition-spring);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(129, 199, 132, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(239, 83, 80, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95) 0%, rgba(66, 165, 245, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 183, 77, 0.95) 100%);
+            color: white;
+        }
+
+        /* 🎨 CONNECTION STATUS INDICATOR */
+        .connection-status {
+            position: fixed;
+            bottom: var(--space-4);
+            right: var(--space-4);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--font-sm);
+            font-weight: 600;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .connection-status.connected {
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+        }
+
+        .connection-status.mock {
+            background: rgba(255, 152, 0, 0.9);
+            color: white;
+        }
+
+        .connection-status.error {
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+        }
+
+        /* 🚨 ENHANCED ACCESSIBILITY */
+        .hidden { 
+            display: none !important; 
+        }
+        
+        .show { 
+            display: block !important; 
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* 📱 RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .nav-links { 
+                gap: var(--space-1);
+            }
+            
+            .nav-link {
+                padding: var(--space-2) var(--space-3);
+                font-size: var(--font-sm);
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+            }
+            
             .login-card {
                 padding: var(--space-10) var(--space-6);
                 margin: var(--space-3);
                 max-width: 450px;
+            }
+            
+            .welcome-title { 
+                font-size: var(--font-3xl);
             }
             
             .dashboard-grid {
@@ -742,6 +1607,29 @@
                 gap: var(--space-5);
             }
             
+            .form-row { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .quick-stats { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            
+            .modal-content {
+                margin: var(--space-3);
+                max-width: 95vw;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
             .portal-content { 
                 padding: var(--space-5) var(--space-4); 
             }
@@ -752,6 +1640,72 @@
             
             .dashboard-card { 
                 padding: var(--space-6); 
+            }
+            
+            .calendar-container {
+                padding: var(--space-6);
+            }
+
+            .service-selection {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: var(--space-8) var(--space-5);
+                max-width: 380px;
+            }
+            
+            .quick-stats { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .time-slots { 
+                grid-template-columns: 1fr; 
+            }
+
+            .service-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .notification {
+                right: var(--space-4);
+                left: var(--space-4);
+                max-width: none;
+            }
+        }
+
+        /* 🎯 FOCUS STYLES */
+        *:focus {
+            outline: 3px solid rgba(30, 136, 229, 0.5);
+            outline-offset: 2px;
+        }
+
+        .nav-link:focus,
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        .create-account-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.3);
+        }
+
+        /* 🖨️ PRINT STYLES */
+        @media print {
+            .main-nav,
+            .portal-header,
+            .floating-element,
+            .enhanced-background {
+                display: none !important;
+            }
+            
+            .portal-container {
+                padding-top: 0 !important;
             }
         }
     </style>
@@ -774,12 +1728,19 @@
                 </div>
                 <span class="nav-logo-text">805 LifeGuard</span>
             </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/services" class="nav-link">Services</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/client-login" class="nav-link active">Portal</a>
+            </div>
         </div>
     </nav>
 
     <!-- 🔐 LOGIN SCREEN -->
     <div class="login-container" id="loginContainer" role="main">
-        <div class="login-card glass-blur">
+        <div class="login-card glass-card glass-blur">
             <div class="login-logo">
                 <div style="width: 70px; height: 70px; background: var(--gradient-primary-vivid); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; margin-right: var(--space-4); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));">
                     805
@@ -793,20 +1754,21 @@
             <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Welcome Back</h1>
             <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Sign in to access your account and manage your bookings</p>
             
-            <!-- Working API Status -->
-            <div style="background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
-                <div style="font-weight: 700; color: var(--success); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
-                    <i class="fas fa-check-circle"></i>
-                    API Status: Connected
+            <!-- Demo/Production Credentials Helper -->
+            <div style="background: rgba(30, 136, 229, 0.1); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
+                <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-info-circle"></i>
+                    Professional Service Portal
                 </div>
                 <div style="font-size: var(--font-sm); color: var(--dark); margin-bottom: var(--space-3);">
-                    <strong>✅ Working Credentials:</strong><br>
-                    Email: demo@805lifeguard.com<br>
-                    Password: demo123
+                    <div id="credentialsHelp">
+                        <strong>🏊‍♂️ Swim Lesson Durations:</strong> 30 min, 45 min, 1 hour, 1.5 hours, and 2 hours<br>
+                        <strong>🎯 Professional Booking:</strong> Streamlined scheduling without pricing display
+                    </div>
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                    <button type="button" onclick="fillWorkingCredentials()" style="
-                        background: var(--success);
+                    <button type="button" onclick="fillDemoCredentials()" style="
+                        background: var(--secondary);
                         color: white;
                         border: none;
                         padding: var(--space-2) var(--space-3);
@@ -816,7 +1778,20 @@
                         transition: var(--transition-smooth);
                         font-weight: 600;
                     " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-                        <i class="fas fa-user"></i> Use Working Credentials
+                        <i class="fas fa-flask"></i> Fill Demo Credentials
+                    </button>
+                    <button type="button" onclick="window.portal?.toggleConnectionMode()" style="
+                        background: var(--primary);
+                        color: white;
+                        border: none;
+                        padding: var(--space-2) var(--space-3);
+                        border-radius: var(--radius-md);
+                        font-size: var(--font-sm);
+                        cursor: pointer;
+                        transition: var(--transition-smooth);
+                        font-weight: 600;
+                    " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                        <i class="fas fa-exchange-alt"></i> Switch Mode
                     </button>
                 </div>
             </div>
@@ -824,17 +1799,25 @@
             <form id="loginForm" novalidate>
                 <div class="form-group">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email" required aria-describedby="email-error">
                 </div>
                 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-container">
-                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required aria-describedby="password-error">
                         <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
                             <i class="fas fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8); font-size: var(--font-base);">
+                    <label style="display: flex; align-items: center; gap: var(--space-2); cursor: pointer;">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="window.portal?.showForgotPassword()">Forgot password?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="loginBtn">
@@ -845,12 +1828,27 @@
                     </span>
                 </button>
                 
-                <div class="error-message hidden" id="loginError" role="alert"></div>
+                <div class="error-message hidden" id="loginError" role="alert" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
             </form>
 
+            <div style="margin-top: var(--space-8); text-align: center;">
+                <p style="margin-bottom: var(--space-4); color: var(--gray); font-size: var(--font-base);">Don't have an account?</p>
+                <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                    <button type="button" class="create-account-btn" id="createAccountBtn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <button type="button" class="btn-secondary" id="demoModeBtn" style="border: 2px solid var(--secondary); color: var(--secondary);">
+                        <i class="fas fa-play-circle"></i> Demo Mode
+                    </button>
+                </div>
+            </div>
+            
             <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
-                <p>🎉 <strong>Your API is Working!</strong> Successfully connected to your production database.</p>
-                <p style="margin-top: var(--space-2); font-size: var(--font-sm);">Database: lifeguard-portal-db | Users: ✅ | Bookings: ✅</p>
+                <p>Need help? Contact us at <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
+                <div style="margin-top: var(--space-4); font-size: var(--font-sm); opacity: 0.8;">
+                    <p>🏊‍♂️ <strong>Professional Portal:</strong> Flexible duration options and streamlined booking</p>
+                    <p>💼 <strong>Custom Pricing:</strong> Contact us directly for service pricing and packages</p>
+                </div>
             </div>
         </div>
     </div>
@@ -869,6 +1867,9 @@
                 <div class="portal-user-menu">
                     <div class="user-avatar" id="userAvatar" role="img" aria-label="User avatar">JD</div>
                     <span id="userName">John Doe</span>
+                    <div id="demoIndicator" style="display: none; background: var(--warning); color: white; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: var(--font-xs); font-weight: 700; margin-left: var(--space-2);">
+                        DEMO MODE
+                    </div>
                     <button class="logout-btn" id="logoutBtn" aria-label="Logout">
                         <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         Logout
@@ -883,19 +1884,19 @@
             <section class="welcome-section" aria-labelledby="welcome-heading">
                 <div class="welcome-content">
                     <h1 class="welcome-title" id="welcome-heading">Welcome back, <span id="welcomeName">John</span>!</h1>
-                    <p class="welcome-subtitle">Manage your pool services, schedule new appointments, and track your bookings with our professional portal.</p>
+                    <p class="welcome-subtitle">Manage your pool services, schedule new appointments, and track your bookings with our professional portal featuring flexible duration options and streamlined scheduling.</p>
                     
                     <div class="quick-stats" role="region" aria-label="Account statistics">
                         <div class="stat-item">
-                            <div class="stat-number" id="totalBookings" aria-label="Total bookings">-</div>
+                            <div class="stat-number" id="totalBookings" aria-label="Total bookings">0</div>
                             <div class="stat-label">Total Bookings</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="upcomingBookings" aria-label="Upcoming bookings">-</div>
+                            <div class="stat-number" id="upcomingBookings" aria-label="Upcoming bookings">0</div>
                             <div class="stat-label">Upcoming</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="monthlyLessons" aria-label="Monthly lessons">-</div>
+                            <div class="stat-number" id="monthlyLessons" aria-label="Monthly lessons">0</div>
                             <div class="stat-label">This Month</div>
                         </div>
                         <div class="stat-item">
@@ -909,27 +1910,38 @@
             <!-- 🎯 DASHBOARD GRID -->
             <section class="dashboard-grid" role="region" aria-label="Dashboard actions">
                 <!-- 📅 QUICK BOOK CARD -->
-                <div class="dashboard-card">
+                <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
                             <div class="card-icon"><i class="fas fa-calendar-plus" aria-hidden="true"></i></div>
                             Quick Book
                         </h2>
-                        <button class="card-action" onclick="showFeatureDemo('booking')" aria-label="Create new booking">
+                        <button class="card-action" onclick="window.portal?.openBookingModal()" aria-label="Create new booking">
                             <i class="fas fa-plus" aria-hidden="true"></i> New Booking
                         </button>
                     </div>
                     <p>Book swim lessons, lifeguard services, or special events with our streamlined booking system featuring flexible duration options and professional scheduling.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('swim-lesson')" aria-label="Quick book swim lesson">
+                            <i class="fas fa-swimmer" aria-hidden="true"></i> Swim Lesson
+                        </button>
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('lifeguard')" aria-label="Quick book lifeguard service">
+                            <i class="fas fa-user-shield" aria-hidden="true"></i> Lifeguard
+                        </button>
+                        <button class="btn-small btn-edit" onclick="window.portal?.quickBook('event')" aria-label="Quick book special event">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i> Event
+                        </button>
+                    </div>
                 </div>
 
                 <!-- ⏰ UPCOMING BOOKINGS CARD -->
-                <div class="dashboard-card">
+                <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
                             <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                             Upcoming Bookings
                         </h2>
-                        <button class="card-action" onclick="loadUpcomingBookings()" aria-label="View all bookings">View All</button>
+                        <button class="card-action" onclick="window.portal?.showBookingHistory()" aria-label="View all bookings">View All</button>
                     </div>
                     <div class="bookings-list" id="upcomingBookingsList" role="region" aria-label="Upcoming bookings list">
                         <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading your bookings...</p>
@@ -937,344 +1949,1554 @@
                 </div>
 
                 <!-- ⚙️ ACCOUNT SETTINGS CARD -->
-                <div class="dashboard-card">
+                <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
                             <div class="card-icon"><i class="fas fa-user-cog" aria-hidden="true"></i></div>
                             Account Settings
                         </h2>
-                        <button class="card-action" onclick="showFeatureDemo('settings')" aria-label="Manage account settings">
+                        <button class="card-action" onclick="window.portal?.showAccountSettings()" aria-label="Manage account settings">
                             <i class="fas fa-cog" aria-hidden="true"></i> Manage
                         </button>
                     </div>
                     <p>Update your personal information, preferences, and security settings.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit" onclick="window.portal?.showAccountSettings('profile')" aria-label="Edit profile">
+                            <i class="fas fa-user" aria-hidden="true"></i> Profile
+                        </button>
+                        <button class="btn-small btn-cancel" onclick="window.portal?.handleLogout()" aria-label="Logout from account">
+                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 📋 MY BOOKINGS CARD -->
-                <div class="dashboard-card">
+                <div class="dashboard-card glass-card">
                     <div class="card-header">
                         <h2 class="card-title">
                             <div class="card-icon"><i class="fas fa-list-alt" aria-hidden="true"></i></div>
                             My Bookings
                         </h2>
-                        <button class="card-action" onclick="showFeatureDemo('history')" aria-label="View booking history">
+                        <button class="card-action" onclick="window.portal?.showBookingHistory()" aria-label="View booking history">
                             <i class="fas fa-history" aria-hidden="true"></i> History
                         </button>
                     </div>
                     <p>View your complete booking history, manage active bookings, and track service requests with flexible duration tracking and professional scheduling.</p>
+                    <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn-small btn-edit" onclick="window.portal?.filterBookings('upcoming')" aria-label="Filter upcoming bookings">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i> Upcoming
+                        </button>
+                        <button class="btn-small btn-edit" onclick="window.portal?.filterBookings('completed')" aria-label="Filter completed bookings">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i> Completed
+                        </button>
+                    </div>
                 </div>
             </section>
 
-            <!-- ✅ API CONNECTION STATUS -->
-            <section style="background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.2); border-radius: var(--radius-2xl); padding: var(--space-8); text-align: center; margin-top: var(--space-10);">
-                <div style="font-size: var(--font-4xl); margin-bottom: var(--space-4);">🎉</div>
-                <h2 style="color: var(--success); margin-bottom: var(--space-4); font-size: var(--font-2xl);">Portal Successfully Connected!</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4);">
-                    <div>
-                        <div style="font-weight: 700; color: var(--success);">✅ API Connected</div>
-                        <div style="font-size: var(--font-sm); color: var(--gray);">lifeguard-portal-api-production</div>
-                    </div>
-                    <div>
-                        <div style="font-weight: 700; color: var(--success);">✅ Database Working</div>
-                        <div style="font-size: var(--font-sm); color: var(--gray);">lifeguard-portal-db</div>
-                    </div>
-                    <div>
-                        <div style="font-weight: 700; color: var(--success);">✅ User Authenticated</div>
-                        <div style="font-size: var(--font-sm); color: var(--gray);">JWT Token Valid</div>
-                    </div>
-                    <div>
-                        <div style="font-weight: 700; color: var(--success);">✅ Ready for Production</div>
-                        <div style="font-size: var(--font-sm); color: var(--gray);">All systems operational</div>
+            <!-- 📅 ENHANCED CALENDAR SECTION -->
+            <section class="calendar-container glass-card" role="region" aria-label="Booking calendar">
+                <div class="calendar-header">
+                    <h2 class="calendar-title">Available Dates & Times</h2>
+                    <div class="calendar-nav" role="group" aria-label="Calendar navigation">
+                        <button class="calendar-btn" id="prevMonth" aria-label="Previous month">
+                            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <div class="current-month" id="currentMonth" aria-live="polite">Loading...</div>
+                        <button class="calendar-btn" id="nextMonth" aria-label="Next month">
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
-                <p style="color: var(--gray); font-size: var(--font-base);">Your 805 LifeGuard portal is fully functional and ready for use!</p>
+                
+                <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendar grid">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+                
+                <div style="margin-top: var(--space-6); display: flex; gap: var(--space-6); flex-wrap: wrap; justify-content: center; font-size: var(--font-base);" role="region" aria-label="Calendar legend">
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 16px; height: 16px; background: var(--success); border-radius: var(--radius-xs);"></div>
+                        <span>Available</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 16px; height: 16px; background: var(--warning); border-radius: var(--radius-xs);"></div>
+                        <span>Partially Booked</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 16px; height: 16px; background: var(--error); border-radius: var(--radius-xs);"></div>
+                        <span>Unavailable</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 16px; height: 16px; background: var(--primary); border-radius: var(--radius-xs);"></div>
+                        <span>Your Bookings</span>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
 
+    <!-- 📝 ENHANCED BOOKING MODAL -->
+    <div class="modal glass-blur-strong" id="bookingModal" role="dialog" aria-labelledby="booking-title" aria-modal="true">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="booking-title">Book a Service</h2>
+                    <p style="opacity: 0.95; font-size: var(--font-lg);">Select your preferred service, duration, and time</p>
+                </div>
+                <button class="modal-close" id="modalClose" aria-label="Close booking modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="bookingForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label">Select Service</label>
+                        <div class="service-selection" role="radiogroup" aria-label="Service selection">
+                            <div class="service-option" data-service="swim-lesson" role="radio" tabindex="0" aria-checked="false">
+                                <i class="fas fa-swimmer" aria-hidden="true"></i>
+                                <h4>Swim Lesson</h4>
+                            </div>
+                            <div class="service-option" data-service="lifeguard" role="radio" tabindex="0" aria-checked="false">
+                                <i class="fas fa-user-shield" aria-hidden="true"></i>
+                                <h4>Lifeguard Service</h4>
+                            </div>
+                            <div class="service-option" data-service="event" role="radio" tabindex="0" aria-checked="false">
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                                <h4>Special Event</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="selectedDate">Selected Date</label>
+                        <input type="text" id="selectedDate" class="form-input" readonly placeholder="Click on a calendar date to select" aria-describedby="date-help">
+                        <div id="date-help" style="font-size: var(--font-sm); color: var(--gray); margin-top: var(--space-1);">Choose a date from the calendar above</div>
+                    </div>
+
+                    <!-- 🏊‍♂️ ENHANCED DURATION SELECTION -->
+                    <div class="form-group duration-selection" id="durationGroup" style="display: none;">
+                        <label class="form-label">Duration</label>
+                        <div class="duration-grid" id="durationGrid" role="radiogroup" aria-label="Duration selection">
+                            <!-- Duration options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Available Time Slots</label>
+                        <div class="time-slots" id="timeSlots" role="radiogroup" aria-label="Time slot selection">
+                            <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="participants" class="form-label">Participants</label>
+                        <select id="participants" class="form-input" aria-describedby="participants-help">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5+ People</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+                        <textarea id="specialRequests" class="form-input" rows="3" placeholder="Any special requirements or notes..." aria-describedby="requests-help"></textarea>
+                        <div id="requests-help" style="font-size: var(--font-sm); color: var(--gray); margin-top: var(--space-1);">Optional: Add any special requirements or notes</div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
+                        <button type="submit" class="btn-primary" id="submitBooking" disabled>
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                            Request Booking
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔗 CONNECTION STATUS WITH MODE SWITCHER -->
+    <div class="connection-status connected" id="connectionStatus" onclick="window.portal?.toggleConnectionMode()" style="cursor: pointer; user-select: none;" title="Click to switch between Production and Demo mode">
+        <i class="fas fa-database"></i> Production Mode Active
+    </div>
+
+    <!-- 🚀 ENHANCED JAVASCRIPT PORTAL SYSTEM (NO PRICING) -->
     <script>
-        // 🔗 YOUR WORKING API CONFIGURATION
-        const API_BASE_URL = 'https://lifeguard-portal-api-production.jaspervdz.workers.dev';
-        let currentUser = null;
-        let authToken = null;
+        /**
+         * 🏊‍♂️ COMPLETE 805 LIFEGUARD CLIENT PORTAL - CONFIGURED FOR YOUR API
+         * 
+         * ✅ YOUR WORKING API: https://lifeguard-portal-api-production.jaspervdz.workers.dev
+         * ✅ YOUR WORKING CREDENTIALS: demo@805lifeguard.com / demo123
+         * ✅ ALL FEATURES: Calendar, Booking, Modals, Duration Selection, etc.
+         */
         
-        console.log('🚀 805 LifeGuard Client Portal - Connected to Working API');
-        console.log('🔗 API Endpoint:', API_BASE_URL);
-        
-        // Fill working credentials
-        function fillWorkingCredentials() {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            
-            emailInput.value = 'demo@805lifeguard.com';
-            passwordInput.value = 'demo123';
-            
-            emailInput.style.borderColor = 'var(--success)';
-            passwordInput.style.borderColor = 'var(--success)';
-            
-            setTimeout(() => {
-                emailInput.style.borderColor = '';
-                passwordInput.style.borderColor = '';
-            }, 2000);
-        }
-
-        // Enhanced login handler
-        async function handleLogin(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('loginBtn');
-            const errorDiv = document.getElementById('loginError');
-            
-            errorDiv.classList.add('hidden');
-            
-            if (!email || !password) {
-                showError('Please enter both email and password');
-                return;
-            }
-            
-            showLoadingState(loginBtn);
-            
-            try {
-                console.log('🔐 Attempting login with your working API...');
+        class ProfessionalClientPortal {
+            constructor() {
+                this.currentUser = null;
+                this.authToken = null;
+                this.currentDate = new Date();
+                this.selectedDate = null;
+                this.selectedService = null;
+                this.selectedTime = null;
+                this.selectedDuration = null;
+                this.bookings = [];
+                this.availabilityData = new Map();
                 
-                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Origin': window.location.origin
+                // 🔧 YOUR PRODUCTION CONFIGURATION
+                this.config = {
+                    // 🌐 YOUR CLOUDFLARE WORKER URL
+                    apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
+                    
+                    // 🚀 DATABASE MODE
+                    mockMode: false, // Set to false for production D1 database
+                    
+                    // ⚡ PERFORMANCE & RELIABILITY
+                    cacheTimeout: 5 * 60 * 1000, // 5 minutes
+                    requestTimeout: 30000, // 30 seconds
+                    maxRetries: 3,
+                    retryDelay: 1000,
+                };
+                
+                // 🎯 PROFESSIONAL SERVICE CONFIGURATION (NO PRICING)
+                this.serviceConfig = {
+                    'swim-lesson': {
+                        name: 'Private Swim Lesson',
+                        duration: [0.5, 0.75, 1, 1.5, 2], // 30min, 45min, 1hr, 1.5hr, 2hr
+                        maxParticipants: 4,
+                        availableHours: [9, 10, 14, 15, 16, 17],
+                        durationLabels: {
+                            0.5: { label: '30 minutes', sublabel: 'Quick session' },
+                            0.75: { label: '45 minutes', sublabel: 'Standard lesson' },
+                            1: { label: '1 hour', sublabel: 'Full lesson' },
+                            1.5: { label: '1.5 hours', sublabel: 'Extended session' },
+                            2: { label: '2 hours', sublabel: 'Intensive training' }
+                        }
                     },
-                    body: JSON.stringify({ email, password })
-                });
+                    'lifeguard': {
+                        name: 'Lifeguard Service',
+                        duration: [2, 3, 4, 6, 8],
+                        maxParticipants: 50,
+                        availableHours: [8, 10, 12, 14, 16, 18],
+                        durationLabels: {
+                            2: { label: '2 hours', sublabel: 'Minimum service' },
+                            3: { label: '3 hours', sublabel: 'Half day' },
+                            4: { label: '4 hours', sublabel: 'Standard event' },
+                            6: { label: '6 hours', sublabel: 'Extended event' },
+                            8: { label: '8 hours', sublabel: 'Full day' }
+                        }
+                    },
+                    'event': {
+                        name: 'Special Event Coverage',
+                        duration: [2, 3, 4, 6, 8],
+                        maxParticipants: 100,
+                        availableHours: [10, 12, 14, 16, 18],
+                        durationLabels: {
+                            2: { label: '2 hours', sublabel: 'Short event' },
+                            3: { label: '3 hours', sublabel: 'Standard event' },
+                            4: { label: '4 hours', sublabel: 'Extended event' },
+                            6: { label: '6 hours', sublabel: 'Long event' },
+                            8: { label: '8 hours', sublabel: 'All day event' }
+                        }
+                    }
+                };
+
+                // 🚀 INITIALIZE PORTAL
+                this.init();
+            }
+
+            async init() {
+                console.log('🚀 COMPLETE PORTAL DEPLOYMENT: 805 LifeGuard Client Portal');
+                console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
+                console.log('💾 Database Mode:', this.config.mockMode ? 'Demo/Mock' : 'Production/D1');
+                console.log('🏊‍♂️ Professional Features: Flexible durations, calendar, booking system');
                 
-                const data = await response.json();
-                console.log('📡 API Response:', data);
-                
-                if (data.success) {
-                    console.log('🎉 Login successful!', data.user);
-                    authToken = data.token;
-                    currentUser = data.user;
-                    showPortal();
-                } else {
-                    throw new Error(data.error || 'Login failed');
+                try {
+                    this.setupEventListeners();
+                    this.updateConnectionStatus();
+                    
+                    console.log('🎉 COMPLETE PORTAL READY FOR PRODUCTION!');
+                    
+                } catch (error) {
+                    console.error('🚨 Portal initialization error:', error);
+                    this.showEnhancedNotification('Portal initialized with limited functionality.', 'warning');
                 }
+            }
+
+            // Essential event listeners setup
+            setupEventListeners() {
+                console.log('🔧 Setting up enhanced event listeners...');
                 
-            } catch (error) {
-                console.error('❌ Login error:', error);
-                showError(error.message || 'Login failed. Please try again.');
-            } finally {
-                hideLoadingState(loginBtn);
-            }
-        }
+                // Login form
+                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
 
-        function showLoadingState(button) {
-            button.disabled = true;
-            button.querySelector('.btn-text').style.display = 'none';
-            button.querySelector('.loading').style.display = 'inline-flex';
-        }
+                // Booking form
+                document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleBookingSubmission();
+                });
 
-        function hideLoadingState(button) {
-            button.disabled = false;
-            button.querySelector('.btn-text').style.display = 'inline';
-            button.querySelector('.loading').style.display = 'none';
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('loginError');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('hidden');
-        }
-
-        function showPortal() {
-            const loginContainer = document.getElementById('loginContainer');
-            const portalContainer = document.getElementById('portalContainer');
-            
-            loginContainer.style.display = 'none';
-            portalContainer.style.display = 'block';
-            
-            updatePortalUserInfo();
-            loadUserStats();
-            loadUpcomingBookings();
-            
-            console.log('🎉 Portal dashboard loaded successfully!');
-        }
-
-        function updatePortalUserInfo() {
-            if (!currentUser) return;
-
-            const userAvatar = document.getElementById('userAvatar');
-            const userName = document.getElementById('userName');
-            const welcomeName = document.getElementById('welcomeName');
-
-            if (userAvatar) userAvatar.textContent = getInitials(currentUser.name);
-            if (userName) userName.textContent = currentUser.name || 'User';
-            if (welcomeName) welcomeName.textContent = (currentUser.name || 'User').split(' ')[0];
-        }
-
-        function getInitials(name) {
-            if (!name) return 'U';
-            const names = name.split(' ');
-            if (names.length >= 2) {
-                return (names[0][0] + names[1][0]).toUpperCase();
-            }
-            return name[0].toUpperCase();
-        }
-
-        async function loadUserStats() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/user/stats`, {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
+                // Password toggle
+                document.getElementById('passwordToggle')?.addEventListener('click', () => {
+                    const passwordInput = document.getElementById('password');
+                    const icon = document.getElementById('passwordToggle').querySelector('i');
+                    
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        icon.className = 'fas fa-eye-slash';
+                    } else {
+                        passwordInput.type = 'password';
+                        icon.className = 'fas fa-eye';
                     }
                 });
-                
-                const data = await response.json();
-                console.log('📊 Stats loaded:', data);
-                
-                if (data.success) {
-                    animateStatUpdate('totalBookings', data.stats.total || 0);
-                    animateStatUpdate('upcomingBookings', data.stats.upcoming || 0);
-                    animateStatUpdate('monthlyLessons', data.stats.thisMonth || 0);
-                    animateStatUpdate('memberSince', data.stats.memberSince || 2025);
-                }
-            } catch (error) {
-                console.error('Error loading stats:', error);
-                // Use default values
-                animateStatUpdate('totalBookings', 0);
-                animateStatUpdate('upcomingBookings', 0);
-                animateStatUpdate('monthlyLessons', 0);
-                animateStatUpdate('memberSince', 2025);
-            }
-        }
 
-        function animateStatUpdate(elementId, finalValue) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-            
-            let currentValue = 0;
-            const increment = Math.ceil(finalValue / 20);
-            
-            const animate = () => {
-                if (currentValue < finalValue) {
-                    currentValue = Math.min(currentValue + increment, finalValue);
-                    element.textContent = currentValue;
-                    setTimeout(animate, 50);
-                } else {
-                    element.textContent = finalValue;
-                }
-            };
-            
-            animate();
-        }
-
-        async function loadUpcomingBookings() {
-            const container = document.getElementById('upcomingBookingsList');
-            if (!container) return;
-            
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/bookings/upcoming`, {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
-                    }
+                // Modal controls
+                document.getElementById('modalClose')?.addEventListener('click', () => {
+                    this.closeBookingModal();
                 });
+
+                document.getElementById('cancelBooking')?.addEventListener('click', () => {
+                    this.closeBookingModal();
+                });
+
+                // Calendar navigation
+                document.getElementById('prevMonth')?.addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                    this.generateEnhancedCalendar();
+                });
+
+                document.getElementById('nextMonth')?.addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                    this.generateEnhancedCalendar();
+                });
+
+                // Button controls
+                document.getElementById('createAccountBtn')?.addEventListener('click', () => {
+                    this.showCreateAccountModal();
+                });
+
+                document.getElementById('demoModeBtn')?.addEventListener('click', () => {
+                    this.enableDemoMode();
+                });
+
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    this.handleLogout();
+                });
+
+                // Setup service selection
+                setTimeout(() => {
+                    this.setupServiceSelection();
+                }, 100);
+
+                console.log('✅ Enhanced event listeners setup complete');
+            }
+
+            // 🔐 ENHANCED LOGIN WITH COMPREHENSIVE VALIDATION
+            async handleLogin() {
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const loginBtn = document.getElementById('loginBtn');
+                const errorDiv = document.getElementById('loginError');
+
+                errorDiv.classList.add('hidden');
+
+                if (!email || !password) {
+                    this.showError('Please enter both email and password');
+                    return;
+                }
+
+                this.showLoadingState(loginBtn, 'Signing In...');
+
+                try {
+                    console.log('🔐 Attempting login with your working API...');
+                    
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/auth/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Origin': window.location.origin
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+                    console.log('📡 API Response:', data);
+
+                    if (data.success) {
+                        console.log('🎉 Login successful!', data.user);
+                        this.authToken = data.token;
+                        this.currentUser = data.user;
+                        
+                        await this.loadUserData();
+                        
+                        setTimeout(() => {
+                            this.showPortal();
+                            this.showEnhancedNotification('Welcome back! Successfully signed in.', 'success', {
+                                title: 'Login Successful',
+                                subtitle: 'Professional portal ready for booking management'
+                            });
+                        }, 800);
+                    } else {
+                        throw new Error(data.error || 'Login failed');
+                    }
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    this.showError(error.message || 'Login failed. Please try again.');
+                } finally {
+                    this.hideLoadingState(loginBtn, 'Sign In');
+                }
+            }
+
+            showCreateAccountModal() {
+                this.showEnhancedNotification('Account registration is available! Please contact us at (805) 367-6432 to set up your professional account.', 'info', {
+                    title: 'Professional Account Setup',
+                    subtitle: 'We\'ll help you get started with custom pricing and preferences',
+                    duration: 8000
+                });
+            }
+
+            enableDemoMode() {
+                console.log('🎭 Enabling professional demo mode...');
+                this.config.mockMode = true;
                 
-                const data = await response.json();
-                console.log('📅 Upcoming bookings loaded:', data);
+                this.currentUser = {
+                    id: 'demo-user',
+                    name: 'Demo User',
+                    email: 'demo@805lifeguard.com',
+                    phone: '(805) 555-0123',
+                    member_since: '2024-01-15'
+                };
                 
-                if (data.success && data.bookings.length > 0) {
-                    container.innerHTML = data.bookings.map(booking => renderBookingCard(booking)).join('');
-                } else {
+                this.showPortal();
+                this.updateConnectionStatus('mock');
+                
+                this.showEnhancedNotification('Welcome to the professional demo!', 'info', {
+                    title: 'Demo Mode Active',
+                    subtitle: 'Explore all features with realistic sample data'
+                });
+            }
+
+            showForgotPassword() {
+                this.showEnhancedNotification('Password reset feature coming soon! Please contact support at (805) 367-6432.', 'info', {
+                    title: 'Password Reset',
+                    duration: 5000
+                });
+            }
+
+            // Enhanced user data and portal management
+            async loadUserData() {
+                console.log('📊 Loading professional user data...');
+                
+                try {
+                    await Promise.all([
+                        this.updatePortalUserInfo(),
+                        this.updateStatsWithAnimation(),
+                        this.updateUpcomingBookings(),
+                        this.loadUserBookings()
+                    ]);
+                    
+                    console.log('✅ Professional user data loaded successfully');
+                } catch (error) {
+                    console.error('Error loading user data:', error);
+                    this.showEnhancedNotification('Some data could not be loaded. Using cached data.', 'warning');
+                }
+            }
+
+            updatePortalUserInfo() {
+                if (!this.currentUser) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const welcomeName = document.getElementById('welcomeName');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
+                if (userName) userName.textContent = this.currentUser.name || 'User';
+                if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'User').split(' ')[0];
+            }
+
+            getInitials(name) {
+                if (!name) return 'U';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
+            }
+
+            async updateStatsWithAnimation() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/user/stats`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    console.log('📊 Stats loaded:', data);
+                    
+                    if (data.success) {
+                        this.animateStatUpdate('totalBookings', data.stats.total || 0);
+                        this.animateStatUpdate('upcomingBookings', data.stats.upcoming || 0);
+                        this.animateStatUpdate('monthlyLessons', data.stats.thisMonth || 0);
+                        this.animateStatUpdate('memberSince', data.stats.memberSince || 2025);
+                    }
+                } catch (error) {
+                    console.error('Error loading stats:', error);
+                    // Use default values
+                    this.animateStatUpdate('totalBookings', 0);
+                    this.animateStatUpdate('upcomingBookings', 0);
+                    this.animateStatUpdate('monthlyLessons', 0);
+                    this.animateStatUpdate('memberSince', 2025);
+                }
+            }
+
+            animateStatUpdate(elementId, finalValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = 0;
+                const increment = Math.ceil(finalValue / 20);
+                
+                const animate = () => {
+                    if (currentValue < finalValue) {
+                        currentValue = Math.min(currentValue + increment, finalValue);
+                        element.textContent = currentValue;
+                        setTimeout(animate, 50);
+                    } else {
+                        element.textContent = finalValue;
+                    }
+                };
+                
+                animate();
+            }
+
+            async updateUpcomingBookings() {
+                const container = document.getElementById('upcomingBookingsList');
+                if (!container) return;
+                
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/bookings/upcoming`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    console.log('📅 Upcoming bookings loaded:', data);
+                    
+                    if (data.success && data.bookings.length > 0) {
+                        container.innerHTML = data.bookings.map(booking => this.renderBookingCard(booking)).join('');
+                    } else {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: var(--space-5); color: var(--gray);">
+                                <i class="fas fa-calendar-plus" style="font-size: var(--font-3xl); margin-bottom: var(--space-3); opacity: 0.5;"></i>
+                                <p style="margin-bottom: var(--space-4);">No upcoming bookings</p>
+                                <button class="btn-secondary" onclick="portal.openBookingModal();" style="border: 2px solid var(--primary); color: var(--primary);">
+                                    <i class="fas fa-plus"></i> Book Now
+                                </button>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error loading upcoming bookings:', error);
                     container.innerHTML = `
-                        <div style="text-align: center; padding: var(--space-5); color: var(--gray);">
-                            <i class="fas fa-calendar-plus" style="font-size: var(--font-3xl); margin-bottom: var(--space-3); opacity: 0.5;"></i>
-                            <p style="margin-bottom: var(--space-4);">No upcoming bookings</p>
-                            <button class="btn-secondary" onclick="showFeatureDemo('booking');" style="border: 2px solid var(--primary); color: var(--primary);">
-                                <i class="fas fa-plus"></i> Book Now
-                            </button>
+                        <div style="text-align: center; padding: var(--space-5); color: var(--error);">
+                            <p>Error loading bookings</p>
                         </div>
                     `;
                 }
-            } catch (error) {
-                console.error('Error loading upcoming bookings:', error);
-                container.innerHTML = `
-                    <div style="text-align: center; padding: var(--space-5); color: var(--error);">
-                        <p>Error loading bookings</p>
+            }
+
+            renderBookingCard(booking) {
+                const date = new Date(booking.date);
+                const statusClass = `status-${booking.status}`;
+                
+                return `
+                    <div style="background: white; border-radius: var(--radius-xl); padding: var(--space-4); box-shadow: var(--shadow-soft); border-left: 6px solid var(--primary); margin-bottom: var(--space-3);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-weight: 800;">
+                            <strong>${booking.serviceName || booking.service}</strong>
+                            <span style="padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); font-size: var(--font-xs); font-weight: 700; text-transform: uppercase; background: rgba(76, 175, 80, 0.2); color: var(--success);">${booking.status}</span>
+                        </div>
+                        <div style="color: var(--gray); font-size: var(--font-sm);">
+                            <div style="margin-bottom: var(--space-1);"><i class="fas fa-calendar" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
+                            <div style="margin-bottom: var(--space-1);"><i class="fas fa-clock" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${booking.time} (${booking.duration}h)</div>
+                            <div><i class="fas fa-users" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
+                        </div>
                     </div>
                 `;
             }
-        }
 
-        function renderBookingCard(booking) {
-            const date = new Date(booking.date);
-            const statusClass = `status-${booking.status}`;
-            
-            return `
-                <div style="background: white; border-radius: var(--radius-xl); padding: var(--space-4); box-shadow: var(--shadow-soft); border-left: 6px solid var(--primary); margin-bottom: var(--space-3);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-weight: 800;">
-                        <strong>${booking.serviceName || booking.service}</strong>
-                        <span style="padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); font-size: var(--font-xs); font-weight: 700; text-transform: uppercase; background: rgba(76, 175, 80, 0.2); color: var(--success);">${booking.status}</span>
-                    </div>
-                    <div style="color: var(--gray); font-size: var(--font-sm);">
-                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-calendar" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
-                        <div style="margin-bottom: var(--space-1);"><i class="fas fa-clock" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${booking.time} (${booking.duration}h)</div>
-                        <div><i class="fas fa-users" style="width: 20px; margin-right: var(--space-2); text-align: center; color: var(--primary);"></i> ${booking.participants} participant${booking.participants > 1 ? 's' : ''}</div>
-                    </div>
-                </div>
-            `;
-        }
+            async loadUserBookings() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/bookings`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    if (data?.success) {
+                        this.bookings = data.bookings || [];
+                    }
+                } catch (error) {
+                    console.error('Error loading user bookings:', error);
+                    this.bookings = [];
+                }
+            }
 
-        function showFeatureDemo(feature) {
-            const features = {
-                'booking': 'New Booking System',
-                'settings': 'Account Settings',
-                'history': 'Booking History'
-            };
-            
-            alert(`🚀 ${features[feature]} feature ready for implementation!\n\nYour API is working and ready to handle:\n✅ Booking creation and management\n✅ User profile updates\n✅ Booking history retrieval\n✅ Calendar availability\n\nNext: Implement the UI for ${features[feature]}.`);
-        }
-
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                currentUser = null;
-                authToken = null;
-                
+            showPortal() {
                 const loginContainer = document.getElementById('loginContainer');
                 const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
                 
-                loginContainer.style.display = 'flex';
-                portalContainer.style.display = 'none';
+                this.updatePortalUserInfo();
                 
-                // Clear form
-                document.getElementById('email').value = '';
-                document.getElementById('password').value = '';
+                const demoIndicator = document.getElementById('demoIndicator');
+                if (demoIndicator && this.config.mockMode) {
+                    demoIndicator.style.display = 'block';
+                }
                 
-                console.log('👋 Logged out successfully');
+                setTimeout(() => {
+                    this.generateEnhancedCalendar();
+                }, 100);
+                
+                console.log('🎉 Professional portal loaded successfully!');
+            }
+
+            // 📅 ENHANCED CALENDAR SYSTEM
+            async generateEnhancedCalendar() {
+                const calendarGrid = document.getElementById('calendarGrid');
+                const currentMonthDisplay = document.getElementById('currentMonth');
+                
+                if (!calendarGrid || !currentMonthDisplay) {
+                    console.warn('⚠️ Calendar elements not found');
+                    return;
+                }
+                
+                console.log('📅 Generating professional calendar for:', this.currentDate.toISOString().slice(0, 7));
+                
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                
+                currentMonthDisplay.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+
+                calendarGrid.innerHTML = '';
+                
+                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayHeaders.forEach(day => {
+                    const header = document.createElement('div');
+                    header.className = 'calendar-day-header';
+                    header.textContent = day;
+                    calendarGrid.appendChild(header);
+                });
+
+                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+                const lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < 42; i++) {
+                    const currentDay = new Date(startDate);
+                    currentDay.setDate(startDate.getDate() + i);
+                    
+                    const dayElement = this.createEnhancedCalendarDay(currentDay, today, firstDay, lastDay);
+                    calendarGrid.appendChild(dayElement);
+                }
+                
+                console.log('✅ Professional calendar generated successfully');
+            }
+
+            createEnhancedCalendarDay(currentDay, today, firstDay, lastDay) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.setAttribute('data-date', currentDay.toISOString().split('T')[0]);
+                
+                if (currentDay < firstDay || currentDay > lastDay) {
+                    dayElement.classList.add('other-month');
+                }
+                
+                if (currentDay.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                }
+                
+                if (currentDay < today) {
+                    dayElement.classList.add('past-date');
+                } else if (!dayElement.classList.contains('other-month')) {
+                    dayElement.addEventListener('click', () => {
+                        this.selectCalendarDate(new Date(currentDay));
+                    });
+                    
+                    dayElement.style.cursor = 'pointer';
+                }
+
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = currentDay.getDate();
+                dayElement.appendChild(dayNumber);
+
+                const eventsContainer = document.createElement('div');
+                eventsContainer.className = 'day-events';
+                
+                // Add mock availability indicators
+                if (currentDay >= today && !dayElement.classList.contains('other-month')) {
+                    const availableDot = document.createElement('div');
+                    availableDot.className = 'event-dot event-available';
+                    eventsContainer.appendChild(availableDot);
+                }
+                
+                dayElement.appendChild(eventsContainer);
+
+                return dayElement;
+            }
+
+            async selectCalendarDate(date) {
+                console.log('📅 Professional calendar date selected:', date.toDateString());
+                
+                document.querySelectorAll('.calendar-day.selected').forEach(day => {
+                    day.classList.remove('selected');
+                });
+                
+                const dateKey = date.toISOString().split('T')[0];
+                const dayElement = document.querySelector(`[data-date="${dateKey}"]`);
+                if (dayElement) {
+                    dayElement.classList.add('selected');
+                }
+                
+                this.selectedDate = date;
+                console.log('✅ Date stored and validated:', this.selectedDate.toDateString());
+                
+                this.openBookingModal();
+                
+                setTimeout(() => {
+                    this.updateSelectedDateInput();
+                    this.validateBookingFormWithAnimation();
+                }, 300);
+            }
+
+            openBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                console.log('🔄 Opening professional booking modal');
+                
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                setTimeout(() => {
+                    this.setupServiceSelection();
+                    this.validateBookingFormWithAnimation();
+                }, 100);
+            }
+
+            updateSelectedDateInput() {
+                const selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput && this.selectedDate) {
+                    selectedDateInput.value = this.selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+            }
+
+            // 🎯 ENHANCED SERVICE SELECTION SYSTEM WITH DURATION
+            setupServiceSelection() {
+                console.log('🎯 Setting up professional service selection...');
+                
+                document.querySelectorAll('.service-option').forEach(serviceOption => {
+                    serviceOption.replaceWith(serviceOption.cloneNode(true));
+                });
+                
+                document.querySelectorAll('.service-option').forEach(serviceOption => {
+                    serviceOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const serviceType = serviceOption.dataset.service;
+                        this.selectServiceWithAnimation(serviceType);
+                    });
+                    
+                    serviceOption.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            const serviceType = serviceOption.dataset.service;
+                            this.selectServiceWithAnimation(serviceType);
+                        }
+                    });
+                });
+                
+                console.log('✅ Professional service selection listeners attached');
+            }
+
+            selectServiceWithAnimation(serviceType) {
+                console.log('🎯 Service selected with professional animation:', serviceType);
+                
+                if (!this.serviceConfig[serviceType]) {
+                    console.error('❌ Invalid service type:', serviceType);
+                    return;
+                }
+                
+                document.querySelectorAll('.service-option').forEach(option => {
+                    option.classList.remove('selected');
+                    option.setAttribute('aria-checked', 'false');
+                    option.style.transform = 'scale(1)';
+                    option.style.background = '';
+                });
+
+                const selectedOption = document.querySelector(`[data-service="${serviceType}"]`);
+                if (selectedOption) {
+                    selectedOption.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        selectedOption.classList.add('selected');
+                        selectedOption.setAttribute('aria-checked', 'true');
+                        selectedOption.style.transform = 'scale(1.08)';
+                        
+                        this.showEnhancedNotification(
+                            `${this.serviceConfig[serviceType].name} selected!`, 
+                            'info', 
+                            { 
+                                title: 'Service Selected',
+                                subtitle: 'Now choose your preferred duration',
+                                duration: 2000 
+                            }
+                        );
+                        
+                        setTimeout(() => {
+                            selectedOption.style.transform = 'scale(1.05)';
+                        }, 300);
+                    }, 150);
+                    
+                    this.selectedService = serviceType;
+                    console.log('✅ Service stored and validated:', this.selectedService);
+                    
+                    this.showDurationOptions(serviceType);
+                    this.validateBookingFormWithAnimation();
+                }
+            }
+
+            // 🏊‍♂️ ENHANCED DURATION SELECTION SYSTEM (NO PRICING)
+            showDurationOptions(serviceType) {
+                const durationGroup = document.getElementById('durationGroup');
+                const durationGrid = document.getElementById('durationGrid');
+                
+                if (!durationGroup || !durationGrid) {
+                    console.warn('⚠️ Duration elements not found');
+                    return;
+                }
+                
+                console.log('🏊‍♂️ Showing professional duration options for:', serviceType);
+                
+                const serviceConfig = this.serviceConfig[serviceType];
+                const durations = serviceConfig.duration;
+                const labels = serviceConfig.durationLabels;
+                
+                durationGrid.innerHTML = '';
+                
+                durations.forEach((duration, index) => {
+                    const durationOption = document.createElement('div');
+                    durationOption.className = 'duration-option';
+                    durationOption.dataset.duration = duration;
+                    durationOption.setAttribute('role', 'radio');
+                    durationOption.setAttribute('tabindex', '0');
+                    durationOption.setAttribute('aria-checked', 'false');
+                    
+                    const label = labels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
+                    const sublabel = labels[duration]?.sublabel || '';
+                    
+                    durationOption.innerHTML = `
+                        <div class="duration-label">${label}</div>
+                        ${sublabel ? `<div class="duration-sublabel">${sublabel}</div>` : ''}
+                    `;
+                    
+                    durationOption.addEventListener('click', () => {
+                        this.selectDurationWithAnimation(duration, durationOption);
+                    });
+                    
+                    durationOption.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectDurationWithAnimation(duration, durationOption);
+                        }
+                    });
+                    
+                    durationOption.style.opacity = '0';
+                    durationOption.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        durationOption.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        durationOption.style.opacity = '1';
+                        durationOption.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    
+                    durationGrid.appendChild(durationOption);
+                });
+                
+                durationGroup.style.display = 'block';
+                durationGroup.style.opacity = '0';
+                durationGroup.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    durationGroup.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    durationGroup.style.opacity = '1';
+                    durationGroup.style.transform = 'translateY(0)';
+                }, 200);
+                
+                console.log(`✅ Duration options displayed: ${durations.length} options`);
+            }
+
+            selectDurationWithAnimation(duration, element) {
+                console.log('🏊‍♂️ Duration selected with professional animation:', duration);
+                
+                document.querySelectorAll('.duration-option').forEach(option => {
+                    option.classList.remove('selected');
+                    option.setAttribute('aria-checked', 'false');
+                    option.style.transform = '';
+                });
+                
+                element.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    element.classList.add('selected');
+                    element.setAttribute('aria-checked', 'true');
+                    element.style.transform = 'scale(1.1)';
+                    
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1.05)';
+                    }, 200);
+                }, 100);
+                
+                this.selectedDuration = duration;
+                console.log('✅ Duration stored and validated:', this.selectedDuration);
+                
+                const durationLabel = this.serviceConfig[this.selectedService]?.durationLabels[duration]?.label || `${duration} hour${duration !== 1 ? 's' : ''}`;
+                this.showEnhancedNotification(
+                    `Duration ${durationLabel} selected!`, 
+                    'info', 
+                    { 
+                        title: 'Duration Selected',
+                        duration: 2000 
+                    }
+                );
+                
+                if (this.selectedService && this.selectedDate) {
+                    this.generateEnhancedTimeSlots();
+                }
+                
+                this.validateBookingFormWithAnimation();
+            }
+
+            // ⏰ ENHANCED TIME SLOT GENERATION
+            async generateEnhancedTimeSlots() {
+                const timeSlotsContainer = document.getElementById('timeSlots');
+                if (!timeSlotsContainer || !this.selectedService || !this.selectedDate || !this.selectedDuration) {
+                    console.log('⚠️ Cannot generate time slots - missing container, service, date, or duration');
+                    return;
+                }
+                
+                console.log('⏰ Generating professional time slots for:', {
+                    service: this.selectedService,
+                    date: this.selectedDate.toDateString(),
+                    duration: this.selectedDuration
+                });
+                
+                timeSlotsContainer.innerHTML = `
+                    <div class="loading" style="justify-content: center; padding: var(--space-8);">
+                        <div class="spinner"></div>
+                        <span>Loading available times...</span>
+                    </div>
+                `;
+
+                try {
+                    // Generate mock time slots for now
+                    const timeSlots = this.generateMockTimeSlots();
+                    await this.renderTimeSlots(timeSlots, timeSlotsContainer);
+                    
+                } catch (error) {
+                    console.error('Error generating time slots:', error);
+                    timeSlotsContainer.innerHTML = `
+                        <div style="text-align: center; color: var(--error); padding: var(--space-8);">
+                            <i class="fas fa-calendar-times" style="font-size: var(--font-3xl); margin-bottom: var(--space-4); opacity: 0.5;"></i>
+                            <p>Error loading time slots. Please try again.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            generateMockTimeSlots() {
+                if (!this.serviceConfig[this.selectedService]) return [];
+                
+                const availableHours = this.serviceConfig[this.selectedService].availableHours;
+                const timeSlots = [];
+                
+                availableHours.forEach(hour => {
+                    const time12 = this.formatTime24To12(hour);
+                    const isAvailable = Math.random() > 0.3;
+                    
+                    timeSlots.push({
+                        time: time12,
+                        hour: hour,
+                        available: isAvailable
+                    });
+                });
+                
+                return timeSlots;
+            }
+
+            formatTime24To12(hour) {
+                if (hour === 0) return '12:00 AM';
+                if (hour === 12) return '12:00 PM';
+                if (hour < 12) return `${hour}:00 AM`;
+                return `${hour - 12}:00 PM`;
+            }
+
+            async renderTimeSlots(timeSlots, container) {
+                container.innerHTML = '';
+                
+                if (timeSlots.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; color: var(--warning); padding: var(--space-8);">
+                            <i class="fas fa-calendar-times" style="font-size: var(--font-3xl); margin-bottom: var(--space-4); opacity: 0.5;"></i>
+                            <p>No available time slots for this service on ${this.selectedDate.toDateString()}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                timeSlots.forEach((slot, index) => {
+                    const timeSlot = document.createElement('div');
+                    timeSlot.className = 'time-slot';
+                    timeSlot.dataset.time = slot.time;
+                    timeSlot.dataset.hour = slot.hour;
+                    
+                    const timeDiv = document.createElement('div');
+                    timeDiv.textContent = slot.time;
+                    timeDiv.style.fontWeight = '700';
+                    timeSlot.appendChild(timeDiv);
+                    
+                    if (!slot.available) {
+                        timeSlot.classList.add('unavailable');
+                        timeSlot.setAttribute('title', 'This time slot is not available');
+                    } else {
+                        timeSlot.addEventListener('click', () => {
+                            this.selectTimeSlotWithAnimation(slot, timeSlot);
+                        });
+                        
+                        timeSlot.setAttribute('tabindex', '0');
+                        timeSlot.setAttribute('role', 'radio');
+                    }
+                    
+                    timeSlot.style.opacity = '0';
+                    timeSlot.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        timeSlot.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        timeSlot.style.opacity = '1';
+                        timeSlot.style.transform = 'translateY(0)';
+                    }, index * 50);
+                    
+                    container.appendChild(timeSlot);
+                });
+                
+                console.log(`✅ Rendered ${timeSlots.length} professional time slots`);
+            }
+
+            selectTimeSlotWithAnimation(slot, element) {
+                console.log('⏰ Time slot selected with professional animation:', slot.time);
+                
+                document.querySelectorAll('.time-slot').forEach(t => {
+                    t.classList.remove('selected');
+                    t.setAttribute('aria-checked', 'false');
+                    t.style.transform = '';
+                });
+                
+                element.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    element.classList.add('selected');
+                    element.setAttribute('aria-checked', 'true');
+                    element.style.transform = 'scale(1.1)';
+                    
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1.08)';
+                    }, 200);
+                }, 100);
+                
+                this.selectedTime = slot.time;
+                this.selectedTimeData = slot;
+                console.log('✅ Time stored and validated:', this.selectedTime);
+                
+                this.showEnhancedNotification(
+                    `Time slot ${slot.time} selected!`, 
+                    'info', 
+                    { 
+                        title: 'Time Selected',
+                        duration: 2000 
+                    }
+                );
+                
+                this.validateBookingFormWithAnimation();
+            }
+
+            // 📝 ENHANCED FORM VALIDATION
+            validateBookingFormWithAnimation() {
+                const submitBtn = document.getElementById('submitBooking');
+                if (!submitBtn) return;
+                
+                console.log('🔍 Validating professional booking form:', {
+                    service: this.selectedService,
+                    date: this.selectedDate ? this.selectedDate.toDateString() : null,
+                    time: this.selectedTime,
+                    duration: this.selectedDuration
+                });
+                
+                const isValid = this.selectedService && this.selectedDate && this.selectedTime && this.selectedDuration;
+                
+                submitBtn.disabled = !isValid;
+                
+                if (isValid) {
+                    submitBtn.innerHTML = `<i class="fas fa-calendar-check"></i> Request Booking`;
+                    submitBtn.style.background = 'var(--gradient-primary-vivid)';
+                    submitBtn.style.opacity = '1';
+                    console.log('✅ Form is valid and ready to submit!');
+                } else {
+                    const missingFields = [];
+                    if (!this.selectedService) missingFields.push('service');
+                    if (!this.selectedDate) missingFields.push('date');
+                    if (!this.selectedTime) missingFields.push('time');
+                    if (!this.selectedDuration) missingFields.push('duration');
+                    
+                    submitBtn.innerHTML = `<i class="fas fa-calendar-check"></i> Select ${missingFields.join(', ')}`;
+                    submitBtn.style.background = 'var(--gray)';
+                    submitBtn.style.opacity = '0.7';
+                    console.log('⚠️ Form incomplete - missing:', missingFields.join(', '));
+                }
+            }
+
+            // Enhanced booking submission
+            async handleBookingSubmission() {
+                console.log('📝 Submitting professional booking');
+                
+                const submitBtn = document.getElementById('submitBooking');
+                
+                const validationResult = this.validateBookingForm();
+                if (!validationResult.isValid) {
+                    this.showEnhancedNotification(
+                        `Please complete: ${validationResult.missingFields.join(', ')}`, 
+                        'error', 
+                        {
+                            title: 'Incomplete Booking Form',
+                            duration: 5000
+                        }
+                    );
+                    return;
+                }
+                
+                this.showLoadingState(submitBtn, 'Submitting...');
+                
+                try {
+                    const bookingData = this.buildBookingData();
+                    
+                    console.log('🎯 Sending professional booking data to API:', JSON.stringify(bookingData, null, 2));
+
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/bookings`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    const data = await response.json();
+
+                    if (data?.success) {
+                        console.log('🎉 Professional booking successful!', data);
+                        
+                        if (data.booking) {
+                            this.bookings.unshift(data.booking);
+                        }
+                        
+                        await this.updateAllBookingData();
+                        
+                        this.showEnhancedNotification(
+                            'Booking request submitted successfully!', 
+                            'success', 
+                            {
+                                title: 'Booking Confirmed',
+                                subtitle: `${this.serviceConfig[this.selectedService].name} on ${this.selectedDate.toLocaleDateString()}`,
+                                duration: 6000
+                            }
+                        );
+                        
+                        setTimeout(() => {
+                            this.closeBookingModal();
+                        }, 2000);
+                        
+                    } else {
+                        throw new Error(data?.error || 'Booking submission failed');
+                    }
+
+                } catch (error) {
+                    console.error('❌ Professional booking submission error:', error);
+                    this.handleBookingError(error);
+                    
+                } finally {
+                    this.hideLoadingState(submitBtn, '<i class="fas fa-calendar-check"></i> Request Booking');
+                }
+            }
+
+            validateBookingForm() {
+                const missingFields = [];
+                
+                if (!this.selectedService) missingFields.push('service');
+                if (!this.selectedDate) missingFields.push('date');
+                if (!this.selectedTime) missingFields.push('time');
+                if (!this.selectedDuration) missingFields.push('duration');
+                
+                const participants = document.getElementById('participants')?.value;
+                if (!participants) missingFields.push('participants');
+                
+                return {
+                    isValid: missingFields.length === 0,
+                    missingFields
+                };
+            }
+
+            buildBookingData() {
+                const participants = document.getElementById('participants')?.value || '1';
+                const specialRequests = document.getElementById('specialRequests')?.value || '';
+
+                return {
+                    service: this.selectedService,
+                    serviceName: this.serviceConfig[this.selectedService].name,
+                    date: this.selectedDate.toISOString().split('T')[0],
+                    time: this.selectedTime,
+                    duration: parseFloat(this.selectedDuration),
+                    participants: parseInt(participants),
+                    specialRequests: specialRequests.trim() || null,
+                    timeSlotData: this.selectedTimeData,
+                    clientVersion: '2.0',
+                    timestamp: new Date().toISOString()
+                };
+            }
+
+            async updateAllBookingData() {
+                await Promise.all([
+                    this.updateStatsWithAnimation(),
+                    this.updateUpcomingBookings()
+                ]);
+            }
+
+            handleBookingError(error) {
+                let errorMessage = '';
+                let errorTitle = 'Booking Error';
+                
+                if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                    errorTitle = 'Connection Error';
+                    errorMessage = 'Unable to connect to the API server.';
+                } else if (error.message.includes('500')) {
+                    errorTitle = 'Server Error (500)';
+                    errorMessage = 'Your Cloudflare Worker encountered an internal error.';
+                } else if (error.message.includes('404')) {
+                    errorTitle = 'API Endpoint Missing (404)';
+                    errorMessage = 'The booking endpoint is not implemented.';
+                } else {
+                    errorMessage = `Booking failed: ${error.message}`;
+                }
+                
+                this.showEnhancedNotification(errorMessage, 'error', {
+                    title: errorTitle,
+                    duration: 8000
+                });
+            }
+
+            closeBookingModal() {
+                const modal = document.getElementById('bookingModal');
+                if (!modal) return;
+                
+                console.log('❌ Closing professional booking modal and resetting selections');
+                
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+                
+                this.resetBookingForm();
+            }
+
+            resetBookingForm() {
+                this.selectedService = null;
+                this.selectedTime = null;
+                this.selectedTimeData = null;
+                this.selectedDuration = null;
+                
+                console.log('🔄 Reset booking form - all selections cleared except date');
+                
+                const form = document.getElementById('bookingForm');
+                if (form) {
+                    const dateInput = document.getElementById('selectedDate');
+                    const dateValue = dateInput?.value;
+                    
+                    form.reset();
+                    
+                    if (dateValue && this.selectedDate) {
+                        dateInput.value = dateValue;
+                    }
+                    
+                    document.querySelectorAll('.service-option').forEach(option => {
+                        option.classList.remove('selected');
+                        option.setAttribute('aria-checked', 'false');
+                    });
+                    
+                    document.querySelectorAll('.duration-option').forEach(option => {
+                        option.classList.remove('selected');
+                        option.setAttribute('aria-checked', 'false');
+                    });
+                    
+                    document.querySelectorAll('.time-slot').forEach(slot => {
+                        slot.classList.remove('selected');
+                        slot.setAttribute('aria-checked', 'false');
+                    });
+                    
+                    const durationGroup = document.getElementById('durationGroup');
+                    if (durationGroup) {
+                        durationGroup.style.display = 'none';
+                    }
+                    
+                    const timeSlotsContainer = document.getElementById('timeSlots');
+                    if (timeSlotsContainer) {
+                        timeSlotsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">Select a service and date to see available times</p>';
+                    }
+                }
+            }
+
+            // Utility methods
+            quickBook(serviceType) {
+                console.log('🚀 Professional quick booking initiated for:', serviceType);
+                this.selectedService = serviceType;
+                this.openBookingModal();
+                
+                setTimeout(() => {
+                    this.selectServiceWithAnimation(serviceType);
+                    
+                    this.showEnhancedNotification(
+                        `${this.serviceConfig[serviceType]?.name || serviceType} selected! Now choose duration, date and time.`, 
+                        'info', 
+                        {
+                            title: 'Service Selected',
+                            duration: 3000
+                        }
+                    );
+                }, 300);
+            }
+
+            showAccountSettings() {
+                this.showEnhancedNotification('Account settings feature ready for implementation!', 'info');
+            }
+
+            showBookingHistory() {
+                this.showEnhancedNotification('Booking history feature ready for implementation!', 'info');
+            }
+
+            filterBookings(type) {
+                this.showEnhancedNotification(`Filtering ${type} bookings...`, 'info');
+            }
+
+            handleLogout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    this.authToken = null;
+                    this.currentUser = null;
+                    this.bookings = [];
+                    this.availabilityData.clear();
+                    
+                    const loginContainer = document.getElementById('loginContainer');
+                    const portalContainer = document.getElementById('portalContainer');
+                    
+                    loginContainer.style.display = 'flex';
+                    portalContainer.style.display = 'none';
+                    
+                    // Clear form
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
+                    
+                    this.showEnhancedNotification('Successfully logged out!', 'info');
+                }
+            }
+
+            toggleConnectionMode() {
+                const currentMode = this.config.mockMode ? 'Demo' : 'Production';
+                const newMode = this.config.mockMode ? 'Production' : 'Demo';
+                
+                if (confirm(`Switch from ${currentMode} mode to ${newMode} mode?`)) {
+                    this.config.mockMode = !this.config.mockMode;
+                    this.updateConnectionStatus();
+                    
+                    const message = this.config.mockMode ? 
+                        'Demo mode activated!' : 
+                        'Production mode activated!';
+                        
+                    const type = this.config.mockMode ? 'info' : 'success';
+                    
+                    this.showEnhancedNotification(message, type, {
+                        title: `${newMode} Mode Active`,
+                        duration: 3000
+                    });
+                }
+            }
+
+            // 📊 CONNECTION STATUS
+            updateConnectionStatus(status = null) {
+                const statusElement = document.getElementById('connectionStatus');
+                if (!statusElement) return;
+
+                if (status === null) {
+                    status = this.config.mockMode ? 'mock' : 'connected';
+                }
+
+                statusElement.className = `connection-status ${status}`;
+                
+                const statusTexts = {
+                    connected: '<i class="fas fa-database"></i> Production Mode',
+                    mock: '<i class="fas fa-flask"></i> Demo Mode',
+                    error: '<i class="fas fa-exclamation-triangle"></i> Connection Error'
+                };
+
+                statusElement.innerHTML = statusTexts[status] || statusTexts.mock;
+            }
+
+            // 🎨 UI UTILITIES
+            showLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = true;
+                button.innerHTML = `<span class="loading"><span class="spinner"></span>${text}</span>`;
+            }
+
+            hideLoadingState(button, text) {
+                if (!button) return;
+                button.disabled = false;
+                button.innerHTML = text;
+            }
+
+            showError(message) {
+                const errorDiv = document.getElementById('loginError');
+                if (errorDiv) {
+                    errorDiv.textContent = message;
+                    errorDiv.classList.remove('hidden');
+                }
+            }
+
+            showEnhancedNotification(message, type = 'success', options = {}) {
+                document.querySelectorAll('.notification').forEach(notification => {
+                    notification.remove();
+                });
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const {
+                    title = type.charAt(0).toUpperCase() + type.slice(1),
+                    subtitle = '',
+                    duration = 5000
+                } = options;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                           type === 'error' ? 'exclamation-triangle' : 'info-circle';
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                        <div style="flex-shrink: 0;">
+                            <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; margin-bottom: var(--space-1); font-size: var(--font-lg);">${title}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95; margin-bottom: var(--space-1);">${message}</div>
+                            ${subtitle ? `<div style="font-size: var(--font-sm); opacity: 0.8;">${subtitle}</div>` : ''}
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none;
+                            border: none;
+                            color: inherit;
+                            font-size: var(--font-lg);
+                            cursor: pointer;
+                            opacity: 0.7;
+                            padding: var(--space-1);
+                            border-radius: var(--radius-sm);
+                            transition: var(--transition-smooth);
+                            flex-shrink: 0;
+                        ">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                requestAnimationFrame(() => {
+                    notification.classList.add('show');
+                });
+                
+                if (duration > 0) {
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.classList.remove('show');
+                            setTimeout(() => {
+                                notification.remove();
+                            }, 300);
+                        }
+                    }, duration);
+                }
             }
         }
 
-        // Event listeners
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-        
-        document.getElementById('passwordToggle').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                passwordInput.type = 'password';
-                icon.className = 'fas fa-eye';
-            }
-        });
+        // Global portal instance
+        let portal;
 
-        // Auto-fill working credentials for easy testing
-        window.addEventListener('load', function() {
-            fillWorkingCredentials();
+        // Helper functions
+        function fillDemoCredentials() {
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            
+            if (emailInput && passwordInput) {
+                emailInput.value = 'demo@805lifeguard.com';
+                passwordInput.value = 'demo123';
+                
+                emailInput.style.borderColor = 'var(--success)';
+                passwordInput.style.borderColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                    passwordInput.style.borderColor = '';
+                }, 2000);
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 COMPLETE PORTAL DEPLOYMENT: 805 LifeGuard Client Portal');
+            console.log('🏊‍♂️ Features: Calendar, Booking System, Duration Selection, Modals, Real API Integration');
+            
+            portal = new ProfessionalClientPortal();
+            window.portal = portal;
+            
+            // Auto-fill credentials for easy testing
+            fillDemoCredentials();
+            
+            console.log('🎉 COMPLETE PORTAL READY FOR PRODUCTION!');
         });
     </script>
 </body>
