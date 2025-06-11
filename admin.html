@@ -2180,7 +2180,14 @@
                     passwordInput.style.borderColor = '';
                 }, 2000);
                 
-                adminPortal.showNotification('Admin credentials filled! Ready to sign in.', 'success');
+                // Show notification safely
+                if (adminPortal && adminPortal.showNotification) {
+                    adminPortal.showNotification('Admin credentials filled! Ready to sign in.', 'success');
+                } else {
+                    console.log('Admin credentials filled: admin / admin123');
+                }
+            } else {
+                console.error('Could not find username or password input fields');
             }
         }
 
@@ -2290,8 +2297,10 @@
             adminPortal = new EliteAdminPortal();
             window.adminPortal = adminPortal;
             
-            // Auto-fill admin credentials for easy testing
-            fillAdminCredentials();
+            // Auto-fill admin credentials after portal is ready
+            setTimeout(() => {
+                fillAdminCredentials();
+            }, 1000);
             
             console.log('🎉 ELITE ADMIN PORTAL READY FOR PRODUCTION!');
         });
