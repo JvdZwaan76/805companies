@@ -2393,4 +2393,135 @@
 
         function showDemoInfo() {
             if (portal) {
-                portal.showNotification('Portal connected to production
+                portal.showNotification('Portal connected to production D1 database with full CRUD functionality!', 'info');
+            }
+        }
+
+        function openBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            if (modal) {
+                modal.classList.add('show');
+                
+                // Set minimum date to today
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('bookingDate').min = today;
+                
+                // Reset form selections
+                if (portal) {
+                    portal.selectedService = null;
+                    portal.selectedDuration = null;
+                    portal.selectedTime = null;
+                    portal.selectedDate = null;
+                    
+                    // Clear form
+                    document.getElementById('bookingForm').reset();
+                    document.getElementById('durationGroup').style.display = 'none';
+                    
+                    // Clear visual selections
+                    document.querySelectorAll('.service-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.style.transform = 'scale(1)';
+                    });
+                    
+                    document.querySelectorAll('.time-slot').forEach(slot => {
+                        slot.classList.remove('selected');
+                        slot.style.transform = 'scale(1)';
+                    });
+                    
+                    // Reset time slots grid
+                    document.getElementById('timeSlotsGrid').innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; color: var(--gray-400); padding: var(--space-4);">
+                            Select a service and date to see available times
+                        </div>
+                    `;
+                    
+                    portal.validateBookingForm();
+                }
+            }
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        function showForgotPassword() {
+            if (portal) {
+                portal.showNotification('Password reset feature will be implemented soon!', 'info');
+            }
+        }
+
+        function quickBook(serviceType) {
+            if (portal) {
+                portal.quickBook(serviceType);
+            }
+        }
+
+        function showProfile() {
+            if (portal) {
+                portal.showProfile();
+            }
+        }
+
+        function showBookingHistory() {
+            if (portal) {
+                portal.showBookingHistory();
+            }
+        }
+
+        function logout() {
+            if (portal) {
+                portal.logout();
+            }
+        }
+
+        // Initialize Portal on DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 DOM loaded, initializing Elite Client Portal...');
+            portal = new EliteClientPortal();
+        });
+
+        // Handle modal clicks (close when clicking outside)
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeBookingModal();
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeBookingModal();
+            }
+        });
+
+        // Performance optimizations
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                console.log('🔧 Performing background optimizations...');
+                // Preload critical resources
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css';
+                link.as = 'style';
+                document.head.appendChild(link);
+            });
+        }
+
+        // Service Worker Registration (for future PWA features)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                console.log('🔧 Service worker support detected');
+                // Service worker can be registered here for offline functionality
+            });
+        }
+
+        console.log('🎯 805 LifeGuard Elite Client Portal - Production Ready!');
+        console.log('📱 Features: Authentication, Booking Management, Real-time Updates');
+        console.log('🔗 Backend: Cloudflare D1 Database with full CRUD operations');
+        console.log('✨ UI: Premium glassmorphism design with advanced animations');
+    </script>
+</body>
+</html>
