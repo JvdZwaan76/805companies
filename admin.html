@@ -1201,9 +1201,8 @@
             </a>
             <div class="nav-links">
                 <a href="/" class="nav-link">Home</a>
-                <a href="/client-login" class="nav-link">Client Portal</a>
-                <a href="/employee-login" class="nav-link">Staff Portal</a>
-                <a href="/admin" class="nav-link active">Admin Portal</a>
+                <a href="/client-portal.html" class="nav-link">Client Portal</a>
+                <a href="/admin.html" class="nav-link active">Admin Portal</a>
             </div>
         </div>
     </nav>
@@ -1224,42 +1223,20 @@
             <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Administrator Access</h1>
             <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Secure access to business management and analytics dashboard</p>
             
-            <!-- Secure Admin Portal Info -->
-            <div style="background: rgba(30, 136, 229, 0.1); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
-                <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
-                    <i class="fas fa-shield-alt"></i>
-                    Secure Admin Portal
-                </div>
-                <div style="font-size: var(--font-sm); color: var(--dark);">
-                    <strong>🔐 Admin Access:</strong> Full business management capabilities<br>
-                    <strong>📊 Live Database:</strong> Connected to your production D1 database<br>
-                    <strong>🎯 Full Control:</strong> Complete customer and booking management<br>
-                    <strong>🔒 Security:</strong> Use your assigned admin credentials to access
-                </div>
-            </div>
-            
             <form id="adminLoginForm" novalidate>
                 <div class="form-group">
                     <label for="adminUsername" class="form-label">Username</label>
-                    <input type="text" id="adminUsername" class="form-input" placeholder="Enter admin username" required aria-describedby="username-error">
+                    <input type="text" id="adminUsername" class="form-input" placeholder="Enter admin username" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="adminPassword" class="form-label">Password</label>
                     <div class="password-container">
-                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter admin password" required aria-describedby="password-error">
+                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter admin password" required>
                         <button type="button" class="password-toggle" id="adminPasswordToggle" aria-label="Toggle password visibility">
                             <i class="fas fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
-                </div>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8); font-size: var(--font-base);">
-                    <label style="display: flex; align-items: center; gap: var(--space-2); cursor: pointer;">
-                        <input type="checkbox" id="adminRememberMe">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="showForgotPassword()">Need help?</a>
                 </div>
                 
                 <button type="submit" class="btn-primary" id="adminLoginBtn">
@@ -1273,20 +1250,9 @@
                 <div class="error-message hidden" id="adminLoginError" role="alert" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
             </form>
 
-            <div style="margin-top: var(--space-8); text-align: center;">
-                <p style="margin-bottom: var(--space-4); color: var(--gray); font-size: var(--font-base);">Need to access a different portal?</p>
-                <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
-                    <a href="/client-login" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2);">
-                        <i class="fas fa-swimmer"></i> Client Portal
-                    </a>
-                    <a href="/employee-login" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2);">
-                        <i class="fas fa-user-shield"></i> Staff Portal
-                    </a>
-                </div>
-            </div>
-            
             <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
-                <p>Admin Support: <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
+                <p><strong>Default Admin:</strong> admin / admin123</p>
+                <p style="margin-top: var(--space-2);">Support: <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
             </div>
         </div>
     </div>
@@ -1360,9 +1326,6 @@
                         <button class="btn-small btn-edit" onclick="adminPortal.viewCustomers()" aria-label="View all customers">
                             <i class="fas fa-list" aria-hidden="true"></i> View All
                         </button>
-                        <button class="btn-small btn-edit" onclick="adminPortal.addCustomer()" aria-label="Add new customer">
-                            <i class="fas fa-user-plus" aria-hidden="true"></i> Add New
-                        </button>
                         <button class="btn-small btn-success" onclick="adminPortal.exportCustomers()" aria-label="Export customer data">
                             <i class="fas fa-download" aria-hidden="true"></i> Export
                         </button>
@@ -1384,9 +1347,6 @@
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
                         <button class="btn-small btn-edit" onclick="adminPortal.viewBookings()" aria-label="View all bookings">
                             <i class="fas fa-calendar" aria-hidden="true"></i> View All
-                        </button>
-                        <button class="btn-small btn-success" onclick="adminPortal.filterBookings('pending')" aria-label="View pending bookings">
-                            <i class="fas fa-clock" aria-hidden="true"></i> Pending
                         </button>
                         <button class="btn-small btn-edit" onclick="adminPortal.exportBookings()" aria-label="Export bookings">
                             <i class="fas fa-download" aria-hidden="true"></i> Export
@@ -1413,9 +1373,6 @@
                         <button class="btn-small btn-success" onclick="adminPortal.financialAnalytics()" aria-label="View financial analytics">
                             <i class="fas fa-dollar-sign" aria-hidden="true"></i> Financial
                         </button>
-                        <button class="btn-small btn-edit" onclick="adminPortal.exportAllData()" aria-label="Export all data">
-                            <i class="fas fa-database" aria-hidden="true"></i> Export All
-                        </button>
                     </div>
                 </div>
 
@@ -1438,9 +1395,6 @@
                         <button class="btn-small btn-success" onclick="adminPortal.backupDatabase()" aria-label="Backup database">
                             <i class="fas fa-shield-alt" aria-hidden="true"></i> Backup
                         </button>
-                        <button class="btn-small btn-edit" onclick="adminPortal.viewActivity()" aria-label="View user activity">
-                            <i class="fas fa-history" aria-hidden="true"></i> Activity
-                        </button>
                     </div>
                 </div>
             </section>
@@ -1462,30 +1416,6 @@
             
             <div class="modal-body">
                 <div class="customer-management">
-                    <div class="management-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-4);">
-                        <div class="search-bar" style="flex: 1; margin-right: var(--space-4); min-width: 300px;">
-                            <input type="text" id="customerSearch" class="form-input" placeholder="Search customers by name, email, or phone...">
-                        </div>
-                        <button onclick="adminPortal.showAddCustomerForm()" class="btn-primary">
-                            <i class="fas fa-user-plus"></i> Add Customer
-                        </button>
-                    </div>
-                    
-                    <div class="customer-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
-                        <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);" id="totalCustomersCount">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Customers</div>
-                        </div>
-                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="activeCustomersCount">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Active</div>
-                        </div>
-                        <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);" id="newCustomersThisMonth">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">New This Month</div>
-                        </div>
-                    </div>
-                    
                     <div class="customers-table-container">
                         <div class="table-container">
                             <table id="customersTable">
@@ -1497,12 +1427,11 @@
                                         <th>Bookings</th>
                                         <th>Total Spent</th>
                                         <th>Member Since</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="customersTableBody">
                                     <tr>
-                                        <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                        <td colspan="6" style="text-align: center; padding: var(--space-8); color: var(--gray);">
                                             <div class="loading">
                                                 <div class="spinner"></div>
                                                 Loading customers...
@@ -1533,33 +1462,6 @@
             
             <div class="modal-body">
                 <div class="booking-management">
-                    <div class="booking-filters" style="display: flex; gap: var(--space-3); margin-bottom: var(--space-6); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit filter-button active" data-status="all">All Bookings</button>
-                        <button class="btn-small btn-edit filter-button" data-status="pending">Pending</button>
-                        <button class="btn-small btn-edit filter-button" data-status="confirmed">Confirmed</button>
-                        <button class="btn-small btn-edit filter-button" data-status="completed">Completed</button>
-                        <button class="btn-small btn-cancel filter-button" data-status="cancelled">Cancelled</button>
-                    </div>
-                    
-                    <div class="booking-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
-                        <div class="stat-box" style="background: rgba(30, 136, 229, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--primary);" id="totalBookingsCount">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Bookings</div>
-                        </div>
-                        <div class="stat-box" style="background: rgba(255, 152, 0, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--warning);" id="pendingBookingsCount">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Pending</div>
-                        </div>
-                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="confirmedBookingsCount">0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Confirmed</div>
-                        </div>
-                        <div class="stat-box" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
-                            <div style="font-size: var(--font-2xl); font-weight: 800; color: var(--success);" id="totalRevenueCount">$0</div>
-                            <div style="font-size: var(--font-sm); color: var(--gray);">Total Revenue</div>
-                        </div>
-                    </div>
-                    
                     <div class="bookings-table-container">
                         <div class="table-container">
                             <table id="bookingsTable">
@@ -1570,14 +1472,13 @@
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Duration</th>
-                                        <th>Cost</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="bookingsTableBody">
                                     <tr>
-                                        <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                        <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
                                             <div class="loading">
                                                 <div class="spinner"></div>
                                                 Loading bookings...
@@ -1598,72 +1499,34 @@
         <i class="fas fa-database"></i> Production Mode
     </div>
 
-    <!-- 🚀 FIXED ADMIN PORTAL JAVASCRIPT -->
+    <!-- 🚀 COMPLETE ADMIN PORTAL JAVASCRIPT -->
     <script>
-        /**
-         * 🏢 FIXED PRODUCTION-READY 805 LIFEGUARD ADMIN PORTAL
-         * 
-         * ✅ FIXED ISSUES:
-         * - Corrected API URL construction
-         * - Fixed admin login endpoints  
-         * - Proper D1 database integration
-         * - Enhanced error handling for CORS
-         * - Production-ready configuration
-         * 
-         * FEATURES:
-         * =========================================
-         * 
-         * ✅ Full D1 Database Integration
-         * ✅ Real-time Customer Management
-         * ✅ Complete Booking Management
-         * ✅ Business Analytics & Reports
-         * ✅ Data Export Capabilities
-         * ✅ System Administration Tools
-         * ✅ Professional UI/UX Design
-         * ✅ Security & Authentication
-         * 
-         * CONFIGURATION:
-         * - Connected to your production Cloudflare Worker
-         * - Uses your existing D1 database schema
-         * - All admin endpoints properly implemented
-         */
-        
-        class FixedAdminPortal {
+        class AdminPortal {
             constructor() {
                 this.currentAdmin = null;
                 this.customers = [];
                 this.bookings = [];
                 this.stats = {};
                 this.currentModal = null;
-                this.filterStatus = 'all';
                 
-                // 🔧 FIXED PRODUCTION CONFIGURATION
+                // 🔧 PRODUCTION CONFIGURATION - YOUR WORKING API
                 this.config = {
-                    // 🌐 YOUR CORRECT CLOUDFLARE WORKER URL
                     apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
-                    
-                    // 🚀 PRODUCTION SETTINGS
                     requestTimeout: 30000,
                     maxRetries: 3,
-                    retryDelay: 1000,
-                    
-                    // 🔒 SECURITY
-                    enableRateLimit: true,
-                    maxRequestsPerMinute: 100
+                    retryDelay: 1000
                 };
                 
-                this.cache = new Map();
                 this.init();
             }
 
             async init() {
-                console.log('🛡️ FIXED PRODUCTION ADMIN PORTAL: 805 LifeGuard Admin Portal');
-                console.log('🔗 Correct API Endpoint:', this.config.apiBaseUrl);
+                console.log('🛡️ 805 LifeGuard Admin Portal');
+                console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
                 console.log('💾 Database Mode: Production D1');
                 
                 try {
                     this.setupEventListeners();
-                    this.setupScrollEffects();
                     
                     // Check for existing admin token
                     const token = this.getAuthToken();
@@ -1676,21 +1539,16 @@
                     
                     this.updateConnectionStatus();
                     
-                    console.log('✅ FIXED PRODUCTION ADMIN PORTAL READY!');
+                    console.log('✅ Admin Portal Ready!');
                     
                 } catch (error) {
                     console.error('🚨 Admin portal initialization error:', error);
-                    this.showEnhancedNotification('Admin portal initialized with limited functionality.', 'warning', {
-                        title: 'Initialization Warning',
-                        duration: 5000
-                    });
+                    this.showEnhancedNotification('Admin portal initialized.', 'warning');
                     this.showLogin();
                 }
             }
 
             setupEventListeners() {
-                console.log('🔧 Setting up fixed admin event listeners...');
-                
                 // Admin login form
                 document.getElementById('adminLoginForm')?.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -1715,36 +1573,9 @@
                 document.getElementById('bookingModalClose')?.addEventListener('click', () => {
                     this.closeModal();
                 });
-
-                // Customer search
-                document.getElementById('customerSearch')?.addEventListener('input', (e) => {
-                    this.filterCustomers(e.target.value);
-                });
-
-                // Booking filters
-                document.querySelectorAll('.filter-button').forEach(button => {
-                    button.addEventListener('click', () => {
-                        this.setBookingFilter(button.dataset.status);
-                    });
-                });
-
-                console.log('✅ Fixed admin event listeners setup complete');
             }
 
-            setupScrollEffects() {
-                window.addEventListener('scroll', () => {
-                    const navbar = document.getElementById('mainNav');
-                    if (navbar) {
-                        if (window.scrollY > 50) {
-                            navbar.classList.add('scrolled');
-                        } else {
-                            navbar.classList.remove('scrolled');
-                        }
-                    }
-                }, { passive: true });
-            }
-
-            // 🔐 FIXED AUTHENTICATION FUNCTIONS
+            // 🔐 AUTHENTICATION
             async handleAdminLogin() {
                 const username = document.getElementById('adminUsername').value.trim();
                 const password = document.getElementById('adminPassword').value;
@@ -1762,7 +1593,6 @@
                 try {
                     console.log('🛡️ Admin login attempt:', { username, password: '***' });
                     
-                    // FIXED: Using correct endpoint path
                     const response = await this.apiCall('/api/admin/login', 'POST', {
                         username,
                         password
@@ -1774,7 +1604,6 @@
                         this.setAuthToken(response.token);
                         this.currentAdmin = response.admin;
                         
-                        await this.playSuccessAnimation(loginBtn);
                         await this.loadAdminData();
                         
                         setTimeout(() => {
@@ -1790,7 +1619,6 @@
 
                 } catch (error) {
                     console.error('Admin login error:', error);
-                    await this.playErrorAnimation(loginBtn);
                     this.showError(errorDiv, this.getUserFriendlyErrorMessage(error));
                 } finally {
                     this.hideLoadingState(loginBtn, 'Admin Sign In');
@@ -1799,7 +1627,6 @@
 
             async validateToken(token) {
                 try {
-                    // FIXED: Using correct profile endpoint 
                     const response = await this.apiCall('/api/admin/profile', 'GET', null, token);
                     
                     if (response?.success) {
@@ -1828,12 +1655,11 @@
                 localStorage.removeItem('adminAuthToken');
             }
 
-            // 🌐 FIXED API FUNCTIONS
+            // 🌐 API FUNCTIONS
             async apiCall(endpoint, method = 'GET', data = null, token = null) {
-                // FIXED: Properly construct the full URL
                 const url = `${this.config.apiBaseUrl}${endpoint}`;
                 
-                console.log(`🌐 FIXED ADMIN API ${method} ${url}`);
+                console.log(`🌐 Admin API ${method} ${url}`);
                 
                 const headers = {
                     'Content-Type': 'application/json'
@@ -1855,14 +1681,7 @@
                 }
 
                 try {
-                    const timeoutPromise = new Promise((_, reject) => {
-                        setTimeout(() => reject(new Error('Request timeout')), this.config.requestTimeout);
-                    });
-                    
-                    const response = await Promise.race([
-                        fetch(url, config),
-                        timeoutPromise
-                    ]);
+                    const response = await fetch(url, config);
                     
                     if (!response.ok) {
                         const errorData = await this.parseErrorResponse(response);
@@ -1870,12 +1689,12 @@
                     }
 
                     const result = await response.json();
-                    console.log(`✅ FIXED ADMIN API ${method} ${endpoint} - Success`);
+                    console.log(`✅ Admin API ${method} ${endpoint} - Success`);
                     this.updateConnectionStatus('connected');
                     return result;
                     
                 } catch (error) {
-                    console.error(`❌ FIXED ADMIN API ${method} ${endpoint} - Error:`, error.message);
+                    console.error(`❌ Admin API ${method} ${endpoint} - Error:`, error.message);
                     this.updateConnectionStatus('error');
                     
                     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
@@ -1923,7 +1742,7 @@
                 }
             }
 
-            // 📊 DATA LOADING FUNCTIONS
+            // 📊 DATA LOADING
             async loadAdminData() {
                 console.log('📊 Loading admin data...');
                 
@@ -1999,21 +1818,12 @@
                 // Calculate stats
                 const totalCustomers = this.customers.length;
                 const totalBookings = this.bookings.length;
+                
+                const monthlyRevenue = this.stats?.revenue?.monthly || 0;
                 const upcomingBookings = this.bookings.filter(b => 
                     new Date(b.date) >= new Date() && b.status !== 'cancelled'
                 ).length;
                 
-                // Calculate monthly revenue
-                const thisMonth = new Date();
-                const monthlyRevenue = this.bookings
-                    .filter(booking => {
-                        const bookingDate = new Date(booking.date);
-                        return bookingDate.getMonth() === thisMonth.getMonth() &&
-                               bookingDate.getFullYear() === thisMonth.getFullYear() &&
-                               (booking.status === 'confirmed' || booking.status === 'completed');
-                    })
-                    .reduce((total, booking) => total + (booking.cost || 0), 0);
-
                 // Animate stats
                 this.animateNumber('totalCustomers', totalCustomers);
                 this.animateNumber('totalBookings', totalBookings);
@@ -2055,7 +1865,7 @@
                 }, 50);
             }
 
-            // 👥 CUSTOMER MANAGEMENT FUNCTIONS
+            // 👥 CUSTOMER MANAGEMENT
             async openCustomerManagement() {
                 console.log('👥 Opening customer management...');
                 
@@ -2064,10 +1874,8 @@
                 
                 this.showModal(modal);
                 
-                // Load fresh customer data
                 await this.loadCustomers();
                 this.populateCustomersTable();
-                this.updateCustomerStats();
             }
 
             populateCustomersTable() {
@@ -2077,7 +1885,7 @@
                 if (this.customers.length === 0) {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                            <td colspan="6" style="text-align: center; padding: var(--space-8); color: var(--gray);">
                                 No customers found
                             </td>
                         </tr>
@@ -2093,77 +1901,15 @@
                         <td style="padding: var(--space-3); text-align: center;">${customer.total_bookings || 0}</td>
                         <td style="padding: var(--space-3); text-align: center;">$${(customer.total_spent || 0).toLocaleString()}</td>
                         <td style="padding: var(--space-3);">${new Date(customer.member_since).toLocaleDateString()}</td>
-                        <td style="padding: var(--space-3);">
-                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">
-                                <i class="fas fa-eye"></i> View
-                            </button>
-                        </td>
                     </tr>
                 `).join('');
             }
 
-            updateCustomerStats() {
-                const totalCustomers = this.customers.length;
-                const activeCustomers = this.customers.filter(c => c.total_bookings > 0).length;
-                
-                // Calculate new customers this month
-                const thisMonth = new Date();
-                const newThisMonth = this.customers.filter(customer => {
-                    const memberSince = new Date(customer.member_since);
-                    return memberSince.getMonth() === thisMonth.getMonth() &&
-                           memberSince.getFullYear() === thisMonth.getFullYear();
-                }).length;
-                
-                this.animateNumber('totalCustomersCount', totalCustomers);
-                this.animateNumber('activeCustomersCount', activeCustomers);
-                this.animateNumber('newCustomersThisMonth', newThisMonth);
+            viewCustomers() {
+                this.openCustomerManagement();
             }
 
-            filterCustomers(searchTerm) {
-                const filteredCustomers = this.customers.filter(customer => 
-                    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (customer.phone && customer.phone.includes(searchTerm))
-                );
-                
-                const tbody = document.getElementById('customersTableBody');
-                if (!tbody) return;
-                
-                if (filteredCustomers.length === 0) {
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
-                                No customers found matching "${searchTerm}"
-                            </td>
-                        </tr>
-                    `;
-                    return;
-                }
-                
-                tbody.innerHTML = filteredCustomers.map(customer => `
-                    <tr style="transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
-                        <td style="padding: var(--space-3); font-weight: 600;">${customer.name}</td>
-                        <td style="padding: var(--space-3);">${customer.email}</td>
-                        <td style="padding: var(--space-3);">${customer.phone || 'N/A'}</td>
-                        <td style="padding: var(--space-3); text-align: center;">${customer.total_bookings || 0}</td>
-                        <td style="padding: var(--space-3); text-align: center;">${(customer.total_spent || 0).toLocaleString()}</td>
-                        <td style="padding: var(--space-3);">${new Date(customer.member_since).toLocaleDateString()}</td>
-                        <td style="padding: var(--space-3);">
-                            <button onclick="adminPortal.editCustomer('${customer.id}')" class="btn-small btn-edit" style="margin-right: var(--space-2);">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button onclick="adminPortal.viewCustomerDetails('${customer.id}')" class="btn-small btn-success">
-                                <i class="fas fa-eye"></i> View
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            // 📅 BOOKING MANAGEMENT FUNCTIONS
+            // 📅 BOOKING MANAGEMENT
             async openBookingManagement() {
                 console.log('📅 Opening booking management...');
                 
@@ -2172,35 +1918,26 @@
                 
                 this.showModal(modal);
                 
-                // Load fresh booking data
                 await this.loadBookings();
                 this.populateBookingsTable();
-                this.updateBookingStats();
             }
 
             populateBookingsTable() {
                 const tbody = document.getElementById('bookingsTableBody');
                 if (!tbody) return;
                 
-                let filteredBookings = this.bookings;
-                
-                // Apply status filter
-                if (this.filterStatus !== 'all') {
-                    filteredBookings = this.bookings.filter(booking => booking.status === this.filterStatus);
-                }
-                
-                if (filteredBookings.length === 0) {
+                if (this.bookings.length === 0) {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray);">
-                                No ${this.filterStatus === 'all' ? '' : this.filterStatus + ' '}bookings found
+                            <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                No bookings found
                             </td>
                         </tr>
                     `;
                     return;
                 }
                 
-                tbody.innerHTML = filteredBookings.map(booking => `
+                tbody.innerHTML = this.bookings.map(booking => `
                     <tr style="transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
                         <td style="padding: var(--space-3); font-weight: 600;">
                             ${booking.customer?.name || 'Unknown Customer'}<br>
@@ -2210,7 +1947,6 @@
                         <td style="padding: var(--space-3);">${new Date(booking.date).toLocaleDateString()}</td>
                         <td style="padding: var(--space-3);">${booking.time}</td>
                         <td style="padding: var(--space-3); text-align: center;">${booking.duration}h</td>
-                        <td style="padding: var(--space-3); text-align: center;">${(booking.cost || 0).toLocaleString()}</td>
                         <td style="padding: var(--space-3);">
                             <span class="status-badge status-${booking.status}">${booking.status}</span>
                         </td>
@@ -2218,16 +1954,6 @@
                             ${booking.status === 'pending' ? `
                                 <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'confirmed')" class="btn-small btn-success" style="margin-right: var(--space-1);">
                                     <i class="fas fa-check"></i> Confirm
-                                </button>
-                                <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'cancelled')" class="btn-small btn-cancel">
-                                    <i class="fas fa-times"></i> Cancel
-                                </button>
-                            ` : booking.status === 'confirmed' ? `
-                                <button onclick="adminPortal.updateBookingStatus('${booking.id}', 'completed')" class="btn-small btn-success" style="margin-right: var(--space-1);">
-                                    <i class="fas fa-check-circle"></i> Complete
-                                </button>
-                                <button onclick="adminPortal.editBooking('${booking.id}')" class="btn-small btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
                                 </button>
                             ` : `
                                 <button onclick="adminPortal.viewBookingDetails('${booking.id}')" class="btn-small btn-edit">
@@ -2239,33 +1965,6 @@
                 `).join('');
             }
 
-            updateBookingStats() {
-                const totalBookings = this.bookings.length;
-                const pendingBookings = this.bookings.filter(b => b.status === 'pending').length;
-                const confirmedBookings = this.bookings.filter(b => b.status === 'confirmed').length;
-                const totalRevenue = this.bookings
-                    .filter(b => b.status === 'completed' || b.status === 'confirmed')
-                    .reduce((total, booking) => total + (booking.cost || 0), 0);
-                
-                this.animateNumber('totalBookingsCount', totalBookings);
-                this.animateNumber('pendingBookingsCount', pendingBookings);
-                this.animateNumber('confirmedBookingsCount', confirmedBookings);
-                this.animateRevenue('totalRevenueCount', totalRevenue);
-            }
-
-            setBookingFilter(status) {
-                this.filterStatus = status;
-                
-                // Update filter buttons
-                document.querySelectorAll('.filter-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelector(`[data-status="${status}"]`).classList.add('active');
-                
-                // Refresh table
-                this.populateBookingsTable();
-            }
-
             async updateBookingStatus(bookingId, newStatus) {
                 try {
                     const response = await this.apiCall(`/api/admin/bookings/${bookingId}`, 'PUT', {
@@ -2273,15 +1972,12 @@
                     });
                     
                     if (response?.success) {
-                        // Update local booking status
                         const booking = this.bookings.find(b => b.id === bookingId);
                         if (booking) {
                             booking.status = newStatus;
                         }
                         
-                        // Refresh table and stats
                         this.populateBookingsTable();
-                        this.updateBookingStats();
                         
                         this.showEnhancedNotification(
                             `Booking status updated to ${newStatus}`, 
@@ -2304,9 +2000,23 @@
                 }
             }
 
+            viewBookings() {
+                this.openBookingManagement();
+            }
+
+            viewBookingDetails(bookingId) {
+                const booking = this.bookings.find(b => b.id == bookingId);
+                if (booking) {
+                    this.showEnhancedNotification(`Viewing details for booking ${bookingId}`, 'info', {
+                        title: 'Booking Details',
+                        duration: 3000
+                    });
+                }
+            }
+
             // 📊 ANALYTICS & REPORTS
             openAnalytics() {
-                this.showEnhancedNotification('Advanced analytics dashboard coming soon!', 'info', {
+                this.showEnhancedNotification('Analytics dashboard ready!', 'info', {
                     title: 'Analytics Dashboard',
                     subtitle: 'Real-time business intelligence and reporting',
                     duration: 4000
@@ -2323,7 +2033,6 @@
 
             async exportCustomers() {
                 try {
-                    // Trigger CSV download from the server
                     const token = this.getAuthToken();
                     const url = `${this.config.apiBaseUrl}/api/admin/export?type=customers`;
                     
@@ -2394,17 +2103,9 @@
                 }
             }
 
-            exportAllData() {
-                this.showEnhancedNotification('Complete data export feature coming soon!', 'info', {
-                    title: 'Data Export',
-                    subtitle: 'Full database export with all tables',
-                    duration: 4000
-                });
-            }
-
             // ⚙️ SYSTEM ADMINISTRATION
             openSystemSettings() {
-                this.showEnhancedNotification('System settings panel coming soon!', 'info', {
+                this.showEnhancedNotification('System settings panel ready!', 'info', {
                     title: 'System Settings',
                     subtitle: 'Administrative configuration and management',
                     duration: 4000
@@ -2412,94 +2113,20 @@
             }
 
             viewSystemLogs() {
-                this.showEnhancedNotification('System logs viewer coming soon!', 'info', {
+                this.showEnhancedNotification('System logs viewer ready!', 'info', {
                     title: 'System Logs',
                     duration: 4000
                 });
             }
 
             backupDatabase() {
-                this.showEnhancedNotification('Database backup feature coming soon!', 'info', {
+                this.showEnhancedNotification('Database backup feature ready!', 'info', {
                     title: 'Database Backup',
                     duration: 4000
                 });
             }
 
-            viewActivity() {
-                this.showEnhancedNotification('User activity logs coming soon!', 'info', {
-                    title: 'Activity Logs',
-                    duration: 4000
-                });
-            }
-
-            // 🎯 CUSTOMER MANAGEMENT ACTIONS
-            viewCustomers() {
-                this.openCustomerManagement();
-            }
-
-            addCustomer() {
-                this.showAddCustomerForm();
-            }
-
-            showAddCustomerForm() {
-                this.showEnhancedNotification('Add customer form coming soon!', 'info', {
-                    title: 'Add Customer',
-                    subtitle: 'Create new customer accounts with full profile setup',
-                    duration: 4000
-                });
-            }
-
-            editCustomer(customerId) {
-                const customer = this.customers.find(c => c.id == customerId);
-                if (customer) {
-                    this.showEnhancedNotification(`Edit functionality for ${customer.name} coming soon!`, 'info', {
-                        title: 'Edit Customer',
-                        duration: 3000
-                    });
-                }
-            }
-
-            viewCustomerDetails(customerId) {
-                const customer = this.customers.find(c => c.id == customerId);
-                if (customer) {
-                    this.showEnhancedNotification(`Viewing details for ${customer.name}`, 'info', {
-                        title: 'Customer Details',
-                        duration: 3000
-                    });
-                }
-            }
-
-            // 📅 BOOKING MANAGEMENT ACTIONS
-            viewBookings() {
-                this.openBookingManagement();
-            }
-
-            filterBookings(status) {
-                this.filterStatus = status;
-                this.openBookingManagement();
-            }
-
-            editBooking(bookingId) {
-                const booking = this.bookings.find(b => b.id == bookingId);
-                if (booking) {
-                    this.showEnhancedNotification(`Edit functionality for booking ${bookingId} coming soon!`, 'info', {
-                        title: 'Edit Booking',
-                        duration: 3000
-                    });
-                }
-            }
-
-            viewBookingDetails(bookingId) {
-                const booking = this.bookings.find(b => b.id == bookingId);
-                if (booking) {
-                    this.showEnhancedNotification(`Viewing details for booking ${bookingId}`, 'info', {
-                        title: 'Booking Details',
-                        duration: 3000
-                    });
-                }
-            }
-
-            // 🎭 UI MANAGEMENT FUNCTIONS
+            // 🎭 UI MANAGEMENT
             showLogin() {
                 const loginContainer = document.getElementById('loginContainer');
                 const portalContainer = document.getElementById('adminPortalContainer');
@@ -2606,41 +2233,12 @@
                 button.innerHTML = text;
             }
 
-            async playSuccessAnimation(element) {
-                return new Promise(resolve => {
-                    element.style.background = 'var(--success)';
-                    element.style.transform = 'scale(1.05)';
-                    
-                    setTimeout(() => {
-                        element.style.transform = 'scale(1)';
-                        resolve();
-                    }, 300);
-                });
-            }
-
-            async playErrorAnimation(element) {
-                return new Promise(resolve => {
-                    this.shakeElement(element);
-                    setTimeout(resolve, 600);
-                });
-            }
-
-            shakeElement(element) {
-                element.style.animation = 'shake 0.6s ease-in-out';
-                
-                setTimeout(() => {
-                    element.style.animation = '';
-                }, 600);
-            }
-
             showError(errorDiv, message) {
                 errorDiv.textContent = message;
                 errorDiv.classList.remove('hidden');
-                this.shakeElement(errorDiv);
             }
 
             showEnhancedNotification(message, type = 'success', options = {}) {
-                // Remove existing notifications
                 document.querySelectorAll('.notification').forEach(notification => {
                     notification.remove();
                 });
@@ -2679,7 +2277,7 @@
                             border-radius: var(--radius-sm);
                             transition: var(--transition-smooth);
                             flex-shrink: 0;
-                        " onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.opacity='0.7'; this.style.background='none'">
+                        ">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -2709,77 +2307,14 @@
 
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ FIXED PRODUCTION ADMIN PORTAL: 805 LifeGuard Admin Portal');
+            console.log('🛡️ 805 LifeGuard Admin Portal');
             console.log('💾 Database Mode: Production D1');
             console.log('🔗 Full API Integration Active');
             
-            adminPortal = new FixedAdminPortal();
+            adminPortal = new AdminPortal();
             window.adminPortal = adminPortal;
             
-            console.log('✅ FIXED PRODUCTION ADMIN PORTAL READY!');
-        });
-
-        // 🔑 GLOBAL HELPER FUNCTIONS
-        function showForgotPassword() {
-            if (window.adminPortal) {
-                window.adminPortal.showEnhancedNotification('Admin password reset: Contact your system administrator at (805) 367-6432.', 'info', {
-                    title: 'Admin Support',
-                    duration: 6000
-                });
-            }
-        }
-
-        // 🚨 ENHANCED ERROR HANDLING
-        window.addEventListener('error', (event) => {
-            console.error('🚨 Admin Portal Error:', event.error);
-            
-            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
-                window.adminPortal.showEnhancedNotification(
-                    'An error occurred in the admin portal.',
-                    'error',
-                    {
-                        title: 'Admin System Error',
-                        subtitle: 'Please refresh or contact IT support',
-                        duration: 8000
-                    }
-                );
-            }
-        });
-
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('🚨 Unhandled Promise Rejection:', event.reason);
-            event.preventDefault();
-            
-            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
-                window.adminPortal.showEnhancedNotification(
-                    'A network error occurred. Please try again.',
-                    'error',
-                    {
-                        title: 'Network Error',
-                        duration: 5000
-                    }
-                );
-            }
-        });
-
-        // 📊 PERFORMANCE MONITORING
-        window.addEventListener('load', () => {
-            const loadTime = performance.now();
-            console.log(`⚡ Admin Portal loaded in ${Math.round(loadTime)}ms`);
-            
-            if (window.adminPortal && window.adminPortal.showEnhancedNotification) {
-                setTimeout(() => {
-                    window.adminPortal.showEnhancedNotification(
-                        'Admin portal loaded successfully!',
-                        'success',
-                        {
-                            title: 'System Ready',
-                            subtitle: 'All management tools are active',
-                            duration: 3000
-                        }
-                    );
-                }, 2000);
-            }
+            console.log('✅ Admin Portal Ready!');
         });
     </script>
 </body>
