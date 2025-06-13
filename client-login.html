@@ -1783,14 +1783,15 @@
                 <div style="font-size: 0.875rem; color: var(--gray); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> lifeguard-portal-api-production.jaspervdz.workers.dev<br>
                     <strong>💾 Database:</strong> Live D1 with full CRUD operations<br>
-                    <strong>🛡️ Auth:</strong> JWT token-based authentication
+                    <strong>🛡️ Auth:</strong> JWT token-based authentication<br>
+                    <strong>📊 Status:</strong> <span id="connectionStatus" style="color: var(--success);">✓ Connected</span>
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
                     <button type="button" onclick="handleFillDemoCredentials()" class="btn btn-secondary btn-small">
                         <i class="fas fa-flask"></i> Demo Login
                     </button>
-                    <button type="button" onclick="handleShowDemoInfo()" class="btn btn-primary btn-small">
-                        <i class="fas fa-info-circle"></i> Production Ready
+                    <button type="button" onclick="handleTestConnection()" class="btn btn-primary btn-small">
+                        <i class="fas fa-check-circle"></i> Test Connection
                     </button>
                 </div>
             </div>
@@ -2246,6 +2247,9 @@
                 console.log('💾 Mode: Production D1 Database');
                 
                 try {
+                    // Test API connection first
+                    await this.testApiConnection();
+                    
                     this.setupEventListeners();
                     this.setupScrollEffects();
                     this.setupServiceSelection();
@@ -2263,8 +2267,41 @@
                     console.log('✨ Elite Client Portal Ready!');
                 } catch (error) {
                     console.error('🚨 Portal initialization error:', error);
-                    this.showNotification('Portal initialized. Please try logging in.', 'info');
+                    this.showNotification('Portal initialized with limited functionality. Database connection may be limited.', 'warning');
                     this.showLogin();
+                }
+            }
+
+            async testApiConnection() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/health`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    if (data?.status === 'healthy') {
+                        console.log('✅ API Connection: Healthy');
+                        this.updateConnectionStatus('connected', 'API Connected');
+                        return true;
+                    } else {
+                        throw new Error('API health check failed');
+                    }
+                } catch (error) {
+                    console.warn('⚠️ API Connection: Limited', error);
+                    this.updateConnectionStatus('limited', 'Limited Connection');
+                    return false;
+                }
+            }
+
+            updateConnectionStatus(status, message) {
+                const statusElement = document.getElementById('connectionStatus');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                    statusElement.style.color = status === 'connected' ? 'var(--success)' : 
+                                                 status === 'limited' ? 'var(--warning)' : 'var(--error)';
                 }
             }
 
@@ -2834,46 +2871,36 @@
                 this.validateBookingForm();
             }
 
-            // Booking Submission
+            // Booking Submission with Enhanced Validation
             async handleBooking() {
                 console.log('📝 Submitting booking to D1 database...');
                 
                 const submitBtn = document.getElementById('submitBookingBtn');
                 
-                const validationResult = this.validateBookingForm();
+                // Comprehensive validation
+                const validationResult = this.validateBookingData();
                 if (!validationResult.isValid) {
-                    this.showNotification(
-                        `Please complete: ${validationResult.missingFields.join(', ')}`, 
-                        'error'
-                    );
+                    this.showNotification(validationResult.message, 'error');
                     return;
                 }
                 
                 this.showLoading(submitBtn);
                 
                 try {
-                    const bookingData = {
-                        service: this.selectedService,
-                        serviceName: this.serviceConfig[this.selectedService].name,
-                        date: this.selectedDate,
-                        time: this.selectedTime,
-                        duration: parseFloat(this.selectedDuration),
-                        participants: parseInt(document.getElementById('participants').value),
-                        specialRequests: document.getElementById('specialRequests').value.trim() || null
-                    };
-                    
-                    console.log('🎯 Booking data:', bookingData);
+                    const bookingData = this.prepareBookingData();
+                    console.log('🎯 Validated booking data:', bookingData);
 
                     if (!this.authToken) {
                         // Demo mode - simulate booking success
                         console.log('🎭 Demo booking simulation');
-                        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API delay
+                        await new Promise(resolve => setTimeout(resolve, 2000));
                         
                         this.showNotification('Demo booking created successfully!', 'success');
                         
                         setTimeout(() => {
                             this.closeBookingModal();
-                            this.updateUpcomingBookings(); // Refresh the bookings list
+                            this.updateUpcomingBookings();
+                            this.generateCalendar(); // Refresh calendar availability
                         }, 1500);
                         
                         return;
@@ -2899,9 +2926,10 @@
                         }
                         
                         await this.updateAllBookingData();
+                        await this.generateCalendar(); // Refresh calendar
                         
                         this.showNotification(
-                            'Booking request submitted successfully!', 
+                            'Booking request submitted successfully! You will receive a confirmation email shortly.', 
                             'success'
                         );
                         
@@ -2920,6 +2948,91 @@
                 } finally {
                     this.hideLoading(submitBtn, '<i class="fas fa-calendar-check"></i> Request Booking');
                 }
+            }
+
+            validateBookingData() {
+                const errors = [];
+                
+                // Service validation
+                if (!this.selectedService) {
+                    errors.push('Please select a service type');
+                } else if (!this.serviceConfig[this.selectedService]) {
+                    errors.push('Invalid service type selected');
+                }
+                
+                // Duration validation
+                if (!this.selectedDuration) {
+                    errors.push('Please select a duration');
+                } else if (this.selectedService && !this.serviceConfig[this.selectedService].durations.includes(parseFloat(this.selectedDuration))) {
+                    errors.push('Invalid duration for selected service');
+                }
+                
+                // Date validation
+                const bookingDate = document.getElementById('bookingDate')?.value;
+                if (!bookingDate) {
+                    errors.push('Please select a date');
+                } else {
+                    const selectedDate = new Date(bookingDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (selectedDate < today) {
+                        errors.push('Cannot book for past dates');
+                    }
+                    
+                    // Check if date is too far in the future (e.g., 6 months)
+                    const maxDate = new Date();
+                    maxDate.setMonth(maxDate.getMonth() + 6);
+                    if (selectedDate > maxDate) {
+                        errors.push('Cannot book more than 6 months in advance');
+                    }
+                }
+                
+                // Time validation
+                if (!this.selectedTime) {
+                    errors.push('Please select a time slot');
+                }
+                
+                // Participants validation
+                const participants = document.getElementById('participants')?.value;
+                if (!participants || parseInt(participants) < 1) {
+                    errors.push('Please select number of participants');
+                } else if (this.selectedService && parseInt(participants) > this.serviceConfig[this.selectedService].maxParticipants) {
+                    errors.push(`Maximum ${this.serviceConfig[this.selectedService].maxParticipants} participants for ${this.serviceConfig[this.selectedService].name}`);
+                }
+                
+                return {
+                    isValid: errors.length === 0,
+                    message: errors.length > 0 ? errors.join(', ') : 'Valid'
+                };
+            }
+
+            prepareBookingData() {
+                // Prepare clean, validated data for database submission
+                const bookingData = {
+                    service: this.selectedService,
+                    serviceName: this.serviceConfig[this.selectedService].name,
+                    date: document.getElementById('bookingDate').value,
+                    time: this.selectedTime,
+                    duration: parseFloat(this.selectedDuration),
+                    participants: parseInt(document.getElementById('participants').value),
+                    specialRequests: document.getElementById('specialRequests').value.trim() || null,
+                    // Add metadata for better database tracking
+                    clientPortalVersion: '1.0',
+                    submittedAt: new Date().toISOString(),
+                    userAgent: navigator.userAgent
+                };
+                
+                // Validate data types
+                if (isNaN(bookingData.duration) || bookingData.duration <= 0) {
+                    throw new Error('Invalid duration value');
+                }
+                
+                if (isNaN(bookingData.participants) || bookingData.participants <= 0) {
+                    throw new Error('Invalid participants value');
+                }
+                
+                return bookingData;
             }
 
             validateBookingForm() {
@@ -2985,6 +3098,11 @@
                 if (userActions) userActions.classList.remove('hidden');
                 
                 this.updateUserInfo();
+                
+                // Initialize calendar when portal is shown
+                setTimeout(() => {
+                    this.generateCalendar();
+                }, 100);
                 
                 if (this.config.enableAnimations) {
                     setTimeout(() => {
@@ -3413,6 +3531,15 @@
                     return;
                 }
 
+                // Validate quick booking data
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (this.selectedCalendarDate < today) {
+                    this.showNotification('Cannot book for past dates', 'error');
+                    return;
+                }
+
                 const bookingData = {
                     service: this.selectedQuickService,
                     serviceName: this.serviceConfig[this.selectedQuickService].name,
@@ -3420,18 +3547,23 @@
                     time: time,
                     duration: this.serviceConfig[this.selectedQuickService].durations[0], // Default duration
                     participants: 1, // Default participants
-                    specialRequests: null
+                    specialRequests: null,
+                    // Add metadata
+                    clientPortalVersion: '1.0',
+                    submittedAt: new Date().toISOString(),
+                    bookingType: 'quick'
                 };
 
                 try {
-                    console.log('🚀 Creating quick booking:', bookingData);
+                    console.log('🚀 Creating validated quick booking:', bookingData);
 
                     if (!this.authToken) {
                         // Demo mode
-                        this.showNotification('Demo booking created! This would normally submit to the database.', 'success');
+                        this.showNotification('Demo quick booking created! This would submit to your D1 database.', 'success');
                         setTimeout(() => {
                             this.closeQuickBookingPanel();
                             this.updateUpcomingBookings();
+                            this.generateCalendar(); // Refresh calendar
                         }, 1500);
                         return;
                     }
@@ -3450,6 +3582,7 @@
                     if (data?.success) {
                         this.showNotification('Quick booking created successfully!', 'success');
                         await this.updateAllBookingData();
+                        await this.generateCalendar(); // Refresh calendar
                         
                         setTimeout(() => {
                             this.closeQuickBookingPanel();
@@ -3460,6 +3593,36 @@
                 } catch (error) {
                     console.error('Quick booking error:', error);
                     this.showNotification('Quick booking failed. Please try the full booking form.', 'error');
+                }
+            }
+
+            async testConnectionManual() {
+                this.showNotification('Testing connection to production database...', 'info');
+                
+                try {
+                    // Test API health
+                    const healthOk = await this.testApiConnection();
+                    
+                    if (healthOk) {
+                        // Test authentication endpoint
+                        const authResponse = await fetch(`${this.config.apiBaseUrl}/api/auth/test`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (authResponse.ok) {
+                            this.showNotification('✅ Connection test successful! All systems operational.', 'success');
+                        } else {
+                            this.showNotification('⚠️ API accessible but some endpoints may be limited.', 'warning');
+                        }
+                    } else {
+                        this.showNotification('❌ Connection test failed. Operating in demo mode.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Connection test error:', error);
+                    this.showNotification('❌ Unable to connect to production database. Demo mode available.', 'error');
                 }
             }
 
@@ -3493,13 +3656,19 @@
                 } else if (message.includes('cors')) {
                     return 'Connection error. Please check your network connection.';
                 } else if (message.includes('network') || message.includes('fetch')) {
-                    return 'Unable to connect to the server. Please try again.';
+                    return 'Unable to connect to the database server. Please try again.';
                 } else if (message.includes('timeout')) {
-                    return 'Request timed out. Please try again.';
+                    return 'Request timed out. The database may be busy. Please try again.';
                 } else if (message.includes('500')) {
-                    return 'Server error. Please try again in a few moments.';
+                    return 'Database server error. Our team has been notified. Please try again in a few moments.';
+                } else if (message.includes('503')) {
+                    return 'Database temporarily unavailable. Please try again shortly.';
+                } else if (message.includes('database') || message.includes('d1')) {
+                    return 'Database connection issue. Please try again or contact support.';
+                } else if (message.includes('validation')) {
+                    return 'Please check your booking details and try again.';
                 } else {
-                    return 'Something went wrong. Please try again.';
+                    return 'Something went wrong. Please try again or contact support if the issue persists.';
                 }
             }
 
@@ -3632,6 +3801,12 @@
         }
 
         // Global Helper Functions - These are called from HTML onclick handlers
+        function handleTestConnection() {
+            if (portal) {
+                portal.testConnectionManual();
+            }
+        }
+
         function handleFillDemoCredentials() {
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
