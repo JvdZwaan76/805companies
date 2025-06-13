@@ -11,10 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* ========================================
-           805 LifeGuard Client Portal - Professional Stylesheet
+           805 LifeGuard Enhanced Client Portal 
+           Next Level UX - Professional Stylesheet
            ======================================== */
 
-        /* CSS Variables - Matching Main Website */
+        /* CSS Variables - Enhanced Swim Theme */
         :root {
             --primary: #0077b6;
             --secondary: #00b4d8;
@@ -35,14 +36,14 @@
             --silver: #c0c0c0;
             --silver-dark: #a8a8a8;
             
-            /* Enhanced Shadows */
+            /* Enhanced Shadows & Effects */
             --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
             --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.15);
             --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.2);
             --shadow-glow: 0 0 0 1px rgba(30, 136, 229, 0.05), 0 0 20px rgba(30, 136, 229, 0.2);
             --shadow-glow-strong: 0 0 0 1px rgba(30, 136, 229, 0.1), 0 0 40px rgba(30, 136, 229, 0.3);
             
-            /* Professional Gradients */
+            /* Enhanced Gradients */
             --gradient-primary: linear-gradient(135deg, var(--primary), var(--gallery-teal));
             --gradient-hero: linear-gradient(135deg, var(--gallery-blue), var(--gallery-teal));
             --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
@@ -66,7 +67,7 @@
             --space-20: 5rem;
             --space-24: 6rem;
             
-            /* Advanced Transitions */
+            /* Enhanced Transitions */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-spring: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -120,7 +121,7 @@
             color: var(--dark);
         }
 
-        /* Animated Water Ripples Background - Matching Main Site */
+        /* Animated Water Ripples Background */
         .ripple-background {
             position: fixed;
             top: 0;
@@ -173,7 +174,9 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Navigation */
+        /* ========================================
+           ENHANCED NAVIGATION - Next Level UX
+           ======================================== */
         .nav-container {
             position: fixed;
             top: 0;
@@ -207,6 +210,7 @@
             text-decoration: none;
             color: var(--dark);
             transition: var(--transition);
+            z-index: var(--z-50);
         }
 
         .nav-logo:hover {
@@ -273,10 +277,148 @@
             letter-spacing: 1px;
         }
 
+        /* Enhanced Mobile Navigation */
         .nav-actions {
             display: flex;
             align-items: center;
             gap: var(--space-4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            z-index: var(--z-50);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(0, 119, 182, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px);
+            box-shadow: var(--shadow-heavy);
+            padding: var(--space-20) var(--space-6) var(--space-6);
+            transition: var(--transition);
+            z-index: var(--z-40);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: var(--z-30);
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+        }
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .mobile-user-section {
+            text-align: center;
+            padding: var(--space-6);
+            background: rgba(0, 119, 182, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 119, 182, 0.2);
+        }
+
+        .mobile-user-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0 auto var(--space-4);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .mobile-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .mobile-menu-btn {
+            width: 100%;
+            padding: var(--space-4);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 119, 182, 0.2);
+            border-radius: var(--radius-xl);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-align: left;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mobile-menu-btn i {
+            width: 20px;
+            text-align: center;
         }
 
         .user-menu {
@@ -298,6 +440,7 @@
             transition: var(--transition);
             box-shadow: var(--shadow-glow);
             border: 2px solid rgba(255, 255, 255, 0.8);
+            cursor: pointer;
         }
 
         .user-avatar:hover {
@@ -372,7 +515,7 @@
             border-radius: var(--radius-lg);
         }
 
-        /* Login Screen */
+        /* Enhanced Login Screen */
         .login-container {
             display: flex;
             align-items: center;
@@ -505,6 +648,7 @@
             padding-top: 100px;
         }
 
+        /* Enhanced Hero Section */
         .hero-section {
             text-align: center;
             padding: var(--space-20) var(--space-6) var(--space-16);
@@ -547,7 +691,37 @@
             text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Stats Grid */
+        /* Enhanced Quick Action Buttons */
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+            margin-top: var(--space-8);
+        }
+
+        .hero-btn {
+            padding: var(--space-4) var(--space-8);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .hero-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Stats Grid - Enhanced */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -606,23 +780,17 @@
             font-size: 0.9rem;
         }
 
-        /* Booking Calendar Section */
+        /* ========================================
+           ENHANCED BOOKING CALENDAR - Next Level UX
+           ======================================== */
         .booking-calendar-section {
             padding: var(--space-12) var(--space-6);
             background: rgba(255, 255, 255, 0.95);
-            margin: 0 auto;
+            margin: 0 auto var(--space-16);
             max-width: 1400px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-medium);
-            margin-bottom: var(--space-16);
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: var(--space-8);
-            align-items: start;
-        }
-
-        .calendar-container {
-            flex: 1;
+            backdrop-filter: blur(20px);
         }
 
         .calendar-header {
@@ -699,6 +867,18 @@
             text-align: center;
         }
 
+        /* Enhanced Calendar Grid */
+        .calendar-wrapper {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-8);
+            align-items: start;
+        }
+
+        .calendar-main {
+            flex: 1;
+        }
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -707,6 +887,7 @@
             border-radius: var(--radius-lg);
             overflow: hidden;
             margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-light);
         }
 
         .calendar-day-header {
@@ -731,11 +912,13 @@
             transition: var(--transition);
             position: relative;
             border: 2px solid transparent;
+            font-weight: 600;
         }
 
         .calendar-day:hover {
             background: rgba(0, 119, 182, 0.05);
             transform: scale(1.02);
+            z-index: var(--z-10);
         }
 
         .calendar-day.other-month {
@@ -747,12 +930,15 @@
             border-color: var(--accent);
             background: rgba(247, 37, 133, 0.1);
             font-weight: 700;
+            color: var(--accent);
         }
 
         .calendar-day.selected {
             border-color: var(--primary);
-            background: rgba(0, 119, 182, 0.1);
+            background: rgba(0, 119, 182, 0.15);
             transform: scale(1.05);
+            z-index: var(--z-10);
+            box-shadow: var(--shadow-medium);
         }
 
         .calendar-day.available::after {
@@ -852,7 +1038,7 @@
             opacity: 0.6;
         }
 
-        /* Quick Booking Panel */
+        /* Enhanced Quick Booking Panel */
         .quick-booking-panel {
             background: rgba(255, 255, 255, 0.98);
             border: 1px solid rgba(0, 119, 182, 0.2);
@@ -861,6 +1047,7 @@
             box-shadow: var(--shadow-medium);
             min-width: 400px;
             animation: slideInRight 0.3s ease-out;
+            backdrop-filter: blur(20px);
         }
 
         @keyframes slideInRight {
@@ -1008,14 +1195,36 @@
             justify-content: flex-end;
         }
 
-        /* Dashboard Grid */
+        /* Dashboard Grid - Enhanced */
+        .dashboard-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-6) var(--space-16);
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .dashboard-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: var(--space-4);
+        }
+
+        .dashboard-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: var(--space-8);
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-6) var(--space-16);
         }
 
         .dashboard-card {
@@ -1109,7 +1318,7 @@
             flex-wrap: wrap;
         }
 
-        /* Bookings List */
+        /* Bookings List - Enhanced */
         .bookings-list {
             max-height: 400px;
             overflow-y: auto;
@@ -1289,7 +1498,7 @@
             padding: var(--space-10);
         }
 
-        /* Service Selection */
+        /* Service Selection - Enhanced */
         .service-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1355,7 +1564,7 @@
             color: var(--dark);
         }
 
-        /* Time Slots */
+        /* Time Slots - Enhanced */
         .time-slots-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -1395,7 +1604,7 @@
             text-decoration: line-through;
         }
 
-        /* Notifications */
+        /* Enhanced Notifications */
         .notification {
             position: fixed;
             top: var(--space-6);
@@ -1429,7 +1638,7 @@
             border-left: 4px solid var(--primary);
         }
 
-        /* Connection Status */
+        /* Connection Status - Enhanced */
         .connection-status {
             position: fixed;
             bottom: var(--space-4);
@@ -1454,7 +1663,7 @@
             color: white;
         }
 
-        /* Loading States */
+        /* Loading States - Enhanced */
         .loading {
             display: inline-flex;
             align-items: center;
@@ -1473,6 +1682,28 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Professional Badge Animations */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            animation: badge-float 3s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        @keyframes badge-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Utility Classes */
@@ -1499,32 +1730,37 @@
             50% { opacity: 0.5; }
         }
 
-        /* Professional Badge Animations */
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            animation: badge-float 3s ease-in-out infinite;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
+        /* ========================================
+           ENHANCED RESPONSIVE DESIGN - Next Level
+           ======================================== */
+        @media (max-width: 1024px) {
+            .calendar-wrapper {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            
+            .quick-booking-panel {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
         }
 
-        @keyframes badge-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-content {
                 padding: 10px 20px;
+            }
+            
+            .nav-actions .btn,
+            .user-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
             }
             
             .login-card {
@@ -1536,10 +1772,19 @@
                 padding: var(--space-16) var(--space-4) var(--space-12);
             }
 
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
             .booking-calendar-section {
-                grid-template-columns: 1fr;
                 padding: var(--space-8) var(--space-4);
-                gap: var(--space-6);
             }
 
             .calendar-header {
@@ -1561,11 +1806,6 @@
             .calendar-day {
                 min-height: 50px;
                 font-size: 0.9rem;
-            }
-
-            .quick-booking-panel {
-                min-width: auto;
-                width: 100%;
             }
 
             .service-tabs {
@@ -1590,9 +1830,12 @@
                 font-size: 0.8rem;
             }
             
+            .dashboard-section {
+                padding: 0 var(--space-4) var(--space-12);
+            }
+            
             .dashboard-grid {
                 grid-template-columns: 1fr;
-                padding: 0 var(--space-4) var(--space-12);
             }
             
             .stats-grid {
@@ -1629,6 +1872,11 @@
         }
 
         @media (max-width: 480px) {
+            .mobile-menu {
+                width: 100%;
+                right: -100%;
+            }
+            
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -1682,6 +1930,15 @@
             .portal-container {
                 padding-top: 80px;
             }
+
+            .hero-actions {
+                gap: var(--space-3);
+            }
+
+            .hero-btn {
+                padding: var(--space-3) var(--space-6);
+                font-size: 0.9rem;
+            }
         }
 
         /* Focus Styles for Accessibility */
@@ -1720,7 +1977,7 @@
     </style>
 </head>
 <body>
-    <!-- Animated Water Ripples Background - Matching Main Site -->
+    <!-- Animated Water Ripples Background -->
     <div class="ripple-background">
         <div class="ripple"></div>
         <div class="ripple"></div>
@@ -1728,7 +1985,7 @@
         <div class="ripple"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Enhanced Navigation -->
     <nav class="nav-container" id="navigation">
         <div class="nav-content">
             <a href="#" class="nav-logo">
@@ -1738,8 +1995,9 @@
                     <div class="nav-logo-subtitle">Elite Client Portal</div>
                 </div>
             </a>
+            
             <div class="nav-actions">
-                <!-- Login State -->
+                <!-- Login State - Desktop -->
                 <div id="loginActions">
                     <a href="#" class="btn btn-secondary">
                         <i class="fas fa-info-circle"></i>
@@ -1750,18 +2008,83 @@
                         Sign In
                     </a>
                 </div>
-                <!-- User State -->
+                
+                <!-- User State - Desktop -->
                 <div id="userActions" class="user-menu hidden">
-                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-avatar" id="userAvatar" onclick="toggleMobileMenu()">JD</div>
                     <span id="userName">John Doe</span>
                     <button class="btn btn-secondary" onclick="handleLogout()">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </button>
                 </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Enhanced Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="mobile-menu-content">
+            <!-- User Section (when logged in) -->
+            <div class="mobile-user-section" id="mobileUserSection" style="display: none;">
+                <div class="mobile-user-avatar" id="mobileUserAvatar">JD</div>
+                <h3 id="mobileUserName">John Doe</h3>
+                <p>Elite Member</p>
+            </div>
+            
+            <!-- Login State Menu -->
+            <div class="mobile-menu-actions" id="mobileLoginActions">
+                <a href="#" class="mobile-menu-btn" onclick="closeMobileMenu()">
+                    <i class="fas fa-info-circle"></i>
+                    About 805 LifeGuard
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleMobileLogin()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In to Portal
+                </a>
+            </div>
+            
+            <!-- User State Menu -->
+            <div class="mobile-menu-actions hidden" id="mobileUserActions">
+                <a href="#" class="mobile-menu-btn" onclick="handleOpenBookingModal(); closeMobileMenu();">
+                    <i class="fas fa-calendar-plus"></i>
+                    New Booking
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleQuickBook('swim-lesson'); closeMobileMenu();">
+                    <i class="fas fa-swimmer"></i>
+                    Quick Swim Lesson
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleQuickBook('lifeguard'); closeMobileMenu();">
+                    <i class="fas fa-user-shield"></i>
+                    Book Lifeguard
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleShowProfile(); closeMobileMenu();">
+                    <i class="fas fa-user"></i>
+                    My Profile
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleShowBookingHistory(); closeMobileMenu();">
+                    <i class="fas fa-history"></i>
+                    Booking History
+                </a>
+                <a href="#" class="mobile-menu-btn" onclick="handleLogout(); closeMobileMenu();" style="border-color: var(--error); color: var(--error);">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Login Screen -->
     <div class="login-container" id="loginContainer">
@@ -1834,9 +2157,9 @@
         </div>
     </div>
 
-    <!-- Portal Dashboard -->
+    <!-- Enhanced Portal Dashboard -->
     <div class="portal-container" id="portalContainer">
-        <!-- Hero Section -->
+        <!-- Enhanced Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-badge">
@@ -1845,10 +2168,26 @@
                 </div>
                 <h1 class="hero-title glow-text">Welcome back, <span id="welcomeName">Elite Member</span>!</h1>
                 <p class="hero-subtitle">Manage your premium pool services with cutting-edge booking technology and professional lifeguard coverage</p>
+                
+                <!-- Enhanced Quick Action Buttons -->
+                <div class="hero-actions">
+                    <a href="#" class="hero-btn" onclick="handleOpenBookingModal()">
+                        <i class="fas fa-calendar-plus"></i>
+                        Book Service
+                    </a>
+                    <a href="#" class="hero-btn" onclick="document.getElementById('calendarSection').scrollIntoView({ behavior: 'smooth' })">
+                        <i class="fas fa-calendar-alt"></i>
+                        View Calendar
+                    </a>
+                    <a href="#" class="hero-btn" onclick="handleShowProfile()">
+                        <i class="fas fa-user-cog"></i>
+                        My Account
+                    </a>
+                </div>
             </div>
         </section>
 
-        <!-- Stats Section -->
+        <!-- Enhanced Stats Section -->
         <section class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number" id="totalBookings">0</div>
@@ -1868,189 +2207,199 @@
             </div>
         </section>
 
-        <!-- Booking Calendar Section -->
-        <section class="booking-calendar-section">
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <div class="calendar-title">
-                        <div class="calendar-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div>
-                            <h2>Book Your Service</h2>
-                            <p>Select a date to see available times and book instantly</p>
-                        </div>
+        <!-- Enhanced Booking Calendar Section -->
+        <section class="booking-calendar-section" id="calendarSection">
+            <div class="calendar-header">
+                <div class="calendar-title">
+                    <div class="calendar-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <div class="calendar-controls">
-                        <button class="calendar-nav-btn" id="prevMonthBtn">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div class="current-month" id="currentMonth">January 2025</div>
-                        <button class="calendar-nav-btn" id="nextMonthBtn">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                    <div>
+                        <h2>Book Your Service</h2>
+                        <p>Select a date to see available times and book instantly</p>
                     </div>
                 </div>
-                
-                <div class="calendar-grid" id="calendarGrid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
-                    <!-- Calendar days will be populated by JavaScript -->
-                </div>
-                
-                <div class="calendar-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot available"></div>
-                        <span>Available</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot limited"></div>
-                        <span>Limited</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot booked"></div>
-                        <span>Fully Booked</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot past"></div>
-                        <span>Past Date</span>
-                    </div>
+                <div class="calendar-controls">
+                    <button class="calendar-nav-btn" id="prevMonthBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="current-month" id="currentMonth">January 2025</div>
+                    <button class="calendar-nav-btn" id="nextMonthBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
             
-            <!-- Quick Booking Panel -->
-            <div class="quick-booking-panel" id="quickBookingPanel" style="display: none;">
-                <div class="quick-booking-header">
-                    <h3>Available Times for <span id="selectedDateText">Select a Date</span></h3>
-                    <button class="close-panel-btn" id="closePanelBtn">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="service-quick-select">
-                    <label>Select Service:</label>
-                    <div class="service-tabs">
-                        <button class="service-tab active" data-service="swim-lesson">
-                            <i class="fas fa-swimmer"></i>
-                            Swim Lessons
-                        </button>
-                        <button class="service-tab" data-service="lifeguard">
-                            <i class="fas fa-user-shield"></i>
-                            Lifeguard
-                        </button>
-                        <button class="service-tab" data-service="event">
-                            <i class="fas fa-calendar-star"></i>
-                            Events
-                        </button>
+            <div class="calendar-wrapper">
+                <div class="calendar-main">
+                    <div class="calendar-grid" id="calendarGrid">
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+                        <!-- Calendar days will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot available"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot limited"></div>
+                            <span>Limited</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot booked"></div>
+                            <span>Fully Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot past"></div>
+                            <span>Past Date</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="available-times-grid" id="availableTimesGrid">
-                    <div class="loading-times">
-                        <div class="spinner"></div>
-                        <span>Loading available times...</span>
+                <!-- Enhanced Quick Booking Panel -->
+                <div class="quick-booking-panel" id="quickBookingPanel" style="display: none;">
+                    <div class="quick-booking-header">
+                        <h3>Available Times for <span id="selectedDateText">Select a Date</span></h3>
+                        <button class="close-panel-btn" id="closePanelBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                </div>
-                
-                <div class="quick-booking-actions">
-                    <button class="btn btn-secondary" onclick="handleCloseQuickBooking()">
-                        Close
-                    </button>
-                    <button class="btn btn-primary" onclick="handleOpenFullBookingModal()">
-                        <i class="fas fa-cog"></i>
-                        Advanced Booking
-                    </button>
+                    
+                    <div class="service-quick-select">
+                        <label>Select Service:</label>
+                        <div class="service-tabs">
+                            <button class="service-tab active" data-service="swim-lesson">
+                                <i class="fas fa-swimmer"></i>
+                                Swim Lessons
+                            </button>
+                            <button class="service-tab" data-service="lifeguard">
+                                <i class="fas fa-user-shield"></i>
+                                Lifeguard
+                            </button>
+                            <button class="service-tab" data-service="event">
+                                <i class="fas fa-calendar-star"></i>
+                                Events
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="available-times-grid" id="availableTimesGrid">
+                        <div class="loading-times">
+                            <div class="spinner"></div>
+                            <span>Loading available times...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-booking-actions">
+                        <button class="btn btn-secondary" onclick="handleCloseQuickBooking()">
+                            Close
+                        </button>
+                        <button class="btn btn-primary" onclick="handleOpenFullBookingModal()">
+                            <i class="fas fa-cog"></i>
+                            Advanced Booking
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Dashboard Grid -->
-            <!-- Quick Booking Card -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon">
-                            <i class="fas fa-calendar-plus"></i>
-                        </div>
-                        <div>Quick Booking</div>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Schedule premium pool services with flexible durations and professional lifeguard coverage. 
-                    Choose from swim lessons, event coverage, and safety services.
-                </p>
-                <div class="card-actions">
-                    <button class="btn btn-primary btn-small" onclick="handleOpenBookingModal()">
-                        <i class="fas fa-plus"></i>
-                        New Booking
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="handleQuickBook('swim-lesson')">
-                        <i class="fas fa-swimmer"></i>
-                        Swim Lesson
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="handleQuickBook('lifeguard')">
-                        <i class="fas fa-user-shield"></i>
-                        Lifeguard
-                    </button>
-                </div>
+        <!-- Enhanced Dashboard Section -->
+        <section class="dashboard-section">
+            <div class="dashboard-header">
+                <h2>Your Dashboard</h2>
+                <p>Manage your bookings, profile, and access premium features</p>
             </div>
-
-            <!-- Upcoming Bookings Card -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon">
-                            <i class="fas fa-clock"></i>
+            
+            <div class="dashboard-grid">
+                <!-- Enhanced Quick Booking Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-calendar-plus"></i>
+                            </div>
+                            <div>Quick Booking</div>
                         </div>
-                        <div>Upcoming Bookings</div>
+                    </div>
+                    <p class="card-description">
+                        Schedule premium pool services with flexible durations and professional lifeguard coverage. 
+                        Choose from swim lessons, event coverage, and safety services.
+                    </p>
+                    <div class="card-actions">
+                        <button class="btn btn-primary btn-small" onclick="handleOpenBookingModal()">
+                            <i class="fas fa-plus"></i>
+                            New Booking
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="handleQuickBook('swim-lesson')">
+                            <i class="fas fa-swimmer"></i>
+                            Swim Lesson
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="handleQuickBook('lifeguard')">
+                            <i class="fas fa-user-shield"></i>
+                            Lifeguard
+                        </button>
                     </div>
                 </div>
-                <div class="bookings-list" id="upcomingBookingsList">
-                    <div style="text-align: center; color: var(--gray); padding: var(--space-8);">
-                        <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: var(--space-4); opacity: 0.5;"></i>
-                        <p>Loading your upcoming bookings...</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Account Management Card -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon">
-                            <i class="fas fa-user-cog"></i>
+                <!-- Enhanced Upcoming Bookings Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>Upcoming Bookings</div>
                         </div>
-                        <div>Account Management</div>
+                    </div>
+                    <div class="bookings-list" id="upcomingBookingsList">
+                        <div style="text-align: center; color: var(--gray); padding: var(--space-8);">
+                            <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: var(--space-4); opacity: 0.5;"></i>
+                            <p>Loading your upcoming bookings...</p>
+                        </div>
                     </div>
                 </div>
-                <p class="card-description">
-                    Manage your profile, view complete booking history, update preferences, 
-                    and access premium member features and support.
-                </p>
-                <div class="card-actions">
-                    <button class="btn btn-secondary btn-small" onclick="handleShowProfile()">
-                        <i class="fas fa-user"></i>
-                        Profile
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="handleShowBookingHistory()">
-                        <i class="fas fa-history"></i>
-                        History
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="handleLogout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </button>
+
+                <!-- Enhanced Account Management Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-user-cog"></i>
+                            </div>
+                            <div>Account Management</div>
+                        </div>
+                    </div>
+                    <p class="card-description">
+                        Manage your profile, view complete booking history, update preferences, 
+                        and access premium member features and support.
+                    </p>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary btn-small" onclick="handleShowProfile()">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="handleShowBookingHistory()">
+                            <i class="fas fa-history"></i>
+                            History
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Booking Modal -->
+    <!-- Enhanced Booking Modal -->
     <div class="modal" id="bookingModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -2145,32 +2494,30 @@
     </div>
 
     <!-- Connection Status -->
-    <div class="connection-status connected" id="connectionStatus" onclick="handleShowDemoInfo()" title="Production Database Connected">
+    <div class="connection-status connected" id="connectionStatusIndicator" onclick="handleShowDemoInfo()" title="Production Database Connected">
         <i class="fas fa-database"></i> Production Mode
     </div>
 
-    <!-- JavaScript -->
+    <!-- Enhanced JavaScript with All D1 Database Functionality -->
     <script>
         /**
-         * 🏊‍♂️ ELITE 805 LIFEGUARD CLIENT PORTAL - PRODUCTION READY
+         * 🏊‍♂️ ENHANCED ELITE 805 LIFEGUARD CLIENT PORTAL - NEXT LEVEL UX
          * 
-         * ✅ PRODUCTION FEATURES:
-         * - Full D1 Cloudflare Database Integration
-         * - JWT Authentication with existing API
-         * - Real-time booking management
-         * - Complete CRUD operations
-         * - Professional UI matching main website theme
-         * - Mobile-responsive design
-         * - Production error handling
-         * - Performance optimizations
-         * 
-         * 🔗 API Endpoint: https://lifeguard-portal-api-production.jaspervdz.workers.dev
+         * ✅ ENHANCED FEATURES:
+         * - Improved mobile navigation with hamburger menu
+         * - Enhanced calendar interface with better UX
+         * - Responsive design optimized for all devices
+         * - Smooth animations and transitions
+         * - Better user flow and interaction design
+         * - All original D1 database functionality preserved
+         * - JWT Authentication maintained
+         * - Production API endpoints intact
          */
         
         // Global Portal Instance
         let portal = null;
 
-        class EliteClientPortal {
+        class EnhancedEliteClientPortal {
             constructor() {
                 this.currentUser = null;
                 this.authToken = null;
@@ -2186,7 +2533,10 @@
                 this.selectedQuickService = 'swim-lesson';
                 this.availabilityCache = new Map();
                 
-                // Production Configuration
+                // UI state
+                this.isMobileMenuOpen = false;
+                
+                // Production Configuration - UNCHANGED
                 this.config = {
                     apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
                     enableAnimations: true,
@@ -2195,7 +2545,7 @@
                     requestTimeout: 30000,
                 };
                 
-                // Service Configuration
+                // Service Configuration - UNCHANGED
                 this.serviceConfig = {
                     'swim-lesson': {
                         name: 'Private Swim Lesson',
@@ -2242,7 +2592,7 @@
             }
 
             async init() {
-                console.log('🚀 Elite Client Portal Initializing...');
+                console.log('🚀 Enhanced Elite Client Portal Initializing...');
                 console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
                 console.log('💾 Mode: Production D1 Database');
                 
@@ -2254,6 +2604,7 @@
                     this.setupScrollEffects();
                     this.setupServiceSelection();
                     this.setupCalendar();
+                    this.setupMobileMenu();
                     
                     // Check for existing session
                     const token = this.getAuthToken();
@@ -2264,13 +2615,107 @@
                         this.showLogin();
                     }
                     
-                    console.log('✨ Elite Client Portal Ready!');
+                    console.log('✨ Enhanced Elite Client Portal Ready!');
                 } catch (error) {
                     console.error('🚨 Portal initialization error:', error);
                     this.showNotification('Portal initialized with limited functionality. Database connection may be limited.', 'warning');
                     this.showLogin();
                 }
             }
+
+            // ========================================
+            // ENHANCED MOBILE MENU FUNCTIONALITY
+            // ========================================
+            setupMobileMenu() {
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    const toggleBtn = document.getElementById('mobileMenuToggle');
+                    const userAvatar = document.getElementById('userAvatar');
+                    
+                    if (this.isMobileMenuOpen && 
+                        !mobileMenu.contains(e.target) && 
+                        !toggleBtn.contains(e.target) &&
+                        !userAvatar.contains(e.target)) {
+                        this.closeMobileMenu();
+                    }
+                });
+
+                // Handle escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isMobileMenuOpen) {
+                        this.closeMobileMenu();
+                    }
+                });
+            }
+
+            toggleMobileMenu() {
+                if (this.isMobileMenuOpen) {
+                    this.closeMobileMenu();
+                } else {
+                    this.openMobileMenu();
+                }
+            }
+
+            openMobileMenu() {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const overlay = document.getElementById('mobileMenuOverlay');
+                const toggleBtn = document.getElementById('mobileMenuToggle');
+                
+                mobileMenu.classList.add('open');
+                overlay.classList.add('active');
+                toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+                this.isMobileMenuOpen = true;
+                
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeMobileMenu() {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const overlay = document.getElementById('mobileMenuOverlay');
+                const toggleBtn = document.getElementById('mobileMenuToggle');
+                
+                mobileMenu.classList.remove('open');
+                overlay.classList.remove('active');
+                toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                this.isMobileMenuOpen = false;
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+
+            updateMobileMenu() {
+                const mobileUserSection = document.getElementById('mobileUserSection');
+                const mobileLoginActions = document.getElementById('mobileLoginActions');
+                const mobileUserActions = document.getElementById('mobileUserActions');
+                const mobileUserAvatar = document.getElementById('mobileUserAvatar');
+                const mobileUserName = document.getElementById('mobileUserName');
+
+                if (this.currentUser) {
+                    // Show user state
+                    mobileUserSection.style.display = 'block';
+                    mobileLoginActions.style.display = 'none';
+                    mobileUserActions.classList.remove('hidden');
+                    
+                    // Update user info
+                    if (mobileUserAvatar) {
+                        mobileUserAvatar.textContent = this.getInitials(this.currentUser.name);
+                    }
+                    if (mobileUserName) {
+                        mobileUserName.textContent = this.currentUser.name || 'User';
+                    }
+                } else {
+                    // Show login state
+                    mobileUserSection.style.display = 'none';
+                    mobileLoginActions.style.display = 'flex';
+                    mobileUserActions.classList.add('hidden');
+                }
+            }
+
+            // ========================================
+            // ALL ORIGINAL D1 DATABASE FUNCTIONALITY PRESERVED
+            // ========================================
 
             async testApiConnection() {
                 try {
@@ -2362,14 +2807,16 @@
 
             bindServiceOptions() {
                 document.querySelectorAll('.service-option').forEach(option => {
-                    option.removeEventListener('click', this.handleServiceClick); // Remove existing listeners
+                    option.removeEventListener('click', this.handleServiceClick);
                     option.addEventListener('click', (e) => {
                         this.selectService(option);
                     });
                 });
             }
 
-            // Authentication
+            // ========================================
+            // AUTHENTICATION - UNCHANGED D1 FUNCTIONALITY
+            // ========================================
             async handleLogin() {
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
@@ -2461,7 +2908,9 @@
                 this.showNotification('Demo mode activated! Explore all features.', 'info');
             }
 
-            // Data Loading
+            // ========================================
+            // DATA LOADING - UNCHANGED D1 FUNCTIONALITY
+            // ========================================
             async loadUserData() {
                 console.log('📊 Loading user data from D1 database...');
                 
@@ -2647,9 +3096,14 @@
                 if (userAvatar) userAvatar.textContent = this.getInitials(this.currentUser.name);
                 if (userName) userName.textContent = this.currentUser.name || 'User';
                 if (welcomeName) welcomeName.textContent = (this.currentUser.name || 'Elite Member').split(' ')[0];
+                
+                // Update mobile menu
+                this.updateMobileMenu();
             }
 
-            // Service Selection
+            // ========================================
+            // SERVICE SELECTION - UNCHANGED FUNCTIONALITY
+            // ========================================
             selectService(element) {
                 // Clear previous selections
                 document.querySelectorAll('.service-option').forEach(opt => {
@@ -2736,7 +3190,9 @@
                 this.validateBookingForm();
             }
 
-            // Time Slot Generation
+            // ========================================
+            // TIME SLOT GENERATION - UNCHANGED D1 FUNCTIONALITY
+            // ========================================
             async generateTimeSlots() {
                 const timeSlotsGrid = document.getElementById('timeSlotsGrid');
                 const selectedDate = document.getElementById('bookingDate').value;
@@ -2871,7 +3327,9 @@
                 this.validateBookingForm();
             }
 
-            // Booking Submission with Enhanced Validation
+            // ========================================
+            // BOOKING SUBMISSION - UNCHANGED D1 FUNCTIONALITY
+            // ========================================
             async handleBooking() {
                 console.log('📝 Submitting booking to D1 database...');
                 
@@ -3018,7 +3476,7 @@
                     participants: parseInt(document.getElementById('participants').value),
                     specialRequests: document.getElementById('specialRequests').value.trim() || null,
                     // Add metadata for better database tracking
-                    clientPortalVersion: '1.0',
+                    clientPortalVersion: '2.0-Enhanced',
                     submittedAt: new Date().toISOString(),
                     userAgent: navigator.userAgent
                 };
@@ -3073,7 +3531,9 @@
                 ]);
             }
 
-            // UI Management
+            // ========================================
+            // ENHANCED UI MANAGEMENT
+            // ========================================
             showLogin() {
                 const loginContainer = document.getElementById('loginContainer');
                 const portalContainer = document.getElementById('portalContainer');
@@ -3084,6 +3544,8 @@
                 if (portalContainer) portalContainer.style.display = 'none';
                 if (loginActions) loginActions.style.display = 'flex';
                 if (userActions) userActions.classList.add('hidden');
+                
+                this.updateMobileMenu();
             }
 
             showPortal() {
@@ -3098,6 +3560,7 @@
                 if (userActions) userActions.classList.remove('hidden');
                 
                 this.updateUserInfo();
+                this.updateMobileMenu();
                 
                 // Initialize calendar when portal is shown
                 setTimeout(() => {
@@ -3110,7 +3573,7 @@
                     }, 500);
                 }
                 
-                console.log('🎉 Portal loaded successfully!');
+                console.log('🎉 Enhanced Portal loaded successfully!');
             }
 
             openBookingModal() {
@@ -3161,6 +3624,9 @@
                     this.bindServiceOptions();
                     
                     this.validateBookingForm();
+                    
+                    // Prevent body scroll
+                    document.body.style.overflow = 'hidden';
                 }
             }
 
@@ -3168,6 +3634,8 @@
                 const modal = document.getElementById('bookingModal');
                 if (modal) {
                     modal.classList.remove('show');
+                    // Restore body scroll
+                    document.body.style.overflow = '';
                 }
             }
 
@@ -3207,12 +3675,17 @@
                     const loginForm = document.getElementById('loginForm');
                     if (loginForm) loginForm.reset();
                     
+                    // Close mobile menu if open
+                    this.closeMobileMenu();
+                    
                     this.showLogin();
                     this.showNotification('Successfully logged out!', 'info');
                 }
             }
 
-            // Calendar Management
+            // ========================================
+            // ENHANCED CALENDAR MANAGEMENT
+            // ========================================
             setupCalendar() {
                 // Calendar navigation event listeners
                 const prevMonthBtn = document.getElementById('prevMonthBtn');
@@ -3549,7 +4022,7 @@
                     participants: 1, // Default participants
                     specialRequests: null,
                     // Add metadata
-                    clientPortalVersion: '1.0',
+                    clientPortalVersion: '2.0-Enhanced',
                     submittedAt: new Date().toISOString(),
                     bookingType: 'quick'
                 };
@@ -3626,7 +4099,9 @@
                 }
             }
 
-            // Utility Functions
+            // ========================================
+            // UTILITY FUNCTIONS - UNCHANGED
+            // ========================================
             getAuthToken() {
                 return localStorage.getItem('elitePortalAuthToken');
             }
@@ -3762,6 +4237,30 @@
             }
         }
 
+        // ========================================
+        // ENHANCED GLOBAL HELPER FUNCTIONS
+        // ========================================
+        function toggleMobileMenu() {
+            if (portal) {
+                portal.toggleMobileMenu();
+            }
+        }
+
+        function closeMobileMenu() {
+            if (portal) {
+                portal.closeMobileMenu();
+            }
+        }
+
+        function handleMobileLogin() {
+            closeMobileMenu();
+            // Focus on email input after menu closes
+            setTimeout(() => {
+                const emailInput = document.getElementById('email');
+                if (emailInput) emailInput.focus();
+            }, 300);
+        }
+
         function handleQuickTimeSelection(time) {
             if (portal && portal.selectedCalendarDate) {
                 // Clear previous time slot selections
@@ -3800,7 +4299,7 @@
             }
         }
 
-        // Global Helper Functions - These are called from HTML onclick handlers
+        // Original global helper functions - UNCHANGED
         function handleTestConnection() {
             if (portal) {
                 portal.testConnectionManual();
@@ -3832,7 +4331,7 @@
 
         function handleShowDemoInfo() {
             if (portal) {
-                portal.showNotification('Portal connected to production D1 database with full CRUD functionality! Perfect for 805 LifeGuard professional pool safety services.', 'info');
+                portal.showNotification('Enhanced portal connected to production D1 database with full CRUD functionality! Perfect for 805 LifeGuard professional pool safety services.', 'info');
             }
         }
 
@@ -3878,27 +4377,32 @@
             }
         }
 
-        // Initialize Portal on DOM Content Loaded
+        // ========================================
+        // ENHANCED INITIALIZATION
+        // ========================================
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 DOM loaded, initializing 805 LifeGuard Elite Client Portal...');
-            portal = new EliteClientPortal();
+            console.log('🚀 DOM loaded, initializing Enhanced 805 LifeGuard Elite Client Portal...');
+            portal = new EnhancedEliteClientPortal();
         });
 
-        // Handle modal clicks (close when clicking outside)
+        // Enhanced modal clicks (close when clicking outside)
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 handleCloseBookingModal();
             }
         });
 
-        // Handle escape key
+        // Enhanced escape key handling
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 handleCloseBookingModal();
+                if (portal && portal.isMobileMenuOpen) {
+                    portal.closeMobileMenu();
+                }
             }
         });
 
-        // Performance optimizations
+        // Enhanced performance optimizations
         if ('requestIdleCallback' in window) {
             requestIdleCallback(() => {
                 console.log('🔧 Performing background optimizations...');
@@ -3914,12 +4418,12 @@
         // Service Worker Registration (for future PWA features)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                console.log('🔧 Service worker support detected');
+                console.log('🔧 Service worker support detected - ready for PWA features');
                 // Service worker can be registered here for offline functionality
             });
         }
 
-        // Error Handling
+        // Enhanced Error Handling
         window.addEventListener('error', (e) => {
             console.error('🚨 Global error:', e.error);
             if (portal) {
@@ -3934,11 +4438,11 @@
             }
         });
 
-        console.log('🏊‍♂️ 805 LifeGuard Elite Client Portal - Production Ready!');
-        console.log('📱 Features: Authentication, Booking Management, Real-time Updates');
-        console.log('🔗 Backend: Cloudflare D1 Database with full CRUD operations');
-        console.log('✨ UI: Professional pool safety theme matching main website');
-        console.log('🚀 Status: Ready for production deployment!');
+        console.log('🏊‍♂️ Enhanced 805 LifeGuard Elite Client Portal - Next Level UX Ready!');
+        console.log('📱 Enhanced Features: Mobile Menu, Responsive Design, Smooth Animations');
+        console.log('🔗 Backend: Cloudflare D1 Database with full CRUD operations (UNCHANGED)');
+        console.log('✨ UI: Next-level professional pool safety theme with enhanced UX');
+        console.log('🚀 Status: Production ready with enhanced user experience!');
     </script>
 </body>
 </html>
