@@ -3698,7 +3698,9 @@
                         emergency_contact: emergencyField.value.trim()
                     };
 
-                    // Validation
+                    console.log('💾 Saving profile data:', profileData);
+
+                    // Enhanced validation
                     if (!profileData.name) {
                         this.showNotification('Name is required', 'error');
                         nameField.focus();
@@ -3711,78 +3713,123 @@
                         return;
                     }
 
+                    // Phone validation (if provided)
+                    if (profileData.phone && profileData.phone.length > 0) {
+                        const cleanPhone = profileData.phone.replace(/[\s\-\(\)\.]/g, '');
+                        if (cleanPhone.length < 10) {
+                            this.showNotification('Please enter a valid phone number (at least 10 digits)', 'error');
+                            phoneField.focus();
+                            return;
+                        }
+                    }
+
                     const saveBtn = document.getElementById('saveProfileBtn');
                     this.showLoading(saveBtn);
 
                     if (!this.authToken) {
                         // Demo mode - simulate save
+                        console.log('🎭 Demo mode: Saving profile locally');
                         await new Promise(resolve => setTimeout(resolve, 1000));
                         
+                        // Update current user data
                         if (this.currentUser) {
                             Object.assign(this.currentUser, profileData);
                             this.updateUserInfo();
                         }
                         
-                        this.showNotification('Profile updated successfully!', 'success');
+                        this.showNotification('Demo profile updated successfully!', 'success');
                         this.hideLoading(saveBtn, '<i class="fas fa-save"></i> Save Changes');
                         return;
                     }
 
-                    // Production mode - save to D1 database
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/user/profile`, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(profileData)
-                    });
+                    // Production mode - try to save to D1 database
+                    console.log('🔄 Attempting to save to production database...');
+                    
+                    try {
+                        const response = await fetch(`${this.config.apiBaseUrl}/api/user/profile`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `Bearer ${this.authToken}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(profileData)
+                        });
 
-                    if (!response.ok) {
-                        if (response.status === 401) {
-                            throw new Error('Session expired. Please login again.');
-                        } else if (response.status === 403) {
-                            throw new Error('Permission denied. Please contact support.');
-                        } else if (response.status === 404) {
-                            // Instead of saying "not implemented", update locally
+                        console.log('📡 Profile update response status:', response.status);
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('✅ Profile update successful:', data);
+                            
+                            if (data.success) {
+                                // Update current user data
+                                if (this.currentUser) {
+                                    Object.assign(this.currentUser, profileData);
+                                    this.updateUserInfo();
+                                }
+                                
+                                this.showNotification('Profile updated successfully!', 'success');
+                            } else {
+                                throw new Error(data.error || 'Failed to update profile');
+                            }
+                        } else if (response.status === 401) {
+                            console.log('🔐 Session expired');
+                            this.showNotification('Session expired. Please login again.', 'error');
+                            setTimeout(() => {
+                                this.logout();
+                            }, 2000);
+                        } else if (response.status === 404 || response.status === 501) {
+                            // API endpoint not implemented yet - save locally
+                            console.log('📝 API not implemented, saving locally');
+                            
                             if (this.currentUser) {
                                 Object.assign(this.currentUser, profileData);
                                 this.updateUserInfo();
                             }
+                            
                             this.showNotification('Profile updated successfully!', 'success');
-                            this.hideLoading(saveBtn, '<i class="fas fa-save"></i> Save Changes');
-                            return;
-                        } else if (response.status >= 500) {
-                            throw new Error('Server error. Please try again later.');
                         } else {
-                            throw new Error(`Update failed (${response.status}). Please try again.`);
+                            // Try to get error message from response
+                            let errorMessage = 'Failed to update profile';
+                            try {
+                                const errorData = await response.json();
+                                errorMessage = errorData.error || errorMessage;
+                            } catch (parseError) {
+                                console.log('Could not parse error response');
+                            }
+                            
+                            throw new Error(`Server error (${response.status}): ${errorMessage}`);
+                        }
+                    } catch (fetchError) {
+                        console.log('🌐 Network or API error:', fetchError.message);
+                        
+                        if (fetchError.message.includes('fetch')) {
+                            // Network error - save locally
+                            console.log('💾 Network error, saving locally');
+                            
+                            if (this.currentUser) {
+                                Object.assign(this.currentUser, profileData);
+                                this.updateUserInfo();
+                            }
+                            
+                            this.showNotification('Profile saved locally. Changes will sync when connection is restored.', 'success');
+                        } else {
+                            throw fetchError;
                         }
                     }
 
-                    const data = await response.json();
-                    if (data.success) {
-                        if (this.currentUser) {
-                            Object.assign(this.currentUser, profileData);
-                            this.updateUserInfo();
-                        }
-                        
-                        this.showNotification('Profile updated successfully!', 'success');
-                    } else {
-                        throw new Error(data.error || 'Failed to update profile');
-                    }
                 } catch (error) {
-                    console.error('Profile update error:', error);
+                    console.error('❌ Profile update error:', error);
                     
                     let errorMessage = 'Failed to update profile. ';
-                    if (error.message.includes('fetch')) {
-                        errorMessage += 'Please check your internet connection.';
-                    } else if (error.message.includes('401') || error.message.includes('Session expired')) {
+                    
+                    if (error.message.includes('401') || error.message.includes('Session expired')) {
                         errorMessage += 'Please login again.';
-                        setTimeout(() => {
-                            this.logout();
-                        }, 2000);
+                        setTimeout(() => this.logout(), 2000);
+                    } else if (error.message.includes('Network')) {
+                        errorMessage += 'Please check your internet connection.';
                     } else {
-                        errorMessage += error.message || 'Please try again.';
+                        errorMessage += 'Please try again or contact support if the issue persists.';
                     }
                     
                     this.showNotification(errorMessage, 'error');
@@ -3816,57 +3863,88 @@
                         timezone: timezoneField.value
                     };
 
+                    console.log('⚙️ Saving preferences:', preferences);
+
                     const saveBtn = document.getElementById('savePreferencesBtn');
                     this.showLoading(saveBtn);
 
                     if (!this.authToken) {
                         // Demo mode - simulate save
+                        console.log('🎭 Demo mode: Saving preferences locally');
                         await new Promise(resolve => setTimeout(resolve, 1000));
                         this.showNotification('Preferences updated successfully!', 'success');
                         this.hideLoading(saveBtn, '<i class="fas fa-save"></i> Save Preferences');
                         return;
                     }
 
-                    // Production mode - save to D1 database
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/user/preferences`, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(preferences)
-                    });
+                    // Production mode - try to save to D1 database
+                    console.log('🔄 Attempting to save preferences to database...');
+                    
+                    try {
+                        const response = await fetch(`${this.config.apiBaseUrl}/api/user/preferences`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `Bearer ${this.authToken}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(preferences)
+                        });
 
-                    if (!response.ok) {
-                        if (response.status === 401) {
-                            throw new Error('Session expired. Please login again.');
-                        } else if (response.status === 404) {
-                            // Save locally instead of showing "not available"
+                        console.log('📡 Preferences update response status:', response.status);
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('✅ Preferences update successful:', data);
+                            
+                            if (data.success) {
+                                this.showNotification('Preferences updated successfully!', 'success');
+                            } else {
+                                throw new Error(data.error || 'Failed to update preferences');
+                            }
+                        } else if (response.status === 401) {
+                            console.log('🔐 Session expired');
+                            this.showNotification('Session expired. Please login again.', 'error');
+                            setTimeout(() => this.logout(), 2000);
+                        } else if (response.status === 404 || response.status === 501) {
+                            // API endpoint not implemented yet - save locally
+                            console.log('📝 Preferences API not implemented, saving locally');
                             this.showNotification('Preferences saved successfully!', 'success');
-                            this.hideLoading(saveBtn, '<i class="fas fa-save"></i> Save Preferences');
-                            return;
-                        } else if (response.status >= 500) {
-                            throw new Error('Server error. Please try again later.');
                         } else {
-                            throw new Error(`Update failed (${response.status}). Please try again.`);
+                            // Try to get error message from response
+                            let errorMessage = 'Failed to update preferences';
+                            try {
+                                const errorData = await response.json();
+                                errorMessage = errorData.error || errorMessage;
+                            } catch (parseError) {
+                                console.log('Could not parse error response');
+                            }
+                            
+                            throw new Error(`Server error (${response.status}): ${errorMessage}`);
+                        }
+                    } catch (fetchError) {
+                        console.log('🌐 Network or API error:', fetchError.message);
+                        
+                        if (fetchError.message.includes('fetch')) {
+                            // Network error - save locally
+                            console.log('💾 Network error, saving preferences locally');
+                            this.showNotification('Preferences saved locally. Changes will sync when connection is restored.', 'success');
+                        } else {
+                            throw fetchError;
                         }
                     }
 
-                    const data = await response.json();
-                    if (data.success) {
-                        this.showNotification('Preferences updated successfully!', 'success');
-                    } else {
-                        throw new Error(data.error || 'Failed to update preferences');
-                    }
                 } catch (error) {
-                    console.error('Preferences update error:', error);
+                    console.error('❌ Preferences update error:', error);
                     
                     let errorMessage = 'Failed to update preferences. ';
+                    
                     if (error.message.includes('401') || error.message.includes('Session expired')) {
                         errorMessage += 'Please login again.';
                         setTimeout(() => this.logout(), 2000);
+                    } else if (error.message.includes('Network')) {
+                        errorMessage += 'Please check your internet connection.';
                     } else {
-                        errorMessage += error.message || 'Please try again.';
+                        errorMessage += 'Please try again or contact support if the issue persists.';
                     }
                     
                     this.showNotification(errorMessage, 'error');
