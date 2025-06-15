@@ -4044,10 +4044,20 @@
                 // Date change for time slots
                 const bookingDate = document.getElementById('bookingDate');
                 if (bookingDate) {
-                    bookingDate.addEventListener('change', () => {
+                    bookingDate.addEventListener('change', (e) => {
+                        console.log('📅 Date changed to:', e.target.value);
                         if (this.selectedService && this.selectedDuration) {
                             this.generateTimeSlots();
                         }
+                        this.validateBookingForm();
+                    });
+                }
+
+                // Participants change
+                const participants = document.getElementById('participants');
+                if (participants) {
+                    participants.addEventListener('change', () => {
+                        this.validateBookingForm();
                     });
                 }
             }
@@ -4315,7 +4325,13 @@
                     // Re-bind service selection event listeners
                     this.bindServiceOptions();
                     
-                    this.validateBookingForm();
+                    // Set form as invalid initially
+                    const submitBtn = document.getElementById('submitBookingBtn');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Complete Form';
+                        submitBtn.style.opacity = '0.6';
+                    }
                     
                     // Prevent body scroll
                     document.body.style.overflow = 'hidden';
@@ -4771,7 +4787,20 @@
                 // Comprehensive validation
                 const validationResult = this.validateBookingData();
                 if (!validationResult.isValid) {
-                    this.showNotification(validationResult.message, 'error');
+                    console.log('❌ Booking validation failed:', validationResult.message);
+                    this.showNotification(`Please complete the form: ${validationResult.message}`, 'error');
+                    
+                    // Scroll to first missing field
+                    if (!this.selectedService) {
+                        document.querySelector('.service-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (!this.selectedDuration) {
+                        document.querySelector('#durationGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (!document.getElementById('bookingDate').value) {
+                        document.getElementById('bookingDate').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (!this.selectedTime) {
+                        document.querySelector('#timeSlotsGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    
                     return;
                 }
                 
@@ -5261,19 +5290,28 @@
         function handleQuickBook(serviceType) {
             if (portal) {
                 console.log('🚀 Quick booking initiated for:', serviceType);
-                portal.selectedService = serviceType;
+                
+                // Open the booking modal first
                 portal.openBookingModal();
                 
+                // Wait for modal to be fully loaded, then pre-select service
                 setTimeout(() => {
                     const serviceOption = document.querySelector(`[data-service="${serviceType}"]`);
+                    console.log('🎯 Found service option:', serviceOption);
+                    
                     if (serviceOption) {
+                        // Trigger service selection
                         portal.selectService(serviceOption);
+                        
+                        console.log('✅ Service pre-selected:', serviceType);
                         portal.showNotification(
                             `${portal.serviceConfig[serviceType]?.name || serviceType} selected! Now choose duration, date and time.`, 
                             'info'
                         );
+                    } else {
+                        console.error('❌ Service option not found for:', serviceType);
                     }
-                }, 300);
+                }, 500); // Give modal time to load
             }
         }
 
