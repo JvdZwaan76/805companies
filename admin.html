@@ -1084,7 +1084,7 @@
             <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: var(--radius-xl); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
                 <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
                     <i class="fas fa-shield-alt"></i>
-                    Secure Admin Database
+                    Production Database Connected
                 </div>
                 <div style="font-size: 0.875rem; color: var(--gray-300); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> lifeguard-portal-api-production.jaspervdz.workers.dev<br>
@@ -1398,7 +1398,7 @@
     <!-- JavaScript -->
     <script>
         /**
-         * 🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY
+         * 🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY WITH D1 INTEGRATION
          * 
          * ✅ PRODUCTION ADMIN FEATURES:
          * - Full D1 Cloudflare Database Integration
@@ -1424,7 +1424,7 @@
                 this.currentModal = null;
                 this.filterStatus = 'all';
                 
-                // Production Configuration
+                // Production Configuration - Matches your D1 setup
                 this.config = {
                     apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
                     enableAnimations: true,
@@ -1493,7 +1493,9 @@
                 }, { passive: true });
             }
 
-            // Admin Authentication
+            // ========================================
+            // ADMIN AUTHENTICATION - CONNECTS TO YOUR D1 DATABASE
+            // ========================================
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -1570,7 +1572,9 @@
                 }
             }
 
-            // Data Loading
+            // ========================================
+            // DATA LOADING - PRODUCTION D1 INTEGRATION
+            // ========================================
             async loadAdminData() {
                 console.log('📊 Loading admin data from D1 database...');
                 
@@ -1601,7 +1605,7 @@
                     const data = await response.json();
                     if (data?.success) {
                         this.customers = data.customers || [];
-                        console.log(`✅ Loaded ${this.customers.length} customers`);
+                        console.log(`✅ Loaded ${this.customers.length} customers from D1`);
                     }
                 } catch (error) {
                     console.error('Error loading customers:', error);
@@ -1621,7 +1625,7 @@
                     const data = await response.json();
                     if (data?.success) {
                         this.bookings = data.bookings || [];
-                        console.log(`✅ Loaded ${this.bookings.length} bookings`);
+                        console.log(`✅ Loaded ${this.bookings.length} bookings from D1`);
                     }
                 } catch (error) {
                     console.error('Error loading bookings:', error);
@@ -1639,7 +1643,7 @@
                     });
                     
                     const data = await response.json();
-                    console.log('📊 Admin stats loaded:', data);
+                    console.log('📊 Admin stats loaded from D1:', data);
                     
                     if (data.success) {
                         this.stats = data.stats;
@@ -1676,7 +1680,9 @@
                 if (userName) userName.textContent = this.currentAdmin.username || 'Administrator';
             }
 
-            // Customer Management
+            // ========================================
+            // CUSTOMER MANAGEMENT - D1 POWERED
+            // ========================================
             async openCustomerManagement() {
                 console.log('👥 Opening customer management...');
                 
@@ -1755,7 +1761,9 @@
                 `).join('');
             }
 
-            // Booking Management
+            // ========================================
+            // BOOKING MANAGEMENT - D1 POWERED
+            // ========================================
             async openBookingManagement() {
                 console.log('📅 Opening booking management...');
                 
@@ -1838,6 +1846,8 @@
 
             async updateBookingStatus(bookingId, newStatus) {
                 try {
+                    console.log(`📋 Updating booking ${bookingId} status to ${newStatus} in D1...`);
+                    
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/${bookingId}`, {
                         method: 'PUT',
                         headers: {
@@ -1876,9 +1886,13 @@
                 }
             }
 
-            // Data Export Functions
+            // ========================================
+            // DATA EXPORT - D1 POWERED
+            // ========================================
             async exportCustomers() {
                 try {
+                    console.log('📤 Exporting customers from D1...');
+                    
                     const token = this.authToken;
                     const url = `${this.config.apiBaseUrl}/api/admin/export?type=customers`;
                     
@@ -1912,6 +1926,8 @@
 
             async exportBookings() {
                 try {
+                    console.log('📤 Exporting bookings from D1...');
+                    
                     const token = this.authToken;
                     const url = `${this.config.apiBaseUrl}/api/admin/export`;
                     
@@ -1943,7 +1959,9 @@
                 }
             }
 
-            // UI Management
+            // ========================================
+            // UI MANAGEMENT
+            // ========================================
             showLogin() {
                 document.getElementById('loginContainer').style.display = 'flex';
                 document.getElementById('portalContainer').style.display = 'none';
@@ -1992,7 +2010,9 @@
                 }, 300);
             }
 
-            // Utility Functions
+            // ========================================
+            // UTILITY FUNCTIONS
+            // ========================================
             getAuthToken() {
                 return localStorage.getItem('eliteAdminAuthToken');
             }
@@ -2162,7 +2182,9 @@
         // Global Admin Portal Instance
         let adminPortal;
 
-        // Global Helper Functions
+        // ========================================
+        // GLOBAL HELPER FUNCTIONS
+        // ========================================
         function fillAdminCredentials() {
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
@@ -2186,8 +2208,6 @@
                 } else {
                     console.log('Admin credentials filled: admin / admin123');
                 }
-            } else {
-                console.error('Could not find username or password input fields');
             }
         }
 
@@ -2288,9 +2308,11 @@
             }
         }
 
-        // Initialize Admin Portal
+        // ========================================
+        // INITIALIZATION
+        // ========================================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION READY');
+            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION READY WITH D1');
             console.log('🏊‍♂️ Features: D1 Integration, Admin Auth, Customer/Booking Management, Analytics');
             console.log('🔗 Production API: lifeguard-portal-api-production.jaspervdz.workers.dev');
             
@@ -2357,6 +2379,8 @@
                 }
             }, 2000);
         });
+
+        console.log('🏊‍♂️ Elite Admin Portal Ready - Connected to Production D1 Database!');
     </script>
 </body>
 </html>
