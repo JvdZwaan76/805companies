@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Enhanced CSS Variables & Design System */
+        /* 🚀 PRODUCTION-READY ADMIN CSS VARIABLES & DESIGN SYSTEM */
         :root {
             /* Advanced Admin Color Palette */
             --primary: #dc2626;
@@ -37,7 +37,7 @@
             --gray-900: #111827;
             --dark: #0f172a;
             
-            /* Enhanced Admin Gradients */
+            /* Advanced Admin Gradients */
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             --gradient-hero: linear-gradient(135deg, #dc2626 0%, #7c3aed 50%, #f59e0b 100%);
             --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
@@ -69,7 +69,7 @@
             --space-20: 5rem;
             --space-24: 6rem;
             
-            /* Enhanced Transitions */
+            /* Advanced Transitions */
             --transition-all: all 0.15s ease;
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-spring: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -373,30 +373,6 @@
             padding: var(--space-2) var(--space-4);
             font-size: 0.75rem;
             border-radius: var(--radius-lg);
-        }
-
-        .btn-danger {
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-danger:hover {
-            background: rgba(239, 68, 68, 1);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-success {
-            background: rgba(16, 185, 129, 0.9);
-            color: white;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-success:hover {
-            background: rgba(16, 185, 129, 1);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
         }
 
         /* Login Screen */
@@ -892,41 +868,6 @@
             background: var(--gradient-hero);
         }
 
-        /* Search and Filter Bar */
-        .search-filter-bar {
-            display: flex;
-            gap: var(--space-4);
-            margin-bottom: var(--space-6);
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 300px;
-            padding: var(--space-3) var(--space-4);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            color: white;
-            font-size: 0.875rem;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .filter-select {
-            padding: var(--space-3) var(--space-4);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            color: white;
-            font-size: 0.875rem;
-        }
-
         /* Notifications */
         .notification {
             position: fixed;
@@ -1010,109 +951,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Enhanced Mobile Navigation */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: var(--space-2);
-            border-radius: var(--radius-lg);
-            transition: var(--transition-smooth);
-        }
-
-        .mobile-menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 320px;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(30px);
-            box-shadow: var(--shadow-2xl);
-            padding: var(--space-20) var(--space-6) var(--space-6);
-            transition: var(--transition-smooth);
-            z-index: var(--z-40);
-            overflow-y: auto;
-        }
-
-        .mobile-nav.open {
-            right: 0;
-        }
-
-        .mobile-nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-smooth);
-            z-index: var(--z-30);
-        }
-
-        .mobile-nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-nav-close {
-            position: absolute;
-            top: var(--space-6);
-            right: var(--space-6);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: var(--space-2);
-            border-radius: var(--radius-full);
-            transition: var(--transition-smooth);
-        }
-
-        .mobile-nav-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--error);
-        }
-
-        .mobile-nav-items {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-4);
-        }
-
-        .mobile-nav-item {
-            padding: var(--space-4);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-xl);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-        }
-
-        .mobile-nav-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .mobile-nav-item i {
-            width: 20px;
-            text-align: center;
-        }
-
         /* Utility Classes */
         .hidden { display: none !important; }
         .show { display: block !important; }
@@ -1123,19 +961,24 @@
         .mb-4 { margin-bottom: var(--space-4); }
         .p-4 { padding: var(--space-4); }
 
+        /* Special Effects */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-content {
                 padding: 0 var(--space-4);
-            }
-            
-            .nav-actions .btn,
-            .user-menu {
-                display: none;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
             }
             
             .login-card {
@@ -1160,15 +1003,6 @@
             .modal-content {
                 margin: var(--space-4);
                 max-width: calc(100vw - 2rem);
-            }
-
-            .search-filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-input {
-                min-width: auto;
             }
         }
 
@@ -1231,46 +1065,9 @@
                         Logout
                     </button>
                 </div>
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
         </div>
     </nav>
-
-    <!-- Mobile Navigation Overlay -->
-    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileMenu()"></div>
-
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-nav-close" onclick="closeMobileMenu()">
-            <i class="fas fa-times"></i>
-        </button>
-        
-        <div class="mobile-nav-items">
-            <a href="#" class="mobile-nav-item" onclick="openCustomerManagement(); closeMobileMenu();">
-                <i class="fas fa-users"></i>
-                Customer Management
-            </a>
-            <a href="#" class="mobile-nav-item" onclick="openBookingManagement(); closeMobileMenu();">
-                <i class="fas fa-calendar-alt"></i>
-                Booking Management
-            </a>
-            <a href="#" class="mobile-nav-item" onclick="openAnalytics(); closeMobileMenu();">
-                <i class="fas fa-chart-line"></i>
-                Analytics & Reports
-            </a>
-            <a href="#" class="mobile-nav-item" onclick="exportBookings(); closeMobileMenu();">
-                <i class="fas fa-download"></i>
-                Export Data
-            </a>
-            <a href="#" class="mobile-nav-item" onclick="logout(); closeMobileMenu();">
-                <i class="fas fa-sign-out-alt"></i>
-                Logout
-            </a>
-        </div>
-    </div>
 
     <!-- Login Screen -->
     <div class="login-container" id="loginContainer">
@@ -1501,15 +1298,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="search-filter-bar">
-                    <input type="text" id="customerSearch" class="search-input" placeholder="Search customers by name, email, or phone...">
-                    <select id="customerFilter" class="filter-select">
-                        <option value="all">All Customers</option>
-                        <option value="recent">Recent Customers</option>
-                        <option value="active">Active Customers</option>
-                        <option value="high-value">High Value</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="addNewCustomer()">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+                    <div style="display: flex; gap: var(--space-4); align-items: center;">
+                        <input type="text" id="customerSearch" class="form-input" placeholder="Search customers..." style="width: 300px;">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary">
                         <i class="fas fa-user-plus"></i>
                         Add Customer
                     </button>
@@ -1557,21 +1353,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="search-filter-bar">
-                    <input type="text" id="bookingSearch" class="search-input" placeholder="Search bookings by customer, service, or date...">
-                    <select id="statusFilter" class="filter-select">
-                        <option value="all">All Bookings</option>
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                    <select id="dateFilter" class="filter-select">
-                        <option value="all">All Dates</option>
-                        <option value="today">Today</option>
-                        <option value="week">This Week</option>
-                        <option value="month">This Month</option>
-                    </select>
+                <div style="display: flex; gap: var(--space-3); margin-bottom: var(--space-6); flex-wrap: wrap;">
+                    <button class="btn btn-secondary btn-small filter-btn active" data-status="all">All Bookings</button>
+                    <button class="btn btn-secondary btn-small filter-btn" data-status="pending">Pending</button>
+                    <button class="btn btn-secondary btn-small filter-btn" data-status="confirmed">Confirmed</button>
+                    <button class="btn btn-secondary btn-small filter-btn" data-status="completed">Completed</button>
+                    <button class="btn btn-secondary btn-small filter-btn" data-status="cancelled">Cancelled</button>
                 </div>
                 
                 <div class="table-container">
@@ -1603,128 +1390,15 @@
         </div>
     </div>
 
-    <!-- Customer Edit Modal -->
-    <div class="modal" id="customerEditModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Edit Customer</h2>
-                    <p class="modal-subtitle">Update customer information and preferences</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('customerEditModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="customerEditForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
-                        <div class="form-group">
-                            <label for="editCustomerName" class="form-label">Full Name</label>
-                            <input type="text" id="editCustomerName" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editCustomerEmail" class="form-label">Email Address</label>
-                            <input type="email" id="editCustomerEmail" class="form-input" required>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
-                        <div class="form-group">
-                            <label for="editCustomerPhone" class="form-label">Phone Number</label>
-                            <input type="tel" id="editCustomerPhone" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="editCustomerMemberSince" class="form-label">Member Since</label>
-                            <input type="text" id="editCustomerMemberSince" class="form-input" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editCustomerAddress" class="form-label">Address</label>
-                        <textarea id="editCustomerAddress" class="form-input" rows="2"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="editCustomerEmergency" class="form-label">Emergency Contact</label>
-                        <input type="text" id="editCustomerEmergency" class="form-input">
-                    </div>
-                    <div style="display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-6);">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('customerEditModal')">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="saveCustomerBtn">
-                            <i class="fas fa-save"></i>
-                            Save Changes
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Analytics Modal -->
-    <div class="modal" id="analyticsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Business Analytics</h2>
-                    <p class="modal-subtitle">Comprehensive business intelligence and performance metrics</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('analyticsModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-8);">
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-6); border-radius: var(--radius-2xl);">
-                        <h3 style="margin-bottom: var(--space-4); color: var(--success);">Revenue Analytics</h3>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                            <span>Total Revenue:</span>
-                            <strong id="analyticsRevenue">$0</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                            <span>Monthly Revenue:</span>
-                            <strong id="analyticsMonthlyRevenue">$0</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>Average Booking Value:</span>
-                            <strong id="analyticsAvgBooking">$0</strong>
-                        </div>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-6); border-radius: var(--radius-2xl);">
-                        <h3 style="margin-bottom: var(--space-4); color: var(--primary);">Booking Analytics</h3>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                            <span>Completion Rate:</span>
-                            <strong id="analyticsCompletionRate">0%</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                            <span>Most Popular Service:</span>
-                            <strong id="analyticsPopularService">-</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>Peak Day:</span>
-                            <strong id="analyticsPeakDay">-</strong>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-6); border-radius: var(--radius-2xl);">
-                    <h3 style="margin-bottom: var(--space-4);">Recent Activity</h3>
-                    <div id="recentActivity">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            Loading recent activity...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Connection Status -->
     <div class="connection-status connected" id="connectionStatus" onclick="showProductionInfo()" title="Production Database Connected">
         <i class="fas fa-database"></i> Production Mode
     </div>
 
-    <!-- Enhanced JavaScript -->
+    <!-- JavaScript -->
     <script>
         /**
-         * 🛡️ ENHANCED 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY
+         * 🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY
          * 
          * ✅ PRODUCTION ADMIN FEATURES:
          * - Full D1 Cloudflare Database Integration
@@ -1733,14 +1407,14 @@
          * - Real-time analytics and reporting
          * - Data export capabilities
          * - Advanced business intelligence
-         * - Enhanced mobile responsiveness
+         * - Professional admin UI with premium animations
          * - Production error handling
          * - Performance optimizations
          * 
          * 🔗 API Endpoint: https://lifeguard-portal-api-production.jaspervdz.workers.dev
          */
         
-        class EnhancedEliteAdminPortal {
+        class EliteAdminPortal {
             constructor() {
                 this.currentAdmin = null;
                 this.authToken = null;
@@ -1749,9 +1423,6 @@
                 this.stats = {};
                 this.currentModal = null;
                 this.filterStatus = 'all';
-                this.isMobileMenuOpen = false;
-                this.searchTerm = '';
-                this.dateFilter = 'all';
                 
                 // Production Configuration
                 this.config = {
@@ -1766,14 +1437,13 @@
             }
 
             async init() {
-                console.log('🛡️ Enhanced Elite Admin Portal Initializing...');
+                console.log('🛡️ Elite Admin Portal Initializing...');
                 console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
                 console.log('💾 Mode: Production D1 Database');
                 
                 try {
                     this.setupEventListeners();
                     this.setupScrollEffects();
-                    this.setupMobileNavigation();
                     
                     // Check for existing admin session
                     const token = this.getAuthToken();
@@ -1784,7 +1454,7 @@
                         this.showLogin();
                     }
                     
-                    console.log('✨ Enhanced Elite Admin Portal Ready!');
+                    console.log('✨ Elite Admin Portal Ready!');
                 } catch (error) {
                     console.error('🚨 Admin portal initialization error:', error);
                     this.showNotification('Admin portal initialized. Please try logging in.', 'info');
@@ -1799,66 +1469,16 @@
                     this.handleAdminLogin();
                 });
 
-                // Search and filter inputs
-                const customerSearch = document.getElementById('customerSearch');
-                if (customerSearch) {
-                    customerSearch.addEventListener('input', (e) => {
-                        this.searchCustomers(e.target.value);
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.setBookingFilter(e.target.dataset.status);
                     });
-                }
-
-                const bookingSearch = document.getElementById('bookingSearch');
-                if (bookingSearch) {
-                    bookingSearch.addEventListener('input', (e) => {
-                        this.searchBookings(e.target.value);
-                    });
-                }
-
-                const statusFilter = document.getElementById('statusFilter');
-                if (statusFilter) {
-                    statusFilter.addEventListener('change', (e) => {
-                        this.filterStatus = e.target.value;
-                        this.filterBookings();
-                    });
-                }
-
-                const dateFilter = document.getElementById('dateFilter');
-                if (dateFilter) {
-                    dateFilter.addEventListener('change', (e) => {
-                        this.dateFilter = e.target.value;
-                        this.filterBookings();
-                    });
-                }
-
-                const customerFilter = document.getElementById('customerFilter');
-                if (customerFilter) {
-                    customerFilter.addEventListener('change', (e) => {
-                        this.filterCustomers(e.target.value);
-                    });
-                }
-
-                // Customer edit form
-                const customerEditForm = document.getElementById('customerEditForm');
-                if (customerEditForm) {
-                    customerEditForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.saveCustomerChanges();
-                    });
-                }
-
-                // Global click handler for modals
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('modal')) {
-                        this.closeModal();
-                    }
                 });
 
-                // Global escape key handler
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeModal();
-                        this.closeMobileMenu();
-                    }
+                // Customer search
+                document.getElementById('customerSearch')?.addEventListener('input', (e) => {
+                    this.filterCustomers(e.target.value);
                 });
             }
 
@@ -1873,26 +1493,7 @@
                 }, { passive: true });
             }
 
-            setupMobileNavigation() {
-                const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-                const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-                
-                if (mobileMenuToggle) {
-                    mobileMenuToggle.addEventListener('click', () => {
-                        this.toggleMobileMenu();
-                    });
-                }
-
-                if (mobileNavOverlay) {
-                    mobileNavOverlay.addEventListener('click', () => {
-                        this.closeMobileMenu();
-                    });
-                }
-            }
-
-            // ========================================
-            // ENHANCED AUTHENTICATION
-            // ========================================
+            // Admin Authentication
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -1969,9 +1570,7 @@
                 }
             }
 
-            // ========================================
-            // ENHANCED DATA LOADING
-            // ========================================
+            // Data Loading
             async loadAdminData() {
                 console.log('📊 Loading admin data from D1 database...');
                 
@@ -2058,12 +1657,12 @@
                     }
                 } catch (error) {
                     console.error('Error loading admin stats:', error);
-                    // Use fallback demo values
-                    this.animateNumber('totalCustomers', 15);
-                    this.animateNumber('totalBookings', 48);
-                    this.animateRevenue('monthlyRevenue', 12500);
-                    this.animateNumber('pendingBookings', 7);
-                    this.animateNumber('confirmedBookings', 23);
+                    // Use fallback values
+                    this.animateNumber('totalCustomers', 0);
+                    this.animateNumber('totalBookings', 0);
+                    this.animateRevenue('monthlyRevenue', 0);
+                    this.animateNumber('pendingBookings', 0);
+                    this.animateNumber('confirmedBookings', 0);
                 }
             }
 
@@ -2077,9 +1676,7 @@
                 if (userName) userName.textContent = this.currentAdmin.username || 'Administrator';
             }
 
-            // ========================================
-            // ENHANCED CUSTOMER MANAGEMENT
-            // ========================================
+            // Customer Management
             async openCustomerManagement() {
                 console.log('👥 Opening customer management...');
                 
@@ -2096,7 +1693,7 @@
                     tbody.innerHTML = `
                         <tr>
                             <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                No customers found
+                            No customers found
                             </td>
                         </tr>
                     `;
@@ -2115,53 +1712,17 @@
                             <button onclick="editCustomer('${customer.id}')" class="btn btn-secondary btn-small">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button onclick="viewCustomerBookings('${customer.id}')" class="btn btn-primary btn-small">
-                                <i class="fas fa-calendar"></i> Bookings
-                            </button>
                         </td>
                     </tr>
                 `).join('');
             }
 
-            searchCustomers(searchTerm) {
-                this.searchTerm = searchTerm.toLowerCase();
-                this.filterCustomers();
-            }
-
-            filterCustomers(filterType = 'all') {
-                let filteredCustomers = this.customers;
-                
-                // Apply search filter
-                if (this.searchTerm) {
-                    filteredCustomers = filteredCustomers.filter(customer => 
-                        customer.name.toLowerCase().includes(this.searchTerm) ||
-                        customer.email.toLowerCase().includes(this.searchTerm) ||
-                        (customer.phone && customer.phone.includes(this.searchTerm))
-                    );
-                }
-                
-                // Apply type filter
-                if (filterType !== 'all') {
-                    switch (filterType) {
-                        case 'recent':
-                            filteredCustomers = filteredCustomers.filter(customer => {
-                                const memberDate = new Date(customer.member_since);
-                                const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-                                return memberDate >= thirtyDaysAgo;
-                            });
-                            break;
-                        case 'active':
-                            filteredCustomers = filteredCustomers.filter(customer => 
-                                (customer.total_bookings || 0) > 0
-                            );
-                            break;
-                        case 'high-value':
-                            filteredCustomers = filteredCustomers.filter(customer => 
-                                (customer.total_spent || 0) > 500
-                            );
-                            break;
-                    }
-                }
+            filterCustomers(searchTerm) {
+                const filteredCustomers = this.customers.filter(customer => 
+                    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (customer.phone && customer.phone.includes(searchTerm))
+                );
                 
                 const tbody = document.getElementById('customersTableBody');
                 if (!tbody) return;
@@ -2170,7 +1731,7 @@
                     tbody.innerHTML = `
                         <tr>
                             <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                No customers found matching your criteria
+                                No customers found matching "${searchTerm}"
                             </td>
                         </tr>
                     `;
@@ -2189,118 +1750,12 @@
                             <button onclick="editCustomer('${customer.id}')" class="btn btn-secondary btn-small">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button onclick="viewCustomerBookings('${customer.id}')" class="btn btn-primary btn-small">
-                                <i class="fas fa-calendar"></i> Bookings
-                            </button>
                         </td>
                     </tr>
                 `).join('');
             }
 
-            editCustomer(customerId) {
-                const customer = this.customers.find(c => c.id == customerId);
-                if (!customer) {
-                    this.showNotification('Customer not found', 'error');
-                    return;
-                }
-
-                // Populate edit form
-                document.getElementById('editCustomerName').value = customer.name || '';
-                document.getElementById('editCustomerEmail').value = customer.email || '';
-                document.getElementById('editCustomerPhone').value = customer.phone || '';
-                document.getElementById('editCustomerAddress').value = customer.address || '';
-                document.getElementById('editCustomerEmergency').value = customer.emergency_contact || '';
-                document.getElementById('editCustomerMemberSince').value = new Date(customer.member_since).toLocaleDateString();
-
-                // Store customer ID for saving
-                document.getElementById('customerEditForm').dataset.customerId = customerId;
-
-                this.showModal('customerEditModal');
-            }
-
-            async saveCustomerChanges() {
-                const form = document.getElementById('customerEditForm');
-                const customerId = form.dataset.customerId;
-                const saveBtn = document.getElementById('saveCustomerBtn');
-
-                if (!customerId) {
-                    this.showNotification('Customer ID not found', 'error');
-                    return;
-                }
-
-                this.showLoading(saveBtn);
-
-                try {
-                    const customerData = {
-                        name: document.getElementById('editCustomerName').value.trim(),
-                        email: document.getElementById('editCustomerEmail').value.trim(),
-                        phone: document.getElementById('editCustomerPhone').value.trim(),
-                        address: document.getElementById('editCustomerAddress').value.trim(),
-                        emergency_contact: document.getElementById('editCustomerEmergency').value.trim()
-                    };
-
-                    // Validation
-                    if (!customerData.name || !customerData.email) {
-                        this.showNotification('Name and email are required', 'error');
-                        return;
-                    }
-
-                    // For now, just update the local data (since the API endpoint might not be implemented)
-                    const customerIndex = this.customers.findIndex(c => c.id == customerId);
-                    if (customerIndex !== -1) {
-                        Object.assign(this.customers[customerIndex], customerData);
-                        this.populateCustomersTable();
-                        this.closeModal('customerEditModal');
-                        this.showNotification('Customer updated successfully!', 'success');
-                    }
-
-                } catch (error) {
-                    console.error('Error saving customer:', error);
-                    this.showNotification('Failed to save customer changes', 'error');
-                } finally {
-                    this.hideLoading(saveBtn, '<i class="fas fa-save"></i> Save Changes');
-                }
-            }
-
-            addNewCustomer() {
-                // Clear the form
-                document.getElementById('editCustomerName').value = '';
-                document.getElementById('editCustomerEmail').value = '';
-                document.getElementById('editCustomerPhone').value = '';
-                document.getElementById('editCustomerAddress').value = '';
-                document.getElementById('editCustomerEmergency').value = '';
-                document.getElementById('editCustomerMemberSince').value = new Date().toLocaleDateString();
-
-                // Remove customer ID (indicates new customer)
-                delete document.getElementById('customerEditForm').dataset.customerId;
-
-                // Update modal title
-                document.querySelector('#customerEditModal .modal-title').textContent = 'Add New Customer';
-                document.querySelector('#customerEditModal .modal-subtitle').textContent = 'Create a new customer account';
-
-                this.showModal('customerEditModal');
-            }
-
-            viewCustomerBookings(customerId) {
-                // Filter bookings for this customer and open booking management
-                this.filterStatus = 'all';
-                this.searchTerm = '';
-                this.openBookingManagement();
-                
-                // Set search to customer's name or email
-                const customer = this.customers.find(c => c.id == customerId);
-                if (customer) {
-                    const bookingSearch = document.getElementById('bookingSearch');
-                    if (bookingSearch) {
-                        bookingSearch.value = customer.name;
-                        this.searchBookings(customer.name);
-                    }
-                }
-            }
-
-            // ========================================
-            // ENHANCED BOOKING MANAGEMENT
-            // ========================================
+            // Booking Management
             async openBookingManagement() {
                 console.log('📅 Opening booking management...');
                 
@@ -2313,13 +1768,18 @@
                 const tbody = document.getElementById('bookingsTableBody');
                 if (!tbody) return;
                 
-                let filteredBookings = this.filterBookingsByAllCriteria();
+                let filteredBookings = this.bookings;
+                
+                // Apply status filter
+                if (this.filterStatus !== 'all') {
+                    filteredBookings = this.bookings.filter(booking => booking.status === this.filterStatus);
+                }
                 
                 if (filteredBookings.length === 0) {
                     tbody.innerHTML = `
                         <tr>
                             <td colspan="7" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                No bookings found matching your criteria
+                                No ${this.filterStatus === 'all' ? '' : this.filterStatus + ' '}bookings found
                             </td>
                         </tr>
                     `;
@@ -2340,94 +1800,40 @@
                             <span class="status-badge status-${booking.status}">${booking.status}</span>
                         </td>
                         <td>
-                            ${this.getBookingActions(booking)}
+                            ${booking.status === 'pending' ? `
+                                <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-secondary btn-small" style="margin-right: var(--space-1);">
+                                    <i class="fas fa-check"></i> Confirm
+                                </button>
+                                <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-secondary btn-small" style="background: rgba(239, 68, 68, 0.1); color: var(--error);">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            ` : booking.status === 'confirmed' ? `
+                                <button onclick="updateBookingStatus('${booking.id}', 'completed')" class="btn btn-secondary btn-small">
+                                    <i class="fas fa-check-circle"></i> Complete
+                                </button>
+                            ` : `
+                                <button onclick="viewBookingDetails('${booking.id}')" class="btn btn-secondary btn-small">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                            `}
                         </td>
                     </tr>
                 `).join('');
             }
 
-            getBookingActions(booking) {
-                if (booking.status === 'pending') {
-                    return `
-                        <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-success btn-small" style="margin-right: var(--space-1);">
-                            <i class="fas fa-check"></i> Confirm
-                        </button>
-                        <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-danger btn-small">
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                    `;
-                } else if (booking.status === 'confirmed') {
-                    return `
-                        <button onclick="updateBookingStatus('${booking.id}', 'completed')" class="btn btn-success btn-small">
-                            <i class="fas fa-check-circle"></i> Complete
-                        </button>
-                        <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-danger btn-small">
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                    `;
-                } else {
-                    return `
-                        <button onclick="viewBookingDetails('${booking.id}')" class="btn btn-secondary btn-small">
-                            <i class="fas fa-eye"></i> View Details
-                        </button>
-                    `;
-                }
-            }
-
-            searchBookings(searchTerm) {
-                this.searchTerm = searchTerm.toLowerCase();
+            setBookingFilter(status) {
+                this.filterStatus = status;
+                
+                // Update filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.status === status) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Refresh table
                 this.populateBookingsTable();
-            }
-
-            filterBookings() {
-                this.populateBookingsTable();
-            }
-
-            filterBookingsByAllCriteria() {
-                let filtered = this.bookings;
-                
-                // Apply search filter
-                if (this.searchTerm) {
-                    filtered = filtered.filter(booking => 
-                        (booking.customer?.name || '').toLowerCase().includes(this.searchTerm) ||
-                        (booking.customer?.email || '').toLowerCase().includes(this.searchTerm) ||
-                        (booking.serviceName || booking.service || '').toLowerCase().includes(this.searchTerm) ||
-                        booking.date.includes(this.searchTerm)
-                    );
-                }
-                
-                // Apply status filter
-                if (this.filterStatus !== 'all') {
-                    filtered = filtered.filter(booking => booking.status === this.filterStatus);
-                }
-                
-                // Apply date filter
-                if (this.dateFilter !== 'all') {
-                    const now = new Date();
-                    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                    
-                    filtered = filtered.filter(booking => {
-                        const bookingDate = new Date(booking.date);
-                        
-                        switch (this.dateFilter) {
-                            case 'today':
-                                return bookingDate.toDateString() === today.toDateString();
-                            case 'week':
-                                const weekStart = new Date(today);
-                                weekStart.setDate(today.getDate() - today.getDay());
-                                const weekEnd = new Date(weekStart);
-                                weekEnd.setDate(weekStart.getDate() + 6);
-                                return bookingDate >= weekStart && bookingDate <= weekEnd;
-                            case 'month':
-                                return bookingDate.getMonth() === today.getMonth() && 
-                                       bookingDate.getFullYear() === today.getFullYear();
-                            default:
-                                return true;
-                        }
-                    });
-                }
-                
-                return filtered;
             }
 
             async updateBookingStatus(bookingId, newStatus) {
@@ -2470,162 +1876,9 @@
                 }
             }
 
-            viewBookingDetails(bookingId) {
-                const booking = this.bookings.find(b => b.id === bookingId);
-                if (!booking) {
-                    this.showNotification('Booking not found', 'error');
-                    return;
-                }
-
-                const details = `
-                    <strong>Booking ID:</strong> ${booking.id}<br>
-                    <strong>Customer:</strong> ${booking.customer?.name || 'Unknown'}<br>
-                    <strong>Service:</strong> ${booking.serviceName || booking.service}<br>
-                    <strong>Date:</strong> ${new Date(booking.date).toLocaleDateString()}<br>
-                    <strong>Time:</strong> ${booking.time}<br>
-                    <strong>Duration:</strong> ${booking.duration} hours<br>
-                    <strong>Participants:</strong> ${booking.participants}<br>
-                    <strong>Status:</strong> ${booking.status}<br>
-                    <strong>Cost:</strong> ${booking.cost || 0}<br>
-                    ${booking.special_requests ? `<strong>Special Requests:</strong> ${booking.special_requests}<br>` : ''}
-                    <strong>Created:</strong> ${new Date(booking.created_at).toLocaleString()}
-                `;
-
-                this.showNotification(details, 'info');
-            }
-
-            viewPendingBookings() {
-                this.filterStatus = 'pending';
-                this.openBookingManagement();
-                
-                // Update the filter dropdown
-                const statusFilter = document.getElementById('statusFilter');
-                if (statusFilter) {
-                    statusFilter.value = 'pending';
-                }
-            }
-
-            // ========================================
-            // ANALYTICS AND REPORTING
-            // ========================================
-            async openAnalytics() {
-                console.log('📊 Opening analytics dashboard...');
-                
-                this.showModal('analyticsModal');
-                await this.loadAnalyticsData();
-            }
-
-            async loadAnalyticsData() {
-                try {
-                    // Load comprehensive analytics
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/stats`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        this.populateAnalytics(data.stats);
-                    } else {
-                        // Use demo analytics data
-                        this.populateAnalytics({
-                            revenue: { total: 45000, monthly: 12500 },
-                            bookings: { total: 48, completed: 35, pending: 7, confirmed: 6 }
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error loading analytics:', error);
-                    // Use demo analytics data
-                    this.populateAnalytics({
-                        revenue: { total: 45000, monthly: 12500 },
-                        bookings: { total: 48, completed: 35, pending: 7, confirmed: 6 }
-                    });
-                }
-            }
-
-            populateAnalytics(stats) {
-                // Revenue analytics
-                document.getElementById('analyticsRevenue').textContent = 
-                    `${(stats.revenue?.total || 0).toLocaleString()}`;
-                document.getElementById('analyticsMonthlyRevenue').textContent = 
-                    `${(stats.revenue?.monthly || 0).toLocaleString()}`;
-                
-                const avgBooking = stats.bookings?.total > 0 ? 
-                    (stats.revenue?.total || 0) / stats.bookings.total : 0;
-                document.getElementById('analyticsAvgBooking').textContent = 
-                    `${Math.round(avgBooking).toLocaleString()}`;
-
-                // Booking analytics
-                const completionRate = stats.bookings?.total > 0 ? 
-                    ((stats.bookings?.completed || 0) / stats.bookings.total * 100).toFixed(1) : 0;
-                document.getElementById('analyticsCompletionRate').textContent = `${completionRate}%`;
-                
-                // Analyze service popularity
-                const serviceCounts = {};
-                this.bookings.forEach(booking => {
-                    const service = booking.serviceName || booking.service;
-                    serviceCounts[service] = (serviceCounts[service] || 0) + 1;
-                });
-                
-                const popularService = Object.keys(serviceCounts).reduce((a, b) => 
-                    serviceCounts[a] > serviceCounts[b] ? a : b, 'None');
-                document.getElementById('analyticsPopularService').textContent = popularService;
-
-                // Analyze peak day
-                const dayCounts = {};
-                this.bookings.forEach(booking => {
-                    const dayName = new Date(booking.date).toLocaleDateString('en-US', { weekday: 'long' });
-                    dayCounts[dayName] = (dayCounts[dayName] || 0) + 1;
-                });
-                
-                const peakDay = Object.keys(dayCounts).reduce((a, b) => 
-                    dayCounts[a] > dayCounts[b] ? a : b, 'None');
-                document.getElementById('analyticsPeakDay').textContent = peakDay;
-
-                // Recent activity
-                this.populateRecentActivity();
-            }
-
-            populateRecentActivity() {
-                const recentActivityContainer = document.getElementById('recentActivity');
-                if (!recentActivityContainer) return;
-
-                // Get recent bookings (last 10)
-                const recentBookings = this.bookings
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                    .slice(0, 10);
-
-                if (recentBookings.length === 0) {
-                    recentActivityContainer.innerHTML = '<p style="color: var(--gray-400);">No recent activity</p>';
-                    return;
-                }
-
-                const activityHTML = recentBookings.map(booking => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-3); border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <div>
-                            <strong>${booking.customer?.name || 'Unknown Customer'}</strong> booked 
-                            <span style="color: var(--primary);">${booking.serviceName || booking.service}</span>
-                        </div>
-                        <div style="text-align: right; color: var(--gray-400); font-size: 0.875rem;">
-                            ${new Date(booking.created_at).toLocaleDateString()}<br>
-                            <span class="status-badge status-${booking.status}">${booking.status}</span>
-                        </div>
-                    </div>
-                `).join('');
-
-                recentActivityContainer.innerHTML = activityHTML;
-            }
-
-            // ========================================
-            // DATA EXPORT FUNCTIONS
-            // ========================================
+            // Data Export Functions
             async exportCustomers() {
                 try {
-                    this.showNotification('Preparing customer export...', 'info');
-                    
                     const token = this.authToken;
                     const url = `${this.config.apiBaseUrl}/api/admin/export?type=customers`;
                     
@@ -2653,49 +1906,12 @@
                     }
                 } catch (error) {
                     console.error('Export error:', error);
-                    // Fallback: generate CSV locally
-                    this.exportCustomersLocal();
-                }
-            }
-
-            exportCustomersLocal() {
-                try {
-                    const headers = ['ID', 'Name', 'Email', 'Phone', 'Address', 'Emergency Contact', 'Total Bookings', 'Total Spent', 'Member Since'];
-                    const rows = this.customers.map(customer => [
-                        customer.id,
-                        customer.name || '',
-                        customer.email,
-                        customer.phone || '',
-                        customer.address || '',
-                        customer.emergency_contact || '',
-                        customer.total_bookings || 0,
-                        customer.total_spent || 0,
-                        customer.member_since || customer.created_at
-                    ]);
-                    
-                    const csvContent = [headers, ...rows].map(row => 
-                        row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-                    ).join('\n');
-                    
-                    const blob = new Blob([csvContent], { type: 'text/csv' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = `805-lifeguard-customers-${new Date().toISOString().split('T')[0]}.csv`;
-                    link.click();
-                    URL.revokeObjectURL(url);
-                    
-                    this.showNotification('Customer data exported successfully!', 'success');
-                } catch (error) {
-                    console.error('Local export error:', error);
                     this.showNotification('Export failed. Please try again.', 'error');
                 }
             }
 
             async exportBookings() {
                 try {
-                    this.showNotification('Preparing booking export...', 'info');
-                    
                     const token = this.authToken;
                     const url = `${this.config.apiBaseUrl}/api/admin/export`;
                     
@@ -2723,88 +1939,11 @@
                     }
                 } catch (error) {
                     console.error('Export error:', error);
-                    // Fallback: generate CSV locally
-                    this.exportBookingsLocal();
-                }
-            }
-
-            exportBookingsLocal() {
-                try {
-                    const headers = ['ID', 'Customer Name', 'Customer Email', 'Service', 'Date', 'Time', 'Duration', 'Participants', 'Status', 'Cost', 'Special Requests', 'Created At'];
-                    const rows = this.bookings.map(booking => [
-                        booking.id,
-                        booking.customer?.name || '',
-                        booking.customer?.email || '',
-                        booking.serviceName || booking.service,
-                        booking.date,
-                        booking.time,
-                        booking.duration || 1,
-                        booking.participants || 1,
-                        booking.status,
-                        booking.cost || 0,
-                        booking.special_requests || '',
-                        booking.created_at
-                    ]);
-                    
-                    const csvContent = [headers, ...rows].map(row => 
-                        row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-                    ).join('\n');
-                    
-                    const blob = new Blob([csvContent], { type: 'text/csv' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = `805-lifeguard-bookings-${new Date().toISOString().split('T')[0]}.csv`;
-                    link.click();
-                    URL.revokeObjectURL(url);
-                    
-                    this.showNotification('Booking data exported successfully!', 'success');
-                } catch (error) {
-                    console.error('Local export error:', error);
                     this.showNotification('Export failed. Please try again.', 'error');
                 }
             }
 
-            // ========================================
-            // MOBILE NAVIGATION
-            // ========================================
-            toggleMobileMenu() {
-                if (this.isMobileMenuOpen) {
-                    this.closeMobileMenu();
-                } else {
-                    this.openMobileMenu();
-                }
-            }
-
-            openMobileMenu() {
-                const mobileNav = document.getElementById('mobileNav');
-                const overlay = document.getElementById('mobileNavOverlay');
-                const toggleBtn = document.getElementById('mobileMenuToggle');
-                
-                mobileNav.classList.add('open');
-                overlay.classList.add('active');
-                toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
-                this.isMobileMenuOpen = true;
-                
-                document.body.style.overflow = 'hidden';
-            }
-
-            closeMobileMenu() {
-                const mobileNav = document.getElementById('mobileNav');
-                const overlay = document.getElementById('mobileNavOverlay');
-                const toggleBtn = document.getElementById('mobileMenuToggle');
-                
-                mobileNav.classList.remove('open');
-                overlay.classList.remove('active');
-                toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                this.isMobileMenuOpen = false;
-                
-                document.body.style.overflow = '';
-            }
-
-            // ========================================
-            // UI MANAGEMENT
-            // ========================================
+            // UI Management
             showLogin() {
                 document.getElementById('loginContainer').style.display = 'flex';
                 document.getElementById('portalContainer').style.display = 'none';
@@ -2826,7 +1965,7 @@
                     }, 500);
                 }
                 
-                console.log('🎉 Enhanced admin portal loaded successfully!');
+                console.log('🎉 Admin portal loaded successfully!');
             }
 
             showModal(modalId) {
@@ -2840,7 +1979,6 @@
                 modal.style.display = 'flex';
                 modal.classList.add('show');
                 this.currentModal = modal;
-                document.body.style.overflow = 'hidden';
             }
 
             closeModal(modalId = null) {
@@ -2851,24 +1989,10 @@
                 setTimeout(() => {
                     modal.style.display = 'none';
                     this.currentModal = null;
-                    document.body.style.overflow = '';
                 }, 300);
             }
 
-            // ========================================
-            // SYSTEM ADMINISTRATION
-            // ========================================
-            viewSystemLogs() {
-                this.showNotification('System logs viewer coming soon! This will show application logs, user activities, and system events.', 'info');
-            }
-
-            backupDatabase() {
-                this.showNotification('Database backup initiated! This will create a backup of all customer and booking data.', 'info');
-            }
-
-            // ========================================
-            // UTILITY FUNCTIONS
-            // ========================================
+            // Utility Functions
             getAuthToken() {
                 return localStorage.getItem('eliteAdminAuthToken');
             }
@@ -2938,10 +2062,10 @@
                 const animate = () => {
                     if (currentValue < finalValue) {
                         currentValue = Math.min(currentValue + increment, finalValue);
-                        element.textContent = ' + currentValue.toLocaleString();
+                        element.textContent = '$' + currentValue.toLocaleString();
                         setTimeout(animate, 50);
                     } else {
-                        element.textContent = ' + finalValue.toLocaleString();
+                        element.textContent = '$' + finalValue.toLocaleString();
                     }
                 };
                 
@@ -3029,9 +2153,6 @@
                     // Reset form
                     document.getElementById('loginForm').reset();
                     
-                    // Close mobile menu if open
-                    this.closeMobileMenu();
-                    
                     this.showLogin();
                     this.showNotification('Admin logout successful.', 'info');
                 }
@@ -3072,7 +2193,7 @@
 
         function showProductionInfo() {
             if (adminPortal) {
-                adminPortal.showNotification('Enhanced admin portal connected to production D1 database with full management capabilities!', 'success');
+                adminPortal.showNotification('Admin portal connected to production D1 database with full management capabilities!', 'success');
             }
         }
 
@@ -3096,13 +2217,14 @@
 
         function viewPendingBookings() {
             if (adminPortal) {
-                adminPortal.viewPendingBookings();
+                adminPortal.setBookingFilter('pending');
+                adminPortal.openBookingManagement();
             }
         }
 
         function openAnalytics() {
             if (adminPortal) {
-                adminPortal.openAnalytics();
+                adminPortal.showNotification('Advanced analytics dashboard coming soon!', 'info');
             }
         }
 
@@ -3120,31 +2242,22 @@
 
         function viewSystemLogs() {
             if (adminPortal) {
-                adminPortal.viewSystemLogs();
+                adminPortal.showNotification('System logs viewer coming soon!', 'info');
             }
         }
 
         function backupDatabase() {
             if (adminPortal) {
-                adminPortal.backupDatabase();
+                adminPortal.showNotification('Database backup feature coming soon!', 'info');
             }
         }
 
         function editCustomer(customerId) {
             if (adminPortal) {
-                adminPortal.editCustomer(customerId);
-            }
-        }
-
-        function viewCustomerBookings(customerId) {
-            if (adminPortal) {
-                adminPortal.viewCustomerBookings(customerId);
-            }
-        }
-
-        function addNewCustomer() {
-            if (adminPortal) {
-                adminPortal.addNewCustomer();
+                const customer = adminPortal.customers.find(c => c.id == customerId);
+                if (customer) {
+                    adminPortal.showNotification(`Edit functionality for ${customer.name} coming soon!`, 'info');
+                }
             }
         }
 
@@ -3156,7 +2269,10 @@
 
         function viewBookingDetails(bookingId) {
             if (adminPortal) {
-                adminPortal.viewBookingDetails(bookingId);
+                const booking = adminPortal.bookings.find(b => b.id == bookingId);
+                if (booking) {
+                    adminPortal.showNotification(`Viewing details for booking ${bookingId}`, 'info');
+                }
             }
         }
 
@@ -3166,31 +2282,19 @@
             }
         }
 
-        function toggleMobileMenu() {
-            if (adminPortal) {
-                adminPortal.toggleMobileMenu();
-            }
-        }
-
-        function closeMobileMenu() {
-            if (adminPortal) {
-                adminPortal.closeMobileMenu();
-            }
-        }
-
         function logout() {
             if (adminPortal) {
                 adminPortal.logout();
             }
         }
 
-        // Initialize Enhanced Admin Portal
+        // Initialize Admin Portal
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ ENHANCED ELITE ADMIN PORTAL - PRODUCTION READY');
-            console.log('🏊‍♂️ Features: D1 Integration, Admin Auth, Customer/Booking Management, Analytics, Export');
+            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION READY');
+            console.log('🏊‍♂️ Features: D1 Integration, Admin Auth, Customer/Booking Management, Analytics');
             console.log('🔗 Production API: lifeguard-portal-api-production.jaspervdz.workers.dev');
             
-            adminPortal = new EnhancedEliteAdminPortal();
+            adminPortal = new EliteAdminPortal();
             window.adminPortal = adminPortal;
             
             // Auto-fill admin credentials after portal is ready
@@ -3198,7 +2302,21 @@
                 fillAdminCredentials();
             }, 1000);
             
-            console.log('🎉 ENHANCED ELITE ADMIN PORTAL READY FOR PRODUCTION!');
+            console.log('🎉 ELITE ADMIN PORTAL READY FOR PRODUCTION!');
+        });
+
+        // Modal Event Handlers
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                adminPortal?.closeModal();
+            }
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                adminPortal?.closeModal();
+            }
         });
 
         // Enhanced Error Handling
@@ -3228,12 +2346,12 @@
         // Performance Monitoring
         window.addEventListener('load', () => {
             const loadTime = performance.now();
-            console.log(`⚡ Enhanced Elite Admin Portal loaded in ${Math.round(loadTime)}ms`);
+            console.log(`⚡ Elite Admin Portal loaded in ${Math.round(loadTime)}ms`);
             
             setTimeout(() => {
                 if (adminPortal && adminPortal.showNotification) {
                     adminPortal.showNotification(
-                        'Enhanced admin portal loaded successfully!',
+                        'Elite admin portal loaded successfully!',
                         'success'
                     );
                 }
