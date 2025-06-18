@@ -69,7 +69,7 @@
             --space-20: 5rem;
             --space-24: 6rem;
             
-            /* Advanced Transitions */
+            /* Enhanced Transitions */
             --transition-all: all 0.15s ease;
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-spring: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1399,19 +1399,7 @@
     <script>
         /**
          * 🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY
-         * 
-         * ✅ PRODUCTION ADMIN FEATURES:
-         * - Full D1 Cloudflare Database Integration
-         * - Admin JWT Authentication with elevated permissions
-         * - Complete customer and booking management
-         * - Real-time analytics and reporting
-         * - Data export capabilities
-         * - Advanced business intelligence
-         * - Professional admin UI with premium animations
-         * - Production error handling
-         * - Performance optimizations
-         * 
-         * 🔗 API Endpoint: https://lifeguard-portal-api-production.jaspervdz.workers.dev
+         * FIXED TIMEZONE HANDLING - NO BREAKING CHANGES
          */
         
         class EliteAdminPortal {
@@ -1459,6 +1447,61 @@
                     console.error('🚨 Admin portal initialization error:', error);
                     this.showNotification('Admin portal initialized. Please try logging in.', 'info');
                     this.showLogin();
+                }
+            }
+
+            // ========================================
+            // FIXED TIMEZONE UTILITY FUNCTIONS
+            // ========================================
+            formatDateForDB(dateString) {
+                // Ensure we're working with YYYY-MM-DD format for the database
+                try {
+                    if (!dateString) return null;
+                    
+                    // If it's already in YYYY-MM-DD format, use it as-is
+                    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+                        return dateString;
+                    }
+                    
+                    // Parse the date and format it consistently in Pacific timezone
+                    const date = new Date(dateString);
+                    if (isNaN(date.getTime())) {
+                        throw new Error('Invalid date');
+                    }
+                    
+                    // Get the date in Pacific timezone
+                    const pacificDate = new Intl.DateTimeFormat('en-CA', {
+                        timeZone: 'America/Los_Angeles',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    }).format(date);
+                    
+                    return pacificDate; // Returns YYYY-MM-DD
+                } catch (error) {
+                    console.error('Date formatting error:', error, 'Input:', dateString);
+                    return null;
+                }
+            }
+
+            getCurrentPacificDate() {
+                // Get current date in Pacific timezone as YYYY-MM-DD
+                return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+            }
+
+            formatDateForDisplay(dateString) {
+                try {
+                    if (!dateString) return 'N/A';
+                    const date = new Date(dateString + 'T00:00:00');
+                    return date.toLocaleDateString('en-US', { 
+                        timeZone: 'America/Los_Angeles',
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                } catch (error) {
+                    console.error('Date display formatting error:', error);
+                    return dateString;
                 }
             }
 
@@ -1707,7 +1750,7 @@
                         <td>${customer.phone || 'N/A'}</td>
                         <td style="text-align: center;">${customer.total_bookings || 0}</td>
                         <td style="text-align: center;">$${(customer.total_spent || 0).toLocaleString()}</td>
-                        <td>${new Date(customer.member_since).toLocaleDateString()}</td>
+                        <td>${this.formatDateForDisplay(customer.member_since)}</td>
                         <td>
                             <button onclick="editCustomer('${customer.id}')" class="btn btn-secondary btn-small">
                                 <i class="fas fa-edit"></i> Edit
@@ -1745,7 +1788,7 @@
                         <td>${customer.phone || 'N/A'}</td>
                         <td style="text-align: center;">${customer.total_bookings || 0}</td>
                         <td style="text-align: center;">$${(customer.total_spent || 0).toLocaleString()}</td>
-                        <td>${new Date(customer.member_since).toLocaleDateString()}</td>
+                        <td>${this.formatDateForDisplay(customer.member_since)}</td>
                         <td>
                             <button onclick="editCustomer('${customer.id}')" class="btn btn-secondary btn-small">
                                 <i class="fas fa-edit"></i> Edit
@@ -1755,7 +1798,7 @@
                 `).join('');
             }
 
-            // Booking Management
+            // Booking Management with Fixed Date Handling
             async openBookingManagement() {
                 console.log('📅 Opening booking management...');
                 
@@ -1793,7 +1836,7 @@
                             <div style="font-size: 0.75rem; color: var(--gray-400);">${booking.customer?.email || ''}</div>
                         </td>
                         <td>${booking.serviceName || booking.service}</td>
-                        <td>${new Date(booking.date).toLocaleDateString()}</td>
+                        <td>${this.formatDateForDisplay(booking.date)}</td>
                         <td>${booking.time}</td>
                         <td style="text-align: center;">${booking.duration}h</td>
                         <td>
@@ -1893,7 +1936,7 @@
                         const blobUrl = URL.createObjectURL(blob);
                         const link = document.createElement('a');
                         link.href = blobUrl;
-                        link.download = `805-lifeguard-customers-${new Date().toISOString().split('T')[0]}.csv`;
+                        link.download = `805-lifeguard-customers-${this.getCurrentPacificDate()}.csv`;
                         link.style.display = 'none';
                         document.body.appendChild(link);
                         link.click();
@@ -1926,7 +1969,7 @@
                         const blobUrl = URL.createObjectURL(blob);
                         const link = document.createElement('a');
                         link.href = blobUrl;
-                        link.download = `805-lifeguard-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+                        link.download = `805-lifeguard-bookings-${this.getCurrentPacificDate()}.csv`;
                         link.style.display = 'none';
                         document.body.appendChild(link);
                         link.click();
@@ -2290,7 +2333,7 @@
 
         // Initialize Admin Portal
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION READY');
+            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION READY WITH FIXED TIMEZONE HANDLING');
             console.log('🏊‍♂️ Features: D1 Integration, Admin Auth, Customer/Booking Management, Analytics');
             console.log('🔗 Production API: lifeguard-portal-api-production.jaspervdz.workers.dev');
             
@@ -2302,7 +2345,7 @@
                 fillAdminCredentials();
             }, 1000);
             
-            console.log('🎉 ELITE ADMIN PORTAL READY FOR PRODUCTION!');
+            console.log('🎉 ELITE ADMIN PORTAL READY FOR PRODUCTION WITH FIXED DATES!');
         });
 
         // Modal Event Handlers
