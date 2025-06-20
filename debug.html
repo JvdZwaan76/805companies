@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>805 LifeGuard - User Debug Helper</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        button {
+            background: linear-gradient(135deg, #dc2626, #7c3aed);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .result {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 805 LifeGuard User Debug Helper</h1>
+        <p>This tool helps identify user authentication and booking display issues.</p>
+
+        <div class="section">
+            <h3>📊 Database Information</h3>
+            <button onclick="checkDatabaseInfo()">Check Database Schema & Counts</button>
+            <div id="dbResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h3>👥 Find Users</h3>
+            <input type="text" id="emailSearch" placeholder="Enter email to search (e.g., jaspervdz@me.com)">
+            <button onclick="findUserByEmail()">Find User by Email</button>
+            <button onclick="listAllUsers()">List All Users</button>
+            <div id="userResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h3>📋 Check User Bookings</h3>
+            <input type="text" id="userIdInput" placeholder="Enter User ID">
+            <button onclick="checkUserBookings()">Check User's Bookings</button>
+            <div id="bookingResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h3>🔐 Test Authentication</h3>
+            <input type="email" id="testEmail" placeholder="Email" value="jaspervdz@me.com">
+            <input type="password" id="testPassword" placeholder="Password">
+            <button onclick="testLogin()">Test Login</button>
+            <div id="authResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h3>🔧 Quick Fixes</h3>
+            <button onclick="createJasperUser()">Create jaspervdz@me.com User</button>
+            <button onclick="assignBookingsToJasper()">Assign All Bookings to jaspervdz@me.com</button>
+            <div id="fixResult" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://lifeguard-portal-api-production.jaspervdz.workers.dev';
+
+        async function checkDatabaseInfo() {
+            const result = document.getElementById('dbResult');
+            result.style.display = 'block';
+            result.textContent = 'Loading database information...';
+
+            try {
+                const response = await fetch(`${API_BASE}/debug`);
+                const data = await response.json();
+                
+                result.textContent = `Database Information:
+${JSON.stringify(data, null, 2)}
+
+Summary:
+- Users table: ${data.database?.tables?.users?.exists ? 'EXISTS' : 'MISSING'}
+- Users count: ${data.database?.tables?.users?.count || 0}
+- Users schema: ${data.database?.tables?.users?.schema?.join(', ') || 'N/A'}
+- Bookings table: ${data.database?.tables?.bookings?.exists ? 'EXISTS' : 'MISSING'}  
+- Bookings count: ${data.database?.tables?.bookings?.count || 0}
+- Bookings schema: ${data.database?.tables?.bookings?.schema?.join(', ') || 'N/A'}`;
+            } catch (error) {
+                result.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function findUserByEmail() {
+            const email = document.getElementById('emailSearch').value.trim();
+            const result = document.getElementById('userResult');
+            result.style.display = 'block';
+            
+            if (!email) {
+                result.textContent = 'Please enter an email address';
+                return;
+            }
+
+            result.textContent = 'Searching for user...';
+
+            try {
+                // Try to login to get user info
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        email: email, 
+                        password: 'dummy' // This will fail but might give us user info
+                    })
+                });
+                
+                const data = await response.json();
+                result.textContent = `Login attempt result for ${email}:
+${JSON.stringify(data, null, 2)}
+
+Status: ${response.status}
+Found user: ${data.success ? 'YES' : 'NO'}`;
+            } catch (error) {
+                result.textContent = `Error searching for user: ${error.message}`;
+            }
+        }
+
+        async function listAllUsers() {
+            const result = document.getElementById('userResult');
+            result.style.display = 'block';
+            result.textContent = 'This would require admin access. Try the admin portal to view all users.';
+        }
+
+        async function checkUserBookings() {
+            const userId = document.getElementById('userIdInput').value.trim();
+            const result = document.getElementById('bookingResult');
+            result.style.display = 'block';
+            
+            if (!userId) {
+                result.textContent = 'Please enter a User ID';
+                return;
+            }
+
+            result.textContent = 'This requires authentication. Please use the main portal to check bookings.';
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('testEmail').value.trim();
+            const password = document.getElementById('testPassword').value.trim();
+            const result = document.getElementById('authResult');
+            result.style.display = 'block';
+            
+            if (!email || !password) {
+                result.textContent = 'Please enter both email and password';
+                return;
+            }
+
+            result.textContent = 'Testing login...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Now test getting user stats
+                    const statsResponse = await fetch(`${API_BASE}/api/user/stats`, {
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+                    const statsData = await statsResponse.json();
+                    
+                    // And test getting bookings
+                    const bookingsResponse = await fetch(`${API_BASE}/api/bookings`, {
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+                    const bookingsData = await bookingsResponse.json();
+
+                    result.textContent = `✅ LOGIN SUCCESSFUL!
+
+User Info:
+${JSON.stringify(data.user, null, 2)}
+
+User Stats:
+${JSON.stringify(statsData, null, 2)}
+
+User Bookings (${bookingsData.bookings?.length || 0} total):
+${JSON.stringify(bookingsData, null, 2)}
+
+🔍 DEBUG INFO:
+- User ID: ${data.user.id}
+- Email: ${data.user.email}
+- Token: ${data.token?.substring(0, 50)}...
+- Total bookings found: ${bookingsData.bookings?.length || 0}
+- Stats show total: ${statsData.stats?.total || 0}`;
+                } else {
+                    result.textContent = `❌ LOGIN FAILED:
+${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                result.textContent = `Error during login test: ${error.message}`;
+            }
+        }
+
+        async function createJasperUser() {
+            const result = document.getElementById('fixResult');
+            result.style.display = 'block';
+            result.textContent = 'This would require admin API access. Use the admin portal to create users manually.';
+        }
+
+        async function assignBookingsToJasper() {
+            const result = document.getElementById('fixResult');
+            result.style.display = 'block';
+            result.textContent = 'This would require direct database access. Contact your database administrator.';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔍 User Debug Helper Ready');
+            // Auto-fill with the problematic email
+            document.getElementById('emailSearch').value = 'jaspervdz@me.com';
+        });
+    </script>
+</body>
+</html>
