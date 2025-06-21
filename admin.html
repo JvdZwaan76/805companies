@@ -1250,23 +1250,23 @@
                 <p class="login-subtitle">Complete business management and operational control</p>
             </div>
 
-            <!-- Production Info -->
+            <!-- Production API Info -->
             <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: var(--radius-xl); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
                 <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
-                    <i class="fas fa-shield-alt"></i>
-                    Production Database • Full Admin Access
+                    <i class="fas fa-database"></i>
+                    Production API • Live Database Connection
                 </div>
                 <div style="font-size: 0.875rem; color: var(--gray-300); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> lifeguard-portal-api-production.jaspervdz.workers.dev<br>
-                    <strong>💾 Database:</strong> Live D1 with complete management privileges<br>
-                    <strong>🛡️ Features:</strong> Customer/Booking Management, Analytics, System Logs, Backups
+                    <strong>💾 Database:</strong> Cloudflare D1 with complete management privileges<br>
+                    <strong>🛡️ Features:</strong> Real-time data, Customer/Booking Management, Analytics, System Logs
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
                     <button type="button" onclick="fillAdminCredentials()" class="btn btn-secondary btn-small">
                         <i class="fas fa-key"></i> Auto-Fill Credentials
                     </button>
-                    <button type="button" onclick="showProductionInfo()" class="btn btn-primary btn-small">
-                        <i class="fas fa-database"></i> Production Ready
+                    <button type="button" onclick="checkApiStatus()" class="btn btn-primary btn-small">
+                        <i class="fas fa-heartbeat"></i> Check API Status
                     </button>
                 </div>
             </div>
@@ -1853,8 +1853,8 @@
     </div>
 
     <!-- Connection Status -->
-    <div class="connection-status connected" id="connectionStatus" onclick="showProductionInfo()" title="Production Database Connected">
-        <i class="fas fa-database"></i> Production Mode
+    <div class="connection-status connected" id="connectionStatus" onclick="showProductionInfo()" title="Production API Connected">
+        <i class="fas fa-database"></i> Live API Connected
     </div>
 
     <!-- JavaScript -->
@@ -1877,7 +1877,7 @@
                 this.filterStatus = 'all';
                 this.selectedItems = new Set();
                 
-                // Production Configuration
+                // Production Configuration - Connected to Real API
                 this.config = {
                     apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
                     enableAnimations: true,
@@ -1984,7 +1984,7 @@
                 }, this.config.autoRefreshInterval);
             }
 
-            // Enhanced Authentication with Mock Data Support
+            // Production Authentication - Real API Only
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -1998,38 +1998,8 @@
                 this.showLoading(loginBtn);
 
                 try {
-                    console.log('🛡️ Admin login attempt...');
+                    console.log('🛡️ Admin login attempt to production API...');
                     
-                    // Check for demo credentials first
-                    if (username === 'admin' && password === 'lifeguard2025') {
-                        console.log('🎉 Demo admin login successful!');
-                        
-                        // Mock successful login response
-                        this.authToken = 'demo-admin-token-' + Date.now();
-                        this.currentAdmin = {
-                            id: 1,
-                            username: 'admin',
-                            email: 'admin@805lifeguard.com',
-                            role: 'super_admin'
-                        };
-                        this.setAuthToken(this.authToken);
-                        
-                        // Log successful login
-                        this.logActivity(`Demo admin login successful: ${username}`, 'success');
-                        
-                        // Load mock data instead of API calls
-                        await this.loadMockAdminData();
-                        
-                        setTimeout(() => {
-                            this.showPortal();
-                            this.showNotification('Welcome back! Complete admin access granted. (Demo Mode)', 'success');
-                        }, 800);
-                        
-                        this.hideLoading(loginBtn, 'Admin Sign In');
-                        return;
-                    }
-                    
-                    // Try real API if not demo credentials
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
                         method: 'POST',
                         headers: {
@@ -2064,13 +2034,7 @@
 
                 } catch (error) {
                     console.error('Admin login error:', error);
-                    
-                    // If API fails, offer demo mode
-                    if (username === 'admin') {
-                        this.showNotification('API unavailable. Try password "lifeguard2025" for demo mode.', 'warning');
-                    } else {
-                        this.showNotification(this.getUserFriendlyError(error), 'error');
-                    }
+                    this.showNotification(this.getUserFriendlyError(error), 'error');
                 } finally {
                     this.hideLoading(loginBtn, 'Admin Sign In');
                 }
@@ -2101,18 +2065,11 @@
                 }
             }
 
-            // Enhanced Data Loading (with fallback to mock data)
+            // Production Data Loading - Real API Calls
             async loadAdminData() {
-                console.log('📊 Loading complete admin data...');
+                console.log('📊 Loading admin data from production API...');
                 
                 try {
-                    // If we have a demo token, use mock data
-                    if (this.authToken && this.authToken.startsWith('demo-admin-token')) {
-                        await this.loadMockAdminData();
-                        return;
-                    }
-                    
-                    // Otherwise try to load from API
                     await Promise.all([
                         this.updateAdminInfo(),
                         this.loadCustomers(),
@@ -2128,6 +2085,107 @@
                     console.error('Error loading admin data:', error);
                     this.logActivity('Error loading admin data', 'error');
                     this.showNotification('Some admin data could not be loaded.', 'warning');
+                }
+            }
+
+            async loadCustomers() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/customers`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    if (data?.success) {
+                        this.customers = data.customers || [];
+                        console.log(`✅ Loaded ${this.customers.length} customers from API`);
+                    } else {
+                        throw new Error(data.error || 'Failed to load customers');
+                    }
+                } catch (error) {
+                    console.error('Error loading customers:', error);
+                    this.customers = [];
+                    this.showNotification('Failed to load customers from API', 'error');
+                }
+            }
+
+            async loadBookings() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    if (data?.success) {
+                        // Map API response to UI expected format
+                        this.bookings = (data.bookings || []).map(booking => ({
+                            id: booking.id,
+                            customer_id: booking.user_id,
+                            customer: booking.customer,
+                            service: booking.service,
+                            serviceName: booking.serviceName,
+                            date: booking.date,
+                            time: booking.time,
+                            duration: booking.duration,
+                            participants: booking.participants,
+                            status: booking.status,
+                            total_price: booking.cost,
+                            created_at: booking.created_at,
+                            notes: booking.special_requests
+                        }));
+                        console.log(`✅ Loaded ${this.bookings.length} bookings from API`);
+                    } else {
+                        throw new Error(data.error || 'Failed to load bookings');
+                    }
+                } catch (error) {
+                    console.error('Error loading bookings:', error);
+                    this.bookings = [];
+                    this.showNotification('Failed to load bookings from API', 'error');
+                }
+            }
+
+            async updateStatsWithAnimation() {
+                try {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/stats`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    console.log('📊 Admin stats loaded from API:', data);
+                    
+                    if (data.success) {
+                        this.stats = data.stats;
+                        this.animateNumber('totalCustomers', data.stats.customers?.total || 0);
+                        this.animateNumber('totalBookings', data.stats.bookings?.total || 0);
+                        this.animateRevenue('monthlyRevenue', data.stats.revenue?.monthly || 0);
+                        this.animateNumber('pendingBookings', data.stats.bookings?.pending || 0);
+                        this.animateNumber('confirmedBookings', data.stats.bookings?.confirmed || 0);
+                        
+                        // Update pending count in button
+                        const pendingCount = document.getElementById('pendingCount');
+                        if (pendingCount) {
+                            pendingCount.textContent = data.stats.bookings?.pending || 0;
+                        }
+                    } else {
+                        throw new Error(data.error || 'Failed to load stats');
+                    }
+                } catch (error) {
+                    console.error('Error loading admin stats:', error);
+                    // Use fallback values
+                    this.animateNumber('totalCustomers', 0);
+                    this.animateNumber('totalBookings', 0);
+                    this.animateRevenue('monthlyRevenue', 0);
+                    this.animateNumber('pendingBookings', 0);
+                    this.animateNumber('confirmedBookings', 0);
+                    this.showNotification('Failed to load statistics from API', 'error');
                 }
             }
 
@@ -2884,22 +2942,13 @@
                 this.logActivity(`Booking details viewed: ${booking.id}`, 'info');
             }
 
-            // Enhanced Analytics Implementation (with mock data support)
+            // Production Analytics - Real API Endpoint
             async openAnalytics() {
-                console.log('📊 Opening enhanced analytics dashboard...');
+                console.log('📊 Opening analytics dashboard with production data...');
                 
                 this.showModal('analyticsModal');
                 
                 try {
-                    // If we're in demo mode, use mock analytics
-                    if (this.authToken && this.authToken.startsWith('demo-admin-token')) {
-                        const mockAnalytics = this.generateMockAnalytics();
-                        this.renderEnhancedAnalytics(mockAnalytics);
-                        this.logActivity('Demo analytics dashboard opened', 'info');
-                        return;
-                    }
-                    
-                    // Otherwise try to load from API
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/analytics`, {
                         headers: {
                             'Authorization': `Bearer ${this.authToken}`,
@@ -2908,7 +2957,7 @@
                     });
                     
                     const data = await response.json();
-                    console.log('📊 Analytics data received:', data);
+                    console.log('📊 Analytics data received from API:', data);
                     
                     if (data.success) {
                         this.renderEnhancedAnalytics(data.analytics);
@@ -2917,73 +2966,65 @@
                     }
                 } catch (error) {
                     console.error('Analytics error:', error);
-                    // Fallback to mock analytics if API fails
-                    if (this.customers.length > 0 || this.bookings.length > 0) {
-                        const mockAnalytics = this.generateMockAnalytics();
-                        this.renderEnhancedAnalytics(mockAnalytics);
-                        this.showNotification('Using demo analytics data', 'info');
-                    } else {
-                        this.renderAnalyticsError();
-                    }
+                    this.renderAnalyticsError();
+                    this.showNotification('Failed to load analytics from API', 'error');
                 }
                 
                 this.logActivity('Analytics dashboard opened', 'info');
             }
 
-            generateMockAnalytics() {
-                const totalRevenue = this.bookings.reduce((sum, b) => sum + (b.total_price || 0), 0);
-                const totalBookings = this.bookings.length;
+            async saveCustomer() {
+                const customerId = document.getElementById('customerId').value;
+                const isEdit = !!customerId;
                 
-                return {
-                    summary: {
-                        totalRevenue: totalRevenue,
-                        totalBookings: totalBookings,
-                        avgRevenuePerBooking: totalBookings > 0 ? (totalRevenue / totalBookings).toFixed(0) : 0,
-                        monthlyGrowth: 12.5
-                    },
-                    monthlyRevenue: [
-                        { month: 'January 2024', revenue: 8500, bookings: 32 },
-                        { month: 'February 2024', revenue: 9200, bookings: 38 },
-                        { month: 'March 2024', revenue: 10100, bookings: 42 },
-                        { month: 'April 2024', revenue: 11800, bookings: 48 },
-                        { month: 'May 2024', revenue: 13200, bookings: 52 },
-                        { month: 'June 2024', revenue: totalRevenue, bookings: totalBookings }
-                    ],
-                    serviceDistribution: [
-                        { service: 'Private Swimming Lesson', count: 15, percentage: 35 },
-                        { service: 'Water Safety Course', count: 12, percentage: 28 },
-                        { service: 'Group Swimming Lesson', count: 8, percentage: 19 },
-                        { service: 'Advanced Surf Training', count: 5, percentage: 12 },
-                        { service: 'Family Swimming Package', count: 3, percentage: 7 }
-                    ],
-                    customerInsights: {
-                        totalCustomers: this.customers.length,
-                        newThisMonth: 2,
-                        repeatCustomers: 3,
-                        avgBookingsPerCustomer: totalBookings > 0 ? (totalBookings / this.customers.length).toFixed(1) : 0
-                    },
-                    statusDistribution: [
-                        { status: 'pending', count: this.bookings.filter(b => b.status === 'pending').length },
-                        { status: 'confirmed', count: this.bookings.filter(b => b.status === 'confirmed').length },
-                        { status: 'completed', count: this.bookings.filter(b => b.status === 'completed').length },
-                        { status: 'cancelled', count: this.bookings.filter(b => b.status === 'cancelled').length }
-                    ],
-                    topCustomers: this.customers
-                        .sort((a, b) => (b.total_bookings || 0) - (a.total_bookings || 0))
-                        .slice(0, 5),
-                    peakHours: {
-                        mostPopular: '10:00 AM - 12:00 PM'
-                    },
-                    recentActivity: [
-                        { date: '2024-06-24', bookings: 3 },
-                        { date: '2024-06-23', bookings: 2 },
-                        { date: '2024-06-22', bookings: 4 },
-                        { date: '2024-06-21', bookings: 1 },
-                        { date: '2024-06-20', bookings: 5 },
-                        { date: '2024-06-19', bookings: 2 },
-                        { date: '2024-06-18', bookings: 3 }
-                    ]
+                const customerData = {
+                    name: document.getElementById('customerName').value.trim(),
+                    email: document.getElementById('customerEmail').value.trim(),
+                    phone: document.getElementById('customerPhone').value.trim(),
+                    date_of_birth: document.getElementById('customerDateOfBirth').value,
+                    address: document.getElementById('customerAddress').value.trim(),
+                    notes: document.getElementById('customerNotes').value.trim(),
+                    is_vip: document.getElementById('customerVip').checked,
+                    email_notifications: document.getElementById('customerNotifications').checked
                 };
+
+                if (!customerData.name || !customerData.email) {
+                    this.showNotification('Name and email are required', 'error');
+                    return;
+                }
+
+                try {
+                    const url = isEdit 
+                        ? `${this.config.apiBaseUrl}/api/admin/customers/${customerId}`
+                        : `${this.config.apiBaseUrl}/api/admin/customers`;
+                    
+                    const response = await fetch(url, {
+                        method: isEdit ? 'PUT' : 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(customerData)
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        await this.loadCustomers();
+                        this.populateCustomersTable();
+                        this.updateStatsWithAnimation();
+                        this.closeModal('addCustomerModal');
+                        
+                        const action = isEdit ? 'updated' : 'created';
+                        this.showNotification(`Customer ${action} successfully!`, 'success');
+                        this.logActivity(`Customer ${action}: ${customerData.name}`, 'success');
+                    } else {
+                        throw new Error(data.error || `Failed to ${isEdit ? 'update' : 'create'} customer`);
+                    }
+                } catch (error) {
+                    console.error('Error saving customer:', error);
+                    this.showNotification(`Failed to ${isEdit ? 'update' : 'create'} customer. Please try again.`, 'error');
+                }
             }
 
             renderEnhancedAnalytics(analytics) {
@@ -3417,31 +3458,32 @@
             }
 
             // Utility Functions
-            // Data Export Functions
+            // Production Data Export Functions
             async exportCustomers() {
                 try {
-                    if (this.customers.length === 0) {
-                        this.showNotification('No customers to export', 'warning');
-                        return;
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/export?type=customers`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.download = `805-lifeguard-customers-${new Date().toISOString().split('T')[0]}.csv`;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(blobUrl);
+                        
+                        this.showNotification('Customer data exported successfully!', 'success');
+                        this.logActivity('Customer data exported', 'info');
+                    } else {
+                        throw new Error('Export failed');
                     }
-                    
-                    const exportData = this.customers.map(customer => ({
-                        ID: customer.id,
-                        Name: customer.name,
-                        Email: customer.email,
-                        Phone: customer.phone || '',
-                        'Date of Birth': customer.date_of_birth || '',
-                        Address: customer.address || '',
-                        'Total Bookings': customer.total_bookings || 0,
-                        'Total Spent': customer.total_spent || 0,
-                        'VIP Status': customer.is_vip ? 'Yes' : 'No',
-                        'Email Notifications': customer.email_notifications !== false ? 'Yes' : 'No',
-                        'Member Since': new Date(customer.member_since || customer.created_at).toLocaleDateString(),
-                        Notes: customer.notes || ''
-                    }));
-                    
-                    this.exportToCsv(exportData, '805-lifeguard-customers');
-                    this.logActivity(`Exported ${exportData.length} customers`, 'info');
                 } catch (error) {
                     console.error('Export error:', error);
                     this.showNotification('Export failed. Please try again.', 'error');
@@ -3450,27 +3492,29 @@
 
             async exportBookings() {
                 try {
-                    if (this.bookings.length === 0) {
-                        this.showNotification('No bookings to export', 'warning');
-                        return;
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/export`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.download = `805-lifeguard-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(blobUrl);
+                        
+                        this.showNotification('Booking data exported successfully!', 'success');
+                        this.logActivity('Booking data exported', 'info');
+                    } else {
+                        throw new Error('Export failed');
                     }
-                    
-                    const exportData = this.bookings.map(booking => ({
-                        'Booking ID': booking.id,
-                        'Customer Name': booking.customer?.name || 'Unknown',
-                        'Customer Email': booking.customer?.email || '',
-                        Service: booking.serviceName || booking.service,
-                        Date: new Date(booking.date).toLocaleDateString(),
-                        Time: booking.time,
-                        Duration: booking.duration,
-                        Status: booking.status,
-                        'Total Price': booking.total_price || '',
-                        'Created Date': new Date(booking.created_at).toLocaleDateString(),
-                        Notes: booking.notes || booking.special_requests || ''
-                    }));
-                    
-                    this.exportToCsv(exportData, '805-lifeguard-bookings');
-                    this.logActivity(`Exported ${exportData.length} bookings`, 'info');
                 } catch (error) {
                     console.error('Export error:', error);
                     this.showNotification('Export failed. Please try again.', 'error');
@@ -3787,9 +3831,31 @@
             }
         }
 
+        async function checkApiStatus() {
+            try {
+                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (adminPortal) {
+                        adminPortal.showNotification(
+                            `✅ API Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
+                            'success'
+                        );
+                    }
+                } else {
+                    throw new Error('API not responding correctly');
+                }
+            } catch (error) {
+                if (adminPortal) {
+                    adminPortal.showNotification('❌ API connection failed. Please check if the API is deployed.', 'error');
+                }
+            }
+        }
+
         function showProductionInfo() {
             if (adminPortal) {
-                adminPortal.showNotification('Complete Elite Admin Portal connected to production D1 database with full management capabilities!', 'success');
+                adminPortal.showNotification('Connected to production Cloudflare Workers API with D1 database!', 'success');
             }
         }
 
@@ -4015,12 +4081,12 @@
             }
         }
 
-        // Initialize Complete Elite Admin Portal
+        // Initialize Complete Elite Admin Portal - Production Version
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ COMPLETE ELITE ADMIN PORTAL - PRODUCTION READY');
-            console.log('🏊‍♂️ Full Features: Customer Management, Booking Operations, Analytics, System Logs, Database Backups');
-            console.log('🔗 Production API: lifeguard-portal-api-production.jaspervdz.workers.dev');
-            console.log('⚡ Advanced Features: Bulk Operations, Real-time Updates, Professional Analytics, System Monitoring');
+            console.log('🛡️ COMPLETE ELITE ADMIN PORTAL - PRODUCTION VERSION');
+            console.log('🏊‍♂️ Connected to: lifeguard-portal-api-production.jaspervdz.workers.dev');
+            console.log('🔗 Features: Real-time Customer/Booking Management, Live Analytics, Production Database');
+            console.log('⚡ Database: Cloudflare D1 with JWT Authentication');
             
             adminPortal = new CompleteEliteAdminPortal();
             window.adminPortal = adminPortal;
@@ -4030,7 +4096,7 @@
                 fillAdminCredentials();
             }, 1000);
             
-            console.log('🎉 COMPLETE ELITE ADMIN PORTAL READY FOR PRODUCTION!');
+            console.log('🎉 PRODUCTION ADMIN PORTAL READY!');
         });
 
         // Enhanced Event Handlers
