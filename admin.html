@@ -1268,6 +1268,9 @@
                     <button type="button" onclick="checkApiStatus()" class="btn btn-primary btn-small">
                         <i class="fas fa-heartbeat"></i> Check API Status
                     </button>
+                    <button type="button" onclick="testAdminLogin()" class="btn btn-success btn-small">
+                        <i class="fas fa-vial"></i> Test Login
+                    </button>
                 </div>
             </div>
 
@@ -1299,13 +1302,13 @@
                 </button>
 
                 <div class="mt-4" style="text-align: center;">
-                    <p style="color: var(--gray-400); margin-bottom: var(--space-4);">Need access to other portals?</p>
+                    <p style="color: var(--gray-400); margin-bottom: var(--space-4);">Troubleshooting login issues?</p>
                     <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                        <button type="button" onclick="openTroubleshooting()" class="btn btn-secondary btn-small">
+                            <i class="fas fa-question-circle"></i> Troubleshooting
+                        </button>
                         <a href="client-login.html" class="btn btn-secondary btn-small">
                             <i class="fas fa-swimmer"></i> Client Portal
-                        </a>
-                        <a href="staff-portal.html" class="btn btn-secondary btn-small">
-                            <i class="fas fa-user-shield"></i> Staff Portal
                         </a>
                     </div>
                 </div>
@@ -1984,7 +1987,7 @@
                 }, this.config.autoRefreshInterval);
             }
 
-            // Production Authentication - Real API Only
+            // Enhanced Production Authentication with Debugging
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -1999,6 +2002,9 @@
 
                 try {
                     console.log('🛡️ Admin login attempt to production API...');
+                    console.log('📡 API URL:', `${this.config.apiBaseUrl}/api/admin/login`);
+                    console.log('👤 Username:', username);
+                    console.log('🔐 Password length:', password.length);
                     
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
                         method: 'POST',
@@ -2009,8 +2015,11 @@
                         body: JSON.stringify({ username, password })
                     });
 
+                    console.log('📡 Response status:', response.status);
+                    console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
+
                     const data = await response.json();
-                    console.log('📡 Admin login API Response:', data);
+                    console.log('📡 Full API Response:', data);
 
                     if (data.success) {
                         console.log('🎉 Admin login successful!', data.admin);
@@ -2029,12 +2038,29 @@
                         }, 800);
                     } else {
                         this.logActivity(`Admin login failed: ${username}`, 'error');
+                        console.error('❌ Login failed:', data.error);
                         throw new Error(data.error || 'Admin login failed');
                     }
 
                 } catch (error) {
-                    console.error('Admin login error:', error);
-                    this.showNotification(this.getUserFriendlyError(error), 'error');
+                    console.error('🚨 Admin login error:', error);
+                    
+                    // More detailed error handling
+                    let errorMessage = 'Login failed. ';
+                    
+                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                        errorMessage = '🌐 Cannot connect to API. Please check if the API is deployed and accessible.';
+                    } else if (error.message.includes('CORS')) {
+                        errorMessage = '🔒 CORS error. API needs to allow this origin.';
+                    } else if (error.message.includes('Invalid admin credentials')) {
+                        errorMessage = '❌ Invalid username or password. Try: admin / lifeguard2025';
+                    } else if (error.message.includes('Network')) {
+                        errorMessage = '🌐 Network error. Check your internet connection.';
+                    } else {
+                        errorMessage = `❌ ${error.message}`;
+                    }
+                    
+                    this.showNotification(errorMessage, 'error');
                 } finally {
                     this.hideLoading(loginBtn, 'Admin Sign In');
                 }
@@ -3833,13 +3859,20 @@
 
         async function checkApiStatus() {
             try {
-                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
-                const data = await response.json();
+                console.log('🔍 Checking API status...');
+                console.log('📡 API URL:', 'https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
                 
-                if (data.success) {
+                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
+                console.log('📡 API Response status:', response.status);
+                console.log('📡 API Response headers:', Object.fromEntries(response.headers.entries()));
+                
+                const data = await response.json();
+                console.log('📡 API Response data:', data);
+                
+                if (data.success || data.message) {
                     if (adminPortal) {
                         adminPortal.showNotification(
-                            `✅ API Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
+                            `✅ API Connected! Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
                             'success'
                         );
                     }
@@ -3847,9 +3880,39 @@
                     throw new Error('API not responding correctly');
                 }
             } catch (error) {
+                console.error('🚨 API Status Error:', error);
                 if (adminPortal) {
-                    adminPortal.showNotification('❌ API connection failed. Please check if the API is deployed.', 'error');
+                    adminPortal.showNotification(
+                        `❌ API connection failed: ${error.message}. Please check if the Workers API is deployed to lifeguard-portal-api-production.jaspervdz.workers.dev`, 
+                        'error'
+                    );
                 }
+            }
+        }
+
+        function openTroubleshooting() {
+            if (adminPortal) {
+                adminPortal.showNotification(
+                    `🔧 Login Troubleshooting:\n\n` +
+                    `1. ✅ Check API Status first (click "Check API Status")\n` +
+                    `2. 🔑 Correct credentials: admin / lifeguard2025\n` +
+                    `3. 🌐 API must be deployed to: lifeguard-portal-api-production.jaspervdz.workers.dev\n` +
+                    `4. 📱 Open browser console (F12) for detailed error logs\n` +
+                    `5. 🔄 Try "Test Login" button for automated test\n\n` +
+                    `If API check fails: Deploy your Cloudflare Workers API first!`,
+                    'info'
+                );
+            }
+        }
+
+        function testAdminLogin() {
+            if (adminPortal) {
+                // Fill credentials and attempt login for testing
+                document.getElementById('username').value = 'admin';
+                document.getElementById('password').value = 'lifeguard2025';
+                
+                console.log('🧪 Testing admin login with production credentials...');
+                adminPortal.handleAdminLogin();
             }
         }
 
