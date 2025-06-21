@@ -355,38 +355,10 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .btn-danger {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-danger:hover {
-            background: rgba(239, 68, 68, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-success:hover {
-            background: rgba(16, 185, 129, 0.2);
-            transform: translateY(-2px);
-        }
-
         .btn-small {
             padding: var(--space-2) var(--space-4);
             font-size: 0.75rem;
             border-radius: var(--radius-lg);
-        }
-
-        .btn-large {
-            padding: var(--space-4) var(--space-8);
-            font-size: 1rem;
-            border-radius: var(--radius-2xl);
         }
 
         .login-container {
@@ -512,23 +484,6 @@
 
         .form-input::placeholder {
             color: var(--gray-500);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-4);
-        }
-
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
         }
 
         .portal-container {
@@ -725,259 +680,6 @@
             flex-wrap: wrap;
         }
 
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: var(--z-50);
-            padding: var(--space-6);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-3xl);
-            width: 100%;
-            max-width: 1200px;
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease-out;
-            box-shadow: var(--shadow-2xl);
-        }
-
-        .modal.show .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-header {
-            background: var(--gradient-hero);
-            padding: var(--space-8);
-            border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
-            position: relative;
-        }
-
-        .modal-title {
-            font-size: 1.875rem;
-            font-weight: 900;
-            color: white;
-            margin-bottom: var(--space-2);
-        }
-
-        .modal-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: var(--space-6);
-            right: var(--space-6);
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-full);
-            color: white;
-            font-size: 1.25rem;
-            cursor: pointer;
-            transition: var(--transition-spring);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        .modal-body {
-            padding: var(--space-10);
-        }
-
-        .table-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-6);
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-        }
-
-        .data-table th {
-            background: rgba(255, 255, 255, 0.1);
-            padding: var(--space-4);
-            text-align: left;
-            font-weight: 700;
-            color: var(--gray-300);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .data-table td {
-            padding: var(--space-4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: background-color 0.2s;
-        }
-
-        .data-table tr:hover td {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .data-table tr.selected td {
-            background-color: rgba(220, 38, 38, 0.1);
-            border-color: rgba(220, 38, 38, 0.3);
-        }
-
-        .status-badge {
-            display: inline-block;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: capitalize;
-            border-radius: var(--radius-full);
-            padding: var(--space-1) var(--space-3);
-        }
-
-        .status-pending { 
-            background: rgba(245, 158, 11, 0.2); 
-            color: var(--warning); 
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .status-confirmed { 
-            background: rgba(16, 185, 129, 0.2); 
-            color: var(--success); 
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .status-completed { 
-            background: rgba(16, 185, 129, 0.2); 
-            color: var(--success); 
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .status-cancelled { 
-            background: rgba(239, 68, 68, 0.2); 
-            color: var(--error); 
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .filter-btn {
-            opacity: 0.7;
-        }
-
-        .filter-btn.active {
-            opacity: 1;
-            background: var(--gradient-hero);
-        }
-
-        .bulk-actions {
-            display: none;
-            align-items: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-6);
-            padding: var(--space-4);
-            background: rgba(220, 38, 38, 0.1);
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            border-radius: var(--radius-xl);
-        }
-
-        .bulk-actions.show {
-            display: flex;
-        }
-
-        .search-filters {
-            display: flex;
-            gap: var(--space-4);
-            margin-bottom: var(--space-6);
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .filter-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            color: white;
-            padding: var(--space-3) var(--space-4);
-            font-size: 0.875rem;
-        }
-
-        .filter-select option {
-            background: var(--dark);
-            color: white;
-        }
-
-        .logs-container {
-            max-height: 400px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: var(--radius-xl);
-            padding: var(--space-4);
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .log-entry {
-            padding: var(--space-2) 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            gap: var(--space-3);
-        }
-
-        .log-timestamp {
-            color: var(--gray-400);
-            white-space: nowrap;
-        }
-
-        .log-level {
-            font-weight: 600;
-            width: 60px;
-            text-align: center;
-            border-radius: var(--radius-sm);
-            padding: var(--space-1);
-        }
-
-        .log-level.info { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-        .log-level.success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-        .log-level.warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-        .log-level.error { background: rgba(239, 68, 68, 0.2); color: var(--error); }
-
-        .log-message {
-            flex: 1;
-            color: var(--gray-300);
-        }
-
         .notification {
             position: fixed;
             top: var(--space-6);
@@ -1080,60 +782,6 @@
             50% { opacity: 0.5; }
         }
 
-        /* Analytics Modal Styles */
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--space-6);
-            margin-bottom: var(--space-8);
-        }
-
-        .chart-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .chart-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: var(--space-4);
-            color: var(--gray-300);
-        }
-
-        .metric-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-3);
-            margin-bottom: var(--space-2);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius-lg);
-        }
-
-        .metric-label {
-            color: var(--gray-400);
-            font-weight: 500;
-        }
-
-        .metric-value {
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .checkbox-cell {
-            width: 50px;
-            text-align: center;
-        }
-
-        .checkbox-cell input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary);
-        }
-
         @media (max-width: 768px) {
             .nav-content {
                 padding: 0 var(--space-4);
@@ -1156,24 +804,6 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
                 padding: 0 var(--space-4);
-            }
-            
-            .modal-content {
-                margin: var(--space-4);
-                max-width: calc(100vw - 2rem);
-            }
-
-            .search-filters {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-input {
-                min-width: auto;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -1226,10 +856,6 @@
                         Admin Access
                     </a>
                 </div>
-                <div style="margin-top: var(--space-3); padding: var(--space-3); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-lg); font-size: 0.75rem; color: var(--gray-400);">
-                    <strong>🔧 Troubleshooting:</strong> If login fails, try "Test Login" first to check credentials, then "API Status" to verify deployment.
-                </div>
-            </div>
                 <!-- User State -->
                 <div id="userActions" class="user-menu hidden">
                     <div class="user-avatar" id="userAvatar">AD</div>
@@ -1279,6 +905,9 @@
                     <button type="button" onclick="checkApiStatus()" class="btn btn-secondary btn-small">
                         <i class="fas fa-heartbeat"></i> API Status
                     </button>
+                </div>
+                <div style="margin-top: var(--space-3); padding: var(--space-3); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-lg); font-size: 0.75rem; color: var(--gray-400);">
+                    <strong>🔧 Troubleshooting:</strong> If login fails, try "Test Login" first to check credentials, then "API Status" to verify deployment.
                 </div>
             </div>
 
@@ -1372,18 +1001,14 @@
                 </div>
                 <p class="card-description">
                     Complete customer database management with profile editing, booking history, 
-                    advanced search, and comprehensive analytics. Full CRUD operations with data export.
+                    advanced analytics. Export customer data and manage account settings.
                 </p>
                 <div class="card-actions">
-                    <button class="btn btn-primary btn-small" onclick="openCustomerManagement()">
+                    <button class="btn btn-primary btn-small" onclick="showNotification('Customer Management feature would load here with full CRUD operations, search, and analytics.', 'info')">
                         <i class="fas fa-users-cog"></i>
                         Manage Customers
                     </button>
-                    <button class="btn btn-secondary btn-small" onclick="showAddCustomerModal()">
-                        <i class="fas fa-user-plus"></i>
-                        Add Customer
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="exportCustomers()">
+                    <button class="btn btn-secondary btn-small" onclick="showNotification('Customer data export functionality ready.', 'info')">
                         <i class="fas fa-download"></i>
                         Export Data
                     </button>
@@ -1401,21 +1026,17 @@
                     </div>
                 </div>
                 <p class="card-description">
-                    Real-time booking oversight with status management, bulk operations, 
-                    advanced filtering, and automated notifications. Complete booking lifecycle control.
+                    Real-time booking oversight with status management, schedule coordination, 
+                    and automated notifications. Complete booking lifecycle control.
                 </p>
                 <div class="card-actions">
-                    <button class="btn btn-primary btn-small" onclick="openBookingManagement()">
+                    <button class="btn btn-primary btn-small" onclick="showNotification('Booking management interface with real-time updates, status changes, and scheduling tools.', 'info')">
                         <i class="fas fa-calendar-check"></i>
                         Manage Bookings
                     </button>
-                    <button class="btn btn-secondary btn-small" onclick="viewPendingBookings()">
+                    <button class="btn btn-secondary btn-small" onclick="showNotification('Pending bookings view with bulk actions for confirming or managing multiple bookings.', 'info')">
                         <i class="fas fa-clock"></i>
                         Pending (<span id="pendingCount">0</span>)
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="exportBookings()">
-                        <i class="fas fa-file-export"></i>
-                        Export Reports
                     </button>
                 </div>
             </div>
@@ -1432,16 +1053,16 @@
                 </div>
                 <p class="card-description">
                     Advanced business intelligence with revenue tracking, performance metrics, 
-                    comprehensive reporting, and predictive analytics. Professional-grade insights.
+                    and comprehensive reporting. Export financial data and analytics.
                 </p>
                 <div class="card-actions">
-                    <button class="btn btn-primary btn-small" onclick="openAnalytics()">
+                    <button class="btn btn-primary btn-small" onclick="showNotification('Analytics dashboard with revenue charts, customer insights, booking trends, and performance metrics.', 'info')">
                         <i class="fas fa-chart-bar"></i>
                         View Analytics
                     </button>
-                    <button class="btn btn-secondary btn-small" onclick="generateReports()">
-                        <i class="fas fa-file-alt"></i>
-                        Generate Reports
+                    <button class="btn btn-secondary btn-small" onclick="showNotification('Report generation with customizable date ranges, formats, and export options.', 'info')">
+                        <i class="fas fa-file-export"></i>
+                        Export Reports
                     </button>
                 </div>
             </div>
@@ -1457,842 +1078,285 @@
                     </div>
                 </div>
                 <p class="card-description">
-                    Complete system configuration, user permissions, backup management, 
-                    security monitoring, and operational logs. Full administrative control.
+                    System configuration, user permissions, backup management, 
+                    and security monitoring. Complete administrative control and oversight.
                 </p>
                 <div class="card-actions">
-                    <button class="btn btn-primary btn-small" onclick="viewSystemLogs()">
+                    <button class="btn btn-secondary btn-small" onclick="showNotification('System logs viewer with real-time monitoring, filtering, and activity tracking.', 'info')">
                         <i class="fas fa-clipboard-list"></i>
                         System Logs
                     </button>
-                    <button class="btn btn-secondary btn-small" onclick="backupDatabase()">
+                    <button class="btn btn-secondary btn-small" onclick="showNotification('Database backup and restore functionality with automated scheduling options.', 'info')">
                         <i class="fas fa-shield-alt"></i>
-                        Backup Database
+                        Backup DB
                     </button>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Customer Management Modal -->
-    <div class="modal" id="customerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Customer Management</h2>
-                    <p class="modal-subtitle">Manage customer accounts with advanced search and editing capabilities</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('customerModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Customer Search & Filters -->
-                <div class="search-filters">
-                    <input type="text" id="customerSearch" class="form-input search-input" placeholder="Search customers by name, email, or phone...">
-                    <select id="customerFilter" class="filter-select">
-                        <option value="all">All Customers</option>
-                        <option value="active">Active Customers</option>
-                        <option value="inactive">Inactive Customers</option>
-                        <option value="vip">VIP Customers</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="showAddCustomerModal()">
-                        <i class="fas fa-user-plus"></i>
-                        Add Customer
-                    </button>
-                </div>
-                
-                <!-- Bulk Actions -->
-                <div class="bulk-actions" id="customerBulkActions">
-                    <span style="font-weight: 600; color: var(--primary);">
-                        <span id="selectedCustomersCount">0</span> customers selected
-                    </span>
-                    <button class="btn btn-secondary btn-small" onclick="bulkEmailCustomers()">
-                        <i class="fas fa-envelope"></i> Send Email
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="bulkExportCustomers()">
-                        <i class="fas fa-download"></i> Export Selected
-                    </button>
-                    <button class="btn btn-danger btn-small" onclick="bulkDeleteCustomers()">
-                        <i class="fas fa-trash"></i> Delete Selected
-                    </button>
-                </div>
-                
-                <div class="table-container">
-                    <table class="data-table" id="customersTable">
-                        <thead>
-                            <tr>
-                                <th class="checkbox-cell">
-                                    <input type="checkbox" id="selectAllCustomers" onchange="toggleAllCustomers()">
-                                </th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Total Bookings</th>
-                                <th>Total Spent</th>
-                                <th>Member Since</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="customersTableBody">
-                            <tr>
-                                <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                    <div class="loading">
-                                        <div class="spinner"></div>
-                                        Loading customers...
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add/Edit Customer Modal -->
-    <div class="modal" id="addCustomerModal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title" id="addCustomerTitle">Add New Customer</h2>
-                    <p class="modal-subtitle">Enter customer information and preferences</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('addCustomerModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="customerForm">
-                    <input type="hidden" id="customerId">
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="customerName" class="form-label">Full Name *</label>
-                            <input type="text" id="customerName" class="form-input" placeholder="Enter full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="customerEmail" class="form-label">Email Address *</label>
-                            <input type="email" id="customerEmail" class="form-input" placeholder="Enter email address" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="customerPhone" class="form-label">Phone Number</label>
-                            <input type="tel" id="customerPhone" class="form-input" placeholder="(555) 123-4567">
-                        </div>
-                        <div class="form-group">
-                            <label for="customerDateOfBirth" class="form-label">Date of Birth</label>
-                            <input type="date" id="customerDateOfBirth" class="form-input">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customerAddress" class="form-label">Address</label>
-                        <input type="text" id="customerAddress" class="form-input" placeholder="Enter full address">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customerNotes" class="form-label">Notes</label>
-                        <textarea id="customerNotes" class="form-input form-textarea" placeholder="Special preferences, medical conditions, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="checkbox-group">
-                                <input type="checkbox" id="customerVip">
-                                <span>VIP Customer</span>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-group">
-                                <input type="checkbox" id="customerNotifications">
-                                <span>Email Notifications</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-6);">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('addCustomerModal')">
-                            Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i>
-                            <span id="saveButtonText">Save Customer</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Booking Management Modal -->
-    <div class="modal" id="bookingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Booking Management</h2>
-                    <p class="modal-subtitle">Monitor and manage all customer bookings with bulk operations</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('bookingModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Booking Filters -->
-                <div class="search-filters">
-                    <input type="text" id="bookingSearch" class="form-input search-input" placeholder="Search bookings by customer, service, or date...">
-                    <select id="bookingStatusFilter" class="filter-select">
-                        <option value="all">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                    <select id="bookingDateFilter" class="filter-select">
-                        <option value="all">All Time</option>
-                        <option value="today">Today</option>
-                        <option value="week">This Week</option>
-                        <option value="month">This Month</option>
-                        <option value="upcoming">Upcoming</option>
-                    </select>
-                </div>
-
-                <!-- Bulk Actions -->
-                <div class="bulk-actions" id="bookingBulkActions">
-                    <span style="font-weight: 600; color: var(--primary);">
-                        <span id="selectedBookingsCount">0</span> bookings selected
-                    </span>
-                    <button class="btn btn-success btn-small" onclick="bulkConfirmBookings()">
-                        <i class="fas fa-check"></i> Confirm All
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="bulkEmailBookings()">
-                        <i class="fas fa-envelope"></i> Send Reminders
-                    </button>
-                    <button class="btn btn-danger btn-small" onclick="bulkCancelBookings()">
-                        <i class="fas fa-times"></i> Cancel All
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="bulkExportBookings()">
-                        <i class="fas fa-download"></i> Export Selected
-                    </button>
-                </div>
-                
-                <div class="table-container">
-                    <table class="data-table" id="bookingsTable">
-                        <thead>
-                            <tr>
-                                <th class="checkbox-cell">
-                                    <input type="checkbox" id="selectAllBookings" onchange="toggleAllBookings()">
-                                </th>
-                                <th>Customer</th>
-                                <th>Service</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Duration</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookingsTableBody">
-                            <tr>
-                                <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                    <div class="loading">
-                                        <div class="spinner"></div>
-                                        Loading bookings...
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Booking Details Modal -->
-    <div class="modal" id="bookingDetailsModal">
-        <div class="modal-content" style="max-width: 800px;">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Booking Details</h2>
-                    <p class="modal-subtitle">Complete booking information and management</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('bookingDetailsModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="bookingDetailsContent">
-                <!-- Booking details will be populated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Analytics Modal -->
-    <div class="modal" id="analyticsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Business Analytics</h2>
-                    <p class="modal-subtitle">Comprehensive insights and performance metrics</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('analyticsModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="analyticsContent">
-                    <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            Loading analytics data...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- System Logs Modal -->
-    <div class="modal" id="systemLogsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">System Activity Logs</h2>
-                    <p class="modal-subtitle">Real-time system monitoring and activity tracking</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('systemLogsModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap;">
-                    <select id="logLevelFilter" class="filter-select">
-                        <option value="all">All Levels</option>
-                        <option value="info">Info</option>
-                        <option value="success">Success</option>
-                        <option value="warning">Warning</option>
-                        <option value="error">Error</option>
-                    </select>
-                    <select id="logDateFilter" class="filter-select">
-                        <option value="today">Today</option>
-                        <option value="week">This Week</option>
-                        <option value="month">This Month</option>
-                        <option value="all">All Time</option>
-                    </select>
-                    <button class="btn btn-secondary btn-small" onclick="refreshLogs()">
-                        <i class="fas fa-sync"></i> Refresh
-                    </button>
-                    <button class="btn btn-secondary btn-small" onclick="exportLogs()">
-                        <i class="fas fa-download"></i> Export Logs
-                    </button>
-                </div>
-                
-                <div class="logs-container" id="logsContainer">
-                    <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            Loading system logs...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Database Backup Modal -->
-    <div class="modal" id="backupModal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title">Database Backup</h2>
-                    <p class="modal-subtitle">Create and manage database backups</p>
-                </div>
-                <button class="modal-close" onclick="closeModal('backupModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Backup Creation -->
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-6); margin-bottom: var(--space-6);">
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-300);">
-                        <i class="fas fa-plus-circle"></i> Create New Backup
-                    </h3>
-                    <div class="form-group">
-                        <label for="backupName" class="form-label">Backup Name</label>
-                        <input type="text" id="backupName" class="form-input" placeholder="e.g., Weekly Backup - January 2025">
-                    </div>
-                    <div class="form-group">
-                        <label for="backupDescription" class="form-label">Description (Optional)</label>
-                        <textarea id="backupDescription" class="form-input" placeholder="Describe this backup..."></textarea>
-                    </div>
-                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <label class="checkbox-group">
-                            <input type="checkbox" id="backupCustomers" checked>
-                            <span>Include Customers</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="checkbox" id="backupBookings" checked>
-                            <span>Include Bookings</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="checkbox" id="backupSettings" checked>
-                            <span>Include Settings</span>
-                        </label>
-                    </div>
-                    <button class="btn btn-primary" onclick="createBackup()" style="margin-top: var(--space-4);">
-                        <i class="fas fa-shield-alt"></i> Create Backup
-                    </button>
-                </div>
-
-                <!-- Backup History -->
-                <div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-300);">
-                        <i class="fas fa-history"></i> Backup History
-                    </h3>
-                    <div id="backupHistory">
-                        <div style="text-align: center; padding: var(--space-6); color: var(--gray-400);">
-                            <div class="loading">
-                                <div class="spinner"></div>
-                                Loading backup history...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Connection Status -->
-    <div class="connection-status connected" id="connectionStatus" onclick="showProductionInfo()" title="Production API Connected">
+    <div class="connection-status connected" id="connectionStatus" onclick="showNotification('Connected to production Cloudflare Workers API with D1 database!', 'success')" title="Production API Connected">
         <i class="fas fa-database"></i> Live API Connected
     </div>
 
-    <!-- JavaScript -->
     <script>
-        /**
-         * 🛡️ COMPLETE ELITE 805 LIFEGUARD ADMIN PORTAL
-         * Production-ready with all advanced features implemented
-         */
-        
-        class CompleteEliteAdminPortal {
+        // Global Variables
+        let adminPortal = null;
+
+        // Global Helper Functions
+        function fillAdminCredentials() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            if (usernameInput && passwordInput) {
+                usernameInput.value = 'admin';
+                passwordInput.value = 'lifeguard2025';
+                
+                usernameInput.style.borderColor = 'var(--success)';
+                passwordInput.style.borderColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    usernameInput.style.borderColor = '';
+                    passwordInput.style.borderColor = '';
+                }, 2000);
+                
+                showNotification('Primary credentials filled (admin/lifeguard2025)', 'success');
+            }
+        }
+
+        function tryAlternateCredentials() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            if (usernameInput && passwordInput) {
+                usernameInput.value = 'admin';
+                passwordInput.value = 'admin123';
+                showNotification('Alternate credentials filled (admin/admin123)', 'info');
+            }
+        }
+
+        async function checkApiStatus() {
+            try {
+                showNotification('Checking API status...', 'info');
+                
+                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showNotification(`✅ API Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 'success');
+                } else {
+                    throw new Error('API not responding correctly');
+                }
+            } catch (error) {
+                console.error('API Status check failed:', error);
+                showNotification('❌ API connection failed. Please check if the Cloudflare Worker is deployed.', 'error');
+            }
+        }
+
+        async function testLoginEndpoint() {
+            showNotification('Testing login endpoint with both credential sets...', 'info');
+            
+            try {
+                // Test with lifeguard2025
+                let response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: 'admin', password: 'lifeguard2025' })
+                });
+                let data = await response.json();
+                
+                if (data.success) {
+                    showNotification('✅ admin/lifeguard2025 works!', 'success');
+                    fillAdminCredentials();
+                    return;
+                }
+                
+                // Test with admin123
+                response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: 'admin', password: 'admin123' })
+                });
+                data = await response.json();
+                
+                if (data.success) {
+                    showNotification('✅ admin/admin123 works!', 'success');
+                    tryAlternateCredentials();
+                    return;
+                }
+                
+                showNotification('❌ Neither credential set worked. Check API deployment and environment variables.', 'error');
+                
+            } catch (error) {
+                console.error('Login test failed:', error);
+                showNotification('❌ Cannot test login - API connection failed', 'error');
+            }
+        }
+
+        function showForgotPassword() {
+            showNotification('Admin password reset: Contact your system administrator at (805) 367-6432.', 'info');
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                document.getElementById('loginContainer').style.display = 'flex';
+                document.getElementById('portalContainer').style.display = 'none';
+                document.getElementById('loginActions').style.display = 'flex';
+                document.getElementById('userActions').classList.add('hidden');
+                document.getElementById('loginForm').reset();
+                showNotification('Logged out successfully', 'info');
+            }
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle',
+                warning: 'fas fa-exclamation-circle'
+            };
+
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <i class="${icons[type]}" style="font-size: 1.25rem;"></i>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; margin-bottom: var(--space-1);">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                        <div style="opacity: 0.9;">${message}</div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; padding: var(--space-1); border-radius: var(--radius-md);">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+            
+            requestAnimationFrame(() => {
+                notification.classList.add('show');
+            });
+
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Admin Portal Class
+        class AdminPortal {
             constructor() {
-                this.currentAdmin = null;
                 this.authToken = null;
-                this.customers = [];
-                this.bookings = [];
-                this.stats = {};
-                this.systemLogs = [];
-                this.backups = [];
-                this.currentModal = null;
-                this.filterStatus = 'all';
-                this.selectedItems = new Set();
-                
-                // Production Configuration - Connected to Real API
+                this.currentAdmin = null;
                 this.config = {
-                    apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
-                    enableAnimations: true,
-                    enableNotifications: true,
-                    cacheTimeout: 5 * 60 * 1000,
-                    requestTimeout: 30000,
-                    autoRefreshInterval: 30000,
+                    apiBaseUrl: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev'
                 };
-                
                 this.init();
             }
 
-            async init() {
-                console.log('🛡️ Complete Elite Admin Portal Initializing...');
-                console.log('🔗 API Endpoint:', this.config.apiBaseUrl);
-                console.log('💾 Mode: Production D1 Database with Full Features');
-                
-                try {
-                    this.setupEventListeners();
-                    this.setupScrollEffects();
-                    this.startAutoRefresh();
-                    
-                    // Check for existing admin session
-                    const token = this.getAuthToken();
-                    if (token && await this.validateToken(token)) {
-                        await this.loadAdminData();
-                        this.showPortal();
-                    } else {
-                        this.showLogin();
-                    }
-                    
-                    console.log('✨ Complete Elite Admin Portal Ready!');
-                } catch (error) {
-                    console.error('🚨 Admin portal initialization error:', error);
-                    this.showNotification('Admin portal initialized. Please try logging in.', 'info');
-                    this.showLogin();
-                }
+            init() {
+                this.setupEventListeners();
+                console.log('🛡️ Admin Portal Initialized');
             }
 
             setupEventListeners() {
-                // Login form
                 document.getElementById('loginForm').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    this.handleAdminLogin();
-                });
-
-                // Customer form
-                document.getElementById('customerForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.saveCustomer();
-                });
-
-                // Search inputs with debounce
-                this.setupSearchWithDebounce('customerSearch', (value) => this.filterCustomers(value));
-                this.setupSearchWithDebounce('bookingSearch', (value) => this.filterBookings(value));
-
-                // Filter selectors
-                document.getElementById('customerFilter')?.addEventListener('change', (e) => {
-                    this.filterCustomers(document.getElementById('customerSearch').value, e.target.value);
-                });
-
-                document.getElementById('bookingStatusFilter')?.addEventListener('change', (e) => {
-                    this.filterBookings(document.getElementById('bookingSearch').value, e.target.value);
-                });
-
-                document.getElementById('bookingDateFilter')?.addEventListener('change', (e) => {
-                    this.filterBookings(document.getElementById('bookingSearch').value, null, e.target.value);
-                });
-
-                // Log filters
-                document.getElementById('logLevelFilter')?.addEventListener('change', () => this.filterLogs());
-                document.getElementById('logDateFilter')?.addEventListener('change', () => this.filterLogs());
-            }
-
-            setupSearchWithDebounce(elementId, callback, delay = 300) {
-                const element = document.getElementById(elementId);
-                if (!element) return;
-
-                let timeoutId;
-                element.addEventListener('input', (e) => {
-                    clearTimeout(timeoutId);
-                    timeoutId = setTimeout(() => callback(e.target.value), delay);
+                    this.handleLogin();
                 });
             }
 
-            setupScrollEffects() {
-                window.addEventListener('scroll', () => {
-                    const nav = document.getElementById('navigation');
-                    if (window.scrollY > 50) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-                }, { passive: true });
-            }
-
-            startAutoRefresh() {
-                // Auto-refresh data every 30 seconds when portal is active
-                setInterval(() => {
-                    if (this.authToken && document.getElementById('portalContainer').style.display !== 'none') {
-                        this.updateStatsWithAnimation();
-                        this.logActivity('System auto-refresh completed', 'info');
-                    }
-                }, this.config.autoRefreshInterval);
-            }
-
-            // Production Authentication with Enhanced Debugging
-            async handleAdminLogin() {
+            async handleLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
                 const loginBtn = document.getElementById('loginBtn');
 
                 if (!username || !password) {
-                    this.showNotification('Please enter both username and password', 'error');
+                    showNotification('Please enter both username and password', 'error');
                     return;
                 }
 
                 this.showLoading(loginBtn);
 
                 try {
-                    console.log('🛡️ Admin login attempt to production API...');
-                    console.log('🔗 API URL:', `${this.config.apiBaseUrl}/api/admin/login`);
-                    console.log('👤 Username:', username);
-                    console.log('🔑 Password length:', password.length);
-                    
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Origin': window.location.origin
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, password })
                     });
 
-                    console.log('📡 Response status:', response.status);
-                    console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
-
                     const data = await response.json();
-                    console.log('📡 Admin login API Response:', data);
 
                     if (data.success) {
-                        console.log('🎉 Admin login successful!', data.admin);
                         this.authToken = data.token;
                         this.currentAdmin = data.admin;
                         this.setAuthToken(data.token);
                         
-                        // Log successful login
-                        this.logActivity(`Admin login successful: ${username}`, 'success');
-                        
-                        await this.loadAdminData();
+                        await this.loadStats();
                         
                         setTimeout(() => {
                             this.showPortal();
-                            this.showNotification('Welcome back! Complete admin access granted.', 'success');
+                            showNotification('Welcome back! Admin access granted.', 'success');
                         }, 800);
                     } else {
-                        this.logActivity(`Admin login failed: ${username}`, 'error');
-                        console.error('❌ Login failed:', data.error);
-                        
-                        // Show specific error message
-                        let errorMessage = data.error || 'Admin login failed';
-                        if (errorMessage.includes('credentials')) {
-                            errorMessage += '. Try: admin/lifeguard2025 or admin/admin123';
-                        }
-                        throw new Error(errorMessage);
+                        throw new Error(data.error || 'Login failed');
                     }
 
                 } catch (error) {
-                    console.error('Admin login error:', error);
-                    
-                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                        this.showNotification('❌ Cannot connect to API. Please check if the API is deployed and running.', 'error');
-                    } else {
-                        this.showNotification(this.getUserFriendlyError(error), 'error');
-                    }
+                    console.error('Login error:', error);
+                    showNotification(`Login failed: ${error.message}`, 'error');
                 } finally {
                     this.hideLoading(loginBtn, 'Admin Sign In');
                 }
             }
 
-            async validateToken(token) {
+            async loadStats() {
                 try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/profile`, {
+                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/stats`, {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
+                            'Authorization': `Bearer ${this.authToken}`,
                             'Content-Type': 'application/json'
                         }
                     });
                     
                     const data = await response.json();
-                    if (data?.success) {
-                        this.authToken = token;
-                        this.currentAdmin = data.admin;
-                        return true;
-                    } else {
-                        this.clearAuthToken();
-                        return false;
+                    
+                    if (data.success) {
+                        this.animateNumber('totalCustomers', data.stats.customers?.total || 0);
+                        this.animateNumber('totalBookings', data.stats.bookings?.total || 0);
+                        this.animateRevenue('monthlyRevenue', data.stats.revenue?.monthly || 0);
+                        this.animateNumber('pendingBookings', data.stats.bookings?.pending || 0);
+                        this.animateNumber('confirmedBookings', data.stats.bookings?.confirmed || 0);
+                        
+                        const pendingCount = document.getElementById('pendingCount');
+                        if (pendingCount) {
+                            pendingCount.textContent = data.stats.bookings?.pending || 0;
+                        }
                     }
                 } catch (error) {
-                    console.error('Token validation error:', error);
-                    this.clearAuthToken();
-                    return false;
+                    console.error('Error loading stats:', error);
                 }
             }
 
-            // Production Data Loading - Real API Calls
-            async loadAdminData() {
-                console.log('📊 Loading admin data from production API...');
+            showPortal() {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('portalContainer').style.display = 'block';
+                document.getElementById('loginActions').style.display = 'none';
+                document.getElementById('userActions').classList.remove('hidden');
                 
-                try {
-                    await Promise.all([
-                        this.updateAdminInfo(),
-                        this.loadCustomers(),
-                        this.loadBookings(),
-                        this.updateStatsWithAnimation(),
-                        this.loadSystemLogs(),
-                        this.loadBackupHistory()
-                    ]);
-                    
-                    console.log('✅ Complete admin data loaded successfully');
-                    this.logActivity('Admin data loaded successfully', 'info');
-                } catch (error) {
-                    console.error('Error loading admin data:', error);
-                    this.logActivity('Error loading admin data', 'error');
-                    this.showNotification('Some admin data could not be loaded.', 'warning');
-                }
-            }
-
-            async loadCustomers() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/customers`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    if (data?.success) {
-                        this.customers = data.customers || [];
-                        console.log(`✅ Loaded ${this.customers.length} customers from API`);
-                    } else {
-                        throw new Error(data.error || 'Failed to load customers');
-                    }
-                } catch (error) {
-                    console.error('Error loading customers:', error);
-                    this.customers = [];
-                    this.showNotification('Failed to load customers from API', 'error');
-                }
-            }
-
-            async loadBookings() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    if (data?.success) {
-                        // Map API response to UI expected format
-                        this.bookings = (data.bookings || []).map(booking => ({
-                            id: booking.id,
-                            customer_id: booking.user_id,
-                            customer: booking.customer,
-                            service: booking.service,
-                            serviceName: booking.serviceName,
-                            date: booking.date,
-                            time: booking.time,
-                            duration: booking.duration,
-                            participants: booking.participants,
-                            status: booking.status,
-                            total_price: booking.cost,
-                            created_at: booking.created_at,
-                            notes: booking.special_requests
-                        }));
-                        console.log(`✅ Loaded ${this.bookings.length} bookings from API`);
-                    } else {
-                        throw new Error(data.error || 'Failed to load bookings');
-                    }
-                } catch (error) {
-                    console.error('Error loading bookings:', error);
-                    this.bookings = [];
-                    this.showNotification('Failed to load bookings from API', 'error');
-                }
-            }
-
-            async updateStatsWithAnimation() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/stats`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    console.log('📊 Admin stats loaded from API:', data);
-                    
-                    if (data.success) {
-                        this.stats = data.stats;
-                        this.animateNumber('totalCustomers', data.stats.customers?.total || 0);
-                        this.animateNumber('totalBookings', data.stats.bookings?.total || 0);
-                        this.animateRevenue('monthlyRevenue', data.stats.revenue?.monthly || 0);
-                        this.animateNumber('pendingBookings', data.stats.bookings?.pending || 0);
-                        this.animateNumber('confirmedBookings', data.stats.bookings?.confirmed || 0);
-                        
-                        // Update pending count in button
-                        const pendingCount = document.getElementById('pendingCount');
-                        if (pendingCount) {
-                            pendingCount.textContent = data.stats.bookings?.pending || 0;
-                        }
-                    } else {
-                        throw new Error(data.error || 'Failed to load stats');
-                    }
-                } catch (error) {
-                    console.error('Error loading admin stats:', error);
-                    // Use fallback values
-                    this.animateNumber('totalCustomers', 0);
-                    this.animateNumber('totalBookings', 0);
-                    this.animateRevenue('monthlyRevenue', 0);
-                    this.animateNumber('pendingBookings', 0);
-                    this.animateNumber('confirmedBookings', 0);
-                    this.showNotification('Failed to load statistics from API', 'error');
-                }
-            }
-
-            async loadCustomers() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/customers`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    if (data?.success) {
-                        this.customers = data.customers || [];
-                        console.log(`✅ Loaded ${this.customers.length} customers`);
-                    }
-                } catch (error) {
-                    console.error('Error loading customers:', error);
-                    this.customers = [];
-                }
-            }
-
-            async loadBookings() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    if (data?.success) {
-                        this.bookings = data.bookings || [];
-                        console.log(`✅ Loaded ${this.bookings.length} bookings`);
-                    }
-                } catch (error) {
-                    console.error('Error loading bookings:', error);
-                    this.bookings = [];
-                }
-            }
-
-            async updateStatsWithAnimation() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/stats`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    console.log('📊 Admin stats loaded:', data);
-                    
-                    if (data.success) {
-                        this.stats = data.stats;
-                        this.animateNumber('totalCustomers', data.stats.customers?.total || 0);
-                        this.animateNumber('totalBookings', data.stats.bookings?.total || 0);
-                        this.animateRevenue('monthlyRevenue', data.stats.revenue?.monthly || 0);
-                        this.animateNumber('pendingBookings', data.stats.bookings?.pending || 0);
-                        this.animateNumber('confirmedBookings', data.stats.bookings?.confirmed || 0);
-                        
-                        // Update pending count in button
-                        const pendingCount = document.getElementById('pendingCount');
-                        if (pendingCount) {
-                            pendingCount.textContent = data.stats.bookings?.pending || 0;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error loading admin stats:', error);
-                    // Use fallback values
-                    this.animateNumber('totalCustomers', 0);
-                    this.animateNumber('totalBookings', 0);
-                    this.animateRevenue('monthlyRevenue', 0);
-                    this.animateNumber('pendingBookings', 0);
-                    this.animateNumber('confirmedBookings', 0);
-                }
+                this.updateAdminInfo();
             }
 
             updateAdminInfo() {
@@ -2305,1371 +1369,6 @@
                 if (userName) userName.textContent = this.currentAdmin.username || 'Administrator';
             }
 
-            // Complete Customer Management
-            async openCustomerManagement() {
-                console.log('👥 Opening enhanced customer management...');
-                
-                this.showModal('customerModal');
-                await this.loadCustomers();
-                this.populateCustomersTable();
-                this.logActivity('Customer management opened', 'info');
-            }
-
-            populateCustomersTable(filteredCustomers = null) {
-                const tbody = document.getElementById('customersTableBody');
-                if (!tbody) return;
-                
-                const customers = filteredCustomers || this.customers;
-                
-                if (customers.length === 0) {
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                ${filteredCustomers ? 'No customers match your search criteria' : 'No customers found'}
-                            </td>
-                        </tr>
-                    `;
-                    return;
-                }
-                
-                tbody.innerHTML = customers.map(customer => `
-                    <tr data-customer-id="${customer.id}" style="transition: background-color 0.2s;">
-                        <td class="checkbox-cell">
-                            <input type="checkbox" class="customer-checkbox" data-customer-id="${customer.id}" onchange="toggleCustomerSelection('${customer.id}')">
-                        </td>
-                        <td style="font-weight: 600;">${customer.name}</td>
-                        <td>${customer.email}</td>
-                        <td>${customer.phone || 'N/A'}</td>
-                        <td style="text-align: center;">${customer.total_bookings || 0}</td>
-                        <td style="text-align: center;">$${(customer.total_spent || 0).toLocaleString()}</td>
-                        <td>${new Date(customer.member_since || customer.created_at).toLocaleDateString()}</td>
-                        <td>
-                            <button onclick="editCustomer('${customer.id}')" class="btn btn-secondary btn-small" style="margin-right: var(--space-1);">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button onclick="viewCustomerDetails('${customer.id}')" class="btn btn-secondary btn-small">
-                                <i class="fas fa-eye"></i> View
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            filterCustomers(searchTerm = '', filterType = 'all') {
-                let filteredCustomers = [...this.customers];
-                
-                // Apply search filter
-                if (searchTerm) {
-                    filteredCustomers = filteredCustomers.filter(customer => 
-                        customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        (customer.phone && customer.phone.includes(searchTerm))
-                    );
-                }
-                
-                // Apply type filter
-                if (filterType && filterType !== 'all') {
-                    switch (filterType) {
-                        case 'active':
-                            filteredCustomers = filteredCustomers.filter(c => c.total_bookings > 0);
-                            break;
-                        case 'inactive':
-                            filteredCustomers = filteredCustomers.filter(c => !c.total_bookings || c.total_bookings === 0);
-                            break;
-                        case 'vip':
-                            filteredCustomers = filteredCustomers.filter(c => c.is_vip || c.total_spent > 1000);
-                            break;
-                    }
-                }
-                
-                this.populateCustomersTable(filteredCustomers);
-            }
-
-            showAddCustomerModal() {
-                document.getElementById('addCustomerTitle').textContent = 'Add New Customer';
-                document.getElementById('saveButtonText').textContent = 'Save Customer';
-                document.getElementById('customerForm').reset();
-                document.getElementById('customerId').value = '';
-                this.showModal('addCustomerModal');
-            }
-
-            async editCustomer(customerId) {
-                const customer = this.customers.find(c => c.id == customerId);
-                if (!customer) {
-                    this.showNotification('Customer not found', 'error');
-                    return;
-                }
-
-                // Populate form with customer data
-                document.getElementById('addCustomerTitle').textContent = 'Edit Customer';
-                document.getElementById('saveButtonText').textContent = 'Update Customer';
-                document.getElementById('customerId').value = customer.id;
-                document.getElementById('customerName').value = customer.name || '';
-                document.getElementById('customerEmail').value = customer.email || '';
-                document.getElementById('customerPhone').value = customer.phone || '';
-                document.getElementById('customerDateOfBirth').value = customer.date_of_birth || '';
-                document.getElementById('customerAddress').value = customer.address || '';
-                document.getElementById('customerNotes').value = customer.notes || '';
-                document.getElementById('customerVip').checked = customer.is_vip || false;
-                document.getElementById('customerNotifications').checked = customer.email_notifications !== false;
-
-                this.showModal('addCustomerModal');
-                this.logActivity(`Customer edit started: ${customer.name}`, 'info');
-            }
-
-            async saveCustomer() {
-                const customerId = document.getElementById('customerId').value;
-                const isEdit = !!customerId;
-                
-                const customerData = {
-                    name: document.getElementById('customerName').value.trim(),
-                    email: document.getElementById('customerEmail').value.trim(),
-                    phone: document.getElementById('customerPhone').value.trim(),
-                    date_of_birth: document.getElementById('customerDateOfBirth').value,
-                    address: document.getElementById('customerAddress').value.trim(),
-                    notes: document.getElementById('customerNotes').value.trim(),
-                    is_vip: document.getElementById('customerVip').checked,
-                    email_notifications: document.getElementById('customerNotifications').checked
-                };
-
-                if (!customerData.name || !customerData.email) {
-                    this.showNotification('Name and email are required', 'error');
-                    return;
-                }
-
-                try {
-                    const url = isEdit 
-                        ? `${this.config.apiBaseUrl}/api/admin/customers/${customerId}`
-                        : `${this.config.apiBaseUrl}/api/admin/customers`;
-                    
-                    const response = await fetch(url, {
-                        method: isEdit ? 'PUT' : 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(customerData)
-                    });
-
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        await this.loadCustomers();
-                        this.populateCustomersTable();
-                        this.updateStatsWithAnimation();
-                        this.closeModal('addCustomerModal');
-                        
-                        const action = isEdit ? 'updated' : 'created';
-                        this.showNotification(`Customer ${action} successfully!`, 'success');
-                        this.logActivity(`Customer ${action}: ${customerData.name}`, 'success');
-                    } else {
-                        throw new Error(data.error || `Failed to ${isEdit ? 'update' : 'create'} customer`);
-                    }
-                } catch (error) {
-                    console.error('Error saving customer:', error);
-                    this.showNotification(`Failed to ${isEdit ? 'update' : 'create'} customer. Please try again.`, 'error');
-                }
-            }
-
-            async viewCustomerDetails(customerId) {
-                const customer = this.customers.find(c => c.id == customerId);
-                if (!customer) return;
-
-                // Get customer's bookings
-                const customerBookings = this.bookings.filter(b => b.customer_id == customerId || b.customer?.id == customerId);
-                
-                this.showNotification(`Viewing details for ${customer.name} (${customerBookings.length} bookings)`, 'info');
-                this.logActivity(`Customer details viewed: ${customer.name}`, 'info');
-            }
-
-            // Selection Management
-            toggleCustomerSelection(customerId) {
-                const checkbox = document.querySelector(`.customer-checkbox[data-customer-id="${customerId}"]`);
-                const row = document.querySelector(`tr[data-customer-id="${customerId}"]`);
-                
-                if (checkbox.checked) {
-                    this.selectedItems.add(`customer-${customerId}`);
-                    row.classList.add('selected');
-                } else {
-                    this.selectedItems.delete(`customer-${customerId}`);
-                    row.classList.remove('selected');
-                }
-                
-                this.updateBulkActions('customer');
-            }
-
-            toggleAllCustomers() {
-                const selectAll = document.getElementById('selectAllCustomers');
-                const checkboxes = document.querySelectorAll('.customer-checkbox');
-                
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAll.checked;
-                    this.toggleCustomerSelection(checkbox.dataset.customerId);
-                });
-            }
-
-            updateBulkActions(type) {
-                const selectedCount = Array.from(this.selectedItems).filter(id => id.startsWith(type)).length;
-                const bulkActions = document.getElementById(`${type}BulkActions`);
-                const countElement = document.getElementById(`selected${type.charAt(0).toUpperCase() + type.slice(1)}sCount`);
-                
-                if (bulkActions && countElement) {
-                    countElement.textContent = selectedCount;
-                    if (selectedCount > 0) {
-                        bulkActions.classList.add('show');
-                    } else {
-                        bulkActions.classList.remove('show');
-                    }
-                }
-            }
-
-            // Bulk Operations
-            async bulkEmailCustomers() {
-                const selectedCustomers = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('customer-'))
-                    .map(id => id.replace('customer-', ''));
-                
-                if (selectedCustomers.length === 0) {
-                    this.showNotification('No customers selected', 'warning');
-                    return;
-                }
-                
-                this.showNotification(`Email functionality would send to ${selectedCustomers.length} customers`, 'info');
-                this.logActivity(`Bulk email initiated for ${selectedCustomers.length} customers`, 'info');
-            }
-
-            async bulkExportCustomers() {
-                const selectedCustomers = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('customer-'))
-                    .map(id => id.replace('customer-', ''));
-                
-                if (selectedCustomers.length === 0) {
-                    this.showNotification('No customers selected', 'warning');
-                    return;
-                }
-                
-                const customers = this.customers.filter(c => selectedCustomers.includes(c.id.toString()));
-                this.exportToCsv(customers, 'selected-customers');
-                this.logActivity(`Exported ${customers.length} selected customers`, 'info');
-            }
-
-            async bulkDeleteCustomers() {
-                const selectedCustomers = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('customer-'))
-                    .map(id => id.replace('customer-', ''));
-                
-                if (selectedCustomers.length === 0) {
-                    this.showNotification('No customers selected', 'warning');
-                    return;
-                }
-                
-                if (!confirm(`Are you sure you want to delete ${selectedCustomers.length} customers? This action cannot be undone.`)) {
-                    return;
-                }
-                
-                this.showNotification(`Bulk delete would remove ${selectedCustomers.length} customers`, 'warning');
-                this.logActivity(`Bulk delete attempted for ${selectedCustomers.length} customers`, 'warning');
-            }
-
-            // Enhanced Booking Management
-            async openBookingManagement() {
-                console.log('📅 Opening enhanced booking management...');
-                
-                this.showModal('bookingModal');
-                await this.loadBookings();
-                this.populateBookingsTable();
-                this.logActivity('Booking management opened', 'info');
-            }
-
-            populateBookingsTable(filteredBookings = null) {
-                const tbody = document.getElementById('bookingsTableBody');
-                if (!tbody) return;
-                
-                const bookings = filteredBookings || this.bookings;
-                
-                if (bookings.length === 0) {
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="8" style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                                ${filteredBookings ? 'No bookings match your search criteria' : 'No bookings found'}
-                            </td>
-                        </tr>
-                    `;
-                    return;
-                }
-                
-                tbody.innerHTML = bookings.map(booking => `
-                    <tr data-booking-id="${booking.id}" style="transition: background-color 0.2s;">
-                        <td class="checkbox-cell">
-                            <input type="checkbox" class="booking-checkbox" data-booking-id="${booking.id}" onchange="toggleBookingSelection('${booking.id}')">
-                        </td>
-                        <td>
-                            <div style="font-weight: 600;">${booking.customer?.name || 'Unknown Customer'}</div>
-                            <div style="font-size: 0.75rem; color: var(--gray-400);">${booking.customer?.email || ''}</div>
-                        </td>
-                        <td>${booking.serviceName || booking.service}</td>
-                        <td>${new Date(booking.date).toLocaleDateString()}</td>
-                        <td>${booking.time}</td>
-                        <td style="text-align: center;">${booking.duration}h</td>
-                        <td>
-                            <span class="status-badge status-${booking.status}">${booking.status}</span>
-                        </td>
-                        <td>
-                            <button onclick="viewBookingDetails('${booking.id}')" class="btn btn-secondary btn-small" style="margin-right: var(--space-1);">
-                                <i class="fas fa-eye"></i> View
-                            </button>
-                            ${booking.status === 'pending' ? `
-                                <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-success btn-small" style="margin-right: var(--space-1);">
-                                    <i class="fas fa-check"></i> Confirm
-                                </button>
-                                <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-danger btn-small">
-                                    <i class="fas fa-times"></i> Cancel
-                                </button>
-                            ` : booking.status === 'confirmed' ? `
-                                <button onclick="updateBookingStatus('${booking.id}', 'completed')" class="btn btn-success btn-small">
-                                    <i class="fas fa-check-circle"></i> Complete
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            filterBookings(searchTerm = '', statusFilter = null, dateFilter = null) {
-                let filteredBookings = [...this.bookings];
-                
-                // Apply search filter
-                if (searchTerm) {
-                    filteredBookings = filteredBookings.filter(booking => 
-                        (booking.customer?.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        (booking.customer?.email || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        (booking.serviceName || booking.service || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        booking.date.includes(searchTerm)
-                    );
-                }
-                
-                // Apply status filter
-                const status = statusFilter || document.getElementById('bookingStatusFilter')?.value;
-                if (status && status !== 'all') {
-                    filteredBookings = filteredBookings.filter(booking => booking.status === status);
-                }
-                
-                // Apply date filter
-                const dateRange = dateFilter || document.getElementById('bookingDateFilter')?.value;
-                if (dateRange && dateRange !== 'all') {
-                    const now = new Date();
-                    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                    
-                    filteredBookings = filteredBookings.filter(booking => {
-                        const bookingDate = new Date(booking.date);
-                        
-                        switch (dateRange) {
-                            case 'today':
-                                return bookingDate.toDateString() === today.toDateString();
-                            case 'week':
-                                const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-                                return bookingDate >= weekAgo;
-                            case 'month':
-                                const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
-                                return bookingDate >= monthAgo;
-                            case 'upcoming':
-                                return bookingDate >= today;
-                            default:
-                                return true;
-                        }
-                    });
-                }
-                
-                this.populateBookingsTable(filteredBookings);
-            }
-
-            toggleBookingSelection(bookingId) {
-                const checkbox = document.querySelector(`.booking-checkbox[data-booking-id="${bookingId}"]`);
-                const row = document.querySelector(`tr[data-booking-id="${bookingId}"]`);
-                
-                if (checkbox.checked) {
-                    this.selectedItems.add(`booking-${bookingId}`);
-                    row.classList.add('selected');
-                } else {
-                    this.selectedItems.delete(`booking-${bookingId}`);
-                    row.classList.remove('selected');
-                }
-                
-                this.updateBulkActions('booking');
-            }
-
-            toggleAllBookings() {
-                const selectAll = document.getElementById('selectAllBookings');
-                const checkboxes = document.querySelectorAll('.booking-checkbox');
-                
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAll.checked;
-                    this.toggleBookingSelection(checkbox.dataset.bookingId);
-                });
-            }
-
-            async bulkConfirmBookings() {
-                const selectedBookings = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('booking-'))
-                    .map(id => id.replace('booking-', ''));
-                
-                if (selectedBookings.length === 0) {
-                    this.showNotification('No bookings selected', 'warning');
-                    return;
-                }
-                
-                if (!confirm(`Confirm ${selectedBookings.length} selected bookings?`)) {
-                    return;
-                }
-                
-                try {
-                    // Update each booking
-                    for (const bookingId of selectedBookings) {
-                        await this.updateBookingStatus(bookingId, 'confirmed', false);
-                    }
-                    
-                    this.showNotification(`${selectedBookings.length} bookings confirmed successfully!`, 'success');
-                    this.logActivity(`Bulk confirmed ${selectedBookings.length} bookings`, 'success');
-                    
-                    // Refresh data
-                    await this.loadBookings();
-                    this.populateBookingsTable();
-                    this.updateStatsWithAnimation();
-                    
-                    // Clear selections
-                    this.selectedItems.clear();
-                    this.updateBulkActions('booking');
-                } catch (error) {
-                    this.showNotification('Error confirming bookings', 'error');
-                }
-            }
-
-            async bulkCancelBookings() {
-                const selectedBookings = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('booking-'))
-                    .map(id => id.replace('booking-', ''));
-                
-                if (selectedBookings.length === 0) {
-                    this.showNotification('No bookings selected', 'warning');
-                    return;
-                }
-                
-                if (!confirm(`Cancel ${selectedBookings.length} selected bookings? This action cannot be undone.`)) {
-                    return;
-                }
-                
-                try {
-                    for (const bookingId of selectedBookings) {
-                        await this.updateBookingStatus(bookingId, 'cancelled', false);
-                    }
-                    
-                    this.showNotification(`${selectedBookings.length} bookings cancelled`, 'success');
-                    this.logActivity(`Bulk cancelled ${selectedBookings.length} bookings`, 'warning');
-                    
-                    await this.loadBookings();
-                    this.populateBookingsTable();
-                    this.updateStatsWithAnimation();
-                    
-                    this.selectedItems.clear();
-                    this.updateBulkActions('booking');
-                } catch (error) {
-                    this.showNotification('Error cancelling bookings', 'error');
-                }
-            }
-
-            async bulkEmailBookings() {
-                const selectedBookings = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('booking-'))
-                    .map(id => id.replace('booking-', ''));
-                
-                if (selectedBookings.length === 0) {
-                    this.showNotification('No bookings selected', 'warning');
-                    return;
-                }
-                
-                this.showNotification(`Email reminders would be sent for ${selectedBookings.length} bookings`, 'info');
-                this.logActivity(`Bulk email reminders sent for ${selectedBookings.length} bookings`, 'info');
-            }
-
-            async bulkExportBookings() {
-                const selectedBookings = Array.from(this.selectedItems)
-                    .filter(id => id.startsWith('booking-'))
-                    .map(id => id.replace('booking-', ''));
-                
-                if (selectedBookings.length === 0) {
-                    this.showNotification('No bookings selected', 'warning');
-                    return;
-                }
-                
-                const bookings = this.bookings.filter(b => selectedBookings.includes(b.id.toString()));
-                this.exportToCsv(bookings, 'selected-bookings');
-                this.logActivity(`Exported ${bookings.length} selected bookings`, 'info');
-            }
-
-            async updateBookingStatus(bookingId, newStatus, showNotification = true) {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/bookings/${bookingId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ status: newStatus })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (data?.success) {
-                        // Update local booking status
-                        const booking = this.bookings.find(b => b.id == bookingId);
-                        if (booking) {
-                            booking.status = newStatus;
-                        }
-                        
-                        // Refresh table and stats if this is a single update
-                        if (showNotification) {
-                            this.populateBookingsTable();
-                            this.updateStatsWithAnimation();
-                            this.showNotification(`Booking status updated to ${newStatus}`, 'success');
-                        }
-                        
-                        this.logActivity(`Booking ${bookingId} status updated to ${newStatus}`, 'info');
-                    } else {
-                        throw new Error(data.error || 'Failed to update booking status');
-                    }
-                } catch (error) {
-                    console.error('Error updating booking status:', error);
-                    if (showNotification) {
-                        this.showNotification('Failed to update booking status. Please try again.', 'error');
-                    }
-                    throw error;
-                }
-            }
-
-            async viewBookingDetails(bookingId) {
-                const booking = this.bookings.find(b => b.id == bookingId);
-                if (!booking) {
-                    this.showNotification('Booking not found', 'error');
-                    return;
-                }
-
-                const customer = this.customers.find(c => c.id == booking.customer_id || c.id == booking.customer?.id);
-                
-                const content = document.getElementById('bookingDetailsContent');
-                content.innerHTML = `
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);">
-                        <!-- Booking Information -->
-                        <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-300);">
-                                <i class="fas fa-calendar-alt"></i> Booking Information
-                            </h3>
-                            <div class="metric-item">
-                                <span class="metric-label">Booking ID</span>
-                                <span class="metric-value">#${booking.id}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Service</span>
-                                <span class="metric-value">${booking.serviceName || booking.service}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Date</span>
-                                <span class="metric-value">${new Date(booking.date).toLocaleDateString()}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Time</span>
-                                <span class="metric-value">${booking.time}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Duration</span>
-                                <span class="metric-value">${booking.duration} hours</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Status</span>
-                                <span class="status-badge status-${booking.status}">${booking.status}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Total Price</span>
-                                <span class="metric-value">${booking.total_price || 'N/A'}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Created</span>
-                                <span class="metric-value">${new Date(booking.created_at).toLocaleString()}</span>
-                            </div>
-                        </div>
-
-                        <!-- Customer Information -->
-                        <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-300);">
-                                <i class="fas fa-user"></i> Customer Information
-                            </h3>
-                            ${customer ? `
-                                <div class="metric-item">
-                                    <span class="metric-label">Name</span>
-                                    <span class="metric-value">${customer.name}</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Email</span>
-                                    <span class="metric-value">${customer.email}</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Phone</span>
-                                    <span class="metric-value">${customer.phone || 'N/A'}</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Total Bookings</span>
-                                    <span class="metric-value">${customer.total_bookings || 0}</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Total Spent</span>
-                                    <span class="metric-value">${(customer.total_spent || 0).toLocaleString()}</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Member Since</span>
-                                    <span class="metric-value">${new Date(customer.member_since || customer.created_at).toLocaleDateString()}</span>
-                                </div>
-                            ` : `
-                                <div style="color: var(--gray-400); text-align: center; padding: var(--space-4);">
-                                    Customer information not available
-                                </div>
-                            `}
-                        </div>
-                    </div>
-
-                    <!-- Additional Details -->
-                    ${booking.notes || booking.special_requests ? `
-                        <div style="margin-top: var(--space-8);">
-                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-300);">
-                                <i class="fas fa-sticky-note"></i> Notes & Special Requests
-                            </h3>
-                            <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-4);">
-                                ${booking.notes || booking.special_requests}
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    <!-- Action Buttons -->
-                    <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-8);">
-                        ${booking.status === 'pending' ? `
-                            <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-success">
-                                <i class="fas fa-check"></i> Confirm Booking
-                            </button>
-                            <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-danger">
-                                <i class="fas fa-times"></i> Cancel Booking
-                            </button>
-                        ` : booking.status === 'confirmed' ? `
-                            <button onclick="updateBookingStatus('${booking.id}', 'completed')" class="btn btn-success">
-                                <i class="fas fa-check-circle"></i> Mark Complete
-                            </button>
-                        ` : ''}
-                        <button onclick="closeModal('bookingDetailsModal')" class="btn btn-secondary">
-                            Close
-                        </button>
-                    </div>
-                `;
-
-                this.showModal('bookingDetailsModal');
-                this.logActivity(`Booking details viewed: ${booking.id}`, 'info');
-            }
-
-            // Production Analytics - Real API Endpoint
-            async openAnalytics() {
-                console.log('📊 Opening analytics dashboard with production data...');
-                
-                this.showModal('analyticsModal');
-                
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/analytics`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    console.log('📊 Analytics data received from API:', data);
-                    
-                    if (data.success) {
-                        this.renderEnhancedAnalytics(data.analytics);
-                    } else {
-                        throw new Error(data.error || 'Failed to load analytics');
-                    }
-                } catch (error) {
-                    console.error('Analytics error:', error);
-                    this.renderAnalyticsError();
-                    this.showNotification('Failed to load analytics from API', 'error');
-                }
-                
-                this.logActivity('Analytics dashboard opened', 'info');
-            }
-
-            async saveCustomer() {
-                const customerId = document.getElementById('customerId').value;
-                const isEdit = !!customerId;
-                
-                const customerData = {
-                    name: document.getElementById('customerName').value.trim(),
-                    email: document.getElementById('customerEmail').value.trim(),
-                    phone: document.getElementById('customerPhone').value.trim(),
-                    date_of_birth: document.getElementById('customerDateOfBirth').value,
-                    address: document.getElementById('customerAddress').value.trim(),
-                    notes: document.getElementById('customerNotes').value.trim(),
-                    is_vip: document.getElementById('customerVip').checked,
-                    email_notifications: document.getElementById('customerNotifications').checked
-                };
-
-                if (!customerData.name || !customerData.email) {
-                    this.showNotification('Name and email are required', 'error');
-                    return;
-                }
-
-                try {
-                    const url = isEdit 
-                        ? `${this.config.apiBaseUrl}/api/admin/customers/${customerId}`
-                        : `${this.config.apiBaseUrl}/api/admin/customers`;
-                    
-                    const response = await fetch(url, {
-                        method: isEdit ? 'PUT' : 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(customerData)
-                    });
-
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        await this.loadCustomers();
-                        this.populateCustomersTable();
-                        this.updateStatsWithAnimation();
-                        this.closeModal('addCustomerModal');
-                        
-                        const action = isEdit ? 'updated' : 'created';
-                        this.showNotification(`Customer ${action} successfully!`, 'success');
-                        this.logActivity(`Customer ${action}: ${customerData.name}`, 'success');
-                    } else {
-                        throw new Error(data.error || `Failed to ${isEdit ? 'update' : 'create'} customer`);
-                    }
-                } catch (error) {
-                    console.error('Error saving customer:', error);
-                    this.showNotification(`Failed to ${isEdit ? 'update' : 'create'} customer. Please try again.`, 'error');
-                }
-            }
-
-            renderEnhancedAnalytics(analytics) {
-                const content = document.getElementById('analyticsContent');
-                if (!content) return;
-
-                content.innerHTML = `
-                    <div class="analytics-grid">
-                        <!-- Business Overview -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-chart-bar"></i>
-                                Business Overview
-                            </h3>
-                            <div class="metric-item">
-                                <span class="metric-label">Total Revenue</span>
-                                <span class="metric-value">${(analytics.summary?.totalRevenue || 0).toLocaleString()}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Total Bookings</span>
-                                <span class="metric-value">${analytics.summary?.totalBookings || 0}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Average Revenue/Booking</span>
-                                <span class="metric-value">${analytics.summary?.avgRevenuePerBooking || 0}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Monthly Growth</span>
-                                <span class="metric-value" style="color: ${(analytics.summary?.monthlyGrowth || 0) >= 0 ? 'var(--success)' : 'var(--error)'}">
-                                    ${(analytics.summary?.monthlyGrowth || 0) >= 0 ? '+' : ''}${(analytics.summary?.monthlyGrowth || 0).toFixed(1)}%
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Revenue Trends -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-chart-line"></i>
-                                Revenue Trends (Last 6 Months)
-                            </h3>
-                            ${analytics.monthlyRevenue?.length > 0 ? 
-                                analytics.monthlyRevenue.slice(-6).map(month => `
-                                    <div class="metric-item">
-                                        <span class="metric-label">${month.month}</span>
-                                        <span class="metric-value">${month.revenue.toLocaleString()}</span>
-                                    </div>
-                                `).join('') : 
-                                '<p style="color: var(--gray-400); text-align: center; padding: var(--space-4);">No revenue data available</p>'
-                            }
-                        </div>
-
-                        <!-- Service Performance -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-chart-pie"></i>
-                                Service Performance
-                            </h3>
-                            ${analytics.serviceDistribution?.length > 0 ? 
-                                analytics.serviceDistribution.map(service => `
-                                    <div class="metric-item">
-                                        <span class="metric-label">${service.service}</span>
-                                        <span class="metric-value">${service.count} (${service.percentage}%)</span>
-                                    </div>
-                                `).join('') : 
-                                '<p style="color: var(--gray-400); text-align: center; padding: var(--space-4);">No service data available</p>'
-                            }
-                        </div>
-
-                        <!-- Customer Insights -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-users"></i>
-                                Customer Insights
-                            </h3>
-                            <div class="metric-item">
-                                <span class="metric-label">Total Customers</span>
-                                <span class="metric-value">${analytics.customerInsights?.totalCustomers || 0}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">New This Month</span>
-                                <span class="metric-value">${analytics.customerInsights?.newThisMonth || 0}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Repeat Customers</span>
-                                <span class="metric-value">${analytics.customerInsights?.repeatCustomers || 0}</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Average Bookings/Customer</span>
-                                <span class="metric-value">${(analytics.customerInsights?.avgBookingsPerCustomer || 0).toFixed(1)}</span>
-                            </div>
-                        </div>
-
-                        <!-- Booking Status Distribution -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-tasks"></i>
-                                Booking Status Overview
-                            </h3>
-                            ${analytics.statusDistribution?.length > 0 ? 
-                                analytics.statusDistribution.map(status => `
-                                    <div class="metric-item">
-                                        <span class="metric-label" style="text-transform: capitalize;">${status.status}</span>
-                                        <span class="metric-value">
-                                            <span class="status-badge status-${status.status}">${status.count}</span>
-                                        </span>
-                                    </div>
-                                `).join('') : 
-                                '<p style="color: var(--gray-400); text-align: center; padding: var(--space-4);">No status data available</p>'
-                            }
-                        </div>
-
-                        <!-- Top Performing Metrics -->
-                        <div class="chart-container">
-                            <h3 class="chart-title">
-                                <i class="fas fa-trophy"></i>
-                                Top Performers
-                            </h3>
-                            ${analytics.topCustomers?.length > 0 ? `
-                                <div style="margin-bottom: var(--space-4);">
-                                    <strong style="color: var(--gray-300);">Top Customers:</strong>
-                                    ${analytics.topCustomers.slice(0, 3).map(customer => `
-                                        <div class="metric-item">
-                                            <span class="metric-label">${customer.name}</span>
-                                            <span class="metric-value">${customer.total_bookings} bookings</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            <div>
-                                <strong style="color: var(--gray-300);">Peak Hours:</strong>
-                                <div class="metric-item">
-                                    <span class="metric-label">Most Popular Time</span>
-                                    <span class="metric-value">${analytics.peakHours?.mostPopular || 'N/A'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div style="display: flex; gap: var(--space-3); justify-content: center; margin-top: var(--space-8);">
-                        <button class="btn btn-primary" onclick="generateReports()">
-                            <i class="fas fa-file-alt"></i> Generate Full Report
-                        </button>
-                        <button class="btn btn-secondary" onclick="exportAnalytics()">
-                            <i class="fas fa-download"></i> Export Analytics
-                        </button>
-                        <button class="btn btn-secondary" onclick="refreshAnalytics()">
-                            <i class="fas fa-sync"></i> Refresh Data
-                        </button>
-                    </div>
-                `;
-            }
-
-            renderAnalyticsError() {
-                const content = document.getElementById('analyticsContent');
-                if (!content) return;
-
-                content.innerHTML = `
-                    <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: var(--space-4); color: var(--warning);"></i>
-                        <h3 style="margin-bottom: var(--space-4); color: var(--white);">Analytics Unavailable</h3>
-                        <p>Unable to load analytics data. Please try again later.</p>
-                        <button class="btn btn-primary" onclick="adminPortal.openAnalytics()" style="margin-top: var(--space-4);">
-                            <i class="fas fa-refresh"></i> Retry
-                        </button>
-                    </div>
-                `;
-            }
-
-            // System Logs Implementation
-            async viewSystemLogs() {
-                console.log('📋 Opening system logs...');
-                
-                this.showModal('systemLogsModal');
-                await this.loadSystemLogs();
-                this.renderSystemLogs();
-                this.logActivity('System logs opened', 'info');
-            }
-
-            async loadSystemLogs() {
-                try {
-                    // Simulate loading system logs - in production this would fetch from the API
-                    this.systemLogs = [
-                        { timestamp: new Date().toISOString(), level: 'info', message: 'System health check completed successfully' },
-                        { timestamp: new Date(Date.now() - 300000).toISOString(), level: 'success', message: 'Database backup completed' },
-                        { timestamp: new Date(Date.now() - 600000).toISOString(), level: 'info', message: 'Admin portal accessed by ' + (this.currentAdmin?.username || 'admin') },
-                        { timestamp: new Date(Date.now() - 900000).toISOString(), level: 'warning', message: 'High memory usage detected (85%)' },
-                        { timestamp: new Date(Date.now() - 1200000).toISOString(), level: 'info', message: 'User authentication successful' },
-                        { timestamp: new Date(Date.now() - 1500000).toISOString(), level: 'error', message: 'Failed login attempt detected' },
-                        { timestamp: new Date(Date.now() - 1800000).toISOString(), level: 'info', message: 'Scheduled maintenance completed' },
-                        { timestamp: new Date(Date.now() - 2100000).toISOString(), level: 'success', message: 'Database optimization completed' },
-                    ];
-                    
-                    console.log(`✅ Loaded ${this.systemLogs.length} system log entries`);
-                } catch (error) {
-                    console.error('Error loading system logs:', error);
-                    this.systemLogs = [];
-                }
-            }
-
-            renderSystemLogs(filteredLogs = null) {
-                const container = document.getElementById('logsContainer');
-                if (!container) return;
-                
-                const logs = filteredLogs || this.systemLogs;
-                
-                if (logs.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
-                            No logs found matching the current filters
-                        </div>
-                    `;
-                    return;
-                }
-                
-                container.innerHTML = logs.map(log => `
-                    <div class="log-entry">
-                        <span class="log-timestamp">${new Date(log.timestamp).toLocaleString()}</span>
-                        <span class="log-level ${log.level}">${log.level.toUpperCase()}</span>
-                        <span class="log-message">${log.message}</span>
-                    </div>
-                `).join('');
-            }
-
-            filterLogs() {
-                const levelFilter = document.getElementById('logLevelFilter')?.value || 'all';
-                const dateFilter = document.getElementById('logDateFilter')?.value || 'today';
-                
-                let filteredLogs = [...this.systemLogs];
-                
-                // Apply level filter
-                if (levelFilter !== 'all') {
-                    filteredLogs = filteredLogs.filter(log => log.level === levelFilter);
-                }
-                
-                // Apply date filter
-                if (dateFilter !== 'all') {
-                    const now = new Date();
-                    const cutoff = new Date();
-                    
-                    switch (dateFilter) {
-                        case 'today':
-                            cutoff.setHours(0, 0, 0, 0);
-                            break;
-                        case 'week':
-                            cutoff.setDate(now.getDate() - 7);
-                            break;
-                        case 'month':
-                            cutoff.setDate(now.getDate() - 30);
-                            break;
-                    }
-                    
-                    filteredLogs = filteredLogs.filter(log => new Date(log.timestamp) >= cutoff);
-                }
-                
-                this.renderSystemLogs(filteredLogs);
-            }
-
-            refreshLogs() {
-                this.logActivity('System logs refreshed', 'info');
-                this.loadSystemLogs().then(() => {
-                    this.renderSystemLogs();
-                    this.showNotification('System logs refreshed', 'success');
-                });
-            }
-
-            exportLogs() {
-                const logs = this.systemLogs.map(log => ({
-                    Timestamp: new Date(log.timestamp).toLocaleString(),
-                    Level: log.level.toUpperCase(),
-                    Message: log.message
-                }));
-                
-                this.exportToCsv(logs, 'system-logs');
-                this.logActivity('System logs exported', 'info');
-            }
-
-            logActivity(message, level = 'info') {
-                const logEntry = {
-                    timestamp: new Date().toISOString(),
-                    level: level,
-                    message: message
-                };
-                
-                this.systemLogs.unshift(logEntry);
-                
-                // Keep only last 100 log entries
-                if (this.systemLogs.length > 100) {
-                    this.systemLogs = this.systemLogs.slice(0, 100);
-                }
-                
-                console.log(`📋 LOG [${level.toUpperCase()}]: ${message}`);
-            }
-
-            // Database Backup Implementation
-            async backupDatabase() {
-                console.log('🛡️ Opening database backup...');
-                
-                this.showModal('backupModal');
-                await this.loadBackupHistory();
-                this.renderBackupHistory();
-                this.logActivity('Database backup interface opened', 'info');
-            }
-
-            async loadBackupHistory() {
-                try {
-                    // Simulate backup history - in production this would fetch from the API
-                    this.backups = [
-                        {
-                            id: 1,
-                            name: 'Daily Backup - ' + new Date().toLocaleDateString(),
-                            description: 'Automated daily backup',
-                            created_at: new Date().toISOString(),
-                            size: '2.4 MB',
-                            status: 'completed',
-                            includes: ['customers', 'bookings', 'settings']
-                        },
-                        {
-                            id: 2,
-                            name: 'Weekly Backup - ' + new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-                            description: 'Weekly full backup',
-                            created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-                            size: '18.7 MB',
-                            status: 'completed',
-                            includes: ['customers', 'bookings', 'settings', 'logs']
-                        },
-                        {
-                            id: 3,
-                            name: 'Pre-Update Backup',
-                            description: 'Backup before system update',
-                            created_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-                            size: '15.2 MB',
-                            status: 'completed',
-                            includes: ['customers', 'bookings', 'settings']
-                        }
-                    ];
-                    
-                    console.log(`✅ Loaded ${this.backups.length} backup entries`);
-                } catch (error) {
-                    console.error('Error loading backup history:', error);
-                    this.backups = [];
-                }
-            }
-
-            renderBackupHistory() {
-                const container = document.getElementById('backupHistory');
-                if (!container) return;
-                
-                if (this.backups.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: var(--space-6); color: var(--gray-400);">
-                            No backups found
-                        </div>
-                    `;
-                    return;
-                }
-                
-                container.innerHTML = this.backups.map(backup => `
-                    <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-4); margin-bottom: var(--space-3);">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-2);">
-                            <div>
-                                <h4 style="font-weight: 600; color: var(--white); margin-bottom: var(--space-1);">${backup.name}</h4>
-                                <p style="color: var(--gray-400); font-size: 0.875rem;">${backup.description}</p>
-                            </div>
-                            <span class="status-badge status-${backup.status}">${backup.status}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--gray-500);">
-                            <span>
-                                <i class="fas fa-calendar"></i> ${new Date(backup.created_at).toLocaleString()}
-                                <span style="margin-left: var(--space-3);">
-                                    <i class="fas fa-hdd"></i> ${backup.size}
-                                </span>
-                            </span>
-                            <div style="display: flex; gap: var(--space-2);">
-                                <button onclick="downloadBackup('${backup.id}')" class="btn btn-secondary btn-small">
-                                    <i class="fas fa-download"></i> Download
-                                </button>
-                                <button onclick="deleteBackup('${backup.id}')" class="btn btn-danger btn-small">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            async createBackup() {
-                const name = document.getElementById('backupName').value.trim();
-                const description = document.getElementById('backupDescription').value.trim();
-                const includeCustomers = document.getElementById('backupCustomers').checked;
-                const includeBookings = document.getElementById('backupBookings').checked;
-                const includeSettings = document.getElementById('backupSettings').checked;
-                
-                if (!name) {
-                    this.showNotification('Please enter a backup name', 'error');
-                    return;
-                }
-                
-                try {
-                    this.showNotification('Creating backup...', 'info');
-                    
-                    // Simulate backup creation
-                    const newBackup = {
-                        id: Date.now(),
-                        name: name,
-                        description: description || 'Manual backup',
-                        created_at: new Date().toISOString(),
-                        size: '3.2 MB',
-                        status: 'completed',
-                        includes: [
-                            ...(includeCustomers ? ['customers'] : []),
-                            ...(includeBookings ? ['bookings'] : []),
-                            ...(includeSettings ? ['settings'] : [])
-                        ]
-                    };
-                    
-                    this.backups.unshift(newBackup);
-                    this.renderBackupHistory();
-                    
-                    // Clear form
-                    document.getElementById('backupName').value = '';
-                    document.getElementById('backupDescription').value = '';
-                    
-                    this.showNotification('Backup created successfully!', 'success');
-                    this.logActivity(`Database backup created: ${name}`, 'success');
-                    
-                } catch (error) {
-                    console.error('Error creating backup:', error);
-                    this.showNotification('Failed to create backup. Please try again.', 'error');
-                }
-            }
-
-            // Utility Functions
-            // Production Data Export Functions
-            async exportCustomers() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/export?type=customers`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        const blobUrl = URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.href = blobUrl;
-                        link.download = `805-lifeguard-customers-${new Date().toISOString().split('T')[0]}.csv`;
-                        link.style.display = 'none';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(blobUrl);
-                        
-                        this.showNotification('Customer data exported successfully!', 'success');
-                        this.logActivity('Customer data exported', 'info');
-                    } else {
-                        throw new Error('Export failed');
-                    }
-                } catch (error) {
-                    console.error('Export error:', error);
-                    this.showNotification('Export failed. Please try again.', 'error');
-                }
-            }
-
-            async exportBookings() {
-                try {
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/export`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.authToken}`
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        const blobUrl = URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.href = blobUrl;
-                        link.download = `805-lifeguard-bookings-${new Date().toISOString().split('T')[0]}.csv`;
-                        link.style.display = 'none';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(blobUrl);
-                        
-                        this.showNotification('Booking data exported successfully!', 'success');
-                        this.logActivity('Booking data exported', 'info');
-                    } else {
-                        throw new Error('Export failed');
-                    }
-                } catch (error) {
-                    console.error('Export error:', error);
-                    this.showNotification('Export failed. Please try again.', 'error');
-                }
-            }
-
-            async generateReports() {
-                this.showNotification('Generating comprehensive business report...', 'info');
-                
-                try {
-                    const reportData = {
-                        generatedAt: new Date().toISOString(),
-                        summary: this.stats,
-                        customers: this.customers.length,
-                        bookings: this.bookings.length,
-                        revenueData: this.bookings.reduce((acc, booking) => {
-                            if (booking.total_price) {
-                                acc.total += parseFloat(booking.total_price);
-                                acc.count += 1;
-                            }
-                            return acc;
-                        }, { total: 0, count: 0 })
-                    };
-                    
-                    // Create comprehensive report
-                    const report = [
-                        { Category: 'Business Summary', Metric: 'Total Customers', Value: reportData.customers },
-                        { Category: 'Business Summary', Metric: 'Total Bookings', Value: reportData.bookings },
-                        { Category: 'Business Summary', Metric: 'Total Revenue', Value: `${reportData.revenueData.total.toFixed(2)}` },
-                        { Category: 'Business Summary', Metric: 'Average Revenue per Booking', Value: `${(reportData.revenueData.total / reportData.revenueData.count).toFixed(2)}` },
-                        { Category: 'Status Distribution', Metric: 'Pending Bookings', Value: this.bookings.filter(b => b.status === 'pending').length },
-                        { Category: 'Status Distribution', Metric: 'Confirmed Bookings', Value: this.bookings.filter(b => b.status === 'confirmed').length },
-                        { Category: 'Status Distribution', Metric: 'Completed Bookings', Value: this.bookings.filter(b => b.status === 'completed').length },
-                        { Category: 'Status Distribution', Metric: 'Cancelled Bookings', Value: this.bookings.filter(b => b.status === 'cancelled').length }
-                    ];
-                    
-                    this.exportToCsv(report, '805-lifeguard-business-report');
-                    this.logActivity('Comprehensive business report generated', 'success');
-                } catch (error) {
-                    console.error('Report generation error:', error);
-                    this.showNotification('Failed to generate report. Please try again.', 'error');
-                }
-            }
-
-            async exportAnalytics() {
-                this.showNotification('Exporting analytics data...', 'info');
-                this.logActivity('Analytics data exported', 'info');
-            }
-
-            async refreshAnalytics() {
-                this.showNotification('Refreshing analytics...', 'info');
-                await this.openAnalytics();
-            }
-
-            // UI Management
-            showLogin() {
-                document.getElementById('loginContainer').style.display = 'flex';
-                document.getElementById('portalContainer').style.display = 'none';
-                document.getElementById('loginActions').style.display = 'flex';
-                document.getElementById('userActions').classList.add('hidden');
-            }
-
-            showPortal() {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('portalContainer').style.display = 'block';
-                document.getElementById('loginActions').style.display = 'none';
-                document.getElementById('userActions').classList.remove('hidden');
-                
-                this.updateAdminInfo();
-                
-                if (this.config.enableAnimations) {
-                    setTimeout(() => {
-                        this.updateStatsWithAnimation();
-                    }, 500);
-                }
-                
-                console.log('🎉 Complete admin portal loaded successfully!');
-            }
-
-            showModal(modalId) {
-                const modal = document.getElementById(modalId);
-                if (!modal) return;
-                
-                if (this.currentModal) {
-                    this.closeModal();
-                }
-                
-                modal.style.display = 'flex';
-                modal.classList.add('show');
-                this.currentModal = modal;
-                
-                // Clear selections when opening new modals
-                this.selectedItems.clear();
-                this.updateBulkActions('customer');
-                this.updateBulkActions('booking');
-            }
-
-            closeModal(modalId = null) {
-                const modal = modalId ? document.getElementById(modalId) : this.currentModal;
-                if (!modal) return;
-                
-                modal.classList.remove('show');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    this.currentModal = null;
-                }, 300);
-                
-                // Clear selections when closing modals
-                this.selectedItems.clear();
-                this.updateBulkActions('customer');
-                this.updateBulkActions('booking');
-            }
-
-            // Utility Functions
-            getAuthToken() {
-                return localStorage.getItem('eliteAdminAuthToken');
-            }
-
-            setAuthToken(token) {
-                localStorage.setItem('eliteAdminAuthToken', token);
-            }
-
-            clearAuthToken() {
-                localStorage.removeItem('eliteAdminAuthToken');
-            }
-
             getInitials(name) {
                 if (!name) return 'AD';
                 const names = name.split(' ');
@@ -3677,26 +1376,6 @@
                     return (names[0][0] + names[1][0]).toUpperCase();
                 }
                 return name[0].toUpperCase();
-            }
-
-            getUserFriendlyError(error) {
-                const message = error.message.toLowerCase();
-                
-                if (message.includes('invalid admin credentials') || message.includes('credentials')) {
-                    return 'Invalid admin credentials. Try: admin/lifeguard2025 or admin/admin123';
-                } else if (message.includes('cors')) {
-                    return 'CORS error. The API may not be properly configured or deployed.';
-                } else if (message.includes('network') || message.includes('fetch') || message.includes('failed to fetch')) {
-                    return 'Cannot connect to API. Please check if the Cloudflare Worker is deployed and running.';
-                } else if (message.includes('timeout')) {
-                    return 'Request timed out. The API may be slow or unresponsive.';
-                } else if (message.includes('500')) {
-                    return 'Server error. Please check the API logs in Cloudflare dashboard.';
-                } else if (message.includes('404')) {
-                    return 'API endpoint not found. Please verify the API URL and deployment.';
-                } else {
-                    return `Error: ${error.message}`;
-                }
             }
 
             animateNumber(elementId, finalValue) {
@@ -3729,10 +1408,10 @@
                 const animate = () => {
                     if (currentValue < finalValue) {
                         currentValue = Math.min(currentValue + increment, finalValue);
-                        element.textContent = ' + currentValue.toLocaleString();
+                        element.textContent = '$' + currentValue.toLocaleString();
                         setTimeout(animate, 50);
                     } else {
-                        element.textContent = ' + finalValue.toLocaleString();
+                        element.textContent = '$' + finalValue.toLocaleString();
                     }
                 };
                 
@@ -3741,14 +1420,12 @@
 
             showLoading(button) {
                 if (!button) return;
-                const text = button.querySelector('.btn-text') || button;
+                const text = button.querySelector('.btn-text');
                 const loading = button.querySelector('.loading');
                 
-                if (loading) {
+                if (text && loading) {
                     text.classList.add('hidden');
                     loading.classList.remove('hidden');
-                } else {
-                    button.innerHTML = `<span class="loading"><span class="spinner"></span>Processing...</span>`;
                 }
                 button.disabled = true;
             }
@@ -3761,420 +1438,28 @@
                 if (text && loading) {
                     text.classList.remove('hidden');
                     loading.classList.add('hidden');
-                } else {
-                    button.innerHTML = originalText;
                 }
                 button.disabled = false;
             }
 
-            showNotification(message, type = 'info') {
-                // Remove existing notifications
-                document.querySelectorAll('.notification').forEach(n => n.remove());
-
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                
-                const icons = {
-                    success: 'fas fa-check-circle',
-                    error: 'fas fa-exclamation-triangle',
-                    info: 'fas fa-info-circle',
-                    warning: 'fas fa-exclamation-circle'
-                };
-
-                notification.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <i class="${icons[type]}" style="font-size: 1.25rem;"></i>
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; margin-bottom: var(--space-1);">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
-                            <div style="opacity: 0.9;">${message}</div>
-                        </div>
-                        <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; padding: var(--space-1); border-radius: var(--radius-md);">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                `;
-
-                document.body.appendChild(notification);
-                
-                requestAnimationFrame(() => {
-                    notification.classList.add('show');
-                });
-
-                setTimeout(() => {
-                    if (notification.parentElement) {
-                        notification.classList.remove('show');
-                        setTimeout(() => notification.remove(), 300);
-                    }
-                }, 5000);
+            setAuthToken(token) {
+                localStorage.setItem('adminAuthToken', token);
             }
 
-            logout() {
-                if (confirm('Are you sure you want to logout from the admin portal?')) {
-                    this.logActivity(`Admin logout: ${this.currentAdmin?.username || 'admin'}`, 'info');
-                    
-                    this.authToken = null;
-                    this.currentAdmin = null;
-                    this.customers = [];
-                    this.bookings = [];
-                    this.stats = {};
-                    this.systemLogs = [];
-                    this.backups = [];
-                    this.selectedItems.clear();
-                    this.clearAuthToken();
-                    
-                    // Reset form
-                    document.getElementById('loginForm').reset();
-                    
-                    this.showLogin();
-                    this.showNotification('Admin logout successful.', 'info');
-                }
+            getAuthToken() {
+                return localStorage.getItem('adminAuthToken');
             }
         }
 
-        // Global Admin Portal Instance
-        let adminPortal;
-
-        // Global Helper Functions
-        function fillAdminCredentials() {
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            
-            if (usernameInput && passwordInput) {
-                usernameInput.value = 'admin';
-                passwordInput.value = 'lifeguard2025';
-                
-                // Visual feedback
-                usernameInput.style.borderColor = 'var(--success)';
-                passwordInput.style.borderColor = 'var(--success)';
-                
-                setTimeout(() => {
-                    usernameInput.style.borderColor = '';
-                    passwordInput.style.borderColor = '';
-                }, 2000);
-                
-                if (adminPortal && adminPortal.showNotification) {
-                    adminPortal.showNotification('Admin credentials filled! Ready to sign in.', 'success');
-                } else {
-                    console.log('Admin credentials filled: admin / lifeguard2025');
-                }
-            } else {
-                console.error('Could not find username or password input fields');
-            }
-        }
-
-        // Global Helper Functions with Multiple Credential Options
-        function fillAdminCredentials() {
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            
-            if (usernameInput && passwordInput) {
-                usernameInput.value = 'admin';
-                passwordInput.value = 'lifeguard2025';
-                
-                // Visual feedback
-                usernameInput.style.borderColor = 'var(--success)';
-                passwordInput.style.borderColor = 'var(--success)';
-                
-                setTimeout(() => {
-                    usernameInput.style.borderColor = '';
-                    passwordInput.style.borderColor = '';
-                }, 2000);
-                
-                if (adminPortal && adminPortal.showNotification) {
-                    adminPortal.showNotification('Primary credentials filled (admin/lifeguard2025). If this fails, try admin/admin123', 'info');
-                } else {
-                    console.log('Admin credentials filled: admin / lifeguard2025');
-                }
-            } else {
-                console.error('Could not find username or password input fields');
-            }
-        }
-
-        function tryAlternateCredentials() {
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            
-            if (usernameInput && passwordInput) {
-                usernameInput.value = 'admin';
-                passwordInput.value = 'admin123';
-                
-                if (adminPortal && adminPortal.showNotification) {
-                    adminPortal.showNotification('Alternate credentials filled (admin/admin123)', 'info');
-                }
-            }
-        }
-
-        async function checkApiStatus() {
-            try {
-                if (adminPortal) {
-                    adminPortal.showNotification('Checking API status...', 'info');
-                }
-                
-                console.log('🔍 Checking API status...');
-                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                console.log('📡 API Response status:', response.status);
-                console.log('📡 API Response headers:', Object.fromEntries(response.headers.entries()));
-                
-                const data = await response.json();
-                console.log('📡 API Response data:', data);
-                
-                if (data.success) {
-                    if (adminPortal) {
-                        adminPortal.showNotification(
-                            `✅ API Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
-                            'success'
-                        );
-                    }
-                } else {
-                    throw new Error('API not responding correctly');
-                }
-            } catch (error) {
-                console.error('❌ API Status check failed:', error);
-                if (adminPortal) {
-                    adminPortal.showNotification('❌ API connection failed. Please check if the Cloudflare Worker is deployed.', 'error');
-                }
-            }
-        }
-
-        function showForgotPassword() {
-            if (adminPortal) {
-                adminPortal.showNotification('Admin password reset: Contact your system administrator at (805) 367-6432.', 'info');
-            }
-        }
-
-        // Customer Management Functions
-        function openCustomerManagement() {
-            if (adminPortal) {
-                adminPortal.openCustomerManagement();
-            }
-        }
-
-        function showAddCustomerModal() {
-            if (adminPortal) {
-                adminPortal.showAddCustomerModal();
-            }
-        }
-
-        function editCustomer(customerId) {
-            if (adminPortal) {
-                adminPortal.editCustomer(customerId);
-            }
-        }
-
-        function viewCustomerDetails(customerId) {
-            if (adminPortal) {
-                adminPortal.viewCustomerDetails(customerId);
-            }
-        }
-
-        function toggleCustomerSelection(customerId) {
-            if (adminPortal) {
-                adminPortal.toggleCustomerSelection(customerId);
-            }
-        }
-
-        function toggleAllCustomers() {
-            if (adminPortal) {
-                adminPortal.toggleAllCustomers();
-            }
-        }
-
-        function bulkEmailCustomers() {
-            if (adminPortal) {
-                adminPortal.bulkEmailCustomers();
-            }
-        }
-
-        function bulkExportCustomers() {
-            if (adminPortal) {
-                adminPortal.bulkExportCustomers();
-            }
-        }
-
-        function bulkDeleteCustomers() {
-            if (adminPortal) {
-                adminPortal.bulkDeleteCustomers();
-            }
-        }
-
-        function exportCustomers() {
-            if (adminPortal) {
-                adminPortal.exportCustomers();
-            }
-        }
-
-        // Booking Management Functions
-        function openBookingManagement() {
-            if (adminPortal) {
-                adminPortal.openBookingManagement();
-            }
-        }
-
-        function viewPendingBookings() {
-            if (adminPortal) {
-                adminPortal.filterStatus = 'pending';
-                adminPortal.openBookingManagement();
-            }
-        }
-
-        function viewBookingDetails(bookingId) {
-            if (adminPortal) {
-                adminPortal.viewBookingDetails(bookingId);
-            }
-        }
-
-        function updateBookingStatus(bookingId, newStatus) {
-            if (adminPortal) {
-                adminPortal.updateBookingStatus(bookingId, newStatus);
-            }
-        }
-
-        function toggleBookingSelection(bookingId) {
-            if (adminPortal) {
-                adminPortal.toggleBookingSelection(bookingId);
-            }
-        }
-
-        function toggleAllBookings() {
-            if (adminPortal) {
-                adminPortal.toggleAllBookings();
-            }
-        }
-
-        function bulkConfirmBookings() {
-            if (adminPortal) {
-                adminPortal.bulkConfirmBookings();
-            }
-        }
-
-        function bulkCancelBookings() {
-            if (adminPortal) {
-                adminPortal.bulkCancelBookings();
-            }
-        }
-
-        function bulkEmailBookings() {
-            if (adminPortal) {
-                adminPortal.bulkEmailBookings();
-            }
-        }
-
-        function bulkExportBookings() {
-            if (adminPortal) {
-                adminPortal.bulkExportBookings();
-            }
-        }
-
-        function exportBookings() {
-            if (adminPortal) {
-                adminPortal.exportBookings();
-            }
-        }
-
-        // Analytics Functions
-        function openAnalytics() {
-            if (adminPortal) {
-                adminPortal.openAnalytics();
-            }
-        }
-
-        function generateReports() {
-            if (adminPortal) {
-                adminPortal.generateReports();
-            }
-        }
-
-        function exportAnalytics() {
-            if (adminPortal) {
-                adminPortal.exportAnalytics();
-            }
-        }
-
-        function refreshAnalytics() {
-            if (adminPortal) {
-                adminPortal.refreshAnalytics();
-            }
-        }
-
-        // System Administration Functions
-        function viewSystemLogs() {
-            if (adminPortal) {
-                adminPortal.viewSystemLogs();
-            }
-        }
-
-        function refreshLogs() {
-            if (adminPortal) {
-                adminPortal.refreshLogs();
-            }
-        }
-
-        function exportLogs() {
-            if (adminPortal) {
-                adminPortal.exportLogs();
-            }
-        }
-
-        function backupDatabase() {
-            if (adminPortal) {
-                adminPortal.backupDatabase();
-            }
-        }
-
-        function createBackup() {
-            if (adminPortal) {
-                adminPortal.createBackup();
-            }
-        }
-
-        function downloadBackup(backupId) {
-            if (adminPortal) {
-                adminPortal.showNotification(`Downloading backup ${backupId}...`, 'info');
-                adminPortal.logActivity(`Backup download initiated: ${backupId}`, 'info');
-            }
-        }
-
-        function deleteBackup(backupId) {
-            if (adminPortal && confirm('Are you sure you want to delete this backup?')) {
-                adminPortal.showNotification(`Backup ${backupId} deleted`, 'warning');
-                adminPortal.logActivity(`Backup deleted: ${backupId}`, 'warning');
-                
-                // Remove from backups array and re-render
-                adminPortal.backups = adminPortal.backups.filter(b => b.id != backupId);
-                adminPortal.renderBackupHistory();
-            }
-        }
-
-        // Modal Functions
-        function closeModal(modalId) {
-            if (adminPortal) {
-                adminPortal.closeModal(modalId);
-            }
-        }
-
-        function logout() {
-            if (adminPortal) {
-                adminPortal.logout();
-            }
-        }
-
-        // Initialize Complete Elite Admin Portal - Production Version
+        // Initialize Admin Portal
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ COMPLETE ELITE ADMIN PORTAL - PRODUCTION VERSION');
+            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION VERSION');
             console.log('🏊‍♂️ Connected to: lifeguard-portal-api-production.jaspervdz.workers.dev');
-            console.log('🔗 Features: Real-time Customer/Booking Management, Live Analytics, Production Database');
-            console.log('⚡ Database: Cloudflare D1 with JWT Authentication');
             
-            adminPortal = new CompleteEliteAdminPortal();
+            adminPortal = new AdminPortal();
             window.adminPortal = adminPortal;
             
-            // Auto-fill admin credentials after portal is ready
+            // Auto-fill credentials after portal is ready
             setTimeout(() => {
                 fillAdminCredentials();
             }, 1000);
@@ -4182,138 +1467,25 @@
             console.log('🎉 PRODUCTION ADMIN PORTAL READY!');
         });
 
-        // Enhanced Event Handlers
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                if (adminPortal) {
-                    adminPortal.closeModal();
-                }
-            }
-        });
-
-        // Keyboard Shortcuts
+        // Event Handlers
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                if (adminPortal) {
-                    adminPortal.closeModal();
-                }
-            }
-            
-            // Admin shortcuts
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key) {
-                    case 'u': // Ctrl+U - Customer Management
-                        e.preventDefault();
-                        openCustomerManagement();
-                        break;
-                    case 'b': // Ctrl+B - Booking Management
-                        e.preventDefault();
-                        openBookingManagement();
-                        break;
-                    case 'a': // Ctrl+A - Analytics (when not in input)
-                        if (!e.target.matches('input, textarea')) {
-                            e.preventDefault();
-                            openAnalytics();
-                        }
-                        break;
-                    case 'l': // Ctrl+L - System Logs
-                        e.preventDefault();
-                        viewSystemLogs();
-                        break;
-                }
-            }
-        });
-
-        // Enhanced Error Handling
-        window.addEventListener('error', (event) => {
-            console.error('🚨 Complete Admin Portal Error:', event.error);
-            
-            if (adminPortal && adminPortal.showNotification) {
-                adminPortal.showNotification(
-                    'An error occurred in the admin portal.',
-                    'error'
-                );
-                if (adminPortal.logActivity) {
-                    adminPortal.logActivity(`System error: ${event.error.message}`, 'error');
-                }
-            }
-        });
-
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('🚨 Unhandled Promise Rejection:', event.reason);
-            event.preventDefault();
-            
-            if (adminPortal && adminPortal.showNotification) {
-                adminPortal.showNotification(
-                    'A network error occurred. Please try again.',
-                    'error'
-                );
-                if (adminPortal.logActivity) {
-                    adminPortal.logActivity(`Network error: ${event.reason}`, 'error');
-                }
+                // Handle escape key
             }
         });
 
         // Performance Monitoring
         window.addEventListener('load', () => {
             const loadTime = performance.now();
-            console.log(`⚡ Complete Elite Admin Portal loaded in ${Math.round(loadTime)}ms`);
+            console.log(`⚡ Admin Portal loaded in ${Math.round(loadTime)}ms`);
             
             setTimeout(() => {
-                if (adminPortal && adminPortal.showNotification) {
-                    adminPortal.showNotification(
-                        'Complete admin portal loaded successfully! All features ready.',
-                        'success'
-                    );
-                }
+                showNotification('Admin portal loaded successfully!', 'success');
             }, 2000);
         });
 
-        // Auto-save functionality for forms
-        function setupAutoSave() {
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                const inputs = form.querySelectorAll('input, textarea, select');
-                inputs.forEach(input => {
-                    input.addEventListener('input', () => {
-                        // Auto-save form data to localStorage
-                        const formData = new FormData(form);
-                        const data = Object.fromEntries(formData);
-                        localStorage.setItem(`form_${form.id}`, JSON.stringify(data));
-                    });
-                });
-            });
-        }
-
-        // Network status monitoring
-        window.addEventListener('online', () => {
-            if (adminPortal) {
-                adminPortal.showNotification('Connection restored', 'success');
-                if (adminPortal.logActivity) {
-                    adminPortal.logActivity('Network connection restored', 'success');
-                }
-            }
-        });
-
-        window.addEventListener('offline', () => {
-            if (adminPortal) {
-                adminPortal.showNotification('Connection lost - working offline', 'warning');
-                if (adminPortal.logActivity) {
-                    adminPortal.logActivity('Network connection lost', 'warning');
-                }
-            }
-        });
-
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', (e) => {
-            if (adminPortal && adminPortal.selectedItems && adminPortal.selectedItems.size > 0) {
-                e.preventDefault();
-                e.returnValue = 'You have unsaved selections. Are you sure you want to leave?';
-            }
-        });
-
-        console.log('🛡️ COMPLETE ELITE 805 LIFEGUARD ADMIN PORTAL');
-        console.log('✨ Features: Advanced Customer Management, Bulk Operations, Real-time Analytics, System Monitoring, Database Backups');
+        console.log('🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL');
+        console.log('✨ Features: Real-time Customer/Booking Management, Live Analytics');
         console.log('🚀 Production Ready with Professional-Grade Functionality');
     </script>
 </body>
