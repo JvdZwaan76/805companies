@@ -1226,6 +1226,10 @@
                         Admin Access
                     </a>
                 </div>
+                <div style="margin-top: var(--space-3); padding: var(--space-3); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-lg); font-size: 0.75rem; color: var(--gray-400);">
+                    <strong>🔧 Troubleshooting:</strong> If login fails, try "Test Login" first to check credentials, then "API Status" to verify deployment.
+                </div>
+            </div>
                 <!-- User State -->
                 <div id="userActions" class="user-menu hidden">
                     <div class="user-avatar" id="userAvatar">AD</div>
@@ -1259,17 +1263,21 @@
                 <div style="font-size: 0.875rem; color: var(--gray-300); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> lifeguard-portal-api-production.jaspervdz.workers.dev<br>
                     <strong>💾 Database:</strong> Cloudflare D1 with complete management privileges<br>
-                    <strong>🛡️ Features:</strong> Real-time data, Customer/Booking Management, Analytics, System Logs
+                    <strong>🔑 Credentials:</strong> Try admin/lifeguard2025 OR admin/admin123<br>
+                    <strong>🛡️ Features:</strong> Real-time data, Customer/Booking Management, Analytics
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
                     <button type="button" onclick="fillAdminCredentials()" class="btn btn-secondary btn-small">
-                        <i class="fas fa-key"></i> Auto-Fill Credentials
+                        <i class="fas fa-key"></i> Try: admin/lifeguard2025
                     </button>
-                    <button type="button" onclick="checkApiStatus()" class="btn btn-primary btn-small">
-                        <i class="fas fa-heartbeat"></i> Check API Status
+                    <button type="button" onclick="tryAlternateCredentials()" class="btn btn-secondary btn-small">
+                        <i class="fas fa-unlock"></i> Try: admin/admin123
                     </button>
-                    <button type="button" onclick="testAdminLogin()" class="btn btn-success btn-small">
+                    <button type="button" onclick="testLoginEndpoint()" class="btn btn-primary btn-small">
                         <i class="fas fa-vial"></i> Test Login
+                    </button>
+                    <button type="button" onclick="checkApiStatus()" class="btn btn-secondary btn-small">
+                        <i class="fas fa-heartbeat"></i> API Status
                     </button>
                 </div>
             </div>
@@ -1302,13 +1310,13 @@
                 </button>
 
                 <div class="mt-4" style="text-align: center;">
-                    <p style="color: var(--gray-400); margin-bottom: var(--space-4);">Troubleshooting login issues?</p>
+                    <p style="color: var(--gray-400); margin-bottom: var(--space-4);">Need access to other portals?</p>
                     <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
-                        <button type="button" onclick="openTroubleshooting()" class="btn btn-secondary btn-small">
-                            <i class="fas fa-question-circle"></i> Troubleshooting
-                        </button>
                         <a href="client-login.html" class="btn btn-secondary btn-small">
                             <i class="fas fa-swimmer"></i> Client Portal
+                        </a>
+                        <a href="staff-portal.html" class="btn btn-secondary btn-small">
+                            <i class="fas fa-user-shield"></i> Staff Portal
                         </a>
                     </div>
                 </div>
@@ -1987,7 +1995,7 @@
                 }, this.config.autoRefreshInterval);
             }
 
-            // Enhanced Production Authentication with Debugging
+            // Production Authentication with Enhanced Debugging
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -2002,9 +2010,9 @@
 
                 try {
                     console.log('🛡️ Admin login attempt to production API...');
-                    console.log('📡 API URL:', `${this.config.apiBaseUrl}/api/admin/login`);
+                    console.log('🔗 API URL:', `${this.config.apiBaseUrl}/api/admin/login`);
                     console.log('👤 Username:', username);
-                    console.log('🔐 Password length:', password.length);
+                    console.log('🔑 Password length:', password.length);
                     
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
                         method: 'POST',
@@ -2019,7 +2027,7 @@
                     console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
 
                     const data = await response.json();
-                    console.log('📡 Full API Response:', data);
+                    console.log('📡 Admin login API Response:', data);
 
                     if (data.success) {
                         console.log('🎉 Admin login successful!', data.admin);
@@ -2039,28 +2047,23 @@
                     } else {
                         this.logActivity(`Admin login failed: ${username}`, 'error');
                         console.error('❌ Login failed:', data.error);
-                        throw new Error(data.error || 'Admin login failed');
+                        
+                        // Show specific error message
+                        let errorMessage = data.error || 'Admin login failed';
+                        if (errorMessage.includes('credentials')) {
+                            errorMessage += '. Try: admin/lifeguard2025 or admin/admin123';
+                        }
+                        throw new Error(errorMessage);
                     }
 
                 } catch (error) {
-                    console.error('🚨 Admin login error:', error);
-                    
-                    // More detailed error handling
-                    let errorMessage = 'Login failed. ';
+                    console.error('Admin login error:', error);
                     
                     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                        errorMessage = '🌐 Cannot connect to API. Please check if the API is deployed and accessible.';
-                    } else if (error.message.includes('CORS')) {
-                        errorMessage = '🔒 CORS error. API needs to allow this origin.';
-                    } else if (error.message.includes('Invalid admin credentials')) {
-                        errorMessage = '❌ Invalid username or password. Try: admin / lifeguard2025';
-                    } else if (error.message.includes('Network')) {
-                        errorMessage = '🌐 Network error. Check your internet connection.';
+                        this.showNotification('❌ Cannot connect to API. Please check if the API is deployed and running.', 'error');
                     } else {
-                        errorMessage = `❌ ${error.message}`;
+                        this.showNotification(this.getUserFriendlyError(error), 'error');
                     }
-                    
-                    this.showNotification(errorMessage, 'error');
                 } finally {
                     this.hideLoading(loginBtn, 'Admin Sign In');
                 }
@@ -3679,18 +3682,20 @@
             getUserFriendlyError(error) {
                 const message = error.message.toLowerCase();
                 
-                if (message.includes('invalid admin credentials') || message.includes('401')) {
-                    return 'Invalid admin credentials. Please check your username and password.';
+                if (message.includes('invalid admin credentials') || message.includes('credentials')) {
+                    return 'Invalid admin credentials. Try: admin/lifeguard2025 or admin/admin123';
                 } else if (message.includes('cors')) {
-                    return 'Connection error. Please check your network connection.';
-                } else if (message.includes('network') || message.includes('fetch')) {
-                    return 'Unable to connect to the server. Please try again.';
+                    return 'CORS error. The API may not be properly configured or deployed.';
+                } else if (message.includes('network') || message.includes('fetch') || message.includes('failed to fetch')) {
+                    return 'Cannot connect to API. Please check if the Cloudflare Worker is deployed and running.';
                 } else if (message.includes('timeout')) {
-                    return 'Request timed out. Please try again.';
+                    return 'Request timed out. The API may be slow or unresponsive.';
                 } else if (message.includes('500')) {
-                    return 'Server error. Please try again in a few moments.';
+                    return 'Server error. Please check the API logs in Cloudflare dashboard.';
+                } else if (message.includes('404')) {
+                    return 'API endpoint not found. Please verify the API URL and deployment.';
                 } else {
-                    return 'Something went wrong. Please try again.';
+                    return `Error: ${error.message}`;
                 }
             }
 
@@ -3857,22 +3862,72 @@
             }
         }
 
+        // Global Helper Functions with Multiple Credential Options
+        function fillAdminCredentials() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            if (usernameInput && passwordInput) {
+                usernameInput.value = 'admin';
+                passwordInput.value = 'lifeguard2025';
+                
+                // Visual feedback
+                usernameInput.style.borderColor = 'var(--success)';
+                passwordInput.style.borderColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    usernameInput.style.borderColor = '';
+                    passwordInput.style.borderColor = '';
+                }, 2000);
+                
+                if (adminPortal && adminPortal.showNotification) {
+                    adminPortal.showNotification('Primary credentials filled (admin/lifeguard2025). If this fails, try admin/admin123', 'info');
+                } else {
+                    console.log('Admin credentials filled: admin / lifeguard2025');
+                }
+            } else {
+                console.error('Could not find username or password input fields');
+            }
+        }
+
+        function tryAlternateCredentials() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            if (usernameInput && passwordInput) {
+                usernameInput.value = 'admin';
+                passwordInput.value = 'admin123';
+                
+                if (adminPortal && adminPortal.showNotification) {
+                    adminPortal.showNotification('Alternate credentials filled (admin/admin123)', 'info');
+                }
+            }
+        }
+
         async function checkApiStatus() {
             try {
-                console.log('🔍 Checking API status...');
-                console.log('📡 API URL:', 'https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
+                if (adminPortal) {
+                    adminPortal.showNotification('Checking API status...', 'info');
+                }
                 
-                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/');
+                console.log('🔍 Checking API status...');
+                const response = await fetch('https://lifeguard-portal-api-production.jaspervdz.workers.dev/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
                 console.log('📡 API Response status:', response.status);
                 console.log('📡 API Response headers:', Object.fromEntries(response.headers.entries()));
                 
                 const data = await response.json();
                 console.log('📡 API Response data:', data);
                 
-                if (data.success || data.message) {
+                if (data.success) {
                     if (adminPortal) {
                         adminPortal.showNotification(
-                            `✅ API Connected! Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
+                            `✅ API Status: ${data.status} | Environment: ${data.environment} | Version: ${data.version}`, 
                             'success'
                         );
                     }
@@ -3880,45 +3935,10 @@
                     throw new Error('API not responding correctly');
                 }
             } catch (error) {
-                console.error('🚨 API Status Error:', error);
+                console.error('❌ API Status check failed:', error);
                 if (adminPortal) {
-                    adminPortal.showNotification(
-                        `❌ API connection failed: ${error.message}. Please check if the Workers API is deployed to lifeguard-portal-api-production.jaspervdz.workers.dev`, 
-                        'error'
-                    );
+                    adminPortal.showNotification('❌ API connection failed. Please check if the Cloudflare Worker is deployed.', 'error');
                 }
-            }
-        }
-
-        function openTroubleshooting() {
-            if (adminPortal) {
-                adminPortal.showNotification(
-                    `🔧 Login Troubleshooting:\n\n` +
-                    `1. ✅ Check API Status first (click "Check API Status")\n` +
-                    `2. 🔑 Correct credentials: admin / lifeguard2025\n` +
-                    `3. 🌐 API must be deployed to: lifeguard-portal-api-production.jaspervdz.workers.dev\n` +
-                    `4. 📱 Open browser console (F12) for detailed error logs\n` +
-                    `5. 🔄 Try "Test Login" button for automated test\n\n` +
-                    `If API check fails: Deploy your Cloudflare Workers API first!`,
-                    'info'
-                );
-            }
-        }
-
-        function testAdminLogin() {
-            if (adminPortal) {
-                // Fill credentials and attempt login for testing
-                document.getElementById('username').value = 'admin';
-                document.getElementById('password').value = 'lifeguard2025';
-                
-                console.log('🧪 Testing admin login with production credentials...');
-                adminPortal.handleAdminLogin();
-            }
-        }
-
-        function showProductionInfo() {
-            if (adminPortal) {
-                adminPortal.showNotification('Connected to production Cloudflare Workers API with D1 database!', 'success');
             }
         }
 
@@ -4165,14 +4185,18 @@
         // Enhanced Event Handlers
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
-                adminPortal?.closeModal();
+                if (adminPortal) {
+                    adminPortal.closeModal();
+                }
             }
         });
 
         // Keyboard Shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                adminPortal?.closeModal();
+                if (adminPortal) {
+                    adminPortal.closeModal();
+                }
             }
             
             // Admin shortcuts
@@ -4209,7 +4233,9 @@
                     'An error occurred in the admin portal.',
                     'error'
                 );
-                adminPortal.logActivity(`System error: ${event.error.message}`, 'error');
+                if (adminPortal.logActivity) {
+                    adminPortal.logActivity(`System error: ${event.error.message}`, 'error');
+                }
             }
         });
 
@@ -4222,7 +4248,9 @@
                     'A network error occurred. Please try again.',
                     'error'
                 );
-                adminPortal.logActivity(`Network error: ${event.reason}`, 'error');
+                if (adminPortal.logActivity) {
+                    adminPortal.logActivity(`Network error: ${event.reason}`, 'error');
+                }
             }
         });
 
@@ -4261,20 +4289,24 @@
         window.addEventListener('online', () => {
             if (adminPortal) {
                 adminPortal.showNotification('Connection restored', 'success');
-                adminPortal.logActivity('Network connection restored', 'success');
+                if (adminPortal.logActivity) {
+                    adminPortal.logActivity('Network connection restored', 'success');
+                }
             }
         });
 
         window.addEventListener('offline', () => {
             if (adminPortal) {
                 adminPortal.showNotification('Connection lost - working offline', 'warning');
-                adminPortal.logActivity('Network connection lost', 'warning');
+                if (adminPortal.logActivity) {
+                    adminPortal.logActivity('Network connection lost', 'warning');
+                }
             }
         });
 
         // Cleanup on page unload
         window.addEventListener('beforeunload', (e) => {
-            if (adminPortal && adminPortal.selectedItems.size > 0) {
+            if (adminPortal && adminPortal.selectedItems && adminPortal.selectedItems.size > 0) {
                 e.preventDefault();
                 e.returnValue = 'You have unsaved selections. Are you sure you want to leave?';
             }
