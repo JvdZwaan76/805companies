@@ -373,6 +373,17 @@
             box-shadow: var(--shadow-2xl), 0 0 20px rgba(239, 68, 68, 0.4);
         }
 
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-2xl), 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
         .login-container {
             display: flex;
             align-items: center;
@@ -498,6 +509,31 @@
             color: var(--gray-500);
         }
 
+        .form-select {
+            width: 100%;
+            padding: var(--space-4) var(--space-4);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition-spring);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2);
+        }
+
+        .form-select option {
+            background: var(--gray-800);
+            color: white;
+        }
+
         .portal-container {
             display: none;
             min-height: 100vh;
@@ -621,6 +657,7 @@
         .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
         .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
         .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
 
         @keyframes slideInCard {
             to {
@@ -798,7 +835,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-3xl);
             padding: var(--space-8);
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -953,56 +990,48 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .chart-container {
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .pricing-card {
             background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-2xl);
             padding: var(--space-6);
-            margin-bottom: var(--space-6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition-smooth);
         }
 
-        .chart-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .pricing-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .pricing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: var(--space-4);
-            color: var(--gray-300);
         }
 
-        .chart {
-            height: 300px;
+        .pricing-service {
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .pricing-amount {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .pricing-actions {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
             gap: var(--space-2);
-            padding: var(--space-4);
-        }
-
-        .chart-bar {
-            background: var(--gradient-hero);
-            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-            min-width: 40px;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: var(--space-2);
-            transition: var(--transition-spring);
-            position: relative;
-        }
-
-        .chart-bar:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .chart-bar::after {
-            content: attr(data-label);
-            position: absolute;
-            bottom: -25px;
-            font-size: 0.7rem;
-            color: var(--gray-400);
+            margin-top: var(--space-4);
         }
 
         .hidden { display: none !important; }
@@ -1063,6 +1092,10 @@
             .table th,
             .table td {
                 padding: var(--space-2) var(--space-3);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1145,7 +1178,7 @@
                     <div class="login-logo-icon">805</div>
                 </div>
                 <h1 class="login-title">Elite Admin Portal</h1>
-                <p class="login-subtitle">Complete business management and operational control</p>
+                <p class="login-subtitle">Complete business management and operational control with custom pricing</p>
             </div>
 
             <!-- Production API Info -->
@@ -1156,9 +1189,9 @@
                 </div>
                 <div style="font-size: 0.875rem; color: var(--gray-300); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> lifeguard-portal-api-production.jaspervdz.workers.dev<br>
-                    <strong>💾 Database:</strong> Cloudflare D1 with complete management privileges<br>
+                    <strong>💾 Database:</strong> Cloudflare D1 with custom pricing management<br>
                     <strong>🔑 Credentials:</strong> Try admin/lifeguard2025 OR admin/admin123<br>
-                    <strong>🛡️ Features:</strong> Real-time data, Customer/Booking Management, Analytics
+                    <strong>💰 New:</strong> Custom client pricing management system
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
                     <button type="button" onclick="fillAdminCredentials()" class="btn btn-secondary btn-small">
@@ -1173,9 +1206,6 @@
                     <button type="button" onclick="checkApiStatus()" class="btn btn-secondary btn-small">
                         <i class="fas fa-heartbeat"></i> API Status
                     </button>
-                </div>
-                <div style="margin-top: var(--space-3); padding: var(--space-3); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-lg); font-size: 0.75rem; color: var(--gray-400);">
-                    <strong>🔧 Troubleshooting:</strong> If login fails, try "Test Login" first to check credentials, then "API Status" to verify deployment.
                 </div>
             </div>
 
@@ -1227,7 +1257,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <h1 class="hero-title glow-text">Elite Admin Command Center</h1>
-                <p class="hero-subtitle">Complete business intelligence and operational control for 805 LifeGuard with advanced analytics, customer management, and comprehensive system administration</p>
+                <p class="hero-subtitle">Complete business intelligence and operational control for 805 LifeGuard with advanced analytics, customer management, and custom pricing system</p>
             </div>
         </section>
 
@@ -1305,6 +1335,32 @@
                     <button class="btn btn-secondary btn-small" onclick="viewPendingBookings()">
                         <i class="fas fa-clock"></i>
                         Pending (<span id="pendingCount">0</span>)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Custom Pricing Management Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div>Custom Pricing</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Manage custom pricing for each client and service. Set individual rates that clients 
+                    cannot see. Full pricing control and revenue optimization.
+                </p>
+                <div class="card-actions">
+                    <button class="btn btn-primary btn-small" onclick="openPricingModal()">
+                        <i class="fas fa-tags"></i>
+                        Manage Pricing
+                    </button>
+                    <button class="btn btn-secondary btn-small" onclick="exportPricingData()">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Export Pricing
                     </button>
                 </div>
             </div>
@@ -1450,6 +1506,113 @@
         </div>
     </div>
 
+    <!-- Custom Pricing Management Modal -->
+    <div class="modal" id="pricingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    Custom Pricing Management
+                </div>
+                <button class="modal-close" onclick="closeModal('pricingModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="search-bar">
+                <select class="search-input" style="flex: none; width: 200px;" id="customerFilter">
+                    <option value="">All Customers</option>
+                </select>
+                <select class="search-input" style="flex: none; width: 180px;" id="serviceFilter">
+                    <option value="">All Services</option>
+                    <option value="swimming-lessons">Swimming Lessons</option>
+                    <option value="pool-cleaning">Pool Cleaning</option>
+                    <option value="maintenance">Pool Maintenance</option>
+                    <option value="emergency">Emergency Service</option>
+                </select>
+                <button class="btn btn-primary btn-small" onclick="addCustomPricing()">
+                    <i class="fas fa-plus"></i> Add Pricing
+                </button>
+                <button class="btn btn-secondary btn-small" onclick="refreshPricing()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <div class="pricing-grid" id="pricingGrid">
+                <!-- Dynamic pricing cards will be loaded here -->
+            </div>
+
+            <div class="table-container">
+                <table class="table" id="pricingTable">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Custom Price</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pricingTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Pricing Modal -->
+    <div class="modal" id="editPricingModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-edit"></i>
+                    <span id="editPricingTitle">Set Custom Pricing</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('editPricingModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="editPricingForm">
+                <div class="form-group">
+                    <label for="pricingCustomer" class="form-label">Customer</label>
+                    <select id="pricingCustomer" class="form-select" required>
+                        <option value="">Select a customer...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pricingService" class="form-label">Service</label>
+                    <select id="pricingService" class="form-select" required>
+                        <option value="">Select a service...</option>
+                        <option value="swimming-lessons">Swimming Lessons</option>
+                        <option value="pool-cleaning">Pool Cleaning</option>
+                        <option value="maintenance">Pool Maintenance</option>
+                        <option value="emergency">Emergency Service</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pricingAmount" class="form-label">Custom Price ($)</label>
+                    <input type="number" id="pricingAmount" class="form-input" 
+                           min="0" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        Save Pricing
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editPricingModal')">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Analytics Modal -->
     <div class="modal" id="analyticsModal">
         <div class="modal-content">
@@ -1498,6 +1661,7 @@
         let adminPortal = null;
         let currentCustomers = [];
         let currentBookings = [];
+        let currentPricing = [];
 
         // Sample Data (for demo purposes when API is not available)
         const sampleCustomers = [
@@ -1513,9 +1677,14 @@
             { id: 2, customer: "Sarah Johnson", service: "Maintenance", date: "2025-06-23", status: "pending", amount: 200 },
             { id: 3, customer: "Mike Davis", service: "Chemical Balance", date: "2025-06-24", status: "confirmed", amount: 100 },
             { id: 4, customer: "Lisa Wilson", service: "Equipment Repair", date: "2025-06-25", status: "pending", amount: 300 },
-            { id: 5, customer: "Tom Brown", service: "Weekly Service", date: "2025-06-26", status: "confirmed", amount: 175 },
-            { id: 6, customer: "John Smith", service: "Emergency Call", date: "2025-06-21", status: "completed", amount: 250 },
-            { id: 7, customer: "Sarah Johnson", service: "Filter Change", date: "2025-06-20", status: "cancelled", amount: 75 }
+            { id: 5, customer: "Tom Brown", service: "Weekly Service", date: "2025-06-26", status: "confirmed", amount: 175 }
+        ];
+
+        const samplePricing = [
+            { userId: 1, customerName: "John Smith", customerEmail: "john@email.com", serviceType: "swimming-lessons", price: 85 },
+            { userId: 1, customerName: "John Smith", customerEmail: "john@email.com", serviceType: "pool-cleaning", price: 175 },
+            { userId: 2, customerName: "Sarah Johnson", customerEmail: "sarah@email.com", serviceType: "swimming-lessons", price: 75 },
+            { userId: 3, customerName: "Mike Davis", customerEmail: "mike@email.com", serviceType: "maintenance", price: 140 }
         ];
 
         // Global Helper Functions
@@ -1638,6 +1807,11 @@
             loadBookings();
         }
 
+        function openPricingModal() {
+            document.getElementById('pricingModal').classList.add('show');
+            loadPricing();
+        }
+
         function openAnalyticsModal() {
             document.getElementById('analyticsModal').classList.add('show');
             loadAnalytics();
@@ -1651,6 +1825,7 @@
         function loadCustomers() {
             currentCustomers = sampleCustomers;
             renderCustomerTable();
+            populateCustomerDropdowns();
         }
 
         function renderCustomerTable(customers = currentCustomers) {
@@ -1669,6 +1844,9 @@
                         <button class="btn btn-secondary btn-small" onclick="editCustomer(${customer.id})">
                             <i class="fas fa-edit"></i>
                         </button>
+                        <button class="btn btn-primary btn-small" onclick="openCustomerPricing(${customer.id})">
+                            <i class="fas fa-dollar-sign"></i>
+                        </button>
                         <button class="btn btn-danger btn-small" onclick="deleteCustomer(${customer.id})">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -1676,6 +1854,25 @@
                 `;
                 tbody.appendChild(row);
             });
+        }
+
+        function populateCustomerDropdowns() {
+            const customerSelect = document.getElementById('pricingCustomer');
+            const customerFilter = document.getElementById('customerFilter');
+            
+            if (customerSelect) {
+                customerSelect.innerHTML = '<option value="">Select a customer...</option>';
+                currentCustomers.forEach(customer => {
+                    customerSelect.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
+                });
+            }
+
+            if (customerFilter) {
+                customerFilter.innerHTML = '<option value="">All Customers</option>';
+                currentCustomers.forEach(customer => {
+                    customerFilter.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
+                });
+            }
         }
 
         function refreshCustomers() {
@@ -1693,6 +1890,18 @@
         function editCustomer(id) {
             const customer = currentCustomers.find(c => c.id === id);
             showNotification(`Edit customer: ${customer.name}`, 'info');
+        }
+
+        function openCustomerPricing(customerId) {
+            const customer = currentCustomers.find(c => c.id === customerId);
+            if (customer) {
+                closeModal('customerModal');
+                openPricingModal();
+                // Filter pricing for this customer
+                document.getElementById('customerFilter').value = customerId;
+                filterPricing();
+                showNotification(`Viewing pricing for ${customer.name}`, 'info');
+            }
         }
 
         function deleteCustomer(id) {
@@ -1790,6 +1999,125 @@
             renderBookingTable(pendingBookings);
         }
 
+        // Pricing Management Functions
+        function loadPricing() {
+            currentPricing = samplePricing;
+            renderPricingTable();
+            populateCustomerDropdowns();
+        }
+
+        function renderPricingTable(pricing = currentPricing) {
+            const tbody = document.getElementById('pricingTableBody');
+            tbody.innerHTML = '';
+
+            if (pricing.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--gray-400); padding: var(--space-8);">No custom pricing set. Click "Add Pricing" to create custom rates.</td></tr>';
+                return;
+            }
+
+            pricing.forEach(price => {
+                const serviceNames = {
+                    'swimming-lessons': 'Swimming Lessons',
+                    'pool-cleaning': 'Pool Cleaning',
+                    'maintenance': 'Pool Maintenance',
+                    'emergency': 'Emergency Service'
+                };
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${price.customerName}</strong><br><small style="color: var(--gray-400);">${price.customerEmail}</small></td>
+                    <td>${serviceNames[price.serviceType] || price.serviceType}</td>
+                    <td><strong style="color: var(--success);">$${price.price}</strong></td>
+                    <td>${price.updatedAt ? new Date(price.updatedAt).toLocaleDateString() : 'Recently'}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-small" onclick="editCustomPricing(${price.userId}, '${price.serviceType}', ${price.price})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="deleteCustomPricing(${price.userId}, '${price.serviceType}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterPricing() {
+            const customerFilter = document.getElementById('customerFilter').value;
+            const serviceFilter = document.getElementById('serviceFilter').value;
+            
+            let filteredPricing = currentPricing;
+            
+            if (customerFilter) {
+                filteredPricing = filteredPricing.filter(p => p.userId == customerFilter);
+            }
+            
+            if (serviceFilter) {
+                filteredPricing = filteredPricing.filter(p => p.serviceType === serviceFilter);
+            }
+            
+            renderPricingTable(filteredPricing);
+        }
+
+        function addCustomPricing() {
+            document.getElementById('editPricingTitle').textContent = 'Add Custom Pricing';
+            document.getElementById('editPricingForm').reset();
+            document.getElementById('editPricingModal').classList.add('show');
+        }
+
+        function editCustomPricing(userId, serviceType, currentPrice) {
+            document.getElementById('editPricingTitle').textContent = 'Edit Custom Pricing';
+            document.getElementById('pricingCustomer').value = userId;
+            document.getElementById('pricingService').value = serviceType;
+            document.getElementById('pricingAmount').value = currentPrice;
+            document.getElementById('editPricingModal').classList.add('show');
+        }
+
+        function deleteCustomPricing(userId, serviceType) {
+            const customer = currentCustomers.find(c => c.id === userId);
+            const serviceNames = {
+                'swimming-lessons': 'Swimming Lessons',
+                'pool-cleaning': 'Pool Cleaning',
+                'maintenance': 'Pool Maintenance',
+                'emergency': 'Emergency Service'
+            };
+            
+            if (confirm(`Remove custom pricing for ${customer?.name} - ${serviceNames[serviceType]}?`)) {
+                currentPricing = currentPricing.filter(p => !(p.userId === userId && p.serviceType === serviceType));
+                renderPricingTable();
+                showNotification('Custom pricing removed successfully', 'success');
+            }
+        }
+
+        function refreshPricing() {
+            showNotification('Refreshing pricing data...', 'info');
+            setTimeout(() => {
+                loadPricing();
+                showNotification('Pricing data refreshed!', 'success');
+            }, 1000);
+        }
+
+        function exportPricingData() {
+            if (currentPricing.length === 0) {
+                showNotification('No pricing data to export', 'warning');
+                return;
+            }
+
+            const csvContent = "data:text/csv;charset=utf-8," + 
+                "Customer Name,Customer Email,Service,Custom Price\n" +
+                currentPricing.map(p => `"${p.customerName}","${p.customerEmail}","${p.serviceType}",${p.price}`).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "custom-pricing.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('Pricing data exported to CSV!', 'success');
+        }
+
         // Analytics Functions
         function loadAnalytics() {
             renderRevenueChart();
@@ -1874,8 +2202,28 @@
             }
         }
 
-        // Search and Filter Functions
+        // Form Handlers
         document.addEventListener('DOMContentLoaded', function() {
+            // Pricing form handler
+            const editPricingForm = document.getElementById('editPricingForm');
+            if (editPricingForm) {
+                editPricingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    savePricing();
+                });
+            }
+
+            // Filter handlers
+            const customerFilter = document.getElementById('customerFilter');
+            const serviceFilter = document.getElementById('serviceFilter');
+            
+            if (customerFilter) {
+                customerFilter.addEventListener('change', filterPricing);
+            }
+            if (serviceFilter) {
+                serviceFilter.addEventListener('change', filterPricing);
+            }
+
             // Customer search
             const customerSearch = document.getElementById('customerSearch');
             if (customerSearch) {
@@ -1916,6 +2264,48 @@
             }
         });
 
+        function savePricing() {
+            const customerId = document.getElementById('pricingCustomer').value;
+            const serviceType = document.getElementById('pricingService').value;
+            const price = parseFloat(document.getElementById('pricingAmount').value);
+
+            if (!customerId || !serviceType || !price || price < 0) {
+                showNotification('Please fill in all fields with valid values', 'error');
+                return;
+            }
+
+            const customer = currentCustomers.find(c => c.id == customerId);
+            if (!customer) {
+                showNotification('Customer not found', 'error');
+                return;
+            }
+
+            // Check if pricing already exists
+            const existingIndex = currentPricing.findIndex(p => p.userId == customerId && p.serviceType === serviceType);
+            
+            const pricingData = {
+                userId: parseInt(customerId),
+                customerName: customer.name,
+                customerEmail: customer.email,
+                serviceType: serviceType,
+                price: price,
+                updatedAt: new Date().toISOString()
+            };
+
+            if (existingIndex >= 0) {
+                // Update existing pricing
+                currentPricing[existingIndex] = pricingData;
+                showNotification('Custom pricing updated successfully!', 'success');
+            } else {
+                // Add new pricing
+                currentPricing.push(pricingData);
+                showNotification('Custom pricing added successfully!', 'success');
+            }
+
+            renderPricingTable();
+            closeModal('editPricingModal');
+        }
+
         // Notification System
         function showNotification(message, type = 'info') {
             // Remove existing notifications
@@ -1938,7 +2328,7 @@
                         <div style="font-weight: 600; margin-bottom: var(--space-1);">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
                         <div style="opacity: 0.9;">${message}</div>
                     </div>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; padding: var(--space-1); border-radius: var(--radius-md);">
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; padding: var(--space-1); border-radius: var(--radius-md); transition: var(--transition-smooth);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -1971,7 +2361,7 @@
 
             init() {
                 this.setupEventListeners();
-                console.log('🛡️ Admin Portal Initialized');
+                console.log('🛡️ Admin Portal Initialized with Custom Pricing');
             }
 
             setupEventListeners() {
@@ -2027,7 +2417,7 @@
                         
                         setTimeout(() => {
                             this.showPortal();
-                            showNotification('Welcome back! Admin access granted.', 'success');
+                            showNotification('Welcome back! Admin access granted with pricing management.', 'success');
                         }, 800);
                     } else {
                         throw new Error(data.error || 'Login failed');
@@ -2042,7 +2432,7 @@
                         setTimeout(() => {
                             this.showPortal();
                             this.loadDemoStats();
-                            showNotification('Demo mode activated! All features are functional with sample data.', 'warning');
+                            showNotification('Demo mode activated! All pricing features are functional with sample data.', 'warning');
                         }, 800);
                     } else {
                         showNotification(`Login failed: ${error.message}. Try demo credentials: admin/lifeguard2025`, 'error');
@@ -2153,10 +2543,10 @@
                 const animate = () => {
                     if (currentValue < finalValue) {
                         currentValue = Math.min(currentValue + increment, finalValue);
-                        element.textContent = '$' + currentValue.toLocaleString();
+                        element.textContent = ' + currentValue.toLocaleString();
                         setTimeout(animate, 50);
                     } else {
-                        element.textContent = '$' + finalValue.toLocaleString();
+                        element.textContent = ' + finalValue.toLocaleString();
                     }
                 };
                 
@@ -2199,7 +2589,7 @@
 
         // Initialize Admin Portal
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION VERSION');
+            console.log('🛡️ ELITE ADMIN PORTAL - PRODUCTION VERSION WITH CUSTOM PRICING');
             console.log('🏊‍♂️ Connected to: lifeguard-portal-api-production.jaspervdz.workers.dev');
             
             adminPortal = new AdminPortal();
@@ -2210,6 +2600,7 @@
                 fillAdminCredentials();
             }, 1000);
             
+            console.log('💰 CUSTOM PRICING SYSTEM ENABLED!');
             console.log('🎉 PRODUCTION ADMIN PORTAL READY WITH FULL FUNCTIONALITY!');
         });
 
@@ -2219,12 +2610,13 @@
             console.log(`⚡ Admin Portal loaded in ${Math.round(loadTime)}ms`);
             
             setTimeout(() => {
-                showNotification('Elite admin portal loaded with full functionality!', 'success');
+                showNotification('Elite admin portal loaded with custom pricing management!', 'success');
             }, 2000);
         });
 
-        console.log('🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL');
-        console.log('✨ Features: Full Customer/Booking Management, Live Analytics, Export Tools');
+        console.log('🛡️ ELITE 805 LIFEGUARD ADMIN PORTAL WITH CUSTOM PRICING');
+        console.log('✨ Features: Customer Management, Booking Control, Custom Pricing, Live Analytics');
+        console.log('💰 Pricing: Individual client rates (hidden from clients)');
         console.log('🚀 Production Ready with Next-Level Interactive Functionality');
     </script>
 </body>
