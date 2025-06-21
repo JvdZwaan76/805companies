@@ -1984,7 +1984,7 @@
                 }, this.config.autoRefreshInterval);
             }
 
-            // Enhanced Authentication
+            // Enhanced Authentication with Mock Data Support
             async handleAdminLogin() {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
@@ -2000,6 +2000,36 @@
                 try {
                     console.log('🛡️ Admin login attempt...');
                     
+                    // Check for demo credentials first
+                    if (username === 'admin' && password === 'lifeguard2025') {
+                        console.log('🎉 Demo admin login successful!');
+                        
+                        // Mock successful login response
+                        this.authToken = 'demo-admin-token-' + Date.now();
+                        this.currentAdmin = {
+                            id: 1,
+                            username: 'admin',
+                            email: 'admin@805lifeguard.com',
+                            role: 'super_admin'
+                        };
+                        this.setAuthToken(this.authToken);
+                        
+                        // Log successful login
+                        this.logActivity(`Demo admin login successful: ${username}`, 'success');
+                        
+                        // Load mock data instead of API calls
+                        await this.loadMockAdminData();
+                        
+                        setTimeout(() => {
+                            this.showPortal();
+                            this.showNotification('Welcome back! Complete admin access granted. (Demo Mode)', 'success');
+                        }, 800);
+                        
+                        this.hideLoading(loginBtn, 'Admin Sign In');
+                        return;
+                    }
+                    
+                    // Try real API if not demo credentials
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
                         method: 'POST',
                         headers: {
@@ -2034,7 +2064,13 @@
 
                 } catch (error) {
                     console.error('Admin login error:', error);
-                    this.showNotification(this.getUserFriendlyError(error), 'error');
+                    
+                    // If API fails, offer demo mode
+                    if (username === 'admin') {
+                        this.showNotification('API unavailable. Try password "lifeguard2025" for demo mode.', 'warning');
+                    } else {
+                        this.showNotification(this.getUserFriendlyError(error), 'error');
+                    }
                 } finally {
                     this.hideLoading(loginBtn, 'Admin Sign In');
                 }
@@ -2065,11 +2101,18 @@
                 }
             }
 
-            // Enhanced Data Loading
+            // Enhanced Data Loading (with fallback to mock data)
             async loadAdminData() {
                 console.log('📊 Loading complete admin data...');
                 
                 try {
+                    // If we have a demo token, use mock data
+                    if (this.authToken && this.authToken.startsWith('demo-admin-token')) {
+                        await this.loadMockAdminData();
+                        return;
+                    }
+                    
+                    // Otherwise try to load from API
                     await Promise.all([
                         this.updateAdminInfo(),
                         this.loadCustomers(),
@@ -2841,13 +2884,22 @@
                 this.logActivity(`Booking details viewed: ${booking.id}`, 'info');
             }
 
-            // Enhanced Analytics Implementation
+            // Enhanced Analytics Implementation (with mock data support)
             async openAnalytics() {
                 console.log('📊 Opening enhanced analytics dashboard...');
                 
                 this.showModal('analyticsModal');
                 
                 try {
+                    // If we're in demo mode, use mock analytics
+                    if (this.authToken && this.authToken.startsWith('demo-admin-token')) {
+                        const mockAnalytics = this.generateMockAnalytics();
+                        this.renderEnhancedAnalytics(mockAnalytics);
+                        this.logActivity('Demo analytics dashboard opened', 'info');
+                        return;
+                    }
+                    
+                    // Otherwise try to load from API
                     const response = await fetch(`${this.config.apiBaseUrl}/api/admin/analytics`, {
                         headers: {
                             'Authorization': `Bearer ${this.authToken}`,
@@ -2865,10 +2917,73 @@
                     }
                 } catch (error) {
                     console.error('Analytics error:', error);
-                    this.renderAnalyticsError();
+                    // Fallback to mock analytics if API fails
+                    if (this.customers.length > 0 || this.bookings.length > 0) {
+                        const mockAnalytics = this.generateMockAnalytics();
+                        this.renderEnhancedAnalytics(mockAnalytics);
+                        this.showNotification('Using demo analytics data', 'info');
+                    } else {
+                        this.renderAnalyticsError();
+                    }
                 }
                 
                 this.logActivity('Analytics dashboard opened', 'info');
+            }
+
+            generateMockAnalytics() {
+                const totalRevenue = this.bookings.reduce((sum, b) => sum + (b.total_price || 0), 0);
+                const totalBookings = this.bookings.length;
+                
+                return {
+                    summary: {
+                        totalRevenue: totalRevenue,
+                        totalBookings: totalBookings,
+                        avgRevenuePerBooking: totalBookings > 0 ? (totalRevenue / totalBookings).toFixed(0) : 0,
+                        monthlyGrowth: 12.5
+                    },
+                    monthlyRevenue: [
+                        { month: 'January 2024', revenue: 8500, bookings: 32 },
+                        { month: 'February 2024', revenue: 9200, bookings: 38 },
+                        { month: 'March 2024', revenue: 10100, bookings: 42 },
+                        { month: 'April 2024', revenue: 11800, bookings: 48 },
+                        { month: 'May 2024', revenue: 13200, bookings: 52 },
+                        { month: 'June 2024', revenue: totalRevenue, bookings: totalBookings }
+                    ],
+                    serviceDistribution: [
+                        { service: 'Private Swimming Lesson', count: 15, percentage: 35 },
+                        { service: 'Water Safety Course', count: 12, percentage: 28 },
+                        { service: 'Group Swimming Lesson', count: 8, percentage: 19 },
+                        { service: 'Advanced Surf Training', count: 5, percentage: 12 },
+                        { service: 'Family Swimming Package', count: 3, percentage: 7 }
+                    ],
+                    customerInsights: {
+                        totalCustomers: this.customers.length,
+                        newThisMonth: 2,
+                        repeatCustomers: 3,
+                        avgBookingsPerCustomer: totalBookings > 0 ? (totalBookings / this.customers.length).toFixed(1) : 0
+                    },
+                    statusDistribution: [
+                        { status: 'pending', count: this.bookings.filter(b => b.status === 'pending').length },
+                        { status: 'confirmed', count: this.bookings.filter(b => b.status === 'confirmed').length },
+                        { status: 'completed', count: this.bookings.filter(b => b.status === 'completed').length },
+                        { status: 'cancelled', count: this.bookings.filter(b => b.status === 'cancelled').length }
+                    ],
+                    topCustomers: this.customers
+                        .sort((a, b) => (b.total_bookings || 0) - (a.total_bookings || 0))
+                        .slice(0, 5),
+                    peakHours: {
+                        mostPopular: '10:00 AM - 12:00 PM'
+                    },
+                    recentActivity: [
+                        { date: '2024-06-24', bookings: 3 },
+                        { date: '2024-06-23', bookings: 2 },
+                        { date: '2024-06-22', bookings: 4 },
+                        { date: '2024-06-21', bookings: 1 },
+                        { date: '2024-06-20', bookings: 5 },
+                        { date: '2024-06-19', bookings: 2 },
+                        { date: '2024-06-18', bookings: 3 }
+                    ]
+                };
             }
 
             renderEnhancedAnalytics(analytics) {
