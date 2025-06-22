@@ -260,6 +260,25 @@
             }
         }
 
+        function activateDemoMode() {
+            if (adminPortal) {
+                adminPortal.addDebugLog('🚀 Direct demo mode activation requested');
+                adminPortal.showNotification('Activating demo mode directly...', 'info');
+                
+                // Directly enable demo mode without API call
+                adminPortal.currentAdmin = {
+                    id: 'demo-admin',
+                    username: 'admin',
+                    name: 'Demo Administrator',
+                    type: 'admin'
+                };
+                
+                adminPortal.loadDemoData();
+                adminPortal.showPortal();
+                adminPortal.showNotification('Demo mode activated! All features available for testing.', 'success');
+            }
+        }
+
         async function testConnection() {
             if (adminPortal) {
                 adminPortal.showNotification('Testing enhanced API connection...', 'info');
@@ -918,19 +937,21 @@
         // ========================================
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🚀 Enhanced Admin Portal Initializing...');
-            console.log('🔗 Backend: Enhanced Cloudflare Workers API with D1 database');
-            console.log('🎨 UI: Next-level responsive design with mobile-first approach');
+            console.log('🔗 Backend: Production Cloudflare Workers API with D1 database');
+            console.log('🎯 PRODUCTION TESTING MODE: Portal will prioritize live API connection');
+            console.log('🔑 Admin Credentials: admin/lifeguard2025 (primary)');
             console.log('🐛 Debug: Comprehensive error handling and debugging enabled');
             
             adminPortal = new EnhancedAdminPortal();
             window.adminPortal = adminPortal;
             
-            // Auto-fill credentials after portal is ready
+            // Auto-fill primary credentials for production testing
             setTimeout(() => {
                 fillAdminCredentials();
             }, 1000);
             
-            console.log('🎉 ENHANCED ADMIN PORTAL READY WITH ALL FUNCTIONALITY RESTORED!');
+            console.log('🎉 ADMIN PORTAL READY FOR PRODUCTION TESTING!');
+            console.log('💡 Use admin/lifeguard2025 to test live API connection');
         });
 
         // Performance monitoring
@@ -945,12 +966,15 @@
             }, 2000);
         });
 
-        console.log('🛡️ ENHANCED 805 LIFEGUARD ADMIN PORTAL - COMPLETE VERSION');
-        console.log('✨ Features: Next-level UX/UI, Enhanced Mobile Design, Complete Functionality');
+        console.log('🛡️ 805 LIFEGUARD ADMIN PORTAL - PRODUCTION READY');
+        console.log('🔗 Features: Live API integration, Real database, Complete functionality');
+        console.log('🎯 Testing: Use admin/lifeguard2025 for production API testing');
         console.log('🔧 Debug: Complete error tracking, API monitoring, Connection diagnostics');
-        console.log('💰 Pricing: Complete custom pricing management with profit analysis');
-        console.log('🚀 Performance: Optimized loading, smooth animations, responsive design');
-        console.log('📱 Mobile: Perfect mobile experience with touch-friendly interface');
+        console.log('💰 Pricing: Real custom pricing management with live data');
+        console.log('🚀 Performance: Optimized for production with retry logic');
+        console.log('📱 Mobile: Production-ready responsive design');
+        console.log('');
+        console.log('✅ READY FOR FINAL TESTING BEFORE GOING LIVE!');
     </script>
 </body>
 </html>
@@ -2374,27 +2398,30 @@
             <!-- Enhanced API Info with Debug -->
             <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: var(--radius-xl); padding: var(--space-4); margin-bottom: var(--space-6); text-align: left;">
                 <div style="font-weight: 700; color: var(--primary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2);">
-                    <i class="fas fa-database"></i>
-                    <span id="apiStatus">Production API • Testing Connection...</span>
+                    <i class="fas fa-server"></i>
+                    <span id="apiStatus">Production API • Ready for Testing</span>
                 </div>
                 <div style="font-size: 0.875rem; color: var(--gray-300); margin-bottom: var(--space-3);">
                     <strong>🔗 API:</strong> <span id="apiUrl">Loading...</span><br>
-                    <strong>💾 Database:</strong> Cloudflare D1 with auto-initialization<br>
-                    <strong>🔑 Credentials:</strong> admin/lifeguard2025 OR admin/admin123<br>
-                    <strong>✨ Status:</strong> <span id="connectionDetails">Checking...</span>
+                    <strong>💾 Database:</strong> Cloudflare D1 Production Database<br>
+                    <strong>🔑 Admin Credentials:</strong> <code>admin/lifeguard2025</code> (primary)<br>
+                    <strong>✨ Status:</strong> <span id="connectionDetails">Testing live API...</span>
                 </div>
                 <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                    <button type="button" onclick="fillAdminCredentials()" class="btn btn-secondary btn-small">
-                        <i class="fas fa-key"></i> Try: admin/lifeguard2025
+                    <button type="button" onclick="fillAdminCredentials()" class="btn btn-primary btn-small">
+                        <i class="fas fa-key"></i> Fill: admin/lifeguard2025
                     </button>
-                    <button type="button" onclick="tryAlternateCredentials()" class="btn btn-secondary btn-small">
-                        <i class="fas fa-unlock"></i> Try: admin/admin123
-                    </button>
-                    <button type="button" onclick="testConnection()" class="btn btn-primary btn-small">
-                        <i class="fas fa-vial"></i> Test Connection
+                    <button type="button" onclick="testConnection()" class="btn btn-secondary btn-small">
+                        <i class="fas fa-vial"></i> Test Live API
                     </button>
                     <button type="button" onclick="checkApiHealth()" class="btn btn-secondary btn-small">
                         <i class="fas fa-heartbeat"></i> API Health
+                    </button>
+                    <button type="button" onclick="tryAlternateCredentials()" class="btn btn-secondary btn-small" style="opacity: 0.7;">
+                        <i class="fas fa-unlock"></i> alt: admin123
+                    </button>
+                    <button type="button" onclick="activateDemoMode()" class="btn btn-secondary btn-small" style="opacity: 0.5; font-size: 0.6rem;">
+                        <i class="fas fa-flask"></i> Demo Only
                     </button>
                 </div>
                 
@@ -3031,8 +3058,8 @@
     </div>
 
     <!-- Connection Status -->
-    <div class="connection-status connected" id="connectionStatus" onclick="showConnectionInfo()" title="Enhanced Production API Connected">
-        <i class="fas fa-database"></i> Enhanced API
+    <div class="connection-status connected" id="connectionStatus" onclick="showConnectionInfo()" title="Testing Production API Connection">
+        <i class="fas fa-database"></i> <span id="connectionStatusText">Testing API</span>
     </div>
 
     <script>
@@ -3140,19 +3167,23 @@
 
             async testApiConnection() {
                 try {
-                    this.addDebugLog('🔍 Testing API connection...');
-                    document.getElementById('apiStatus').textContent = 'Testing Connection...';
-                    document.getElementById('connectionDetails').textContent = 'Connecting...';
+                    this.addDebugLog('🔍 Testing production API connection...');
+                    document.getElementById('apiStatus').textContent = 'Testing Production API...';
+                    document.getElementById('connectionDetails').textContent = 'Connecting to live backend...';
                     
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
                     
                     const response = await fetch(`${this.config.apiBaseUrl}/`, {
                         method: 'GET',
                         signal: controller.signal,
                         headers: {
                             'Content-Type': 'application/json',
-                        }
+                            'Accept': 'application/json',
+                            'Origin': window.location.origin
+                        },
+                        mode: 'cors',
+                        credentials: 'omit'
                     });
                     
                     clearTimeout(timeoutId);
@@ -3165,28 +3196,44 @@
                     this.addDebugLog('✅ API Response: ' + JSON.stringify(data));
                     
                     if (data.success) {
-                        document.getElementById('apiStatus').textContent = 'Enhanced API Connected ✅';
-                        document.getElementById('connectionDetails').textContent = `${data.environment || 'production'} • v${data.version || '4.0'}`;
-                        this.updateConnectionStatus('connected', 'Enhanced API Connected');
-                        this.addDebugLog('✅ API Connection: Healthy');
+                        document.getElementById('apiStatus').textContent = 'Live Production API Connected ✅';
+                        document.getElementById('connectionDetails').textContent = `${data.environment || 'production'} • v${data.version || '4.0'} • Database: ${data.timezone?.timezone || 'Ready'}`;
+                        this.updateConnectionStatus('connected', 'Live Production API Connected');
+                        this.addDebugLog('✅ Production API Connection: Healthy and Ready');
                         return true;
                     } else {
                         throw new Error('API returned success: false');
                     }
                 } catch (error) {
-                    this.addDebugLog('⚠️ API Connection Error: ' + error.message);
-                    document.getElementById('apiStatus').textContent = 'API Connection Issues ⚠️';
-                    document.getElementById('connectionDetails').textContent = 'Demo mode available';
-                    this.updateConnectionStatus('error', 'Connection Error - Demo Mode');
+                    this.addDebugLog('⚠️ Production API Connection Error: ' + error.message);
+                    document.getElementById('apiStatus').textContent = 'Production API Issues ⚠️';
+                    
+                    if (error.name === 'AbortError') {
+                        document.getElementById('connectionDetails').textContent = 'Connection timeout - Demo mode available';
+                    } else if (error.message.includes('Failed to fetch')) {
+                        document.getElementById('connectionDetails').textContent = 'Network error - Check API server status';
+                    } else {
+                        document.getElementById('connectionDetails').textContent = 'API error - Demo mode available';
+                    }
+                    
+                    this.updateConnectionStatus('error', 'Production API Connection Error');
                     return false;
                 }
             }
 
             updateConnectionStatus(status, message) {
                 const statusElement = document.getElementById('connectionStatus');
+                const statusText = document.getElementById('connectionStatusText');
                 if (statusElement) {
                     statusElement.className = `connection-status ${status}`;
                     statusElement.title = message;
+                }
+                if (statusText) {
+                    if (status === 'connected') {
+                        statusText.textContent = 'Live API';
+                    } else {
+                        statusText.textContent = 'Demo Mode';
+                    }
                 }
             }
 
@@ -3276,22 +3323,10 @@
                     return;
                 }
 
-                if (username.length < 3) {
-                    this.showNotification('Username must be at least 3 characters', 'error');
-                    this.addDebugLog('❌ Login failed: Username too short');
-                    return;
-                }
-
-                if (password.length < 6) {
-                    this.showNotification('Password must be at least 6 characters', 'error');
-                    this.addDebugLog('❌ Login failed: Password too short');
-                    return;
-                }
-
                 this.showLoading(loginBtn);
 
                 try {
-                    this.addDebugLog('📡 Sending login request to API...');
+                    this.addDebugLog('📡 Attempting REAL API login first...');
                     
                     const loginData = {
                         username: username,
@@ -3300,73 +3335,128 @@
                     
                     this.addDebugLog('📤 Login payload: ' + JSON.stringify({ username: username, password: '[HIDDEN]' }));
                     
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+                    // Try API login with extended timeout and retries
+                    const maxRetries = 2;
+                    let lastError = null;
                     
-                    const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Origin': window.location.origin,
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(loginData),
-                        signal: controller.signal
-                    });
+                    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                        try {
+                            this.addDebugLog(`🔄 API Login attempt ${attempt}/${maxRetries}...`);
+                            
+                            const controller = new AbortController();
+                            const timeoutId = setTimeout(() => controller.abort(), 20000); // 20 second timeout
+                            
+                            const response = await fetch(`${this.config.apiBaseUrl}/api/admin/login`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'Origin': window.location.origin,
+                                    'User-Agent': 'Enhanced Admin Portal v4.0'
+                                },
+                                body: JSON.stringify(loginData),
+                                signal: controller.signal,
+                                mode: 'cors',
+                                credentials: 'omit'
+                            });
 
-                    clearTimeout(timeoutId);
-                    
-                    this.addDebugLog(`📥 API Response Status: ${response.status} ${response.statusText}`);
-                    
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        this.addDebugLog(`❌ HTTP Error Response: ${errorText}`);
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                            clearTimeout(timeoutId);
+                            
+                            this.addDebugLog(`📥 API Response Status: ${response.status} ${response.statusText}`);
+                            this.addDebugLog(`📥 Response Headers: ${JSON.stringify(Object.fromEntries(response.headers.entries()))}`);
+                            
+                            if (response.ok) {
+                                const data = await response.json();
+                                this.addDebugLog('📥 Login API Response: ' + JSON.stringify({
+                                    success: data.success,
+                                    hasToken: !!data.token,
+                                    hasAdmin: !!data.admin,
+                                    adminType: data.admin?.type,
+                                    error: data.error
+                                }));
+
+                                if (data.success && data.token && data.admin) {
+                                    this.addDebugLog('🎉 REAL API Login successful!');
+                                    this.authToken = data.token;
+                                    this.currentAdmin = data.admin;
+                                    this.setAuthToken(data.token);
+                                    
+                                    // Load real data from API
+                                    await this.loadDashboardData();
+                                    
+                                    setTimeout(() => {
+                                        this.showPortal();
+                                        this.showNotification(`Welcome ${data.admin.name || data.admin.username}! Connected to live API.`, 'success');
+                                    }, 800);
+                                    return; // Success - exit function
+                                } else {
+                                    this.addDebugLog('❌ API returned success=false: ' + (data.error || 'Unknown error'));
+                                    
+                                    if (data.error && data.error.includes('Invalid')) {
+                                        // Invalid credentials from API - don't retry
+                                        throw new Error(`API rejected credentials: ${data.error}`);
+                                    }
+                                    
+                                    // Other API error - try again
+                                    lastError = new Error(data.error || 'API returned invalid response');
+                                }
+                            } else {
+                                // HTTP error
+                                const errorText = await response.text();
+                                this.addDebugLog(`❌ HTTP Error ${response.status}: ${errorText}`);
+                                
+                                if (response.status === 401) {
+                                    // Unauthorized - don't retry
+                                    throw new Error('Invalid admin credentials - rejected by API');
+                                }
+                                
+                                // Other HTTP error - try again
+                                lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                            }
+                            
+                        } catch (apiError) {
+                            this.addDebugLog(`❌ API attempt ${attempt} error: ${apiError.message}`);
+                            lastError = apiError;
+                            
+                            if (apiError.message.includes('credentials') || apiError.message.includes('Invalid')) {
+                                // Credential error - don't retry
+                                break;
+                            }
+                            
+                            if (attempt < maxRetries) {
+                                this.addDebugLog(`⏳ Waiting before retry...`);
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+                            }
+                        }
                     }
-
-                    const data = await response.json();
-                    this.addDebugLog('📥 Login API Response: ' + JSON.stringify({
-                        success: data.success,
-                        hasToken: !!data.token,
-                        hasAdmin: !!data.admin,
-                        error: data.error
-                    }));
-
-                    if (data.success && data.token && data.admin) {
-                        this.addDebugLog('🎉 Login successful!');
-                        this.authToken = data.token;
-                        this.currentAdmin = data.admin;
-                        this.setAuthToken(data.token);
-                        
-                        await this.loadDashboardData();
-                        
-                        setTimeout(() => {
-                            this.showPortal();
-                            this.showNotification('Welcome to Enhanced Admin Portal!', 'success');
-                        }, 800);
-                    } else {
-                        throw new Error(data.error || 'Login failed - invalid response format');
-                    }
+                    
+                    // If we get here, all API attempts failed
+                    this.addDebugLog('❌ All API login attempts failed');
+                    throw lastError || new Error('API login failed after retries');
 
                 } catch (error) {
-                    this.addDebugLog('❌ Login error: ' + error.message);
+                    this.addDebugLog('❌ API Login completely failed: ' + error.message);
                     
-                    // Enhanced fallback for demo mode
-                    if (error.name === 'AbortError') {
-                        this.addDebugLog('⏰ Login request timed out, trying demo mode...');
-                        this.showNotification('Connection timeout. Trying demo mode...', 'warning');
-                    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-                        this.addDebugLog('🌐 Network error, trying demo mode...');
-                        this.showNotification('Network error. Trying demo mode...', 'warning');
-                    }
-                    
-                    // Try demo credentials
-                    if ((username === 'admin' && (password === 'lifeguard2025' || password === 'admin123'))) {
-                        this.addDebugLog('🎭 Enabling enhanced demo mode...');
+                    // Only use demo mode if credentials are known valid AND API is unreachable
+                    if ((username === 'admin' && (password === 'lifeguard2025' || password === 'admin123')) &&
+                        (error.name === 'AbortError' || 
+                         error.message.includes('Failed to fetch') || 
+                         error.message.includes('NetworkError') ||
+                         error.message.includes('timeout'))) {
+                        
+                        this.addDebugLog('🎭 API unreachable but credentials valid - enabling demo mode...');
+                        this.showNotification('API unreachable. Using demo mode with valid credentials.', 'warning');
                         this.enableDemoMode(username);
+                        
                     } else {
-                        this.showNotification('Invalid credentials. Try admin/lifeguard2025 or check connection.', 'error');
-                        this.addDebugLog('❌ Login failed with invalid credentials');
+                        // Invalid credentials or other error
+                        this.showNotification(
+                            error.message.includes('credentials') || error.message.includes('Invalid') 
+                                ? 'Invalid credentials. Use admin/lifeguard2025 for live API.'
+                                : 'Login failed. Check credentials and API connection.',
+                            'error'
+                        );
+                        this.addDebugLog('❌ Login rejected: ' + error.message);
                     }
                 } finally {
                     this.hideLoading(loginBtn, 'Elite Admin Sign In');
@@ -3389,7 +3479,7 @@
 
             async loadDashboardData() {
                 try {
-                    this.addDebugLog('📊 Loading dashboard data...');
+                    this.addDebugLog('📊 Loading live dashboard data from API...');
                     
                     if (!this.authToken) {
                         this.addDebugLog('ℹ️ No auth token, loading demo data');
@@ -3397,15 +3487,35 @@
                         return;
                     }
 
-                    // Load multiple data sets concurrently
-                    const [stats, customers, bookings, pricing] = await Promise.all([
+                    // Load multiple data sets concurrently from live API
+                    this.addDebugLog('🔄 Loading all dashboard data from live API...');
+                    
+                    const loadPromises = [
                         this.loadStats(),
                         this.loadCustomers(),
                         this.loadBookings(),
                         this.loadPricing()
-                    ]);
+                    ];
 
-                    this.addDebugLog('✅ Dashboard data loaded successfully');
+                    const results = await Promise.allSettled(loadPromises);
+                    
+                    let successCount = 0;
+                    results.forEach((result, index) => {
+                        const endpoints = ['stats', 'customers', 'bookings', 'pricing'];
+                        if (result.status === 'fulfilled') {
+                            successCount++;
+                            this.addDebugLog(`✅ ${endpoints[index]} loaded successfully`);
+                        } else {
+                            this.addDebugLog(`❌ ${endpoints[index]} failed: ${result.reason}`);
+                        }
+                    });
+
+                    if (successCount > 0) {
+                        this.addDebugLog(`✅ Dashboard data loaded: ${successCount}/4 endpoints successful`);
+                    } else {
+                        this.addDebugLog('⚠️ No live data loaded, using demo data as fallback');
+                        this.loadDemoData();
+                    }
                 } catch (error) {
                     this.addDebugLog('❌ Error loading dashboard data: ' + error.message);
                     this.loadDemoData();
