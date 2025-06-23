@@ -662,16 +662,20 @@
         }
 
         .portal-container {
-            display: none;
-            min-height: 100vh;
-            padding-top: 100px;
-            background: transparent;
-            position: relative;
-            z-index: 1;
+            display: none !important;
+            min-height: 100vh !important;
+            padding-top: 100px !important;
+            background: transparent !important;
+            position: relative !important;
+            z-index: 1 !important;
+            width: 100% !important;
+            overflow-x: hidden !important;
         }
 
         .portal-container.active {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .hero-section {
@@ -1042,115 +1046,140 @@
         .mb-4 { margin-bottom: var(--space-4); }
         .p-4 { padding: var(--space-4); }
 
-        /* Admin Sections */
+        /* Admin Sections - Force Visibility */
         .admin-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: var(--space-8) var(--space-6);
-            min-height: calc(100vh - 100px);
-            display: none; /* Initially hidden */
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+            padding: var(--space-8) var(--space-6) !important;
+            min-height: calc(100vh - 100px) !important;
+            display: none !important;
+            position: relative !important;
+            z-index: 10 !important;
+            background: rgba(15, 23, 42, 0.95) !important;
+            width: 100% !important;
         }
 
         .admin-section.active {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-8);
-            flex-wrap: wrap;
-            gap: var(--space-4);
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: var(--space-8) !important;
+            flex-wrap: wrap !important;
+            gap: var(--space-4) !important;
+            visibility: visible !important;
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 900;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2rem !important;
+            font-weight: 900 !important;
+            background: var(--gradient-hero) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            display: block !important;
+            visibility: visible !important;
         }
 
         .section-actions {
-            display: flex;
-            gap: var(--space-3);
-            flex-wrap: wrap;
+            display: flex !important;
+            gap: var(--space-3) !important;
+            flex-wrap: wrap !important;
+            visibility: visible !important;
         }
 
-        /* Data Tables */
+        /* Data Tables - Force Visibility */
         .data-table-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-3xl);
-            padding: var(--space-6);
-            margin-bottom: var(--space-6);
-            min-height: 400px;
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: var(--radius-3xl) !important;
+            padding: var(--space-6) !important;
+            margin-bottom: var(--space-6) !important;
+            min-height: 400px !important;
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 5 !important;
         }
 
         .table-filters {
-            display: flex;
-            gap: var(--space-4);
-            margin-bottom: var(--space-6);
-            flex-wrap: wrap;
+            display: flex !important;
+            gap: var(--space-4) !important;
+            margin-bottom: var(--space-6) !important;
+            flex-wrap: wrap !important;
+            visibility: visible !important;
         }
 
         .data-table {
-            overflow-x: auto;
-            border-radius: var(--radius-xl);
-            min-height: 300px;
+            overflow-x: auto !important;
+            border-radius: var(--radius-xl) !important;
+            min-height: 300px !important;
+            display: block !important;
+            visibility: visible !important;
         }
 
         .table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
+            width: 100% !important;
+            border-collapse: collapse !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-radius: var(--radius-xl) !important;
+            overflow: hidden !important;
+            display: table !important;
+            visibility: visible !important;
         }
 
         .table th,
         .table td {
-            padding: var(--space-4);
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            vertical-align: middle;
+            padding: var(--space-4) !important;
+            text-align: left !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            vertical-align: middle !important;
+            display: table-cell !important;
+            visibility: visible !important;
         }
 
         .table th {
-            background: rgba(255, 255, 255, 0.1);
-            font-weight: 700;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--gray-300);
+            background: rgba(255, 255, 255, 0.1) !important;
+            font-weight: 700 !important;
+            font-size: 0.875rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            color: var(--gray-300) !important;
         }
 
         .table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05) !important;
         }
 
         .table-actions {
-            display: flex;
-            gap: var(--space-2);
+            display: flex !important;
+            gap: var(--space-2) !important;
+            visibility: visible !important;
         }
 
         .table-actions .btn {
-            padding: var(--space-1) var(--space-3);
-            font-size: 0.75rem;
+            padding: var(--space-1) var(--space-3) !important;
+            font-size: 0.75rem !important;
+            display: inline-flex !important;
+            visibility: visible !important;
         }
 
         .loading-state {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-3);
-            padding: var(--space-8);
-            color: var(--gray-400);
-            font-size: 1.1rem;
-            min-height: 200px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: var(--space-3) !important;
+            padding: var(--space-8) !important;
+            color: var(--gray-400) !important;
+            font-size: 1.1rem !important;
+            min-height: 200px !important;
+            visibility: visible !important;
         }
 
         /* Status Badges */
@@ -2244,24 +2273,33 @@
                 };
 
                 if (elements.loginContainer) {
-                    elements.loginContainer.style.display = 'none';
+                    elements.loginContainer.style.setProperty('display', 'none', 'important');
                     console.log('✅ Login container hidden');
                 }
                 
                 if (elements.portalContainer) {
-                    elements.portalContainer.style.display = 'block';
-                    elements.portalContainer.style.visibility = 'visible';
+                    // Force show portal container with very aggressive styling
+                    elements.portalContainer.style.setProperty('display', 'block', 'important');
+                    elements.portalContainer.style.setProperty('visibility', 'visible', 'important');
+                    elements.portalContainer.style.setProperty('opacity', '1', 'important');
+                    elements.portalContainer.style.setProperty('position', 'relative', 'important');
+                    elements.portalContainer.style.setProperty('z-index', '1', 'important');
+                    elements.portalContainer.style.setProperty('width', '100%', 'important');
+                    elements.portalContainer.style.setProperty('min-height', '100vh', 'important');
+                    elements.portalContainer.style.setProperty('background', 'transparent', 'important');
                     elements.portalContainer.classList.add('active');
-                    console.log('✅ Portal container shown and activated');
+                    console.log('✅ Portal container force shown and activated');
                 }
                 
                 if (elements.loginActions) {
-                    elements.loginActions.style.display = 'none';
+                    elements.loginActions.style.setProperty('display', 'none', 'important');
                     console.log('✅ Login actions hidden');
                 }
                 
                 if (elements.userActions) {
                     elements.userActions.classList.remove('hidden');
+                    elements.userActions.style.setProperty('display', 'flex', 'important');
+                    elements.userActions.style.setProperty('visibility', 'visible', 'important');
                     console.log('✅ User actions shown');
                 }
                 
@@ -3458,12 +3496,104 @@
                 // Add debugging to window for console access
         window.debugDOMState = debugDOMState;
         window.highlightActiveSection = highlightActiveSection;
+        window.forceShowSection = forceShowSection;
         window.forceShowBookings = forceShowBookings;
         window.showDashboard = showDashboard;
         window.showCustomerManagement = showCustomerManagement;
         window.showBookingManagement = showBookingManagement;
         window.showCustomPricing = showCustomPricing;
         window.showAnalytics = showAnalytics;
+
+        // Emergency force show function
+        window.emergencyShowBookings = function() {
+            console.log('🚨 EMERGENCY: Force showing booking management...');
+            
+            // Hide everything first
+            hideAllSections();
+            
+            // Get booking section
+            let section = document.getElementById('bookingManagementSection');
+            if (!section) {
+                console.error('❌ EMERGENCY: Booking section not found in DOM!');
+                console.log('Available sections:', {
+                    customer: document.getElementById('customerManagementSection'),
+                    booking: document.getElementById('bookingManagementSection'),
+                    pricing: document.getElementById('customPricingSection'),
+                    analytics: document.getElementById('analyticsSection'),
+                    dashboard: document.getElementById('dashboardSection')
+                });
+                return false;
+            }
+            
+            // Apply extreme styling
+            section.style.cssText = `
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                background: rgba(15, 23, 42, 0.95) !important;
+                color: white !important;
+                padding: 40px !important;
+                margin: 0 auto !important;
+                max-width: 1400px !important;
+                width: 100% !important;
+                min-height: 600px !important;
+                border: 3px solid red !important;
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5) !important;
+            `;
+            
+            section.classList.add('active');
+            section.innerHTML = `
+                <div style="background: rgba(255, 0, 0, 0.1); padding: 20px; margin-bottom: 20px; border-radius: 10px;">
+                    <h1 style="color: white; font-size: 2rem; margin-bottom: 10px;">🚨 EMERGENCY MODE: Booking Management</h1>
+                    <p style="color: white;">This section is now force-visible with emergency styling.</p>
+                </div>
+                <div id="originalBookingContent" style="display: block !important; visibility: visible !important;">
+                    <div class="section-header">
+                        <h2 class="section-title">Booking Management</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary btn-small" onclick="showAddBooking()">
+                                <i class="fas fa-plus"></i> New Booking
+                            </button>
+                            <button class="btn btn-warning btn-small" onclick="filterBookings('pending')">
+                                <i class="fas fa-clock"></i> Pending
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="showDashboard()">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class="data-table-container">
+                        <div class="table-filters">
+                            <input type="text" id="bookingSearch" placeholder="Search bookings..." class="form-input" style="max-width: 300px;">
+                            <select id="bookingStatusFilter" class="form-select" style="max-width: 200px;">
+                                <option value="">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="data-table" id="bookingsTable">
+                            <div class="loading-state">
+                                <div class="spinner"></div>
+                                Loading bookings...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            console.log('✅ EMERGENCY: Booking section force shown');
+            
+            // Load data
+            setTimeout(() => {
+                loadBookings();
+            }, 500);
+            
+            return true;
+        };
 
         // Test function to verify all features
         window.testAllFeatures = function() {
@@ -3482,23 +3612,28 @@
             }, 3000);
             
             setTimeout(() => {
-                console.log('3. Testing Custom Pricing...');
-                showCustomPricing();
-                highlightActiveSection();
+                console.log('3. Testing Emergency Booking Show...');
+                window.emergencyShowBookings();
             }, 5000);
             
             setTimeout(() => {
-                console.log('4. Testing Analytics...');
-                showAnalytics();
+                console.log('4. Testing Custom Pricing...');
+                showCustomPricing();
                 highlightActiveSection();
             }, 7000);
             
             setTimeout(() => {
-                console.log('5. Returning to Dashboard...');
+                console.log('5. Testing Analytics...');
+                showAnalytics();
+                highlightActiveSection();
+            }, 9000);
+            
+            setTimeout(() => {
+                console.log('6. Returning to Dashboard...');
                 showDashboard();
                 highlightActiveSection();
                 console.log('✅ All features tested successfully!');
-            }, 9000);
+            }, 11000);
         };
 
         function logout() {
