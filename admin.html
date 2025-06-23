@@ -3478,34 +3478,8 @@
             }
         }
 
-        // Enhanced error handling for all functions
-        window.addEventListener('error', (event) => {
-            console.error('❌ Global error caught:', event.error);
-            console.error('Error details:', {
-                message: event.message,
-                filename: event.filename,
-                lineno: event.lineno,
-                colno: event.colno
-            });
-            
-            if (adminPortal) {
-                adminPortal.log('❌ Global error: ' + event.message);
-            }
-        });
-
-                // Add debugging to window for console access
-        window.debugDOMState = debugDOMState;
-        window.highlightActiveSection = highlightActiveSection;
-        window.forceShowSection = forceShowSection;
-        window.forceShowBookings = forceShowBookings;
-        window.showDashboard = showDashboard;
-        window.showCustomerManagement = showCustomerManagement;
-        window.showBookingManagement = showBookingManagement;
-        window.showCustomPricing = showCustomPricing;
-        window.showAnalytics = showAnalytics;
-
         // Emergency force show function
-        window.emergencyShowBookings = function() {
+        function emergencyShowBookings() {
             console.log('🚨 EMERGENCY: Force showing booking management...');
             
             // Hide everything first
@@ -3593,7 +3567,34 @@
             }, 500);
             
             return true;
-        };
+        }
+
+        // Enhanced error handling for all functions
+        window.addEventListener('error', (event) => {
+            console.error('❌ Global error caught:', event.error);
+            console.error('Error details:', {
+                message: event.message,
+                filename: event.filename,
+                lineno: event.lineno,
+                colno: event.colno
+            });
+            
+            if (adminPortal) {
+                adminPortal.log('❌ Global error: ' + event.message);
+            }
+        });
+
+                // Add debugging to window for console access - AFTER ALL FUNCTIONS ARE DEFINED
+        window.debugDOMState = debugDOMState;
+        window.highlightActiveSection = highlightActiveSection;
+        window.forceShowSection = forceShowSection;
+        window.forceShowBookings = forceShowBookings;
+        window.emergencyShowBookings = emergencyShowBookings;
+        window.showDashboard = showDashboard;
+        window.showCustomerManagement = showCustomerManagement;
+        window.showBookingManagement = showBookingManagement;
+        window.showCustomPricing = showCustomPricing;
+        window.showAnalytics = showAnalytics;
 
         // Test function to verify all features
         window.testAllFeatures = function() {
@@ -3613,7 +3614,7 @@
             
             setTimeout(() => {
                 console.log('3. Testing Emergency Booking Show...');
-                window.emergencyShowBookings();
+                emergencyShowBookings();
             }, 5000);
             
             setTimeout(() => {
@@ -3634,6 +3635,68 @@
                 highlightActiveSection();
                 console.log('✅ All features tested successfully!');
             }, 11000);
+        };
+
+        // Simple emergency test function
+        window.emergencyTest = function() {
+            console.log('🚨 RUNNING EMERGENCY TEST...');
+            console.log('1. Checking if booking section exists...');
+            
+            const bookingSection = document.getElementById('bookingManagementSection');
+            if (!bookingSection) {
+                console.error('❌ EMERGENCY: Booking section not found!');
+                return false;
+            }
+            
+            console.log('2. Found booking section, force showing...');
+            bookingSection.style.cssText = `
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                background: red !important;
+                color: white !important;
+                padding: 50px !important;
+                margin: 20px auto !important;
+                max-width: 1200px !important;
+                width: 100% !important;
+                min-height: 400px !important;
+                border: 5px solid yellow !important;
+                font-size: 2rem !important;
+                text-align: center !important;
+            `;
+            
+            bookingSection.innerHTML = `
+                <h1 style="color: yellow; font-size: 3rem;">🚨 EMERGENCY TEST SUCCESS! 🚨</h1>
+                <p style="color: white; font-size: 1.5rem; margin: 20px 0;">
+                    If you can see this red box with yellow text, 
+                    then the admin sections ARE working!
+                </p>
+                <button onclick="showDashboard()" style="
+                    background: yellow; 
+                    color: black; 
+                    padding: 20px 40px; 
+                    font-size: 1.2rem; 
+                    border: none; 
+                    border-radius: 10px; 
+                    cursor: pointer;
+                    margin: 10px;
+                ">← Back to Dashboard</button>
+                <button onclick="emergencyShowBookings()" style="
+                    background: green; 
+                    color: white; 
+                    padding: 20px 40px; 
+                    font-size: 1.2rem; 
+                    border: none; 
+                    border-radius: 10px; 
+                    cursor: pointer;
+                    margin: 10px;
+                ">Show Real Booking Table</button>
+            `;
+            
+            console.log('✅ EMERGENCY TEST COMPLETE - Check the page!');
+            return true;
         };
 
         function logout() {
