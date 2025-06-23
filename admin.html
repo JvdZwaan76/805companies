@@ -665,6 +665,13 @@
             display: none;
             min-height: 100vh;
             padding-top: 100px;
+            background: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal-container.active {
+            display: block !important;
         }
 
         .hero-section {
@@ -1041,6 +1048,11 @@
             margin: 0 auto;
             padding: var(--space-8) var(--space-6);
             min-height: calc(100vh - 100px);
+            display: none; /* Initially hidden */
+        }
+
+        .admin-section.active {
+            display: block !important;
         }
 
         .section-header {
@@ -1075,6 +1087,7 @@
             border-radius: var(--radius-3xl);
             padding: var(--space-6);
             margin-bottom: var(--space-6);
+            min-height: 400px;
         }
 
         .table-filters {
@@ -1087,6 +1100,7 @@
         .data-table {
             overflow-x: auto;
             border-radius: var(--radius-xl);
+            min-height: 300px;
         }
 
         .table {
@@ -1102,6 +1116,7 @@
             padding: var(--space-4);
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            vertical-align: middle;
         }
 
         .table th {
@@ -1135,6 +1150,7 @@
             padding: var(--space-8);
             color: var(--gray-400);
             font-size: 1.1rem;
+            min-height: 200px;
         }
 
         /* Status Badges */
@@ -2219,6 +2235,7 @@
             }
 
             showPortal() {
+                console.log('🎉 Showing portal...');
                 const elements = {
                     loginContainer: document.getElementById('loginContainer'),
                     portalContainer: document.getElementById('portalContainer'),
@@ -2226,16 +2243,36 @@
                     userActions: document.getElementById('userActions')
                 };
 
-                if (elements.loginContainer) elements.loginContainer.style.display = 'none';
-                if (elements.portalContainer) elements.portalContainer.style.display = 'block';
-                if (elements.loginActions) elements.loginActions.style.display = 'none';
-                if (elements.userActions) elements.userActions.classList.remove('hidden');
+                if (elements.loginContainer) {
+                    elements.loginContainer.style.display = 'none';
+                    console.log('✅ Login container hidden');
+                }
+                
+                if (elements.portalContainer) {
+                    elements.portalContainer.style.display = 'block';
+                    elements.portalContainer.style.visibility = 'visible';
+                    elements.portalContainer.classList.add('active');
+                    console.log('✅ Portal container shown and activated');
+                }
+                
+                if (elements.loginActions) {
+                    elements.loginActions.style.display = 'none';
+                    console.log('✅ Login actions hidden');
+                }
+                
+                if (elements.userActions) {
+                    elements.userActions.classList.remove('hidden');
+                    console.log('✅ User actions shown');
+                }
                 
                 this.updateUserInfo();
                 this.updateMobileMenu();
                 
-                // Show dashboard by default
-                showDashboard();
+                // Show dashboard by default with a small delay to ensure DOM is ready
+                setTimeout(() => {
+                    console.log('🏠 Initializing dashboard...');
+                    showDashboard();
+                }, 100);
                 
                 this.log('🎉 Portal displayed successfully');
             }
@@ -2955,41 +2992,75 @@
         }
 
         function setupBookingFilters() {
+            console.log('🔧 Setting up booking filters...');
             const searchInput = document.getElementById('bookingSearch');
             const statusFilter = document.getElementById('bookingStatusFilter');
             
             if (searchInput) {
                 searchInput.addEventListener('input', filterBookingsTable);
+                console.log('✅ Booking search filter setup');
+            } else {
+                console.warn('⚠️ Booking search input not found');
             }
             
             if (statusFilter) {
                 statusFilter.addEventListener('change', filterBookingsTable);
+                console.log('✅ Booking status filter setup');
+            } else {
+                console.warn('⚠️ Booking status filter not found');
             }
         }
 
         function filterBookings(status) {
+            console.log(`🔍 Filtering bookings by status: ${status}`);
             const statusFilter = document.getElementById('bookingStatusFilter');
             if (statusFilter) {
                 statusFilter.value = status;
                 filterBookingsTable();
+            } else {
+                console.warn('⚠️ Booking status filter not found');
             }
         }
 
         function filterBookingsTable() {
-            const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('bookingStatusFilter').value;
+            console.log('🔍 Filtering bookings table...');
+            const searchInput = document.getElementById('bookingSearch');
+            const statusFilter = document.getElementById('bookingStatusFilter');
             const rows = document.querySelectorAll('#bookingsTable tbody tr');
             
+            if (!searchInput || !statusFilter) {
+                console.warn('⚠️ Booking filter elements not found');
+                return;
+            }
+            
+            const searchTerm = searchInput.value.toLowerCase();
+            const statusFilterValue = statusFilter.value;
+            
+            let visibleCount = 0;
+            
             rows.forEach(row => {
-                const customer = row.cells[1].textContent.toLowerCase();
-                const service = row.cells[2].textContent.toLowerCase();
-                const status = row.querySelector('.status-badge').textContent;
-                
-                const matchesSearch = customer.includes(searchTerm) || service.includes(searchTerm);
-                const matchesStatus = !statusFilter || status === statusFilter;
-                
-                row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+                if (row.cells.length >= 3) {
+                    const customer = row.cells[1].textContent.toLowerCase();
+                    const service = row.cells[2].textContent.toLowerCase();
+                    const statusElement = row.querySelector('.status-badge');
+                    
+                    if (statusElement) {
+                        const status = statusElement.textContent;
+                        
+                        const matchesSearch = customer.includes(searchTerm) || service.includes(searchTerm);
+                        const matchesStatus = !statusFilterValue || status === statusFilterValue;
+                        
+                        if (matchesSearch && matchesStatus) {
+                            row.style.display = '';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    }
+                }
             });
+            
+            console.log(`✅ Filtered bookings: ${visibleCount} visible`);
         }
 
         // Custom Pricing Functions
@@ -3088,47 +3159,63 @@
             `).join('');
         }
 
-        // Action Functions
+        // Action Functions with Enhanced Error Handling
         function editCustomer(id) {
+            console.log(`✏️ Edit customer requested: ${id}`);
             if (adminPortal) {
                 adminPortal.showNotification(`Edit customer #${id} functionality would open here`, 'info');
             }
         }
 
         function viewCustomerBookings(id) {
+            console.log(`📅 View customer bookings requested: ${id}`);
             if (adminPortal) {
                 adminPortal.showNotification(`Customer #${id} booking history would display here`, 'info');
             }
         }
 
         function deleteCustomer(id) {
+            console.log(`🗑️ Delete customer requested: ${id}`);
             if (confirm('Are you sure you want to delete this customer?')) {
+                console.log(`✅ Customer #${id} deletion confirmed`);
                 if (adminPortal) {
                     adminPortal.showNotification(`Customer #${id} deleted successfully`, 'success');
                 }
+            } else {
+                console.log(`❌ Customer #${id} deletion cancelled`);
             }
         }
 
         function editBooking(id) {
+            console.log(`✏️ Edit booking requested: ${id}`);
             if (adminPortal) {
                 adminPortal.showNotification(`Edit booking #${id} functionality would open here`, 'info');
             }
         }
 
         function updateBookingStatus(id, status) {
+            console.log(`🔄 Update booking status requested: ${id} -> ${status}`);
             if (adminPortal) {
                 adminPortal.showNotification(`Booking #${id} status updated to ${status}`, 'success');
             }
+            
             // Update the status badge in the table
             setTimeout(() => {
-                const rows = document.querySelectorAll('#bookingsTable tbody tr');
-                rows.forEach(row => {
-                    if (row.cells[0].textContent === `#${id}`) {
-                        const badge = row.querySelector('.status-badge');
-                        badge.className = `status-badge ${status}`;
-                        badge.textContent = status;
-                    }
-                });
+                try {
+                    const rows = document.querySelectorAll('#bookingsTable tbody tr');
+                    rows.forEach(row => {
+                        if (row.cells[0] && row.cells[0].textContent === `#${id}`) {
+                            const badge = row.querySelector('.status-badge');
+                            if (badge) {
+                                badge.className = `status-badge ${status}`;
+                                badge.textContent = status;
+                                console.log(`✅ Updated booking #${id} status badge to ${status}`);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error(`❌ Error updating booking status badge: ${error.message}`);
+                }
             }, 500);
         }
 
@@ -3255,6 +3342,164 @@
                 closeModal();
             }
         });
+
+        // Debug function to check DOM state
+        function debugDOMState() {
+            console.log('🔍 DOM State Debug:');
+            
+            const portalContainer = document.getElementById('portalContainer');
+            console.log('Portal container:', {
+                element: portalContainer,
+                display: portalContainer?.style.display,
+                visibility: portalContainer?.style.visibility,
+                classList: portalContainer?.classList.toString(),
+                offsetHeight: portalContainer?.offsetHeight,
+                scrollHeight: portalContainer?.scrollHeight
+            });
+            
+            const sections = [
+                'dashboardSection',
+                'customerManagementSection',
+                'bookingManagementSection', 
+                'customPricingSection',
+                'analyticsSection'
+            ];
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                console.log(`${sectionId}:`, {
+                    element: section,
+                    display: section?.style.display,
+                    visibility: section?.style.visibility,
+                    classList: section?.classList.toString(),
+                    offsetHeight: section?.offsetHeight,
+                    scrollHeight: section?.scrollHeight,
+                    innerHTML: section?.innerHTML?.substring(0, 100) + '...'
+                });
+            });
+            
+            console.log('Customer table:', document.getElementById('customersTable'));
+            console.log('Booking table:', document.getElementById('bookingsTable'));
+            console.log('Stats grid:', document.querySelector('.stats-grid'));
+            console.log('Dashboard grid:', document.querySelector('.dashboard-grid'));
+        }
+
+        // Visual debugging function
+        function highlightActiveSection() {
+            const sections = [
+                'dashboardSection',
+                'customerManagementSection',
+                'bookingManagementSection', 
+                'customPricingSection',
+                'analyticsSection'
+            ];
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const isVisible = section.style.display !== 'none' && section.style.visibility !== 'hidden';
+                    if (isVisible) {
+                        section.style.border = '3px solid red';
+                        section.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+                        console.log(`🔴 Section ${sectionId} is visible and highlighted`);
+                    } else {
+                        section.style.border = '';
+                        section.style.backgroundColor = '';
+                    }
+                }
+            });
+        }
+
+        // Force show function for debugging
+        function forceShowBookings() {
+            console.log('🔧 Force showing booking management...');
+            const section = document.getElementById('bookingManagementSection');
+            
+            if (section) {
+                // Force visibility with important styles
+                section.style.setProperty('display', 'block', 'important');
+                section.style.setProperty('visibility', 'visible', 'important');
+                section.style.setProperty('position', 'relative', 'important');
+                section.style.setProperty('z-index', '10', 'important');
+                section.style.setProperty('background', 'rgba(0, 255, 0, 0.1)', 'important');
+                section.style.setProperty('min-height', '500px', 'important');
+                section.style.setProperty('padding', '20px', 'important');
+                section.classList.add('active');
+                
+                console.log('✅ Force applied to booking section');
+                console.log('Section details:', {
+                    offsetHeight: section.offsetHeight,
+                    scrollHeight: section.scrollHeight,
+                    clientHeight: section.clientHeight,
+                    computedStyle: window.getComputedStyle(section).display
+                });
+                
+                loadBookings();
+            } else {
+                console.error('❌ Booking section not found for force show');
+            }
+        }
+
+        // Enhanced error handling for all functions
+        window.addEventListener('error', (event) => {
+            console.error('❌ Global error caught:', event.error);
+            console.error('Error details:', {
+                message: event.message,
+                filename: event.filename,
+                lineno: event.lineno,
+                colno: event.colno
+            });
+            
+            if (adminPortal) {
+                adminPortal.log('❌ Global error: ' + event.message);
+            }
+        });
+
+                // Add debugging to window for console access
+        window.debugDOMState = debugDOMState;
+        window.highlightActiveSection = highlightActiveSection;
+        window.forceShowBookings = forceShowBookings;
+        window.showDashboard = showDashboard;
+        window.showCustomerManagement = showCustomerManagement;
+        window.showBookingManagement = showBookingManagement;
+        window.showCustomPricing = showCustomPricing;
+        window.showAnalytics = showAnalytics;
+
+        // Test function to verify all features
+        window.testAllFeatures = function() {
+            console.log('🧪 Testing all admin features...');
+            
+            setTimeout(() => {
+                console.log('1. Testing Customer Management...');
+                showCustomerManagement();
+                highlightActiveSection();
+            }, 1000);
+            
+            setTimeout(() => {
+                console.log('2. Testing Booking Management...');
+                showBookingManagement();
+                highlightActiveSection();
+            }, 3000);
+            
+            setTimeout(() => {
+                console.log('3. Testing Custom Pricing...');
+                showCustomPricing();
+                highlightActiveSection();
+            }, 5000);
+            
+            setTimeout(() => {
+                console.log('4. Testing Analytics...');
+                showAnalytics();
+                highlightActiveSection();
+            }, 7000);
+            
+            setTimeout(() => {
+                console.log('5. Returning to Dashboard...');
+                showDashboard();
+                highlightActiveSection();
+                console.log('✅ All features tested successfully!');
+            }, 9000);
+        };
 
         function logout() {
             if (adminPortal) {
