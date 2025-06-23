@@ -2574,10 +2574,27 @@
 
         // Navigation Functions
         function showDashboard() {
+            console.log('📊 Showing dashboard...');
             hideAllSections();
-            document.getElementById('dashboardSection').style.display = 'block';
-            document.querySelector('.stats-grid').style.display = 'grid';
-            document.querySelector('.dashboard-grid').style.display = 'grid';
+            
+            const dashboardSection = document.getElementById('dashboardSection');
+            const statsGrid = document.querySelector('.stats-grid');
+            const dashboardGrid = document.querySelector('.dashboard-grid');
+            
+            if (dashboardSection) {
+                dashboardSection.style.display = 'block';
+                console.log('✅ Dashboard section shown');
+            }
+            
+            if (statsGrid) {
+                statsGrid.style.display = 'grid';
+                console.log('✅ Stats grid shown');
+            }
+            
+            if (dashboardGrid) {
+                dashboardGrid.style.display = 'grid';
+                console.log('✅ Dashboard grid shown');
+            }
             
             if (adminPortal) {
                 adminPortal.log('📊 Dashboard displayed');
@@ -2585,6 +2602,7 @@
         }
 
         function hideAllSections() {
+            console.log('🔄 Hiding all sections...');
             const sections = [
                 'dashboardSection',
                 'customerManagementSection', 
@@ -2597,6 +2615,7 @@
                 const section = document.getElementById(sectionId);
                 if (section) {
                     section.style.display = 'none';
+                    console.log(`✅ Hidden section: ${sectionId}`);
                 }
             });
             
@@ -2606,16 +2625,27 @@
                 document.querySelector('.dashboard-grid')
             ];
             
-            dashboardElements.forEach(el => {
-                if (el) el.style.display = 'none';
+            dashboardElements.forEach((el, index) => {
+                if (el) {
+                    el.style.display = 'none';
+                    console.log(`✅ Hidden dashboard element ${index}`);
+                }
             });
         }
 
         // Customer Management Functions
         function showCustomerManagement() {
+            console.log('👥 Showing customer management...');
             hideAllSections();
-            document.getElementById('customerManagementSection').style.display = 'block';
-            loadCustomers();
+            
+            const section = document.getElementById('customerManagementSection');
+            if (section) {
+                section.style.display = 'block';
+                console.log('✅ Customer management section shown');
+                loadCustomers();
+            } else {
+                console.error('❌ Customer management section not found');
+            }
             
             if (adminPortal) {
                 adminPortal.log('👥 Customer Management displayed');
@@ -2623,20 +2653,39 @@
         }
 
         async function loadCustomers() {
+            console.log('📥 Loading customers...');
             const tableContainer = document.getElementById('customersTable');
+            
+            if (!tableContainer) {
+                console.error('❌ Customers table container not found');
+                return;
+            }
+            
             tableContainer.innerHTML = '<div class="loading-state"><div class="spinner"></div>Loading customers...</div>';
             
             try {
                 // Generate demo customer data
                 const customers = generateDemoCustomers();
+                console.log('✅ Generated demo customers:', customers.length);
                 
                 setTimeout(() => {
-                    tableContainer.innerHTML = createCustomersTable(customers);
-                    setupCustomerFilters();
+                    try {
+                        const tableHTML = createCustomersTable(customers);
+                        tableContainer.innerHTML = tableHTML;
+                        console.log('✅ Customer table rendered');
+                        
+                        setupCustomerFilters();
+                        console.log('✅ Customer filters setup');
+                    } catch (error) {
+                        console.error('❌ Error rendering customer table:', error);
+                        tableContainer.innerHTML = '<div class="loading-state" style="color: var(--error);">Error rendering customer table</div>';
+                    }
                 }, 1000);
                 
             } catch (error) {
+                console.error('❌ Error loading customers:', error);
                 tableContainer.innerHTML = '<div class="loading-state" style="color: var(--error);">Error loading customers</div>';
+                
                 if (adminPortal) {
                     adminPortal.log('❌ Error loading customers: ' + error.message);
                 }
@@ -2709,40 +2758,79 @@
         }
 
         function setupCustomerFilters() {
+            console.log('🔧 Setting up customer filters...');
             const searchInput = document.getElementById('customerSearch');
             const filterSelect = document.getElementById('customerFilter');
             
             if (searchInput) {
                 searchInput.addEventListener('input', filterCustomers);
+                console.log('✅ Customer search filter setup');
+            } else {
+                console.warn('⚠️ Customer search input not found');
             }
             
             if (filterSelect) {
                 filterSelect.addEventListener('change', filterCustomers);
+                console.log('✅ Customer status filter setup');
+            } else {
+                console.warn('⚠️ Customer filter select not found');
             }
         }
 
         function filterCustomers() {
-            const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('customerFilter').value;
+            console.log('🔍 Filtering customers...');
+            const searchInput = document.getElementById('customerSearch');
+            const filterSelect = document.getElementById('customerFilter');
             const rows = document.querySelectorAll('#customersTable tbody tr');
             
+            if (!searchInput || !filterSelect) {
+                console.warn('⚠️ Customer filter elements not found');
+                return;
+            }
+            
+            const searchTerm = searchInput.value.toLowerCase();
+            const statusFilter = filterSelect.value;
+            
+            let visibleCount = 0;
+            
             rows.forEach(row => {
-                const name = row.querySelector('.customer-name').textContent.toLowerCase();
-                const email = row.querySelector('.customer-email').textContent.toLowerCase();
-                const status = row.querySelector('.status-badge').textContent;
+                const nameElement = row.querySelector('.customer-name');
+                const emailElement = row.querySelector('.customer-email');
+                const statusElement = row.querySelector('.status-badge');
                 
-                const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm);
-                const matchesStatus = !statusFilter || status === statusFilter;
-                
-                row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+                if (nameElement && emailElement && statusElement) {
+                    const name = nameElement.textContent.toLowerCase();
+                    const email = emailElement.textContent.toLowerCase();
+                    const status = statusElement.textContent;
+                    
+                    const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm);
+                    const matchesStatus = !statusFilter || status === statusFilter;
+                    
+                    if (matchesSearch && matchesStatus) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
             });
+            
+            console.log(`✅ Filtered customers: ${visibleCount} visible`);
         }
 
         // Booking Management Functions
         function showBookingManagement() {
+            console.log('📅 Showing booking management...');
             hideAllSections();
-            document.getElementById('bookingManagementSection').style.display = 'block';
-            loadBookings();
+            
+            const section = document.getElementById('bookingManagementSection');
+            if (section) {
+                section.style.display = 'block';
+                console.log('✅ Booking management section shown');
+                loadBookings();
+            } else {
+                console.error('❌ Booking management section not found');
+            }
             
             if (adminPortal) {
                 adminPortal.log('📅 Booking Management displayed');
@@ -2750,27 +2838,51 @@
         }
 
         function showPendingBookings() {
+            console.log('⏰ Showing pending bookings...');
             showBookingManagement();
             setTimeout(() => {
-                document.getElementById('bookingStatusFilter').value = 'pending';
-                filterBookings('pending');
+                const filter = document.getElementById('bookingStatusFilter');
+                if (filter) {
+                    filter.value = 'pending';
+                    filterBookings('pending');
+                    console.log('✅ Filtered to pending bookings');
+                }
             }, 1100);
         }
 
         async function loadBookings() {
+            console.log('📥 Loading bookings...');
             const tableContainer = document.getElementById('bookingsTable');
+            
+            if (!tableContainer) {
+                console.error('❌ Bookings table container not found');
+                return;
+            }
+            
             tableContainer.innerHTML = '<div class="loading-state"><div class="spinner"></div>Loading bookings...</div>';
             
             try {
                 const bookings = generateDemoBookings();
+                console.log('✅ Generated demo bookings:', bookings.length);
                 
                 setTimeout(() => {
-                    tableContainer.innerHTML = createBookingsTable(bookings);
-                    setupBookingFilters();
+                    try {
+                        const tableHTML = createBookingsTable(bookings);
+                        tableContainer.innerHTML = tableHTML;
+                        console.log('✅ Booking table rendered');
+                        
+                        setupBookingFilters();
+                        console.log('✅ Booking filters setup');
+                    } catch (error) {
+                        console.error('❌ Error rendering booking table:', error);
+                        tableContainer.innerHTML = '<div class="loading-state" style="color: var(--error);">Error rendering booking table</div>';
+                    }
                 }, 1000);
                 
             } catch (error) {
+                console.error('❌ Error loading bookings:', error);
                 tableContainer.innerHTML = '<div class="loading-state" style="color: var(--error);">Error loading bookings</div>';
+                
                 if (adminPortal) {
                     adminPortal.log('❌ Error loading bookings: ' + error.message);
                 }
