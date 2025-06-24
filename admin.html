@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>805 LifeGuard - Professional Swimming Services</title>
-    <meta name="description" content="Book professional swimming lessons, pool cleaning, and maintenance services in the 805 area">
+    <title>805 LifeGuard - Complete Admin Portal | Production Dashboard</title>
+    <meta name="description" content="Complete administration portal for 805 LifeGuard with full D1 database integration">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +104,7 @@
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 var(--space-6);
             display: flex;
@@ -126,24 +127,6 @@
             font-size: 2rem;
         }
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: var(--space-6);
-        }
-
-        .nav-link {
-            color: var(--gray-300);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--primary-light);
-        }
-
         .nav-user {
             display: flex;
             align-items: center;
@@ -162,21 +145,11 @@
             color: white;
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: var(--space-2);
-            padding: var(--space-3) var(--space-6);
+            padding: var(--space-2) var(--space-4);
             border-radius: var(--radius-lg);
             font-weight: 600;
             text-decoration: none;
@@ -184,8 +157,6 @@
             border: none;
             cursor: pointer;
             font-size: 0.875rem;
-            text-align: center;
-            justify-content: center;
         }
 
         .btn-primary {
@@ -224,19 +195,59 @@
         }
 
         .btn-small {
-            padding: var(--space-2) var(--space-4);
+            padding: var(--space-1) var(--space-3);
             font-size: 0.75rem;
         }
 
-        .btn-large {
-            padding: var(--space-4) var(--space-8);
-            font-size: 1rem;
+        /* Layout */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
         }
 
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-6) 0;
+            position: fixed;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 var(--space-4);
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            color: var(--gray-300);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--primary-light);
+        }
+
+        .content {
+            flex: 1;
+            margin-left: 280px;
+            padding: var(--space-8);
+            min-height: calc(100vh - 80px);
         }
 
         /* Cards */
@@ -262,123 +273,8 @@
             color: var(--white);
         }
 
-        /* Forms */
-        .form-group {
-            margin-bottom: var(--space-4);
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: var(--space-2);
-            font-weight: 600;
-            color: var(--gray-300);
-        }
-
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: var(--space-3);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--radius-md);
-            color: white;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-        }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-input::placeholder {
-            color: var(--gray-400);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Main Content Areas */
-        .main-content {
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-6);
-        }
-
-        .section {
-            padding: var(--space-8) 0;
-        }
-
-        /* Login Screen */
-        .login-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: var(--space-6);
-        }
-
-        .auth-card {
-            width: 100%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-8);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: var(--space-8);
-        }
-
-        .auth-logo {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: var(--space-4);
-        }
-
-        .auth-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-        }
-
-        .auth-subtitle {
-            color: var(--gray-400);
-        }
-
-        .auth-toggle {
-            text-align: center;
-            margin-top: var(--space-6);
-            padding-top: var(--space-6);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .auth-toggle a {
-            color: var(--primary-light);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .auth-toggle a:hover {
-            text-decoration: underline;
-        }
-
-        /* Dashboard */
-        .dashboard-grid {
+        /* Stats */
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-6);
@@ -406,200 +302,79 @@
             font-weight: 500;
         }
 
-        /* Service Selection */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-6);
-            margin-bottom: var(--space-8);
-        }
-
-        .service-card {
+        /* Tables */
+        .table-container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
-            padding: var(--space-6);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
             overflow: hidden;
         }
 
-        .service-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .service-card.selected {
-            border-color: var(--primary);
-            background: rgba(220, 38, 38, 0.1);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: var(--space-4);
-        }
-
-        .service-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: var(--space-3);
-        }
-
-        .service-description {
-            color: var(--gray-400);
-            margin-bottom: var(--space-4);
-        }
-
-        .service-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        /* Booking Calendar */
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-xl);
-            padding: var(--space-6);
-            margin-bottom: var(--space-6);
-        }
-
-        .calendar-header {
+        .table-header {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-6);
+            gap: var(--space-4);
+            flex-wrap: wrap;
         }
 
-        .calendar-nav {
+        .table-filters {
             display: flex;
-            gap: var(--space-2);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: var(--space-2);
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-
-        .calendar-day:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .calendar-day.selected {
-            background: var(--primary);
-            color: white;
-        }
-
-        .calendar-day.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .calendar-day.today {
-            border: 2px solid var(--primary);
-        }
-
-        /* Time Slots */
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: var(--space-3);
-            margin-top: var(--space-6);
-        }
-
-        .time-slot {
-            padding: var(--space-3);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-md);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .time-slot:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .time-slot.selected {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .time-slot.unavailable {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        /* Bookings List */
-        .bookings-list {
-            display: grid;
-            gap: var(--space-4);
-        }
-
-        .booking-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            padding: var(--space-4);
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: var(--space-4);
+            flex: 1;
             align-items: center;
         }
 
-        .booking-date {
-            text-align: center;
-            padding: var(--space-3);
-            background: rgba(220, 38, 38, 0.1);
+        .form-input, .form-select {
+            padding: var(--space-2) var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-md);
-            min-width: 80px;
-        }
-
-        .booking-day {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .booking-month {
-            font-size: 0.75rem;
-            color: var(--gray-400);
-            text-transform: uppercase;
-        }
-
-        .booking-details h3 {
-            margin-bottom: var(--space-2);
-        }
-
-        .booking-meta {
-            color: var(--gray-400);
+            color: white;
             font-size: 0.875rem;
         }
 
-        .booking-status {
-            padding: var(--space-2) var(--space-3);
+        .form-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: var(--space-4) var(--space-6);
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            color: var(--gray-300);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .table td {
+            color: var(--white);
+        }
+
+        .table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-1) var(--space-3);
             border-radius: var(--radius-md);
             font-size: 0.75rem;
             font-weight: 600;
@@ -626,7 +401,17 @@
             color: var(--error);
         }
 
-        /* Modal */
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(107, 114, 128, 0.2);
+            color: var(--gray-400);
+        }
+
+        /* Modals */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -639,7 +424,6 @@
             display: none;
             align-items: center;
             justify-content: center;
-            padding: var(--space-6);
         }
 
         .modal-overlay.active {
@@ -652,8 +436,8 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-2xl);
             padding: var(--space-8);
-            max-width: 600px;
-            width: 100%;
+            max-width: 800px;
+            width: 90%;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -683,7 +467,34 @@
             color: var(--error);
         }
 
-        /* Loading States */
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-weight: 600;
+            color: var(--gray-300);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: white;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Loading states */
         .loading {
             display: flex;
             align-items: center;
@@ -743,109 +554,102 @@
             border-left: 4px solid var(--secondary);
         }
 
-        /* Utilities */
+        /* Login Page */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: var(--space-6);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .login-logo {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+        }
+
+        .login-subtitle {
+            color: var(--gray-400);
+        }
+
+        /* Analytics Dashboard */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .chart-container {
+            height: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            padding: var(--space-4);
+        }
+
+        /* Hidden utility */
         .hidden {
             display: none !important;
         }
 
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-4 {
-            margin-bottom: var(--space-4);
-        }
-
-        .mb-6 {
-            margin-bottom: var(--space-6);
-        }
-
-        .mt-4 {
-            margin-top: var(--space-4);
-        }
-
-        .mt-6 {
-            margin-top: var(--space-6);
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .sidebar.open {
+                transform: translateX(0);
             }
 
-            .container {
-                padding: 0 var(--space-4);
+            .content {
+                margin-left: 0;
+                padding: var(--space-4);
             }
 
-            .section {
-                padding: var(--space-4) 0;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .calendar-grid {
-                font-size: 0.875rem;
-            }
-
-            .time-slots {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-
-            .booking-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .auth-card {
-                margin: var(--space-4);
-            }
-
-            .modal {
-                margin: var(--space-4);
-                padding: var(--space-6);
-            }
-
-            .notification {
-                right: var(--space-4);
-                left: var(--space-4);
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 480px) {
             .nav-container {
                 padding: 0 var(--space-4);
             }
 
-            .container {
-                padding: 0 var(--space-3);
+            .table-container {
+                overflow-x: auto;
             }
 
-            .card {
-                padding: var(--space-4);
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
 
-            .calendar-container {
-                padding: var(--space-4);
-            }
-
-            .services-grid {
-                gap: var(--space-4);
-            }
-
-            .service-card {
-                padding: var(--space-4);
+            .table-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-3);
             }
         }
     </style>
@@ -853,395 +657,284 @@
 <body>
     <div class="background-pattern"></div>
     
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <i class="fas fa-swimmer"></i>
-                805 LifeGuard
-            </a>
-            
-            <div class="nav-menu" id="navMenu">
-                <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
-                <a href="#book" class="nav-link" data-section="book">Book Service</a>
-                <a href="#bookings" class="nav-link" data-section="bookings">My Bookings</a>
-                <a href="#profile" class="nav-link" data-section="profile">Profile</a>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-swimmer"></i>
+                </div>
+                <h1 class="login-title">805 LifeGuard Admin</h1>
+                <p class="login-subtitle">Complete Management Portal</p>
             </div>
             
-            <div class="nav-user" id="navUser" style="display: none;">
-                <span id="userWelcome">Welcome</span>
-                <div class="user-avatar" id="userAvatar">U</div>
-                <button class="btn btn-secondary btn-small" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="Enter username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-4);">
+                    <span class="btn-text">Admin Sign In</span>
+                    <span class="loading hidden">
+                        <span class="spinner"></span>
+                        Signing in...
+                    </span>
                 </button>
-            </div>
+            </form>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Login/Register Screen -->
-    <div id="authScreen">
-        <div class="login-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <div class="auth-logo">
-                        <i class="fas fa-swimmer"></i>
-                    </div>
-                    <h1 class="auth-title" id="authTitle">Welcome Back</h1>
-                    <p class="auth-subtitle" id="authSubtitle">Sign in to your account</p>
-                </div>
-                
-                <!-- Login Form -->
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: var(--space-4);">
-                        <span class="btn-text">Sign In</span>
-                        <span class="loading hidden">
-                            <span class="spinner"></span>
-                            Signing in...
-                        </span>
-                    </button>
-                </form>
-
-                <!-- Register Form -->
-                <form id="registerForm" class="hidden">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="registerName" class="form-input" placeholder="Enter your full name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" id="registerEmail" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" id="registerPhone" class="form-input" placeholder="(805) 555-0123">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="registerPassword" class="form-input" placeholder="Create a password" required>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: var(--space-4);">
-                        <span class="btn-text">Create Account</span>
-                        <span class="loading hidden">
-                            <span class="spinner"></span>
-                            Creating account...
-                        </span>
-                    </button>
-                </form>
-                
-                <div class="auth-toggle">
-                    <span id="authToggleText">Don't have an account?</span>
-                    <a href="#" id="authToggleLink" onclick="toggleAuthMode()">Sign up</a>
-                </div>
-                
-                <div style="margin-top: var(--space-6); text-align: center;">
-                    <button type="button" class="btn btn-secondary" onclick="fillDemoCredentials()">
-                        <i class="fas fa-key"></i> Use Demo Account
-                    </button>
-                </div>
+            <div style="margin-top: var(--space-6); text-align: center;">
+                <button type="button" class="btn btn-secondary" onclick="fillAdminCredentials()">
+                    <i class="fas fa-key"></i> Fill Admin Credentials
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Main App -->
-    <div id="mainApp" class="main-content hidden">
-        <!-- Dashboard Section -->
-        <section id="dashboard-section" class="section">
-            <div class="container">
-                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-8); text-align: center;">
-                    Welcome to 805 LifeGuard
-                </h1>
+    <div id="mainApp" class="hidden">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <i class="fas fa-swimmer"></i>
+                    805 LifeGuard Admin
+                </a>
                 
-                <div class="dashboard-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalBookings">0</div>
-                        <div class="stat-label">Total Bookings</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="upcomingBookings">0</div>
-                        <div class="stat-label">Upcoming</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="thisMonth">0</div>
-                        <div class="stat-label">This Month</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="memberSince">2024</div>
-                        <div class="stat-label">Member Since</div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Quick Actions</h2>
-                    </div>
-                    <div class="services-grid">
-                        <div class="service-card" onclick="showSection('book', 'swimming-lessons')">
-                            <div class="service-icon">
-                                <i class="fas fa-swimmer"></i>
-                            </div>
-                            <div class="service-title">Swimming Lessons</div>
-                            <div class="service-description">Professional swimming instruction for all skill levels</div>
-                            <div class="service-price">From $85</div>
-                        </div>
-                        
-                        <div class="service-card" onclick="showSection('book', 'pool-cleaning')">
-                            <div class="service-icon">
-                                <i class="fas fa-water"></i>
-                            </div>
-                            <div class="service-title">Pool Cleaning</div>
-                            <div class="service-description">Complete pool maintenance and cleaning service</div>
-                            <div class="service-price">From $150</div>
-                        </div>
-                        
-                        <div class="service-card" onclick="showSection('book', 'maintenance')">
-                            <div class="service-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="service-title">Equipment Maintenance</div>
-                            <div class="service-description">Pool equipment repair and maintenance</div>
-                            <div class="service-price">From $120</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Recent Bookings</h2>
-                        <button class="btn btn-primary btn-small" onclick="showSection('bookings')">
-                            <i class="fas fa-eye"></i> View All
-                        </button>
-                    </div>
-                    <div id="recentBookings" class="loading">
-                        <div class="spinner"></div>
-                        Loading recent bookings...
-                    </div>
+                <div class="nav-user">
+                    <span id="userWelcome">Welcome, Admin</span>
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <button class="btn btn-secondary btn-small" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </div>
             </div>
-        </section>
+        </nav>
 
-        <!-- Book Service Section -->
-        <section id="book-section" class="section hidden">
-            <div class="container">
-                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-8); text-align: center;">
-                    Book a Service
-                </h1>
-                
-                <!-- Service Selection -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Select Service</h2>
-                    </div>
-                    <div class="services-grid">
-                        <div class="service-card" data-service="swimming-lessons">
-                            <div class="service-icon">
-                                <i class="fas fa-swimmer"></i>
-                            </div>
-                            <div class="service-title">Swimming Lessons</div>
-                            <div class="service-description">Professional swimming instruction for beginners to advanced swimmers</div>
-                            <div class="service-price">$85/hour</div>
-                        </div>
-                        
-                        <div class="service-card" data-service="pool-cleaning">
-                            <div class="service-icon">
-                                <i class="fas fa-water"></i>
-                            </div>
-                            <div class="service-title">Pool Cleaning</div>
-                            <div class="service-description">Complete pool maintenance including cleaning, chemicals, and inspection</div>
-                            <div class="service-price">$150/session</div>
-                        </div>
-                        
-                        <div class="service-card" data-service="maintenance">
-                            <div class="service-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="service-title">Equipment Maintenance</div>
-                            <div class="service-description">Pool equipment repair, maintenance, and optimization</div>
-                            <div class="service-price">$120/hour</div>
-                        </div>
-                        
-                        <div class="service-card" data-service="emergency">
-                            <div class="service-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="service-title">Emergency Service</div>
-                            <div class="service-description">24/7 emergency pool and equipment service</div>
-                            <div class="service-price">$200/hour</div>
-                        </div>
-                    </div>
-                </div>
+        <div class="main-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-nav">
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a></li>
+                    <li><a href="#customers" class="nav-link" data-section="customers">
+                        <i class="fas fa-users"></i> Customers
+                    </a></li>
+                    <li><a href="#bookings" class="nav-link" data-section="bookings">
+                        <i class="fas fa-calendar-alt"></i> Bookings
+                    </a></li>
+                    <li><a href="#pricing" class="nav-link" data-section="pricing">
+                        <i class="fas fa-dollar-sign"></i> Custom Pricing
+                    </a></li>
+                    <li><a href="#analytics" class="nav-link" data-section="analytics">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </a></li>
+                    <li><a href="#exports" class="nav-link" data-section="exports">
+                        <i class="fas fa-download"></i> Export Data
+                    </a></li>
+                </ul>
+            </aside>
 
-                <!-- Booking Form -->
-                <div class="card" id="bookingForm" style="display: none;">
-                    <div class="card-header">
-                        <h2 class="card-title">Schedule Your Service</h2>
-                    </div>
+            <!-- Main Content -->
+            <main class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section">
+                    <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: var(--space-8);">Admin Dashboard</h1>
                     
-                    <form id="newBookingForm">
-                        <input type="hidden" id="selectedService" name="service">
-                        <input type="hidden" id="selectedServiceName" name="serviceName">
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6);">
-                            <div class="form-group">
-                                <label class="form-label">Duration (hours)</label>
-                                <select id="duration" name="duration" class="form-select">
-                                    <option value="1">1 hour</option>
-                                    <option value="1.5">1.5 hours</option>
-                                    <option value="2">2 hours</option>
-                                    <option value="2.5">2.5 hours</option>
-                                    <option value="3">3 hours</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Participants</label>
-                                <select id="participants" name="participants" class="form-select">
-                                    <option value="1">1 person</option>
-                                    <option value="2">2 people</option>
-                                    <option value="3">3 people</option>
-                                    <option value="4">4 people</option>
-                                    <option value="5">5+ people</option>
-                                </select>
-                            </div>
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalCustomers">0</div>
+                            <div class="stat-label">Total Customers</div>
                         </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalBookings">0</div>
+                            <div class="stat-label">Total Bookings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="monthlyRevenue">$0</div>
+                            <div class="stat-label">Monthly Revenue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="pendingBookings">0</div>
+                            <div class="stat-label">Pending Bookings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="confirmedBookings">0</div>
+                            <div class="stat-label">Confirmed Bookings</div>
+                        </div>
+                    </div>
 
-                        <!-- Calendar -->
-                        <div class="calendar-container">
-                            <div class="calendar-header">
-                                <h3 id="calendarMonth">Loading...</h3>
-                                <div class="calendar-nav">
-                                    <button type="button" class="btn btn-secondary btn-small" onclick="changeMonth(-1)">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-small" onclick="changeMonth(1)">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </button>
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Bookings</h2>
+                            <button class="btn btn-primary btn-small" onclick="showSection('bookings')">
+                                <i class="fas fa-eye"></i> View All
+                            </button>
+                        </div>
+                        <div id="recentBookings" class="loading">
+                            <div class="spinner"></div>
+                            Loading recent bookings...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customers Section -->
+                <section id="customers-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Customer Management</h1>
+                            <button class="btn btn-secondary" onclick="exportData('customers')">
+                                <i class="fas fa-download"></i> Export CSV
+                            </button>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-header">
+                                <div class="table-filters">
+                                    <input type="text" id="customerSearch" class="form-input" placeholder="Search customers..." onkeyup="filterCustomers()">
+                                    <span style="color: var(--gray-400); font-size: 0.875rem;" id="customerCount">0 customers</span>
                                 </div>
                             </div>
-                            <div class="calendar-grid" id="calendarGrid">
-                                <!-- Calendar days will be populated by JavaScript -->
+                            
+                            <div id="customersTableContainer" class="loading">
+                                <div class="spinner"></div>
+                                Loading customers...
                             </div>
                         </div>
+                    </div>
+                </section>
 
-                        <!-- Time Slots -->
-                        <div id="timeSlotContainer" style="display: none;">
-                            <h3 style="margin-bottom: var(--space-4);">Available Times</h3>
-                            <div class="time-slots" id="timeSlots">
-                                <!-- Time slots will be populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <div class="form-group mt-6">
-                            <label class="form-label">Special Requests</label>
-                            <textarea id="specialRequests" name="specialRequests" class="form-textarea" 
-                                placeholder="Any special requirements or notes for your service..."></textarea>
-                        </div>
-
-                        <div style="margin-top: var(--space-6); display: flex; gap: var(--space-4);">
-                            <button type="submit" class="btn btn-primary btn-large">
-                                <i class="fas fa-calendar-plus"></i> Book Service
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-large" onclick="resetBookingForm()">
-                                <i class="fas fa-undo"></i> Reset
+                <!-- Bookings Section -->
+                <section id="bookings-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Booking Management</h1>
+                            <button class="btn btn-secondary" onclick="exportData('bookings')">
+                                <i class="fas fa-download"></i> Export CSV
                             </button>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- My Bookings Section -->
-        <section id="bookings-section" class="section hidden">
-            <div class="container">
-                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-8); text-align: center;">
-                    My Bookings
-                </h1>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">All Bookings</h2>
-                        <button class="btn btn-primary" onclick="showSection('book')">
-                            <i class="fas fa-plus"></i> New Booking
-                        </button>
-                    </div>
-                    <div id="bookingsList" class="loading">
-                        <div class="spinner"></div>
-                        Loading your bookings...
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile-section" class="section hidden">
-            <div class="container">
-                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-8); text-align: center;">
-                    Profile Settings
-                </h1>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Account Information</h2>
-                    </div>
-                    <form id="profileForm">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6);">
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" id="profileName" class="form-input" required>
+                        
+                        <div class="table-container">
+                            <div class="table-header">
+                                <div class="table-filters">
+                                    <input type="text" id="bookingSearch" class="form-input" placeholder="Search bookings..." onkeyup="filterBookings()">
+                                    <select id="bookingStatusFilter" class="form-select" onchange="filterBookings()">
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                    <span style="color: var(--gray-400); font-size: 0.875rem;" id="bookingCount">0 bookings</span>
+                                </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label class="form-label">Email</label>
-                                <input type="email" id="profileEmail" class="form-input" readonly>
+                            <div id="bookingsTableContainer" class="loading">
+                                <div class="spinner"></div>
+                                Loading bookings...
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Custom Pricing Section -->
+                <section id="pricing-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Custom Pricing Management</h1>
+                            <div>
+                                <button class="btn btn-primary" onclick="showAddPricingModal()">
+                                    <i class="fas fa-plus"></i> Add Custom Pricing
+                                </button>
+                                <button class="btn btn-secondary" onclick="exportData('pricing')">
+                                    <i class="fas fa-download"></i> Export CSV
+                                </button>
                             </div>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6);">
-                            <div class="form-group">
-                                <label class="form-label">Phone Number</label>
-                                <input type="tel" id="profilePhone" class="form-input">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Emergency Contact</label>
-                                <input type="tel" id="profileEmergency" class="form-input">
-                            </div>
+                        <div id="pricingContainer" class="loading">
+                            <div class="spinner"></div>
+                            Loading pricing data...
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Address</label>
-                            <textarea id="profileAddress" class="form-textarea" rows="3"></textarea>
-                        </div>
-                        
-                        <div style="margin-top: var(--space-6);">
-                            <button type="submit" class="btn btn-primary btn-large">
-                                <i class="fas fa-save"></i> Update Profile
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Analytics & Reports</h1>
+                            <button class="btn btn-secondary" onclick="refreshAnalytics()">
+                                <i class="fas fa-sync"></i> Refresh
                             </button>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </section>
+                        
+                        <div id="analyticsContainer" class="loading">
+                            <div class="spinner"></div>
+                            Loading analytics...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Export Data Section -->
+                <section id="exports-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Export Data</h1>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-users"></i> Customer Data
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export complete customer database including contact information, booking history, and spending data.
+                                </p>
+                                <button class="btn btn-primary" onclick="exportData('customers')">
+                                    <i class="fas fa-download"></i> Export Customers
+                                </button>
+                            </div>
+                            
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-calendar-alt"></i> Booking Data
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export all booking records with customer details, service information, and status tracking.
+                                </p>
+                                <button class="btn btn-primary" onclick="exportData('bookings')">
+                                    <i class="fas fa-download"></i> Export Bookings
+                                </button>
+                            </div>
+                            
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-dollar-sign"></i> Custom Pricing
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export custom pricing rules and configurations for special customer rates.
+                                </p>
+                                <button class="btn btn-primary" onclick="exportData('pricing')">
+                                    <i class="fas fa-download"></i> Export Pricing
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modals -->
     <div id="modalOverlay" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -1255,57 +948,19 @@
     </div>
 
     <script>
-        // Configuration
+        // Configuration - FIXED: Updated to use your production endpoint
         const CONFIG = {
-            API_BASE_URL: (() => {
-                const currentDomain = window.location.hostname;
-                if (currentDomain.includes('workers.dev')) {
-                    const subdomain = currentDomain.split('.')[0];
-                    return `https://lifeguard-portal-api.${subdomain}.workers.dev`;
-                } else if (currentDomain.includes('localhost') || currentDomain.includes('127.0.0.1')) {
-                    return 'http://localhost:8787';
-                } else {
-                    return 'https://lifeguard-portal-api.your-subdomain.workers.dev';
-                }
-            })(),
+            API_BASE_URL: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
             DEMO_MODE: false
         };
 
         // Global state
         let currentUser = null;
         let authToken = null;
-        let isLoginMode = true;
-        let selectedDate = null;
-        let selectedTime = null;
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
-
-        // Service data
-        const SERVICES = {
-            'swimming-lessons': {
-                name: 'Swimming Lessons',
-                icon: 'fas fa-swimmer',
-                description: 'Professional swimming instruction for all skill levels',
-                basePrice: 85
-            },
-            'pool-cleaning': {
-                name: 'Pool Cleaning',
-                icon: 'fas fa-water',
-                description: 'Complete pool maintenance and cleaning service',
-                basePrice: 150
-            },
-            'maintenance': {
-                name: 'Equipment Maintenance',
-                icon: 'fas fa-tools',
-                description: 'Pool equipment repair and maintenance',
-                basePrice: 120
-            },
-            'emergency': {
-                name: 'Emergency Service',
-                icon: 'fas fa-exclamation-triangle',
-                description: '24/7 emergency pool and equipment service',
-                basePrice: 200
-            }
+        let currentData = {
+            customers: [],
+            bookings: [],
+            pricing: []
         };
 
         // API Helper Functions
@@ -1336,151 +991,12 @@
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
-                
-                // Demo mode fallback
-                if (error.message.includes('Failed to fetch') || error.message.includes('ERR_NAME_NOT_RESOLVED')) {
-                    console.log('🎭 API unavailable, switching to demo mode');
-                    CONFIG.DEMO_MODE = true;
-                    return getDemoResponse(endpoint, options);
-                }
-                
                 throw error;
             }
         }
 
-        // Demo data responses
-        function getDemoResponse(endpoint, options = {}) {
-            const method = options.method || 'GET';
-            
-            if (endpoint === '/api/auth/login' && method === 'POST') {
-                return {
-                    success: true,
-                    token: 'demo-token-12345',
-                    user: {
-                        id: 'demo-user',
-                        email: 'demo@805lifeguard.com',
-                        name: 'Demo User',
-                        member_since: '2024-01-15',
-                        phone: '(805) 555-0123'
-                    }
-                };
-            }
-            
-            if (endpoint === '/api/user/stats') {
-                return {
-                    success: true,
-                    stats: { total: 12, upcoming: 3, thisMonth: 5, memberSince: 2024 }
-                };
-            }
-            
-            if (endpoint === '/api/bookings/upcoming') {
-                return {
-                    success: true,
-                    bookings: [
-                        {
-                            id: 1,
-                            service: 'swimming-lessons',
-                            serviceName: 'Swimming Lessons',
-                            date: '2024-07-01',
-                            time: '10:00 AM',
-                            status: 'confirmed'
-                        },
-                        {
-                            id: 2,
-                            service: 'pool-cleaning',
-                            serviceName: 'Pool Cleaning',
-                            date: '2024-07-03',
-                            time: '2:00 PM',
-                            status: 'pending'
-                        }
-                    ]
-                };
-            }
-            
-            if (endpoint === '/api/bookings' && method === 'GET') {
-                return {
-                    success: true,
-                    bookings: [
-                        {
-                            id: 1,
-                            service: 'swimming-lessons',
-                            serviceName: 'Swimming Lessons',
-                            date: '2024-07-01',
-                            time: '10:00 AM',
-                            status: 'confirmed',
-                            createdAt: '2024-06-25T10:00:00Z'
-                        },
-                        {
-                            id: 2,
-                            service: 'pool-cleaning',
-                            serviceName: 'Pool Cleaning',
-                            date: '2024-07-03',
-                            time: '2:00 PM',
-                            status: 'pending',
-                            createdAt: '2024-06-24T14:30:00Z'
-                        },
-                        {
-                            id: 3,
-                            service: 'maintenance',
-                            serviceName: 'Equipment Maintenance',
-                            date: '2024-06-20',
-                            time: '9:00 AM',
-                            status: 'completed',
-                            createdAt: '2024-06-15T16:45:00Z'
-                        }
-                    ]
-                };
-            }
-            
-            if (endpoint === '/api/bookings' && method === 'POST') {
-                return {
-                    success: true,
-                    booking: { id: Date.now(), ...JSON.parse(options.body) },
-                    message: 'Booking created successfully'
-                };
-            }
-            
-            if (endpoint === '/api/availability/slots' && method === 'POST') {
-                const slots = [];
-                for (let hour = 8; hour <= 18; hour++) {
-                    let time12;
-                    if (hour === 12) {
-                        time12 = '12:00 PM';
-                    } else if (hour < 12) {
-                        time12 = `${hour}:00 AM`;
-                    } else {
-                        time12 = `${hour - 12}:00 PM`;
-                    }
-                    
-                    slots.push({
-                        time: time12,
-                        available: Math.random() > 0.3
-                    });
-                }
-                
-                return { success: true, slots };
-            }
-            
-            if (endpoint === '/api/user/profile') {
-                return {
-                    success: true,
-                    user: {
-                        id: 'demo-user',
-                        email: 'demo@805lifeguard.com',
-                        name: 'Demo User',
-                        phone: '(805) 555-0123',
-                        address: '123 Demo Street, Ventura, CA 93001',
-                        emergency_contact: '(805) 555-0124',
-                        member_since: '2024-01-15'
-                    }
-                };
-            }
-            
-            return { success: true, message: 'Demo mode - action simulated' };
-        }
-
-        // Authentication Functions
-        async function login(email, password) {
+        // Authentication
+        async function login(username, password) {
             const loginBtn = document.querySelector('#loginForm button');
             const btnText = loginBtn.querySelector('.btn-text');
             const loading = loginBtn.querySelector('.loading');
@@ -1490,18 +1006,18 @@
             loginBtn.disabled = true;
 
             try {
-                const response = await apiCall('/api/auth/login', {
+                const response = await apiCall('/api/admin/login', {
                     method: 'POST',
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ username, password })
                 });
 
                 if (response.success) {
                     authToken = response.token;
-                    currentUser = response.user;
+                    currentUser = response.admin;
                     localStorage.setItem('authToken', authToken);
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     showMainApp();
-                    showNotification('Welcome back!', 'success');
+                    showNotification('Admin login successful!', 'success');
                 } else {
                     throw new Error(response.error || 'Login failed');
                 }
@@ -1515,128 +1031,32 @@
             }
         }
 
-        async function register(name, email, phone, password) {
-            const registerBtn = document.querySelector('#registerForm button');
-            const btnText = registerBtn.querySelector('.btn-text');
-            const loading = registerBtn.querySelector('.loading');
-
-            btnText.classList.add('hidden');
-            loading.classList.remove('hidden');
-            registerBtn.disabled = true;
-
-            try {
-                // For demo purposes, we'll simulate registration success
-                if (CONFIG.DEMO_MODE || email === 'demo@805lifeguard.com') {
-                    const response = {
-                        success: true,
-                        token: 'demo-token-' + Date.now(),
-                        user: {
-                            id: 'demo-user-' + Date.now(),
-                            email: email,
-                            name: name,
-                            phone: phone,
-                            member_since: new Date().toISOString().split('T')[0]
-                        }
-                    };
-
-                    authToken = response.token;
-                    currentUser = response.user;
-                    localStorage.setItem('authToken', authToken);
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    showMainApp();
-                    showNotification('Account created successfully!', 'success');
-                } else {
-                    const response = await apiCall('/api/auth/register', {
-                        method: 'POST',
-                        body: JSON.stringify({ name, email, phone, password })
-                    });
-
-                    if (response.success) {
-                        authToken = response.token;
-                        currentUser = response.user;
-                        localStorage.setItem('authToken', authToken);
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        showMainApp();
-                        showNotification('Account created successfully!', 'success');
-                    } else {
-                        throw new Error(response.error || 'Registration failed');
-                    }
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                showNotification(error.message || 'Registration failed', 'error');
-            } finally {
-                btnText.classList.remove('hidden');
-                loading.classList.add('hidden');
-                registerBtn.disabled = false;
-            }
-        }
-
         function logout() {
             authToken = null;
             currentUser = null;
             localStorage.removeItem('authToken');
             localStorage.removeItem('currentUser');
             document.getElementById('mainApp').classList.add('hidden');
-            document.getElementById('authScreen').classList.remove('hidden');
-            document.getElementById('navUser').style.display = 'none';
+            document.getElementById('loginScreen').classList.remove('hidden');
             showNotification('Logged out successfully', 'info');
         }
 
         function showMainApp() {
-            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
-            document.getElementById('navUser').style.display = 'flex';
             
+            // Update user info
             if (currentUser) {
-                document.getElementById('userWelcome').textContent = `Welcome, ${currentUser.name}`;
-                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+                document.getElementById('userWelcome').textContent = `Welcome, ${currentUser.name || currentUser.username}`;
+                document.getElementById('userAvatar').textContent = (currentUser.name || currentUser.username).charAt(0).toUpperCase();
             }
             
+            // Load initial data
             loadDashboard();
         }
 
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const authTitle = document.getElementById('authTitle');
-            const authSubtitle = document.getElementById('authSubtitle');
-            const authToggleText = document.getElementById('authToggleText');
-            const authToggleLink = document.getElementById('authToggleLink');
-
-            if (isLoginMode) {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-                authTitle.textContent = 'Welcome Back';
-                authSubtitle.textContent = 'Sign in to your account';
-                authToggleText.textContent = "Don't have an account?";
-                authToggleLink.textContent = 'Sign up';
-            } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-                authTitle.textContent = 'Create Account';
-                authSubtitle.textContent = 'Join 805 LifeGuard today';
-                authToggleText.textContent = 'Already have an account?';
-                authToggleLink.textContent = 'Sign in';
-            }
-        }
-
-        function fillDemoCredentials() {
-            if (isLoginMode) {
-                document.getElementById('loginEmail').value = 'demo@805lifeguard.com';
-                document.getElementById('loginPassword').value = 'demo123';
-            } else {
-                document.getElementById('registerName').value = 'Demo User';
-                document.getElementById('registerEmail').value = 'demo@805lifeguard.com';
-                document.getElementById('registerPhone').value = '(805) 555-0123';
-                document.getElementById('registerPassword').value = 'demo123';
-            }
-            showNotification('Demo credentials filled', 'info');
-        }
-
-        // Navigation Functions
-        function showSection(sectionName, preselectedService = null) {
+        // Navigation
+        function showSection(sectionName) {
             // Update navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
@@ -1644,7 +1064,7 @@
             document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
 
             // Update content
-            document.querySelectorAll('.section').forEach(section => {
+            document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.add('hidden');
             });
             document.getElementById(`${sectionName}-section`).classList.remove('hidden');
@@ -1654,36 +1074,43 @@
                 case 'dashboard':
                     loadDashboard();
                     break;
-                case 'book':
-                    loadBookingSection(preselectedService);
+                case 'customers':
+                    loadCustomers();
                     break;
                 case 'bookings':
                     loadBookings();
                     break;
-                case 'profile':
-                    loadProfile();
+                case 'pricing':
+                    loadPricing();
+                    break;
+                case 'analytics':
+                    loadAnalytics();
+                    break;
+                case 'exports':
+                    // Exports section is static
                     break;
             }
         }
 
-        // Data Loading Functions
+        // Data Loading Functions - ENHANCED
         async function loadDashboard() {
             try {
-                const [statsResponse, upcomingResponse] = await Promise.all([
-                    apiCall('/api/user/stats'),
-                    apiCall('/api/bookings/upcoming')
-                ]);
-
+                // Load booking stats
+                const statsResponse = await apiCall('/api/admin/bookings/stats');
                 if (statsResponse.success) {
                     const stats = statsResponse.stats;
-                    document.getElementById('totalBookings').textContent = stats.total;
-                    document.getElementById('upcomingBookings').textContent = stats.upcoming;
-                    document.getElementById('thisMonth').textContent = stats.thisMonth;
-                    document.getElementById('memberSince').textContent = stats.memberSince;
+                    document.getElementById('totalCustomers').textContent = stats.customers.total;
+                    document.getElementById('totalBookings').textContent = stats.bookings.total;
+                    document.getElementById('monthlyRevenue').textContent = `$${stats.revenue.monthly.toLocaleString()}`;
+                    document.getElementById('pendingBookings').textContent = stats.bookings.pending;
+                    document.getElementById('confirmedBookings').textContent = stats.bookings.confirmed;
                 }
 
-                if (upcomingResponse.success) {
-                    renderRecentBookings(upcomingResponse.bookings);
+                // Load recent bookings
+                const bookingsResponse = await apiCall('/api/admin/bookings');
+                if (bookingsResponse.success) {
+                    const recentBookings = bookingsResponse.bookings.slice(0, 5);
+                    renderRecentBookings(recentBookings);
                 }
             } catch (error) {
                 console.error('Error loading dashboard:', error);
@@ -1691,14 +1118,33 @@
             }
         }
 
-        async function loadBookings() {
-            const container = document.getElementById('bookingsList');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading your bookings...</div>';
+        async function loadCustomers() {
+            const container = document.getElementById('customersTableContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading customers...</div>';
 
             try {
-                const response = await apiCall('/api/bookings');
+                const response = await apiCall('/api/admin/customers');
                 if (response.success) {
-                    renderBookingsList(response.bookings);
+                    currentData.customers = response.customers;
+                    renderCustomersTable(response.customers);
+                    updateCustomerCount(response.customers.length);
+                }
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading customers</div>';
+                showNotification('Error loading customers', 'error');
+            }
+        }
+
+        async function loadBookings() {
+            const container = document.getElementById('bookingsTableContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading bookings...</div>';
+
+            try {
+                const response = await apiCall('/api/admin/bookings');
+                if (response.success) {
+                    currentData.bookings = response.bookings;
+                    renderBookingsTable(response.bookings);
+                    updateBookingCount(response.bookings.length);
                 }
             } catch (error) {
                 container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading bookings</div>';
@@ -1706,258 +1152,38 @@
             }
         }
 
-        async function loadProfile() {
+        async function loadPricing() {
+            const container = document.getElementById('pricingContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading pricing...</div>';
+
             try {
-                const response = await apiCall('/api/user/profile');
+                const response = await apiCall('/api/admin/pricing');
                 if (response.success) {
-                    const user = response.user;
-                    document.getElementById('profileName').value = user.name || '';
-                    document.getElementById('profileEmail').value = user.email || '';
-                    document.getElementById('profilePhone').value = user.phone || '';
-                    document.getElementById('profileAddress').value = user.address || '';
-                    document.getElementById('profileEmergency').value = user.emergency_contact || '';
+                    currentData.pricing = response.pricing;
+                    renderPricing(response.pricing);
                 }
             } catch (error) {
-                showNotification('Error loading profile', 'error');
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading pricing</div>';
+                showNotification('Error loading pricing', 'error');
             }
         }
 
-        function loadBookingSection(preselectedService) {
-            // Reset form
-            resetBookingForm();
-            
-            // Preselect service if provided
-            if (preselectedService && SERVICES[preselectedService]) {
-                selectService(preselectedService);
-            }
-            
-            // Load calendar
-            updateCalendar();
-        }
+        async function loadAnalytics() {
+            const container = document.getElementById('analyticsContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading analytics...</div>';
 
-        // Booking Functions
-        function selectService(serviceType) {
-            // Remove previous selections
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            // Select new service
-            const serviceCard = document.querySelector(`[data-service="${serviceType}"]`);
-            if (serviceCard) {
-                serviceCard.classList.add('selected');
-                
-                const service = SERVICES[serviceType];
-                document.getElementById('selectedService').value = serviceType;
-                document.getElementById('selectedServiceName').value = service.name;
-                
-                // Show booking form
-                document.getElementById('bookingForm').style.display = 'block';
-                
-                showNotification(`Selected: ${service.name}`, 'info');
-            }
-        }
-
-        function updateCalendar() {
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            
-            document.getElementById('calendarMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            const today = new Date();
-            
-            const calendarGrid = document.getElementById('calendarGrid');
-            calendarGrid.innerHTML = '';
-            
-            // Add day headers
-            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            dayHeaders.forEach(day => {
-                const dayHeader = document.createElement('div');
-                dayHeader.style.fontWeight = '600';
-                dayHeader.style.textAlign = 'center';
-                dayHeader.style.padding = 'var(--space-2)';
-                dayHeader.style.color = 'var(--gray-400)';
-                dayHeader.textContent = day;
-                calendarGrid.appendChild(dayHeader);
-            });
-            
-            // Add empty cells for days before month starts
-            for (let i = 0; i < firstDay; i++) {
-                const emptyDay = document.createElement('div');
-                calendarGrid.appendChild(emptyDay);
-            }
-            
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.textContent = day;
-                
-                const dayDate = new Date(currentYear, currentMonth, day);
-                const isToday = dayDate.toDateString() === today.toDateString();
-                const isPast = dayDate < today && !isToday;
-                
-                if (isToday) {
-                    dayElement.classList.add('today');
-                }
-                
-                if (isPast) {
-                    dayElement.classList.add('disabled');
-                } else {
-                    dayElement.addEventListener('click', () => selectDate(currentYear, currentMonth, day));
-                }
-                
-                calendarGrid.appendChild(dayElement);
-            }
-        }
-
-        function changeMonth(direction) {
-            currentMonth += direction;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            } else if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-            updateCalendar();
-        }
-
-        async function selectDate(year, month, day) {
-            // Remove previous selection
-            document.querySelectorAll('.calendar-day').forEach(dayEl => {
-                dayEl.classList.remove('selected');
-            });
-            
-            // Select new date
-            event.target.classList.add('selected');
-            selectedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            
-            // Load time slots
-            await loadTimeSlots();
-        }
-
-        async function loadTimeSlots() {
-            const timeSlotContainer = document.getElementById('timeSlotContainer');
-            const timeSlots = document.getElementById('timeSlots');
-            
-            timeSlotContainer.style.display = 'block';
-            timeSlots.innerHTML = '<div class="loading"><div class="spinner"></div>Loading available times...</div>';
-            
             try {
-                const service = document.getElementById('selectedService').value;
-                const response = await apiCall('/api/availability/slots', {
-                    method: 'POST',
-                    body: JSON.stringify({ date: selectedDate, service })
-                });
-                
+                const response = await apiCall('/api/admin/analytics');
                 if (response.success) {
-                    renderTimeSlots(response.slots);
+                    renderAnalytics(response.analytics);
                 }
             } catch (error) {
-                timeSlots.innerHTML = '<div style="text-align: center; color: var(--error);">Error loading time slots</div>';
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading analytics</div>';
+                showNotification('Error loading analytics', 'error');
             }
         }
 
-        function renderTimeSlots(slots) {
-            const timeSlots = document.getElementById('timeSlots');
-            timeSlots.innerHTML = '';
-            
-            slots.forEach(slot => {
-                const slotElement = document.createElement('div');
-                slotElement.className = 'time-slot';
-                slotElement.textContent = slot.time;
-                
-                if (!slot.available) {
-                    slotElement.classList.add('unavailable');
-                } else {
-                    slotElement.addEventListener('click', () => selectTime(slot.time));
-                }
-                
-                timeSlots.appendChild(slotElement);
-            });
-        }
-
-        function selectTime(time) {
-            // Remove previous selection
-            document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.classList.remove('selected');
-            });
-            
-            // Select new time
-            event.target.classList.add('selected');
-            selectedTime = time;
-        }
-
-        async function submitBooking(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const bookingData = {
-                service: formData.get('service'),
-                serviceName: formData.get('serviceName'),
-                date: selectedDate,
-                time: selectedTime,
-                duration: formData.get('duration'),
-                participants: formData.get('participants'),
-                specialRequests: formData.get('specialRequests')
-            };
-            
-            if (!bookingData.service || !bookingData.date || !bookingData.time) {
-                showNotification('Please select a service, date, and time', 'warning');
-                return;
-            }
-            
-            const submitBtn = event.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="spinner"></div> Booking...';
-            
-            try {
-                const response = await apiCall('/api/bookings', {
-                    method: 'POST',
-                    body: JSON.stringify(bookingData)
-                });
-                
-                if (response.success) {
-                    showNotification('Booking created successfully!', 'success');
-                    resetBookingForm();
-                    showSection('bookings');
-                }
-            } catch (error) {
-                showNotification(error.message || 'Error creating booking', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-calendar-plus"></i> Book Service';
-            }
-        }
-
-        function resetBookingForm() {
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('timeSlotContainer').style.display = 'none';
-            
-            // Clear selections
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            document.querySelectorAll('.calendar-day').forEach(day => {
-                day.classList.remove('selected');
-            });
-            document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.classList.remove('selected');
-            });
-            
-            selectedDate = null;
-            selectedTime = null;
-            
-            // Reset form
-            document.getElementById('newBookingForm').reset();
-        }
-
-        // Rendering Functions
+        // Rendering Functions - ENHANCED
         function renderRecentBookings(bookings) {
             const container = document.getElementById('recentBookings');
             
@@ -1966,32 +1192,95 @@
                 return;
             }
 
-            const html = bookings.slice(0, 3).map(booking => {
-                const service = SERVICES[booking.service];
-                return `
-                    <div class="booking-card">
-                        <div class="booking-date">
-                            <div class="booking-day">${new Date(booking.date).getDate()}</div>
-                            <div class="booking-month">${new Date(booking.date).toLocaleDateString('en-US', { month: 'short' })}</div>
-                        </div>
-                        <div class="booking-details">
-                            <h3>${booking.serviceName}</h3>
-                            <div class="booking-meta">
-                                <i class="fas fa-clock"></i> ${booking.time}
-                            </div>
-                        </div>
-                        <div class="booking-status status-${booking.status}">
-                            ${booking.status}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            const html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>${booking.customer ? booking.customer.name : 'Unknown'}</td>
+                                <td>${booking.serviceName || booking.service}</td>
+                                <td>${formatDate(booking.date)}</td>
+                                <td>${booking.time}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                <td>
+                                    ${booking.status === 'pending' ? `
+                                        <button class="btn btn-success btn-small" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    ` : booking.status === 'confirmed' ? `
+                                        <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
+                                            <i class="fas fa-check-double"></i>
+                                        </button>
+                                    ` : ''}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
             
             container.innerHTML = html;
         }
 
-        function renderBookingsList(bookings) {
-            const container = document.getElementById('bookingsList');
+        function renderCustomersTable(customers) {
+            const container = document.getElementById('customersTableContainer');
+            
+            if (!customers || customers.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No customers found</div>';
+                return;
+            }
+
+            const html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Total Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Member Since</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${customers.map(customer => `
+                            <tr>
+                                <td>${customer.name}</td>
+                                <td>${customer.email}</td>
+                                <td>${customer.phone}</td>
+                                <td>${customer.total_bookings}</td>
+                                <td>$${customer.total_spent.toFixed(2)}</td>
+                                <td>${formatDate(customer.member_since)}</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-small" onclick="viewCustomerBookings(${customer.id})" title="View Bookings">
+                                        <i class="fas fa-calendar"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-small" onclick="setCustomPricing(${customer.id})" title="Set Custom Pricing">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderBookingsTable(bookings) {
+            const container = document.getElementById('bookingsTableContainer');
             
             if (!bookings || bookings.length === 0) {
                 container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No bookings found</div>';
@@ -1999,37 +1288,403 @@
             }
 
             const html = `
-                <div class="bookings-list">
-                    ${bookings.map(booking => `
-                        <div class="booking-card">
-                            <div class="booking-date">
-                                <div class="booking-day">${new Date(booking.date).getDate()}</div>
-                                <div class="booking-month">${new Date(booking.date).toLocaleDateString('en-US', { month: 'short' })}</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>
+                                    <div>${booking.customer ? booking.customer.name : 'Unknown'}</div>
+                                    <div style="font-size: 0.75rem; color: var(--gray-400);">${booking.customer ? booking.customer.email : ''}</div>
+                                </td>
+                                <td>${booking.serviceName || booking.service}</td>
+                                <td>${formatDate(booking.date)}</td>
+                                <td>${booking.time}</td>
+                                <td>${booking.duration || 1}h</td>
+                                <td>$${booking.cost.toFixed(2)}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                <td>
+                                    ${booking.status === 'pending' ? `
+                                        <button class="btn btn-success btn-small" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-small" onclick="updateBookingStatus(${booking.id}, 'cancelled')" title="Cancel">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    ` : booking.status === 'confirmed' ? `
+                                        <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
+                                            <i class="fas fa-check-double"></i>
+                                        </button>
+                                    ` : `
+                                        <button class="btn btn-secondary btn-small" onclick="viewBookingDetails(${booking.id})" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    `}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderPricing(pricing) {
+            const container = document.getElementById('pricingContainer');
+            
+            if (!pricing || pricing.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No custom pricing rules found</div>';
+                return;
+            }
+
+            const html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Service Type</th>
+                            <th>Custom Price</th>
+                            <th>Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${pricing.map(price => `
+                            <tr>
+                                <td>${price.customer_name || 'Unknown'}</td>
+                                <td>${price.customer_email || 'N/A'}</td>
+                                <td>${price.service_type}</td>
+                                <td>$${price.price.toFixed(2)}</td>
+                                <td>${formatDate(price.updated_at)}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-small" onclick="deleteCustomPricing(${price.user_id}, '${price.service_type}')" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderAnalytics(analytics) {
+            const container = document.getElementById('analyticsContainer');
+            
+            const html = `
+                <div class="analytics-grid">
+                    <div class="card">
+                        <h3>Business Summary</h3>
+                        <div style="padding: var(--space-4);">
+                            <div style="margin-bottom: var(--space-3);">
+                                <strong>Total Bookings:</strong> ${analytics.summary.totalBookings}
                             </div>
-                            <div class="booking-details">
-                                <h3>${booking.serviceName}</h3>
-                                <div class="booking-meta">
-                                    <i class="fas fa-clock"></i> ${booking.time} • 
-                                    <i class="fas fa-calendar"></i> ${formatDate(booking.date)}
-                                </div>
+                            <div style="margin-bottom: var(--space-3);">
+                                <strong>Total Revenue:</strong> $${analytics.summary.totalRevenue.toFixed(2)}
                             </div>
-                            <div class="booking-status status-${booking.status}">
-                                ${booking.status}
+                            <div style="margin-bottom: var(--space-3);">
+                                <strong>Avg Bookings/Month:</strong> ${analytics.summary.avgBookingsPerMonth}
+                            </div>
+                            <div>
+                                <strong>Most Popular Service:</strong> ${analytics.summary.mostPopularService}
                             </div>
                         </div>
-                    `).join('')}
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Top Customers</h3>
+                        <div style="padding: var(--space-4);">
+                            ${analytics.topCustomers.map(customer => `
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+                                    <span>${customer.name}</span>
+                                    <span>$${customer.total_spent.toFixed(2)} (${customer.total_bookings} bookings)</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Service Distribution</h3>
+                        <div style="padding: var(--space-4);">
+                            ${analytics.serviceDistribution.map(service => `
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+                                    <span>${service.service}</span>
+                                    <span>${service.count} (${service.percentage}%)</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Monthly Trends</h3>
+                        <div style="padding: var(--space-4);">
+                            ${analytics.monthlyBookings.slice(-6).map(month => `
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+                                    <span>${month.month}</span>
+                                    <span>${month.bookings} bookings ($${month.revenue})</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
                 </div>
             `;
             
             container.innerHTML = html;
         }
 
+        // Filter Functions - ENHANCED
+        function filterCustomers() {
+            const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
+            
+            const filteredCustomers = currentData.customers.filter(customer => {
+                return customer.name.toLowerCase().includes(searchTerm) || 
+                       customer.email.toLowerCase().includes(searchTerm) ||
+                       (customer.phone && customer.phone.includes(searchTerm));
+            });
+            
+            renderCustomersTable(filteredCustomers);
+            updateCustomerCount(filteredCustomers.length);
+        }
+
+        function filterBookings() {
+            const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
+            const statusFilter = document.getElementById('bookingStatusFilter').value;
+            
+            const filteredBookings = currentData.bookings.filter(booking => {
+                const matchesSearch = (booking.customer?.name || '').toLowerCase().includes(searchTerm) || 
+                                    (booking.serviceName || booking.service).toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || booking.status === statusFilter;
+                
+                return matchesSearch && matchesStatus;
+            });
+            
+            renderBookingsTable(filteredBookings);
+            updateBookingCount(filteredBookings.length);
+        }
+
+        function updateCustomerCount(count) {
+            const counter = document.getElementById('customerCount');
+            if (counter) {
+                counter.textContent = `${count} customer${count !== 1 ? 's' : ''}`;
+            }
+        }
+
+        function updateBookingCount(count) {
+            const counter = document.getElementById('bookingCount');
+            if (counter) {
+                counter.textContent = `${count} booking${count !== 1 ? 's' : ''}`;
+            }
+        }
+
+        // Action Functions - ENHANCED
+        async function updateBookingStatus(id, status) {
+            try {
+                const response = await apiCall(`/api/admin/bookings/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ status })
+                });
+                
+                if (response.success) {
+                    // Update local data
+                    const booking = currentData.bookings.find(b => b.id === id);
+                    if (booking) {
+                        booking.status = status;
+                    }
+                    
+                    showNotification(`Booking ${status} successfully!`, 'success');
+                    loadDashboard(); // Refresh stats
+                    
+                    // Refresh current view if we're on bookings page
+                    const currentSection = document.querySelector('.nav-link.active').dataset.section;
+                    if (currentSection === 'bookings') {
+                        renderBookingsTable(currentData.bookings);
+                    }
+                }
+            } catch (error) {
+                showNotification('Error updating booking status', 'error');
+            }
+        }
+
+        async function deleteCustomPricing(userId, serviceType) {
+            if (!confirm('Are you sure you want to delete this custom pricing rule?')) return;
+            
+            try {
+                const response = await apiCall('/api/admin/pricing', {
+                    method: 'DELETE',
+                    body: JSON.stringify({ userId, serviceType })
+                });
+                
+                if (response.success) {
+                    showNotification('Custom pricing deleted successfully!', 'success');
+                    loadPricing();
+                }
+            } catch (error) {
+                showNotification('Error deleting custom pricing', 'error');
+            }
+        }
+
+        function viewCustomerBookings(customerId) {
+            const customer = currentData.customers.find(c => c.id === customerId);
+            if (customer) {
+                showNotification(`Viewing bookings for ${customer.name}`, 'info');
+                // Switch to bookings tab and filter by customer
+                showSection('bookings');
+                setTimeout(() => {
+                    document.getElementById('bookingSearch').value = customer.name;
+                    filterBookings();
+                }, 500);
+            }
+        }
+
+        function setCustomPricing(customerId) {
+            const customer = currentData.customers.find(c => c.id === customerId);
+            if (customer) {
+                showAddPricingModal(customer);
+            }
+        }
+
+        function viewBookingDetails(bookingId) {
+            const booking = currentData.bookings.find(b => b.id === bookingId);
+            if (booking) {
+                showNotification(`Viewing details for booking #${bookingId}`, 'info');
+                // Could open a detailed modal here
+            }
+        }
+
+        // Modal Functions - ENHANCED
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function showAddPricingModal(customer = null) {
+            const customerOptions = currentData.customers.map(c => 
+                `<option value="${c.id}" ${customer && c.id === customer.id ? 'selected' : ''}>${c.name} (${c.email})</option>`
+            ).join('');
+
+            const content = `
+                <form id="pricingForm">
+                    <div class="form-group">
+                        <label class="form-label">Customer</label>
+                        <select name="userId" class="form-select" required>
+                            <option value="">Select Customer</option>
+                            ${customerOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Service Type</label>
+                        <select name="serviceType" class="form-select" required>
+                            <option value="">Select Service</option>
+                            <option value="swimming-lessons">Swimming Lessons</option>
+                            <option value="pool-cleaning">Pool Cleaning</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="emergency">Emergency Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Custom Price ($)</label>
+                        <input type="number" name="price" class="form-input" step="0.01" min="0" required>
+                    </div>
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3);">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Pricing
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Add Custom Pricing', content);
+            
+            document.getElementById('pricingForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const pricingData = {
+                    userId: parseInt(formData.get('userId')),
+                    serviceType: formData.get('serviceType'),
+                    price: parseFloat(formData.get('price'))
+                };
+                
+                try {
+                    const response = await apiCall('/api/admin/pricing', {
+                        method: 'POST',
+                        body: JSON.stringify(pricingData)
+                    });
+                    
+                    if (response.success) {
+                        showNotification('Custom pricing added successfully!', 'success');
+                        closeModal();
+                        loadPricing();
+                    }
+                } catch (error) {
+                    showNotification('Error adding custom pricing', 'error');
+                }
+            });
+        }
+
+        // Export Functions - ENHANCED
+        async function exportData(type) {
+            try {
+                showNotification('Preparing export...', 'info');
+                
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `805-lifeguard-${type}-${new Date().toISOString().split('T')[0]}.csv`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} exported successfully!`, 'success');
+                } else {
+                    throw new Error('Export failed');
+                }
+            } catch (error) {
+                showNotification('Error exporting data', 'error');
+            }
+        }
+
+        function refreshAnalytics() {
+            loadAnalytics();
+            showNotification('Analytics refreshed', 'success');
+        }
+
         // Utility Functions
         function formatDate(dateString) {
+            if (!dateString) return 'N/A';
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', {
                 year: 'numeric',
-                month: 'long',
+                month: 'short',
                 day: 'numeric'
             });
         }
@@ -2060,8 +1715,10 @@
             }, 5000);
         }
 
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
+        function fillAdminCredentials() {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'lifeguard2025';
+            showNotification('Admin credentials filled', 'info');
         }
 
         // Event Listeners
@@ -2076,21 +1733,12 @@
                 showMainApp();
             }
 
-            // Auth forms
+            // Login form
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                login(email, password);
-            });
-
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('registerName').value;
-                const email = document.getElementById('registerEmail').value;
-                const phone = document.getElementById('registerPhone').value;
-                const password = document.getElementById('registerPassword').value;
-                register(name, email, phone, password);
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
             });
 
             // Navigation
@@ -2102,25 +1750,6 @@
                 });
             });
 
-            // Service selection
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const service = this.getAttribute('data-service');
-                    if (service) {
-                        selectService(service);
-                    }
-                });
-            });
-
-            // Booking form
-            document.getElementById('newBookingForm').addEventListener('submit', submitBooking);
-
-            // Profile form
-            document.getElementById('profileForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                showNotification('Profile updated successfully!', 'success');
-            });
-
             // Modal overlay click to close
             document.getElementById('modalOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -2128,15 +1757,9 @@
                 }
             });
 
-            // Mobile menu
-            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-                const navMenu = document.getElementById('navMenu');
-                navMenu.style.display = navMenu.style.display === 'none' ? 'flex' : 'none';
-            });
-
-            console.log('🏊‍♂️ 805 LifeGuard Client Portal Initialized');
+            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
             console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
-            console.log('🔑 Demo credentials: demo@805lifeguard.com / demo123');
+            console.log('🔑 Admin credentials: admin/lifeguard2025');
         });
     </script>
 </body>
