@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- SheetJS for Excel export functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary: #dc2626;
@@ -613,6 +615,79 @@
             padding: var(--space-4);
         }
 
+        /* Export Dropdown */
+        .btn-group {
+            display: inline-block;
+            position: relative;
+        }
+
+        .export-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            min-width: 180px;
+            margin-top: var(--space-2);
+        }
+
+        .export-dropdown button {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: none;
+            border: none;
+            color: var(--white);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .export-dropdown button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .export-dropdown button:first-child {
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .export-dropdown button:last-child {
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        /* Enhanced form styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
+        .form-grid-full {
+            grid-column: 1 / -1;
+        }
+
+        .password-generator {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+        }
+
+        .password-display {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.875rem;
+        }
+
         /* Hidden utility */
         .hidden {
             display: none !important;
@@ -791,9 +866,21 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Customer Management</h1>
-                            <button class="btn btn-secondary" onclick="exportData('customers')">
-                                <i class="fas fa-download"></i> Export CSV
-                            </button>
+                            <div style="display: flex; gap: var(--space-3);">
+                                <button class="btn btn-primary" onclick="showAddCustomerModal()">
+                                    <i class="fas fa-user-plus"></i> Add Customer
+                                </button>
+                                <div class="btn-group" style="position: relative;">
+                                    <button class="btn btn-secondary" onclick="toggleExportMenu('customers')">
+                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div id="customersExportMenu" class="export-dropdown hidden">
+                                        <button onclick="exportData('customers', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                                        <button onclick="exportData('customers', 'excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                                        <button onclick="exportToGoogleSheets('customers')"><i class="fab fa-google"></i> Google Sheets</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="table-container">
@@ -817,9 +904,19 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Booking Management</h1>
-                            <button class="btn btn-secondary" onclick="exportData('bookings')">
-                                <i class="fas fa-download"></i> Export CSV
-                            </button>
+                            <div style="display: flex; gap: var(--space-3);">
+                                <div class="btn-group" style="position: relative;">
+                                    <button class="btn btn-secondary" onclick="toggleExportMenu('bookings')">
+                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div id="bookingsExportMenu" class="export-dropdown hidden">
+                                        <button onclick="exportData('bookings', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                                        <button onclick="exportData('bookings', 'excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                                        <button onclick="exportToGoogleSheets('bookings')"><i class="fab fa-google"></i> Google Sheets</button>
+                                        <button onclick="exportToQuickBooks()"><i class="fas fa-calculator"></i> QuickBooks</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="table-container">
@@ -888,44 +985,116 @@
                 <section id="exports-section" class="content-section hidden">
                     <div class="card">
                         <div class="card-header">
-                            <h1 class="card-title">Export Data</h1>
+                            <h1 class="card-title">Export & Integration</h1>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-6);">
                             <div class="card">
                                 <h3 style="margin-bottom: var(--space-4);">
-                                    <i class="fas fa-users"></i> Customer Data
+                                    <i class="fas fa-users"></i> Customer Data Export
                                 </h3>
                                 <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
-                                    Export complete customer database including contact information, booking history, and spending data.
+                                    Export complete customer database with contact information, booking history, and spending analytics.
                                 </p>
-                                <button class="btn btn-primary" onclick="exportData('customers')">
-                                    <i class="fas fa-download"></i> Export Customers
-                                </button>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-primary btn-small" onclick="exportData('customers', 'csv')">
+                                        <i class="fas fa-file-csv"></i> CSV
+                                    </button>
+                                    <button class="btn btn-success btn-small" onclick="exportData('customers', 'excel')">
+                                        <i class="fas fa-file-excel"></i> Excel
+                                    </button>
+                                    <button class="btn btn-secondary btn-small" onclick="exportToGoogleSheets('customers')">
+                                        <i class="fab fa-google"></i> Google Sheets
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="card">
                                 <h3 style="margin-bottom: var(--space-4);">
-                                    <i class="fas fa-calendar-alt"></i> Booking Data
+                                    <i class="fas fa-calendar-alt"></i> Booking Data Export
                                 </h3>
                                 <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
-                                    Export all booking records with customer details, service information, and status tracking.
+                                    Export all booking records with customer details, service information, and financial data.
                                 </p>
-                                <button class="btn btn-primary" onclick="exportData('bookings')">
-                                    <i class="fas fa-download"></i> Export Bookings
-                                </button>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-primary btn-small" onclick="exportData('bookings', 'csv')">
+                                        <i class="fas fa-file-csv"></i> CSV
+                                    </button>
+                                    <button class="btn btn-success btn-small" onclick="exportData('bookings', 'excel')">
+                                        <i class="fas fa-file-excel"></i> Excel
+                                    </button>
+                                    <button class="btn btn-secondary btn-small" onclick="exportToGoogleSheets('bookings')">
+                                        <i class="fab fa-google"></i> Google Sheets
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="card">
                                 <h3 style="margin-bottom: var(--space-4);">
-                                    <i class="fas fa-dollar-sign"></i> Custom Pricing
+                                    <i class="fas fa-calculator"></i> QuickBooks Integration
                                 </h3>
                                 <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
-                                    Export custom pricing rules and configurations for special customer rates.
+                                    Export financial data directly to QuickBooks for accounting and invoicing management.
                                 </p>
-                                <button class="btn btn-primary" onclick="exportData('pricing')">
-                                    <i class="fas fa-download"></i> Export Pricing
-                                </button>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-warning btn-small" onclick="exportToQuickBooks()">
+                                        <i class="fas fa-calculator"></i> Export to QB
+                                    </button>
+                                    <button class="btn btn-secondary btn-small" onclick="setupQuickBooksIntegration()">
+                                        <i class="fas fa-cog"></i> Setup Integration
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fab fa-google-drive"></i> Cloud Storage
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Automatically backup data to Google Drive or sync with other cloud services.
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-secondary btn-small" onclick="backupToGoogleDrive()">
+                                        <i class="fab fa-google-drive"></i> Google Drive
+                                    </button>
+                                    <button class="btn btn-secondary btn-small" onclick="scheduleAutoBackup()">
+                                        <i class="fas fa-clock"></i> Auto Backup
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-envelope"></i> Email Marketing
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export customer data for email marketing campaigns and newsletters.
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-secondary btn-small" onclick="exportForMailchimp()">
+                                        <i class="fas fa-envelope"></i> Mailchimp
+                                    </button>
+                                    <button class="btn btn-secondary btn-small" onclick="exportForConstantContact()">
+                                        <i class="fas fa-envelope-open"></i> Constant Contact
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-dollar-sign"></i> Custom Pricing Export
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export custom pricing rules and configurations for backup or migration.
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-primary btn-small" onclick="exportData('pricing', 'csv')">
+                                        <i class="fas fa-file-csv"></i> CSV
+                                    </button>
+                                    <button class="btn btn-success btn-small" onclick="exportData('pricing', 'excel')">
+                                        <i class="fas fa-file-excel"></i> Excel
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -948,6 +1117,18 @@
     </div>
 
     <script>
+        /**
+         * BACKEND API ENDPOINTS NEEDED FOR NEW FEATURES:
+         * 
+         * 1. POST /api/admin/customers - Create new customer
+         *    Body: { name, email, phone, address, emergency_contact, password }
+         *    
+         * 2. POST /api/admin/send-welcome-email - Send welcome email
+         *    Body: { to, customerName, tempPassword, loginUrl }
+         *    
+         * These endpoints should be added to your index.js backend file
+         */
+
         // Configuration - FIXED: Updated to use your production endpoint
         const CONFIG = {
             API_BASE_URL: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
@@ -1642,35 +1823,859 @@
             });
         }
 
-        // Export Functions - ENHANCED
-        async function exportData(type) {
+        // Enhanced Export Functions with Multiple Formats
+        async function exportData(type, format = 'csv') {
             try {
-                showNotification('Preparing export...', 'info');
+                showNotification(`Preparing ${format.toUpperCase()} export...`, 'info');
                 
-                const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`
-                    }
-                });
-                
-                if (response.ok) {
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `805-lifeguard-${type}-${new Date().toISOString().split('T')[0]}.csv`;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                    
-                    showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} exported successfully!`, 'success');
+                if (format === 'excel') {
+                    await exportToExcel(type);
                 } else {
-                    throw new Error('Export failed');
+                    // Standard CSV export
+                    const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `805-lifeguard-${type}-${new Date().toISOString().split('T')[0]}.csv`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                        
+                        showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} CSV exported successfully!`, 'success');
+                    } else {
+                        throw new Error('Export failed');
+                    }
                 }
             } catch (error) {
                 showNotification('Error exporting data', 'error');
             }
+        }
+
+        // Excel Export using SheetJS
+        async function exportToExcel(type) {
+            try {
+                // Import SheetJS library dynamically
+                if (!window.XLSX) {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+                    document.head.appendChild(script);
+                    await new Promise(resolve => script.onload = resolve);
+                }
+
+                let data = [];
+                let filename = '';
+
+                switch(type) {
+                    case 'customers':
+                        data = currentData.customers.map(customer => ({
+                            'Name': customer.name,
+                            'Email': customer.email,
+                            'Phone': customer.phone,
+                            'Total Bookings': customer.total_bookings,
+                            'Total Spent': customer.total_spent,
+                            'Member Since': formatDate(customer.member_since),
+                            'Address': customer.address || '',
+                            'Emergency Contact': customer.emergency_contact || ''
+                        }));
+                        filename = 'customers';
+                        break;
+                    case 'bookings':
+                        data = currentData.bookings.map(booking => ({
+                            'Customer': booking.customer?.name || 'Unknown',
+                            'Email': booking.customer?.email || '',
+                            'Service': booking.serviceName || booking.service,
+                            'Date': formatDate(booking.date),
+                            'Time': booking.time,
+                            'Duration': booking.duration + 'h',
+                            'Participants': booking.participants,
+                            'Cost': '
+
+        function refreshAnalytics() {
+            loadAnalytics();
+            showNotification('Analytics refreshed', 'success');
+        }
+
+        // Utility Functions
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        function fillAdminCredentials() {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'lifeguard2025';
+            showNotification('Admin credentials filled', 'info');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
+            });
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+
+            // Modal overlay click to close
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            // Close export menus when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.btn-group')) {
+                    document.querySelectorAll('.export-dropdown').forEach(menu => {
+                        menu.classList.add('hidden');
+                    });
+                }
+            });
+
+            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
+            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
+            console.log('🔑 Admin credentials: admin/lifeguard2025');
+        });
+    </script>
+</body>
+</html> + booking.cost.toFixed(2),
+                            'Status': booking.status,
+                            'Special Requests': booking.special_requests || ''
+                        }));
+                        filename = 'bookings';
+                        break;
+                    case 'pricing':
+                        data = currentData.pricing.map(price => ({
+                            'Customer': price.customer_name,
+                            'Email': price.customer_email,
+                            'Service Type': price.service_type,
+                            'Custom Price': '
+
+        function refreshAnalytics() {
+            loadAnalytics();
+            showNotification('Analytics refreshed', 'success');
+        }
+
+        // Utility Functions
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        function fillAdminCredentials() {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'lifeguard2025';
+            showNotification('Admin credentials filled', 'info');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
+            });
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+
+            // Modal overlay click to close
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
+            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
+            console.log('🔑 Admin credentials: admin/lifeguard2025');
+        });
+    </script>
+</body>
+</html> + price.price.toFixed(2),
+                            'Updated': formatDate(price.updated_at)
+                        }));
+                        filename = 'custom-pricing';
+                        break;
+                }
+
+                const worksheet = window.XLSX.utils.json_to_sheet(data);
+                const workbook = window.XLSX.utils.book_new();
+                window.XLSX.utils.book_append_sheet(workbook, worksheet, type.charAt(0).toUpperCase() + type.slice(1));
+                
+                // Style the header row
+                const range = window.XLSX.utils.decode_range(worksheet['!ref']);
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    const cellRef = window.XLSX.utils.encode_cell({r: 0, c: col});
+                    if (worksheet[cellRef]) {
+                        worksheet[cellRef].s = {
+                            font: { bold: true },
+                            fill: { fgColor: { rgb: "CCCCCC" } }
+                        };
+                    }
+                }
+
+                window.XLSX.writeFile(workbook, `805-lifeguard-${filename}-${new Date().toISOString().split('T')[0]}.xlsx`);
+                showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} Excel file exported successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Excel export error:', error);
+                showNotification('Error creating Excel file', 'error');
+            }
+        }
+
+        // Google Sheets Export
+        async function exportToGoogleSheets(type) {
+            try {
+                showNotification('Opening Google Sheets integration...', 'info');
+                
+                // Create CSV data
+                let csvData = '';
+                let sheetName = '';
+
+                switch(type) {
+                    case 'customers':
+                        csvData = generateCustomersCSV();
+                        sheetName = '805 LifeGuard Customers';
+                        break;
+                    case 'bookings':
+                        csvData = generateBookingsCSV();
+                        sheetName = '805 LifeGuard Bookings';
+                        break;
+                    case 'pricing':
+                        csvData = generatePricingCSV();
+                        sheetName = '805 LifeGuard Pricing';
+                        break;
+                }
+
+                // Create a shareable link
+                const blob = new Blob([csvData], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                
+                // Open Google Sheets import page
+                const googleSheetsUrl = `https://docs.google.com/spreadsheets/create`;
+                window.open(googleSheetsUrl, '_blank');
+                
+                // Also provide downloadable CSV for manual import
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${sheetName.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                
+                showNotification('CSV file downloaded. Import it into the new Google Sheet!', 'success');
+                
+            } catch (error) {
+                showNotification('Error preparing Google Sheets export', 'error');
+            }
+        }
+
+        // QuickBooks Export
+        async function exportToQuickBooks() {
+            try {
+                showNotification('Preparing QuickBooks export...', 'info');
+                
+                // Create QuickBooks-compatible format
+                const qbData = currentData.bookings
+                    .filter(booking => booking.status === 'completed')
+                    .map(booking => ({
+                        'Date': booking.date,
+                        'Customer': booking.customer?.name || 'Unknown',
+                        'Item': booking.serviceName || booking.service,
+                        'Qty': booking.duration || 1,
+                        'Rate': booking.cost,
+                        'Amount': booking.cost,
+                        'Memo': booking.special_requests || ''
+                    }));
+
+                if (qbData.length === 0) {
+                    showNotification('No completed bookings found for QuickBooks export', 'warning');
+                    return;
+                }
+
+                // Convert to CSV format compatible with QuickBooks
+                const headers = ['Date', 'Customer', 'Item', 'Qty', 'Rate', 'Amount', 'Memo'];
+                const csvContent = [
+                    headers.join(','),
+                    ...qbData.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))
+                ].join('\n');
+
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `805-lifeguard-quickbooks-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                
+                showNotification('QuickBooks-compatible CSV exported! Import this into QB Desktop or Online.', 'success');
+                
+            } catch (error) {
+                showNotification('Error creating QuickBooks export', 'error');
+            }
+        }
+
+        // Add Customer Functionality
+        function showAddCustomerModal() {
+            const tempPassword = generateTempPassword();
+            
+            const content = `
+                <form id="addCustomerForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" class="form-input" required placeholder="John Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" name="email" class="form-input" required placeholder="john@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="(805) 555-0123">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact</label>
+                            <input type="tel" name="emergency_contact" class="form-input" placeholder="(805) 555-0124">
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-textarea" rows="2" placeholder="123 Main St, Ventura, CA 93001"></textarea>
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Temporary Password</label>
+                            <div class="password-generator">
+                                <div class="password-display" id="tempPassword">${tempPassword}</div>
+                                <button type="button" class="btn btn-secondary btn-small" onclick="regeneratePassword()">
+                                    <i class="fas fa-refresh"></i> Generate New
+                                </button>
+                            </div>
+                            <small style="color: var(--gray-400); margin-top: var(--space-2); display: block;">
+                                This temporary password will be sent to the customer via email
+                            </small>
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label style="display: flex; align-items: center; gap: var(--space-2); color: var(--gray-300);">
+                                <input type="checkbox" id="sendWelcomeEmail" checked>
+                                <span>Send welcome email with login credentials</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Customer & Send Email
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Add New Customer', content);
+            
+            document.getElementById('addCustomerForm').addEventListener('submit', handleAddCustomer);
+        }
+
+        function generateTempPassword() {
+            const adjectives = ['Swift', 'Blue', 'Safe', 'Quick', 'Bright', 'Cool', 'Fresh', 'Clear'];
+            const nouns = ['Wave', 'Pool', 'Swim', 'Dive', 'Float', 'Splash', 'Current', 'Flow'];
+            const numbers = Math.floor(Math.random() * 900) + 100;
+            
+            const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const noun = nouns[Math.floor(Math.random() * nouns.length)];
+            
+            return `${adjective}${noun}${numbers}`;
+        }
+
+        function regeneratePassword() {
+            const newPassword = generateTempPassword();
+            document.getElementById('tempPassword').textContent = newPassword;
+        }
+
+        async function handleAddCustomer(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const tempPassword = document.getElementById('tempPassword').textContent;
+            const sendEmail = document.getElementById('sendWelcomeEmail').checked;
+            
+            const customerData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                emergency_contact: formData.get('emergency_contact'),
+                password: tempPassword,
+                sendWelcomeEmail: sendEmail
+            };
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div> Creating customer...';
+            
+            try {
+                // First create the customer
+                const response = await apiCall('/api/admin/customers', {
+                    method: 'POST',
+                    body: JSON.stringify(customerData)
+                });
+                
+                if (response.success) {
+                    closeModal();
+                    showNotification('Customer created successfully!', 'success');
+                    
+                    if (sendEmail) {
+                        // Send welcome email with credentials
+                        await sendWelcomeEmail(customerData);
+                    }
+                    
+                    // Refresh customers list
+                    loadCustomers();
+                    loadDashboard(); // Refresh stats
+                } else {
+                    throw new Error(response.error || 'Failed to create customer');
+                }
+            } catch (error) {
+                console.error('Customer creation error:', error);
+                showNotification(error.message || 'Error creating customer', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Add Customer & Send Email';
+            }
+        }
+
+        async function sendWelcomeEmail(customerData) {
+            try {
+                const emailData = {
+                    to: customerData.email,
+                    customerName: customerData.name,
+                    tempPassword: customerData.password,
+                    loginUrl: window.location.origin + '/client-portal.html'
+                };
+                
+                const response = await apiCall('/api/admin/send-welcome-email', {
+                    method: 'POST',
+                    body: JSON.stringify(emailData)
+                });
+                
+                if (response.success) {
+                    showNotification(`Welcome email sent to ${customerData.email}!`, 'success');
+                } else {
+                    showNotification('Customer created but email failed to send', 'warning');
+                }
+            } catch (error) {
+                console.error('Email sending error:', error);
+                showNotification('Customer created but email failed to send', 'warning');
+            }
+        }
+
+        // Additional Export Helper Functions
+        function generateCustomersCSV() {
+            const headers = ['Name', 'Email', 'Phone', 'Total Bookings', 'Total Spent', 'Member Since', 'Address', 'Emergency Contact'];
+            const rows = currentData.customers.map(customer => [
+                customer.name,
+                customer.email,
+                customer.phone || '',
+                customer.total_bookings,
+                customer.total_spent,
+                formatDate(customer.member_since),
+                customer.address || '',
+                customer.emergency_contact || ''
+            ]);
+            
+            return [headers, ...rows].map(row => 
+                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
+            ).join('\n');
+        }
+
+        function generateBookingsCSV() {
+            const headers = ['Customer', 'Email', 'Service', 'Date', 'Time', 'Duration', 'Cost', 'Status', 'Special Requests'];
+            const rows = currentData.bookings.map(booking => [
+                booking.customer?.name || 'Unknown',
+                booking.customer?.email || '',
+                booking.serviceName || booking.service,
+                formatDate(booking.date),
+                booking.time,
+                booking.duration + 'h',
+                '
+
+        function refreshAnalytics() {
+            loadAnalytics();
+            showNotification('Analytics refreshed', 'success');
+        }
+
+        // Utility Functions
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        function fillAdminCredentials() {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'lifeguard2025';
+            showNotification('Admin credentials filled', 'info');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
+            });
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+
+            // Modal overlay click to close
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
+            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
+            console.log('🔑 Admin credentials: admin/lifeguard2025');
+        });
+    </script>
+</body>
+</html> + booking.cost.toFixed(2),
+                booking.status,
+                booking.special_requests || ''
+            ]);
+            
+            return [headers, ...rows].map(row => 
+                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
+            ).join('\n');
+        }
+
+        function generatePricingCSV() {
+            const headers = ['Customer', 'Email', 'Service Type', 'Custom Price', 'Updated'];
+            const rows = currentData.pricing.map(price => [
+                price.customer_name,
+                price.customer_email,
+                price.service_type,
+                '
+
+        function refreshAnalytics() {
+            loadAnalytics();
+            showNotification('Analytics refreshed', 'success');
+        }
+
+        // Utility Functions
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        function fillAdminCredentials() {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'lifeguard2025';
+            showNotification('Admin credentials filled', 'info');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
+            });
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+
+            // Modal overlay click to close
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
+            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
+            console.log('🔑 Admin credentials: admin/lifeguard2025');
+        });
+    </script>
+</body>
+</html> + price.price.toFixed(2),
+                formatDate(price.updated_at)
+            ]);
+            
+            return [headers, ...rows].map(row => 
+                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
+            ).join('\n');
+        }
+
+        // Export Menu Toggle
+        function toggleExportMenu(type) {
+            const menu = document.getElementById(type + 'ExportMenu');
+            const allMenus = document.querySelectorAll('.export-dropdown');
+            
+            // Close all other menus
+            allMenus.forEach(m => {
+                if (m !== menu) {
+                    m.classList.add('hidden');
+                }
+            });
+            
+            // Toggle current menu
+            menu.classList.toggle('hidden');
+        }
+
+        // Additional Integration Functions
+        function setupQuickBooksIntegration() {
+            showNotification('QuickBooks integration setup - Contact support for API configuration', 'info');
+        }
+
+        function backupToGoogleDrive() {
+            showNotification('Google Drive backup feature - Contact support for setup', 'info');
+        }
+
+        function scheduleAutoBackup() {
+            showNotification('Auto backup scheduling - Contact support for configuration', 'info');
+        }
+
+        function exportForMailchimp() {
+            // Export customer emails in Mailchimp format
+            const mailchimpData = currentData.customers.map(customer => ({
+                'Email Address': customer.email,
+                'First Name': customer.name.split(' ')[0],
+                'Last Name': customer.name.split(' ').slice(1).join(' '),
+                'Phone': customer.phone || '',
+                'Total Spent': customer.total_spent,
+                'Member Since': formatDate(customer.member_since)
+            }));
+            
+            const csvContent = [
+                Object.keys(mailchimpData[0]).join(','),
+                ...mailchimpData.map(row => Object.values(row).map(val => `"${val}"`).join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `805-lifeguard-mailchimp-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            
+            showNotification('Mailchimp-compatible customer list exported!', 'success');
+        }
+
+        function exportForConstantContact() {
+            exportForMailchimp(); // Same format works for both
+            showNotification('Constant Contact-compatible customer list exported!', 'success');
         }
 
         function refreshAnalytics() {
