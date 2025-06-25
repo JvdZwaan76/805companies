@@ -1029,7 +1029,108 @@
             justify-content: center;
         }
 
-        /* Login Page */
+        /* Animated Water Background */
+        .water-background {
+            position: relative;
+            background: linear-gradient(45deg, #0ea5e9, #0284c7, #0369a1, #075985);
+            background-size: 400% 400%;
+            animation: oceanWave 8s ease-in-out infinite;
+            overflow: hidden;
+            padding: var(--space-8) var(--space-6);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+        }
+
+        .water-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: waterBubbles 6s ease-in-out infinite;
+        }
+
+        .water-background::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.1) 0px,
+                rgba(255, 255, 255, 0.2) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: waterFlow 3s linear infinite;
+        }
+
+        @keyframes oceanWave {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 30%; }
+            50% { background-position: 0% 70%; }
+            75% { background-position: 100% 50%; }
+        }
+
+        @keyframes waterBubbles {
+            0%, 100% { opacity: 0.7; transform: translateY(0px); }
+            50% { opacity: 1; transform: translateY(-5px); }
+        }
+
+        @keyframes waterFlow {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+
+        /* Database Health Status */
+        .db-health-indicator {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.75rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .db-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .db-status-dot.healthy {
+            background: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .db-status-dot.checking {
+            background: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .db-status-dot.error {
+            background: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
         .login-container {
             display: flex;
             align-items: center;
@@ -1045,12 +1146,18 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .login-content {
             padding: var(--space-8);
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: var(--space-8);
+            position: relative;
+            z-index: 5;
         }
 
         .login-logo {
@@ -1066,17 +1173,21 @@
             width: 120px;
             height: auto;
             max-width: 100%;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
         }
 
         .login-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: var(--space-2);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .login-subtitle {
-            color: var(--gray-400);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.875rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* Export System */
@@ -1127,7 +1238,48 @@
             border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
-        /* Utility Classes */
+        /* Mobile Responsiveness for Water Background */
+        @media (max-width: 480px) {
+            .water-background {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .login-logo img {
+                width: 100px;
+            }
+            
+            .login-title {
+                font-size: 1.25rem;
+            }
+            
+            .db-health-indicator {
+                top: var(--space-2);
+                right: var(--space-2);
+                padding: var(--space-1) var(--space-2);
+                font-size: 0.7rem;
+            }
+            
+            .db-status-dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        /* Login Animation */
+        .login-card {
+            animation: loginFadeIn 0.8s ease-out;
+        }
+
+        @keyframes loginFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
         .hidden {
             display: none !important;
         }
@@ -1427,39 +1579,47 @@
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-card">
-            <div class="login-header">
-                <div class="login-logo">
-                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <i class="fas fa-swimmer" style="display: none;"></i>
+            <div class="water-background">
+                <div class="db-health-indicator" id="dbHealthIndicator">
+                    <div class="db-status-dot checking" id="dbStatusDot"></div>
+                    <span id="dbStatusText">Checking...</span>
                 </div>
-                <h1 class="login-title">805 LifeGuard Admin</h1>
-                <p class="login-subtitle">Complete Management Portal</p>
+                <div class="login-header">
+                    <div class="login-logo">
+                        <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <i class="fas fa-swimmer" style="display: none;"></i>
+                    </div>
+                    <h1 class="login-title">805 LifeGuard Admin</h1>
+                    <p class="login-subtitle">Complete Management Portal</p>
+                </div>
             </div>
             
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input type="text" id="username" class="form-input" placeholder="Enter username" required autocomplete="username">
-                </div>
+            <div class="login-content">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="Enter username" required autocomplete="username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter password" required autocomplete="current-password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-full mt-4">
+                        <span class="btn-text">Admin Sign In</span>
+                        <span class="loading hidden">
+                            <span class="spinner"></span>
+                            Signing in...
+                        </span>
+                    </button>
+                </form>
                 
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter password" required autocomplete="current-password">
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-secondary" onclick="fillAdminCredentials()">
+                        <i class="fas fa-key"></i> Fill Admin Credentials
+                    </button>
                 </div>
-                
-                <button type="submit" class="btn btn-primary w-full mt-4">
-                    <span class="btn-text">Admin Sign In</span>
-                    <span class="loading hidden">
-                        <span class="spinner"></span>
-                        Signing in...
-                    </span>
-                </button>
-            </form>
-            
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-secondary" onclick="fillAdminCredentials()">
-                    <i class="fas fa-key"></i> Fill Admin Credentials
-                </button>
             </div>
         </div>
     </div>
@@ -4022,8 +4182,59 @@ Please save these credentials and use them to access your customer portal.`;
             }
         }
 
+        // Database Health Check
+        async function checkDatabaseHealth() {
+            const statusDot = document.getElementById('dbStatusDot');
+            const statusText = document.getElementById('dbStatusText');
+            
+            if (!statusDot || !statusText) return;
+            
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/debug`);
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Check if all critical tables exist
+                    const requiredTables = ['users', 'bookings', 'staff'];
+                    const allTablesExist = requiredTables.every(table => 
+                        data.database?.tables?.[table]?.exists
+                    );
+                    
+                    if (allTablesExist) {
+                        statusDot.className = 'db-status-dot healthy';
+                        statusText.textContent = 'Database Online';
+                    } else {
+                        statusDot.className = 'db-status-dot error';
+                        statusText.textContent = 'DB Setup Required';
+                    }
+                } else {
+                    statusDot.className = 'db-status-dot error';
+                    statusText.textContent = 'Connection Error';
+                }
+            } catch (error) {
+                statusDot.className = 'db-status-dot error';
+                statusText.textContent = 'API Offline';
+            }
+        }
+
+        // Periodic database health check
+        function startDatabaseHealthMonitoring() {
+            checkDatabaseHealth();
+            // Refresh health status every 30 seconds while on login screen
+            const healthInterval = setInterval(() => {
+                if (document.getElementById('loginScreen') && !document.getElementById('loginScreen').classList.contains('hidden')) {
+                    checkDatabaseHealth();
+                } else {
+                    clearInterval(healthInterval);
+                }
+            }, 30000);
+        }
+
         // Enhanced Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
+            // Check database health on page load
+            checkDatabaseHealth();
+            
             // Check if already logged in
             const savedToken = localStorage.getItem('authToken');
             const savedUser = localStorage.getItem('currentUser');
