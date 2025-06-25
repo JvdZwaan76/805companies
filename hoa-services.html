@@ -363,15 +363,17 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
             padding: 12px 25px;
             border-radius: 50px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 30px;
             animation: badge-float 3s ease-in-out infinite;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
         
         @keyframes badge-float {
@@ -382,21 +384,23 @@
         .page-header h1 {
             font-size: 3.5rem;
             margin-bottom: 25px;
-            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.7), 1px 1px 10px rgba(0, 0, 0, 0.8);
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -1px;
+            color: #ffffff;
         }
         
         .page-header p {
             font-size: 1.3rem;
             margin-bottom: 40px;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7), 1px 1px 8px rgba(0, 0, 0, 0.8);
             max-width: 750px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
-            opacity: 0.95;
+            color: #ffffff;
+            font-weight: 500;
         }
 
         .cta-buttons {
@@ -527,14 +531,18 @@
             margin-bottom: 20px;
             font-weight: 800;
             line-height: 1.2;
+            /* Fallback for browsers that don't support background-clip */
+            color: var(--dark);
         }
 
+        /* Ensure better contrast for section descriptions */
         .section-title p {
             font-size: 1.1rem;
-            color: var(--gray);
+            color: #4a5568;
             max-width: 650px;
             margin: 0 auto;
             line-height: 1.7;
+            font-weight: 500;
         }
 
         /* Services Section */
@@ -870,7 +878,7 @@
 
         /* Inline CTA Sections */
         .inline-cta {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95), rgba(38, 166, 154, 0.95));
             color: var(--white);
             padding: 50px 5%;
             text-align: center;
@@ -878,6 +886,7 @@
             border-radius: 20px;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .inline-cta::before {
@@ -901,25 +910,33 @@
             font-size: 1.8rem;
             margin-bottom: 15px;
             font-weight: 700;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .inline-cta p {
             font-size: 1.1rem;
             margin-bottom: 30px;
-            opacity: 0.95;
+            color: #ffffff;
             line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-weight: 400;
         }
 
         .inline-cta .cta-btn {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.9);
             margin: 0 10px 10px 0;
+            color: var(--dark);
+            font-weight: 600;
         }
 
         .inline-cta .cta-btn:hover {
             background: var(--white);
             color: var(--gallery-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* Professional Team Section */
@@ -1069,7 +1086,7 @@
         /* HOA Testimonials */
         .hoa-testimonials {
             padding: 100px 5%;
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.95), rgba(38, 166, 154, 0.95));
             color: var(--white);
             position: relative;
             overflow: hidden;
@@ -1091,16 +1108,21 @@
         }
         
         .hoa-testimonials .section-badge {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--white);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            font-weight: 700;
         }
         
         .hoa-testimonials h2 {
             color: var(--white);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
         }
         
         .hoa-testimonials .section-title p {
-            color: rgba(255, 255, 255, 0.8);
+            color: #ffffff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            font-weight: 400;
         }
         
         .testimonials-grid {
