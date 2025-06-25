@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0">
     <title>805 LifeGuard - Complete Admin Portal | Production Dashboard</title>
     <meta name="description" content="Complete administration portal for 805 LifeGuard with full D1 database integration">
     <meta name="robots" content="noindex, nofollow">
@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- SheetJS for Excel export functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
@@ -62,12 +61,24 @@
             --space-12: 3rem;
             --space-16: 4rem;
             --space-20: 5rem;
+
+            /* Mobile-first variables */
+            --nav-height: 60px;
+            --sidebar-width: 280px;
+            --mobile-padding: 1rem;
+            --desktop-padding: 2rem;
         }
 
+        /* Mobile-first reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        *:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
 
         body {
@@ -77,6 +88,8 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .background-pattern {
@@ -99,16 +112,17 @@
             left: 0;
             right: 0;
             z-index: 1000;
+            height: var(--nav-height);
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: var(--space-4) 0;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--mobile-padding);
         }
 
         .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-6);
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -117,37 +131,52 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--white);
             text-decoration: none;
         }
 
         .nav-logo i {
-            margin-right: var(--space-3);
+            margin-right: var(--space-2);
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .nav-logo .logo-text {
+            display: none;
         }
 
         .nav-user {
             display: flex;
             align-items: center;
-            gap: var(--space-4);
+            gap: var(--space-2);
         }
 
         .mobile-menu-btn {
-            display: none;
+            display: block;
             background: none;
             border: none;
             color: var(--white);
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             cursor: pointer;
             padding: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: background-color 0.2s ease;
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
@@ -155,11 +184,20 @@
             justify-content: center;
             font-weight: 700;
             color: white;
+            font-size: 0.875rem;
         }
 
+        .user-welcome {
+            display: none;
+            font-size: 0.875rem;
+            color: var(--gray-300);
+        }
+
+        /* Enhanced Button System */
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: var(--space-2);
             padding: var(--space-2) var(--space-4);
             border-radius: var(--radius-lg);
@@ -169,6 +207,15 @@
             border: none;
             cursor: pointer;
             font-size: 0.875rem;
+            min-height: 44px;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .btn-primary {
@@ -176,7 +223,7 @@
             color: white;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background: var(--primary-dark);
             transform: translateY(-1px);
         }
@@ -187,7 +234,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -209,53 +256,67 @@
         .btn-small {
             padding: var(--space-1) var(--space-3);
             font-size: 0.75rem;
+            min-height: 36px;
         }
 
-        /* Layout */
+        .btn-icon-only {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+        }
+
+        .btn-icon-only.btn-small {
+            width: 36px;
+            height: 36px;
+        }
+
+        /* Enhanced Layout System */
         .main-container {
             display: flex;
             min-height: 100vh;
-            padding-top: 80px;
+            padding-top: var(--nav-height);
         }
 
         .sidebar {
-            width: 280px;
-            background: rgba(15, 23, 42, 0.8);
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--nav-height));
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(20px);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding: var(--space-6) 0;
-            position: fixed;
-            height: calc(100vh - 80px);
             overflow-y: auto;
-            transform: translateX(0);
+            transform: translateX(-100%);
             transition: transform 0.3s ease;
+            z-index: 999;
         }
 
-        .sidebar.closed {
-            transform: translateX(-100%);
+        .sidebar.open {
+            transform: translateX(0);
         }
 
         .sidebar-overlay {
             position: fixed;
-            top: 80px;
+            top: var(--nav-height);
             left: 0;
             width: 100%;
-            height: calc(100vh - 80px);
+            height: calc(100vh - var(--nav-height));
             background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
+            z-index: 998;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
         .sidebar-overlay.active {
-            display: block;
             opacity: 1;
+            visibility: visible;
         }
 
         .sidebar-nav {
             list-style: none;
-            padding: 0 var(--space-4);
+            padding: var(--space-4);
         }
 
         .sidebar-nav li {
@@ -271,6 +332,8 @@
             text-decoration: none;
             border-radius: var(--radius-lg);
             transition: all 0.2s ease;
+            min-height: 48px;
+            font-size: 0.875rem;
         }
 
         .sidebar-nav a:hover,
@@ -279,47 +342,55 @@
             color: var(--primary-light);
         }
 
+        .sidebar-nav i {
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
         .content {
             flex: 1;
-            margin-left: 280px;
-            padding: var(--space-8);
-            min-height: calc(100vh - 80px);
-            transition: margin-left 0.3s ease;
+            padding: var(--mobile-padding);
+            min-height: calc(100vh - var(--nav-height));
+            width: 100%;
         }
 
-        .content.full-width {
-            margin-left: 0;
-        }
-
-        /* Cards */
+        /* Enhanced Card System */
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-2xl);
-            padding: var(--space-6);
+            padding: var(--space-4);
             margin-bottom: var(--space-6);
+            overflow: hidden;
         }
 
         .card-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: var(--space-4);
             margin-bottom: var(--space-6);
         }
 
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--white);
         }
 
-        /* Stats */
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        /* Enhanced Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-6);
-            margin-bottom: var(--space-8);
+            grid-template-columns: 1fr;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
         }
 
         .stat-card {
@@ -327,12 +398,12 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
-            padding: var(--space-6);
+            padding: var(--space-4);
             text-align: center;
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
             font-weight: 900;
             color: var(--primary);
             margin-bottom: var(--space-2);
@@ -341,48 +412,67 @@
         .stat-label {
             color: var(--gray-400);
             font-weight: 500;
+            font-size: 0.875rem;
         }
 
-        /* Calendar Styles */
+        /* Enhanced Calendar System */
         .calendar-container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
-            padding: var(--space-6);
+            padding: var(--space-4);
+            overflow: hidden;
         }
 
         .calendar-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
             align-items: center;
-            margin-bottom: var(--space-6);
         }
 
         .calendar-nav {
             display: flex;
             align-items: center;
-            gap: var(--space-4);
+            gap: var(--space-3);
+            width: 100%;
+            justify-content: center;
         }
 
         .calendar-nav button {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: var(--space-2);
             border-radius: var(--radius-md);
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
         }
 
         .calendar-nav button:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         .calendar-month {
-            font-size: 1.5rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: var(--white);
+            text-align: center;
+            flex: 1;
+        }
+
+        .calendar-controls {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .calendar-grid {
@@ -392,25 +482,30 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-lg);
             overflow: hidden;
+            padding: 1px;
         }
 
         .calendar-day-header {
             background: rgba(255, 255, 255, 0.1);
-            padding: var(--space-3);
+            padding: var(--space-2);
             text-align: center;
             font-weight: 600;
             color: var(--gray-300);
-            font-size: 0.875rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .calendar-day {
             background: rgba(255, 255, 255, 0.03);
-            min-height: 120px;
+            min-height: 80px;
             padding: var(--space-2);
             position: relative;
             cursor: pointer;
             transition: all 0.2s ease;
             border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
         }
 
         .calendar-day:hover {
@@ -419,72 +514,211 @@
         }
 
         .calendar-day.other-month {
-            opacity: 0.3;
+            opacity: 0.4;
+            background: rgba(255, 255, 255, 0.01);
         }
 
         .calendar-day.today {
             border-color: var(--primary);
             background: rgba(220, 38, 38, 0.1);
+            box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.2);
         }
 
         .calendar-day.selected {
             border-color: var(--primary);
             background: rgba(220, 38, 38, 0.2);
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.4);
         }
 
         .calendar-day-number {
             font-weight: 600;
             color: var(--white);
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--space-1);
+            font-size: 0.875rem;
+        }
+
+        .calendar-day-bookings {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
         }
 
         .calendar-booking {
             background: rgba(16, 185, 129, 0.2);
             color: var(--success);
             padding: 1px 4px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            margin-bottom: 2px;
+            border-radius: 2px;
+            font-size: 0.6rem;
+            font-weight: 500;
             display: block;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+            border-left: 2px solid var(--success);
         }
 
         .calendar-booking.pending {
             background: rgba(245, 158, 11, 0.2);
             color: var(--warning);
+            border-left-color: var(--warning);
         }
 
         .calendar-booking.cancelled {
             background: rgba(239, 68, 68, 0.2);
             color: var(--error);
+            border-left-color: var(--error);
         }
 
-        .calendar-day-details {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(30px);
+        .calendar-booking.completed {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border-left-color: #60a5fa;
+        }
+
+        /* Enhanced Table System */
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: var(--space-4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .table-filters {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .table-filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+        }
+
+        .form-input, .form-select {
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 0.875rem;
+            width: 100%;
+            min-height: 44px;
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .table th,
+        .table td {
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            vertical-align: top;
+        }
+
+        .table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            color: var(--gray-300);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .table td {
+            color: var(--white);
+            font-size: 0.875rem;
+        }
+
+        .table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mobile Table Cards */
+        .mobile-cards {
+            display: none;
+        }
+
+        .mobile-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-lg);
             padding: var(--space-4);
-            z-index: 1001;
-            display: none;
-            margin-top: var(--space-2);
-            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--space-3);
         }
 
-        .calendar-day-details.active {
-            display: block;
+        .mobile-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-3);
         }
 
-        /* Staff Management Styles */
+        .mobile-card-title {
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .mobile-card-content {
+            display: grid;
+            gap: var(--space-2);
+        }
+
+        .mobile-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .mobile-card-label {
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .mobile-card-value {
+            color: var(--white);
+            text-align: right;
+        }
+
+        .mobile-card-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+            padding-top: var(--space-3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        /* Staff Grid */
         .staff-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr;
             gap: var(--space-4);
         }
 
@@ -493,7 +727,8 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
-            padding: var(--space-6);
+            padding: var(--space-4);
+            text-align: center;
         }
 
         .staff-avatar {
@@ -507,20 +742,19 @@
             font-weight: 700;
             color: white;
             font-size: 1.5rem;
-            margin: 0 auto var(--space-4);
+            margin: 0 auto var(--space-3);
         }
 
         .staff-name {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--space-1);
         }
 
         .staff-role {
             color: var(--gray-400);
-            text-align: center;
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-3);
+            font-size: 0.875rem;
         }
 
         .staff-status {
@@ -531,6 +765,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
+            margin-bottom: var(--space-3);
         }
 
         .staff-status.available {
@@ -548,72 +783,17 @@
             color: var(--gray-400);
         }
 
-        /* Tables */
-        .table-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-        }
-
-        .table-header {
-            padding: var(--space-4) var(--space-6);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-        }
-
-        .table-filters {
-            display: flex;
-            gap: var(--space-3);
-            flex: 1;
-            align-items: center;
-        }
-
-        .form-input, .form-select {
-            padding: var(--space-2) var(--space-3);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--radius-md);
-            color: white;
+        .staff-details {
             font-size: 0.875rem;
-        }
-
-        .form-input::placeholder {
-            color: var(--gray-400);
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th,
-        .table td {
-            padding: var(--space-4) var(--space-6);
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .table th {
-            background: rgba(255, 255, 255, 0.05);
-            font-weight: 600;
             color: var(--gray-300);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            margin-bottom: var(--space-4);
         }
 
-        .table td {
-            color: var(--white);
-        }
-
-        .table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .staff-actions {
+            display: flex;
+            gap: var(--space-2);
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* Status badges */
@@ -657,7 +837,7 @@
             color: var(--gray-400);
         }
 
-        /* Modals */
+        /* Enhanced Modal System */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -670,6 +850,7 @@
             display: none;
             align-items: center;
             justify-content: center;
+            padding: var(--space-4);
         }
 
         .modal-overlay.active {
@@ -681,9 +862,9 @@
             backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-2xl);
-            padding: var(--space-8);
-            max-width: 800px;
-            width: 90%;
+            padding: var(--space-6);
+            width: 100%;
+            max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -696,7 +877,7 @@
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
         }
 
@@ -707,12 +888,20 @@
             font-size: 1.5rem;
             cursor: pointer;
             padding: var(--space-2);
+            border-radius: var(--radius-md);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
             color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
         }
 
+        /* Enhanced Form System */
         .form-group {
             margin-bottom: var(--space-4);
         }
@@ -722,6 +911,7 @@
             margin-bottom: var(--space-2);
             font-weight: 600;
             color: var(--gray-300);
+            font-size: 0.875rem;
         }
 
         .form-input,
@@ -733,11 +923,25 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-md);
             color: white;
+            font-size: 0.875rem;
+            min-height: 44px;
         }
 
         .form-textarea {
             resize: vertical;
             min-height: 100px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
         }
 
         /* Loading states */
@@ -767,21 +971,25 @@
         /* Notifications */
         .notification {
             position: fixed;
-            top: 100px;
-            right: var(--space-6);
+            top: calc(var(--nav-height) + var(--space-4));
+            right: var(--space-4);
+            left: var(--space-4);
             max-width: 400px;
+            margin: 0 auto;
             padding: var(--space-4);
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-lg);
             z-index: 3000;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .notification.show {
-            transform: translateX(0);
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .notification.success {
@@ -798,6 +1006,27 @@
 
         .notification.info {
             border-left: 4px solid var(--secondary);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-left: auto;
+            padding: var(--space-1);
+            border-radius: var(--radius-sm);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Login Page */
@@ -838,9 +1067,10 @@
 
         .login-subtitle {
             color: var(--gray-400);
+            font-size: 0.875rem;
         }
 
-        /* Export Dropdown */
+        /* Export System */
         .btn-group {
             display: inline-block;
             position: relative;
@@ -873,6 +1103,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 0.875rem;
+            min-height: 44px;
         }
 
         .export-dropdown button:hover {
@@ -887,103 +1118,296 @@
             border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
-        /* Enhanced form styles */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-4);
-        }
-
-        .form-grid-full {
-            grid-column: 1 / -1;
-        }
-
-        .password-generator {
-            display: flex;
-            gap: var(--space-2);
-            align-items: center;
-        }
-
-        .password-display {
-            font-family: monospace;
-            background: rgba(255, 255, 255, 0.05);
-            padding: var(--space-2);
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.875rem;
-        }
-
-        /* Hidden utility */
+        /* Utility Classes */
         .hidden {
             display: none !important;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: var(--space-2);
+        }
+
+        .gap-3 {
+            gap: var(--space-3);
+        }
+
+        .gap-4 {
+            gap: var(--space-4);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .mt-4 {
+            margin-top: var(--space-4);
+        }
+
+        .mb-4 {
+            margin-bottom: var(--space-4);
+        }
+
+        .p-4 {
+            padding: var(--space-4);
+        }
+
+        /* Responsive Design - Mobile First */
+        @media (min-width: 480px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
-            .nav-user span {
-                display: none;
+            .form-grid-full {
+                grid-column: 1 / -1;
             }
 
-            .sidebar {
-                z-index: 1000;
-            }
-
-            .content {
-                margin-left: 0;
-                padding: var(--space-4);
-            }
-
-            .nav-container {
-                padding: 0 var(--space-4);
-            }
-
-            .table-container {
-                overflow-x: auto;
+            .form-actions {
+                flex-direction: row;
+                justify-content: flex-end;
             }
 
             .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .table-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: var(--space-3);
-            }
-
-            .calendar-day {
-                min-height: 80px;
-            }
-
-            .calendar-day-details {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 90%;
-                max-width: 400px;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .staff-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .table-filters {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .table-filters-row {
+                flex-direction: row;
+            }
+
+            .form-input,
+            .form-select {
+                width: auto;
+                min-width: 200px;
+            }
+
+            .notification {
+                right: var(--space-6);
+                left: auto;
+                margin: 0;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (min-width: 640px) {
             .calendar-day {
-                min-height: 60px;
-            }
-
-            .calendar-day-number {
-                font-size: 0.875rem;
+                min-height: 100px;
             }
 
             .calendar-booking {
-                font-size: 0.6rem;
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+
+            .calendar-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .calendar-controls {
+                justify-content: flex-end;
+            }
+
+            .modal {
+                max-width: 600px;
+                padding: var(--space-8);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            :root {
+                --nav-height: 80px;
+                --mobile-padding: var(--desktop-padding);
+            }
+
+            .navbar {
+                height: var(--nav-height);
+                padding: 0 var(--desktop-padding);
+            }
+
+            .nav-logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-logo .logo-text {
+                display: inline;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .user-welcome {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                transform: translateX(0);
+                height: calc(100vh - var(--nav-height));
+            }
+
+            .sidebar-overlay {
+                display: none;
+            }
+
+            .content {
+                margin-left: var(--sidebar-width);
+                padding: var(--desktop-padding);
+            }
+
+            .card {
+                padding: var(--space-6);
+            }
+
+            .card-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .table-container .mobile-cards {
+                display: none;
+            }
+
+            .table-wrapper {
+                display: block;
+            }
+
+            .calendar-day {
+                min-height: 120px;
+            }
+
+            .staff-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .modal {
+                max-width: 800px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .staff-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .stats-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .content {
+                max-width: 1400px;
+                margin-left: var(--sidebar-width);
+                margin-right: auto;
+                padding-left: var(--desktop-padding);
+                padding-right: var(--desktop-padding);
+            }
+        }
+
+        /* Mobile Table Alternative */
+        @media (max-width: 767px) {
+            .table-wrapper {
+                display: none;
+            }
+
+            .mobile-cards {
+                display: block;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --gray-400: #ffffff;
+                --gray-300: #ffffff;
+            }
+
+            .btn {
+                border: 2px solid currentColor;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .navbar,
+            .sidebar,
+            .mobile-menu-btn,
+            .btn,
+            .modal-overlay {
+                display: none !important;
+            }
+
+            .content {
+                margin-left: 0 !important;
+                padding: 0 !important;
+            }
+
+            .card {
+                border: 1px solid #000;
+                break-inside: avoid;
             }
         }
     </style>
@@ -1005,15 +1429,15 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label class="form-label">Username</label>
-                    <input type="text" id="username" class="form-input" placeholder="Enter username" required>
+                    <input type="text" id="username" class="form-input" placeholder="Enter username" required autocomplete="username">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter password" required>
+                    <input type="password" id="password" class="form-input" placeholder="Enter password" required autocomplete="current-password">
                 </div>
                 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-4);">
+                <button type="submit" class="btn btn-primary w-full mt-4">
                     <span class="btn-text">Admin Sign In</span>
                     <span class="loading hidden">
                         <span class="spinner"></span>
@@ -1022,7 +1446,7 @@
                 </button>
             </form>
             
-            <div style="margin-top: var(--space-6); text-align: center;">
+            <div class="text-center mt-4">
                 <button type="button" class="btn btn-secondary" onclick="fillAdminCredentials()">
                     <i class="fas fa-key"></i> Fill Admin Credentials
                 </button>
@@ -1037,16 +1461,17 @@
             <div class="nav-container">
                 <a href="#" class="nav-logo">
                     <i class="fas fa-swimmer"></i>
-                    805 LifeGuard Admin
+                    <span class="logo-text">805 LifeGuard Admin</span>
                 </a>
                 
                 <div class="nav-user">
-                    <span id="userWelcome">Welcome, Admin</span>
+                    <span id="userWelcome" class="user-welcome">Welcome, Admin</span>
                     <div class="user-avatar" id="userAvatar">A</div>
                     <button class="btn btn-secondary btn-small" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="hidden sm:inline">Logout</span>
                     </button>
-                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
@@ -1091,7 +1516,7 @@
             <main class="content" id="content">
                 <!-- Dashboard Section -->
                 <section id="dashboard-section" class="content-section">
-                    <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: var(--space-8);">Admin Dashboard</h1>
+                    <h1 style="font-size: 1.75rem; font-weight: 800; margin-bottom: var(--space-6);">Admin Dashboard</h1>
                     
                     <!-- Stats Grid -->
                     <div class="stats-grid">
@@ -1125,9 +1550,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-title">Recent Bookings</h2>
-                            <button class="btn btn-primary btn-small" onclick="showSection('bookings')">
-                                <i class="fas fa-eye"></i> View All
-                            </button>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-small" onclick="showSection('bookings')">
+                                    <i class="fas fa-eye"></i> View All
+                                </button>
+                            </div>
                         </div>
                         <div id="recentBookings" class="loading">
                             <div class="spinner"></div>
@@ -1141,25 +1568,29 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Calendar View</h1>
-                            <button class="btn btn-primary" onclick="showAddBookingModal()">
-                                <i class="fas fa-plus"></i> Add Booking
-                            </button>
+                            <div class="card-actions">
+                                <button class="btn btn-primary" onclick="showAddBookingModal()">
+                                    <i class="fas fa-plus"></i> <span class="hidden sm:inline">Add Booking</span>
+                                </button>
+                            </div>
                         </div>
                         
                         <div class="calendar-container">
                             <div class="calendar-header">
                                 <div class="calendar-nav">
-                                    <button onclick="previousMonth()">
+                                    <button onclick="previousMonth()" title="Previous Month" aria-label="Previous month">
                                         <i class="fas fa-chevron-left"></i>
                                     </button>
                                     <div class="calendar-month" id="calendarMonth">January 2025</div>
-                                    <button onclick="nextMonth()">
+                                    <button onclick="nextMonth()" title="Next Month" aria-label="Next month">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
                                 </div>
-                                <button class="btn btn-secondary" onclick="goToToday()">
-                                    <i class="fas fa-calendar-day"></i> Today
-                                </button>
+                                <div class="calendar-controls">
+                                    <button class="btn btn-secondary btn-small" onclick="goToToday()">
+                                        <i class="fas fa-calendar-day"></i> <span class="hidden sm:inline">Today</span>
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="calendar-grid">
@@ -1184,13 +1615,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Staff Management</h1>
-                            <div style="display: flex; gap: var(--space-3);">
+                            <div class="card-actions">
                                 <button class="btn btn-primary" onclick="showAddStaffModal()">
-                                    <i class="fas fa-user-plus"></i> Add Staff Member
+                                    <i class="fas fa-user-plus"></i> <span class="hidden sm:inline">Add Staff</span>
                                 </button>
                                 <div class="btn-group" style="position: relative;">
                                     <button class="btn btn-secondary" onclick="toggleExportMenu('staff')">
-                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                        <i class="fas fa-download"></i> <span class="hidden sm:inline">Export</span> <i class="fas fa-chevron-down"></i>
                                     </button>
                                     <div id="staffExportMenu" class="export-dropdown hidden">
                                         <button onclick="exportData('staff', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
@@ -1212,13 +1643,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Customer Management</h1>
-                            <div style="display: flex; gap: var(--space-3);">
+                            <div class="card-actions">
                                 <button class="btn btn-primary" onclick="showAddCustomerModal()">
-                                    <i class="fas fa-user-plus"></i> Add Customer
+                                    <i class="fas fa-user-plus"></i> <span class="hidden sm:inline">Add Customer</span>
                                 </button>
                                 <div class="btn-group" style="position: relative;">
                                     <button class="btn btn-secondary" onclick="toggleExportMenu('customers')">
-                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                        <i class="fas fa-download"></i> <span class="hidden sm:inline">Export</span> <i class="fas fa-chevron-down"></i>
                                     </button>
                                     <div id="customersExportMenu" class="export-dropdown hidden">
                                         <button onclick="exportData('customers', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
@@ -1232,14 +1663,22 @@
                         <div class="table-container">
                             <div class="table-header">
                                 <div class="table-filters">
-                                    <input type="text" id="customerSearch" class="form-input" placeholder="Search customers..." onkeyup="filterCustomers()">
-                                    <span style="color: var(--gray-400); font-size: 0.875rem;" id="customerCount">0 customers</span>
+                                    <div class="table-filters-row">
+                                        <input type="text" id="customerSearch" class="form-input" placeholder="Search customers..." onkeyup="filterCustomers()" style="flex: 1; min-width: 200px;">
+                                        <span style="color: var(--gray-400); font-size: 0.875rem; white-space: nowrap;" id="customerCount">0 customers</span>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div id="customersTableContainer" class="loading">
-                                <div class="spinner"></div>
-                                Loading customers...
+                            <div class="table-wrapper">
+                                <div id="customersTableContainer" class="loading">
+                                    <div class="spinner"></div>
+                                    Loading customers...
+                                </div>
+                            </div>
+                            
+                            <div id="customersMobileCards" class="mobile-cards">
+                                <!-- Mobile cards will be generated here -->
                             </div>
                         </div>
                     </div>
@@ -1250,10 +1689,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Booking Management</h1>
-                            <div style="display: flex; gap: var(--space-3);">
+                            <div class="card-actions">
                                 <div class="btn-group" style="position: relative;">
                                     <button class="btn btn-secondary" onclick="toggleExportMenu('bookings')">
-                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                        <i class="fas fa-download"></i> <span class="hidden sm:inline">Export</span> <i class="fas fa-chevron-down"></i>
                                     </button>
                                     <div id="bookingsExportMenu" class="export-dropdown hidden">
                                         <button onclick="exportData('bookings', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
@@ -1268,21 +1707,29 @@
                         <div class="table-container">
                             <div class="table-header">
                                 <div class="table-filters">
-                                    <input type="text" id="bookingSearch" class="form-input" placeholder="Search bookings..." onkeyup="filterBookings()">
-                                    <select id="bookingStatusFilter" class="form-select" onchange="filterBookings()">
-                                        <option value="">All Status</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="confirmed">Confirmed</option>
-                                        <option value="completed">Completed</option>
-                                        <option value="cancelled">Cancelled</option>
-                                    </select>
-                                    <span style="color: var(--gray-400); font-size: 0.875rem;" id="bookingCount">0 bookings</span>
+                                    <div class="table-filters-row">
+                                        <input type="text" id="bookingSearch" class="form-input" placeholder="Search bookings..." onkeyup="filterBookings()" style="flex: 1; min-width: 200px;">
+                                        <select id="bookingStatusFilter" class="form-select" onchange="filterBookings()" style="min-width: 150px;">
+                                            <option value="">All Status</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="confirmed">Confirmed</option>
+                                            <option value="completed">Completed</option>
+                                            <option value="cancelled">Cancelled</option>
+                                        </select>
+                                        <span style="color: var(--gray-400); font-size: 0.875rem; white-space: nowrap;" id="bookingCount">0 bookings</span>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div id="bookingsTableContainer" class="loading">
-                                <div class="spinner"></div>
-                                Loading bookings...
+                            <div class="table-wrapper">
+                                <div id="bookingsTableContainer" class="loading">
+                                    <div class="spinner"></div>
+                                    Loading bookings...
+                                </div>
+                            </div>
+
+                            <div id="bookingsMobileCards" class="mobile-cards">
+                                <!-- Mobile cards will be generated here -->
                             </div>
                         </div>
                     </div>
@@ -1293,12 +1740,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Custom Pricing Management</h1>
-                            <div>
+                            <div class="card-actions">
                                 <button class="btn btn-primary" onclick="showAddPricingModal()">
-                                    <i class="fas fa-plus"></i> Add Custom Pricing
+                                    <i class="fas fa-plus"></i> <span class="hidden sm:inline">Add Pricing</span>
                                 </button>
                                 <button class="btn btn-secondary" onclick="exportData('pricing')">
-                                    <i class="fas fa-download"></i> Export CSV
+                                    <i class="fas fa-download"></i> <span class="hidden sm:inline">Export</span>
                                 </button>
                             </div>
                         </div>
@@ -1315,9 +1762,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Analytics & Reports</h1>
-                            <button class="btn btn-secondary" onclick="refreshAnalytics()">
-                                <i class="fas fa-sync"></i> Refresh
-                            </button>
+                            <div class="card-actions">
+                                <button class="btn btn-secondary" onclick="refreshAnalytics()">
+                                    <i class="fas fa-sync"></i> <span class="hidden sm:inline">Refresh</span>
+                                </button>
+                            </div>
                         </div>
                         
                         <div id="analyticsContainer" class="loading">
@@ -1334,12 +1783,12 @@
                             <h1 class="card-title">Export & Integration</h1>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-6);">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-4);">
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fas fa-users"></i> Customer Data Export
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Export complete customer database with contact information, booking history, and spending analytics.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
@@ -1350,16 +1799,16 @@
                                         <i class="fas fa-file-excel"></i> Excel
                                     </button>
                                     <button class="btn btn-secondary btn-small" onclick="exportToGoogleSheets('customers')">
-                                        <i class="fab fa-google"></i> Google Sheets
+                                        <i class="fab fa-google"></i> Sheets
                                     </button>
                                 </div>
                             </div>
                             
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fas fa-calendar-alt"></i> Booking Data Export
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Export all booking records with customer details, service information, and financial data.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
@@ -1370,16 +1819,16 @@
                                         <i class="fas fa-file-excel"></i> Excel
                                     </button>
                                     <button class="btn btn-secondary btn-small" onclick="exportToGoogleSheets('bookings')">
-                                        <i class="fab fa-google"></i> Google Sheets
+                                        <i class="fab fa-google"></i> Sheets
                                     </button>
                                 </div>
                             </div>
                             
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fas fa-user-tie"></i> Staff Data Export
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Export staff information, schedules, and assignment data for HR and payroll management.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
@@ -1393,44 +1842,44 @@
                             </div>
 
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fas fa-calculator"></i> QuickBooks Integration
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Export financial data directly to QuickBooks for accounting and invoicing management.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
                                     <button class="btn btn-warning btn-small" onclick="exportToQuickBooks()">
-                                        <i class="fas fa-calculator"></i> Export to QB
+                                        <i class="fas fa-calculator"></i> Export
                                     </button>
                                     <button class="btn btn-secondary btn-small" onclick="setupQuickBooksIntegration()">
-                                        <i class="fas fa-cog"></i> Setup Integration
+                                        <i class="fas fa-cog"></i> Setup
                                     </button>
                                 </div>
                             </div>
 
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fab fa-google-drive"></i> Cloud Storage
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Automatically backup data to Google Drive or sync with other cloud services.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
                                     <button class="btn btn-secondary btn-small" onclick="backupToGoogleDrive()">
-                                        <i class="fab fa-google-drive"></i> Google Drive
+                                        <i class="fab fa-google-drive"></i> Drive
                                     </button>
                                     <button class="btn btn-secondary btn-small" onclick="scheduleAutoBackup()">
-                                        <i class="fas fa-clock"></i> Auto Backup
+                                        <i class="fas fa-clock"></i> Auto
                                     </button>
                                 </div>
                             </div>
 
                             <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
+                                <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
                                     <i class="fas fa-dollar-sign"></i> Custom Pricing Export
                                 </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4); font-size: 0.875rem;">
                                     Export custom pricing rules and configurations for backup or migration.
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
@@ -1454,7 +1903,7 @@
         <div class="modal">
             <div class="modal-header">
                 <h2 class="modal-title" id="modalTitle">Modal Title</h2>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
             </div>
             <div id="modalContent">
                 <!-- Modal content will be inserted here -->
@@ -1484,7 +1933,10 @@
         let selectedDate = null;
         let calendarBookings = [];
 
-        // API Helper Functions
+        // Mobile state
+        let isMobile = window.innerWidth < 768;
+
+        // Enhanced API Helper Functions
         async function apiCall(endpoint, options = {}) {
             const url = `${CONFIG.API_BASE_URL}${endpoint}`;
             const defaultOptions = {
@@ -1512,35 +1964,40 @@
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
+                handleApiError(error);
                 throw error;
             }
         }
 
-        // Mobile Navigation Functions
+        function handleApiError(error) {
+            console.error('API Error:', error);
+            if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                showNotification('Network error. Please check your connection.', 'error');
+            } else if (error.message.includes('Authentication')) {
+                showNotification('Session expired. Please log in again.', 'warning');
+            } else {
+                showNotification(error.message || 'An unexpected error occurred.', 'error');
+            }
+        }
+
+        // Enhanced Mobile Navigation Functions
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
-            const content = document.getElementById('content');
             
-            sidebar.classList.toggle('closed');
+            sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
-            
-            if (window.innerWidth <= 768) {
-                content.classList.toggle('full-width');
-            }
         }
 
         function closeMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
-            const content = document.getElementById('content');
             
-            sidebar.classList.add('closed');
+            sidebar.classList.remove('open');
             overlay.classList.remove('active');
-            content.classList.add('full-width');
         }
 
-        // Authentication
+        // Enhanced Authentication
         async function login(username, password) {
             const loginBtn = document.querySelector('#loginForm button');
             const btnText = loginBtn.querySelector('.btn-text');
@@ -1568,7 +2025,7 @@
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                showNotification(error.message || 'Login failed', 'error');
+                showNotification(error.message || 'Login failed. Please check your credentials.', 'error');
             } finally {
                 btnText.classList.remove('hidden');
                 loading.classList.add('hidden');
@@ -1597,7 +2054,7 @@
             }
             
             // Initialize mobile layout
-            if (window.innerWidth <= 768) {
+            if (isMobile) {
                 closeMobileMenu();
             }
             
@@ -1605,22 +2062,28 @@
             loadDashboard();
         }
 
-        // Navigation
+        // Enhanced Navigation
         function showSection(sectionName) {
             // Update navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
-            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+            const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
 
             // Update content
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.add('hidden');
             });
-            document.getElementById(`${sectionName}-section`).classList.remove('hidden');
+            const targetSection = document.getElementById(`${sectionName}-section`);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
 
             // Close mobile menu
-            if (window.innerWidth <= 768) {
+            if (isMobile) {
                 closeMobileMenu();
             }
 
@@ -1653,7 +2116,7 @@
             }
         }
 
-        // Calendar Functions
+        // Enhanced Calendar Functions
         function loadCalendar() {
             renderCalendar();
             loadCalendarBookings();
@@ -1671,8 +2134,10 @@
             const startDate = new Date(firstDay);
             startDate.setDate(startDate.getDate() - firstDay.getDay());
 
-            const calendarDays = document.getElementById('calendarDays');
-            calendarDays.innerHTML = '';
+            const calendarDaysContainer = document.getElementById('calendarDays');
+            if (!calendarDaysContainer) return;
+            
+            calendarDaysContainer.innerHTML = '';
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -1701,7 +2166,7 @@
                 `;
                 
                 dayElement.addEventListener('click', () => selectDate(day));
-                calendarDays.appendChild(dayElement);
+                calendarDaysContainer.appendChild(dayElement);
             }
         }
 
@@ -1714,6 +2179,7 @@
                 }
             } catch (error) {
                 console.error('Error loading calendar bookings:', error);
+                showNotification('Error loading calendar bookings', 'error');
             }
         }
 
@@ -1761,8 +2227,8 @@
             );
 
             const content = `
-                <div class="calendar-day-details active">
-                    <h3>${date.toLocaleDateString('en-US', { 
+                <div style="max-height: 70vh; overflow-y: auto;">
+                    <h3 style="margin-bottom: var(--space-4);">${date.toLocaleDateString('en-US', { 
                         weekday: 'long', 
                         year: 'numeric', 
                         month: 'long', 
@@ -1770,25 +2236,25 @@
                     })}</h3>
                     
                     ${dayBookings.length > 0 ? `
-                        <div style="margin-top: var(--space-4);">
+                        <div style="margin-bottom: var(--space-4);">
                             <h4 style="margin-bottom: var(--space-3);">Bookings (${dayBookings.length})</h4>
                             ${dayBookings.map(booking => `
                                 <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-3); border-radius: var(--radius-md); margin-bottom: var(--space-2);">
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
                                         <strong>${booking.customer?.name || 'Unknown Customer'}</strong>
                                         <span class="status-badge status-${booking.status}">${booking.status}</span>
                                     </div>
-                                    <div style="color: var(--gray-400); font-size: 0.875rem; margin-top: var(--space-1);">
+                                    <div style="color: var(--gray-400); font-size: 0.875rem; margin-bottom: var(--space-2);">
                                         ${booking.serviceName || booking.service_type} at ${booking.time || booking.booking_time}
                                         ${booking.assigned_staff ? ` • Staff: ${booking.assigned_staff}` : ''}
                                     </div>
-                                    <div style="margin-top: var(--space-2); display: flex; gap: var(--space-2);">
+                                    <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
                                         ${booking.status === 'confirmed' && !booking.assigned_staff ? `
-                                            <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id})">
+                                            <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id}); closeModal();">
                                                 <i class="fas fa-user-plus"></i> Assign Staff
                                             </button>
                                         ` : ''}
-                                        <button class="btn btn-secondary btn-small" onclick="editBooking(${booking.id})">
+                                        <button class="btn btn-secondary btn-small" onclick="editBooking(${booking.id}); closeModal();">
                                             <i class="fas fa-edit"></i> Edit
                                         </button>
                                     </div>
@@ -1799,41 +2265,15 @@
                         <div style="text-align: center; padding: var(--space-6); color: var(--gray-400);">
                             <i class="fas fa-calendar-day" style="font-size: 2rem; margin-bottom: var(--space-3);"></i>
                             <p>No bookings scheduled for this day</p>
-                            <button class="btn btn-primary btn-small" style="margin-top: var(--space-3);" onclick="addBookingForDate('${dateStr}')">
+                            <button class="btn btn-primary btn-small" style="margin-top: var(--space-3);" onclick="addBookingForDate('${dateStr}'); closeModal();">
                                 <i class="fas fa-plus"></i> Add Booking
                             </button>
                         </div>
                     `}
-                    
-                    <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--gray-400); cursor: pointer;" onclick="hideDateDetails()">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
             `;
 
-            // Show in modal for mobile, inline for desktop
-            if (window.innerWidth <= 768) {
-                showModal('Day Details', content);
-            } else {
-                // Remove existing details
-                const existingDetails = document.querySelector('.calendar-day-details');
-                if (existingDetails) {
-                    existingDetails.remove();
-                }
-
-                // Add new details
-                const dayElement = document.querySelector(`[data-date="${dateStr}"]`);
-                if (dayElement) {
-                    dayElement.insertAdjacentHTML('beforeend', content);
-                }
-            }
-        }
-
-        function hideDateDetails() {
-            const details = document.querySelector('.calendar-day-details');
-            if (details) {
-                details.remove();
-            }
+            showModal('Day Details', content);
         }
 
         function previousMonth() {
@@ -1855,11 +2295,78 @@
         }
 
         function addBookingForDate(dateStr) {
-            hideDateDetails();
             showAddBookingModal(dateStr);
         }
 
-        // Staff Management Functions
+        // Enhanced Data Loading Functions
+        async function loadDashboard() {
+            try {
+                // Load booking stats
+                const statsResponse = await apiCall('/api/admin/bookings/stats');
+                if (statsResponse.success) {
+                    const stats = statsResponse.stats;
+                    document.getElementById('totalCustomers').textContent = stats.customers.total;
+                    document.getElementById('totalBookings').textContent = stats.bookings.total;
+                    document.getElementById('monthlyRevenue').textContent = `$${stats.revenue.monthly.toLocaleString()}`;
+                    document.getElementById('pendingBookings').textContent = stats.bookings.pending;
+                    document.getElementById('confirmedBookings').textContent = stats.bookings.confirmed;
+                    document.getElementById('totalStaff').textContent = stats.staff?.total || 0;
+                }
+
+                // Load recent bookings
+                const bookingsResponse = await apiCall('/api/admin/bookings');
+                if (bookingsResponse.success) {
+                    const recentBookings = bookingsResponse.bookings.slice(0, 5);
+                    renderRecentBookings(recentBookings);
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showNotification('Error loading dashboard data', 'error');
+            }
+        }
+
+        async function loadCustomers() {
+            const container = document.getElementById('customersTableContainer');
+            const mobileContainer = document.getElementById('customersMobileCards');
+            
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading customers...</div>';
+            if (mobileContainer) mobileContainer.innerHTML = '';
+
+            try {
+                const response = await apiCall('/api/admin/customers');
+                if (response.success) {
+                    currentData.customers = response.customers;
+                    renderCustomersTable(response.customers);
+                    renderCustomersMobileCards(response.customers);
+                    updateCustomerCount(response.customers.length);
+                }
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading customers</div>';
+                showNotification('Error loading customers', 'error');
+            }
+        }
+
+        async function loadBookings() {
+            const container = document.getElementById('bookingsTableContainer');
+            const mobileContainer = document.getElementById('bookingsMobileCards');
+            
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading bookings...</div>';
+            if (mobileContainer) mobileContainer.innerHTML = '';
+
+            try {
+                const response = await apiCall('/api/admin/bookings');
+                if (response.success) {
+                    currentData.bookings = response.bookings;
+                    renderBookingsTable(response.bookings);
+                    renderBookingsMobileCards(response.bookings);
+                    updateBookingCount(response.bookings.length);
+                }
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading bookings</div>';
+                showNotification('Error loading bookings', 'error');
+            }
+        }
+
         async function loadStaff() {
             const container = document.getElementById('staffContainer');
             container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading staff...</div>';
@@ -1871,15 +2378,349 @@
                     renderStaff(response.staff || []);
                     updateStaffStats(response.staff?.length || 0);
                 } else {
-                    // No staff data yet, show empty state
                     currentData.staff = [];
                     renderStaff([]);
                     updateStaffStats(0);
                 }
             } catch (error) {
                 console.error('Error loading staff:', error);
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading staff. <button class="btn btn-primary btn-small" onclick="loadStaff()">Retry</button></div>';
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--error);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: var(--space-3);"></i>
+                        <h3>Error Loading Staff</h3>
+                        <p style="margin-bottom: var(--space-4);">There was an issue loading staff data. This might be because the staff table hasn't been created yet.</p>
+                        <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="createStaffTable()">
+                                <i class="fas fa-database"></i> Initialize Staff System
+                            </button>
+                            <button class="btn btn-secondary" onclick="loadStaff()">
+                                <i class="fas fa-refresh"></i> Retry
+                            </button>
+                        </div>
+                    </div>
+                `;
             }
+        }
+
+        async function loadPricing() {
+            const container = document.getElementById('pricingContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading pricing...</div>';
+
+            try {
+                const response = await apiCall('/api/admin/pricing');
+                if (response.success) {
+                    currentData.pricing = response.pricing;
+                    renderPricing(response.pricing);
+                }
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading pricing</div>';
+                showNotification('Error loading pricing', 'error');
+            }
+        }
+
+        async function loadAnalytics() {
+            const container = document.getElementById('analyticsContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading analytics...</div>';
+
+            try {
+                const response = await apiCall('/api/admin/analytics');
+                if (response.success) {
+                    renderAnalytics(response.analytics);
+                }
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading analytics</div>';
+                showNotification('Error loading analytics', 'error');
+            }
+        }
+
+        // Enhanced Rendering Functions
+        function renderRecentBookings(bookings) {
+            const container = document.getElementById('recentBookings');
+            
+            if (!bookings || bookings.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-4); color: var(--gray-400);">No recent bookings</div>';
+                return;
+            }
+
+            const html = `
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${bookings.map(booking => `
+                                <tr>
+                                    <td>${booking.customer ? booking.customer.name : 'Unknown'}</td>
+                                    <td>${booking.serviceName || booking.service}</td>
+                                    <td>${formatDate(booking.date)}</td>
+                                    <td>${booking.time}</td>
+                                    <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                    <td>
+                                        <div style="display: flex; gap: var(--space-1);">
+                                            ${booking.status === 'pending' ? `
+                                                <button class="btn btn-success btn-small btn-icon-only" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            ` : booking.status === 'confirmed' ? `
+                                                <button class="btn btn-warning btn-small btn-icon-only" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
+                                                    <i class="fas fa-check-double"></i>
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderCustomersTable(customers) {
+            const container = document.getElementById('customersTableContainer');
+            
+            if (!customers || customers.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No customers found</div>';
+                return;
+            }
+
+            const html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Total Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Member Since</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${customers.map(customer => `
+                            <tr>
+                                <td>${customer.name}</td>
+                                <td style="word-break: break-all;">${customer.email}</td>
+                                <td>${customer.phone}</td>
+                                <td>${customer.total_bookings}</td>
+                                <td>${customer.total_spent.toFixed(2)}</td>
+                                <td>${formatDate(customer.member_since)}</td>
+                                <td>
+                                    <div style="display: flex; gap: var(--space-1);">
+                                        <button class="btn btn-secondary btn-small btn-icon-only" onclick="viewCustomerBookings(${customer.id})" title="View Bookings">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-small btn-icon-only" onclick="setCustomPricing(${customer.id})" title="Set Custom Pricing">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderCustomersMobileCards(customers) {
+            const container = document.getElementById('customersMobileCards');
+            if (!container) return;
+            
+            if (!customers || customers.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No customers found</div>';
+                return;
+            }
+
+            const html = customers.map(customer => `
+                <div class="mobile-card">
+                    <div class="mobile-card-header">
+                        <div class="mobile-card-title">${customer.name}</div>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <div class="mobile-card-content">
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Email</span>
+                            <span class="mobile-card-value" style="word-break: break-all;">${customer.email}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Phone</span>
+                            <span class="mobile-card-value">${customer.phone || 'N/A'}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Total Bookings</span>
+                            <span class="mobile-card-value">${customer.total_bookings}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Total Spent</span>
+                            <span class="mobile-card-value">${customer.total_spent.toFixed(2)}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Member Since</span>
+                            <span class="mobile-card-value">${formatDate(customer.member_since)}</span>
+                        </div>
+                    </div>
+                    <div class="mobile-card-actions">
+                        <button class="btn btn-secondary btn-small" onclick="viewCustomerBookings(${customer.id})">
+                            <i class="fas fa-calendar"></i> View Bookings
+                        </button>
+                        <button class="btn btn-primary btn-small" onclick="setCustomPricing(${customer.id})">
+                            <i class="fas fa-dollar-sign"></i> Set Pricing
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+        }
+
+        function renderBookingsTable(bookings) {
+            const container = document.getElementById('bookingsTableContainer');
+            
+            if (!bookings || bookings.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No bookings found</div>';
+                return;
+            }
+
+            const html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                            <th>Cost</th>
+                            <th>Staff</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>
+                                    <div>${booking.customer ? booking.customer.name : 'Unknown'}</div>
+                                    <div style="font-size: 0.75rem; color: var(--gray-400);">${booking.customer ? booking.customer.email : ''}</div>
+                                </td>
+                                <td>${booking.serviceName || booking.service}</td>
+                                <td>${formatDate(booking.date)}</td>
+                                <td>${booking.time}</td>
+                                <td>${booking.duration || 1}h</td>
+                                <td>${booking.cost.toFixed(2)}</td>
+                                <td>${booking.assigned_staff || '<span style="color: var(--gray-400);">Unassigned</span>'}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                <td>
+                                    <div style="display: flex; gap: var(--space-1); flex-wrap: wrap;">
+                                        ${booking.status === 'pending' ? `
+                                            <button class="btn btn-success btn-small btn-icon-only" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-small btn-icon-only" onclick="updateBookingStatus(${booking.id}, 'cancelled')" title="Cancel">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        ` : booking.status === 'confirmed' ? `
+                                            <button class="btn btn-warning btn-small btn-icon-only" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
+                                                <i class="fas fa-check-double"></i>
+                                            </button>
+                                            ${!booking.assigned_staff ? `
+                                                <button class="btn btn-primary btn-small btn-icon-only" onclick="assignStaffToBooking(${booking.id})" title="Assign Staff">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </button>
+                                            ` : ''}
+                                        ` : `
+                                            <button class="btn btn-secondary btn-small btn-icon-only" onclick="viewBookingDetails(${booking.id})" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        `}
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderBookingsMobileCards(bookings) {
+            const container = document.getElementById('bookingsMobileCards');
+            if (!container) return;
+            
+            if (!bookings || bookings.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No bookings found</div>';
+                return;
+            }
+
+            const html = bookings.map(booking => `
+                <div class="mobile-card">
+                    <div class="mobile-card-header">
+                        <div class="mobile-card-title">${booking.customer ? booking.customer.name : 'Unknown'}</div>
+                        <span class="status-badge status-${booking.status}">${booking.status}</span>
+                    </div>
+                    <div class="mobile-card-content">
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Service</span>
+                            <span class="mobile-card-value">${booking.serviceName || booking.service}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Date & Time</span>
+                            <span class="mobile-card-value">${formatDate(booking.date)} at ${booking.time}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Duration</span>
+                            <span class="mobile-card-value">${booking.duration || 1}h</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Cost</span>
+                            <span class="mobile-card-value">${booking.cost.toFixed(2)}</span>
+                        </div>
+                        <div class="mobile-card-row">
+                            <span class="mobile-card-label">Staff</span>
+                            <span class="mobile-card-value">${booking.assigned_staff || 'Unassigned'}</span>
+                        </div>
+                    </div>
+                    <div class="mobile-card-actions">
+                        ${booking.status === 'pending' ? `
+                            <button class="btn btn-success btn-small" onclick="updateBookingStatus(${booking.id}, 'confirmed')">
+                                <i class="fas fa-check"></i> Confirm
+                            </button>
+                            <button class="btn btn-danger btn-small" onclick="updateBookingStatus(${booking.id}, 'cancelled')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        ` : booking.status === 'confirmed' ? `
+                            <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')">
+                                <i class="fas fa-check-double"></i> Complete
+                            </button>
+                            ${!booking.assigned_staff ? `
+                                <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id})">
+                                    <i class="fas fa-user-plus"></i> Assign Staff
+                                </button>
+                            ` : ''}
+                        ` : `
+                            <button class="btn btn-secondary btn-small" onclick="viewBookingDetails(${booking.id})">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
         }
 
         function renderStaff(staff) {
@@ -1890,8 +2731,8 @@
                     <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
                         <i class="fas fa-users" style="font-size: 3rem; margin-bottom: var(--space-4);"></i>
                         <h3>No Staff Members</h3>
-                        <p>Start by adding your first staff member to manage assignments and schedules.</p>
-                        <button class="btn btn-primary" style="margin-top: var(--space-4);" onclick="showAddStaffModal()">
+                        <p style="margin-bottom: var(--space-4);">Start by adding your first staff member to manage assignments and schedules.</p>
+                        <button class="btn btn-primary" onclick="showAddStaffModal()">
                             <i class="fas fa-user-plus"></i> Add First Staff Member
                         </button>
                     </div>
@@ -1906,25 +2747,21 @@
                             <div class="staff-avatar">${member.name.charAt(0).toUpperCase()}</div>
                             <div class="staff-name">${member.name}</div>
                             <div class="staff-role">${member.role || 'Staff Member'}</div>
-                            <div style="text-align: center; margin-bottom: var(--space-4);">
+                            <div style="margin-bottom: var(--space-3);">
                                 <span class="staff-status ${member.status || 'available'}">${(member.status || 'available').toUpperCase()}</span>
                             </div>
-                            <div style="text-align: center;">
-                                <strong>Phone:</strong> ${member.phone || 'N/A'}<br>
-                                <strong>Email:</strong> ${member.email || 'N/A'}
+                            <div class="staff-details">
+                                <div><strong>Phone:</strong> ${member.phone || 'N/A'}</div>
+                                <div><strong>Email:</strong> ${member.email || 'N/A'}</div>
+                                <div><strong>Joined:</strong> ${formatDate(member.hire_date || member.created_at)}</div>
                             </div>
-                            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-2); justify-content: center;">
+                            <div class="staff-actions">
                                 <button class="btn btn-secondary btn-small" onclick="editStaff(${member.id})">
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
                                 <button class="btn btn-danger btn-small" onclick="deleteStaff(${member.id})">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
-                            </div>
-                            <div style="margin-top: var(--space-3); text-align: center;">
-                                <small style="color: var(--gray-400);">
-                                    Joined: ${formatDate(member.hire_date || member.created_at)}
-                                </small>
                             </div>
                         </div>
                     `).join('')}
@@ -1934,10 +2771,218 @@
             container.innerHTML = html;
         }
 
+        function renderPricing(pricing) {
+            const container = document.getElementById('pricingContainer');
+            
+            if (!pricing || pricing.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
+                        <i class="fas fa-dollar-sign" style="font-size: 3rem; margin-bottom: var(--space-4);"></i>
+                        <h3>No Custom Pricing Rules</h3>
+                        <p style="margin-bottom: var(--space-4);">Create custom pricing for specific customers and services.</p>
+                        <button class="btn btn-primary" onclick="showAddPricingModal()">
+                            <i class="fas fa-plus"></i> Add Custom Pricing
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = `
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Service Type</th>
+                                <th>Custom Price</th>
+                                <th>Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pricing.map(price => `
+                                <tr>
+                                    <td>${price.customer_name || 'Unknown'}</td>
+                                    <td style="word-break: break-all;">${price.customer_email || 'N/A'}</td>
+                                    <td>${price.service_type}</td>
+                                    <td>${price.price.toFixed(2)}</td>
+                                    <td>${formatDate(price.updated_at)}</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-small btn-icon-only" onclick="deleteCustomPricing(${price.user_id}, '${price.service_type}')" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function renderAnalytics(analytics) {
+            const container = document.getElementById('analyticsContainer');
+            
+            const html = `
+                <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-6);">
+                    <div class="card">
+                        <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
+                            <i class="fas fa-chart-line"></i> Business Summary
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                            <div style="text-align: center; padding: var(--space-4); background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: var(--space-1);">
+                                    ${analytics.summary.totalBookings}
+                                </div>
+                                <div style="color: var(--gray-400); font-size: 0.875rem;">Total Bookings</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-4); background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--success); margin-bottom: var(--space-1);">
+                                    ${analytics.summary.totalRevenue.toFixed(2)}
+                                </div>
+                                <div style="color: var(--gray-400); font-size: 0.875rem;">Total Revenue</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-4); background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--warning); margin-bottom: var(--space-1);">
+                                    ${analytics.summary.avgBookingsPerMonth}
+                                </div>
+                                <div style="color: var(--gray-400); font-size: 0.875rem;">Avg Bookings/Month</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-4); background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--secondary); margin-bottom: var(--space-1);">
+                                    ${analytics.summary.mostPopularService}
+                                </div>
+                                <div style="color: var(--gray-400); font-size: 0.875rem;">Most Popular Service</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                        <div class="card">
+                            <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
+                                <i class="fas fa-users"></i> Top Customers
+                            </h3>
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                ${analytics.topCustomers.map(customer => `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <div>
+                                            <div style="font-weight: 600;">${customer.name}</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-400);">${customer.total_bookings} bookings</div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div style="font-weight: 600; color: var(--success);">${customer.total_spent.toFixed(2)}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
+                                <i class="fas fa-chart-pie"></i> Service Distribution
+                            </h3>
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                ${analytics.serviceDistribution.map(service => `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <div>
+                                            <div style="font-weight: 600;">${service.service}</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-400);">${service.count} bookings</div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div style="font-weight: 600; color: var(--primary);">${service.percentage}%</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);">
+                            <i class="fas fa-calendar"></i> Monthly Trends (Last 6 Months)
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-3);">
+                            ${analytics.monthlyBookings.slice(-6).map(month => `
+                                <div style="text-align: center; padding: var(--space-3); background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                                    <div style="font-size: 0.875rem; color: var(--gray-400); margin-bottom: var(--space-1);">${month.month}</div>
+                                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: var(--space-1);">${month.bookings}</div>
+                                    <div style="font-size: 0.75rem; color: var(--success);">${month.revenue}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Enhanced Filter Functions
+        function filterCustomers() {
+            const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
+            
+            const filteredCustomers = currentData.customers.filter(customer => {
+                return customer.name.toLowerCase().includes(searchTerm) || 
+                       customer.email.toLowerCase().includes(searchTerm) ||
+                       (customer.phone && customer.phone.includes(searchTerm));
+            });
+            
+            renderCustomersTable(filteredCustomers);
+            renderCustomersMobileCards(filteredCustomers);
+            updateCustomerCount(filteredCustomers.length);
+        }
+
+        function filterBookings() {
+            const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
+            const statusFilter = document.getElementById('bookingStatusFilter').value;
+            
+            const filteredBookings = currentData.bookings.filter(booking => {
+                const matchesSearch = (booking.customer?.name || '').toLowerCase().includes(searchTerm) || 
+                                    (booking.serviceName || booking.service).toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || booking.status === statusFilter;
+                
+                return matchesSearch && matchesStatus;
+            });
+            
+            renderBookingsTable(filteredBookings);
+            renderBookingsMobileCards(filteredBookings);
+            updateBookingCount(filteredBookings.length);
+        }
+
+        function updateCustomerCount(count) {
+            const counter = document.getElementById('customerCount');
+            if (counter) {
+                counter.textContent = `${count} customer${count !== 1 ? 's' : ''}`;
+            }
+        }
+
+        function updateBookingCount(count) {
+            const counter = document.getElementById('bookingCount');
+            if (counter) {
+                counter.textContent = `${count} booking${count !== 1 ? 's' : ''}`;
+            }
+        }
+
         function updateStaffStats(count) {
             const statElement = document.getElementById('totalStaff');
             if (statElement) {
                 statElement.textContent = count;
+            }
+        }
+
+        // Enhanced Staff Management Functions
+        async function createStaffTable() {
+            try {
+                showNotification('Initializing staff system...', 'info');
+                await apiCall('/debug');
+                showNotification('Staff system initialized successfully!', 'success');
+                setTimeout(() => loadStaff(), 1000);
+            } catch (error) {
+                showNotification('Error initializing staff system', 'error');
             }
         }
 
@@ -1993,7 +3038,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                    <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Staff Member
@@ -2024,6 +3069,7 @@
             };
             
             const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="spinner"></div> Adding staff member...';
             
@@ -2037,7 +3083,7 @@
                     closeModal();
                     showNotification('Staff member added successfully!', 'success');
                     loadStaff();
-                    loadDashboard(); // Refresh stats
+                    loadDashboard();
                 } else {
                     throw new Error(response.error || 'Failed to add staff member');
                 }
@@ -2046,7 +3092,7 @@
                 showNotification(error.message || 'Error adding staff member', 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Add Staff Member';
+                submitBtn.innerHTML = originalText;
             }
         }
 
@@ -2063,7 +3109,7 @@
                 if (response.success) {
                     showNotification('Staff member deleted successfully!', 'success');
                     loadStaff();
-                    loadDashboard(); // Refresh stats
+                    loadDashboard();
                 } else {
                     throw new Error(response.error || 'Failed to delete staff member');
                 }
@@ -2131,7 +3177,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                    <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Update Staff Member
@@ -2158,6 +3204,7 @@
                 };
                 
                 const submitBtn = event.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<div class="spinner"></div> Updating...';
                 
@@ -2179,7 +3226,7 @@
                     showNotification(error.message || 'Error updating staff member', 'error');
                 } finally {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Staff Member';
+                    submitBtn.innerHTML = originalText;
                 }
             });
         }
@@ -2209,7 +3256,7 @@
                         <textarea name="assignment_notes" class="form-textarea" rows="3" placeholder="Any special instructions or notes for this assignment..."></textarea>
                     </div>
                     
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                    <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Assign Staff
@@ -2230,6 +3277,11 @@
                     assignment_notes: formData.get('assignment_notes')
                 };
                 
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="spinner"></div> Assigning...';
+                
                 try {
                     const response = await apiCall('/api/admin/staff-assignments', {
                         method: 'POST',
@@ -2240,434 +3292,21 @@
                         closeModal();
                         showNotification('Staff assigned successfully!', 'success');
                         loadCalendarBookings();
-                        hideDateDetails();
+                        loadBookings(); // Refresh bookings list
                     } else {
                         throw new Error(response.error || 'Failed to assign staff');
                     }
                 } catch (error) {
                     console.error('Staff assignment error:', error);
                     showNotification(error.message || 'Error assigning staff', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
                 }
             });
         }
 
-        // Data Loading Functions (Enhanced)
-        async function loadDashboard() {
-            try {
-                // Load booking stats
-                const statsResponse = await apiCall('/api/admin/bookings/stats');
-                if (statsResponse.success) {
-                    const stats = statsResponse.stats;
-                    document.getElementById('totalCustomers').textContent = stats.customers.total;
-                    document.getElementById('totalBookings').textContent = stats.bookings.total;
-                    document.getElementById('monthlyRevenue').textContent = `$${stats.revenue.monthly.toLocaleString()}`;
-                    document.getElementById('pendingBookings').textContent = stats.bookings.pending;
-                    document.getElementById('confirmedBookings').textContent = stats.bookings.confirmed;
-                }
-
-                // Load staff count
-                try {
-                    const staffResponse = await apiCall('/api/admin/staff');
-                    if (staffResponse.success) {
-                        updateStaffStats(staffResponse.staff?.length || 0);
-                    }
-                } catch (error) {
-                    updateStaffStats(0);
-                }
-
-                // Load recent bookings
-                const bookingsResponse = await apiCall('/api/admin/bookings');
-                if (bookingsResponse.success) {
-                    const recentBookings = bookingsResponse.bookings.slice(0, 5);
-                    renderRecentBookings(recentBookings);
-                }
-            } catch (error) {
-                console.error('Error loading dashboard:', error);
-                showNotification('Error loading dashboard data', 'error');
-            }
-        }
-
-        async function loadCustomers() {
-            const container = document.getElementById('customersTableContainer');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading customers...</div>';
-
-            try {
-                const response = await apiCall('/api/admin/customers');
-                if (response.success) {
-                    currentData.customers = response.customers;
-                    renderCustomersTable(response.customers);
-                    updateCustomerCount(response.customers.length);
-                }
-            } catch (error) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading customers</div>';
-                showNotification('Error loading customers', 'error');
-            }
-        }
-
-        async function loadBookings() {
-            const container = document.getElementById('bookingsTableContainer');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading bookings...</div>';
-
-            try {
-                const response = await apiCall('/api/admin/bookings');
-                if (response.success) {
-                    currentData.bookings = response.bookings;
-                    renderBookingsTable(response.bookings);
-                    updateBookingCount(response.bookings.length);
-                }
-            } catch (error) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading bookings</div>';
-                showNotification('Error loading bookings', 'error');
-            }
-        }
-
-        async function loadPricing() {
-            const container = document.getElementById('pricingContainer');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading pricing...</div>';
-
-            try {
-                const response = await apiCall('/api/admin/pricing');
-                if (response.success) {
-                    currentData.pricing = response.pricing;
-                    renderPricing(response.pricing);
-                }
-            } catch (error) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading pricing</div>';
-                showNotification('Error loading pricing', 'error');
-            }
-        }
-
-        async function loadAnalytics() {
-            const container = document.getElementById('analyticsContainer');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading analytics...</div>';
-
-            try {
-                const response = await apiCall('/api/admin/analytics');
-                if (response.success) {
-                    renderAnalytics(response.analytics);
-                }
-            } catch (error) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading analytics</div>';
-                showNotification('Error loading analytics', 'error');
-            }
-        }
-
-        // Rendering Functions
-        function renderRecentBookings(bookings) {
-            const container = document.getElementById('recentBookings');
-            
-            if (!bookings || bookings.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-4); color: var(--gray-400);">No recent bookings</div>';
-                return;
-            }
-
-            const html = `
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Service</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${bookings.map(booking => `
-                            <tr>
-                                <td>${booking.customer ? booking.customer.name : 'Unknown'}</td>
-                                <td>${booking.serviceName || booking.service}</td>
-                                <td>${formatDate(booking.date)}</td>
-                                <td>${booking.time}</td>
-                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
-                                <td>
-                                    ${booking.status === 'pending' ? `
-                                        <button class="btn btn-success btn-small" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    ` : booking.status === 'confirmed' ? `
-                                        <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
-                                            <i class="fas fa-check-double"></i>
-                                        </button>
-                                    ` : ''}
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        function renderCustomersTable(customers) {
-            const container = document.getElementById('customersTableContainer');
-            
-            if (!customers || customers.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No customers found</div>';
-                return;
-            }
-
-            const html = `
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Total Bookings</th>
-                            <th>Total Spent</th>
-                            <th>Member Since</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${customers.map(customer => `
-                            <tr>
-                                <td>${customer.name}</td>
-                                <td>${customer.email}</td>
-                                <td>${customer.phone}</td>
-                                <td>${customer.total_bookings}</td>
-                                <td>${customer.total_spent.toFixed(2)}</td>
-                                <td>${formatDate(customer.member_since)}</td>
-                                <td>
-                                    <button class="btn btn-secondary btn-small" onclick="viewCustomerBookings(${customer.id})" title="View Bookings">
-                                        <i class="fas fa-calendar"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-small" onclick="setCustomPricing(${customer.id})" title="Set Custom Pricing">
-                                        <i class="fas fa-dollar-sign"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        function renderBookingsTable(bookings) {
-            const container = document.getElementById('bookingsTableContainer');
-            
-            if (!bookings || bookings.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No bookings found</div>';
-                return;
-            }
-
-            const html = `
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Service</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Duration</th>
-                            <th>Cost</th>
-                            <th>Staff</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${bookings.map(booking => `
-                            <tr>
-                                <td>
-                                    <div>${booking.customer ? booking.customer.name : 'Unknown'}</div>
-                                    <div style="font-size: 0.75rem; color: var(--gray-400);">${booking.customer ? booking.customer.email : ''}</div>
-                                </td>
-                                <td>${booking.serviceName || booking.service}</td>
-                                <td>${formatDate(booking.date)}</td>
-                                <td>${booking.time}</td>
-                                <td>${booking.duration || 1}h</td>
-                                <td>${booking.cost.toFixed(2)}</td>
-                                <td>${booking.assigned_staff || '<span style="color: var(--gray-400);">Unassigned</span>'}</td>
-                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
-                                <td>
-                                    ${booking.status === 'pending' ? `
-                                        <button class="btn btn-success btn-small" onclick="updateBookingStatus(${booking.id}, 'confirmed')" title="Confirm">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-small" onclick="updateBookingStatus(${booking.id}, 'cancelled')" title="Cancel">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    ` : booking.status === 'confirmed' ? `
-                                        <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
-                                            <i class="fas fa-check-double"></i>
-                                        </button>
-                                        ${!booking.assigned_staff ? `
-                                            <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id})" title="Assign Staff">
-                                                <i class="fas fa-user-plus"></i>
-                                            </button>
-                                        ` : ''}
-                                    ` : `
-                                        <button class="btn btn-secondary btn-small" onclick="viewBookingDetails(${booking.id})" title="View Details">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    `}
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        function renderPricing(pricing) {
-            const container = document.getElementById('pricingContainer');
-            
-            if (!pricing || pricing.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">No custom pricing rules found</div>';
-                return;
-            }
-
-            const html = `
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Email</th>
-                            <th>Service Type</th>
-                            <th>Custom Price</th>
-                            <th>Updated</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${pricing.map(price => `
-                            <tr>
-                                <td>${price.customer_name || 'Unknown'}</td>
-                                <td>${price.customer_email || 'N/A'}</td>
-                                <td>${price.service_type}</td>
-                                <td>${price.price.toFixed(2)}</td>
-                                <td>${formatDate(price.updated_at)}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-small" onclick="deleteCustomPricing(${price.user_id}, '${price.service_type}')" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        function renderAnalytics(analytics) {
-            const container = document.getElementById('analyticsContainer');
-            
-            const html = `
-                <div class="analytics-grid">
-                    <div class="card">
-                        <h3>Business Summary</h3>
-                        <div style="padding: var(--space-4);">
-                            <div style="margin-bottom: var(--space-3);">
-                                <strong>Total Bookings:</strong> ${analytics.summary.totalBookings}
-                            </div>
-                            <div style="margin-bottom: var(--space-3);">
-                                <strong>Total Revenue:</strong> ${analytics.summary.totalRevenue.toFixed(2)}
-                            </div>
-                            <div style="margin-bottom: var(--space-3);">
-                                <strong>Avg Bookings/Month:</strong> ${analytics.summary.avgBookingsPerMonth}
-                            </div>
-                            <div>
-                                <strong>Most Popular Service:</strong> ${analytics.summary.mostPopularService}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Top Customers</h3>
-                        <div style="padding: var(--space-4);">
-                            ${analytics.topCustomers.map(customer => `
-                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                                    <span>${customer.name}</span>
-                                    <span>${customer.total_spent.toFixed(2)} (${customer.total_bookings} bookings)</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Service Distribution</h3>
-                        <div style="padding: var(--space-4);">
-                            ${analytics.serviceDistribution.map(service => `
-                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                                    <span>${service.service}</span>
-                                    <span>${service.count} (${service.percentage}%)</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Monthly Trends</h3>
-                        <div style="padding: var(--space-4);">
-                            ${analytics.monthlyBookings.slice(-6).map(month => `
-                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
-                                    <span>${month.month}</span>
-                                    <span>${month.bookings} bookings (${month.revenue})</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        // Filter Functions
-        function filterCustomers() {
-            const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
-            
-            const filteredCustomers = currentData.customers.filter(customer => {
-                return customer.name.toLowerCase().includes(searchTerm) || 
-                       customer.email.toLowerCase().includes(searchTerm) ||
-                       (customer.phone && customer.phone.includes(searchTerm));
-            });
-            
-            renderCustomersTable(filteredCustomers);
-            updateCustomerCount(filteredCustomers.length);
-        }
-
-        function filterBookings() {
-            const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('bookingStatusFilter').value;
-            
-            const filteredBookings = currentData.bookings.filter(booking => {
-                const matchesSearch = (booking.customer?.name || '').toLowerCase().includes(searchTerm) || 
-                                    (booking.serviceName || booking.service).toLowerCase().includes(searchTerm);
-                const matchesStatus = !statusFilter || booking.status === statusFilter;
-                
-                return matchesSearch && matchesStatus;
-            });
-            
-            renderBookingsTable(filteredBookings);
-            updateBookingCount(filteredBookings.length);
-        }
-
-        function updateCustomerCount(count) {
-            const counter = document.getElementById('customerCount');
-            if (counter) {
-                counter.textContent = `${count} customer${count !== 1 ? 's' : ''}`;
-            }
-        }
-
-        function updateBookingCount(count) {
-            const counter = document.getElementById('bookingCount');
-            if (counter) {
-                counter.textContent = `${count} booking${count !== 1 ? 's' : ''}`;
-            }
-        }
-
-        // Action Functions
+        // Enhanced Action Functions
         async function updateBookingStatus(id, status) {
             try {
                 const response = await apiCall(`/api/admin/bookings/${id}`, {
@@ -2683,18 +3322,20 @@
                     }
                     
                     showNotification(`Booking ${status} successfully!`, 'success');
-                    loadDashboard(); // Refresh stats
+                    loadDashboard();
                     
                     // Refresh current view if we're on bookings page
-                    const currentSection = document.querySelector('.nav-link.active').dataset.section;
+                    const currentSection = document.querySelector('.nav-link.active')?.dataset?.section;
                     if (currentSection === 'bookings') {
-                        renderBookingsTable(currentData.bookings);
+                        filterBookings(); // This will re-render with updated data
                     } else if (currentSection === 'calendar') {
                         loadCalendarBookings();
                     }
+                } else {
+                    throw new Error(response.error || 'Failed to update booking status');
                 }
             } catch (error) {
-                showNotification('Error updating booking status', 'error');
+                showNotification(error.message || 'Error updating booking status', 'error');
             }
         }
 
@@ -2710,9 +3351,11 @@
                 if (response.success) {
                     showNotification('Custom pricing deleted successfully!', 'success');
                     loadPricing();
+                } else {
+                    throw new Error(response.error || 'Failed to delete custom pricing');
                 }
             } catch (error) {
-                showNotification('Error deleting custom pricing', 'error');
+                showNotification(error.message || 'Error deleting custom pricing', 'error');
             }
         }
 
@@ -2720,7 +3363,6 @@
             const customer = currentData.customers.find(c => c.id === customerId);
             if (customer) {
                 showNotification(`Viewing bookings for ${customer.name}`, 'info');
-                // Switch to bookings tab and filter by customer
                 showSection('bookings');
                 setTimeout(() => {
                     document.getElementById('bookingSearch').value = customer.name;
@@ -2740,7 +3382,6 @@
             const booking = currentData.bookings.find(b => b.id === bookingId);
             if (booking) {
                 showNotification(`Viewing details for booking #${bookingId}`, 'info');
-                // Could open a detailed modal here
             }
         }
 
@@ -2748,15 +3389,21 @@
             const booking = currentData.bookings.find(b => b.id === bookingId);
             if (booking) {
                 showNotification(`Edit functionality for booking #${bookingId} coming soon`, 'info');
-                // Could implement edit booking modal here
             }
         }
 
-        // Modal Functions
+        // Enhanced Modal Functions
         function showModal(title, content) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalContent').innerHTML = content;
             document.getElementById('modalOverlay').classList.add('active');
+            
+            // Focus management for accessibility
+            const modal = document.querySelector('.modal');
+            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
         }
 
         function closeModal() {
@@ -2791,11 +3438,11 @@
                         <label class="form-label">Custom Price ($)</label>
                         <input type="number" name="price" class="form-input" step="0.01" min="0" required>
                     </div>
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3);">
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Save Pricing
                         </button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                     </div>
                 </form>
             `;
@@ -2811,6 +3458,11 @@
                     price: parseFloat(formData.get('price'))
                 };
                 
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="spinner"></div> Saving...';
+                
                 try {
                     const response = await apiCall('/api/admin/pricing', {
                         method: 'POST',
@@ -2821,9 +3473,14 @@
                         showNotification('Custom pricing added successfully!', 'success');
                         closeModal();
                         loadPricing();
+                    } else {
+                        throw new Error(response.error || 'Failed to add custom pricing');
                     }
                 } catch (error) {
-                    showNotification('Error adding custom pricing', 'error');
+                    showNotification(error.message || 'Error adding custom pricing', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
                 }
             });
         }
@@ -2861,10 +3518,10 @@
                         
                         <div class="form-group form-grid-full">
                             <label class="form-label">Temporary Password</label>
-                            <div class="password-generator">
-                                <div class="password-display" id="tempPassword">${tempPassword}</div>
+                            <div style="display: flex; gap: var(--space-2); align-items: center;">
+                                <div style="flex: 1; font-family: monospace; background: rgba(255, 255, 255, 0.05); padding: var(--space-3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); color: var(--white);" id="tempPassword">${tempPassword}</div>
                                 <button type="button" class="btn btn-secondary btn-small" onclick="regeneratePassword()">
-                                    <i class="fas fa-refresh"></i> Generate New
+                                    <i class="fas fa-refresh"></i>
                                 </button>
                             </div>
                             <small style="color: var(--gray-400); margin-top: var(--space-2); display: block;">
@@ -2880,7 +3537,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                    <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Customer & Send Email
@@ -2947,7 +3604,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                    <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-calendar-plus"></i> Add Booking
@@ -2973,10 +3630,11 @@
                 duration: parseFloat(formData.get('duration')) || 1,
                 participants: parseInt(formData.get('participants')) || 1,
                 special_requests: formData.get('special_requests'),
-                status: 'confirmed' // Admin bookings are auto-confirmed
+                status: 'confirmed'
             };
             
             const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="spinner"></div> Adding booking...';
             
@@ -2990,7 +3648,7 @@
                     closeModal();
                     showNotification('Booking added successfully!', 'success');
                     loadCalendarBookings();
-                    loadDashboard(); // Refresh stats
+                    loadDashboard();
                 } else {
                     throw new Error(response.error || 'Failed to add booking');
                 }
@@ -2999,7 +3657,7 @@
                 showNotification(error.message || 'Error adding booking', 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-calendar-plus"></i> Add Booking';
+                submitBtn.innerHTML = originalText;
             }
         }
 
@@ -3037,11 +3695,11 @@
             };
             
             const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="spinner"></div> Creating customer...';
             
             try {
-                // First create the customer
                 const response = await apiCall('/api/admin/customers', {
                     method: 'POST',
                     body: JSON.stringify(customerData)
@@ -3052,13 +3710,11 @@
                     showNotification('Customer created successfully!', 'success');
                     
                     if (sendEmail) {
-                        // Send welcome email with credentials
                         await sendWelcomeEmail(customerData);
                     }
                     
-                    // Refresh customers list
                     loadCustomers();
-                    loadDashboard(); // Refresh stats
+                    loadDashboard();
                 } else {
                     throw new Error(response.error || 'Failed to create customer');
                 }
@@ -3067,7 +3723,7 @@
                 showNotification(error.message || 'Error creating customer', 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Add Customer & Send Email';
+                submitBtn.innerHTML = originalText;
             }
         }
 
@@ -3096,7 +3752,7 @@
             }
         }
 
-        // Export Functions
+        // Enhanced Export Functions
         async function exportData(type, format = 'csv') {
             try {
                 showNotification(`Preparing ${format.toUpperCase()} export...`, 'info');
@@ -3104,7 +3760,6 @@
                 if (format === 'excel') {
                     await exportToExcel(type);
                 } else {
-                    // Standard CSV export
                     const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
                         headers: {
                             'Authorization': `Bearer ${authToken}`
@@ -3128,17 +3783,15 @@
                     }
                 }
             } catch (error) {
-                showNotification('Error exporting data', 'error');
+                showNotification(error.message || 'Error exporting data', 'error');
             }
         }
 
         async function exportToExcel(type) {
             try {
                 if (!window.XLSX) {
-                    const script = document.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-                    document.head.appendChild(script);
-                    await new Promise(resolve => script.onload = resolve);
+                    showNotification('Loading Excel export library...', 'info');
+                    return;
                 }
 
                 let data = [];
@@ -3252,28 +3905,33 @@
             showNotification('Analytics refreshed', 'success');
         }
 
-        // Utility Functions
+        // Enhanced Utility Functions
         function formatDate(dateString) {
             if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                return 'Invalid Date';
+            }
         }
 
         function showNotification(message, type = 'info') {
+            // Remove existing notifications
             const existing = document.querySelector('.notification');
             if (existing) existing.remove();
 
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation-circle' : 'info-circle'}"></i>
                     <span>${message}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()" aria-label="Close notification">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -3281,10 +3939,17 @@
 
             document.body.appendChild(notification);
             
+            // Show notification
             setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Auto-hide notification
             setTimeout(() => {
                 notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
             }, 5000);
         }
 
@@ -3294,7 +3959,7 @@
             showNotification('Admin credentials filled', 'info');
         }
 
-        // Event Listeners
+        // Enhanced Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Check if already logged in
             const savedToken = localStorage.getItem('authToken');
@@ -3309,9 +3974,11 @@
             // Login form
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const username = document.getElementById('username').value;
+                const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
-                login(username, password);
+                if (username && password) {
+                    login(username, password);
+                }
             });
 
             // Navigation
@@ -3319,7 +3986,9 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const section = this.getAttribute('data-section');
-                    showSection(section);
+                    if (section) {
+                        showSection(section);
+                    }
                 });
             });
 
@@ -3327,6 +3996,17 @@
             document.getElementById('modalOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeModal();
+                }
+            });
+
+            // Escape key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    // Close export menus
+                    document.querySelectorAll('.export-dropdown').forEach(menu => {
+                        menu.classList.add('hidden');
+                    });
                 }
             });
 
@@ -3339,23 +4019,60 @@
                 }
             });
 
-            // Responsive sidebar handling
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    document.getElementById('sidebar').classList.remove('closed');
+            // Enhanced responsive handling
+            function handleResize() {
+                isMobile = window.innerWidth < 768;
+                
+                if (!isMobile) {
+                    // Desktop - ensure sidebar is open and overlay is hidden
+                    document.getElementById('sidebar').classList.remove('open');
                     document.querySelector('.sidebar-overlay').classList.remove('active');
-                    document.getElementById('content').classList.remove('full-width');
                 } else {
+                    // Mobile - ensure sidebar is closed initially
                     closeMobileMenu();
                 }
-            });
+            }
 
-            console.log('🏊‍♂️ 805 LifeGuard Enhanced Admin Portal Initialized');
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Initial call
+
+            // Touch handling for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isMobile) return;
+                
+                const touchEndX = e.touches[0].clientX;
+                const touchEndY = e.touches[0].clientY;
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+                
+                // Horizontal swipe detection
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0 && touchStartX < 50) {
+                        // Swipe right from left edge - open menu
+                        toggleMobileMenu();
+                    } else if (diffX < 0 && touchStartX > window.innerWidth - 50) {
+                        // Swipe left from right edge - close menu
+                        closeMobileMenu();
+                    }
+                }
+            }, { passive: true });
+
+            console.log('🏊‍♂️ 805 LifeGuard Enhanced Mobile-First Admin Portal Initialized');
             console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
             console.log('🔑 Admin credentials: admin/lifeguard2025');
-            console.log('📱 Mobile navigation enabled');
-            console.log('📅 Calendar view with staff assignments');
-            console.log('👥 Staff management module');
+            console.log('📱 Enhanced mobile navigation and responsiveness');
+            console.log('📅 Complete calendar view with staff assignments');
+            console.log('👥 Full staff management with error handling');
+            console.log('🎨 Mobile-first design with touch support');
+            console.log('♿ Enhanced accessibility features');
         });
     </script>
 </body>
