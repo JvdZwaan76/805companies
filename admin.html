@@ -3371,10 +3371,12 @@
             }
         }
 
-        function setCustomPricing(customerId) {
+        async function setCustomPricing(customerId) {
             const customer = currentData.customers.find(c => c.id === customerId);
             if (customer) {
-                showAddPricingModal(customer);
+                await showAddPricingModal(customer);
+            } else {
+                showNotification('Customer not found. Please refresh the customer list.', 'error');
             }
         }
 
@@ -3410,7 +3412,26 @@
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        function showAddPricingModal(customer = null) {
+        async function showAddPricingModal(customer = null) {
+            // Ensure customers are loaded
+            if (!currentData.customers || currentData.customers.length === 0) {
+                showNotification('Loading customers...', 'info');
+                try {
+                    const response = await apiCall('/api/admin/customers');
+                    if (response.success) {
+                        currentData.customers = response.customers;
+                    }
+                } catch (error) {
+                    showNotification('Error loading customers. Please try again.', 'error');
+                    return;
+                }
+            }
+
+            if (!currentData.customers || currentData.customers.length === 0) {
+                showNotification('No customers found. Please add customers first.', 'warning');
+                return;
+            }
+
             const customerOptions = currentData.customers.map(c => 
                 `<option value="${c.id}" ${customer && c.id === customer.id ? 'selected' : ''}>${c.name} (${c.email})</option>`
             ).join('');
@@ -3525,22 +3546,32 @@
                                 </button>
                             </div>
                             <small style="color: var(--gray-400); margin-top: var(--space-2); display: block;">
-                                This temporary password will be sent to the customer via email
+                                Customer can use this password to log in to the client portal
                             </small>
                         </div>
                         
                         <div class="form-group form-grid-full">
-                            <label style="display: flex; align-items: center; gap: var(--space-2); color: var(--gray-300);">
-                                <input type="checkbox" id="sendWelcomeEmail" checked>
-                                <span>Send welcome email with login credentials</span>
-                            </label>
+                            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: var(--space-4);">
+                                <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
+                                    <i class="fas fa-info-circle" style="color: var(--warning);"></i>
+                                    <strong style="color: var(--warning);">Email Configuration Notice</strong>
+                                </div>
+                                <p style="color: var(--gray-300); font-size: 0.875rem; margin-bottom: var(--space-3);">
+                                    Email service is not configured yet. The customer will be created but no welcome email will be sent. 
+                                    You'll need to manually provide the login credentials to the customer.
+                                </p>
+                                <label style="display: flex; align-items: center; gap: var(--space-2); color: var(--gray-300);">
+                                    <input type="checkbox" id="sendWelcomeEmail" disabled>
+                                    <span style="text-decoration: line-through; opacity: 0.6;">Send welcome email with login credentials (temporarily disabled)</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-user-plus"></i> Add Customer & Send Email
+                            <i class="fas fa-user-plus"></i> Add Customer (Email Later)
                         </button>
                     </div>
                 </form>
@@ -3682,7 +3713,6 @@
             
             const formData = new FormData(event.target);
             const tempPassword = document.getElementById('tempPassword').textContent;
-            const sendEmail = document.getElementById('sendWelcomeEmail').checked;
             
             const customerData = {
                 name: formData.get('name'),
@@ -3691,7 +3721,7 @@
                 address: formData.get('address'),
                 emergency_contact: formData.get('emergency_contact'),
                 password: tempPassword,
-                sendWelcomeEmail: sendEmail
+                sendWelcomeEmail: false // Disabled for now
             };
             
             const submitBtn = event.target.querySelector('button[type="submit"]');
@@ -3707,12 +3737,32 @@
                 
                 if (response.success) {
                     closeModal();
-                    showNotification('Customer created successfully!', 'success');
                     
-                    if (sendEmail) {
-                        await sendWelcomeEmail(customerData);
-                    }
+                    // Show detailed success notification with login credentials
+                    const credentialsInfo = `
+                        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-3);">
+                            <h4 style="color: var(--success); margin-bottom: var(--space-2);">✅ Customer Created Successfully!</h4>
+                            <p style="margin-bottom: var(--space-2);"><strong>Customer:</strong> ${customerData.name}</p>
+                            <p style="margin-bottom: var(--space-2);"><strong>Email:</strong> ${customerData.email}</p>
+                            <p style="margin-bottom: var(--space-2);"><strong>Temporary Password:</strong> <code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">${tempPassword}</code></p>
+                            <p style="margin-bottom: var(--space-2);"><strong>Client Portal URL:</strong> <a href="/client-portal.html" target="_blank" style="color: var(--primary);">${window.location.origin}/client-portal.html</a></p>
+                            <div style="margin: var(--space-3) 0;">
+                                <button class="btn btn-secondary btn-small" onclick="copyCredentials('${customerData.email}', '${tempPassword}')">
+                                    <i class="fas fa-copy"></i> Copy Credentials
+                                </button>
+                            </div>
+                            <p style="color: var(--warning); font-size: 0.875rem;"><strong>Note:</strong> Please manually provide these credentials to the customer since email service is not configured yet.</p>
+                        </div>
+                    `;
                     
+                    showModal('Customer Added Successfully', credentialsInfo);
+                    
+                    // Auto-close the modal after 8 seconds
+                    setTimeout(() => {
+                        closeModal();
+                    }, 8000);
+                    
+                    // Refresh customers list
                     loadCustomers();
                     loadDashboard();
                 } else {
@@ -3727,30 +3777,8 @@
             }
         }
 
-        async function sendWelcomeEmail(customerData) {
-            try {
-                const emailData = {
-                    to: customerData.email,
-                    customerName: customerData.name,
-                    tempPassword: customerData.password,
-                    loginUrl: window.location.origin + '/client-portal.html'
-                };
-                
-                const response = await apiCall('/api/admin/send-welcome-email', {
-                    method: 'POST',
-                    body: JSON.stringify(emailData)
-                });
-                
-                if (response.success) {
-                    showNotification(`Welcome email sent to ${customerData.email}!`, 'success');
-                } else {
-                    showNotification('Customer created but email failed to send', 'warning');
-                }
-            } catch (error) {
-                console.error('Email sending error:', error);
-                showNotification('Customer created but email failed to send', 'warning');
-            }
-        }
+        // Remove the sendWelcomeEmail function since it's not needed right now
+        // async function sendWelcomeEmail(customerData) { ... }
 
         // Enhanced Export Functions
         async function exportData(type, format = 'csv') {
@@ -3957,6 +3985,30 @@
             document.getElementById('username').value = 'admin';
             document.getElementById('password').value = 'lifeguard2025';
             showNotification('Admin credentials filled', 'info');
+        }
+
+        // Utility function to copy credentials to clipboard
+        async function copyCredentials(email, password) {
+            const credentialsText = `805 LifeGuard Customer Login Credentials:
+Email: ${email}
+Password: ${password}
+Portal URL: ${window.location.origin}/client-portal.html
+
+Please save these credentials and use them to access your customer portal.`;
+            
+            try {
+                await navigator.clipboard.writeText(credentialsText);
+                showNotification('Complete credentials copied to clipboard!', 'success');
+            } catch (error) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = credentialsText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Complete credentials copied to clipboard!', 'success');
+            }
         }
 
         // Enhanced Event Listeners
