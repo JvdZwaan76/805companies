@@ -1117,19 +1117,7 @@
     </div>
 
     <script>
-        /**
-         * BACKEND API ENDPOINTS NEEDED FOR NEW FEATURES:
-         * 
-         * 1. POST /api/admin/customers - Create new customer
-         *    Body: { name, email, phone, address, emergency_contact, password }
-         *    
-         * 2. POST /api/admin/send-welcome-email - Send welcome email
-         *    Body: { to, customerName, tempPassword, loginUrl }
-         *    
-         * These endpoints should be added to your index.js backend file
-         */
-
-        // Configuration - FIXED: Updated to use your production endpoint
+        // Configuration
         const CONFIG = {
             API_BASE_URL: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
             DEMO_MODE: false
@@ -1273,7 +1261,7 @@
             }
         }
 
-        // Data Loading Functions - ENHANCED
+        // Data Loading Functions
         async function loadDashboard() {
             try {
                 // Load booking stats
@@ -1364,7 +1352,7 @@
             }
         }
 
-        // Rendering Functions - ENHANCED
+        // Rendering Functions
         function renderRecentBookings(bookings) {
             const container = document.getElementById('recentBookings');
             
@@ -1628,7 +1616,7 @@
             container.innerHTML = html;
         }
 
-        // Filter Functions - ENHANCED
+        // Filter Functions
         function filterCustomers() {
             const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
             
@@ -1672,7 +1660,7 @@
             }
         }
 
-        // Action Functions - ENHANCED
+        // Action Functions
         async function updateBookingStatus(id, status) {
             try {
                 const response = await apiCall(`/api/admin/bookings/${id}`, {
@@ -1747,7 +1735,7 @@
             }
         }
 
-        // Modal Functions - ENHANCED
+        // Modal Functions
         function showModal(title, content) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalContent').innerHTML = content;
@@ -1823,405 +1811,6 @@
             });
         }
 
-        // Enhanced Export Functions with Multiple Formats
-        async function exportData(type, format = 'csv') {
-            try {
-                showNotification(`Preparing ${format.toUpperCase()} export...`, 'info');
-                
-                if (format === 'excel') {
-                    await exportToExcel(type);
-                } else {
-                    // Standard CSV export
-                    const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
-                        headers: {
-                            'Authorization': `Bearer ${authToken}`
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `805-lifeguard-${type}-${new Date().toISOString().split('T')[0]}.csv`;
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                        
-                        showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} CSV exported successfully!`, 'success');
-                    } else {
-                        throw new Error('Export failed');
-                    }
-                }
-            } catch (error) {
-                showNotification('Error exporting data', 'error');
-            }
-        }
-
-        // Excel Export using SheetJS
-        async function exportToExcel(type) {
-            try {
-                // Import SheetJS library dynamically
-                if (!window.XLSX) {
-                    const script = document.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-                    document.head.appendChild(script);
-                    await new Promise(resolve => script.onload = resolve);
-                }
-
-                let data = [];
-                let filename = '';
-
-                switch(type) {
-                    case 'customers':
-                        data = currentData.customers.map(customer => ({
-                            'Name': customer.name,
-                            'Email': customer.email,
-                            'Phone': customer.phone,
-                            'Total Bookings': customer.total_bookings,
-                            'Total Spent': customer.total_spent,
-                            'Member Since': formatDate(customer.member_since),
-                            'Address': customer.address || '',
-                            'Emergency Contact': customer.emergency_contact || ''
-                        }));
-                        filename = 'customers';
-                        break;
-                    case 'bookings':
-                        data = currentData.bookings.map(booking => ({
-                            'Customer': booking.customer?.name || 'Unknown',
-                            'Email': booking.customer?.email || '',
-                            'Service': booking.serviceName || booking.service,
-                            'Date': formatDate(booking.date),
-                            'Time': booking.time,
-                            'Duration': booking.duration + 'h',
-                            'Participants': booking.participants,
-                            'Cost': '
-
-        function refreshAnalytics() {
-            loadAnalytics();
-            showNotification('Analytics refreshed', 'success');
-        }
-
-        // Utility Functions
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-
-        function showNotification(message, type = 'info') {
-            // Remove existing notifications
-            const existing = document.querySelector('.notification');
-            if (existing) existing.remove();
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
-        }
-
-        function fillAdminCredentials() {
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'lifeguard2025';
-            showNotification('Admin credentials filled', 'info');
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if already logged in
-            const savedToken = localStorage.getItem('authToken');
-            const savedUser = localStorage.getItem('currentUser');
-            
-            if (savedToken && savedUser) {
-                authToken = savedToken;
-                currentUser = JSON.parse(savedUser);
-                showMainApp();
-            }
-
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                login(username, password);
-            });
-
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Modal overlay click to close
-            document.getElementById('modalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-
-            // Close export menus when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.btn-group')) {
-                    document.querySelectorAll('.export-dropdown').forEach(menu => {
-                        menu.classList.add('hidden');
-                    });
-                }
-            });
-
-            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
-            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
-            console.log('🔑 Admin credentials: admin/lifeguard2025');
-        });
-    </script>
-</body>
-</html> + booking.cost.toFixed(2),
-                            'Status': booking.status,
-                            'Special Requests': booking.special_requests || ''
-                        }));
-                        filename = 'bookings';
-                        break;
-                    case 'pricing':
-                        data = currentData.pricing.map(price => ({
-                            'Customer': price.customer_name,
-                            'Email': price.customer_email,
-                            'Service Type': price.service_type,
-                            'Custom Price': '
-
-        function refreshAnalytics() {
-            loadAnalytics();
-            showNotification('Analytics refreshed', 'success');
-        }
-
-        // Utility Functions
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-
-        function showNotification(message, type = 'info') {
-            // Remove existing notifications
-            const existing = document.querySelector('.notification');
-            if (existing) existing.remove();
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
-        }
-
-        function fillAdminCredentials() {
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'lifeguard2025';
-            showNotification('Admin credentials filled', 'info');
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if already logged in
-            const savedToken = localStorage.getItem('authToken');
-            const savedUser = localStorage.getItem('currentUser');
-            
-            if (savedToken && savedUser) {
-                authToken = savedToken;
-                currentUser = JSON.parse(savedUser);
-                showMainApp();
-            }
-
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                login(username, password);
-            });
-
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Modal overlay click to close
-            document.getElementById('modalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-
-            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
-            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
-            console.log('🔑 Admin credentials: admin/lifeguard2025');
-        });
-    </script>
-</body>
-</html> + price.price.toFixed(2),
-                            'Updated': formatDate(price.updated_at)
-                        }));
-                        filename = 'custom-pricing';
-                        break;
-                }
-
-                const worksheet = window.XLSX.utils.json_to_sheet(data);
-                const workbook = window.XLSX.utils.book_new();
-                window.XLSX.utils.book_append_sheet(workbook, worksheet, type.charAt(0).toUpperCase() + type.slice(1));
-                
-                // Style the header row
-                const range = window.XLSX.utils.decode_range(worksheet['!ref']);
-                for (let col = range.s.c; col <= range.e.c; col++) {
-                    const cellRef = window.XLSX.utils.encode_cell({r: 0, c: col});
-                    if (worksheet[cellRef]) {
-                        worksheet[cellRef].s = {
-                            font: { bold: true },
-                            fill: { fgColor: { rgb: "CCCCCC" } }
-                        };
-                    }
-                }
-
-                window.XLSX.writeFile(workbook, `805-lifeguard-${filename}-${new Date().toISOString().split('T')[0]}.xlsx`);
-                showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} Excel file exported successfully!`, 'success');
-
-            } catch (error) {
-                console.error('Excel export error:', error);
-                showNotification('Error creating Excel file', 'error');
-            }
-        }
-
-        // Google Sheets Export
-        async function exportToGoogleSheets(type) {
-            try {
-                showNotification('Opening Google Sheets integration...', 'info');
-                
-                // Create CSV data
-                let csvData = '';
-                let sheetName = '';
-
-                switch(type) {
-                    case 'customers':
-                        csvData = generateCustomersCSV();
-                        sheetName = '805 LifeGuard Customers';
-                        break;
-                    case 'bookings':
-                        csvData = generateBookingsCSV();
-                        sheetName = '805 LifeGuard Bookings';
-                        break;
-                    case 'pricing':
-                        csvData = generatePricingCSV();
-                        sheetName = '805 LifeGuard Pricing';
-                        break;
-                }
-
-                // Create a shareable link
-                const blob = new Blob([csvData], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
-                
-                // Open Google Sheets import page
-                const googleSheetsUrl = `https://docs.google.com/spreadsheets/create`;
-                window.open(googleSheetsUrl, '_blank');
-                
-                // Also provide downloadable CSV for manual import
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${sheetName.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.csv`;
-                a.click();
-                
-                showNotification('CSV file downloaded. Import it into the new Google Sheet!', 'success');
-                
-            } catch (error) {
-                showNotification('Error preparing Google Sheets export', 'error');
-            }
-        }
-
-        // QuickBooks Export
-        async function exportToQuickBooks() {
-            try {
-                showNotification('Preparing QuickBooks export...', 'info');
-                
-                // Create QuickBooks-compatible format
-                const qbData = currentData.bookings
-                    .filter(booking => booking.status === 'completed')
-                    .map(booking => ({
-                        'Date': booking.date,
-                        'Customer': booking.customer?.name || 'Unknown',
-                        'Item': booking.serviceName || booking.service,
-                        'Qty': booking.duration || 1,
-                        'Rate': booking.cost,
-                        'Amount': booking.cost,
-                        'Memo': booking.special_requests || ''
-                    }));
-
-                if (qbData.length === 0) {
-                    showNotification('No completed bookings found for QuickBooks export', 'warning');
-                    return;
-                }
-
-                // Convert to CSV format compatible with QuickBooks
-                const headers = ['Date', 'Customer', 'Item', 'Qty', 'Rate', 'Amount', 'Memo'];
-                const csvContent = [
-                    headers.join(','),
-                    ...qbData.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))
-                ].join('\n');
-
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `805-lifeguard-quickbooks-${new Date().toISOString().split('T')[0]}.csv`;
-                a.click();
-                
-                showNotification('QuickBooks-compatible CSV exported! Import this into QB Desktop or Online.', 'success');
-                
-            } catch (error) {
-                showNotification('Error creating QuickBooks export', 'error');
-            }
-        }
-
-        // Add Customer Functionality
         function showAddCustomerModal() {
             const tempPassword = generateTempPassword();
             
@@ -2381,301 +1970,151 @@
             }
         }
 
-        // Additional Export Helper Functions
-        function generateCustomersCSV() {
-            const headers = ['Name', 'Email', 'Phone', 'Total Bookings', 'Total Spent', 'Member Since', 'Address', 'Emergency Contact'];
-            const rows = currentData.customers.map(customer => [
-                customer.name,
-                customer.email,
-                customer.phone || '',
-                customer.total_bookings,
-                customer.total_spent,
-                formatDate(customer.member_since),
-                customer.address || '',
-                customer.emergency_contact || ''
-            ]);
-            
-            return [headers, ...rows].map(row => 
-                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-            ).join('\n');
-        }
-
-        function generateBookingsCSV() {
-            const headers = ['Customer', 'Email', 'Service', 'Date', 'Time', 'Duration', 'Cost', 'Status', 'Special Requests'];
-            const rows = currentData.bookings.map(booking => [
-                booking.customer?.name || 'Unknown',
-                booking.customer?.email || '',
-                booking.serviceName || booking.service,
-                formatDate(booking.date),
-                booking.time,
-                booking.duration + 'h',
-                '
-
-        function refreshAnalytics() {
-            loadAnalytics();
-            showNotification('Analytics refreshed', 'success');
-        }
-
-        // Utility Functions
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-
-        function showNotification(message, type = 'info') {
-            // Remove existing notifications
-            const existing = document.querySelector('.notification');
-            if (existing) existing.remove();
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
-        }
-
-        function fillAdminCredentials() {
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'lifeguard2025';
-            showNotification('Admin credentials filled', 'info');
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if already logged in
-            const savedToken = localStorage.getItem('authToken');
-            const savedUser = localStorage.getItem('currentUser');
-            
-            if (savedToken && savedUser) {
-                authToken = savedToken;
-                currentUser = JSON.parse(savedUser);
-                showMainApp();
-            }
-
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                login(username, password);
-            });
-
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Modal overlay click to close
-            document.getElementById('modalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
+        // Export Functions
+        async function exportData(type, format = 'csv') {
+            try {
+                showNotification(`Preparing ${format.toUpperCase()} export...`, 'info');
+                
+                if (format === 'excel') {
+                    await exportToExcel(type);
+                } else {
+                    // Standard CSV export
+                    const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/export?type=${type}`, {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `805-lifeguard-${type}-${new Date().toISOString().split('T')[0]}.csv`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                        
+                        showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} CSV exported successfully!`, 'success');
+                    } else {
+                        throw new Error('Export failed');
+                    }
                 }
-            });
-
-            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
-            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
-            console.log('🔑 Admin credentials: admin/lifeguard2025');
-        });
-    </script>
-</body>
-</html> + booking.cost.toFixed(2),
-                booking.status,
-                booking.special_requests || ''
-            ]);
-            
-            return [headers, ...rows].map(row => 
-                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-            ).join('\n');
-        }
-
-        function generatePricingCSV() {
-            const headers = ['Customer', 'Email', 'Service Type', 'Custom Price', 'Updated'];
-            const rows = currentData.pricing.map(price => [
-                price.customer_name,
-                price.customer_email,
-                price.service_type,
-                '
-
-        function refreshAnalytics() {
-            loadAnalytics();
-            showNotification('Analytics refreshed', 'success');
-        }
-
-        // Utility Functions
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-
-        function showNotification(message, type = 'info') {
-            // Remove existing notifications
-            const existing = document.querySelector('.notification');
-            if (existing) existing.remove();
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
-        }
-
-        function fillAdminCredentials() {
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'lifeguard2025';
-            showNotification('Admin credentials filled', 'info');
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if already logged in
-            const savedToken = localStorage.getItem('authToken');
-            const savedUser = localStorage.getItem('currentUser');
-            
-            if (savedToken && savedUser) {
-                authToken = savedToken;
-                currentUser = JSON.parse(savedUser);
-                showMainApp();
+            } catch (error) {
+                showNotification('Error exporting data', 'error');
             }
-
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                login(username, password);
-            });
-
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Modal overlay click to close
-            document.getElementById('modalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-
-            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
-            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
-            console.log('🔑 Admin credentials: admin/lifeguard2025');
-        });
-    </script>
-</body>
-</html> + price.price.toFixed(2),
-                formatDate(price.updated_at)
-            ]);
-            
-            return [headers, ...rows].map(row => 
-                row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-            ).join('\n');
         }
 
-        // Export Menu Toggle
+        async function exportToExcel(type) {
+            try {
+                if (!window.XLSX) {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+                    document.head.appendChild(script);
+                    await new Promise(resolve => script.onload = resolve);
+                }
+
+                let data = [];
+                let filename = '';
+
+                switch(type) {
+                    case 'customers':
+                        data = currentData.customers.map(customer => ({
+                            'Name': customer.name,
+                            'Email': customer.email,
+                            'Phone': customer.phone,
+                            'Total Bookings': customer.total_bookings,
+                            'Total Spent': customer.total_spent,
+                            'Member Since': formatDate(customer.member_since),
+                            'Address': customer.address || '',
+                            'Emergency Contact': customer.emergency_contact || ''
+                        }));
+                        filename = 'customers';
+                        break;
+                    case 'bookings':
+                        data = currentData.bookings.map(booking => ({
+                            'Customer': booking.customer?.name || 'Unknown',
+                            'Email': booking.customer?.email || '',
+                            'Service': booking.serviceName || booking.service,
+                            'Date': formatDate(booking.date),
+                            'Time': booking.time,
+                            'Duration': booking.duration + 'h',
+                            'Participants': booking.participants,
+                            'Cost': booking.cost.toFixed(2),
+                            'Status': booking.status,
+                            'Special Requests': booking.special_requests || ''
+                        }));
+                        filename = 'bookings';
+                        break;
+                    case 'pricing':
+                        data = currentData.pricing.map(price => ({
+                            'Customer': price.customer_name,
+                            'Email': price.customer_email,
+                            'Service Type': price.service_type,
+                            'Custom Price': price.price.toFixed(2),
+                            'Updated': formatDate(price.updated_at)
+                        }));
+                        filename = 'custom-pricing';
+                        break;
+                }
+
+                const worksheet = window.XLSX.utils.json_to_sheet(data);
+                const workbook = window.XLSX.utils.book_new();
+                window.XLSX.utils.book_append_sheet(workbook, worksheet, type.charAt(0).toUpperCase() + type.slice(1));
+                
+                window.XLSX.writeFile(workbook, `805-lifeguard-${filename}-${new Date().toISOString().split('T')[0]}.xlsx`);
+                showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} Excel file exported successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Excel export error:', error);
+                showNotification('Error creating Excel file', 'error');
+            }
+        }
+
+        function exportToGoogleSheets(type) {
+            showNotification('Opening Google Sheets for import...', 'info');
+            window.open('https://docs.google.com/spreadsheets/create', '_blank');
+        }
+
+        function exportToQuickBooks() {
+            exportData('bookings', 'csv');
+            showNotification('CSV exported for QuickBooks import', 'info');
+        }
+
         function toggleExportMenu(type) {
             const menu = document.getElementById(type + 'ExportMenu');
             const allMenus = document.querySelectorAll('.export-dropdown');
             
-            // Close all other menus
             allMenus.forEach(m => {
                 if (m !== menu) {
                     m.classList.add('hidden');
                 }
             });
             
-            // Toggle current menu
             menu.classList.toggle('hidden');
         }
 
-        // Additional Integration Functions
+        function exportForMailchimp() {
+            exportData('customers', 'csv');
+            showNotification('Customer data exported for Mailchimp', 'info');
+        }
+
+        function exportForConstantContact() {
+            exportData('customers', 'csv');
+            showNotification('Customer data exported for Constant Contact', 'info');
+        }
+
         function setupQuickBooksIntegration() {
-            showNotification('QuickBooks integration setup - Contact support for API configuration', 'info');
+            showNotification('QuickBooks integration setup - Contact support for configuration', 'info');
         }
 
         function backupToGoogleDrive() {
-            showNotification('Google Drive backup feature - Contact support for setup', 'info');
+            showNotification('Google Drive backup - Contact support for setup', 'info');
         }
 
         function scheduleAutoBackup() {
             showNotification('Auto backup scheduling - Contact support for configuration', 'info');
-        }
-
-        function exportForMailchimp() {
-            // Export customer emails in Mailchimp format
-            const mailchimpData = currentData.customers.map(customer => ({
-                'Email Address': customer.email,
-                'First Name': customer.name.split(' ')[0],
-                'Last Name': customer.name.split(' ').slice(1).join(' '),
-                'Phone': customer.phone || '',
-                'Total Spent': customer.total_spent,
-                'Member Since': formatDate(customer.member_since)
-            }));
-            
-            const csvContent = [
-                Object.keys(mailchimpData[0]).join(','),
-                ...mailchimpData.map(row => Object.values(row).map(val => `"${val}"`).join(','))
-            ].join('\n');
-            
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `805-lifeguard-mailchimp-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            
-            showNotification('Mailchimp-compatible customer list exported!', 'success');
-        }
-
-        function exportForConstantContact() {
-            exportForMailchimp(); // Same format works for both
-            showNotification('Constant Contact-compatible customer list exported!', 'success');
         }
 
         function refreshAnalytics() {
@@ -2695,7 +2134,6 @@
         }
 
         function showNotification(message, type = 'info') {
-            // Remove existing notifications
             const existing = document.querySelector('.notification');
             if (existing) existing.remove();
 
@@ -2759,6 +2197,15 @@
             document.getElementById('modalOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeModal();
+                }
+            });
+
+            // Close export menus when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.btn-group')) {
+                    document.querySelectorAll('.export-dropdown').forEach(menu => {
+                        menu.classList.add('hidden');
+                    });
                 }
             });
 
