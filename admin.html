@@ -92,7 +92,7 @@
                 radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
         }
 
-        /* Navigation */
+        /* Enhanced Mobile Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -133,6 +133,16 @@
             display: flex;
             align-items: center;
             gap: var(--space-4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-2);
         }
 
         .user-avatar {
@@ -217,6 +227,30 @@
             position: fixed;
             height: calc(100vh - 80px);
             overflow-y: auto;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
         }
 
         .sidebar-nav {
@@ -250,6 +284,11 @@
             margin-left: 280px;
             padding: var(--space-8);
             min-height: calc(100vh - 80px);
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.full-width {
+            margin-left: 0;
         }
 
         /* Cards */
@@ -302,6 +341,211 @@
         .stat-label {
             color: var(--gray-400);
             font-weight: 500;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .calendar-nav button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .calendar-month {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .calendar-day-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--space-3);
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-300);
+            font-size: 0.875rem;
+        }
+
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.03);
+            min-height: 120px;
+            padding: var(--space-2);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            border-color: var(--primary);
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .calendar-day.selected {
+            border-color: var(--primary);
+            background: rgba(220, 38, 38, 0.2);
+        }
+
+        .calendar-day-number {
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: var(--space-2);
+        }
+
+        .calendar-booking {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-bottom: 2px;
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .calendar-booking.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .calendar-booking.cancelled {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .calendar-day-details {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            z-index: 1001;
+            display: none;
+            margin-top: var(--space-2);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .calendar-day-details.active {
+            display: block;
+        }
+
+        /* Staff Management Styles */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .staff-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+        }
+
+        .staff-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto var(--space-4);
+        }
+
+        .staff-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: var(--space-2);
+        }
+
+        .staff-role {
+            color: var(--gray-400);
+            text-align: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .staff-status {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .staff-status.available {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .staff-status.busy {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .staff-status.off {
+            background: rgba(107, 114, 128, 0.2);
+            color: var(--gray-400);
         }
 
         /* Tables */
@@ -596,25 +840,6 @@
             color: var(--gray-400);
         }
 
-        /* Analytics Dashboard */
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--space-6);
-            margin-bottom: var(--space-8);
-        }
-
-        .chart-container {
-            height: 300px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-400);
-            padding: var(--space-4);
-        }
-
         /* Export Dropdown */
         .btn-group {
             display: inline-block;
@@ -695,13 +920,16 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
+            .mobile-menu-btn {
+                display: block;
             }
 
-            .sidebar.open {
-                transform: translateX(0);
+            .nav-user span {
+                display: none;
+            }
+
+            .sidebar {
+                z-index: 1000;
             }
 
             .content {
@@ -725,6 +953,37 @@
                 flex-direction: column;
                 align-items: stretch;
                 gap: var(--space-3);
+            }
+
+            .calendar-day {
+                min-height: 80px;
+            }
+
+            .calendar-day-details {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: 400px;
+            }
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 60px;
+            }
+
+            .calendar-day-number {
+                font-size: 0.875rem;
+            }
+
+            .calendar-booking {
+                font-size: 0.6rem;
             }
         }
     </style>
@@ -787,22 +1046,34 @@
                     <button class="btn btn-secondary btn-small" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </nav>
 
         <div class="main-container">
+            <!-- Sidebar Overlay for Mobile -->
+            <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+
             <!-- Sidebar -->
-            <aside class="sidebar">
+            <aside class="sidebar" id="sidebar">
                 <ul class="sidebar-nav">
                     <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a></li>
+                    <li><a href="#calendar" class="nav-link" data-section="calendar">
+                        <i class="fas fa-calendar"></i> Calendar View
                     </a></li>
                     <li><a href="#customers" class="nav-link" data-section="customers">
                         <i class="fas fa-users"></i> Customers
                     </a></li>
                     <li><a href="#bookings" class="nav-link" data-section="bookings">
                         <i class="fas fa-calendar-alt"></i> Bookings
+                    </a></li>
+                    <li><a href="#staff" class="nav-link" data-section="staff">
+                        <i class="fas fa-user-tie"></i> Staff Management
                     </a></li>
                     <li><a href="#pricing" class="nav-link" data-section="pricing">
                         <i class="fas fa-dollar-sign"></i> Custom Pricing
@@ -817,7 +1088,7 @@
             </aside>
 
             <!-- Main Content -->
-            <main class="content">
+            <main class="content" id="content">
                 <!-- Dashboard Section -->
                 <section id="dashboard-section" class="content-section">
                     <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: var(--space-8);">Admin Dashboard</h1>
@@ -844,6 +1115,10 @@
                             <div class="stat-number" id="confirmedBookings">0</div>
                             <div class="stat-label">Confirmed Bookings</div>
                         </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalStaff">0</div>
+                            <div class="stat-label">Total Staff</div>
+                        </div>
                     </div>
 
                     <!-- Recent Activity -->
@@ -857,6 +1132,77 @@
                         <div id="recentBookings" class="loading">
                             <div class="spinner"></div>
                             Loading recent bookings...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendar Section -->
+                <section id="calendar-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Calendar View</h1>
+                            <button class="btn btn-primary" onclick="showAddBookingModal()">
+                                <i class="fas fa-plus"></i> Add Booking
+                            </button>
+                        </div>
+                        
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <div class="calendar-nav">
+                                    <button onclick="previousMonth()">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <div class="calendar-month" id="calendarMonth">January 2025</div>
+                                    <button onclick="nextMonth()">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-secondary" onclick="goToToday()">
+                                    <i class="fas fa-calendar-day"></i> Today
+                                </button>
+                            </div>
+                            
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                                
+                                <div id="calendarDays">
+                                    <!-- Calendar days will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Staff Management Section -->
+                <section id="staff-section" class="content-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Staff Management</h1>
+                            <div style="display: flex; gap: var(--space-3);">
+                                <button class="btn btn-primary" onclick="showAddStaffModal()">
+                                    <i class="fas fa-user-plus"></i> Add Staff Member
+                                </button>
+                                <div class="btn-group" style="position: relative;">
+                                    <button class="btn btn-secondary" onclick="toggleExportMenu('staff')">
+                                        <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div id="staffExportMenu" class="export-dropdown hidden">
+                                        <button onclick="exportData('staff', 'csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                                        <button onclick="exportData('staff', 'excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="staffContainer" class="loading">
+                            <div class="spinner"></div>
+                            Loading staff...
                         </div>
                     </div>
                 </section>
@@ -1031,6 +1377,23 @@
                             
                             <div class="card">
                                 <h3 style="margin-bottom: var(--space-4);">
+                                    <i class="fas fa-user-tie"></i> Staff Data Export
+                                </h3>
+                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
+                                    Export staff information, schedules, and assignment data for HR and payroll management.
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                                    <button class="btn btn-primary btn-small" onclick="exportData('staff', 'csv')">
+                                        <i class="fas fa-file-csv"></i> CSV
+                                    </button>
+                                    <button class="btn btn-success btn-small" onclick="exportData('staff', 'excel')">
+                                        <i class="fas fa-file-excel"></i> Excel
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 style="margin-bottom: var(--space-4);">
                                     <i class="fas fa-calculator"></i> QuickBooks Integration
                                 </h3>
                                 <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
@@ -1059,23 +1422,6 @@
                                     </button>
                                     <button class="btn btn-secondary btn-small" onclick="scheduleAutoBackup()">
                                         <i class="fas fa-clock"></i> Auto Backup
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <h3 style="margin-bottom: var(--space-4);">
-                                    <i class="fas fa-envelope"></i> Email Marketing
-                                </h3>
-                                <p style="color: var(--gray-400); margin-bottom: var(--space-4);">
-                                    Export customer data for email marketing campaigns and newsletters.
-                                </p>
-                                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
-                                    <button class="btn btn-secondary btn-small" onclick="exportForMailchimp()">
-                                        <i class="fas fa-envelope"></i> Mailchimp
-                                    </button>
-                                    <button class="btn btn-secondary btn-small" onclick="exportForConstantContact()">
-                                        <i class="fas fa-envelope-open"></i> Constant Contact
                                     </button>
                                 </div>
                             </div>
@@ -1129,8 +1475,14 @@
         let currentData = {
             customers: [],
             bookings: [],
-            pricing: []
+            pricing: [],
+            staff: []
         };
+
+        // Calendar state
+        let currentDate = new Date();
+        let selectedDate = null;
+        let calendarBookings = [];
 
         // API Helper Functions
         async function apiCall(endpoint, options = {}) {
@@ -1162,6 +1514,30 @@
                 console.error('API Error:', error);
                 throw error;
             }
+        }
+
+        // Mobile Navigation Functions
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const content = document.getElementById('content');
+            
+            sidebar.classList.toggle('closed');
+            overlay.classList.toggle('active');
+            
+            if (window.innerWidth <= 768) {
+                content.classList.toggle('full-width');
+            }
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const content = document.getElementById('content');
+            
+            sidebar.classList.add('closed');
+            overlay.classList.remove('active');
+            content.classList.add('full-width');
         }
 
         // Authentication
@@ -1220,6 +1596,11 @@
                 document.getElementById('userAvatar').textContent = (currentUser.name || currentUser.username).charAt(0).toUpperCase();
             }
             
+            // Initialize mobile layout
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
+            
             // Load initial data
             loadDashboard();
         }
@@ -1238,16 +1619,27 @@
             });
             document.getElementById(`${sectionName}-section`).classList.remove('hidden');
 
+            // Close mobile menu
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
+
             // Load section data
             switch(sectionName) {
                 case 'dashboard':
                     loadDashboard();
+                    break;
+                case 'calendar':
+                    loadCalendar();
                     break;
                 case 'customers':
                     loadCustomers();
                     break;
                 case 'bookings':
                     loadBookings();
+                    break;
+                case 'staff':
+                    loadStaff();
                     break;
                 case 'pricing':
                     loadPricing();
@@ -1261,7 +1653,605 @@
             }
         }
 
-        // Data Loading Functions
+        // Calendar Functions
+        function loadCalendar() {
+            renderCalendar();
+            loadCalendarBookings();
+        }
+
+        function renderCalendar() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('calendarMonth').textContent = 
+                `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = 0; i < 42; i++) {
+                const day = new Date(startDate);
+                day.setDate(startDate.getDate() + i);
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.dataset.date = day.toISOString().split('T')[0];
+                
+                if (day.getMonth() !== currentDate.getMonth()) {
+                    dayElement.classList.add('other-month');
+                }
+                
+                if (day.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                }
+                
+                dayElement.innerHTML = `
+                    <div class="calendar-day-number">${day.getDate()}</div>
+                    <div class="calendar-day-bookings" id="bookings-${day.toISOString().split('T')[0]}">
+                        <!-- Bookings will be added here -->
+                    </div>
+                `;
+                
+                dayElement.addEventListener('click', () => selectDate(day));
+                calendarDays.appendChild(dayElement);
+            }
+        }
+
+        async function loadCalendarBookings() {
+            try {
+                const response = await apiCall('/api/admin/bookings');
+                if (response.success) {
+                    calendarBookings = response.bookings || [];
+                    updateCalendarBookings();
+                }
+            } catch (error) {
+                console.error('Error loading calendar bookings:', error);
+            }
+        }
+
+        function updateCalendarBookings() {
+            // Clear existing bookings
+            document.querySelectorAll('.calendar-day-bookings').forEach(container => {
+                container.innerHTML = '';
+            });
+
+            // Add bookings to calendar
+            calendarBookings.forEach(booking => {
+                const bookingDate = booking.date || booking.booking_date;
+                const container = document.getElementById(`bookings-${bookingDate}`);
+                if (container) {
+                    const bookingElement = document.createElement('div');
+                    bookingElement.className = `calendar-booking ${booking.status}`;
+                    bookingElement.textContent = booking.serviceName || booking.service_type || 'Service';
+                    bookingElement.title = `${booking.customer?.name || 'Customer'} - ${booking.time || booking.booking_time}`;
+                    container.appendChild(bookingElement);
+                }
+            });
+        }
+
+        function selectDate(date) {
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+
+            // Add selection to clicked day
+            const dateStr = date.toISOString().split('T')[0];
+            const dayElement = document.querySelector(`[data-date="${dateStr}"]`);
+            if (dayElement) {
+                dayElement.classList.add('selected');
+            }
+
+            selectedDate = date;
+            showDateDetails(date);
+        }
+
+        function showDateDetails(date) {
+            const dateStr = date.toISOString().split('T')[0];
+            const dayBookings = calendarBookings.filter(booking => 
+                (booking.date || booking.booking_date) === dateStr
+            );
+
+            const content = `
+                <div class="calendar-day-details active">
+                    <h3>${date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    })}</h3>
+                    
+                    ${dayBookings.length > 0 ? `
+                        <div style="margin-top: var(--space-4);">
+                            <h4 style="margin-bottom: var(--space-3);">Bookings (${dayBookings.length})</h4>
+                            ${dayBookings.map(booking => `
+                                <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-3); border-radius: var(--radius-md); margin-bottom: var(--space-2);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <strong>${booking.customer?.name || 'Unknown Customer'}</strong>
+                                        <span class="status-badge status-${booking.status}">${booking.status}</span>
+                                    </div>
+                                    <div style="color: var(--gray-400); font-size: 0.875rem; margin-top: var(--space-1);">
+                                        ${booking.serviceName || booking.service_type} at ${booking.time || booking.booking_time}
+                                        ${booking.assigned_staff ? ` • Staff: ${booking.assigned_staff}` : ''}
+                                    </div>
+                                    <div style="margin-top: var(--space-2); display: flex; gap: var(--space-2);">
+                                        ${booking.status === 'confirmed' && !booking.assigned_staff ? `
+                                            <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id})">
+                                                <i class="fas fa-user-plus"></i> Assign Staff
+                                            </button>
+                                        ` : ''}
+                                        <button class="btn btn-secondary btn-small" onclick="editBooking(${booking.id})">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : `
+                        <div style="text-align: center; padding: var(--space-6); color: var(--gray-400);">
+                            <i class="fas fa-calendar-day" style="font-size: 2rem; margin-bottom: var(--space-3);"></i>
+                            <p>No bookings scheduled for this day</p>
+                            <button class="btn btn-primary btn-small" style="margin-top: var(--space-3);" onclick="addBookingForDate('${dateStr}')">
+                                <i class="fas fa-plus"></i> Add Booking
+                            </button>
+                        </div>
+                    `}
+                    
+                    <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--gray-400); cursor: pointer;" onclick="hideDateDetails()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            // Show in modal for mobile, inline for desktop
+            if (window.innerWidth <= 768) {
+                showModal('Day Details', content);
+            } else {
+                // Remove existing details
+                const existingDetails = document.querySelector('.calendar-day-details');
+                if (existingDetails) {
+                    existingDetails.remove();
+                }
+
+                // Add new details
+                const dayElement = document.querySelector(`[data-date="${dateStr}"]`);
+                if (dayElement) {
+                    dayElement.insertAdjacentHTML('beforeend', content);
+                }
+            }
+        }
+
+        function hideDateDetails() {
+            const details = document.querySelector('.calendar-day-details');
+            if (details) {
+                details.remove();
+            }
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+            loadCalendarBookings();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+            loadCalendarBookings();
+        }
+
+        function goToToday() {
+            currentDate = new Date();
+            renderCalendar();
+            loadCalendarBookings();
+        }
+
+        function addBookingForDate(dateStr) {
+            hideDateDetails();
+            showAddBookingModal(dateStr);
+        }
+
+        // Staff Management Functions
+        async function loadStaff() {
+            const container = document.getElementById('staffContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading staff...</div>';
+
+            try {
+                const response = await apiCall('/api/admin/staff');
+                if (response.success) {
+                    currentData.staff = response.staff || [];
+                    renderStaff(response.staff || []);
+                    updateStaffStats(response.staff?.length || 0);
+                } else {
+                    // No staff data yet, show empty state
+                    currentData.staff = [];
+                    renderStaff([]);
+                    updateStaffStats(0);
+                }
+            } catch (error) {
+                console.error('Error loading staff:', error);
+                container.innerHTML = '<div style="text-align: center; padding: var(--space-8); color: var(--error);">Error loading staff. <button class="btn btn-primary btn-small" onclick="loadStaff()">Retry</button></div>';
+            }
+        }
+
+        function renderStaff(staff) {
+            const container = document.getElementById('staffContainer');
+            
+            if (!staff || staff.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--gray-400);">
+                        <i class="fas fa-users" style="font-size: 3rem; margin-bottom: var(--space-4);"></i>
+                        <h3>No Staff Members</h3>
+                        <p>Start by adding your first staff member to manage assignments and schedules.</p>
+                        <button class="btn btn-primary" style="margin-top: var(--space-4);" onclick="showAddStaffModal()">
+                            <i class="fas fa-user-plus"></i> Add First Staff Member
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = `
+                <div class="staff-grid">
+                    ${staff.map(member => `
+                        <div class="staff-card">
+                            <div class="staff-avatar">${member.name.charAt(0).toUpperCase()}</div>
+                            <div class="staff-name">${member.name}</div>
+                            <div class="staff-role">${member.role || 'Staff Member'}</div>
+                            <div style="text-align: center; margin-bottom: var(--space-4);">
+                                <span class="staff-status ${member.status || 'available'}">${(member.status || 'available').toUpperCase()}</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <strong>Phone:</strong> ${member.phone || 'N/A'}<br>
+                                <strong>Email:</strong> ${member.email || 'N/A'}
+                            </div>
+                            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-2); justify-content: center;">
+                                <button class="btn btn-secondary btn-small" onclick="editStaff(${member.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-small" onclick="deleteStaff(${member.id})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                            <div style="margin-top: var(--space-3); text-align: center;">
+                                <small style="color: var(--gray-400);">
+                                    Joined: ${formatDate(member.hire_date || member.created_at)}
+                                </small>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function updateStaffStats(count) {
+            const statElement = document.getElementById('totalStaff');
+            if (statElement) {
+                statElement.textContent = count;
+            }
+        }
+
+        function showAddStaffModal() {
+            const content = `
+                <form id="addStaffForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" class="form-input" required placeholder="John Smith">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Role *</label>
+                            <select name="role" class="form-select" required>
+                                <option value="">Select Role</option>
+                                <option value="lifeguard">Lifeguard</option>
+                                <option value="instructor">Swimming Instructor</option>
+                                <option value="maintenance">Pool Maintenance</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="manager">Manager</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-input" placeholder="john@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="(805) 555-0123">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact</label>
+                            <input type="tel" name="emergency_contact" class="form-input" placeholder="(805) 555-0124">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Hire Date</label>
+                            <input type="date" name="hire_date" class="form-input" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-textarea" rows="2" placeholder="123 Main St, Ventura, CA 93001"></textarea>
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Notes</label>
+                            <textarea name="notes" class="form-textarea" rows="3" placeholder="Any additional notes about the staff member..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Staff Member
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Add Staff Member', content);
+            
+            document.getElementById('addStaffForm').addEventListener('submit', handleAddStaff);
+        }
+
+        async function handleAddStaff(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const staffData = {
+                name: formData.get('name'),
+                role: formData.get('role'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                emergency_contact: formData.get('emergency_contact'),
+                hire_date: formData.get('hire_date'),
+                address: formData.get('address'),
+                notes: formData.get('notes'),
+                status: 'available'
+            };
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div> Adding staff member...';
+            
+            try {
+                const response = await apiCall('/api/admin/staff', {
+                    method: 'POST',
+                    body: JSON.stringify(staffData)
+                });
+                
+                if (response.success) {
+                    closeModal();
+                    showNotification('Staff member added successfully!', 'success');
+                    loadStaff();
+                    loadDashboard(); // Refresh stats
+                } else {
+                    throw new Error(response.error || 'Failed to add staff member');
+                }
+            } catch (error) {
+                console.error('Staff creation error:', error);
+                showNotification(error.message || 'Error adding staff member', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Add Staff Member';
+            }
+        }
+
+        async function deleteStaff(staffId) {
+            if (!confirm('Are you sure you want to delete this staff member? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await apiCall(`/api/admin/staff/${staffId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.success) {
+                    showNotification('Staff member deleted successfully!', 'success');
+                    loadStaff();
+                    loadDashboard(); // Refresh stats
+                } else {
+                    throw new Error(response.error || 'Failed to delete staff member');
+                }
+            } catch (error) {
+                console.error('Staff deletion error:', error);
+                showNotification(error.message || 'Error deleting staff member', 'error');
+            }
+        }
+
+        function editStaff(staffId) {
+            const staff = currentData.staff.find(s => s.id === staffId);
+            if (!staff) return;
+
+            const content = `
+                <form id="editStaffForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" class="form-input" required value="${staff.name}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Role *</label>
+                            <select name="role" class="form-select" required>
+                                <option value="lifeguard" ${staff.role === 'lifeguard' ? 'selected' : ''}>Lifeguard</option>
+                                <option value="instructor" ${staff.role === 'instructor' ? 'selected' : ''}>Swimming Instructor</option>
+                                <option value="maintenance" ${staff.role === 'maintenance' ? 'selected' : ''}>Pool Maintenance</option>
+                                <option value="supervisor" ${staff.role === 'supervisor' ? 'selected' : ''}>Supervisor</option>
+                                <option value="manager" ${staff.role === 'manager' ? 'selected' : ''}>Manager</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select name="status" class="form-select">
+                                <option value="available" ${staff.status === 'available' ? 'selected' : ''}>Available</option>
+                                <option value="busy" ${staff.status === 'busy' ? 'selected' : ''}>Busy</option>
+                                <option value="off" ${staff.status === 'off' ? 'selected' : ''}>Off Duty</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-input" value="${staff.email || ''}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" value="${staff.phone || ''}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact</label>
+                            <input type="tel" name="emergency_contact" class="form-input" value="${staff.emergency_contact || ''}">
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-textarea" rows="2">${staff.address || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Notes</label>
+                            <textarea name="notes" class="form-textarea" rows="3">${staff.notes || ''}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Staff Member
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Edit Staff Member', content);
+            
+            document.getElementById('editStaffForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const staffData = {
+                    name: formData.get('name'),
+                    role: formData.get('role'),
+                    status: formData.get('status'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    emergency_contact: formData.get('emergency_contact'),
+                    address: formData.get('address'),
+                    notes: formData.get('notes')
+                };
+                
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="spinner"></div> Updating...';
+                
+                try {
+                    const response = await apiCall(`/api/admin/staff/${staffId}`, {
+                        method: 'PUT',
+                        body: JSON.stringify(staffData)
+                    });
+                    
+                    if (response.success) {
+                        closeModal();
+                        showNotification('Staff member updated successfully!', 'success');
+                        loadStaff();
+                    } else {
+                        throw new Error(response.error || 'Failed to update staff member');
+                    }
+                } catch (error) {
+                    console.error('Staff update error:', error);
+                    showNotification(error.message || 'Error updating staff member', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Staff Member';
+                }
+            });
+        }
+
+        function assignStaffToBooking(bookingId) {
+            if (!currentData.staff || currentData.staff.length === 0) {
+                showNotification('No staff members available. Please add staff first.', 'warning');
+                return;
+            }
+
+            const availableStaff = currentData.staff.filter(s => s.status === 'available');
+            
+            const content = `
+                <form id="assignStaffForm">
+                    <div class="form-group">
+                        <label class="form-label">Select Staff Member</label>
+                        <select name="staff_id" class="form-select" required>
+                            <option value="">Choose staff member...</option>
+                            ${availableStaff.map(staff => `
+                                <option value="${staff.id}">${staff.name} - ${staff.role}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea name="assignment_notes" class="form-textarea" rows="3" placeholder="Any special instructions or notes for this assignment..."></textarea>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Assign Staff
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Assign Staff to Booking', content);
+            
+            document.getElementById('assignStaffForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const assignmentData = {
+                    booking_id: bookingId,
+                    staff_id: parseInt(formData.get('staff_id')),
+                    assignment_notes: formData.get('assignment_notes')
+                };
+                
+                try {
+                    const response = await apiCall('/api/admin/staff-assignments', {
+                        method: 'POST',
+                        body: JSON.stringify(assignmentData)
+                    });
+                    
+                    if (response.success) {
+                        closeModal();
+                        showNotification('Staff assigned successfully!', 'success');
+                        loadCalendarBookings();
+                        hideDateDetails();
+                    } else {
+                        throw new Error(response.error || 'Failed to assign staff');
+                    }
+                } catch (error) {
+                    console.error('Staff assignment error:', error);
+                    showNotification(error.message || 'Error assigning staff', 'error');
+                }
+            });
+        }
+
+        // Data Loading Functions (Enhanced)
         async function loadDashboard() {
             try {
                 // Load booking stats
@@ -1273,6 +2263,16 @@
                     document.getElementById('monthlyRevenue').textContent = `$${stats.revenue.monthly.toLocaleString()}`;
                     document.getElementById('pendingBookings').textContent = stats.bookings.pending;
                     document.getElementById('confirmedBookings').textContent = stats.bookings.confirmed;
+                }
+
+                // Load staff count
+                try {
+                    const staffResponse = await apiCall('/api/admin/staff');
+                    if (staffResponse.success) {
+                        updateStaffStats(staffResponse.staff?.length || 0);
+                    }
+                } catch (error) {
+                    updateStaffStats(0);
                 }
 
                 // Load recent bookings
@@ -1429,7 +2429,7 @@
                                 <td>${customer.email}</td>
                                 <td>${customer.phone}</td>
                                 <td>${customer.total_bookings}</td>
-                                <td>$${customer.total_spent.toFixed(2)}</td>
+                                <td>${customer.total_spent.toFixed(2)}</td>
                                 <td>${formatDate(customer.member_since)}</td>
                                 <td>
                                     <button class="btn btn-secondary btn-small" onclick="viewCustomerBookings(${customer.id})" title="View Bookings">
@@ -1466,6 +2466,7 @@
                             <th>Time</th>
                             <th>Duration</th>
                             <th>Cost</th>
+                            <th>Staff</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -1481,7 +2482,8 @@
                                 <td>${formatDate(booking.date)}</td>
                                 <td>${booking.time}</td>
                                 <td>${booking.duration || 1}h</td>
-                                <td>$${booking.cost.toFixed(2)}</td>
+                                <td>${booking.cost.toFixed(2)}</td>
+                                <td>${booking.assigned_staff || '<span style="color: var(--gray-400);">Unassigned</span>'}</td>
                                 <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
                                 <td>
                                     ${booking.status === 'pending' ? `
@@ -1495,6 +2497,11 @@
                                         <button class="btn btn-warning btn-small" onclick="updateBookingStatus(${booking.id}, 'completed')" title="Complete">
                                             <i class="fas fa-check-double"></i>
                                         </button>
+                                        ${!booking.assigned_staff ? `
+                                            <button class="btn btn-primary btn-small" onclick="assignStaffToBooking(${booking.id})" title="Assign Staff">
+                                                <i class="fas fa-user-plus"></i>
+                                            </button>
+                                        ` : ''}
                                     ` : `
                                         <button class="btn btn-secondary btn-small" onclick="viewBookingDetails(${booking.id})" title="View Details">
                                             <i class="fas fa-eye"></i>
@@ -1536,7 +2543,7 @@
                                 <td>${price.customer_name || 'Unknown'}</td>
                                 <td>${price.customer_email || 'N/A'}</td>
                                 <td>${price.service_type}</td>
-                                <td>$${price.price.toFixed(2)}</td>
+                                <td>${price.price.toFixed(2)}</td>
                                 <td>${formatDate(price.updated_at)}</td>
                                 <td>
                                     <button class="btn btn-danger btn-small" onclick="deleteCustomPricing(${price.user_id}, '${price.service_type}')" title="Delete">
@@ -1564,7 +2571,7 @@
                                 <strong>Total Bookings:</strong> ${analytics.summary.totalBookings}
                             </div>
                             <div style="margin-bottom: var(--space-3);">
-                                <strong>Total Revenue:</strong> $${analytics.summary.totalRevenue.toFixed(2)}
+                                <strong>Total Revenue:</strong> ${analytics.summary.totalRevenue.toFixed(2)}
                             </div>
                             <div style="margin-bottom: var(--space-3);">
                                 <strong>Avg Bookings/Month:</strong> ${analytics.summary.avgBookingsPerMonth}
@@ -1581,7 +2588,7 @@
                             ${analytics.topCustomers.map(customer => `
                                 <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
                                     <span>${customer.name}</span>
-                                    <span>$${customer.total_spent.toFixed(2)} (${customer.total_bookings} bookings)</span>
+                                    <span>${customer.total_spent.toFixed(2)} (${customer.total_bookings} bookings)</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -1605,7 +2612,7 @@
                             ${analytics.monthlyBookings.slice(-6).map(month => `
                                 <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
                                     <span>${month.month}</span>
-                                    <span>${month.bookings} bookings ($${month.revenue})</span>
+                                    <span>${month.bookings} bookings (${month.revenue})</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -1682,6 +2689,8 @@
                     const currentSection = document.querySelector('.nav-link.active').dataset.section;
                     if (currentSection === 'bookings') {
                         renderBookingsTable(currentData.bookings);
+                    } else if (currentSection === 'calendar') {
+                        loadCalendarBookings();
                     }
                 }
             } catch (error) {
@@ -1732,6 +2741,14 @@
             if (booking) {
                 showNotification(`Viewing details for booking #${bookingId}`, 'info');
                 // Could open a detailed modal here
+            }
+        }
+
+        function editBooking(bookingId) {
+            const booking = currentData.bookings.find(b => b.id === bookingId);
+            if (booking) {
+                showNotification(`Edit functionality for booking #${bookingId} coming soon`, 'info');
+                // Could implement edit booking modal here
             }
         }
 
@@ -1875,6 +2892,115 @@
             showModal('Add New Customer', content);
             
             document.getElementById('addCustomerForm').addEventListener('submit', handleAddCustomer);
+        }
+
+        function showAddBookingModal(selectedDate = null) {
+            const customerOptions = currentData.customers.map(c => 
+                `<option value="${c.id}">${c.name} (${c.email})</option>`
+            ).join('');
+
+            const content = `
+                <form id="addBookingForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Customer *</label>
+                            <select name="customer_id" class="form-select" required>
+                                <option value="">Select Customer</option>
+                                ${customerOptions}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Service *</label>
+                            <select name="service_type" class="form-select" required>
+                                <option value="">Select Service</option>
+                                <option value="swimming-lessons">Swimming Lessons</option>
+                                <option value="pool-cleaning">Pool Cleaning</option>
+                                <option value="maintenance">Maintenance</option>
+                                <option value="emergency">Emergency Service</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            <input type="date" name="booking_date" class="form-input" required value="${selectedDate || new Date().toISOString().split('T')[0]}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Time *</label>
+                            <input type="time" name="booking_time" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Duration (hours)</label>
+                            <input type="number" name="duration" class="form-input" min="0.5" max="8" step="0.5" value="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Participants</label>
+                            <input type="number" name="participants" class="form-input" min="1" max="20" value="1">
+                        </div>
+                        
+                        <div class="form-group form-grid-full">
+                            <label class="form-label">Special Requests</label>
+                            <textarea name="special_requests" class="form-textarea" rows="3" placeholder="Any special requests or notes..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Add Booking
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            showModal('Add New Booking', content);
+            
+            document.getElementById('addBookingForm').addEventListener('submit', handleAddBooking);
+        }
+
+        async function handleAddBooking(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const bookingData = {
+                user_id: parseInt(formData.get('customer_id')),
+                service_type: formData.get('service_type'),
+                booking_date: formData.get('booking_date'),
+                booking_time: formData.get('booking_time'),
+                duration: parseFloat(formData.get('duration')) || 1,
+                participants: parseInt(formData.get('participants')) || 1,
+                special_requests: formData.get('special_requests'),
+                status: 'confirmed' // Admin bookings are auto-confirmed
+            };
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div> Adding booking...';
+            
+            try {
+                const response = await apiCall('/api/admin/bookings', {
+                    method: 'POST',
+                    body: JSON.stringify(bookingData)
+                });
+                
+                if (response.success) {
+                    closeModal();
+                    showNotification('Booking added successfully!', 'success');
+                    loadCalendarBookings();
+                    loadDashboard(); // Refresh stats
+                } else {
+                    throw new Error(response.error || 'Failed to add booking');
+                }
+            } catch (error) {
+                console.error('Booking creation error:', error);
+                showNotification(error.message || 'Error adding booking', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-calendar-plus"></i> Add Booking';
+            }
         }
 
         function generateTempPassword() {
@@ -2042,10 +3168,24 @@
                             'Duration': booking.duration + 'h',
                             'Participants': booking.participants,
                             'Cost': booking.cost.toFixed(2),
+                            'Staff': booking.assigned_staff || 'Unassigned',
                             'Status': booking.status,
                             'Special Requests': booking.special_requests || ''
                         }));
                         filename = 'bookings';
+                        break;
+                    case 'staff':
+                        data = currentData.staff.map(staff => ({
+                            'Name': staff.name,
+                            'Role': staff.role,
+                            'Status': staff.status,
+                            'Email': staff.email || '',
+                            'Phone': staff.phone || '',
+                            'Emergency Contact': staff.emergency_contact || '',
+                            'Hire Date': formatDate(staff.hire_date),
+                            'Address': staff.address || ''
+                        }));
+                        filename = 'staff';
                         break;
                     case 'pricing':
                         data = currentData.pricing.map(price => ({
@@ -2093,16 +3233,6 @@
             });
             
             menu.classList.toggle('hidden');
-        }
-
-        function exportForMailchimp() {
-            exportData('customers', 'csv');
-            showNotification('Customer data exported for Mailchimp', 'info');
-        }
-
-        function exportForConstantContact() {
-            exportData('customers', 'csv');
-            showNotification('Customer data exported for Constant Contact', 'info');
         }
 
         function setupQuickBooksIntegration() {
@@ -2209,9 +3339,23 @@
                 }
             });
 
-            console.log('🏊‍♂️ 805 LifeGuard Complete Admin Portal Initialized');
+            // Responsive sidebar handling
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    document.getElementById('sidebar').classList.remove('closed');
+                    document.querySelector('.sidebar-overlay').classList.remove('active');
+                    document.getElementById('content').classList.remove('full-width');
+                } else {
+                    closeMobileMenu();
+                }
+            });
+
+            console.log('🏊‍♂️ 805 LifeGuard Enhanced Admin Portal Initialized');
             console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
             console.log('🔑 Admin credentials: admin/lifeguard2025');
+            console.log('📱 Mobile navigation enabled');
+            console.log('📅 Calendar view with staff assignments');
+            console.log('👥 Staff management module');
         });
     </script>
 </body>
