@@ -992,29 +992,120 @@ section:not(.hero):not(.page-header) {
 }
 
 .custom-cta-section {
-    background: var(--white);
+    /* Background setup with luxury image */
+    background-color: #1e88e5; /* Fallback */
+    background-image: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 136, 229, 0.7)), 
+        url('/images/luxury-cta-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    /* Layout and styling */
     border-radius: 20px;
     padding: 60px 40px;
     text-align: center;
     box-shadow: var(--shadow-medium);
-    border: 2px solid var(--gallery-blue);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    
+    /* Text color for contrast */
+    color: var(--white);
+}
+
+/* Pattern overlay for visual depth */
+.custom-cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.custom-cta-content {
+    position: relative;
+    z-index: 2;
 }
 
 .custom-cta-content h3 {
     font-size: 2.2rem;
-    color: var(--dark);
+    color: #ffffff;
     margin-bottom: 20px;
     font-weight: 800;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7), 1px 1px 8px rgba(0, 0, 0, 0.8);
 }
 
 .custom-cta-content p {
     font-size: 1.2rem;
-    color: var(--gray);
+    color: #ffffff;
     margin-bottom: 35px;
     line-height: 1.7;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+    font-style: italic;
+}
+
+/* Fixed buttons for custom CTA section */
+.custom-cta-section .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    cursor: pointer;
+    min-width: 200px;
+    justify-content: center;
+    margin: 0 10px 10px 0;
+}
+
+.custom-cta-section .primary-btn {
+    background: linear-gradient(45deg, var(--accent), #e91e63);
+    color: var(--white);
+    border-color: rgba(247, 37, 133, 0.7);
+    box-shadow: 0 8px 25px rgba(247, 37, 133, 0.5);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-cta-section .primary-btn:hover {
+    background: linear-gradient(45deg, #e91e63, var(--accent));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(247, 37, 133, 0.6);
+    border-color: rgba(247, 37, 133, 0.9);
+    color: var(--white);
+}
+
+.custom-cta-section .secondary-btn {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-cta-section .secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--dark);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 1);
+    text-shadow: none;
 }
 
 /* ========================================
@@ -1971,11 +2062,19 @@ section:not(.hero):not(.page-header) {
             url('/images/luxury-cta-background.jpg');
     }
     
-    .cta .primary-btn {
+    .custom-cta-section {
+        background-image: 
+            linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 136, 229, 0.9)), 
+            url('/images/luxury-cta-background.jpg');
+    }
+    
+    .cta .primary-btn,
+    .custom-cta-section .primary-btn {
         border-width: 3px;
     }
     
-    .cta .secondary-btn {
+    .cta .secondary-btn,
+    .custom-cta-section .secondary-btn {
         border-width: 3px;
         background: rgba(255, 255, 255, 0.9);
         color: var(--dark);
@@ -1988,7 +2087,8 @@ section:not(.hero):not(.page-header) {
         animation: none;
     }
     
-    .cta .cta-btn:hover {
+    .cta .cta-btn:hover,
+    .custom-cta-section .cta-btn:hover {
         transform: none;
     }
 }
@@ -2445,14 +2545,22 @@ footer {
 
     .custom-cta-section {
         padding: 50px 30px;
+        background-attachment: scroll;
+        background-image: 
+            linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(30, 136, 229, 0.8)), 
+            url('/images/luxury-cta-background.jpg');
     }
 
     .custom-cta-content h3 {
         font-size: 2.2rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
     }
 
     .custom-cta-content p {
         font-size: 1.2rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
     }
 
     .custom-solutions .section-title h2 {
@@ -2648,14 +2756,29 @@ footer {
     .custom-cta-section {
         padding: 40px 20px;
         border-radius: 20px;
+        background-attachment: scroll;
+        background-image: 
+            linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 136, 229, 0.9)), 
+            url('/images/luxury-cta-background.jpg');
     }
 
     .custom-cta-content h3 {
         font-size: 1.8rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
     }
 
     .custom-cta-content p {
         font-size: 1.1rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+    }
+    
+    .custom-cta-section .cta-btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 10px auto;
+        display: block;
     }
 
     .solution-factor {
@@ -2767,6 +2890,32 @@ footer {
         font-size: 1rem;
         margin-bottom: 25px;
         text-shadow: 2px 2px 25px rgba(0, 0, 0, 0.9), 1px 1px 15px rgba(0, 0, 0, 1);
+    }
+
+    .custom-cta-section {
+        padding: 30px 15px;
+        background-image: 
+            linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(30, 136, 229, 0.95)), 
+            url('/images/luxury-cta-background.jpg');
+    }
+    
+    .custom-cta-content h3 {
+        font-size: 1.6rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.9);
+    }
+    
+    .custom-cta-content p {
+        font-size: 1rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+    }
+    
+    .custom-cta-section .cta-btn {
+        font-size: 0.9rem;
+        padding: 14px 24px;
+        width: 100%;
+        max-width: 260px;
     }
 
     .inline-cta h3 {
@@ -2901,13 +3050,18 @@ footer {
     display: block;
 }
 
-/* Focus styles for accessibility */
+/* Focus states for accessibility */
 .nav-link:focus,
 .cta-btn:focus,
-.social-link:focus {
+.social-link:focus,
+.custom-cta-section .cta-btn:focus {
     outline: 3px solid var(--gallery-blue);
     outline-offset: 2px;
     border-radius: 4px;
+}
+
+.custom-cta-section .primary-btn:focus {
+    outline-color: rgba(247, 37, 133, 0.8);
 }
 
 .nav-link.client-portal:focus {
@@ -2962,6 +3116,21 @@ footer {
         background: var(--gallery-blue);
         color: white;
         margin-top: 0;
+    }
+    
+    .cta,
+    .custom-cta-section {
+        background: var(--gallery-blue) !important;
+        color: white !important;
+        padding: 40px 20px !important;
+        min-height: auto !important;
+    }
+    
+    .cta .cta-btn,
+    .custom-cta-section .cta-btn {
+        border: 2px solid white !important;
+        background: transparent !important;
+        color: white !important;
     }
     
     * {
