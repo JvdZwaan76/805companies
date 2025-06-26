@@ -1050,13 +1050,26 @@
         const popupShownKey = 'exitIntentShown';
         const popupSubmittedKey = 'exitIntentSubmitted';
         
+        // Ensure popup is hidden on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('exitIntentPopup');
+            if (popup) {
+                popup.classList.remove('show');
+                popup.setAttribute('aria-hidden', 'true');
+                popup.style.display = 'flex'; // Ensure it has display flex but hidden
+                console.log('Exit intent popup initialized and hidden');
+            }
+        });
+        
         function showExitIntentPopup() {
             if (exitIntentShown || sessionStorage.getItem(popupShownKey) || sessionStorage.getItem(popupSubmittedKey)) {
+                console.log('Exit popup already shown or submitted, skipping');
                 return;
             }
             
             const popup = document.getElementById('exitIntentPopup');
             if (popup) {
+                console.log('Showing exit intent popup');
                 popup.classList.add('show');
                 popup.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -1082,28 +1095,35 @@
         function hideExitIntentPopup() {
             const popup = document.getElementById('exitIntentPopup');
             if (popup) {
+                console.log('Hiding exit intent popup');
                 popup.classList.remove('show');
                 popup.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
             }
         }
         
-        // Exit intent detection
-        document.addEventListener('mouseleave', function(e) {
-            // Only trigger if mouse leaves from the top of the viewport
-            if (e.clientY <= 0) {
-                mouseLeftViewport = true;
-                setTimeout(() => {
-                    if (mouseLeftViewport) {
-                        showExitIntentPopup();
-                    }
-                }, 100); // Small delay to avoid false triggers
-            }
-        });
-        
-        document.addEventListener('mouseenter', function() {
-            mouseLeftViewport = false;
-        });
+        // Exit intent detection - only after page is fully loaded
+        setTimeout(() => {
+            // Desktop: Mouse movement toward browser top (exit intent)
+            document.addEventListener('mouseleave', function(e) {
+                // Only trigger if mouse leaves from the top of the viewport
+                if (e.clientY <= 0) {
+                    mouseLeftViewport = true;
+                    setTimeout(() => {
+                        if (mouseLeftViewport) {
+                            console.log('Exit intent detected - mouse left viewport');
+                            showExitIntentPopup();
+                        }
+                    }, 100); // Small delay to avoid false triggers
+                }
+            });
+            
+            document.addEventListener('mouseenter', function() {
+                mouseLeftViewport = false;
+            });
+            
+            console.log('Exit intent detection initialized');
+        }, 2000); // Wait 2 seconds after page load
         
         // Alternative trigger: after 30 seconds of inactivity
         let inactivityTimer;
@@ -1111,6 +1131,7 @@
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(() => {
                 if (!exitIntentShown && !sessionStorage.getItem(popupShownKey)) {
+                    console.log('30 seconds of inactivity - showing popup');
                     showExitIntentPopup();
                 }
             }, 30000); // 30 seconds
@@ -1134,6 +1155,7 @@
                 hasScrolledToBottom = true;
                 setTimeout(() => {
                     if (!exitIntentShown && !sessionStorage.getItem(popupShownKey)) {
+                        console.log('Scrolled to bottom on mobile - showing popup');
                         showExitIntentPopup();
                     }
                 }, 1000); // Small delay after reaching bottom
@@ -1145,13 +1167,17 @@
         const popup = document.getElementById('exitIntentPopup');
         
         if (closeBtn) {
-            closeBtn.addEventListener('click', hideExitIntentPopup);
+            closeBtn.addEventListener('click', function() {
+                console.log('Close button clicked');
+                hideExitIntentPopup();
+            });
         }
         
         if (popup) {
             // Close on overlay click
             popup.addEventListener('click', function(e) {
                 if (e.target === popup) {
+                    console.log('Overlay clicked - closing popup');
                     hideExitIntentPopup();
                 }
             });
@@ -1256,6 +1282,18 @@
         console.log('Redundant quote removed from bottom CTA section');
         console.log('Exit-intent popup initialized with $500 consultation offer');
         console.log('Exit triggers: mouse leave viewport (desktop), scroll to bottom (mobile), 30s inactivity');
+        
+        // Test function for development - remove in production
+        // You can call showTestPopup() in browser console to test the popup
+        window.showTestPopup = function() {
+            console.log('Showing test popup');
+            exitIntentShown = false;
+            sessionStorage.removeItem(popupShownKey);
+            sessionStorage.removeItem(popupSubmittedKey);
+            showExitIntentPopup();
+        };
+        
+        console.log('To test the popup, type showTestPopup() in the browser console');
     </script>
 </body>
 </html>
