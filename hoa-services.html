@@ -1024,7 +1024,7 @@
             mobileMenuObserver.observe(navLinksElement, { attributes: true });
         }
 
-        // Enhanced accessibility: keyboard navigation for mobile menu
+        // Enhanced accessibility: keyboard navigation for mobile menu and popup
         document.addEventListener('keydown', function(e) {
             const navLinks = document.getElementById('navLinks');
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1038,6 +1038,7 @@
             // Close exit popup with Escape key
             const exitPopup = document.getElementById('exitIntentPopup');
             if (e.key === 'Escape' && exitPopup && exitPopup.classList.contains('show')) {
+                console.log('⌨️ Escape key pressed - closing popup');
                 hideExitIntentPopup();
             }
         });
@@ -1174,7 +1175,7 @@
         
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
-                console.log('Close button clicked');
+                console.log('❌ Close button clicked');
                 hideExitIntentPopup();
             });
         }
@@ -1183,7 +1184,7 @@
             // Close on overlay click
             popup.addEventListener('click', function(e) {
                 if (e.target === popup) {
-                    console.log('Overlay clicked - closing popup');
+                    console.log('❌ Overlay clicked - closing popup');
                     hideExitIntentPopup();
                 }
             });
@@ -1286,8 +1287,10 @@
         console.log('Background image should load from: /images/luxury-cta-background.jpg');
         console.log('Team images: Jessica -> Sarah, Marcus -> Nick, Sarah -> Grace');
         console.log('Redundant quote removed from bottom CTA section');
-        console.log('Exit-intent popup initialized with $500 consultation offer');
-        console.log('Exit triggers: mouse leave viewport (desktop), scroll to bottom (mobile), 30s inactivity');
+        console.log('🎯 Exit-intent popup initialized with enhanced detection:');
+        console.log('  📱 Mobile: scroll to bottom, rapid scroll up, app switching, 25s inactivity');
+        console.log('  🖥️ Desktop: mouse exit top, tab close attempt, 25s inactivity');
+        console.log('  🕐 Minimum 3 seconds after page load before any triggers');
         
         // Test function for development - remove in production
         // You can call showTestPopup() in browser console to test the popup
