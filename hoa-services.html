@@ -130,18 +130,18 @@
     <section class="page-header">
         <div class="page-header-content fade-in-up">
             <div class="hero-badge">
-                <i class="fas fa-crown"></i>
+                <i class="fas fa-crown" aria-hidden="true"></i>
                 Elite Pool Management for Distinguished Communities
             </div>
             <h1>Exclusive Pool Management for Prestigious Southern California Communities</h1>
             <p>Serving discerning HOAs who demand the finest in pool safety, luxury service, and impeccable standards. Where excellence meets exclusivity.</p>
             <div class="cta-buttons">
-                <a href="#services" class="cta-btn primary-btn">
-                    <i class="fas fa-list-ul"></i>
+                <a href="#services" class="cta-btn primary-btn" aria-label="View our premium pool management solutions">
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>
                     View Our Solutions
                 </a>
-                <a href="#pricing" class="cta-btn secondary-btn">
-                    <i class="fas fa-calculator"></i>
+                <a href="#pricing" class="cta-btn secondary-btn" aria-label="Get custom pricing for your HOA community">
+                    <i class="fas fa-calculator" aria-hidden="true"></i>
                     Get Custom Pricing
                 </a>
             </div>
@@ -151,9 +151,9 @@
     <!-- Breadcrumbs -->
     <nav class="breadcrumbs" aria-label="Breadcrumb navigation">
         <ul class="breadcrumbs-list">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html" rel="home">Home</a></li>
             <li><a href="services.html">Services</a></li>
-            <li class="current">HOA Services</li>
+            <li class="current" aria-current="page">HOA Services</li>
         </ul>
     </nav>
 
@@ -162,7 +162,7 @@
         <div class="section-title fade-in-up">
             <div class="section-badge">Luxury Pool Solutions</div>
             <h2>White-Glove Pool Management Services</h2>
-            <p>Curated specifically for Southern California's most prestigious communities - where every detail matters and excellence is never negotiable</p>
+            <p>Curated specifically for Southern California's most prestigious communities in Ventura County, Santa Barbara County, and Los Angeles County - where every detail matters and excellence is never negotiable</p>
         </div>
         
         <div class="services-container">
@@ -426,14 +426,14 @@
             <div class="custom-cta-section fade-in-up">
                 <div class="custom-cta-content">
                     <h3>Reserve Your Exclusive Consultation</h3>
-                    <p>"Excellence is never an accident. It is always the result of high intention, sincere effort, and intelligent execution." - Aristotle</p>
+                    <p>Every prestigious community deserves a personalized approach to pool management excellence.</p>
                     <div class="cta-buttons">
-                        <a href="contact.html" class="cta-btn primary-btn">
-                            <i class="fas fa-gem"></i>
+                        <a href="contact.html" class="cta-btn primary-btn" aria-label="Request private proposal for HOA pool services">
+                            <i class="fas fa-gem" aria-hidden="true"></i>
                             Request Private Proposal
                         </a>
-                        <a href="tel:8053676432" class="cta-btn secondary-btn">
-                            <i class="fas fa-phone"></i>
+                        <a href="tel:8053676432" class="cta-btn secondary-btn" aria-label="Schedule consultation by calling 805-367-6432">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
                             Schedule Consultation
                         </a>
                     </div>
@@ -749,6 +749,83 @@
         </div>
     </footer>
 
+    <!-- Exit Intent Popup -->
+    <div id="exitIntentPopup" class="exit-popup-overlay" aria-hidden="true">
+        <div class="exit-popup-container" role="dialog" aria-labelledby="popup-title" aria-describedby="popup-description">
+            <button class="exit-popup-close" id="closeExitPopup" aria-label="Close popup">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="exit-popup-content">
+                <div class="exit-popup-header">
+                    <div class="exit-popup-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 id="popup-title">Wait! Before You Go...</h3>
+                    <p id="popup-description">Get an exclusive HOA board consultation worth $500 - completely free!</p>
+                </div>
+                
+                <div class="exit-popup-offer">
+                    <div class="offer-badge">
+                        <span class="offer-value">$500 VALUE</span>
+                        <span class="offer-text">FREE CONSULTATION</span>
+                    </div>
+                    
+                    <ul class="offer-benefits">
+                        <li><i class="fas fa-check-circle"></i> Custom pool management assessment</li>
+                        <li><i class="fas fa-check-circle"></i> Cost savings analysis for your community</li>
+                        <li><i class="fas fa-check-circle"></i> Risk mitigation recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> No obligation proposal</li>
+                    </ul>
+                </div>
+                
+                <form class="exit-popup-form" id="exitIntentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="popup-name" class="sr-only">Your Name</label>
+                            <input type="text" id="popup-name" name="name" placeholder="Your Name*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="popup-email" class="sr-only">Email Address</label>
+                            <input type="email" id="popup-email" name="email" placeholder="Email Address*" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="popup-phone" class="sr-only">Phone Number</label>
+                            <input type="tel" id="popup-phone" name="phone" placeholder="Phone Number*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="popup-community" class="sr-only">Community Name</label>
+                            <input type="text" id="popup-community" name="community" placeholder="Community/HOA Name*" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="popup-units" class="sr-only">Number of Units</label>
+                        <select id="popup-units" name="units" required>
+                            <option value="">Number of Units/Homes*</option>
+                            <option value="1-25">1-25 units</option>
+                            <option value="26-50">26-50 units</option>
+                            <option value="51-100">51-100 units</option>
+                            <option value="101-200">101-200 units</option>
+                            <option value="200+">200+ units</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="exit-popup-submit">
+                        <i class="fas fa-calendar-check"></i>
+                        Claim Your Free $500 Consultation
+                    </button>
+                    
+                    <p class="exit-popup-disclaimer">
+                        <i class="fas fa-shield-alt"></i>
+                        Your information is secure. We'll contact you within 24 hours to schedule your consultation.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile Navigation Toggle
         document.addEventListener('DOMContentLoaded', function() {
@@ -957,7 +1034,208 @@
                 mobileMenuBtn.classList.remove('active');
                 mobileMenuBtn.focus();
             }
+            
+            // Close exit popup with Escape key
+            const exitPopup = document.getElementById('exitIntentPopup');
+            if (e.key === 'Escape' && exitPopup && exitPopup.classList.contains('show')) {
+                hideExitIntentPopup();
+            }
         });
+
+        // Exit Intent Popup Functionality
+        let exitIntentShown = false;
+        let mouseLeftViewport = false;
+        
+        // Track if user has already seen the popup (session storage)
+        const popupShownKey = 'exitIntentShown';
+        const popupSubmittedKey = 'exitIntentSubmitted';
+        
+        function showExitIntentPopup() {
+            if (exitIntentShown || sessionStorage.getItem(popupShownKey) || sessionStorage.getItem(popupSubmittedKey)) {
+                return;
+            }
+            
+            const popup = document.getElementById('exitIntentPopup');
+            if (popup) {
+                popup.classList.add('show');
+                popup.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                exitIntentShown = true;
+                sessionStorage.setItem(popupShownKey, 'true');
+                
+                // Focus management for accessibility
+                const firstFocusableElement = popup.querySelector('input, button, select');
+                if (firstFocusableElement) {
+                    setTimeout(() => firstFocusableElement.focus(), 300);
+                }
+                
+                // Analytics tracking (if you have analytics)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'exit_intent_popup_shown', {
+                        event_category: 'engagement',
+                        event_label: 'HOA Services Page'
+                    });
+                }
+            }
+        }
+        
+        function hideExitIntentPopup() {
+            const popup = document.getElementById('exitIntentPopup');
+            if (popup) {
+                popup.classList.remove('show');
+                popup.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Exit intent detection
+        document.addEventListener('mouseleave', function(e) {
+            // Only trigger if mouse leaves from the top of the viewport
+            if (e.clientY <= 0) {
+                mouseLeftViewport = true;
+                setTimeout(() => {
+                    if (mouseLeftViewport) {
+                        showExitIntentPopup();
+                    }
+                }, 100); // Small delay to avoid false triggers
+            }
+        });
+        
+        document.addEventListener('mouseenter', function() {
+            mouseLeftViewport = false;
+        });
+        
+        // Alternative trigger: after 30 seconds of inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (!exitIntentShown && !sessionStorage.getItem(popupShownKey)) {
+                    showExitIntentPopup();
+                }
+            }, 30000); // 30 seconds
+        }
+        
+        // Reset timer on user activity
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
+            document.addEventListener(event, resetInactivityTimer, { passive: true });
+        });
+        
+        // Initialize inactivity timer
+        resetInactivityTimer();
+        
+        // Mobile-specific trigger: scroll to bottom
+        let hasScrolledToBottom = false;
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.innerHeight + window.scrollY;
+            const documentHeight = document.documentElement.offsetHeight;
+            
+            if (scrollPosition >= documentHeight - 100 && !hasScrolledToBottom && window.innerWidth <= 768) {
+                hasScrolledToBottom = true;
+                setTimeout(() => {
+                    if (!exitIntentShown && !sessionStorage.getItem(popupShownKey)) {
+                        showExitIntentPopup();
+                    }
+                }, 1000); // Small delay after reaching bottom
+            }
+        });
+        
+        // Close popup functionality
+        const closeBtn = document.getElementById('closeExitPopup');
+        const popup = document.getElementById('exitIntentPopup');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hideExitIntentPopup);
+        }
+        
+        if (popup) {
+            // Close on overlay click
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    hideExitIntentPopup();
+                }
+            });
+        }
+        
+        // Form submission handling
+        const exitForm = document.getElementById('exitIntentForm');
+        if (exitForm) {
+            exitForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(exitForm);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    community: formData.get('community'),
+                    units: formData.get('units'),
+                    source: 'Exit Intent Popup - HOA Services',
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Show loading state
+                const submitBtn = exitForm.querySelector('.exit-popup-submit');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                submitBtn.disabled = true;
+                
+                // Here you would typically send the data to your server
+                // For demo purposes, we'll simulate a successful submission
+                setTimeout(() => {
+                    // Mark as submitted
+                    sessionStorage.setItem(popupSubmittedKey, 'true');
+                    
+                    // Show success message
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Success! We\'ll contact you soon';
+                    submitBtn.style.background = 'var(--success)';
+                    
+                    // Analytics tracking
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'exit_intent_form_submitted', {
+                            event_category: 'conversion',
+                            event_label: 'HOA Services Lead',
+                            value: 500
+                        });
+                    }
+                    
+                    // Close popup after success
+                    setTimeout(() => {
+                        hideExitIntentPopup();
+                        
+                        // Optional: redirect to thank you page or show confirmation
+                        // window.location.href = '/thank-you.html';
+                    }, 2000);
+                    
+                }, 1500); // Simulate API call delay
+                
+                // In a real implementation, you'd do something like:
+                /*
+                fetch('/api/submit-lead', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    // Handle success
+                    sessionStorage.setItem(popupSubmittedKey, 'true');
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Success! We\'ll contact you soon';
+                    setTimeout(() => hideExitIntentPopup(), 2000);
+                })
+                .catch(error => {
+                    // Handle error
+                    console.error('Error:', error);
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    alert('There was an error submitting your request. Please try again.');
+                });
+                */
+            });
+        }
 
         // CTA button focus enhancement
         document.querySelectorAll('.cta-btn').forEach(btn => {
@@ -972,8 +1250,12 @@
 
         // Console log for debugging (remove in production)
         console.log('805 LifeGuard HOA Services page loaded successfully');
-        console.log('Using external styles.css for optimized performance');
+        console.log('SEO optimized with structured data, enhanced meta tags, and accessibility features');
         console.log('Background image should load from: /images/luxury-cta-background.jpg');
+        console.log('Team images: Jessica -> Sarah, Marcus -> Nick, Sarah -> Grace');
+        console.log('Redundant quote removed from bottom CTA section');
+        console.log('Exit-intent popup initialized with $500 consultation offer');
+        console.log('Exit triggers: mouse leave viewport (desktop), scroll to bottom (mobile), 30s inactivity');
     </script>
 </body>
 </html>
