@@ -824,29 +824,31 @@ section:not(.hero):not(.page-header) {
    ======================================== */
 
 .management-solutions {
-    padding: 100px 5%;
+    padding: 80px 5%;
     background: linear-gradient(135deg, #f0f8ff 0%, rgba(227, 242, 253, 0.5) 100%);
 }
 
 .solutions-container {
     display: flex;
-    align-items: center;
-    gap: 70px;
+    align-items: flex-start;
+    gap: 50px;
     max-width: 1400px;
     margin: 0 auto;
+    min-height: 600px;
 }
 
 .solutions-content {
     flex: 1;
+    padding-right: 20px;
 }
 
 .solutions-content h2 {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-weight: 800;
     line-height: 1.2;
     /* Fallback for browsers that don't support background-clip */
@@ -855,25 +857,30 @@ section:not(.hero):not(.page-header) {
 
 .solutions-content p {
     color: var(--gray);
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     font-size: 1.05rem;
-    line-height: 1.8;
+    line-height: 1.7;
+    max-width: 600px;
 }
 
 .solutions-list {
     list-style: none;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .solutions-list li {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 22px;
-    padding: 22px;
+    margin-bottom: 20px;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: var(--border-radius);
     transition: var(--transition);
     border-left: 4px solid var(--gallery-blue);
+}
+
+.solutions-list li:last-child {
+    margin-bottom: 0;
 }
 
 .solutions-list li:hover {
@@ -883,22 +890,23 @@ section:not(.hero):not(.page-header) {
 }
 
 .solutions-list li i {
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     background: var(--gradient-primary);
     color: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 18px;
+    margin-right: 16px;
     flex-shrink: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-top: 2px;
 }
 
 .solutions-list li div h4 {
     color: var(--dark);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-size: 1.1rem;
     font-weight: 700;
 }
@@ -907,16 +915,20 @@ section:not(.hero):not(.page-header) {
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.6;
+    color: var(--gray);
 }
 
 .solutions-image {
     flex: 1;
-    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 20px;
 }
 
 .solutions-image img {
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
     height: auto;
     border-radius: 18px;
     box-shadow: var(--shadow-heavy);
@@ -2495,7 +2507,8 @@ footer {
     .about-container,
     .solutions-container {
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
+        min-height: auto;
     }
     
     .about-img, 
@@ -2504,6 +2517,34 @@ footer {
     .solutions-content {
         flex: none;
         width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .management-solutions {
+        padding: 60px 5%;
+    }
+
+    .solutions-content h2 {
+        font-size: 2.3rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .solutions-content p {
+        text-align: center;
+        margin: 0 auto 25px;
+        max-width: 700px;
+    }
+
+    .solutions-image {
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    .solutions-image img {
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .testimonial-card {
@@ -2653,9 +2694,53 @@ footer {
         padding: 40px 20px;
     }
 
-    section:not(.hero):not(.page-header) {
-        scroll-margin-top: var(--header-height-mobile);
-        padding: 70px 5%;
+    .management-solutions {
+        padding: 50px 5%;
+    }
+
+    .solutions-container {
+        gap: 20px;
+    }
+
+    .solutions-content h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .solutions-content p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .solutions-list {
+        margin-bottom: 25px;
+    }
+
+    .solutions-list li {
+        padding: 16px;
+        margin-bottom: 15px;
+        flex-direction: column;
+        text-align: center;
+        border-left: none;
+        border-top: 4px solid var(--gallery-blue);
+    }
+
+    .solutions-list li i {
+        margin-right: 0;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .solutions-list li:hover {
+        transform: translateY(-4px);
+    }
+
+    .solutions-image {
+        margin-bottom: 0;
+    }
+
+    .solutions-image img {
+        max-width: 100%;
     }
     
     .hero-content,
