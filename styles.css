@@ -828,6 +828,10 @@ section:not(.hero):not(.page-header) {
     background: linear-gradient(135deg, #f0f8ff 0%, rgba(227, 242, 253, 0.5) 100%);
 }
 
+.management-solutions .section-badge {
+    margin-bottom: 15px;
+}
+
 .solutions-container {
     display: flex;
     align-items: flex-start;
@@ -902,6 +906,48 @@ section:not(.hero):not(.page-header) {
     flex-shrink: 0;
     font-size: 1rem;
     margin-top: 2px;
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+    font-weight: 900;
+}
+
+/* Ensure all FontAwesome icons display properly */
+.solutions-list li i.fas,
+.solutions-list li i.fa {
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+    font-weight: 900;
+}
+
+.solutions-list li i.far {
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+    font-weight: 400;
+}
+
+/* Specific icon fallbacks for better compatibility */
+.solutions-list li i.fa-shield-halved::before,
+.solutions-list li i.fa-shield-alt::before {
+    content: "\f3ed"; /* FontAwesome shield-alt icon */
+}
+
+.solutions-list li i.fa-chart-line::before {
+    content: "\f201"; /* FontAwesome chart-line icon */
+}
+
+.solutions-list li i.fa-certificate::before {
+    content: "\f0a3"; /* FontAwesome certificate icon */
+}
+
+.solutions-list li i.fa-gem::before {
+    content: "\f3a5"; /* FontAwesome gem icon */
+}
+
+/* Alternative shield icon if fa-shield-halved doesn't work */
+.solutions-list li:first-child i {
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+    font-weight: 900;
+}
+
+.solutions-list li:first-child i::before {
+    content: "\f132"; /* FontAwesome shield icon as fallback */
 }
 
 .solutions-list li div h4 {
@@ -2694,6 +2740,11 @@ footer {
         padding: 40px 20px;
     }
 
+    section:not(.hero):not(.page-header) {
+        scroll-margin-top: var(--header-height-mobile);
+        padding: 70px 5%;
+    }
+
     .management-solutions {
         padding: 50px 5%;
     }
@@ -2729,6 +2780,12 @@ footer {
         margin-right: 0;
         margin-bottom: 10px;
         margin-top: 0;
+        font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+        font-weight: 900;
+    }
+
+    .solutions-list li:first-child i::before {
+        content: "\f132"; /* Ensure shield icon displays on mobile */
     }
 
     .solutions-list li:hover {
@@ -2947,6 +3004,46 @@ footer {
     section:not(.hero):not(.page-header) {
         scroll-margin-top: var(--header-height-small-mobile);
         padding: 60px 4%;
+    }
+
+    .management-solutions {
+        padding: 40px 4%;
+    }
+
+    .solutions-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+
+    .solutions-content p {
+        font-size: 0.95rem;
+        margin-bottom: 18px;
+    }
+
+    .solutions-list li {
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .solutions-list li i {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+        font-family: 'Font Awesome 5 Free', 'Font Awesome 6 Free', FontAwesome;
+        font-weight: 900;
+    }
+
+    .solutions-list li:first-child i::before {
+        content: "\f132"; /* Ensure shield icon displays on small mobile */
+    }
+
+    .solutions-list li div h4 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .solutions-list li div p {
+        font-size: 0.9rem;
     }
 
     .nav-links {
