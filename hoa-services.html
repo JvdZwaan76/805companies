@@ -713,6 +713,60 @@
             margin-bottom: 25px;
             font-weight: 800;
             line-height: 1.2;
+            /* Fallback for browsers that don't support background-clip */
+            color: #2d3748;
+        }
+
+        /* Mobile contrast improvements */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+                text-shadow: 3px 3px 25px rgba(0, 0, 0, 0.8), 2px 2px 15px rgba(0, 0, 0, 0.9);
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+                text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 1px 1px 10px rgba(0, 0, 0, 0.9);
+                font-weight: 500;
+            }
+
+            .hero-badge {
+                background: rgba(0, 0, 0, 0.75);
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                font-weight: 700;
+            }
+
+            .inline-cta h3 {
+                font-size: 1.5rem;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            }
+
+            .inline-cta p {
+                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 1.9rem;
+                line-height: 1.2;
+                text-shadow: 3px 3px 30px rgba(0, 0, 0, 0.9), 2px 2px 20px rgba(0, 0, 0, 1);
+            }
+
+            .page-header p {
+                font-size: 1rem;
+                margin-bottom: 25px;
+                text-shadow: 2px 2px 25px rgba(0, 0, 0, 0.9), 1px 1px 15px rgba(0, 0, 0, 1);
+            }
+
+            .inline-cta h3 {
+                font-size: 1.3rem;
+            }
+
+            .inline-cta p {
+                font-size: 1rem;
+            }
         }
         
         .solutions-content p {
@@ -1299,11 +1353,14 @@
             align-items: center;
             gap: 10px;
             font-size: 1.05rem;
-            opacity: 0.9;
+            color: #ffffff;
+            font-weight: 500;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .contact-item i {
             font-size: 1.1rem;
+            color: #ffffff;
         }
 
         /* Footer */
@@ -1732,10 +1789,30 @@
 
             .solutions-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin-bottom: 70px;
             }
 
             .custom-cta-section {
-                padding: 40px 25px;
+                padding: 50px 30px;
+            }
+
+            .custom-cta-content h3 {
+                font-size: 2.2rem;
+            }
+
+            .custom-cta-content p {
+                font-size: 1.2rem;
+            }
+
+            .custom-solutions .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .factor-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 1.8rem;
             }
         }
 
@@ -1852,20 +1929,39 @@
             .solutions-grid {
                 grid-template-columns: 1fr;
                 gap: 25px;
+                margin-bottom: 50px;
             }
 
             .custom-cta-section {
                 padding: 40px 20px;
+                border-radius: 20px;
             }
 
-            .inline-cta {
-                margin: 40px 0;
-                padding: 40px 20px;
-                border-radius: 15px;
+            .custom-cta-content h3 {
+                font-size: 1.8rem;
             }
 
-            .inline-cta h3 {
-                font-size: 1.5rem;
+            .custom-cta-content p {
+                font-size: 1.1rem;
+            }
+
+            .solution-factor {
+                padding: 40px 25px;
+            }
+
+            .factor-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.6rem;
+            }
+
+            .custom-solutions {
+                background-attachment: scroll;
+                padding: 80px 5%;
+            }
+
+            .custom-solutions .section-title h2 {
+                font-size: 2.2rem;
             }
 
             .cta-buttons {
@@ -2178,11 +2274,11 @@
     <section class="page-header">
         <div class="page-header-content fade-in-up">
             <div class="hero-badge">
-                <i class="fas fa-shield-alt"></i>
-                #1 Rated HOA Pool Management in SoCal
+                <i class="fas fa-crown"></i>
+                Elite Pool Management for Distinguished Communities
             </div>
-            <h1>Dedicated HOA Pool Management Tailored to Your Community</h1>
-            <p>We treat every community like family, providing personalized pool safety solutions that reduce liability, enhance resident satisfaction, and create lasting peace of mind for your board.</p>
+            <h1>Exclusive Pool Management for Prestigious Southern California Communities</h1>
+            <p>Serving discerning HOAs who demand the finest in pool safety, luxury service, and impeccable standards. Where excellence meets exclusivity.</p>
             <div class="cta-buttons">
                 <a href="#services" class="cta-btn primary-btn">
                     <i class="fas fa-list-ul"></i>
@@ -2208,9 +2304,9 @@
     <!-- Services Overview -->
     <section class="services-overview" id="services">
         <div class="section-title fade-in-up">
-            <div class="section-badge">Complete HOA Solutions</div>
-            <h2>Comprehensive Pool Management Services</h2>
-            <p>Everything your HOA needs for safe, compliant, and cost-effective pool operations - backed by $10 million in liability coverage</p>
+            <div class="section-badge">Luxury Pool Solutions</div>
+            <h2>White-Glove Pool Management Services</h2>
+            <p>Curated specifically for Southern California's most prestigious communities - where every detail matters and excellence is never negotiable</p>
         </div>
         
         <div class="services-container">
@@ -2220,16 +2316,16 @@
                 </div>
                 <img src="/images/professional-lifeguard-team-hoa.jpg" alt="Professional HOA Lifeguard Team">
                 <div class="service-content">
-                    <h3>Elite Lifeguard Staffing</h3>
-                    <p>Handpicked Red Cross certified lifeguards with average 5+ years experience. Each guard undergoes rigorous background checks, ongoing training, and performance evaluations to ensure excellence.</p>
+                    <h3>Elite Lifeguard Concierge</h3>
+                    <p>Hand-selected Red Cross certified professionals with 5+ years of experience at luxury resorts and private clubs. Each guard undergoes rigorous vetting, continuous training, and white-glove service standards.</p>
                     <div class="service-features">
-                        <span class="feature-tag">Certified Professionals</span>
-                        <span class="feature-tag">Background Checked</span>
-                        <span class="feature-tag">Ongoing Training</span>
-                        <span class="feature-tag">Performance Tracked</span>
+                        <span class="feature-tag">Resort-Trained Professionals</span>
+                        <span class="feature-tag">Concierge Service Standards</span>
+                        <span class="feature-tag">Luxury Experience Focus</span>
+                        <span class="feature-tag">Exclusive Training Program</span>
                     </div>
                     <a href="contact.html" class="learn-more">
-                        Get Staffing Quote <i class="fas fa-arrow-right"></i>
+                        Request Private Consultation <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -2240,16 +2336,16 @@
                 </div>
                 <img src="/images/hoa-pool-compliance-management.jpg" alt="HOA Pool Compliance Management">
                 <div class="service-content">
-                    <h3>Total Pool Operations</h3>
-                    <p>Full-service pool management including safety compliance, health department coordination, maintenance oversight, and comprehensive reporting. Your board stays informed while we handle everything.</p>
+                    <h3>Comprehensive Pool Stewardship</h3>
+                    <p>Five-star pool operations management including regulatory compliance, health department liaison, preventive maintenance oversight, and detailed executive reporting for board peace of mind.</p>
                     <div class="service-features">
-                        <span class="feature-tag">Health Dept Compliance</span>
-                        <span class="feature-tag">Safety Inspections</span>
-                        <span class="feature-tag">Maintenance Coordination</span>
-                        <span class="feature-tag">Monthly Reports</span>
+                        <span class="feature-tag">Regulatory Excellence</span>
+                        <span class="feature-tag">Executive Reporting</span>
+                        <span class="feature-tag">Preventive Maintenance</span>
+                        <span class="feature-tag">Board Liaison Services</span>
                     </div>
                     <a href="contact.html" class="learn-more">
-                        Learn More <i class="fas fa-arrow-right"></i>
+                        Explore Services <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -2260,16 +2356,16 @@
                 </div>
                 <img src="/images/community-swim-programs-hoa.jpg" alt="Community Swim Programs">
                 <div class="service-content">
-                    <h3>Resident Programs & Events</h3>
-                    <p>Boost community engagement with professional swim lessons, water aerobics, pool parties, and seasonal events. All programs are fully insured and professionally managed.</p>
+                    <h3>Curated Community Experiences</h3>
+                    <p>Bespoke aquatic programming including private swim instruction, wellness classes, exclusive member events, and luxury pool parties - all managed with five-star hospitality standards.</p>
                     <div class="service-features">
-                        <span class="feature-tag">All Ages Welcome</span>
-                        <span class="feature-tag">Event Management</span>
-                        <span class="feature-tag">Certified Instructors</span>
-                        <span class="feature-tag">Fully Insured</span>
+                        <span class="feature-tag">Bespoke Programming</span>
+                        <span class="feature-tag">Private Instruction</span>
+                        <span class="feature-tag">Exclusive Events</span>
+                        <span class="feature-tag">Hospitality Standards</span>
                     </div>
                     <a href="contact.html" class="learn-more">
-                        View Programs <i class="fas fa-arrow-right"></i>
+                        Design Custom Program <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -2296,37 +2392,37 @@
     <section class="management-solutions">
         <div class="solutions-container">
             <div class="solutions-content fade-in-up">
-                <div class="section-badge">Why Boards Choose Us</div>
-                <h2>The Smart Choice for HOA Pool Management</h2>
-                <p>We understand the unique challenges HOAs face. Rising insurance costs, compliance headaches, resident complaints, and board liability concerns. Our proven system eliminates these problems while actually saving you money.</p>
+                <div class="section-badge">The Distinction Difference</div>
+                <h2>Why Distinguished Communities Choose Excellence</h2>
+                <p>Premium communities require premium service. We understand the elevated expectations of discerning boards and residents who demand nothing less than perfection in their aquatic facilities.</p>
                 
                 <ul class="solutions-list">
                     <li>
                         <i class="fas fa-shield-halved"></i>
                         <div>
-                            <h4>Dramatically Reduce Liability Risk</h4>
-                            <p>$10 million comprehensive insurance coverage plus professional protocols protect your community from costly lawsuits and claims</p>
+                            <h4>Comprehensive Risk Mitigation</h4>
+                            <p>$10 million platinum insurance coverage plus institutional-grade safety protocols protect your community's assets and reputation from any potential exposure</p>
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-dollar-sign"></i>
+                        <i class="fas fa-chart-line-up"></i>
                         <div>
-                            <h4>Lower Total Operating Costs</h4>
-                            <p>Volume purchasing power for chemicals and equipment, plus preventive maintenance programs reduce your annual pool expenses by 15-25%</p>
+                            <h4>Strategic Cost Optimization</h4>
+                            <p>Institutional purchasing power and predictive maintenance programs typically reduce total pool operations costs by 20-30% while elevating service quality</p>
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-clipboard-check"></i>
+                        <i class="fas fa-certificate"></i>
                         <div>
-                            <h4>Effortless Compliance Management</h4>
-                            <p>We handle all health department requirements, safety inspections, and documentation so your board can focus on community leadership</p>
+                            <h4>Regulatory Excellence Assurance</h4>
+                            <p>Our dedicated compliance team ensures seamless adherence to all municipal requirements, allowing your board to focus on strategic community leadership</p>
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-gem"></i>
                         <div>
-                            <h4>Boost Property Values & Satisfaction</h4>
-                            <p>Professional pool management enhances your community's reputation and resident satisfaction, directly impacting property values</p>
+                            <h4>Premium Property Value Enhancement</h4>
+                            <p>Five-star pool management elevates your community's prestige and resident satisfaction, directly impacting property values and market positioning</p>
                         </div>
                     </li>
                 </ul>
@@ -2431,58 +2527,58 @@
     <!-- Custom Pricing Section -->
     <section class="custom-solutions" id="pricing">
         <div class="section-title fade-in-up">
-            <div class="section-badge">Tailored Solutions</div>
-            <h2>Custom Pricing Built for Your Community</h2>
-            <p>Every HOA is unique, with different pool sizes, usage patterns, and community needs. We create personalized service packages and pricing based on your specific requirements.</p>
+            <div class="section-badge">Bespoke Investment</div>
+            <h2>Curated Service Packages for Distinguished Communities</h2>
+            <p>Every prestigious community deserves a personalized approach. We craft bespoke service solutions that align with your community's unique character, standards, and investment expectations.</p>
         </div>
         
         <div class="custom-solutions-container">
             <div class="solutions-grid">
                 <div class="solution-factor fade-in-up">
                     <div class="factor-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-crown"></i>
                     </div>
-                    <h4>Community Size</h4>
-                    <p>From intimate 20-unit communities to large 500+ unit developments, we scale our services to match your needs and budget.</p>
+                    <h4>Community Prestige</h4>
+                    <p>From intimate luxury estates to grand master-planned communities, we calibrate our services to match your community's distinguished character and resident expectations.</p>
                 </div>
                 
                 <div class="solution-factor fade-in-up">
                     <div class="factor-icon">
-                        <i class="fas fa-swimming-pool"></i>
+                        <i class="fas fa-water"></i>
                     </div>
-                    <h4>Pool Specifications</h4>
-                    <p>Pool size, amenities, spa/kiddie pools, and usage patterns all factor into your custom service plan and pricing.</p>
+                    <h4>Aquatic Assets</h4>
+                    <p>Resort-style pools, championship lap facilities, spa amenities, and water features all receive customized care protocols designed for optimal performance and elegance.</p>
                 </div>
                 
                 <div class="solution-factor fade-in-up">
                     <div class="factor-icon">
-                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-calendar-star"></i>
                     </div>
-                    <h4>Coverage Schedule</h4>
-                    <p>Seasonal adjustments, peak hour coverage, weekend-only, or year-round service - we adapt to your community's rhythm.</p>
+                    <h4>Service Calendar</h4>
+                    <p>Seasonal luxury service adjustments, exclusive member hours, special event coverage, and year-round excellence - perfectly synchronized with your community's lifestyle.</p>
                 </div>
                 
                 <div class="solution-factor fade-in-up">
                     <div class="factor-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fas fa-map-marked-alt"></i>
                     </div>
-                    <h4>Location & Logistics</h4>
-                    <p>Travel time, local regulations, and regional requirements are factored into creating your optimized service plan.</p>
+                    <h4>Southern California Excellence</h4>
+                    <p>Deep understanding of local luxury market standards, municipal requirements, and the expectations of Southern California's most discerning communities.</p>
                 </div>
             </div>
             
             <div class="custom-cta-section fade-in-up">
                 <div class="custom-cta-content">
-                    <h3>Ready for Your Custom Quote?</h3>
-                    <p>Get a personalized service proposal and cost analysis tailored specifically to your community's needs. Most quotes delivered within 24 hours.</p>
+                    <h3>Reserve Your Exclusive Consultation</h3>
+                    <p>"Excellence is never an accident. It is always the result of high intention, sincere effort, and intelligent execution." - Aristotle</p>
                     <div class="cta-buttons">
                         <a href="contact.html" class="cta-btn primary-btn">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                            Get Custom Quote
+                            <i class="fas fa-gem"></i>
+                            Request Private Proposal
                         </a>
                         <a href="tel:8053676432" class="cta-btn secondary-btn">
                             <i class="fas fa-phone"></i>
-                            Discuss Your Needs
+                            Schedule Consultation
                         </a>
                     </div>
                 </div>
@@ -2609,14 +2705,14 @@
     <section class="cta">
         <div class="cta-content fade-in-up">
             <div class="cta-icon">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-crown"></i>
             </div>
-            <h2>Ready to Transform Your Pool Operations?</h2>
-            <p>Join 50+ communities who've already made the smart choice. Get your free custom proposal and cost analysis - see exactly how much you can save while improving service.</p>
+            <h2>Join Southern California's Most Distinguished Communities</h2>
+            <p>Experience the difference that true excellence makes. Reserve your private consultation and discover how we elevate pool management to an art form.</p>
             <div class="cta-buttons">
                 <a href="contact.html" class="cta-btn primary-btn">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    Get Free Cost Analysis
+                    <i class="fas fa-gem"></i>
+                    Request Private Consultation
                 </a>
                 <a href="tel:8053676432" class="cta-btn secondary-btn">
                     <i class="fas fa-phone"></i>
@@ -2630,11 +2726,11 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>hoa@805lifeguard.com</span>
+                    <span>concierge@805lifeguard.com</span>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Free consultations available 7 days</span>
+                    <i class="fas fa-calendar-star"></i>
+                    <span>Exclusive consultations by appointment</span>
                 </div>
             </div>
         </div>
