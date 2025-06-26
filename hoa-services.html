@@ -750,7 +750,7 @@
     </footer>
 
     <!-- Exit Intent Popup -->
-    <div id="exitIntentPopup" class="exit-popup-overlay" aria-hidden="true">
+    <div id="exitIntentPopup" class="exit-popup-overlay" aria-hidden="true" style="display: none !important;">
         <div class="exit-popup-container" role="dialog" aria-labelledby="popup-title" aria-describedby="popup-description">
             <button class="exit-popup-close" id="closeExitPopup" aria-label="Close popup">
                 <i class="fas fa-times"></i>
@@ -1056,7 +1056,7 @@
             if (popup) {
                 popup.classList.remove('show');
                 popup.setAttribute('aria-hidden', 'true');
-                // Don't manually set display - let CSS handle it
+                popup.style.display = 'none'; // Force hide with inline style
                 console.log('Exit intent popup initialized and hidden');
             }
         });
@@ -1070,6 +1070,8 @@
             const popup = document.getElementById('exitIntentPopup');
             if (popup) {
                 console.log('Showing exit intent popup');
+                // Force show the popup
+                popup.style.display = 'flex';
                 popup.classList.add('show');
                 popup.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -1099,6 +1101,10 @@
                 popup.classList.remove('show');
                 popup.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                // Force hide the popup after transition
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 300);
             }
         }
         
@@ -1293,7 +1299,14 @@
             showExitIntentPopup();
         };
         
+        // Test function to hide popup
+        window.hideTestPopup = function() {
+            console.log('Hiding test popup');
+            hideExitIntentPopup();
+        };
+        
         console.log('To test the popup, type showTestPopup() in the browser console');
+        console.log('To hide the popup, type hideTestPopup() in the browser console');
     </script>
 </body>
 </html>
