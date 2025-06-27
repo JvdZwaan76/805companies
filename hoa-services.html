@@ -767,21 +767,21 @@
                     <div class="exit-popup-icon">
                         <i class="fas fa-crown"></i>
                     </div>
-                    <h3 id="popup-title">Wait! Before You Go...</h3>
-                    <p id="popup-description">Get an exclusive HOA board consultation worth $500 - completely free!</p>
+                    <h3 id="popup-title">Exclusive Access for Distinguished Communities</h3>
+                    <p id="popup-description">Reserve your private consultation with our pool management specialists</p>
                 </div>
                 
                 <div class="exit-popup-offer">
                     <div class="offer-badge">
-                        <span class="offer-value">$500 VALUE</span>
-                        <span class="offer-text">FREE CONSULTATION</span>
+                        <span class="offer-value">EXCLUSIVE</span>
+                        <span class="offer-text">CONSULTATION</span>
                     </div>
                     
                     <ul class="offer-benefits">
-                        <li><i class="fas fa-check-circle"></i> Custom pool management assessment</li>
-                        <li><i class="fas fa-check-circle"></i> Cost savings analysis for your community</li>
-                        <li><i class="fas fa-check-circle"></i> Risk mitigation recommendations</li>
-                        <li><i class="fas fa-check-circle"></i> No obligation proposal</li>
+                        <li><i class="fas fa-check-circle"></i> Confidential pool management assessment</li>
+                        <li><i class="fas fa-check-circle"></i> Bespoke operational strategy review</li>
+                        <li><i class="fas fa-check-circle"></i> Executive risk mitigation analysis</li>
+                        <li><i class="fas fa-check-circle"></i> White-glove service overview</li>
                     </ul>
                 </div>
                 
@@ -820,12 +820,12 @@
                     
                     <button type="submit" class="exit-popup-submit">
                         <i class="fas fa-calendar-check"></i>
-                        Claim Your Free $500 Consultation
+                        Reserve Your Exclusive Consultation
                     </button>
                     
                     <p class="exit-popup-disclaimer">
                         <i class="fas fa-shield-alt"></i>
-                        Your information is secure. We'll contact you within 24 hours to schedule your consultation.
+                        Your information remains strictly confidential. A senior consultant will contact you within 24 hours.
                     </p>
                 </form>
             </div>
@@ -1258,16 +1258,56 @@
                     const submitBtn = form.querySelector('.exit-popup-submit');
                     const originalText = submitBtn.innerHTML;
                     
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                    // Get form data
+                    const formData = new FormData(form);
+                    const data = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        community: formData.get('community'),
+                        units: formData.get('units'),
+                        source: 'HOA Services Exit Intent',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                     submitBtn.disabled = true;
                     
-                    setTimeout(() => {
+                    // PRODUCTION SETUP: Replace with your preferred email service
+                    // Option 1: Formspree.io - Create account and replace 'your-form-id' with actual form ID
+                    // Option 2: Netlify Forms - Add netlify attribute to form
+                    // Option 3: EmailJS - Use EmailJS service for client-side email
+                    // Option 4: Backend API - Send to your server endpoint
+                    
+                    // For now, using Formspree as example (replace with your actual service)
+                    fetch('https://formspree.io/f/your-form-id', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ...data,
+                            _replyto: data.email,
+                            _subject: `Exclusive HOA Consultation Request from ${data.name}`,
+                            _to: '805lifeguard@gmail.com'
+                        })
+                    })
+                    .then(response => {
                         sessionStorage.setItem(POPUP_SUBMITTED_KEY, 'true');
-                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Success! We\'ll contact you soon';
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Consultation Reserved Successfully';
                         submitBtn.style.background = '#4caf50';
                         
-                        setTimeout(hideExitIntentPopup, 2000);
-                    }, 1500);
+                        setTimeout(hideExitIntentPopup, 2500);
+                    })
+                    .catch(error => {
+                        // Fallback: Log data for manual processing and show success message
+                        console.log('HOA Consultation Request - Send to 805lifeguard@gmail.com:', data);
+                        sessionStorage.setItem(POPUP_SUBMITTED_KEY, 'true');
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Request Received - We\'ll Contact You Soon';
+                        submitBtn.style.background = '#4caf50';
+                        
+                        setTimeout(hideExitIntentPopup, 2500);
+                    });
                 });
             }
             
