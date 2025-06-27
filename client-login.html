@@ -3714,6 +3714,9 @@
                     const dateKey = this.ensurePacificDate(d.toISOString().split('T')[0]);
                     const dayAvailability = this.monthAvailability[dateKey];
 
+                    // Store date key for click handler
+                    dayElement.setAttribute('data-date', dateKey);
+
                     // Add classes based on date status using Pacific time
                     if (d.getMonth() !== month) {
                         dayElement.classList.add('other-month');
