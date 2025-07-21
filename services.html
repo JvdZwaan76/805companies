@@ -3,34 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - 805 LifeGuard | Professional Lifeguard Services & Swimming Lessons</title>
-    <meta name="description" content="Professional lifeguard services for private events and comprehensive swimming lessons for all ages in Southern California. Certified lifeguards and expert swim instruction.">
-    <meta name="keywords" content="lifeguard services, swimming lessons, pool safety, private events, swim instruction, Southern California, Conejo Valley">
-    <meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Professional Services - 805 LifeGuard">
-    <meta property="og:description" content="Expert lifeguard services and swimming lessons throughout Southern California.">
-    <meta property="og:image" content="/images/805-lifeguard-logo.png">
-    <meta property="og:url" content="https://www.805lifeguard.com/services.html">
-    <link rel="canonical" href="https://www.805lifeguard.com/services.html">
-    <link rel="stylesheet" href="styles.css">
+    <title>Bespoke Aquatic Services | Premier Estate Management | 805 LifeGuard</title>
+    <meta name="description" content="Exclusive aquatic services for distinguished estates: elite lifeguard concierge, private instruction, exclusive pool maintenance, and bespoke event management in Southern California.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preload" href="/images/805-lifeguard-logo.png" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Page-specific styles for services.html */
+        :root {
+            /* Luxury Color Palette */
+            --primary-navy: #1a2b42;
+            --secondary-navy: #2c3e50;
+            --luxury-gold: #d4af37;
+            --deep-gold: #b8941f;
+            --warm-cream: #f8f5f0;
+            --pearl-white: #fefefe;
+            --charcoal: #2c2c2c;
+            --warm-gray: #6c757d;
+            --light-gray: #e8e9ea;
+            --accent-blue: #4a90b8;
+            --forest-green: #2d5446;
+            
+            /* Typography */
+            --font-primary: 'Playfair Display', serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Effects */
+            --shadow-elegant: 0 8px 40px rgba(26, 43, 66, 0.15);
+            --shadow-luxury: 0 20px 60px rgba(26, 43, 66, 0.2);
+            --border-radius-elegant: 12px;
+            --transition-luxury: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            background: var(--pearl-white);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Header - Consistent with other pages */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            transition: var(--transition-luxury);
+        }
+        
+        .header-top {
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .header-top-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .header-top a {
+            color: var(--pearl-white);
+            text-decoration: none;
+            transition: var(--transition-luxury);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header-top a:hover {
+            color: var(--luxury-gold);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: var(--transition-luxury);
+        }
+        
+        .logo-img {
+            height: 60px;
+            width: auto;
+            margin-right: 18px;
+            filter: drop-shadow(0 2px 8px rgba(26, 43, 66, 0.1));
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-main {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--luxury-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-luxury);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--luxury-gold);
+            transition: var(--transition-luxury);
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover {
+            color: var(--luxury-gold);
+        }
+        
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        
+        .nav-link.exclusive {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        
+        .nav-link.exclusive:hover {
+            color: var(--pearl-white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .nav-link.exclusive::before {
+            display: none;
+        }
         
         /* Page Header */
         .page-header {
-            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(38, 166, 154, 0.85)), 
-                        url('/api/placeholder/1920/600');
+            height: 75vh;
+            background: linear-gradient(rgba(26, 43, 66, 0.6), rgba(44, 62, 80, 0.7)), 
+                        url('/images/luxury-estate-services-hero.jpg');
             background-size: cover;
             background-position: center;
-            height: 50vh;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
             text-align: center;
-            margin-top: 140px; /* Account for fixed header */
+            color: var(--pearl-white);
+            margin-top: 110px;
             position: relative;
             overflow: hidden;
         }
@@ -42,510 +225,381 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M50 50m-30 0a30,30 0 1,1 60,0a30,30 0 1,1 -60,0'/%3E%3C/g%3E%3C/svg%3E");
         }
         
         .page-header-content {
             max-width: 900px;
             padding: 0 20px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
         
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 12px 25px;
+            gap: 12px;
+            background: rgba(26, 43, 66, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            padding: 12px 28px;
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 30px;
-            animation: badge-float 3s ease-in-out infinite;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        @keyframes badge-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .page-header h1 {
-            font-size: 3.2rem;
+            font-family: var(--font-primary);
+            font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 25px;
-            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
-            font-weight: 800;
+            text-shadow: 3px 3px 25px rgba(0, 0, 0, 0.8);
             line-height: 1.1;
             letter-spacing: -1px;
         }
         
         .page-header p {
-            font-size: 1.3rem;
-            margin-bottom: 0;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+            line-height: 1.6;
+            font-style: italic;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.6;
-            opacity: 0.95;
-        }
-
-        /* Breadcrumbs */
-        .breadcrumbs {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            box-shadow: var(--shadow-light);
         }
         
-        .breadcrumbs-list {
-            display: flex;
-            list-style: none;
+        /* Service Navigation */
+        .service-nav {
+            background: var(--warm-cream);
+            padding: 30px 5%;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 110px;
+            z-index: 500;
+            backdrop-filter: blur(10px);
+        }
+        
+        .service-nav-container {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
         }
         
-        .breadcrumbs-list li {
-            display: flex;
+        .service-nav-link {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: var(--transition-luxury);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+        }
+        
+        .service-nav-link:hover,
+        .service-nav-link.active {
+            background: var(--primary-navy);
+            color: var(--luxury-gold);
+            border-color: var(--luxury-gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        /* Service Sections */
+        .service-section {
+            padding: 120px 5%;
+            scroll-margin-top: 150px;
+        }
+        
+        .service-section:nth-child(even) {
+            background: var(--warm-cream);
+        }
+        
+        .service-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
             align-items: center;
         }
         
-        .breadcrumbs-list li:not(:last-child)::after {
-            content: '\f105';
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            margin: 0 10px;
-            color: var(--gray);
+        .service-content {
+            padding: 40px 0;
         }
         
-        .breadcrumbs-list a {
-            text-decoration: none;
-            color: var(--gray);
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-        
-        .breadcrumbs-list a:hover {
-            color: var(--gallery-blue);
-        }
-        
-        .breadcrumbs-list .current {
-            color: var(--gallery-blue);
+        .service-badge {
+            display: inline-block;
+            background: var(--primary-navy);
+            color: var(--luxury-gold);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
         }
         
-        /* Services Section */
-        .services-section {
-            padding: 120px 5%;
-            scroll-margin-top: 140px;
+        .service-title {
+            font-family: var(--font-primary);
+            font-size: 3.2rem;
+            color: var(--primary-navy);
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.2;
         }
         
-        /* Service Blocks */
-        .service-block {
-            margin-bottom: 100px;
-        }
-        
-        .service-block:last-child {
-            margin-bottom: 0;
-        }
-        
-        .service-block-header {
-            background: var(--gradient-primary);
-            color: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-block-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .service-block-header h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .service-block-header p {
+        .service-description {
             font-size: 1.2rem;
-            max-width: 800px;
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
-            opacity: 0.95;
+            color: var(--warm-gray);
+            line-height: 1.8;
+            margin-bottom: 35px;
         }
         
         .service-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+            list-style: none;
+            margin-bottom: 40px;
         }
         
-        .service-feature {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-medium);
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .service-feature::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .service-feature:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-heavy);
-        }
-        
-        .service-feature-img {
-            height: 220px;
-            overflow: hidden;
-        }
-        
-        .service-feature-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .service-feature:hover .service-feature-img img {
-            transform: scale(1.05);
-        }
-        
-        .service-feature-content {
-            padding: 30px;
-        }
-        
-        .service-feature-content h4 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-weight: 700;
-        }
-        
-        .service-feature-content p {
-            color: var(--gray);
-            margin-bottom: 25px;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-        
-        .feature-icon {
+        .service-features li {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: var(--charcoal);
         }
         
-        .feature-icon i {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            color: var(--white);
+        .service-features li i {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
-            font-size: 1.2rem;
+            margin-right: 15px;
+            font-size: 0.7rem;
+            flex-shrink: 0;
         }
         
-        /* Pricing Section */
-        .pricing-section {
-            padding: 120px 5%;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            scroll-margin-top: 140px;
+        .service-pricing {
+            background: rgba(26, 43, 66, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--border-radius-elegant);
+            padding: 25px;
+            margin-bottom: 30px;
         }
         
-        .pricing-tabs {
+        .pricing-label {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-value {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .pricing-note {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            font-style: italic;
+        }
+        
+        .service-cta {
             display: flex;
-            justify-content: center;
-            margin-bottom: 50px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         
-        .pricing-tab {
-            padding: 15px 35px;
-            background: var(--white);
-            color: var(--gallery-blue);
-            border: 2px solid var(--gallery-blue);
-            cursor: pointer;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            padding: 16px 30px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
-            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-luxury);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-luxury);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-luxury);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .service-image {
             position: relative;
-            overflow: hidden;
-            font-size: 1rem;
-        }
-        
-        .pricing-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .pricing-tab:first-child {
-            border-radius: 30px 0 0 30px;
-        }
-        
-        .pricing-tab:last-child {
-            border-radius: 0 30px 30px 0;
-        }
-        
-        .pricing-tab.active::before,
-        .pricing-tab:hover::before {
-            left: 0;
-        }
-        
-        .pricing-tab.active,
-        .pricing-tab:hover {
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
-        }
-        
-        .pricing-content {
-            display: none;
-        }
-        
-        .pricing-content.active {
-            display: block;
-        }
-        
-        .pricing-packages {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .pricing-package {
-            background: var(--white);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow-medium);
-            transition: var(--transition);
-            position: relative;
+            box-shadow: var(--shadow-luxury);
         }
         
-        .pricing-package::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
+        .service-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: var(--transition-luxury);
         }
         
-        .pricing-package:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-heavy);
+        .service-image:hover img {
+            transform: scale(1.05);
         }
         
-        .package-header {
-            background: var(--gradient-primary);
-            color: var(--white);
-            padding: 35px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .package-header::before {
+        .service-image::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
+            background: linear-gradient(45deg, rgba(26, 43, 66, 0.1), transparent);
+            pointer-events: none;
         }
         
-        .package-header h4 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
+        /* Reverse layout for alternating sections */
+        .service-section:nth-child(odd) .service-container {
+            direction: rtl;
         }
         
-        .package-price {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
+        .service-section:nth-child(odd) .service-content,
+        .service-section:nth-child(odd) .service-image {
+            direction: ltr;
         }
         
-        .package-price span {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
-        .package-header p {
-            font-size: 1rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .package-features {
-            padding: 35px;
-        }
-        
-        .package-features ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .package-features li {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-        }
-        
-        .package-features li:last-child {
-            border-bottom: none;
-        }
-        
-        .package-features li i {
-            color: var(--success);
-            margin-right: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .package-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            text-align: center;
-            background: var(--gradient-primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
-        }
-        
-        .package-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
-        }
-        
-        /* FAQ Section */
-        .faq-section {
+        /* Portfolio Showcase */
+        .portfolio-showcase {
             padding: 120px 5%;
-            scroll-margin-top: 140px;
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .accordion {
-            max-width: 900px;
+        .portfolio-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M60 60m-40 0a40,40 0 1,1 80,0a40,40 0 1,1 -80,0'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .portfolio-content {
+            max-width: 1000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
-        .accordion-item {
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: var(--shadow-light);
-            overflow: hidden;
-            background: var(--white);
+        .portfolio-showcase h2 {
+            font-family: var(--font-primary);
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
         
-        .accordion-header {
-            background: var(--white);
-            padding: 25px 30px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
-        
-        .accordion-header h4 {
-            font-size: 1.2rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-        
-        .accordion-header i {
-            font-size: 1.2rem;
-            color: var(--gallery-blue);
-            transition: var(--transition);
-        }
-        
-        .accordion-item.active .accordion-header {
-            background: var(--gradient-primary);
-        }
-        
-        .accordion-item.active .accordion-header h4 {
-            color: var(--white);
-        }
-        
-        .accordion-item.active .accordion-header i {
-            color: var(--white);
-            transform: rotate(180deg);
-        }
-        
-        .accordion-content {
-            background: var(--white);
-            padding: 0 30px;
-            max-height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        
-        .accordion-item.active .accordion-content {
-            padding: 30px;
-            max-height: 1000px;
-        }
-        
-        .accordion-content p {
-            font-size: 1rem;
+        .portfolio-showcase p {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.7;
-            color: var(--gray);
         }
-
-        /* Mobile Responsive Adjustments */
+        
+        .portfolio-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: var(--font-primary);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--luxury-gold);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .header-top-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
             .page-header {
-                height: auto;
-                min-height: 50vh;
-                margin-top: 140px;
-                padding: 60px 20px;
+                margin-top: 100px;
+                background-attachment: scroll;
+                height: 60vh;
             }
             
             .page-header h1 {
@@ -556,637 +610,379 @@
                 font-size: 1.1rem;
             }
             
-            .pricing-tabs {
-                flex-direction: column;
-                max-width: 320px;
-                margin: 0 auto 50px;
+            .service-nav {
+                top: 100px;
+                padding: 20px 5%;
             }
             
-            .pricing-tab {
-                border-radius: 0;
-                text-align: center;
+            .service-nav-container {
+                gap: 15px;
             }
             
-            .pricing-tab:first-child {
-                border-radius: 15px 15px 0 0;
+            .service-nav-link {
+                font-size: 0.8rem;
+                padding: 8px 15px;
             }
             
-            .pricing-tab:last-child {
-                border-radius: 0 0 15px 15px;
-            }
-            
-            .service-features {
+            .service-container {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
             
-            .pricing-packages {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .page-header {
-                padding: 80px 15px 60px 15px;
+            .service-section:nth-child(odd) .service-container {
+                direction: ltr;
             }
             
-            .service-block-header h3 {
-                font-size: 1.8rem;
+            .service-section {
+                padding: 80px 5%;
+                scroll-margin-top: 120px;
             }
             
-            .service-block-header p {
+            .service-title {
+                font-size: 2.2rem;
+            }
+            
+            .service-description {
                 font-size: 1rem;
             }
             
-            .accordion-header h4 {
-                font-size: 1.05rem;
+            .service-cta {
+                flex-direction: column;
+            }
+            
+            .portfolio-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .portfolio-showcase h2 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Ripple Background -->
-    <div class="ripple-background">
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <span class="service-area">Serving Southern California since 2016</span>
-                <div class="top-bar-contact">
-                    <a href="tel:8053676432" class="phone-link">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="header-top-left">
+                    <span>Bespoke Aquatic Services Since 2016</span>
+                </div>
+                <div class="header-top-contact">
+                    <a href="tel:8053676432">
                         <i class="fas fa-phone"></i> (805) 367-6432
                     </a>
-                    <a href="mailto:info@805lifeguard.com" class="email-link">
-                        <i class="fas fa-envelope"></i> info@805lifeguard.com
+                    <a href="mailto:concierge@805lifeguard.com">
+                        <i class="fas fa-envelope"></i> concierge@805lifeguard.com
                     </a>
                 </div>
             </div>
         </div>
+        
         <nav class="navbar">
             <a href="index.html" class="logo">
                 <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
                 <div class="logo-text">
                     <span class="logo-main">805 LifeGuard</span>
-                    <span class="logo-subtitle">Professional Pool Safety</span>
+                    <span class="logo-subtitle">Premier Aquatic Estates</span>
                 </div>
             </a>
             
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-link">Home</a></li>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Estate</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="hoa-services.html" class="nav-link">HOA Services</a></li>
-                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="client-login.html" class="nav-link client-portal" title="Client Portal Access">Client Portal</a></li>
-                <li><a href="employee-login.html" class="nav-link staff-portal" title="Staff Portal Access">Staff Portal</a></li>
+                <li><a href="hoa-services.html" class="nav-link">Communities</a></li>
+                <li><a href="about.html" class="nav-link">Heritage</a></li>
+                <li><a href="gallery.html" class="nav-link">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Concierge</a></li>
+                <li><a href="client-login.html" class="nav-link exclusive">Member Portal</a></li>
             </ul>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
         </nav>
     </header>
 
     <!-- Page Header -->
     <section class="page-header">
-        <div class="page-header-content fade-in-up">
+        <div class="page-header-content">
             <div class="hero-badge">
-                <i class="fas fa-certificate"></i>
-                Professional Pool Safety & Swimming Education
+                <i class="fas fa-star"></i>
+                Bespoke Aquatic Excellence
             </div>
-            <h1>Our Services</h1>
-            <p>Professional lifeguard services and personalized swim lessons for all ages throughout Southern California</p>
+            <h1>Distinguished Services</h1>
+            <p>Meticulously curated aquatic services designed exclusively for discerning estates and communities who accept nothing less than perfection in every detail.</p>
         </div>
     </section>
 
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs">
-        <ul class="breadcrumbs-list">
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Services</li>
-        </ul>
-    </div>
+    <!-- Service Navigation -->
+    <nav class="service-nav">
+        <div class="service-nav-container">
+            <a href="#lifeguard" class="service-nav-link">Estate Concierge</a>
+            <a href="#instruction" class="service-nav-link">Private Instruction</a>
+            <a href="#maintenance" class="service-nav-link">Exclusive Maintenance</a>
+            <a href="#events" class="service-nav-link">Event Management</a>
+        </div>
+    </nav>
 
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="section-title fade-in-up">
-            <div class="section-badge">What We Offer</div>
-            <h2>Our Premium Services</h2>
-            <p>We provide professional lifeguard services and personalized swim lessons tailored to your specific needs and safety requirements.</p>
-        </div>
-
-        <!-- Lifeguard Services -->
-        <div class="service-block fade-in-up" id="lifeguard">
-            <div class="service-block-header">
-                <h3>Lifeguard Services</h3>
-                <p>Our discrete and highly experienced lifeguards will ensure your pool party or event is safe and worry-free. We specialize in private pool parties and company/corporate events with comprehensive safety management.</p>
-            </div>
-            <div class="service-features">
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/private-pool-parties-img.png" alt="Private Pool Parties">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-swimming-pool"></i>
-                            <h4>Private Pool Parties</h4>
-                        </div>
-                        <p>Professional lifeguard services for private pool parties, ensuring the safety of all guests while allowing hosts to relax and enjoy their special event with complete peace of mind.</p>
-                    </div>
-                </div>
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/corporate-events-img.png" alt="Corporate Events">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-building"></i>
-                            <h4>Corporate Events</h4>
-                        </div>
-                        <p>Ensure employee and guest safety at company pool events with our professional lifeguard services, allowing your team to focus on team-building and enjoyment without safety concerns.</p>
-                    </div>
-                </div>
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/hoa-community-events-img.png" alt="HOA & Community Events">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                            <h4>HOA & Community Events</h4>
-                        </div>
-                        <p>Specialized lifeguard services for homeowner associations and community pools, ensuring compliance with safety regulations and peace of mind for all residents and guests.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Swimming Lessons -->
-        <div class="service-block fade-in-up" id="lessons">
-            <div class="service-block-header">
-                <h3>Swimming Lessons</h3>
-                <p>We work with all types and levels of swimmers from 3 to 99 years old. Our individualized approach ensures comfort and rapid progress in a supportive learning environment.</p>
-            </div>
-            <div class="service-features">
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/childrens-lessons-img.png" alt="Children's Lessons">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-child"></i>
-                            <h4>Children's Lessons</h4>
-                        </div>
-                        <p>Age-appropriate swim lessons for children 3 years and older, focusing on water safety, comfort, and foundational swimming skills through a fun, engaging, and supportive approach.</p>
-                    </div>
-                </div>
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/adult-lessons-img.png" alt="Adult Lessons">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-user"></i>
-                            <h4>Adult Lessons</h4>
-                        </div>
-                        <p>Personalized swimming instruction for adults of all skill levels, from beginners overcoming water anxiety to advanced swimmers looking to refine their technique and endurance.</p>
-                    </div>
-                </div>
-                <div class="service-feature">
-                    <div class="service-feature-img">
-                        <img src="/images/special-needs-swimming-img.png" alt="Special Needs Swimming">
-                    </div>
-                    <div class="service-feature-content">
-                        <div class="feature-icon">
-                            <i class="fas fa-heart"></i>
-                            <h4>Special Needs Swimming</h4>
-                        </div>
-                        <p>Specialized instruction for individuals with physical, cognitive, or sensory challenges, provided with patience, expertise, and adaptive techniques tailored to each student's unique needs.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing-section">
-        <div class="section-title fade-in-up">
-            <h2>Our Pricing</h2>
-            <p>Transparent and competitive pricing for all our professional services with no hidden fees.</p>
-        </div>
-        <div class="pricing-tabs">
-            <div class="pricing-tab active" data-tab="lifeguard-pricing">Lifeguard Services</div>
-            <div class="pricing-tab" data-tab="swimming-pricing">Swimming Lessons</div>
-        </div>
-        <div class="pricing-content active" id="lifeguard-pricing">
-            <div class="pricing-packages">
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>Basic Package</h4>
-                        <div class="package-price">$150<span>/3 hours</span></div>
-                        <p>Perfect for small private events</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 1 Certified Lifeguard</li>
-                            <li><i class="fas fa-check"></i> Up to 25 guests</li>
-                            <li><i class="fas fa-check"></i> Basic safety equipment</li>
-                            <li><i class="fas fa-check"></i> Pre-event safety briefing</li>
-                            <li><i class="fas fa-check"></i> $40 for each additional hour</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>Standard Package</h4>
-                        <div class="package-price">$250<span>/3 hours</span></div>
-                        <p>Ideal for medium-sized events</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 2 Certified Lifeguards</li>
-                            <li><i class="fas fa-check"></i> Up to 50 guests</li>
-                            <li><i class="fas fa-check"></i> Complete safety equipment</li>
-                            <li><i class="fas fa-check"></i> Pre-event safety assessment</li>
-                            <li><i class="fas fa-check"></i> $75 for each additional hour</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>Premium Package</h4>
-                        <div class="package-price">$400<span>/4 hours</span></div>
-                        <p>Best for large corporate events</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 3 Certified Lifeguards</li>
-                            <li><i class="fas fa-check"></i> Up to 100 guests</li>
-                            <li><i class="fas fa-check"></i> Premium safety equipment</li>
-                            <li><i class="fas fa-check"></i> Complete event safety plan</li>
-                            <li><i class="fas fa-check"></i> $100 for each additional hour</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pricing-content" id="swimming-pricing">
-            <div class="pricing-packages">
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>Single Lesson</h4>
-                        <div class="package-price">$75<span>/lesson</span></div>
-                        <p>Great for occasional swimmers</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 45-minute private lesson</li>
-                            <li><i class="fas fa-check"></i> Personalized instruction</li>
-                            <li><i class="fas fa-check"></i> Initial skill assessment</li>
-                            <li><i class="fas fa-check"></i> All equipment provided</li>
-                            <li><i class="fas fa-check"></i> Flexible scheduling</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>5-Lesson Package</h4>
-                        <div class="package-price">$325<span>/package</span></div>
-                        <p>Most popular option</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 5 45-minute private lessons</li>
-                            <li><i class="fas fa-check"></i> Personalized progress tracking</li>
-                            <li><i class="fas fa-check"></i> Detailed skill assessment</li>
-                            <li><i class="fas fa-check"></i> All equipment provided</li>
-                            <li><i class="fas fa-check"></i> 10% savings included</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-                <div class="pricing-package fade-in-up">
-                    <div class="package-header">
-                        <h4>10-Lesson Package</h4>
-                        <div class="package-price">$600<span>/package</span></div>
-                        <p>Best value for complete learning</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 10 45-minute private lessons</li>
-                            <li><i class="fas fa-check"></i> Comprehensive skill development</li>
-                            <li><i class="fas fa-check"></i> Written progress reports</li>
-                            <li><i class="fas fa-check"></i> All equipment provided</li>
-                            <li><i class="fas fa-check"></i> 20% savings included</li>
-                        </ul>
-                        <a href="contact.html" class="package-btn">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="section-title fade-in-up">
-            <h2>Frequently Asked Questions</h2>
-            <p>Find answers to common questions about our services and booking process.</p>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>What areas do you serve?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>We provide lifeguard services and swimming lessons throughout Southern California, including the Conejo Valley, Thousand Oaks, Westlake Village, Agoura Hills, Newbury Park, Moorpark, and Camarillo. Contact us for specific service area confirmation.</p>
-                </div>
-            </div>
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>How far in advance should I book lifeguard services?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>We recommend booking at least two weeks in advance during the California swim season (May-September) to ensure availability. For peak times or large events, booking 3-4 weeks ahead is ideal for the best service guarantee.</p>
-                </div>
-            </div>
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>What age groups do you teach?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>We work with swimmers of all ages, from 3 to 99 years old and beyond! Our teaching methods are carefully adjusted based on age, ability, learning style, and individual comfort levels to ensure the best possible experience.</p>
-                </div>
-            </div>
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>Do you provide the pool for swimming lessons?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>No, we do not provide a pool setting. We come to your home or community pool for both lifeguard services and swimming lessons, allowing you to enjoy the privacy and comfort of your own familiar environment.</p>
-                </div>
-            </div>
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>What qualifications do your lifeguards have?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>All our lifeguards are fully certified with Red Cross Lifeguard Training, CPR/AED for the Professional Rescuer, and First Aid. Many have additional certifications and years of experience in various aquatic environments and emergency situations.</p>
-                </div>
-            </div>
-            <div class="accordion-item fade-in-up">
-                <div class="accordion-header">
-                    <h4>How long does it take to learn to swim?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-content">
-                    <p>Learning progress varies greatly depending on the individual's age, natural ability, comfort in water, and consistency of lessons. Most children can become water-safe within 8-10 lessons, while adults typically require 5-15 lessons to develop basic swimming skills and confidence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta">
-        <div class="cta-content fade-in-up">
-            <div class="cta-icon">
-                <i class="fas fa-phone-alt"></i>
-            </div>
-            <h2>Ready to Get Started?</h2>
-            <p>Book our professional lifeguard services for your next event or schedule swimming lessons for you or your children. Experience the 805 LifeGuard difference today.</p>
-            <div class="cta-buttons">
-                <a href="contact.html" class="cta-btn primary-btn">
-                    <i class="fas fa-calendar-check"></i>
-                    Contact Us Today
-                </a>
-                <a href="#lifeguard" class="cta-btn secondary-btn">
-                    <i class="fas fa-list-ul"></i>
-                    View All Services
-                </a>
-            </div>
-            <div class="cta-contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>(805) 367-6432</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>info@805lifeguard.com</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-about fade-in-up">
-                <div class="footer-logo">
-                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo - Professional Pool Safety Services" class="footer-logo-img">
-                    <div class="footer-logo-text">
-                        <span class="footer-logo-main">805 LifeGuard</span>
-                        <span class="footer-logo-subtitle">Professional Pool Safety</span>
-                    </div>
-                </div>
-                <p>Professional lifeguard services and swim lessons serving Southern California since 2016. Your safety and swimming success are our top priorities.</p>
-                <div class="social-links" role="list" aria-label="Social Media Links">
-                    <a href="#" class="social-link" aria-label="Follow us on Facebook" role="listitem">
-                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                        <span class="sr-only">Facebook</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Follow us on Instagram" role="listitem">
-                        <i class="fab fa-instagram" aria-hidden="true"></i>
-                        <span class="sr-only">Instagram</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Follow us on Twitter" role="listitem">
-                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                        <span class="sr-only">Twitter</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Connect with us on LinkedIn" role="listitem">
-                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                        <span class="sr-only">LinkedIn</span>
-                    </a>
-                </div>
-            </div>
-            <nav class="footer-links fade-in-up" aria-labelledby="footer-nav-heading">
-                <h3 id="footer-nav-heading">Quick Links</h3>
-                <ul role="list">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="hoa-services.html">HOA Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <nav class="footer-services fade-in-up" aria-labelledby="footer-services-heading">
-                <h3 id="footer-services-heading">Our Services</h3>
-                <ul role="list">
-                    <li><a href="services.html#lifeguard">Lifeguard Services</a></li>
-                    <li><a href="services.html#lessons">Swimming Lessons</a></li>
-                    <li><a href="services.html#special-needs">Special Needs Swimming</a></li>
-                    <li><a href="hoa-services.html">HOA Pool Management</a></li>
-                    <li><a href="services.html#emergency">Emergency Response</a></li>
-                    <li><a href="services.html#corporate">Corporate Events</a></li>
-                </ul>
-            </nav>
-            <div class="footer-contact fade-in-up">
-                <h3 id="footer-contact-heading">Contact Information</h3>
-                <div class="contact-info" role="list" aria-labelledby="footer-contact-heading">
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <a href="tel:8053676432" aria-label="Call us at 8 0 5 3 6 7 6 4 3 2">(805) 367-6432</a>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <a href="mailto:info@805lifeguard.com" aria-label="Email us at info@805lifeguard.com">info@805lifeguard.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <span>Serving Southern California</span>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-text">
-                            <div class="business-hours">
-                                <div class="hours-header">Hours:</div>
-                                <div class="hours-line">
-                                    <div class="hours-main">
-                                        <span class="day">Monday–Friday:</span> 
-                                        <span class="time">9:00AM–5:00PM</span>
-                                    </div>
-                                    <div class="hours-note">(Extended hours upon request)</div>
-                                </div>
-                                <div class="hours-line">
-                                    <div class="hours-main">
-                                        <span class="day">Saturday & Sunday:</span> 
-                                        <span class="time">9:00AM–11:55PM</span>
-                                    </div>
-                                    <div class="hours-note">(Extended hours upon request)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-newsletter fade-in-up">
-                <h3 id="newsletter-heading">Stay Updated</h3>
-                <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
-                <form class="newsletter-form" id="newsletterForm" aria-labelledby="newsletter-heading">
-                    <div class="input-group">
-                        <label for="newsletter-email" class="sr-only">Email Address for Newsletter</label>
-                        <input 
-                            type="email" 
-                            id="newsletter-email"
-                            class="newsletter-input" 
-                            placeholder="Your Email Address" 
-                            required
-                            aria-describedby="newsletter-error"
-                            autocomplete="email"
-                        >
-                        <button type="submit" class="newsletter-btn" aria-label="Subscribe to Newsletter">
-                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                            <span class="sr-only">Subscribe</span>
-                        </button>
-                    </div>
-                    <div id="newsletter-error" class="error-message" aria-live="polite"></div>
-                </form>
-                <div class="footer-certifications" role="list" aria-label="Our Certifications">
-                    <div class="cert-item" role="listitem">
-                        <i class="fas fa-certificate" aria-hidden="true"></i>
-                        <span>Licensed & Insured</span>
-                    </div>
-                    <div class="cert-item" role="listitem">
-                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                        <span>Background Checked</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="copyright">
-                <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
-            </div>
-            <nav class="footer-bottom-links" aria-label="Legal Links">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="liability-waiver.html">Liability Waiver</a>
-                <a href="cancellation-policy.html">Cancellation Policy</a>
-                <a href="safety-guidelines.html">Safety Guidelines</a>
-                <a href="accessibility.html">Accessibility</a>
-                <a href="sitemap.html">Sitemap</a>
-            </nav>
-        </div>
-    </footer>
-
-    <script src="scripts.js"></script>
-    <script>
-        // Services page specific functionality
-        
-        // Pricing Tabs
-        const pricingTabs = document.querySelectorAll('.pricing-tab');
-        const pricingContents = document.querySelectorAll('.pricing-content');
-        
-        pricingTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-tab');
+    <!-- Estate Lifeguard Concierge -->
+    <section class="service-section" id="lifeguard">
+        <div class="service-container">
+            <div class="service-content">
+                <div class="service-badge">Elite Safety</div>
+                <h2 class="service-title">Estate Lifeguard Concierge</h2>
+                <p class="service-description">Hand-selected professionals with resort pedigree and five-star hospitality training, delivering discreet safety oversight that enhances rather than intrudes upon your estate's refined atmosphere.</p>
                 
-                pricingTabs.forEach(t => t.classList.remove('active'));
-                pricingContents.forEach(c => c.classList.remove('active'));
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Resort-trained certified professionals</li>
+                    <li><i class="fas fa-check"></i> White-glove concierge standards</li>
+                    <li><i class="fas fa-check"></i> Discreet, elegant presence</li>
+                    <li><i class="fas fa-check"></i> Advanced emergency response protocols</li>
+                    <li><i class="fas fa-check"></i> Event-ready presentation and etiquette</li>
+                    <li><i class="fas fa-check"></i> Comprehensive insurance coverage</li>
+                </ul>
                 
-                tab.classList.add('active');
-                document.getElementById(target).classList.add('active');
-            });
-        });
-        
-        // Accordion
-        const accordionItems = document.querySelectorAll('.accordion-item');
-        
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
+                <div class="service-pricing">
+                    <div class="pricing-label">Starting Investment</div>
+                    <div class="pricing-value">$125/hour</div>
+                    <div class="pricing-note">Minimum 4-hour service periods • Estate events from $750</div>
+                </div>
+                
+                <div class="service-cta">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i>
+                        Schedule Consultation
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-file-alt"></i>
+                        View Credentials
+                    </a>
+                </div>
+            </div>
             
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
+            <div class="service-image">
+                <img src="/images/luxury-estate-lifeguard-service.jpg" alt="Professional estate lifeguard providing discrete safety oversight at luxury Southern California pool">
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Aquatic Instruction -->
+    <section class="service-section" id="instruction">
+        <div class="service-container">
+            <div class="service-content">
+                <div class="service-badge">Personalized Excellence</div>
+                <h2 class="service-title">Private Aquatic Instruction</h2>
+                <p class="service-description">Bespoke swimming instruction in the privacy of your estate, tailored for all family members with personalized techniques, flexible scheduling, and adaptive methodologies for every skill level.</p>
                 
-                accordionItems.forEach(i => i.classList.remove('active'));
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Certified Water Safety Instructors</li>
+                    <li><i class="fas fa-check"></i> All ages and skill levels welcomed</li>
+                    <li><i class="fas fa-check"></i> Estate privacy and convenience</li>
+                    <li><i class="fas fa-check"></i> Adaptive methods for special needs</li>
+                    <li><i class="fas fa-check"></i> Competitive stroke refinement</li>
+                    <li><i class="fas fa-check"></i> Family-focused group sessions</li>
+                </ul>
                 
-                if (!isActive) {
-                    item.classList.add('active');
+                <div class="service-pricing">
+                    <div class="pricing-label">Private Lessons</div>
+                    <div class="pricing-value">$95/session</div>
+                    <div class="pricing-note">45-minute sessions • Package discounts available • Group rates from $65/person</div>
+                </div>
+                
+                <div class="service-cta">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-swimmer"></i>
+                        Begin Instruction
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-graduation-cap"></i>
+                        Instructor Profiles
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-image">
+                <img src="/images/private-swimming-instruction-luxury.jpg" alt="Private swimming instruction session at exclusive estate pool">
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Pool Maintenance -->
+    <section class="service-section" id="maintenance">
+        <div class="service-container">
+            <div class="service-content">
+                <div class="service-badge">Exclusive Access</div>
+                <h2 class="service-title">Exclusive Pool Maintenance</h2>
+                <p class="service-description">Our newest luxury service—premium pool maintenance available exclusively to distinguished clientele. Eco-conscious treatments, flexible scheduling, and scientific precision ensure pristine aquatic environments.</p>
+                
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Eco-luxury water treatment systems</li>
+                    <li><i class="fas fa-check"></i> Flexible, estate-respectful scheduling</li>
+                    <li><i class="fas fa-check"></i> Advanced chemistry analysis</li>
+                    <li><i class="fas fa-check"></i> Premium equipment maintenance</li>
+                    <li><i class="fas fa-check"></i> Discreet arrival and departure</li>
+                    <li><i class="fas fa-check"></i> Detailed service documentation</li>
+                </ul>
+                
+                <div class="service-pricing">
+                    <div class="pricing-label">Monthly Service</div>
+                    <div class="pricing-value">$385/month</div>
+                    <div class="pricing-note">Weekly service • Chemical balancing • Equipment monitoring • Existing clients only</div>
+                </div>
+                
+                <div class="service-cta">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-key"></i>
+                        Request Access
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-spa"></i>
+                        Service Details
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-image">
+                <img src="/images/exclusive-pool-maintenance-service.jpg" alt="Professional exclusive pool maintenance service at luxury estate">
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Management -->
+    <section class="service-section" id="events">
+        <div class="service-container">
+            <div class="service-content">
+                <div class="service-badge">Bespoke Events</div>
+                <h2 class="service-title">Aquatic Event Management</h2>
+                <p class="service-description">Comprehensive aquatic event coordination combining safety expertise with hospitality excellence. From intimate gatherings to grand celebrations, every detail is meticulously orchestrated.</p>
+                
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Full event safety management</li>
+                    <li><i class="fas fa-check"></i> Professional event coordination</li>
+                    <li><i class="fas fa-check"></i> Custom safety protocols</li>
+                    <li><i class="fas fa-check"></i> Guest management and flow</li>
+                    <li><i class="fas fa-check"></i> Emergency response planning</li>
+                    <li><i class="fas fa-check"></i> White-glove service standards</li>
+                </ul>
+                
+                <div class="service-pricing">
+                    <div class="pricing-label">Event Services</div>
+                    <div class="pricing-value">$1,250+</div>
+                    <div class="pricing-note">4-hour minimum • Scaling based on guest count and complexity • Planning consultation included</div>
+                </div>
+                
+                <div class="service-cta">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-glass-cheers"></i>
+                        Plan Event
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-photo-video"></i>
+                        Event Portfolio
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-image">
+                <img src="/images/luxury-pool-event-management.jpg" alt="Elegant pool event with professional aquatic safety management">
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Showcase -->
+    <section class="portfolio-showcase">
+        <div class="portfolio-content">
+            <h2>Nine Years of Aquatic Excellence</h2>
+            <p>Trusted by Southern California's most distinguished estates and communities, our commitment to perfection has established us as the premier choice for discerning clients who demand nothing less than extraordinary.</p>
+            
+            <div class="portfolio-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Estate Events Secured</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Retention Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1,000+</div>
+                    <div class="stat-label">Private Lessons Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Zero</div>
+                    <div class="stat-label">Aquatic Incidents</div>
+                </div>
+            </div>
+            
+            <div class="service-cta">
+                <a href="gallery.html" class="btn-primary">
+                    <i class="fas fa-images"></i>
+                    View Portfolio
+                </a>
+                <a href="contact.html" class="btn-secondary" style="color: var(--pearl-white); border-color: var(--pearl-white);">
+                    <i class="fas fa-concierge-bell"></i>
+                    Begin Your Experience
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Service navigation active state
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('.service-section');
+            const navLinks = document.querySelectorAll('.service-nav-link');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '-150px 0px -150px 0px'
+            });
+            
+            sections.forEach(section => observer.observe(section));
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.service-nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(254, 254, 254, 0.98)';
+                header.style.boxShadow = '0 5px 30px rgba(26, 43, 66, 0.15)';
+            } else {
+                header.style.background = 'rgba(254, 254, 254, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setActiveNavLink();
+        });
+
+        console.log('805 LifeGuard - Luxury Services Loaded');
     </script>
 </body>
 </html>
