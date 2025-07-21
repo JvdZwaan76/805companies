@@ -3,960 +3,1068 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - 805 LifeGuard</title>
-    <meta name="description" content="Contact 805 LifeGuard for professional lifeguard services and swimming lessons in the Conejo Valley. Book online or call (805) 367-6432.">
-    <meta name="keywords" content="contact lifeguard services, book swimming lessons, Thousand Oaks pool safety, Conejo Valley lifeguards">
-	<meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Contact 805 LifeGuard - Book Professional Pool Safety Services">
-    <meta property="og:description" content="Get in touch with our certified lifeguards and swim instructors. Professional pool safety services in the Conejo Valley.">
-    <meta property="og:image" content="/images/805-lifeguard-logo.png">
-    <link rel="canonical" href="https://www.805lifeguard.com/contact">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact-styles.css">
+    <title>Concierge Services | Premier Aquatic Estate Consultation | 805 LifeGuard</title>
+    <meta name="description" content="Exclusive consultation services for distinguished estates and communities. Connect with our aquatic concierge team for bespoke service solutions in Southern California.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preload" href="/images/805-lifeguard-logo.png" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Luxury Color Palette */
+            --primary-navy: #1a2b42;
+            --secondary-navy: #2c3e50;
+            --luxury-gold: #d4af37;
+            --deep-gold: #b8941f;
+            --warm-cream: #f8f5f0;
+            --pearl-white: #fefefe;
+            --charcoal: #2c2c2c;
+            --warm-gray: #6c757d;
+            --light-gray: #e8e9ea;
+            --accent-blue: #4a90b8;
+            --forest-green: #2d5446;
+            --success-green: #4caf50;
+            --error-red: #e74c3c;
+            
+            /* Typography */
+            --font-primary: 'Playfair Display', serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Effects */
+            --shadow-elegant: 0 8px 40px rgba(26, 43, 66, 0.15);
+            --shadow-luxury: 0 20px 60px rgba(26, 43, 66, 0.2);
+            --border-radius-elegant: 12px;
+            --transition-luxury: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            background: var(--pearl-white);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Header - Consistent with other pages */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            transition: var(--transition-luxury);
+        }
+        
+        .header-top {
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .header-top-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .header-top a {
+            color: var(--pearl-white);
+            text-decoration: none;
+            transition: var(--transition-luxury);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header-top a:hover {
+            color: var(--luxury-gold);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: var(--transition-luxury);
+        }
+        
+        .logo-img {
+            height: 60px;
+            width: auto;
+            margin-right: 18px;
+            filter: drop-shadow(0 2px 8px rgba(26, 43, 66, 0.1));
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-main {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--luxury-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-luxury);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--luxury-gold);
+            transition: var(--transition-luxury);
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover {
+            color: var(--luxury-gold);
+        }
+        
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        
+        .nav-link.exclusive {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        
+        .nav-link.exclusive:hover {
+            color: var(--pearl-white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .nav-link.exclusive::before {
+            display: none;
+        }
+        
+        /* Page Header */
+        .page-header {
+            height: 70vh;
+            background: linear-gradient(rgba(26, 43, 66, 0.6), rgba(44, 62, 80, 0.7)), 
+                        url('/images/luxury-concierge-office.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pearl-white);
+            margin-top: 110px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M50 50m-30 0a30,30 0 1,1 60,0a30,30 0 1,1 -60,0'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .page-header-content {
+            max-width: 800px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(26, 43, 66, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .page-header h1 {
+            font-family: var(--font-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 25px rgba(0, 0, 0, 0.8);
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        
+        .page-header p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        /* Contact Methods Section */
+        .contact-methods {
+            padding: 100px 5%;
+            background: var(--warm-cream);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--primary-navy);
+            color: var(--luxury-gold);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 3rem;
+            color: var(--primary-navy);
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-card {
+            background: var(--pearl-white);
+            border-radius: var(--border-radius-elegant);
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-luxury);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: var(--border-radius-elegant) var(--border-radius-elegant) 0 0;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-luxury);
+        }
+        
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--pearl-white);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .contact-card h3 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-card p {
+            color: var(--warm-gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .contact-info {
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .contact-hours {
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-luxury);
+            margin-top: 15px;
+        }
+        
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        /* Consultation Form Section */
+        .consultation-form {
+            padding: 120px 5%;
+            background: var(--pearl-white);
+        }
+        
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--pearl-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-luxury);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: var(--pearl-white);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .form-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--luxury-gold);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-header h2 {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-content {
+            padding: 50px 40px;
+        }
+        
+        .luxury-form {
+            display: grid;
+            gap: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 16px 20px;
+            border: 2px solid #e8e9ea;
+            border-radius: var(--border-radius-elegant);
+            font-size: 16px;
+            font-family: var(--font-secondary);
+            transition: var(--transition-luxury);
+            background: var(--pearl-white);
+            color: var(--charcoal);
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: var(--font-secondary);
+        }
+        
+        .form-submit {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-luxury);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            font-family: var(--font-secondary);
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-luxury);
+        }
+        
+        .form-submit:disabled {
+            background: var(--light-gray);
+            color: var(--warm-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Exclusive Pool Cleaning CTA */
+        .exclusive-pool-cleaning {
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exclusive-pool-cleaning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M60 60m-40 0a40,40 0 1,1 80,0a40,40 0 1,1 -80,0'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .exclusive-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .exclusive-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-luxury);
+            animation: gentle-glow 3s infinite;
+        }
+        
+        @keyframes gentle-glow {
+            0%, 100% { box-shadow: var(--shadow-luxury); }
+            50% { box-shadow: 0 25px 80px rgba(212, 175, 55, 0.4); }
+        }
+        
+        .exclusive-pool-cleaning h2 {
+            font-family: var(--font-primary);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .exclusive-pool-cleaning .section-description {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            color: var(--pearl-white);
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-luxury);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-luxury);
+        }
+        
+        /* Success/Error Messages */
+        .form-message {
+            padding: 15px 20px;
+            border-radius: var(--border-radius-elegant);
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success-green);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .form-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--error-red);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .form-message.show {
+            display: flex;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-top-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header {
+                margin-top: 100px;
+                background-attachment: scroll;
+                height: 60vh;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-content {
+                padding: 40px 20px;
+            }
+            
+            .form-header {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .exclusive-pool-cleaning h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Ripple Background -->
-    <div class="ripple-background">
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <span class="service-area">Serving Southern California since 2016</span>
-                <div class="top-bar-contact">
-                    <a href="tel:8053676432" class="phone-link">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="header-top-left">
+                    <span>Exclusive Aquatic Concierge Services Since 2016</span>
+                </div>
+                <div class="header-top-contact">
+                    <a href="tel:8053676432">
                         <i class="fas fa-phone"></i> (805) 367-6432
                     </a>
-                    <a href="mailto:info@805lifeguard.com" class="email-link">
-                        <i class="fas fa-envelope"></i> info@805lifeguard.com
+                    <a href="mailto:concierge@805lifeguard.com">
+                        <i class="fas fa-envelope"></i> concierge@805lifeguard.com
                     </a>
                 </div>
             </div>
         </div>
+        
         <nav class="navbar">
             <a href="index.html" class="logo">
                 <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
                 <div class="logo-text">
                     <span class="logo-main">805 LifeGuard</span>
-                    <span class="logo-subtitle">Professional Pool Safety</span>
+                    <span class="logo-subtitle">Premier Aquatic Estates</span>
                 </div>
             </a>
             
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-link">Home</a></li>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Estate</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="hoa-services.html" class="nav-link">HOA Services</a></li>
-                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
-                <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                <li><a href="client-login.html" class="nav-link client-portal" title="Client Portal Access">Client Portal</a></li>
-                <li><a href="employee-login.html" class="nav-link staff-portal" title="Staff Portal Access">Staff Portal</a></li>
+                <li><a href="hoa-services.html" class="nav-link">Communities</a></li>
+                <li><a href="about.html" class="nav-link">Heritage</a></li>
+                <li><a href="gallery.html" class="nav-link">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Concierge</a></li>
+                <li><a href="client-login.html" class="nav-link exclusive">Member Portal</a></li>
             </ul>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
         </nav>
     </header>
 
     <!-- Page Header -->
     <section class="page-header">
-        <div class="page-header-content fade-in-up">
-            <div class="page-badge">
-                <i class="fas fa-phone-alt"></i>
-                Get In Touch
+        <div class="page-header-content">
+            <div class="hero-badge">
+                <i class="fas fa-concierge-bell"></i>
+                Exclusive Consultation Services
             </div>
-            <h1>Contact Us</h1>
-            <p>Ready to book our services or have questions? We're here to help you create safe, enjoyable water experiences.</p>
+            <h1>Aquatic Concierge</h1>
+            <p>Connect with our distinguished team of aquatic specialists for personalized consultation and bespoke service solutions tailored to your estate's unique requirements.</p>
         </div>
     </section>
 
-    <!-- Breadcrumbs -->
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <div class="breadcrumbs-container">
-            <ul class="breadcrumbs-list">
-                <li><a href="index.html">Home</a></li>
-                <li class="current" aria-current="page">Contact</li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="main-content">
-        <div class="section-title fade-in-up">
-            <div class="section-badge">Contact Information</div>
-            <h2>Get In Touch</h2>
-            <p>Have questions or ready to book our services? We're here to help with all your pool safety needs!</p>
+    <!-- Contact Methods -->
+    <section class="contact-methods">
+        <div class="section-header">
+            <div class="section-badge">Connect With Excellence</div>
+            <h2 class="section-title">Preferred Communication Channels</h2>
+            <p class="section-description">Choose your preferred method to connect with our aquatic concierge team. We're here to provide personalized attention and expert guidance for all your estate aquatic needs.</p>
         </div>
         
-        <div class="contact-container">
-            <div class="contact-info fade-in-up">
-                <h3>Contact Information</h3>
-                
-                <div class="contact-method">
-                    <div class="method-header">
-                        <div class="method-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h4>Phone</h4>
-                    </div>
-                    <div class="method-content">
-                        <a href="tel:8053676432">(805) 367-6432</a>
-                        <p>Available for emergencies and urgent inquiries</p>
-                    </div>
+        <div class="contact-grid">
+            <!-- Phone Consultation -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
                 </div>
-                
-                <div class="contact-method">
-                    <div class="method-header">
-                        <div class="method-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h4>Email</h4>
-                    </div>
-                    <div class="method-content">
-                        <a href="mailto:info@805lifeguard.com">info@805lifeguard.com</a>
-                        <p>We respond to all emails within 24 hours</p>
-                    </div>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="method-header">
-                        <div class="method-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h4>Business Hours</h4>
-                    </div>
-                    <div class="method-content">
-                        <div class="hours-grid">
-                            <div class="hours-item">
-                                <span class="day">Monday - Friday</span>
-                                <span class="time">9:00 AM - 6:00 PM</span>
-                            </div>
-                            <div class="hours-item">
-                                <span class="day">Saturday</span>
-                                <span class="time">10:00 AM - 4:00 PM</span>
-                            </div>
-                            <div class="hours-item">
-                                <span class="day">Sunday</span>
-                                <span class="time">Emergency Only</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="method-header">
-                        <div class="method-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h4>Service Area</h4>
-                    </div>
-                    <div class="method-content">
-                        <p>Serving the greater Conejo Valley area, including Thousand Oaks, Westlake Village, Agoura Hills, Newbury Park, Moorpark, Camarillo, and surrounding communities.</p>
-                    </div>
-                </div>
-                
-                <div class="contact-social">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
+                <h3>Executive Consultation</h3>
+                <p>Speak directly with our senior aquatic specialists for immediate guidance and personalized solutions.</p>
+                <div class="contact-info">(805) 367-6432</div>
+                <div class="contact-hours">Monday–Friday: 8:00AM–6:00PM</div>
+                <a href="tel:8053676432" class="contact-link">
+                    <i class="fas fa-phone"></i>
+                    Call Now
+                </a>
             </div>
             
-            <div class="contact-form-container fade-in-up">
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <p class="form-description">Fill out the form below and we'll get back to you as soon as possible.</p>
-                    
-                    <form id="contactForm" class="contact-form-element" novalidate>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name*</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control" required aria-describedby="firstName-error">
-                                <div class="error-message" id="firstName-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name*</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control" required aria-describedby="lastName-error">
-                                <div class="error-message" id="lastName-error"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address*</label>
-                                <input type="email" id="email" name="email" class="form-control" required aria-describedby="email-error">
-                                <div class="error-message" id="email-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number*</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" required aria-describedby="phone-error">
-                                <div class="error-message" id="phone-error"></div>
-                            </div>
-                        </div>
-                        
+            <!-- Email Concierge -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope-open"></i>
+                </div>
+                <h3>Concierge Correspondence</h3>
+                <p>Send detailed inquiries to our dedicated concierge team for comprehensive written responses and documentation.</p>
+                <div class="contact-info">concierge@805lifeguard.com</div>
+                <div class="contact-hours">Response within 4 business hours</div>
+                <a href="mailto:concierge@805lifeguard.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    Send Email
+                </a>
+            </div>
+            
+            <!-- Emergency Support -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Emergency Support</h3>
+                <p>24/7 emergency assistance for existing clients experiencing urgent aquatic safety or operational concerns.</p>
+                <div class="contact-info">(805) 367-6432</div>
+                <div class="contact-hours">24/7 Emergency Line</div>
+                <a href="tel:8053676432" class="contact-link">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency Line
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Form -->
+    <section class="consultation-form">
+        <div class="form-container">
+            <div class="form-header">
+                <div class="form-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h2>Request Private Consultation</h2>
+                <p>Schedule an exclusive consultation with our aquatic specialists to discuss your estate's unique requirements and explore our bespoke service offerings.</p>
+            </div>
+            
+            <div class="form-content">
+                <div id="form-message" class="form-message"></div>
+                
+                <form class="luxury-form" id="consultationForm">
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="serviceType">Service Interest</label>
-                            <select id="serviceType" name="serviceType" class="form-control">
-                                <option value="">Select a service</option>
-                                <option value="lifeguard">Lifeguard Services</option>
-                                <option value="swimming-lessons">Swimming Lessons</option>
-                                <option value="special-needs">Special Needs Swimming</option>
-                                <option value="hoa-services">HOA Pool Management</option>
-                                <option value="corporate">Corporate Events</option>
+                            <label for="firstName" class="form-label">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyType" class="form-label">Property Type *</label>
+                            <select id="propertyType" name="propertyType" class="form-select" required>
+                                <option value="">Select Property Type</option>
+                                <option value="private-estate">Private Estate</option>
+                                <option value="luxury-community">Luxury Community/HOA</option>
+                                <option value="commercial-property">Commercial Property</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="subject">Subject*</label>
-                            <input type="text" id="subject" name="subject" class="form-control" required aria-describedby="subject-error">
-                            <div class="error-message" id="subject-error"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message*</label>
-                            <textarea id="message" name="message" class="form-control" rows="6" required aria-describedby="message-error" placeholder="Please provide details about your inquiry, including preferred dates for services, number of guests, and any special requirements."></textarea>
-                            <div class="error-message" id="message-error"></div>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="newsletter" name="newsletter" checked>
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Subscribe to our newsletter for water safety tips, updates, and special offers</span>
-                            </label>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="urgent" name="urgent">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">This is an urgent inquiry (we'll prioritize your message)</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            <span class="btn-text">Send Message</span>
-                            <span class="btn-loading" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i> Sending...
-                            </span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Actions Section -->
-    <section class="quick-actions">
-        <div class="section-title fade-in-up">
-            <div class="section-badge">Quick Actions</div>
-            <h2>Need Immediate Help?</h2>
-            <p>Choose the fastest way to get the assistance you need.</p>
-        </div>
-        
-        <div class="actions-container">
-            <div class="action-card fade-in-up">
-                <div class="action-icon">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-                <h3>Call Now</h3>
-                <p>Speak directly with our team for immediate assistance and booking.</p>
-                <a href="tel:8053676432" class="action-btn primary">
-                    <i class="fas fa-phone"></i>
-                    (805) 367-6432
-                </a>
-            </div>
-            
-            <div class="action-card fade-in-up">
-                <div class="action-icon">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <h3>Book Online</h3>
-                <p>Use our convenient online booking system to schedule services.</p>
-                <a href="#booking-section" class="action-btn secondary">
-                    <i class="fas fa-calendar-alt"></i>
-                    Book Services
-                </a>
-            </div>
-            
-            <div class="action-card fade-in-up">
-                <div class="action-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <h3>Live Chat</h3>
-                <p>Chat with our customer service team during business hours.</p>
-                <button class="action-btn tertiary" onclick="openLiveChat()">
-                    <i class="fas fa-comment-dots"></i>
-                    Start Chat
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section class="booking-section" id="booking-section">
-        <div class="section-title fade-in-up">
-            <div class="section-badge">Online Booking</div>
-            <h2>Book Services Online</h2>
-            <p>Schedule our lifeguard services or swimming lessons with our convenient online booking system.</p>
-        </div>
-        
-        <div class="booking-container fade-in-up">
-            <div class="booking-tabs">
-                <button class="booking-tab active" data-tab="lifeguard">
-                    <i class="fas fa-life-ring"></i>
-                    Lifeguard Services
-                </button>
-                <button class="booking-tab" data-tab="swimming">
-                    <i class="fas fa-swimmer"></i>
-                    Swimming Lessons
-                </button>
-            </div>
-            
-            <!-- Lifeguard Booking -->
-            <div class="booking-content active" id="lifeguard-content">
-                <form id="lifeguardForm" class="booking-form">
-                    <div class="form-section">
-                        <h4><i class="fas fa-list-alt"></i> Service Package</h4>
-                        <div class="service-selection">
-                            <label class="service-option">
-                                <input type="radio" name="lifeguardPackage" value="basic" checked>
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">Basic Package</span>
-                                        <span class="option-price">$50/hour</span>
-                                    </div>
-                                    <p class="option-description">1 certified lifeguard, basic equipment</p>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="lifeguardPackage" value="standard">
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">Standard Package</span>
-                                        <span class="option-price">$75/hour</span>
-                                    </div>
-                                    <p class="option-description">2 certified lifeguards, full equipment set</p>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="lifeguardPackage" value="premium">
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">Premium Package</span>
-                                        <span class="option-price">$100/hour</span>
-                                    </div>
-                                    <p class="option-description">3+ lifeguards, premium equipment, event coordination</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h4><i class="fas fa-calendar"></i> Select Date & Time</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventDate">Event Date*</label>
-                                <input type="date" id="eventDate" name="eventDate" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="eventTime">Start Time*</label>
-                                <input type="time" id="eventTime" name="eventTime" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h4><i class="fas fa-info-circle"></i> Event Details</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventType">Event Type</label>
-                                <select id="eventType" name="eventType" class="form-control">
-                                    <option value="birthday">Birthday Party</option>
-                                    <option value="corporate">Corporate Event</option>
-                                    <option value="family">Family Gathering</option>
-                                    <option value="community">Community Event</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="guestCount">Number of Guests*</label>
-                                <input type="number" id="guestCount" name="guestCount" class="form-control" min="1" value="20" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="duration">Duration (hours)*</label>
-                                <input type="number" id="duration" name="duration" class="form-control" min="2" max="12" value="4" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="poolType">Pool Type</label>
-                                <select id="poolType" name="poolType" class="form-control">
-                                    <option value="residential">Residential Pool</option>
-                                    <option value="commercial">Commercial Pool</option>
-                                    <option value="community">Community Pool</option>
-                                    <option value="spa">Pool & Spa</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="eventLocation">Event Address*</label>
-                            <input type="text" id="eventLocation" name="eventLocation" class="form-control" placeholder="Enter the full address where services are needed" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="specialRequests">Special Requests or Notes</label>
-                            <textarea id="specialRequests" name="specialRequests" class="form-control" rows="3" placeholder="Any special requirements, accessibility needs, or additional information..."></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="booking-summary">
-                        <h4><i class="fas fa-receipt"></i> Booking Summary</h4>
-                        <div class="summary-content">
-                            <div class="summary-item">
-                                <span class="summary-label">Service:</span>
-                                <span class="summary-value" id="summaryService">Basic Package</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Date:</span>
-                                <span class="summary-value" id="summaryDate">Not selected</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Duration:</span>
-                                <span class="summary-value" id="summaryDuration">4 hours</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Guests:</span>
-                                <span class="summary-value" id="summaryGuests">20</span>
-                            </div>
-                        </div>
-                        <div class="summary-total">
-                            <span class="total-label">Estimated Total:</span>
-                            <span class="total-value" id="totalPrice">$200.00</span>
-                        </div>
-                        <p class="pricing-note">*Final pricing may vary based on specific requirements and location</p>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn booking-submit">
-                        <i class="fas fa-calendar-check"></i>
-                        Request Booking
-                    </button>
-                </form>
-                
-                <div class="booking-confirmation" id="lifeguardConfirmation">
-                    <div class="confirmation-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="confirmation-content">
-                        <h4>Booking Request Submitted!</h4>
-                        <p>Thank you for choosing 805 LifeGuard. Your booking request ID is <span class="booking-id">LG-25051901</span>.</p>
-                        <p>We've sent a confirmation email with all the details. Our team will contact you within 2 hours to confirm availability and finalize your booking.</p>
-                        <div class="confirmation-actions">
-                            <button class="submit-btn secondary" onclick="resetBookingForm('lifeguard')">
-                                <i class="fas fa-plus"></i>
-                                Book Another Service
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Swimming Lessons Booking -->
-            <div class="booking-content" id="swimming-content">
-                <form id="swimmingForm" class="booking-form">
-                    <div class="form-section">
-                        <h4><i class="fas fa-swimmer"></i> Lesson Package</h4>
-                        <div class="service-selection">
-                            <label class="service-option">
-                                <input type="radio" name="swimmingPackage" value="single" checked>
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">Single Lesson</span>
-                                        <span class="option-price">$75</span>
-                                    </div>
-                                    <p class="option-description">One 60-minute private lesson</p>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="swimmingPackage" value="five">
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">5-Lesson Package</span>
-                                        <span class="option-price">$350</span>
-                                    </div>
-                                    <p class="option-description">Five 60-minute lessons (Save $25)</p>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="swimmingPackage" value="ten">
-                                <div class="option-content">
-                                    <div class="option-header">
-                                        <span class="option-title">10-Lesson Package</span>
-                                        <span class="option-price">$650</span>
-                                    </div>
-                                    <p class="option-description">Ten 60-minute lessons (Save $100)</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h4><i class="fas fa-user"></i> Swimmer Information</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="swimmerName">Swimmer's Name*</label>
-                                <input type="text" id="swimmerName" name="swimmerName" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="swimmerAge">Swimmer's Age*</label>
-                                <input type="number" id="swimmerAge" name="swimmerAge" class="form-control" min="3" max="99" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="skillLevel">Current Swimming Level</label>
-                            <select id="skillLevel" name="skillLevel" class="form-control">
-                                <option value="beginner">Beginner (No Experience)</option>
-                                <option value="novice">Novice (Basic Water Comfort)</option>
-                                <option value="intermediate">Intermediate (Basic Strokes)</option>
-                                <option value="advanced">Advanced (Stroke Refinement)</option>
-                                <option value="special">Special Needs</option>
+                            <label for="serviceInterest" class="form-label">Service Interest *</label>
+                            <select id="serviceInterest" name="serviceInterest" class="form-select" required>
+                                <option value="">Select Primary Interest</option>
+                                <option value="estate-lifeguard">Estate Lifeguard Services</option>
+                                <option value="private-instruction">Private Aquatic Instruction</option>
+                                <option value="community-management">Community Management</option>
+                                <option value="exclusive-cleaning">Exclusive Pool Maintenance</option>
+                                <option value="consultation">General Consultation</option>
                             </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="lessonGoals">Lesson Goals</label>
-                            <textarea id="lessonGoals" name="lessonGoals" class="form-control" rows="3" placeholder="What would you like to achieve? (e.g., overcome fear of water, learn specific strokes, improve technique, etc.)"></textarea>
-                        </div>
                     </div>
                     
-                    <div class="form-section">
-                        <h4><i class="fas fa-calendar-alt"></i> Scheduling Preferences</h4>
-                        <div class="form-group">
-                            <label for="preferredStart">Preferred Start Date</label>
-                            <input type="date" id="preferredStart" name="preferredStart" class="form-control">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Preferred Days of Week</label>
-                            <div class="checkbox-grid">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="monday">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Monday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="tuesday">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Tuesday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="wednesday" checked>
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Wednesday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="thursday">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Thursday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="friday" checked>
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Friday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="saturday">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Saturday</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredDays[]" value="sunday">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Sunday</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Preferred Time of Day</label>
-                            <div class="checkbox-grid">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredTimes[]" value="morning">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Morning (9AM - 12PM)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredTimes[]" value="afternoon" checked>
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Afternoon (12PM - 4PM)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="preferredTimes[]" value="evening">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">Evening (4PM - 7PM)</span>
-                                </label>
-                            </div>
-                        </div>
+                    <div class="form-group full-width">
+                        <label for="location" class="form-label">Property Location</label>
+                        <input type="text" id="location" name="location" class="form-input" placeholder="City, State">
                     </div>
                     
-                    <div class="form-section">
-                        <h4><i class="fas fa-map-marker-alt"></i> Location & Contact</h4>
-                        <div class="form-group">
-                            <label for="lessonLocation">Lesson Location*</label>
-                            <input type="text" id="lessonLocation" name="lessonLocation" class="form-control" placeholder="Address where you have pool access" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="parentName">Parent/Guardian Name*</label>
-                            <input type="text" id="parentName" name="parentName" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="parentEmail">Email*</label>
-                                <input type="email" id="parentEmail" name="parentEmail" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="parentPhone">Phone*</label>
-                                <input type="tel" id="parentPhone" name="parentPhone" class="form-control" required>
-                            </div>
-                        </div>
+                    <div class="form-group full-width">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Please describe your aquatic requirements, timeline, and any specific questions you may have..."></textarea>
                     </div>
                     
-                    <div class="booking-summary">
-                        <h4><i class="fas fa-receipt"></i> Lesson Summary</h4>
-                        <div class="summary-content">
-                            <div class="summary-item">
-                                <span class="summary-label">Package:</span>
-                                <span class="summary-value" id="lessonSummaryPackage">Single Lesson</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Swimmer:</span>
-                                <span class="summary-value" id="lessonSummarySwimmer">Not specified</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Preferred Days:</span>
-                                <span class="summary-value" id="lessonSummaryDays">Wednesday, Friday</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Preferred Time:</span>
-                                <span class="summary-value" id="lessonSummaryTime">Afternoon</span>
-                            </div>
-                        </div>
-                        <div class="summary-total">
-                            <span class="total-label">Package Price:</span>
-                            <span class="total-value" id="lessonTotalPrice">$75.00</span>
-                        </div>
+                    <div class="form-group full-width">
+                        <label for="preferredContact" class="form-label">Preferred Contact Method</label>
+                        <select id="preferredContact" name="preferredContact" class="form-select">
+                            <option value="phone">Phone Call</option>
+                            <option value="email">Email</option>
+                            <option value="in-person">In-Person Meeting</option>
+                        </select>
                     </div>
                     
-                    <button type="submit" class="submit-btn booking-submit">
-                        <i class="fas fa-swimmer"></i>
-                        Request Lessons
+                    <button type="submit" class="form-submit" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        Request Consultation
                     </button>
                 </form>
-                
-                <div class="booking-confirmation" id="swimmingConfirmation">
-                    <div class="confirmation-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="confirmation-content">
-                        <h4>Lesson Request Submitted!</h4>
-                        <p>Thank you for choosing 805 LifeGuard. Your request ID is <span class="booking-id">SW-25051902</span>.</p>
-                        <p>We've sent a confirmation email with all the details. Our team will contact you within 24-48 hours to schedule your lessons and confirm all details.</p>
-                        <div class="confirmation-actions">
-                            <button class="submit-btn secondary" onclick="resetBookingForm('swimming')">
-                                <i class="fas fa-plus"></i>
-                                Request More Lessons
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Area Section -->
-    <section class="service-area-section">
-        <div class="section-title fade-in-up">
-            <div class="section-badge">Service Coverage</div>
-            <h2>Our Service Areas</h2>
-            <p>We provide lifeguard services and swim lessons throughout the greater Conejo Valley area and surrounding communities.</p>
+    <!-- Exclusive Pool Cleaning CTA -->
+    <section class="exclusive-pool-cleaning">
+        <div class="exclusive-content">
+            <div class="exclusive-icon">
+                <i class="fas fa-spa"></i>
+            </div>
+            <h2>Exclusive Pool Maintenance Access</h2>
+            <p class="section-description">Introducing our newest luxury service—premium pool maintenance available exclusively to our distinguished clientele. Limited availability for 2025.</p>
+            <a href="#consultationForm" class="btn-primary" onclick="setServiceInterest('exclusive-cleaning')">
+                <i class="fas fa-key"></i>
+                Request Exclusive Access
+            </a>
         </div>
+    </section>
+
+    <script>
+        // Form submission handling
+        document.getElementById('consultationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('form-message');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                propertyType: formData.get('propertyType'),
+                serviceInterest: formData.get('serviceInterest'),
+                location: formData.get('location'),
+                message: formData.get('message'),
+                preferredContact: formData.get('preferredContact'),
+                timestamp: new Date().toISOString(),
+                source: 'Luxury Contact Form'
+            };
+            
+            try {
+                // Here you would typically send to your Cloudflare D1 database
+                // For now, we'll simulate the API call
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Show success message
+                showMessage('Thank you for your inquiry. A member of our concierge team will contact you within 4 business hours.', 'success');
+                
+                // Reset form
+                this.reset();
+                
+                // Log data for manual processing (remove in production)
+                console.log('Consultation Request:', data);
+                
+                // In production, you would send this to your Cloudflare Worker endpoint:
+                /*
+                const response = await fetch('/api/consultation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    showMessage('Thank you for your inquiry. A member of our concierge team will contact you within 4 business hours.', 'success');
+                    this.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+                */
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('We apologize, but there was an issue submitting your request. Please call us directly at (805) 367-6432.', 'error');
+            } finally {
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
         
-        <div class="service-area-container">
-            <div class="service-area-map fade-in-up">
-                <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.8851196805!2d-119.24736535!3d34.2104684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e81f471e6e6fe9%3A0xa21b7c8f3a1b9f8!2sThousand%20Oaks%2C%20CA!5e0!3m2!1sen!2sus!4v1642694400000!5m2!1sen!2sus"
-                        width="100%" 
-                        height="500" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="805 LifeGuard Service Area Map - Thousand Oaks and surrounding areas">
-                    </iframe>
-                    <div class="map-overlay">
-                        <div class="coverage-badge">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <span>50+ Mile Service Radius</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        // Show message function
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('form-message');
+            const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
             
-            <div class="service-area-grid fade-in-up">
-                <div class="area-category">
-                    <div class="category-header">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>East Ventura County</h3>
-                    </div>
-                    <ul class="area-list">
-                        <li>Thousand Oaks</li>
-                        <li>Newbury Park</li>
-                        <li>Westlake Village</li>
-                        <li>Oak Park</li>
-                        <li>Lake Sherwood</li>
-                    </ul>
-                </div>
-                
-                <div class="area-category">
-                    <div class="category-header">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>West Ventura County</h3>
-                    </div>
-                    <ul class="area-list">
-                        <li>Camarillo</li>
-                        <li>Moorpark</li>
-                        <li>Simi Valley</li>
-                        <li>Somis</li>
-                        <li>Santa Rosa Valley</li>
-                    </ul>
-                </div>
-                
-                <div class="area-category">
-                    <div class="category-header">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Los Angeles County</h3>
-                    </div>
-                    <ul class="area-list">
-                        <li>Agoura Hills</li>
-                        <li>Calabasas</li>
-                        <li>Hidden Hills</li>
-                        <li>Woodland Hills</li>
-                        <li>Malibu</li>
-                    </ul>
-                </div>
-                
-                <div class="area-category">
-                    <div class="category-header">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Santa Barbara County</h3>
-                    </div>
-                    <ul class="area-list">
-                        <li>Montecito</li>
-                        <li>Carpinteria</li>
-                        <li>Santa Barbara</li>
-                        <li>Goleta</li>
-                        <li>Summerland</li>
-                    </ul>
-                </div>
-            </div>
+            messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+            messageDiv.className = `form-message ${type} show`;
             
-            <div class="coverage-note fade-in-up">
-                <div class="note-content">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Don't see your area listed? We often provide services beyond our primary coverage area. <a href="#contactForm">Contact us</a> to check availability in your location.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 8000);
+            
+            // Scroll to message
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Set service interest for exclusive cleaning
+        function setServiceInterest(value) {
+            document.getElementById('serviceInterest').value = value;
+            document.getElementById('consultationForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(254, 254, 254, 0.98)';
+                header.style.boxShadow = '0 5px 30px rgba(26, 43, 66, 0.15)';
+            } else {
+                header.style.background = 'rgba(254, 254, 254, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-    <!-- Footer -->
-    <footer role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-about fade-in-up">
-                <div class="footer-logo">
-                    <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo - Professional Pool Safety Services" class="footer-logo-img">
-                    <div class="footer-logo-text">
-                        <span class="footer-logo-main">805 LifeGuard</span>
-                        <span class="footer-logo-subtitle">Professional Pool Safety</span>
-                    </div>
-                </div>
-                <p>Professional lifeguard services and swim lessons serving Southern California since 2016. Your safety and swimming success are our top priorities.</p>
-                <div class="social-links" role="list" aria-label="Social Media Links">
-                    <a href="#" class="social-link" aria-label="Follow us on Facebook" role="listitem">
-                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                        <span class="sr-only">Facebook</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Follow us on Instagram" role="listitem">
-                        <i class="fab fa-instagram" aria-hidden="true"></i>
-                        <span class="sr-only">Instagram</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Follow us on Twitter" role="listitem">
-                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                        <span class="sr-only">Twitter</span>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Connect with us on LinkedIn" role="listitem">
-                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                        <span class="sr-only">LinkedIn</span>
-                    </a>
-                </div>
-            </div>
-            <nav class="footer-links fade-in-up" aria-labelledby="footer-nav-heading">
-                <h3 id="footer-nav-heading">Quick Links</h3>
-                <ul role="list">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="hoa-services.html">HOA Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <nav class="footer-services fade-in-up" aria-labelledby="footer-services-heading">
-                <h3 id="footer-services-heading">Our Services</h3>
-                <ul role="list">
-                    <li><a href="services.html#lifeguard">Lifeguard Services</a></li>
-                    <li><a href="services.html#lessons">Swimming Lessons</a></li>
-                    <li><a href="services.html#special-needs">Special Needs Swimming</a></li>
-                    <li><a href="hoa-services.html">HOA Pool Management</a></li>
-                    <li><a href="services.html#emergency">Emergency Response</a></li>
-                    <li><a href="services.html#corporate">Corporate Events</a></li>
-                </ul>
-            </nav>
-            <div class="footer-contact fade-in-up">
-                <h3 id="footer-contact-heading">Contact Information</h3>
-                <div class="contact-info" role="list" aria-labelledby="footer-contact-heading">
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <a href="tel:8053676432" aria-label="Call us at 8 0 5 3 6 7 6 4 3 2">(805) 367-6432</a>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <a href="mailto:info@805lifeguard.com" aria-label="Email us at info@805lifeguard.com">info@805lifeguard.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <span>Serving Southern California</span>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" role="listitem">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-text">
-                            <div class="business-hours">
-                                <div class="hours-header">Hours:</div>
-                                <div class="hours-line">
-                                    <div class="hours-main">
-                                        <span class="day">Monday–Friday:</span> 
-                                        <span class="time">9:00AM–5:00PM</span>
-                                    </div>
-                                    <div class="hours-note">(Extended hours upon request)</div>
-                                </div>
-                                <div class="hours-line">
-                                    <div class="hours-main">
-                                        <span class="day">Saturday & Sunday:</span> 
-                                        <span class="time">9:00AM–11:55PM</span>
-                                    </div>
-                                    <div class="hours-note">(Extended hours upon request)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-newsletter fade-in-up">
-                <h3 id="newsletter-heading">Stay Updated</h3>
-                <p>Subscribe to our newsletter for updates on services, water safety tips, and special offers.</p>
-                <form class="newsletter-form" id="newsletterForm" aria-labelledby="newsletter-heading">
-                    <div class="input-group">
-                        <label for="newsletter-email" class="sr-only">Email Address for Newsletter</label>
-                        <input 
-                            type="email" 
-                            id="newsletter-email"
-                            class="newsletter-input" 
-                            placeholder="Your Email Address" 
-                            required
-                            aria-describedby="newsletter-error"
-                            autocomplete="email"
-                        >
-                        <button type="submit" class="newsletter-btn" aria-label="Subscribe to Newsletter">
-                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                            <span class="sr-only">Subscribe</span>
-                        </button>
-                    </div>
-                    <div id="newsletter-error" class="error-message" aria-live="polite"></div>
-                </form>
-                <div class="footer-certifications" role="list" aria-label="Our Certifications">
-                    <div class="cert-item" role="listitem">
-                        <i class="fas fa-certificate" aria-hidden="true"></i>
-                        <span>Licensed & Insured</span>
-                    </div>
-                    <div class="cert-item" role="listitem">
-                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                        <span>Background Checked</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="copyright">
-                <p>&copy; 2025 805 LifeGuard. All Rights Reserved.</p>
-            </div>
-            <nav class="footer-bottom-links" aria-label="Legal Links">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="liability-waiver.html">Liability Waiver</a>
-                <a href="cancellation-policy.html">Cancellation Policy</a>
-                <a href="safety-guidelines.html">Safety Guidelines</a>
-                <a href="accessibility.html">Accessibility</a>
-                <a href="sitemap.html">Sitemap</a>
-            </nav>
-        </div>
-    </footer>
-
-    <script src="scripts.js"></script>
-    <script src="contact-scripts.js"></script>
+        console.log('805 LifeGuard - Luxury Concierge Services Loaded');
+    </script>
 </body>
 </html>
