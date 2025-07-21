@@ -62,6 +62,11 @@
             transition: var(--transition-luxury);
         }
         
+        .header.scrolled {
+            background: rgba(254, 254, 254, 0.98);
+            box-shadow: var(--shadow-elegant);
+        }
+        
         .header-top {
             background: var(--primary-navy);
             color: var(--pearl-white);
@@ -210,7 +215,7 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(26, 43, 66, 0.4), rgba(26, 43, 66, 0.6)), 
-                        url('/images/luxury-estate-pool-hero.jpg');
+                        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=2075&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -298,6 +303,8 @@
             align-items: center;
             gap: 10px;
             box-shadow: var(--shadow-elegant);
+            border: none;
+            cursor: pointer;
         }
         
         .btn-primary:hover {
@@ -356,7 +363,7 @@
             font-weight: 500;
         }
         
-        /* Exclusive Services Section */
+        /* Services Section */
         .services-luxury {
             padding: 120px 5%;
             background: var(--warm-cream);
@@ -412,6 +419,19 @@
             box-shadow: var(--shadow-elegant);
             transition: var(--transition-luxury);
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .service-card::before {
@@ -514,7 +534,7 @@
             transform: translateX(5px);
         }
         
-        /* New Exclusive Pool Cleaning Section */
+        /* Exclusive Pool Cleaning Section */
         .exclusive-cleaning {
             background: var(--primary-navy);
             color: var(--pearl-white);
@@ -552,6 +572,12 @@
             margin: 0 auto 30px;
             font-size: 2.5rem;
             box-shadow: var(--shadow-luxury);
+            animation: gentle-pulse 3s infinite;
+        }
+        
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .exclusive-cleaning h2 {
@@ -580,6 +606,12 @@
             border-radius: var(--border-radius-elegant);
             padding: 30px 25px;
             text-align: center;
+            transition: var(--transition-luxury);
+        }
+        
+        .exclusive-feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .exclusive-feature i {
@@ -610,7 +642,7 @@
             }
             
             .nav-links {
-                display: none; /* Implement mobile menu */
+                display: none;
             }
             
             .hero {
@@ -687,6 +719,31 @@
             40% { transform: translateY(-10px); }
             60% { transform: translateY(-5px); }
         }
+        
+        /* Database Integration Styles */
+        .data-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-elegant);
+        }
+        
+        .data-status.connected {
+            background: var(--forest-green);
+        }
+        
+        .data-status i {
+            color: var(--luxury-gold);
+        }
     </style>
 </head>
 <body>
@@ -709,8 +766,10 @@
         </div>
         
         <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
+            <a href="#home" class="logo">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 18px;">
+                    <i class="fas fa-water" style="color: var(--pearl-white); font-size: 1.5rem;"></i>
+                </div>
                 <div class="logo-text">
                     <span class="logo-main">805 LifeGuard</span>
                     <span class="logo-subtitle">Premier Aquatic Estates</span>
@@ -718,13 +777,13 @@
             </a>
             
             <ul class="nav-links">
-                <li><a href="#home" class="nav-link">Estate</a></li>
+                <li><a href="#home" class="nav-link active">Estate</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="hoa-services.html" class="nav-link">Communities</a></li>
-                <li><a href="#about" class="nav-link">Heritage</a></li>
-                <li><a href="gallery.html" class="nav-link">Portfolio</a></li>
-                <li><a href="contact.html" class="nav-link">Concierge</a></li>
-                <li><a href="client-login.html" class="nav-link exclusive">Member Portal</a></li>
+                <li><a href="#communities" class="nav-link">Communities</a></li>
+                <li><a href="#heritage" class="nav-link">Heritage</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link">Concierge</a></li>
+                <li><a href="#portal" class="nav-link exclusive">Member Portal</a></li>
             </ul>
         </nav>
     </header>
@@ -740,34 +799,34 @@
             <p class="hero-subtitle">Curating exceptional aquatic experiences for Southern California's most distinguished properties through white-glove service and uncompromising safety standards.</p>
             
             <div class="hero-cta">
-                <a href="#services" class="btn-primary">
+                <button class="btn-primary" onclick="exploreServices()">
                     <i class="fas fa-water"></i>
                     Explore Services
-                </a>
-                <a href="contact.html" class="btn-secondary">
+                </button>
+                <button class="btn-secondary" onclick="requestConsultation()">
                     <i class="fas fa-concierge-bell"></i>
                     Request Consultation
-                </a>
+                </button>
             </div>
             
-            <div class="hero-stats">
+            <div class="hero-stats" id="heroStats">
                 <div class="stat-item">
-                    <div class="stat-number">9+</div>
+                    <div class="stat-number" data-stat="years">9+</div>
                     <div class="stat-label">Years Heritage</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">500+</div>
+                    <div class="stat-number" data-stat="events">500+</div>
                     <div class="stat-label">Estate Events</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">98%</div>
+                    <div class="stat-number" data-stat="retention">98%</div>
                     <div class="stat-label">Client Retention</div>
                 </div>
             </div>
         </div>
         
         <div class="scroll-indicator">
-            <div class="scroll-arrow">
+            <div class="scroll-arrow" onclick="scrollToServices()">
                 <i class="fas fa-chevron-down"></i>
             </div>
         </div>
@@ -784,7 +843,7 @@
         <div class="services-grid">
             <!-- Estate Lifeguard Concierge -->
             <div class="service-card">
-                <div class="service-image" style="background-image: url('/images/luxury-estate-lifeguard.jpg');">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop');">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -798,7 +857,7 @@
                         <span class="feature-tag">Emergency Response</span>
                         <span class="feature-tag">Event Ready</span>
                     </div>
-                    <a href="services.html#lifeguard" class="service-link">
+                    <a href="#" class="service-link" onclick="selectService('lifeguard')">
                         Discover More <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -806,7 +865,7 @@
 
             <!-- Private Aquatic Instruction -->
             <div class="service-card">
-                <div class="service-image" style="background-image: url('/images/private-swimming-lessons.jpg');">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?q=80&w=2070&auto=format&fit=crop');">
                     <div class="service-icon">
                         <i class="fas fa-swimmer"></i>
                     </div>
@@ -820,7 +879,7 @@
                         <span class="feature-tag">Adaptive Methods</span>
                         <span class="feature-tag">Family Focus</span>
                     </div>
-                    <a href="services.html#lessons" class="service-link">
+                    <a href="#" class="service-link" onclick="selectService('lessons')">
                         Learn More <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -828,7 +887,7 @@
 
             <!-- Community Estate Management -->
             <div class="service-card">
-                <div class="service-image" style="background-image: url('/images/luxury-hoa-management.jpg');">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?q=80&w=2068&auto=format&fit=crop');">
                     <div class="service-icon">
                         <i class="fas fa-building"></i>
                     </div>
@@ -842,7 +901,7 @@
                         <span class="feature-tag">Board Liaison</span>
                         <span class="feature-tag">Premium Standards</span>
                     </div>
-                    <a href="hoa-services.html" class="service-link">
+                    <a href="#" class="service-link" onclick="selectService('community')">
                         View Portfolio <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -885,44 +944,295 @@
                 </div>
             </div>
             
-            <a href="contact.html" class="btn-primary">
+            <button class="btn-primary" onclick="requestExclusiveAccess()">
                 <i class="fas fa-phone-alt"></i>
                 Request Exclusive Access
-            </a>
+            </button>
         </div>
     </section>
+    
+    <!-- Database Status Indicator -->
+    <div class="data-status" id="dataStatus">
+        <i class="fas fa-database"></i>
+        <span>Connecting...</span>
+    </div>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(254, 254, 254, 0.98)';
-                header.style.boxShadow = '0 5px 30px rgba(26, 43, 66, 0.1)';
-            } else {
-                header.style.background = 'rgba(254, 254, 254, 0.95)';
-                header.style.boxShadow = 'none';
+        // Enhanced JavaScript with Cloudflare D1 integration
+        class LuxuryEstateWebsite {
+            constructor() {
+                this.apiBase = '/api';
+                this.dbConnected = false;
+                this.init();
             }
-        });
-
-        // Mobile menu (basic implementation)
-        // Add mobile menu functionality here
-
-        console.log('805 LifeGuard - Luxury Estate Management Loaded');
+            
+            async init() {
+                console.log('805 LifeGuard - Enhanced Luxury Website Loading...');
+                
+                // Initialize components
+                this.bindEvents();
+                this.updateHeaderOnScroll();
+                this.animateStats();
+                
+                // Connect to database
+                await this.connectToDatabase();
+                
+                console.log('805 LifeGuard - Luxury Website Loaded Successfully');
+            }
+            
+            async connectToDatabase() {
+                try {
+                    // Update status indicator
+                    const statusEl = document.getElementById('dataStatus');
+                    statusEl.innerHTML = '<i class="fas fa-database"></i><span>Connecting...</span>';
+                    
+                    // In production, this would connect to your Cloudflare Worker
+                    const response = await fetch(`${this.apiBase}/health`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        this.dbConnected = true;
+                        statusEl.className = 'data-status connected';
+                        statusEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Connected</span>';
+                        
+                        // Load live stats from database
+                        await this.loadLiveStats();
+                    } else {
+                        throw new Error('Database connection failed');
+                    }
+                    
+                } catch (error) {
+                    console.warn('Database connection failed, using demo mode:', error);
+                    this.dbConnected = false;
+                    
+                    const statusEl = document.getElementById('dataStatus');
+                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Demo Mode</span>';
+                    
+                    // Use demo stats
+                    this.loadDemoStats();
+                }
+                
+                // Hide status after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('dataStatus').style.opacity = '0.3';
+                }, 3000);
+            }
+            
+            async loadLiveStats() {
+                try {
+                    const response = await fetch(`${this.apiBase}/stats`);
+                    const stats = await response.json();
+                    
+                    if (stats.success) {
+                        this.updateStatsDisplay(stats.data);
+                    }
+                } catch (error) {
+                    console.warn('Failed to load live stats:', error);
+                    this.loadDemoStats();
+                }
+            }
+            
+            loadDemoStats() {
+                const demoStats = {
+                    years: 9,
+                    events: 847,
+                    retention: 98.7
+                };
+                this.updateStatsDisplay(demoStats);
+            }
+            
+            updateStatsDisplay(stats) {
+                const statElements = document.querySelectorAll('[data-stat]');
+                statElements.forEach(el => {
+                    const statType = el.getAttribute('data-stat');
+                    if (stats[statType]) {
+                        if (statType === 'retention') {
+                            el.textContent = `${Math.round(stats[statType])}%`;
+                        } else if (statType === 'events') {
+                            el.textContent = `${stats[statType]}+`;
+                        } else {
+                            el.textContent = `${stats[statType]}+`;
+                        }
+                    }
+                });
+            }
+            
+            bindEvents() {
+                // Smooth scrolling
+                this.setupSmoothScrolling();
+                
+                // Header scroll effects
+                window.addEventListener('scroll', () => this.updateHeaderOnScroll());
+                
+                // Intersection observer for animations
+                this.setupIntersectionObserver();
+            }
+            
+            setupSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = document.querySelector(anchor.getAttribute('href'));
+                        if (target) {
+                            const headerHeight = 110;
+                            const targetPosition = target.offsetTop - headerHeight;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            updateHeaderOnScroll() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            setupIntersectionObserver() {
+                const animatedElements = document.querySelectorAll('.service-card, .exclusive-feature');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                animatedElements.forEach(el => observer.observe(el));
+            }
+            
+            animateStats() {
+                const stats = document.querySelectorAll('.stat-number');
+                
+                const animateNumber = (element, target) => {
+                    const start = 0;
+                    const duration = 2000;
+                    const startTime = performance.now();
+                    
+                    const updateNumber = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                        const current = Math.floor(start + (target * easeOutQuart));
+                        
+                        if (element.textContent.includes('%')) {
+                            element.textContent = `${current}%`;
+                        } else {
+                            element.textContent = `${current}+`;
+                        }
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateNumber);
+                        }
+                    };
+                    
+                    requestAnimationFrame(updateNumber);
+                };
+                
+                // Trigger animation when stats are visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const stat = entry.target;
+                            const dataType = stat.getAttribute('data-stat');
+                            
+                            let target = 0;
+                            if (dataType === 'years') target = 9;
+                            else if (dataType === 'events') target = 500;
+                            else if (dataType === 'retention') target = 98;
+                            
+                            animateNumber(stat, target);
+                            observer.unobserve(stat);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                stats.forEach(stat => observer.observe(stat));
+            }
+            
+            async logUserInteraction(action, data = {}) {
+                if (!this.dbConnected) return;
+                
+                try {
+                    await fetch(`${this.apiBase}/analytics`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            action,
+                            data,
+                            timestamp: new Date().toISOString(),
+                            userAgent: navigator.userAgent,
+                            page: window.location.pathname
+                        })
+                    });
+                } catch (error) {
+                    console.warn('Analytics logging failed:', error);
+                }
+            }
+        }
+        
+        // Global functions for button interactions
+        function exploreServices() {
+            website.logUserInteraction('hero_explore_services');
+            document.getElementById('services').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        function requestConsultation() {
+            website.logUserInteraction('hero_request_consultation');
+            // Navigate to contact page or open modal
+            alert('Consultation request feature - would navigate to contact form');
+        }
+        
+        function scrollToServices() {
+            website.logUserInteraction('scroll_indicator_click');
+            document.getElementById('services').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        function selectService(serviceType) {
+            website.logUserInteraction('service_selected', { service: serviceType });
+            // Navigate to specific service page
+            alert(`Selected service: ${serviceType} - would navigate to service details`);
+        }
+        
+        function requestExclusiveAccess() {
+            website.logUserInteraction('exclusive_access_request');
+            // Navigate to exclusive contact form
+            alert('Exclusive access request - would navigate to special contact form');
+        }
+        
+        // Initialize website
+        const website = new LuxuryEstateWebsite();
+        
+        // Service Worker registration for production
+        if ('serviceWorker' in navigator && location.protocol === 'https:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('Service Worker registration failed:', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
