@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concierge Services | Premier Aquatic Estate Consultation | 805 LifeGuard</title>
-    <meta name="description" content="Exclusive consultation services for distinguished estates and communities. Connect with our aquatic concierge team for bespoke service solutions in Southern California.">
+    <title>Concierge Consultation | 805 LifeGuard - Premier Estate Services</title>
+    <meta name="description" content="Request an exclusive consultation for luxury aquatic estate services. Our concierge team provides personalized service design for Southern California's most distinguished properties.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,7 @@
             --forest-green: #2d5446;
             --success-green: #4caf50;
             --error-red: #e74c3c;
+            --warning-amber: #f39c12;
             
             /* Typography */
             --font-primary: 'Playfair Display', serif;
@@ -64,12 +65,16 @@
             transition: var(--transition-luxury);
         }
         
+        .header.scrolled {
+            background: rgba(254, 254, 254, 0.98);
+            box-shadow: var(--shadow-elegant);
+        }
+        
         .header-top {
             background: var(--primary-navy);
             color: var(--pearl-white);
             padding: 8px 0;
             font-size: 0.85rem;
-            font-weight: 500;
         }
         
         .header-top-content {
@@ -79,11 +84,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        .header-top-contact {
-            display: flex;
-            gap: 25px;
         }
         
         .header-top a {
@@ -112,14 +112,19 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            transition: var(--transition-luxury);
         }
         
-        .logo-img {
+        .logo-icon {
+            width: 60px;
             height: 60px;
-            width: auto;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-right: 18px;
-            filter: drop-shadow(0 2px 8px rgba(26, 43, 66, 0.1));
+            color: var(--pearl-white);
+            font-size: 1.5rem;
         }
         
         .logo-text {
@@ -173,12 +178,13 @@
             transform: translateX(-50%);
         }
         
-        .nav-link:hover {
-            color: var(--luxury-gold);
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
         }
         
-        .nav-link:hover::before {
-            width: 100%;
+        .nav-link:hover {
+            color: var(--luxury-gold);
         }
         
         .nav-link.exclusive {
@@ -192,12 +198,6 @@
             font-size: 0.8rem;
         }
         
-        .nav-link.exclusive:hover {
-            color: var(--pearl-white);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-elegant);
-        }
-        
         .nav-link.exclusive::before {
             display: none;
         }
@@ -205,8 +205,8 @@
         /* Page Header */
         .page-header {
             height: 70vh;
-            background: linear-gradient(rgba(26, 43, 66, 0.6), rgba(44, 62, 80, 0.7)), 
-                        url('/images/luxury-concierge-office.jpg');
+            background: linear-gradient(rgba(26, 43, 66, 0.7), rgba(26, 43, 66, 0.8)), 
+                        url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -215,19 +215,8 @@
             justify-content: center;
             text-align: center;
             color: var(--pearl-white);
-            margin-top: 110px;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M50 50m-30 0a30,30 0 1,1 60,0a30,30 0 1,1 -60,0'/%3E%3C/g%3E%3C/svg%3E");
+            margin-top: 110px;
         }
         
         .page-header-content {
@@ -237,13 +226,13 @@
             z-index: 2;
         }
         
-        .hero-badge {
+        .page-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: rgba(26, 43, 66, 0.8);
+            background: rgba(212, 175, 55, 0.15);
             backdrop-filter: blur(15px);
-            border: 2px solid rgba(212, 175, 55, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             padding: 12px 28px;
             border-radius: 50px;
             font-size: 0.9rem;
@@ -253,87 +242,49 @@
             letter-spacing: 1px;
         }
         
-        .page-header h1 {
+        .page-title {
             font-family: var(--font-primary);
             font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 25px;
-            text-shadow: 3px 3px 25px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
             line-height: 1.1;
-            letter-spacing: -1px;
         }
         
-        .page-header p {
+        .page-subtitle {
             font-size: 1.3rem;
-            margin-bottom: 40px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
             line-height: 1.6;
             font-style: italic;
         }
         
-        /* Contact Methods Section */
-        .contact-methods {
+        /* Main Content Area */
+        .contact-main {
             padding: 100px 5%;
             background: var(--warm-cream);
         }
         
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 60px;
-        }
-        
-        .section-badge {
-            display: inline-block;
-            background: var(--primary-navy);
-            color: var(--luxury-gold);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-family: var(--font-primary);
-            font-size: 3rem;
-            color: var(--primary-navy);
-            margin-bottom: 25px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--warm-gray);
-            line-height: 1.7;
-            font-weight: 400;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
+        .contact-container {
+            max-width: 1400px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
         }
         
-        .contact-card {
+        /* Contact Information */
+        .contact-info {
             background: var(--pearl-white);
             border-radius: var(--border-radius-elegant);
-            padding: 40px 35px;
-            text-align: center;
+            padding: 50px;
             box-shadow: var(--shadow-elegant);
-            transition: var(--transition-luxury);
-            border: 1px solid rgba(212, 175, 55, 0.1);
             position: relative;
         }
         
-        .contact-card::before {
+        .contact-info::before {
             content: '';
             position: absolute;
             top: 0;
@@ -344,9 +295,9 @@
             border-radius: var(--border-radius-elegant) var(--border-radius-elegant) 0 0;
         }
         
-        .contact-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-luxury);
+        .contact-info-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
         
         .contact-icon {
@@ -363,124 +314,167 @@
             box-shadow: var(--shadow-elegant);
         }
         
-        .contact-card h3 {
+        .contact-info-title {
             font-family: var(--font-primary);
-            font-size: 1.5rem;
+            font-size: 2.2rem;
             color: var(--primary-navy);
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
-        .contact-card p {
+        .contact-info-subtitle {
+            font-size: 1.1rem;
             color: var(--warm-gray);
-            margin-bottom: 25px;
             line-height: 1.6;
         }
         
-        .contact-info {
-            color: var(--primary-navy);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+        .contact-methods {
+            display: grid;
+            gap: 30px;
         }
         
-        .contact-hours {
-            color: var(--warm-gray);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-        
-        .contact-link {
-            display: inline-flex;
+        .contact-method {
+            display: flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
-            color: var(--pearl-white);
-            padding: 12px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition-luxury);
-            margin-top: 15px;
-        }
-        
-        .contact-link:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-elegant);
-        }
-        
-        /* Consultation Form Section */
-        .consultation-form {
-            padding: 120px 5%;
-            background: var(--pearl-white);
-        }
-        
-        .form-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--pearl-white);
-            border-radius: 20px;
-            box-shadow: var(--shadow-luxury);
-            overflow: hidden;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(212, 175, 55, 0.05);
             border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: var(--border-radius-elegant);
+            transition: var(--transition-luxury);
         }
         
-        .form-header {
-            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-elegant);
+            background: rgba(212, 175, 55, 0.08);
+        }
+        
+        .contact-method-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--luxury-gold);
+            font-size: 1.2rem;
+        }
+        
+        .contact-method-content h4 {
+            font-family: var(--font-primary);
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .contact-method-content p {
+            color: var(--warm-gray);
+            margin: 0;
+        }
+        
+        .contact-method-content a {
+            color: var(--luxury-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-luxury);
+        }
+        
+        .contact-method-content a:hover {
+            color: var(--deep-gold);
+        }
+        
+        /* Hours Section */
+        .concierge-hours {
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--primary-navy);
             color: var(--pearl-white);
-            padding: 50px 40px;
+            border-radius: var(--border-radius-elegant);
             text-align: center;
+        }
+        
+        .concierge-hours h4 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--luxury-gold);
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Consultation Form */
+        .consultation-form-container {
+            background: var(--pearl-white);
+            border-radius: var(--border-radius-elegant);
+            padding: 50px;
+            box-shadow: var(--shadow-elegant);
             position: relative;
         }
         
-        .form-header::before {
+        .consultation-form-container::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
+            height: 4px;
+            background: linear-gradient(90deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: var(--border-radius-elegant) var(--border-radius-elegant) 0 0;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
         
         .form-icon {
             width: 80px;
             height: 80px;
-            background: rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
             font-size: 2rem;
-            color: var(--luxury-gold);
-            position: relative;
-            z-index: 2;
+            color: var(--pearl-white);
+            box-shadow: var(--shadow-elegant);
         }
         
-        .form-header h2 {
+        .form-title {
             font-family: var(--font-primary);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
+            color: var(--primary-navy);
             margin-bottom: 15px;
             font-weight: 700;
-            position: relative;
-            z-index: 2;
         }
         
-        .form-header p {
+        .form-subtitle {
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            position: relative;
-            z-index: 2;
+            color: var(--warm-gray);
+            line-height: 1.6;
         }
         
-        .form-content {
-            padding: 50px 40px;
-        }
-        
-        .luxury-form {
+        .consultation-form {
             display: grid;
             gap: 25px;
         }
@@ -511,7 +505,7 @@
         .form-select,
         .form-textarea {
             padding: 16px 20px;
-            border: 2px solid #e8e9ea;
+            border: 2px solid var(--light-gray);
             border-radius: var(--border-radius-elegant);
             font-size: 16px;
             font-family: var(--font-secondary);
@@ -535,11 +529,64 @@
             font-family: var(--font-secondary);
         }
         
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 45px;
+            appearance: none;
+        }
+        
+        .priority-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .priority-option {
+            position: relative;
+        }
+        
+        .priority-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .priority-option label {
+            display: block;
+            padding: 15px 20px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            border-radius: var(--border-radius-elegant);
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-luxury);
+        }
+        
+        .priority-option input[type="radio"]:checked + label {
+            background: var(--luxury-gold);
+            color: var(--pearl-white);
+            border-color: var(--luxury-gold);
+            transform: translateY(-2px);
+        }
+        
+        .priority-option:hover label {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
         .form-submit {
             background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
             color: var(--pearl-white);
             border: none;
-            padding: 18px 40px;
+            padding: 20px 40px;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 700;
@@ -547,13 +594,13 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: var(--transition-luxury);
+            font-family: var(--font-secondary);
+            box-shadow: var(--shadow-elegant);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-            font-family: var(--font-secondary);
-            box-shadow: var(--shadow-elegant);
+            gap: 10px;
+            min-height: 60px;
         }
         
         .form-submit:hover {
@@ -568,112 +615,42 @@
             transform: none;
         }
         
-        /* Exclusive Pool Cleaning CTA */
-        .exclusive-pool-cleaning {
-            background: var(--primary-navy);
-            color: var(--pearl-white);
-            padding: 100px 5%;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .exclusive-pool-cleaning::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M60 60m-40 0a40,40 0 1,1 80,0a40,40 0 1,1 -80,0'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .exclusive-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .exclusive-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 2.5rem;
-            box-shadow: var(--shadow-luxury);
-            animation: gentle-glow 3s infinite;
-        }
-        
-        @keyframes gentle-glow {
-            0%, 100% { box-shadow: var(--shadow-luxury); }
-            50% { box-shadow: 0 25px 80px rgba(212, 175, 55, 0.4); }
-        }
-        
-        .exclusive-pool-cleaning h2 {
-            font-family: var(--font-primary);
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .exclusive-pool-cleaning .section-description {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
-            color: var(--pearl-white);
-            padding: 16px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition-luxury);
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow-elegant);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-luxury);
-        }
-        
-        /* Success/Error Messages */
-        .form-message {
-            padding: 15px 20px;
+        /* Message Alerts */
+        .message-alert {
+            padding: 20px 25px;
             border-radius: var(--border-radius-elegant);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: none;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             font-weight: 500;
+            font-size: 1rem;
         }
         
-        .form-message.success {
+        .message-alert.success {
             background: rgba(76, 175, 80, 0.1);
             color: var(--success-green);
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            border: 2px solid rgba(76, 175, 80, 0.3);
         }
         
-        .form-message.error {
+        .message-alert.error {
             background: rgba(231, 76, 60, 0.1);
             color: var(--error-red);
-            border: 1px solid rgba(231, 76, 60, 0.3);
+            border: 2px solid rgba(231, 76, 60, 0.3);
         }
         
-        .form-message.show {
+        .message-alert.warning {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-amber);
+            border: 2px solid rgba(243, 156, 18, 0.3);
+        }
+        
+        .message-alert.show {
             display: flex;
+        }
+        
+        .message-alert i {
+            font-size: 1.5rem;
         }
         
         /* Mobile Responsive */
@@ -689,22 +666,22 @@
             }
             
             .page-header {
-                margin-top: 100px;
-                background-attachment: scroll;
                 height: 60vh;
+                background-attachment: scroll;
             }
             
-            .page-header h1 {
+            .page-title {
                 font-size: 2.5rem;
             }
             
-            .page-header p {
-                font-size: 1.1rem;
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
             }
             
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
+            .contact-info,
+            .consultation-form-container {
+                padding: 30px 25px;
             }
             
             .form-row {
@@ -712,21 +689,49 @@
                 gap: 20px;
             }
             
-            .form-content {
-                padding: 40px 20px;
+            .hours-grid {
+                grid-template-columns: 1fr;
             }
             
-            .form-header {
-                padding: 40px 20px;
+            .priority-options {
+                grid-template-columns: 1fr;
             }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .exclusive-pool-cleaning h2 {
-                font-size: 2.2rem;
-            }
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 43, 66, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--luxury-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: var(--pearl-white);
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -735,14 +740,14 @@
     <header class="header">
         <div class="header-top">
             <div class="header-top-content">
-                <div class="header-top-left">
-                    <span>Exclusive Aquatic Concierge Services Since 2016</span>
+                <div>
+                    <span>Exclusive Aquatic Estate Management Since 2016</span>
                 </div>
-                <div class="header-top-contact">
+                <div>
                     <a href="tel:8053676432">
                         <i class="fas fa-phone"></i> (805) 367-6432
                     </a>
-                    <a href="mailto:concierge@805lifeguard.com">
+                    <a href="mailto:concierge@805lifeguard.com" style="margin-left: 25px;">
                         <i class="fas fa-envelope"></i> concierge@805lifeguard.com
                     </a>
                 </div>
@@ -750,8 +755,10 @@
         </div>
         
         <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" class="logo-img">
+            <a href="#home" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-water"></i>
+                </div>
                 <div class="logo-text">
                     <span class="logo-main">805 LifeGuard</span>
                     <span class="logo-subtitle">Premier Aquatic Estates</span>
@@ -759,13 +766,13 @@
             </a>
             
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Estate</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="hoa-services.html" class="nav-link">Communities</a></li>
-                <li><a href="about.html" class="nav-link">Heritage</a></li>
-                <li><a href="gallery.html" class="nav-link">Portfolio</a></li>
-                <li><a href="contact.html" class="nav-link">Concierge</a></li>
-                <li><a href="client-login.html" class="nav-link exclusive">Member Portal</a></li>
+                <li><a href="#home" class="nav-link">Estate</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#communities" class="nav-link">Communities</a></li>
+                <li><a href="#heritage" class="nav-link">Heritage</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link active">Concierge</a></li>
+                <li><a href="#portal" class="nav-link exclusive">Member Portal</a></li>
             </ul>
         </nav>
     </header>
@@ -773,298 +780,545 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-content">
-            <div class="hero-badge">
+            <div class="page-badge">
                 <i class="fas fa-concierge-bell"></i>
-                Exclusive Consultation Services
+                Exclusive Consultation
             </div>
-            <h1>Aquatic Concierge</h1>
-            <p>Connect with our distinguished team of aquatic specialists for personalized consultation and bespoke service solutions tailored to your estate's unique requirements.</p>
+            <h1 class="page-title">Concierge Services</h1>
+            <p class="page-subtitle">Experience personalized service design through our exclusive consultation process, where every detail is crafted to exceed the expectations of discerning estate owners.</p>
         </div>
     </section>
 
-    <!-- Contact Methods -->
-    <section class="contact-methods">
-        <div class="section-header">
-            <div class="section-badge">Connect With Excellence</div>
-            <h2 class="section-title">Preferred Communication Channels</h2>
-            <p class="section-description">Choose your preferred method to connect with our aquatic concierge team. We're here to provide personalized attention and expert guidance for all your estate aquatic needs.</p>
-        </div>
-        
-        <div class="contact-grid">
-            <!-- Phone Consultation -->
-            <div class="contact-card">
-                <div class="contact-icon">
-                    <i class="fas fa-phone-alt"></i>
+    <!-- Main Content -->
+    <section class="contact-main">
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <div class="contact-info-header">
+                    <div class="contact-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h2 class="contact-info-title">Distinguished Service</h2>
+                    <p class="contact-info-subtitle">Our concierge team is dedicated to understanding your unique estate requirements and crafting bespoke aquatic solutions that reflect your sophisticated lifestyle.</p>
                 </div>
-                <h3>Executive Consultation</h3>
-                <p>Speak directly with our senior aquatic specialists for immediate guidance and personalized solutions.</p>
-                <div class="contact-info">(805) 367-6432</div>
-                <div class="contact-hours">Monday–Friday: 8:00AM–6:00PM</div>
-                <a href="tel:8053676432" class="contact-link">
-                    <i class="fas fa-phone"></i>
-                    Call Now
-                </a>
-            </div>
-            
-            <!-- Email Concierge -->
-            <div class="contact-card">
-                <div class="contact-icon">
-                    <i class="fas fa-envelope-open"></i>
-                </div>
-                <h3>Concierge Correspondence</h3>
-                <p>Send detailed inquiries to our dedicated concierge team for comprehensive written responses and documentation.</p>
-                <div class="contact-info">concierge@805lifeguard.com</div>
-                <div class="contact-hours">Response within 4 business hours</div>
-                <a href="mailto:concierge@805lifeguard.com" class="contact-link">
-                    <i class="fas fa-envelope"></i>
-                    Send Email
-                </a>
-            </div>
-            
-            <!-- Emergency Support -->
-            <div class="contact-card">
-                <div class="contact-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Emergency Support</h3>
-                <p>24/7 emergency assistance for existing clients experiencing urgent aquatic safety or operational concerns.</p>
-                <div class="contact-info">(805) 367-6432</div>
-                <div class="contact-hours">24/7 Emergency Line</div>
-                <a href="tel:8053676432" class="contact-link">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Emergency Line
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Consultation Form -->
-    <section class="consultation-form">
-        <div class="form-container">
-            <div class="form-header">
-                <div class="form-icon">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <h2>Request Private Consultation</h2>
-                <p>Schedule an exclusive consultation with our aquatic specialists to discuss your estate's unique requirements and explore our bespoke service offerings.</p>
-            </div>
-            
-            <div class="form-content">
-                <div id="form-message" class="form-message"></div>
                 
-                <form class="luxury-form" id="consultationForm">
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-method-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-method-content">
+                            <h4>Priority Concierge Line</h4>
+                            <p><a href="tel:8053676432">(805) 367-6432</a></p>
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">Direct access to our luxury services team</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <div class="contact-method-content">
+                            <h4>Executive Correspondence</h4>
+                            <p><a href="mailto:concierge@805lifeguard.com">concierge@805lifeguard.com</a></p>
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">Personalized communication channel</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="contact-method-content">
+                            <h4>Estate Consultation</h4>
+                            <p>On-site assessment available</p>
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">Private consultation at your estate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="contact-method-content">
+                            <h4>24/7 Member Support</h4>
+                            <p>Emergency response available</p>
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">Exclusive to established clientele</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="concierge-hours">
+                    <h4>Concierge Availability</h4>
+                    <div class="hours-grid">
+                        <div class="hours-item">
+                            <span>Monday - Friday</span>
+                            <span>7:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Saturday</span>
+                            <span>8:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Sunday</span>
+                            <span>9:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Emergency</span>
+                            <span>24/7 Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Consultation Form -->
+            <div class="consultation-form-container">
+                <div class="form-header">
+                    <div class="form-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h2 class="form-title">Request Consultation</h2>
+                    <p class="form-subtitle">Begin your journey toward exceptional aquatic estate management. Our team will design a personalized service plan that meets your exacting standards.</p>
+                </div>
+                
+                <div id="form-message" class="message-alert"></div>
+                
+                <form class="consultation-form" id="consultationForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName" class="form-label">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Your first name" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastName" class="form-label">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Your last name" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="email" class="form-label">Email Address *</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@estate.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone" class="form-label">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(805) 555-0123">
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="propertyType" class="form-label">Property Type *</label>
-                            <select id="propertyType" name="propertyType" class="form-select" required>
-                                <option value="">Select Property Type</option>
+                            <label for="serviceInterest" class="form-label">Primary Service Interest</label>
+                            <select id="serviceInterest" name="serviceInterest" class="form-select" required>
+                                <option value="">Select your primary interest</option>
+                                <option value="lifeguard-concierge">Estate Lifeguard Concierge</option>
+                                <option value="private-instruction">Private Aquatic Instruction</option>
+                                <option value="exclusive-maintenance">Exclusive Pool Maintenance</option>
+                                <option value="community-management">Community Estate Management</option>
+                                <option value="custom-package">Custom Service Package</option>
+                                <option value="consultation-only">General Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertyType" class="form-label">Property Type</label>
+                            <select id="propertyType" name="propertyType" class="form-select">
+                                <option value="">Select property type</option>
                                 <option value="private-estate">Private Estate</option>
-                                <option value="luxury-community">Luxury Community/HOA</option>
-                                <option value="commercial-property">Commercial Property</option>
+                                <option value="luxury-residence">Luxury Residence</option>
+                                <option value="community-hoa">Community/HOA</option>
+                                <option value="commercial-resort">Commercial/Resort</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="serviceInterest" class="form-label">Service Interest *</label>
-                            <select id="serviceInterest" name="serviceInterest" class="form-select" required>
-                                <option value="">Select Primary Interest</option>
-                                <option value="estate-lifeguard">Estate Lifeguard Services</option>
-                                <option value="private-instruction">Private Aquatic Instruction</option>
-                                <option value="community-management">Community Management</option>
-                                <option value="exclusive-cleaning">Exclusive Pool Maintenance</option>
-                                <option value="consultation">General Consultation</option>
-                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority" class="form-label">Service Priority</label>
+                        <div class="priority-options">
+                            <div class="priority-option">
+                                <input type="radio" id="standard" name="priority" value="standard" checked>
+                                <label for="standard">Standard<br><small>7-10 business days</small></label>
+                            </div>
+                            <div class="priority-option">
+                                <input type="radio" id="priority" name="priority" value="priority">
+                                <label for="priority">Priority<br><small>3-5 business days</small></label>
+                            </div>
+                            <div class="priority-option">
+                                <input type="radio" id="urgent" name="priority" value="urgent">
+                                <label for="urgent">Urgent<br><small>24-48 hours</small></label>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="form-group full-width">
-                        <label for="location" class="form-label">Property Location</label>
-                        <input type="text" id="location" name="location" class="form-input" placeholder="City, State">
+                        <label for="message" class="form-label">Project Details & Special Requirements</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Please describe your estate's aquatic environment, specific requirements, and any special considerations. Include details about property size, existing facilities, preferred service schedule, and any unique needs that would help us design the perfect service plan for your estate." rows="6"></textarea>
                     </div>
                     
                     <div class="form-group full-width">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea id="message" name="message" class="form-textarea" placeholder="Please describe your aquatic requirements, timeline, and any specific questions you may have..."></textarea>
+                        <button type="submit" class="form-submit" id="submitButton">
+                            <i class="fas fa-paper-plane"></i>
+                            Request Exclusive Consultation
+                        </button>
                     </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="preferredContact" class="form-label">Preferred Contact Method</label>
-                        <select id="preferredContact" name="preferredContact" class="form-select">
-                            <option value="phone">Phone Call</option>
-                            <option value="email">Email</option>
-                            <option value="in-person">In-Person Meeting</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="form-submit" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i>
-                        Request Consultation
-                    </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Exclusive Pool Cleaning CTA -->
-    <section class="exclusive-pool-cleaning">
-        <div class="exclusive-content">
-            <div class="exclusive-icon">
-                <i class="fas fa-spa"></i>
-            </div>
-            <h2>Exclusive Pool Maintenance Access</h2>
-            <p class="section-description">Introducing our newest luxury service—premium pool maintenance available exclusively to our distinguished clientele. Limited availability for 2025.</p>
-            <a href="#consultationForm" class="btn-primary" onclick="setServiceInterest('exclusive-cleaning')">
-                <i class="fas fa-key"></i>
-                Request Exclusive Access
-            </a>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Submitting your consultation request...</div>
         </div>
-    </section>
+    </div>
 
     <script>
-        // Form submission handling
-        document.getElementById('consultationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Enhanced Contact Page with Database Integration
+        class LuxuryContactPage {
+            constructor() {
+                this.apiBase = '/api';
+                this.isSubmitting = false;
+                this.init();
+            }
             
-            const submitBtn = document.getElementById('submitBtn');
-            const messageDiv = document.getElementById('form-message');
-            const originalText = submitBtn.innerHTML;
+            init() {
+                console.log('805 LifeGuard - Contact Page Loading...');
+                
+                this.bindEvents();
+                this.setupFormValidation();
+                this.checkUrlParameters();
+                this.trackPageView();
+                
+                console.log('805 LifeGuard - Contact Page Loaded');
+            }
             
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = {
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                propertyType: formData.get('propertyType'),
-                serviceInterest: formData.get('serviceInterest'),
-                location: formData.get('location'),
-                message: formData.get('message'),
-                preferredContact: formData.get('preferredContact'),
-                timestamp: new Date().toISOString(),
-                source: 'Luxury Contact Form'
-            };
-            
-            try {
-                // Here you would typically send to your Cloudflare D1 database
-                // For now, we'll simulate the API call
+            bindEvents() {
+                // Header scroll effects
+                window.addEventListener('scroll', () => this.updateHeader());
                 
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                // Show success message
-                showMessage('Thank you for your inquiry. A member of our concierge team will contact you within 4 business hours.', 'success');
-                
-                // Reset form
-                this.reset();
-                
-                // Log data for manual processing (remove in production)
-                console.log('Consultation Request:', data);
-                
-                // In production, you would send this to your Cloudflare Worker endpoint:
-                /*
-                const response = await fetch('/api/consultation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                // Form submission
+                document.getElementById('consultationForm').addEventListener('submit', (e) => {
+                    this.handleFormSubmit(e);
                 });
                 
-                if (response.ok) {
-                    showMessage('Thank you for your inquiry. A member of our concierge team will contact you within 4 business hours.', 'success');
-                    this.reset();
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-                */
+                // Form field tracking
+                this.setupFieldTracking();
+            }
+            
+            setupFormValidation() {
+                const form = document.getElementById('consultationForm');
+                const inputs = form.querySelectorAll('input, select, textarea');
                 
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('We apologize, but there was an issue submitting your request. Please call us directly at (805) 367-6432.', 'error');
-            } finally {
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => this.validateField(input));
+                    input.addEventListener('input', () => this.clearFieldError(input));
+                });
             }
-        });
-        
-        // Show message function
-        function showMessage(message, type) {
-            const messageDiv = document.getElementById('form-message');
-            const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
             
-            messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
-            messageDiv.className = `form-message ${type} show`;
-            
-            // Auto-hide after 8 seconds
-            setTimeout(() => {
-                messageDiv.classList.remove('show');
-            }, 8000);
-            
-            // Scroll to message
-            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Set service interest for exclusive cleaning
-        function setServiceInterest(value) {
-            document.getElementById('serviceInterest').value = value;
-            document.getElementById('consultationForm').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(254, 254, 254, 0.98)';
-                header.style.boxShadow = '0 5px 30px rgba(26, 43, 66, 0.15)';
-            } else {
-                header.style.background = 'rgba(254, 254, 254, 0.95)';
-                header.style.boxShadow = 'none';
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+            setupFieldTracking() {
+                // Track form engagement
+                const fields = ['serviceInterest', 'propertyType', 'priority'];
+                
+                fields.forEach(fieldId => {
+                    document.getElementById(fieldId).addEventListener('change', (e) => {
+                        this.trackEvent('form_field_change', {
+                            field: fieldId,
+                            value: e.target.value
+                        });
                     });
+                });
+            }
+            
+            checkUrlParameters() {
+                // Pre-populate form based on URL parameters
+                const params = new URLSearchParams(window.location.search);
+                
+                if (params.get('service')) {
+                    const serviceSelect = document.getElementById('serviceInterest');
+                    const serviceValue = params.get('service');
+                    
+                    // Map service names to select values
+                    const serviceMap = {
+                        'lifeguard': 'lifeguard-concierge',
+                        'lessons': 'private-instruction',
+                        'maintenance': 'exclusive-maintenance',
+                        'community': 'community-management'
+                    };
+                    
+                    const mappedValue = serviceMap[serviceValue] || serviceValue;
+                    if (serviceSelect.querySelector(`option[value="${mappedValue}"]`)) {
+                        serviceSelect.value = mappedValue;
+                        this.trackEvent('form_prefilled', { service: mappedValue });
+                    }
                 }
-            });
-        });
-
-        console.log('805 LifeGuard - Luxury Concierge Services Loaded');
+            }
+            
+            async handleFormSubmit(e) {
+                e.preventDefault();
+                
+                if (this.isSubmitting) return;
+                
+                const form = e.target;
+                const submitBtn = document.getElementById('submitButton');
+                const loading = document.getElementById('loadingOverlay');
+                const originalText = submitBtn.innerHTML;
+                
+                // Validate form
+                if (!this.validateForm(form)) {
+                    this.showMessage('Please correct the highlighted fields and try again.', 'error');
+                    return;
+                }
+                
+                try {
+                    this.isSubmitting = true;
+                    
+                    // Show loading state
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Request...';
+                    submitBtn.disabled = true;
+                    loading.style.display = 'flex';
+                    
+                    // Prepare form data
+                    const formData = new FormData(form);
+                    const data = this.prepareFormData(formData);
+                    
+                    // Submit to API
+                    const response = await fetch(`${this.apiBase}/consultation`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Success handling
+                        this.showMessage(result.message || 'Thank you for your consultation request. Our concierge team will contact you within 4 business hours.', 'success');
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Track successful submission
+                        this.trackEvent('consultation_submitted', {
+                            consultation_id: result.consultation_id,
+                            service_interest: data.serviceInterest,
+                            priority: data.priority
+                        });
+                        
+                        // Scroll to success message
+                        document.getElementById('form-message').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                    } else {
+                        throw new Error(result.error || 'Submission failed. Please try again.');
+                    }
+                    
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    this.showMessage(error.message || 'We apologize for the inconvenience. Please try again or contact us directly at (805) 367-6432.', 'error');
+                    
+                    // Track failed submission
+                    this.trackEvent('consultation_failed', {
+                        error: error.message
+                    });
+                    
+                } finally {
+                    // Reset form state
+                    this.isSubmitting = false;
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+                }
+            }
+            
+            prepareFormData(formData) {
+                const data = {};
+                
+                // Basic form fields
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                // Combine first and last name
+                data.name = `${data.firstName} ${data.lastName}`.trim();
+                
+                // Add metadata
+                data.timestamp = new Date().toISOString();
+                data.source = 'consultation_form';
+                data.userAgent = navigator.userAgent;
+                data.page = 'contact';
+                data.referrer = document.referrer;
+                
+                // Clean up unnecessary fields
+                delete data.firstName;
+                delete data.lastName;
+                
+                return data;
+            }
+            
+            validateForm(form) {
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!this.validateField(field)) {
+                        isValid = false;
+                    }
+                });
+                
+                // Email validation
+                const email = document.getElementById('email');
+                if (email.value && !this.isValidEmail(email.value)) {
+                    this.showFieldError(email, 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                // Phone validation (if provided)
+                const phone = document.getElementById('phone');
+                if (phone.value && !this.isValidPhone(phone.value)) {
+                    this.showFieldError(phone, 'Please enter a valid phone number');
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            validateField(field) {
+                const value = field.value.trim();
+                
+                // Required field validation
+                if (field.required && !value) {
+                    this.showFieldError(field, 'This field is required');
+                    return false;
+                }
+                
+                // Type-specific validation
+                if (value) {
+                    if (field.type === 'email' && !this.isValidEmail(value)) {
+                        this.showFieldError(field, 'Please enter a valid email address');
+                        return false;
+                    }
+                    
+                    if (field.type === 'tel' && !this.isValidPhone(value)) {
+                        this.showFieldError(field, 'Please enter a valid phone number');
+                        return false;
+                    }
+                }
+                
+                this.clearFieldError(field);
+                return true;
+            }
+            
+            isValidEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+            
+            isValidPhone(phone) {
+                const cleaned = phone.replace(/\D/g, '');
+                return cleaned.length >= 10;
+            }
+            
+            showFieldError(field, message) {
+                field.style.borderColor = 'var(--error-red)';
+                field.style.backgroundColor = 'rgba(231, 76, 60, 0.05)';
+                
+                // Remove existing error message
+                this.clearFieldError(field);
+                
+                // Add error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.style.color = 'var(--error-red)';
+                errorDiv.style.fontSize = '0.85rem';
+                errorDiv.style.marginTop = '5px';
+                errorDiv.textContent = message;
+                
+                field.parentNode.appendChild(errorDiv);
+            }
+            
+            clearFieldError(field) {
+                field.style.borderColor = '';
+                field.style.backgroundColor = '';
+                
+                const errorDiv = field.parentNode.querySelector('.field-error');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            }
+            
+            showMessage(message, type) {
+                const messageDiv = document.getElementById('form-message');
+                const icon = {
+                    success: 'fas fa-check-circle',
+                    error: 'fas fa-exclamation-triangle',
+                    warning: 'fas fa-info-circle'
+                }[type] || 'fas fa-info-circle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i><div>${message}</div>`;
+                messageDiv.className = `message-alert ${type} show`;
+                
+                // Auto-hide error messages after 8 seconds
+                if (type === 'error') {
+                    setTimeout(() => {
+                        messageDiv.classList.remove('show');
+                    }, 8000);
+                }
+            }
+            
+            updateHeader() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            async trackPageView() {
+                this.trackEvent('page_view', { page: 'contact' });
+            }
+            
+            async trackEvent(action, data = {}) {
+                try {
+                    await fetch(`${this.apiBase}/analytics`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action,
+                            data,
+                            timestamp: new Date().toISOString(),
+                            userAgent: navigator.userAgent,
+                            page: 'contact'
+                        })
+                    });
+                } catch (error) {
+                    console.warn('Analytics tracking failed:', error);
+                }
+            }
+        }
+        
+        // Global function for external service selection
+        window.setServiceInterest = function(value) {
+            const select = document.getElementById('serviceInterest');
+            if (select) {
+                select.value = value;
+                document.getElementById('consultationForm').scrollIntoView({ behavior: 'smooth' });
+                
+                // Track external service selection
+                contactPage.trackEvent('service_preselected', { service: value });
+            }
+        };
+        
+        // Initialize contact page
+        const contactPage = new LuxuryContactPage();
+        
+        console.log('805 LifeGuard - Enhanced Contact Page Ready');
     </script>
 </body>
 </html>
