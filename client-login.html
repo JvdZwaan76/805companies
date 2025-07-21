@@ -54,8 +54,8 @@
             min-height: 100vh;
         }
         
-        /* Login Page Styles */
-        .login-container {
+        /* Login Container */
+        .portal-container {
             min-height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -63,7 +63,7 @@
         }
         
         /* Left Side - Brand & Welcome */
-        .login-brand {
+        .portal-brand {
             background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
             color: var(--pearl-white);
             display: flex;
@@ -75,7 +75,7 @@
             overflow: hidden;
         }
         
-        .login-brand::before {
+        .portal-brand::before {
             content: '';
             position: absolute;
             top: 0;
@@ -163,8 +163,8 @@
             color: var(--primary-navy);
         }
         
-        /* Right Side - Login Form */
-        .login-form-container {
+        /* Right Side - Portal Form */
+        .portal-form-container {
             background: var(--pearl-white);
             display: flex;
             flex-direction: column;
@@ -174,7 +174,7 @@
             position: relative;
         }
         
-        .login-form-container::before {
+        .portal-form-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -184,19 +184,19 @@
             background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
         }
         
-        .login-form-content {
+        .portal-form-content {
             width: 100%;
             max-width: 400px;
             position: relative;
             z-index: 2;
         }
         
-        .login-header {
+        .portal-header {
             text-align: center;
             margin-bottom: 40px;
         }
         
-        .login-icon {
+        .portal-icon {
             width: 80px;
             height: 80px;
             background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
@@ -210,7 +210,7 @@
             box-shadow: var(--shadow-elegant);
         }
         
-        .login-title {
+        .portal-title {
             font-family: var(--font-primary);
             font-size: 2.5rem;
             color: var(--primary-navy);
@@ -218,13 +218,13 @@
             font-weight: 700;
         }
         
-        .login-subtitle {
+        .portal-subtitle {
             font-size: 1rem;
             color: var(--warm-gray);
             font-weight: 500;
         }
         
-        .login-form {
+        .portal-form {
             margin-bottom: 30px;
         }
         
@@ -306,7 +306,7 @@
             color: var(--deep-gold);
         }
         
-        .login-button {
+        .portal-button {
             width: 100%;
             background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
             color: var(--pearl-white);
@@ -324,19 +324,19 @@
             margin-bottom: 25px;
         }
         
-        .login-button:hover {
+        .portal-button:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-luxury);
         }
         
-        .login-button:disabled {
+        .portal-button:disabled {
             background: var(--light-gray);
             color: var(--warm-gray);
             cursor: not-allowed;
             transform: none;
         }
         
-        .login-divider {
+        .portal-divider {
             text-align: center;
             position: relative;
             margin: 30px 0;
@@ -344,7 +344,7 @@
             font-size: 0.9rem;
         }
         
-        .login-divider::before {
+        .portal-divider::before {
             content: '';
             position: absolute;
             top: 50%;
@@ -354,7 +354,7 @@
             background: #e8e9ea;
         }
         
-        .login-divider span {
+        .portal-divider span {
             background: var(--pearl-white);
             padding: 0 20px;
             position: relative;
@@ -400,19 +400,19 @@
             color: var(--primary-navy);
         }
         
-        .login-footer {
+        .portal-footer {
             text-align: center;
             color: var(--warm-gray);
             font-size: 0.9rem;
         }
         
-        .login-footer a {
+        .portal-footer a {
             color: var(--luxury-gold);
             text-decoration: none;
             font-weight: 500;
         }
         
-        .login-footer a:hover {
+        .portal-footer a:hover {
             color: var(--deep-gold);
         }
         
@@ -449,14 +449,110 @@
             display: flex;
         }
         
+        /* Dashboard Preview */
+        .dashboard-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .dashboard-preview.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .dashboard-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+        
+        .dashboard-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--luxury-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            animation: gentle-pulse 2s infinite;
+        }
+        
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .dashboard-title {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .dashboard-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .dashboard-features {
+            list-style: none;
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-features li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-features i {
+            color: var(--luxury-gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .dashboard-return {
+            background: var(--luxury-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition-luxury);
+        }
+        
+        .dashboard-return:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elegant);
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .login-container {
+            .portal-container {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr;
             }
             
-            .login-brand {
+            .portal-brand {
                 padding: 40px 20px;
                 min-height: auto;
             }
@@ -473,11 +569,11 @@
                 display: none;
             }
             
-            .login-form-container {
+            .portal-form-container {
                 padding: 40px 20px;
             }
             
-            .login-title {
+            .portal-title {
                 font-size: 2rem;
             }
             
@@ -521,12 +617,47 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
+        
+        /* Connection Status */
+        .connection-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-navy);
+            color: var(--pearl-white);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-elegant);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .connection-status.show {
+            opacity: 1;
+        }
+        
+        .connection-status.connected {
+            background: var(--forest-green);
+        }
+        
+        .connection-status.error {
+            background: var(--error-red);
+        }
+        
+        .connection-status i {
+            color: var(--luxury-gold);
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="portal-container">
         <!-- Left Side - Brand -->
-        <div class="login-brand">
+        <div class="portal-brand">
             <div class="brand-content">
                 <div class="brand-logo">
                     <i class="fas fa-water"></i>
@@ -545,15 +676,15 @@
             </div>
         </div>
         
-        <!-- Right Side - Login Form -->
-        <div class="login-form-container">
-            <div class="login-form-content">
-                <div class="login-header">
-                    <div class="login-icon">
+        <!-- Right Side - Portal Form -->
+        <div class="portal-form-container">
+            <div class="portal-form-content">
+                <div class="portal-header">
+                    <div class="portal-icon">
                         <i class="fas fa-crown"></i>
                     </div>
-                    <h2 class="login-title">Member Portal</h2>
-                    <p class="login-subtitle">Access your exclusive aquatic services</p>
+                    <h2 class="portal-title">Member Portal</h2>
+                    <p class="portal-subtitle">Access your exclusive aquatic services</p>
                 </div>
                 
                 <div id="message-alert" class="message-alert"></div>
@@ -572,7 +703,7 @@
                     </div>
                 </div>
                 
-                <form class="login-form" id="loginForm">
+                <form class="portal-form" id="portalForm">
                     <div class="form-group">
                         <label for="email" class="form-label">Email Address</label>
                         <div class="form-input-icon">
@@ -597,20 +728,20 @@
                         <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot password?</a>
                     </div>
                     
-                    <button type="submit" class="login-button" id="loginButton">
+                    <button type="submit" class="portal-button" id="portalButton">
                         <i class="fas fa-sign-in-alt"></i>
                         Access Portal
                     </button>
                 </form>
                 
-                <div class="login-divider">
+                <div class="portal-divider">
                     <span>New to 805 LifeGuard?</span>
                 </div>
                 
-                <div class="login-footer">
-                    <p>Interested in our exclusive services? <a href="contact.html">Request consultation</a></p>
+                <div class="portal-footer">
+                    <p>Interested in our exclusive services? <a href="#contact">Request consultation</a></p>
                     <p style="margin-top: 15px;">
-                        <a href="index.html">← Return to Estate</a>
+                        <a href="#home">← Return to Estate</a>
                     </p>
                 </div>
             </div>
@@ -624,196 +755,341 @@
             <div class="loading-text">Accessing your portal...</div>
         </div>
     </div>
+    
+    <!-- Dashboard Preview -->
+    <div class="dashboard-preview" id="dashboardPreview">
+        <div class="dashboard-content">
+            <div class="dashboard-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h2 class="dashboard-title">Welcome to Your Dashboard</h2>
+            <p class="dashboard-description">This would be your personalized member dashboard with:</p>
+            <ul class="dashboard-features">
+                <li><i class="fas fa-calendar-check"></i> Service scheduling & management</li>
+                <li><i class="fas fa-file-invoice-dollar"></i> Billing & payment portal</li>
+                <li><i class="fas fa-headset"></i> Concierge support chat</li>
+                <li><i class="fas fa-history"></i> Service history & reports</li>
+                <li><i class="fas fa-spa"></i> Exclusive maintenance access</li>
+            </ul>
+            <button class="dashboard-return" onclick="returnToPortal()">Return to Portal</button>
+        </div>
+    </div>
+    
+    <!-- Connection Status -->
+    <div class="connection-status" id="connectionStatus">
+        <i class="fas fa-database"></i>
+        <span>Connecting...</span>
+    </div>
 
     <script>
-        // Login form handling with Cloudflare D1 integration simulation
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Enhanced Member Portal with Database Integration
+        class LuxuryMemberPortal {
+            constructor() {
+                this.apiBase = '/api';
+                this.isConnected = false;
+                this.sessionToken = null;
+                this.init();
+            }
             
-            const loginButton = document.getElementById('loginButton');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            const originalText = loginButton.innerHTML;
-            
-            // Get form data
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
-            
-            // Show loading state
-            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-            loginButton.disabled = true;
-            loadingOverlay.style.display = 'flex';
-            
-            try {
-                // Simulate authentication with Cloudflare D1 database
-                await simulateAuth(email, password);
+            async init() {
+                console.log('805 LifeGuard - Enhanced Member Portal Loading...');
                 
-                // In production, this would be your Cloudflare Worker endpoint:
-                /*
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        remember: remember,
-                        timestamp: new Date().toISOString()
-                    })
+                // Check existing session
+                this.checkExistingSession();
+                
+                // Initialize components
+                this.bindEvents();
+                
+                // Connect to database
+                await this.checkConnection();
+                
+                // Show welcome message for first-time visitors
+                this.showWelcomeMessage();
+                
+                console.log('805 LifeGuard - Member Portal Loaded Successfully');
+            }
+            
+            async checkConnection() {
+                const statusEl = document.getElementById('connectionStatus');
+                statusEl.classList.add('show');
+                
+                try {
+                    const response = await fetch(`${this.apiBase}/health`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.isConnected = true;
+                        statusEl.className = 'connection-status connected show';
+                        statusEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Connected</span>';
+                        
+                        console.log('Database connected:', data);
+                    } else {
+                        throw new Error('Connection failed');
+                    }
+                } catch (error) {
+                    console.warn('Database connection failed, using demo mode:', error);
+                    this.isConnected = false;
+                    statusEl.className = 'connection-status error show';
+                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Demo Mode</span>';
+                }
+                
+                // Hide status after 3 seconds
+                setTimeout(() => {
+                    statusEl.style.opacity = '0.3';
+                }, 3000);
+            }
+            
+            checkExistingSession() {
+                // Check for existing session token
+                this.sessionToken = localStorage.getItem('805lg_session_token');
+                
+                if (this.sessionToken) {
+                    // Verify token is still valid
+                    this.verifySession();
+                }
+                
+                // Check remember me preference
+                if (localStorage.getItem('805lg_remember') === 'true') {
+                    document.getElementById('remember').checked = true;
+                }
+            }
+            
+            async verifySession() {
+                if (!this.sessionToken) return false;
+                
+                try {
+                    const response = await fetch(`${this.apiBase}/user/profile`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.sessionToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Session verified for user:', data.user.email);
+                        return true;
+                    } else {
+                        // Session expired, clear it
+                        this.clearSession();
+                        return false;
+                    }
+                } catch (error) {
+                    console.warn('Session verification failed:', error);
+                    this.clearSession();
+                    return false;
+                }
+            }
+            
+            bindEvents() {
+                // Form submission
+                document.getElementById('portalForm').addEventListener('submit', (e) => {
+                    this.handleLogin(e);
                 });
                 
-                const result = await response.json();
-                
-                if (response.ok && result.success) {
-                    // Store session token
-                    localStorage.setItem('805lg_token', result.token);
-                    if (remember) {
-                        localStorage.setItem('805lg_remember', 'true');
-                    }
-                    
-                    showMessage('Welcome back! Redirecting to your dashboard...', 'success');
-                    
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = '/dashboard.html';
-                    }, 2000);
-                } else {
-                    throw new Error(result.message || 'Authentication failed');
-                }
-                */
-                
-                // Demo simulation
-                if (email === 'demo@estate.com' && password === 'luxury2025') {
-                    showMessage('Welcome back! Redirecting to your luxury dashboard...', 'success');
-                    
-                    // Store demo session
-                    localStorage.setItem('805lg_demo_session', 'true');
-                    if (remember) {
-                        localStorage.setItem('805lg_remember', 'true');
-                    }
-                    
-                    // Simulate redirect to dashboard
-                    setTimeout(() => {
-                        showMessage('Dashboard loaded successfully! This is a demonstration of the luxury portal experience.', 'success');
-                        createDashboardPreview();
-                    }, 2000);
-                    
-                } else {
-                    throw new Error('Invalid credentials. Please use the demo credentials provided above.');
-                }
-                
-            } catch (error) {
-                console.error('Login error:', error);
-                showMessage(error.message || 'Authentication failed. Please check your credentials and try again.', 'error');
-            } finally {
-                // Reset button and hide loading
-                loginButton.innerHTML = originalText;
-                loginButton.disabled = false;
-                loadingOverlay.style.display = 'none';
+                // Forgot password
+                document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
+                    this.handleForgotPassword(e);
+                });
             }
-        });
-        
-        // Simulate authentication process
-        async function simulateAuth(email, password) {
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // Log authentication attempt for demo purposes
-            console.log('Authentication attempt:', {
-                email: email,
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent,
-                source: 'Member Portal'
-            });
+            async handleLogin(e) {
+                e.preventDefault();
+                
+                const form = e.target;
+                const button = document.getElementById('portalButton');
+                const loading = document.getElementById('loadingOverlay');
+                const originalText = button.innerHTML;
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const remember = document.getElementById('remember').checked;
+                
+                try {
+                    // Show loading state
+                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+                    button.disabled = true;
+                    loading.style.display = 'flex';
+                    
+                    // Make login request
+                    const response = await fetch(`${this.apiBase}/auth/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password,
+                            remember,
+                            timestamp: new Date().toISOString(),
+                            source: 'member_portal'
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Store session token
+                        this.sessionToken = result.token;
+                        localStorage.setItem('805lg_session_token', result.token);
+                        
+                        if (remember) {
+                            localStorage.setItem('805lg_remember', 'true');
+                        } else {
+                            localStorage.removeItem('805lg_remember');
+                        }
+                        
+                        // Show success message
+                        this.showMessage('Welcome back! Redirecting to your luxury dashboard...', 'success');
+                        
+                        // Analytics tracking
+                        await this.trackEvent('member_login_success', {
+                            user_email: email,
+                            remember_me: remember
+                        });
+                        
+                        // Show dashboard preview after delay
+                        setTimeout(() => {
+                            this.showDashboardPreview();
+                        }, 2000);
+                        
+                    } else {
+                        throw new Error(result.error || 'Authentication failed');
+                    }
+                    
+                } catch (error) {
+                    console.error('Login error:', error);
+                    this.showMessage(error.message || 'Authentication failed. Please check your credentials and try again.', 'error');
+                    
+                    // Track failed login
+                    await this.trackEvent('member_login_failed', {
+                        user_email: email,
+                        error: error.message
+                    });
+                    
+                } finally {
+                    // Reset form state
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    loading.style.display = 'none';
+                }
+            }
             
-            // In production, this data would be sent to your Cloudflare D1 database
-            // via a Cloudflare Worker for secure authentication
-        }
-        
-        // Show message function
-        function showMessage(message, type) {
-            const messageDiv = document.getElementById('message-alert');
-            const icon = type === 'success' ? 'fas fa-check-circle' : 
-                        type === 'error' ? 'fas fa-exclamation-triangle' : 
-                        'fas fa-info-circle';
+            handleForgotPassword(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                if (!email) {
+                    this.showMessage('Please enter your email address first, then click "Forgot password?"', 'warning');
+                    document.getElementById('email').focus();
+                    return;
+                }
+                
+                // In production, this would trigger password reset email
+                this.showMessage(`Password reset link has been sent to ${email}. Please check your inbox.`, 'success');
+                
+                // Track password reset request
+                this.trackEvent('password_reset_requested', {
+                    user_email: email
+                });
+                
+                console.log('Password reset requested for:', email);
+            }
             
-            messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
-            messageDiv.className = `message-alert ${type} show`;
+            showMessage(message, type) {
+                const messageDiv = document.getElementById('message-alert');
+                const icon = {
+                    success: 'fas fa-check-circle',
+                    error: 'fas fa-exclamation-triangle',
+                    warning: 'fas fa-info-circle'
+                }[type] || 'fas fa-info-circle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+                messageDiv.className = `message-alert ${type} show`;
+                
+                // Auto-hide non-success messages
+                if (type !== 'success') {
+                    setTimeout(() => {
+                        messageDiv.classList.remove('show');
+                    }, 5000);
+                }
+                
+                // Smooth scroll to message
+                messageDiv.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest' 
+                });
+            }
             
-            // Auto-hide after 5 seconds for non-success messages
-            if (type !== 'success') {
+            showDashboardPreview() {
+                const preview = document.getElementById('dashboardPreview');
+                preview.classList.add('show');
+                
+                // Track dashboard view
+                this.trackEvent('dashboard_preview_shown');
+            }
+            
+            showWelcomeMessage() {
                 setTimeout(() => {
-                    messageDiv.classList.remove('show');
-                }, 5000);
+                    if (!localStorage.getItem('805lg_portal_visited')) {
+                        this.showMessage('Welcome to the 805 LifeGuard Member Portal. Use the demo credentials above to explore our luxury client experience.', 'success');
+                        localStorage.setItem('805lg_portal_visited', 'true');
+                    }
+                }, 1000);
             }
             
-            // Scroll to message
-            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Create dashboard preview for demo
-        function createDashboardPreview() {
-            setTimeout(() => {
-                const preview = document.createElement('div');
-                preview.innerHTML = `
-                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-navy); color: var(--pearl-white); display: flex; align-items: center; justify-content: center; z-index: 10001;">
-                        <div style="text-align: center; max-width: 600px; padding: 40px;">
-                            <div style="width: 100px; height: 100px; background: var(--luxury-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 2.5rem;">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            <h2 style="font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 20px;">Welcome to Your Dashboard</h2>
-                            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">This would be your personalized member dashboard with:</p>
-                            <ul style="list-style: none; font-size: 1.1rem; line-height: 2;">
-                                <li><i class="fas fa-calendar-check" style="color: var(--luxury-gold); margin-right: 10px;"></i> Service scheduling & management</li>
-                                <li><i class="fas fa-file-invoice-dollar" style="color: var(--luxury-gold); margin-right: 10px;"></i> Billing & payment portal</li>
-                                <li><i class="fas fa-headset" style="color: var(--luxury-gold); margin-right: 10px;"></i> Concierge support chat</li>
-                                <li><i class="fas fa-history" style="color: var(--luxury-gold); margin-right: 10px;"></i> Service history & reports</li>
-                                <li><i class="fas fa-spa" style="color: var(--luxury-gold); margin-right: 10px;"></i> Exclusive maintenance access</li>
-                            </ul>
-                            <button onclick="location.reload()" style="background: var(--luxury-gold); color: var(--primary-navy); border: none; padding: 15px 30px; border-radius: 25px; font-weight: 600; margin-top: 30px; cursor: pointer; font-size: 1rem;">Return to Portal</button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(preview);
-            }, 3000);
-        }
-        
-        // Forgot password handling
-        document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            if (!email) {
-                showMessage('Please enter your email address first, then click "Forgot password?"', 'warning');
-                document.getElementById('email').focus();
-                return;
-            }
-            
-            // Simulate password reset
-            showMessage(`Password reset link has been sent to ${email}. Please check your inbox.`, 'success');
-            
-            // In production, this would trigger your password reset workflow
-            console.log('Password reset requested for:', email);
-        });
-        
-        // Auto-fill demo credentials on page load
-        window.addEventListener('load', function() {
-            // Check if returning user
-            if (localStorage.getItem('805lg_remember') === 'true') {
-                document.getElementById('remember').checked = true;
-            }
-            
-            // Show welcome message for first-time visitors
-            setTimeout(() => {
-                if (!localStorage.getItem('805lg_visited')) {
-                    showMessage('Welcome to the 805 LifeGuard Member Portal. Use the demo credentials above to explore our luxury client experience.', 'success');
-                    localStorage.setItem('805lg_visited', 'true');
+            async trackEvent(action, data = {}) {
+                if (!this.isConnected) return;
+                
+                try {
+                    await fetch(`${this.apiBase}/analytics`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            action,
+                            data,
+                            timestamp: new Date().toISOString(),
+                            userAgent: navigator.userAgent,
+                            page: 'member_portal'
+                        })
+                    });
+                } catch (error) {
+                    console.warn('Analytics tracking failed:', error);
                 }
-            }, 1000);
-        });
-
-        console.log('805 LifeGuard - Luxury Member Portal Loaded');
+            }
+            
+            clearSession() {
+                this.sessionToken = null;
+                localStorage.removeItem('805lg_session_token');
+                // Keep remember preference
+            }
+        }
+        
+        // Global functions
+        function returnToPortal() {
+            const preview = document.getElementById('dashboardPreview');
+            preview.classList.remove('show');
+            
+            // Track return to portal
+            portal.trackEvent('dashboard_return_to_portal');
+        }
+        
+        // Initialize portal
+        const portal = new LuxuryMemberPortal();
+        
+        // Demo auto-fill functionality (development only)
+        if (window.location.hostname === 'localhost' || window.location.hostname.includes('dev')) {
+            setTimeout(() => {
+                if (document.getElementById('email').value === '') {
+                    document.getElementById('email').value = 'demo@estate.com';
+                    document.getElementById('password').value = 'luxury2025';
+                }
+            }, 2000);
+        }
+        
+        console.log('805 LifeGuard - Enhanced Member Portal Ready');
         console.log('Demo Credentials - Email: demo@estate.com | Password: luxury2025');
     </script>
 </body>
