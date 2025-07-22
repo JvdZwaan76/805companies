@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Portal - 805 LifeGuard | Employee Dashboard</title>
-    <meta name="description" content="Staff portal for 805 LifeGuard employees to manage schedules, track time, and access training resources.">
+    <title>Employee Portal - 805 LifeGuard | Staff Dashboard</title>
+    <meta name="description" content="Professional employee portal for 805 LifeGuard staff to manage schedules, view assignments, and access training materials.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Enhanced CSS Variables with Advanced Design Tokens */
+        /* Enhanced Employee Portal CSS Variables */
         :root {
-            /* Core Colors - Staff Theme */
+            /* Core Colors */
             --primary: #1e88e5;
             --primary-light: #42a5f5;
             --primary-dark: #1565c0;
@@ -21,23 +21,23 @@
             --success: #4caf50;
             --warning: #ff9800;
             --error: #f44336;
+            --info: #2196f3;
             --white: #ffffff;
             --gray: #6c757d;
             --light-gray: #f8f9fa;
             --dark: #023e8a;
             --black: #1a1a1a;
             
-            /* Enhanced Gradients - Staff Specific */
+            /* Enhanced Gradients */
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             --gradient-primary-vivid: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
-            --gradient-staff: linear-gradient(135deg, #1e88e5 0%, #26a69a 50%, #1565c0 100%);
             --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #fff176 100%);
             --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
             --gradient-glass-strong: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
             --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(30, 136, 229, 0.15) 0%, transparent 50%),
                              radial-gradient(circle at 80% 20%, rgba(38, 166, 154, 0.15) 0%, transparent 50%);
             
-            /* Enhanced Shadows */
+            /* Shadows */
             --shadow-soft: 0 2px 20px rgba(0,0,0,0.08);
             --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
             --shadow-strong: 0 15px 40px rgba(0,0,0,0.15);
@@ -55,13 +55,13 @@
             --radius-2xl: 40px;
             --radius-full: 50px;
             
-            /* Enhanced Transitions */
+            /* Transitions */
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             
-            /* Typography Scale */
+            /* Typography */
             --font-xs: 0.75rem;
             --font-sm: 0.875rem;
             --font-base: 1rem;
@@ -72,7 +72,7 @@
             --font-4xl: 2.25rem;
             --font-5xl: 3rem;
             
-            /* Spacing Scale */
+            /* Spacing */
             --space-1: 0.25rem;
             --space-2: 0.5rem;
             --space-3: 0.75rem;
@@ -86,7 +86,7 @@
             --space-20: 5rem;
         }
 
-        /* Advanced Base Styles */
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -104,7 +104,7 @@
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #e3f2fd 0%, #e0f2f1 25%, #f0f8ff 50%, #e8f5e8 75%, #e3f2fd 100%);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 25%, #e8f4fd 50%, #f3f8ff 75%, #e3f2fd 100%);
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -114,7 +114,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Enhanced Animated Background with Mesh Gradient */
+        /* Enhanced Animated Background */
         .enhanced-background {
             position: fixed;
             top: 0;
@@ -171,17 +171,6 @@
             }
         }
 
-        /* Performance-Optimized Backdrop Blur */
-        .glass-blur {
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-        }
-
-        .glass-blur-strong {
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-        }
-
         /* Enhanced Navigation */
         .main-nav {
             position: fixed;
@@ -190,6 +179,7 @@
             right: 0;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             padding: var(--space-3) 0;
             transition: var(--transition-smooth);
@@ -215,7 +205,6 @@
             align-items: center;
             text-decoration: none;
             transition: var(--transition-spring);
-            z-index: 1001;
         }
 
         .nav-logo:hover { 
@@ -225,13 +214,12 @@
         .nav-logo img {
             height: 45px;
             margin-right: var(--space-3);
-            transition: var(--transition-smooth);
         }
 
         .nav-logo-text {
             font-size: var(--font-xl);
             font-weight: 800;
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -261,7 +249,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             transition: var(--transition-elastic);
             z-index: -1;
             border-radius: var(--radius-full);
@@ -278,44 +266,10 @@
         }
 
         .nav-link.active {
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             color: white;
             box-shadow: var(--shadow-glow);
             transform: translateY(-2px);
-        }
-
-        /* Enhanced Glassmorphism Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-spring);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-glass);
-            opacity: 0;
-            transition: var(--transition-smooth);
-            pointer-events: none;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.95);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--shadow-float);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .glass-card:hover::before {
-            opacity: 1;
         }
 
         /* Enhanced Login Screen */
@@ -329,6 +283,8 @@
         }
 
         .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
             border-radius: var(--radius-2xl);
             padding: var(--space-16) var(--space-12);
             width: 100%;
@@ -336,7 +292,9 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            animation: slideInUp 0.8s var(--transition-elastic);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-float);
+            animation: slideInUp 0.8s var(--transition-spring);
         }
 
         @keyframes slideInUp {
@@ -357,71 +315,73 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: var(--gradient-staff);
+            background: var(--gradient-gold);
             border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
         }
 
-        .login-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(30, 136, 229, 0.03), transparent);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .login-logo {
+        .employee-login-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary-vivid);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: var(--space-8);
+            color: white;
+            font-size: var(--font-4xl);
+            margin: 0 auto var(--space-6);
+            animation: professional-glow 3s ease-in-out infinite;
             position: relative;
-            z-index: 1;
+            box-shadow: var(--shadow-strong);
         }
 
-        .login-logo img {
-            height: 70px;
-            margin-right: var(--space-4);
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+        @keyframes professional-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(30, 136, 229, 0.4), var(--shadow-strong); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(30, 136, 229, 0.6), 0 0 60px rgba(38, 166, 154, 0.3), var(--shadow-strong);
+                transform: scale(1.05);
+            }
         }
 
-        .login-logo-text {
-            text-align: left;
+        .employee-badge {
+            display: inline-block;
+            background: var(--gradient-gold);
+            color: white;
+            padding: var(--space-2) var(--space-5);
+            border-radius: var(--radius-full);
+            font-size: var(--font-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-medium);
         }
 
-        .login-logo-main {
-            font-size: var(--font-3xl);
+        .login-title {
+            font-size: var(--font-4xl);
+            color: var(--primary);
+            margin-bottom: var(--space-4);
             font-weight: 900;
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1;
-            text-shadow: 0 4px 20px rgba(30, 136, 229, 0.3);
         }
 
-        .login-logo-subtitle {
-            font-size: var(--font-sm);
+        .login-subtitle {
             color: var(--gray);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: var(--space-1);
+            font-size: var(--font-lg);
+            margin-bottom: var(--space-8);
+            font-weight: 500;
         }
 
         /* Enhanced Form Elements */
         .form-group {
             margin-bottom: var(--space-6);
             text-align: left;
-            position: relative;
         }
 
         .form-label {
@@ -442,8 +402,8 @@
             font-size: var(--font-base);
             transition: var(--transition-spring);
             background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             font-weight: 500;
-            position: relative;
         }
 
         .form-input:focus {
@@ -454,7 +414,17 @@
             transform: translateY(-3px) scale(1.02);
         }
 
-        /* Enhanced Password Field */
+        .form-input.error {
+            border-color: var(--error);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
         .password-container {
             position: relative;
         }
@@ -481,7 +451,7 @@
 
         /* Enhanced Buttons */
         .btn-primary {
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             color: white;
             border: none;
             padding: var(--space-4) var(--space-8);
@@ -489,7 +459,7 @@
             font-size: var(--font-lg);
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition-spring);
+            transition: var(--transition-bounce);
             text-transform: uppercase;
             letter-spacing: 1px;
             width: 100%;
@@ -505,24 +475,20 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            transition: var(--transition-elastic);
+            transition: var(--transition-smooth);
             transform: translate(-50%, -50%);
         }
 
         .btn-primary:hover::before {
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: var(--shadow-float);
-        }
-
-        .btn-primary:active {
-            transform: translateY(-2px) scale(0.98);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-strong);
         }
 
         .btn-secondary {
@@ -533,14 +499,12 @@
             border-radius: var(--radius-lg);
             cursor: pointer;
             font-weight: 600;
-            transition: var(--transition-spring);
-            position: relative;
-            overflow: hidden;
+            transition: var(--transition-smooth);
         }
 
         .btn-secondary:hover {
             background: #e9ecef;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
             border-color: var(--primary);
         }
@@ -560,6 +524,7 @@
 
         .portal-header {
             background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: var(--space-4) var(--space-5);
             box-shadow: var(--shadow-soft);
             position: sticky;
@@ -589,7 +554,7 @@
         .portal-logo-text {
             font-size: var(--font-xl);
             font-weight: 800;
-            background: var(--gradient-staff);
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -602,9 +567,9 @@
         }
 
         .user-avatar {
-            width: 45px;
-            height: 45px;
-            background: var(--gradient-staff);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary-vivid);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -620,14 +585,30 @@
             box-shadow: var(--shadow-glow-strong);
         }
 
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .user-role {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            margin: 0;
+        }
+
         .logout-btn {
             background: transparent;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
             padding: var(--space-2) var(--space-4);
             border-radius: var(--radius-lg);
             cursor: pointer;
-            transition: var(--transition-spring);
+            transition: var(--transition-smooth);
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -635,7 +616,7 @@
         }
 
         .logout-btn:hover {
-            background: var(--secondary);
+            background: var(--primary);
             color: white;
             transform: translateY(-2px);
             box-shadow: var(--shadow-glow);
@@ -647,9 +628,9 @@
             padding: var(--space-10) var(--space-8);
         }
 
-        /* Enhanced Welcome Section - Staff */
+        /* Enhanced Welcome Section */
         .welcome-section {
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             color: white;
             padding: var(--space-16) var(--space-10);
             border-radius: var(--radius-2xl);
@@ -672,6 +653,11 @@
             pointer-events: none;
         }
 
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .welcome-content {
             position: relative;
             z-index: 1;
@@ -682,7 +668,6 @@
             margin-bottom: var(--space-4);
             font-weight: 900;
             text-shadow: 0 4px 30px rgba(0,0,0,0.3);
-            line-height: 1.1;
         }
 
         .welcome-subtitle {
@@ -690,61 +675,6 @@
             opacity: 0.95;
             margin-bottom: var(--space-8);
             font-weight: 500;
-        }
-
-        /* Time Clock Section */
-        .time-clock-section {
-            background: rgba(255, 255, 255, 0.2);
-            padding: var(--space-8);
-            border-radius: var(--radius-xl);
-            margin-top: var(--space-8);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .clock-display {
-            font-size: var(--font-4xl);
-            font-weight: 900;
-            margin-bottom: var(--space-4);
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .clock-buttons {
-            display: flex;
-            gap: var(--space-4);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .clock-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            padding: var(--space-4) var(--space-6);
-            border-radius: var(--radius-lg);
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition-spring);
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-        }
-
-        .clock-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .clock-btn.clocked-in {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
-        .clock-btn.on-break {
-            background: var(--warning);
-            border-color: var(--warning);
         }
 
         /* Enhanced Dashboard Grid */
@@ -757,6 +687,7 @@
 
         .dashboard-card {
             background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
             border-radius: var(--radius-2xl);
             padding: var(--space-8);
             box-shadow: var(--shadow-soft);
@@ -773,6 +704,8 @@
         .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
         .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
         .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes slideInCard {
             to {
@@ -788,7 +721,7 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: var(--gradient-staff);
+            background: var(--gradient-primary-vivid);
             border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
         }
 
@@ -817,7 +750,7 @@
         .card-icon {
             width: 60px;
             height: 60px;
-            background: var(--gradient-staff);
+            background: var(--gradient-primary);
             border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
@@ -853,10 +786,10 @@
             border-color: var(--primary);
         }
 
-        /* Enhanced Quick Stats */
+        /* Quick Stats */
         .quick-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: var(--space-6);
             margin-top: var(--space-8);
         }
@@ -880,87 +813,16 @@
             font-size: var(--font-4xl);
             font-weight: 900;
             margin-bottom: var(--space-2);
-            background: var(--accent-gradient);
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
         }
 
         .stat-label {
             font-weight: 600;
             opacity: 0.9;
-        }
-
-        /* Enhanced Utility Classes */
-        .btn-small {
-            padding: var(--space-2) var(--space-4);
             font-size: var(--font-sm);
-            border-radius: var(--radius-md);
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-spring);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-        }
-
-        .btn-edit {
-            background: rgba(30, 136, 229, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(30, 136, 229, 0.2);
-        }
-
-        .btn-edit:hover {
-            background: rgba(30, 136, 229, 0.2);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .btn-success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-        }
-
-        .btn-success:hover {
-            background: rgba(76, 175, 80, 0.2);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .btn-warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: var(--warning);
-            border: 1px solid rgba(255, 152, 0, 0.2);
-        }
-
-        .btn-warning:hover {
-            background: rgba(255, 152, 0, 0.2);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Loading States */
-        .loading {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-        }
-
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid currentColor;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* Enhanced Notifications */
@@ -971,6 +833,7 @@
             max-width: 450px;
             padding: var(--space-6);
             border-radius: var(--radius-xl);
+            backdrop-filter: blur(25px);
             box-shadow: var(--shadow-float);
             z-index: 10000;
             transform: translateX(100%);
@@ -997,41 +860,267 @@
             color: white;
         }
 
-        /* Utility Classes */
-        .hidden { 
-            display: none !important; 
-        }
-        
-        .show { 
-            display: block !important; 
+        .notification.warning {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
+            color: white;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
         }
 
-        /* Enhanced Responsive Design */
-        @media (max-width: 1024px) {
-            .nav-links { 
-                gap: var(--space-1);
-            }
-            
-            .nav-link {
-                padding: var(--space-2) var(--space-3);
-                font-size: var(--font-sm);
-            }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
         }
 
+        .modal {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(25px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-float);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: scale(0.9) translateY(50px);
+            transition: var(--transition-spring);
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid rgba(30, 136, 229, 0.1);
+        }
+
+        .modal-title {
+            font-size: var(--font-2xl);
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--font-2xl);
+            color: var(--gray);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            margin-bottom: var(--space-6);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: flex-end;
+            padding-top: var(--space-4);
+            border-top: 2px solid rgba(30, 136, 229, 0.1);
+        }
+
+        /* Enhanced Utility Classes */
+        .btn-small {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-sm);
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-employee {
+            background: rgba(30, 136, 229, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+        }
+
+        .btn-employee:hover {
+            background: rgba(30, 136, 229, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-accent {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+        }
+
+        .btn-accent:hover {
+            background: rgba(255, 152, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .btn-success:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-danger {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(244, 67, 54, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hidden { display: none !important; }
+        .show { display: block !important; }
+
+        /* Loading States */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table th {
+            background: var(--gradient-primary-vivid);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: var(--font-sm);
+            letter-spacing: 1px;
+        }
+
+        .data-table tr:hover {
+            background: rgba(30, 136, 229, 0.05);
+        }
+
+        /* Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-base);
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-base);
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links { 
-                display: none; 
-            }
+            .nav-links { display: none; }
             
             .login-card {
                 padding: var(--space-10) var(--space-6);
@@ -1039,9 +1128,7 @@
                 max-width: 450px;
             }
             
-            .welcome-title { 
-                font-size: var(--font-3xl);
-            }
+            .welcome-title { font-size: var(--font-3xl); }
             
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -1051,7 +1138,7 @@
             .quick-stats { 
                 grid-template-columns: repeat(2, 1fr); 
             }
-
+            
             .portal-content { 
                 padding: var(--space-5) var(--space-4); 
             }
@@ -1064,15 +1151,25 @@
                 padding: var(--space-6); 
             }
 
-            .clock-buttons {
-                flex-direction: column;
-                align-items: center;
+            .portal-user-menu {
+                gap: var(--space-2);
             }
 
-            .clock-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
+            .user-info {
+                display: none;
+            }
+
+            .logout-btn {
+                padding: var(--space-2);
+            }
+
+            .modal {
+                margin: var(--space-4);
+                max-width: calc(100vw - 2rem);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1092,38 +1189,11 @@
                 max-width: none;
             }
         }
-
-        /* Focus Styles for Better Accessibility */
-        *:focus {
-            outline: 3px solid rgba(30, 136, 229, 0.5);
-            outline-offset: 2px;
-        }
-
-        .nav-link:focus,
-        .btn-primary:focus,
-        .btn-secondary:focus {
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.3);
-        }
-
-        /* Print Styles */
-        @media print {
-            .main-nav,
-            .portal-header,
-            .floating-element,
-            .enhanced-background {
-                display: none !important;
-            }
-            
-            .portal-container {
-                padding-top: 0 !important;
-            }
-        }
     </style>
 </head>
 <body>
     <!-- Enhanced Animated Background -->
-    <div class="enhanced-background glass-blur">
+    <div class="enhanced-background">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
         <div class="floating-element"></div>
@@ -1131,7 +1201,7 @@
     </div>
 
     <!-- Enhanced Navigation -->
-    <nav class="main-nav glass-blur" id="mainNav" role="navigation" aria-label="Main navigation">
+    <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <a href="/" class="nav-logo" aria-label="805 LifeGuard Home">
                 <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
@@ -1139,95 +1209,109 @@
             </a>
             <div class="nav-links">
                 <a href="/" class="nav-link">Home</a>
+                <a href="/services" class="nav-link">Services</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
                 <a href="/client-login" class="nav-link">Client Portal</a>
                 <a href="/employee-login" class="nav-link active">Staff Portal</a>
-                <a href="/admin" class="nav-link">Admin Portal</a>
             </div>
         </div>
     </nav>
 
-    <!-- Enhanced Login Screen -->
-    <div class="login-container" id="loginContainer" role="main">
-        <div class="login-card glass-card glass-blur">
-            <div class="login-logo">
-                <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
-                <div class="login-logo-text">
-                    <div class="login-logo-main">805 LifeGuard</div>
-                    <div class="login-logo-subtitle">Staff Portal</div>
-                </div>
+    <!-- Enhanced Employee Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="employee-login-icon">
+                <i class="fas fa-user-shield"></i>
             </div>
+            <div class="employee-badge">Staff Portal</div>
+            <h1 class="login-title">Employee Access</h1>
+            <p class="login-subtitle">Secure login for 805 LifeGuard team members and staff</p>
             
-            <h1 style="font-size: var(--font-3xl); margin-bottom: var(--space-3); color: var(--dark); font-weight: 900;">Employee Access</h1>
-            <p style="color: var(--gray); margin-bottom: var(--space-8); font-size: var(--font-lg);">Sign in to access your schedule, training materials, and time tracking</p>
-            
-            <form id="staffLoginForm" novalidate>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="staffEmail" class="form-label">Employee Email</label>
-                    <input type="email" id="staffEmail" class="form-input" placeholder="Enter your work email" required aria-describedby="email-error">
+                    <label for="employeeId" class="form-label">Employee ID</label>
+                    <input type="text" id="employeeId" class="form-input" placeholder="Enter your employee ID" required autocomplete="username">
                 </div>
                 
                 <div class="form-group">
-                    <label for="staffPassword" class="form-label">Password</label>
+                    <label for="password" class="form-label">Password</label>
                     <div class="password-container">
-                        <input type="password" id="staffPassword" class="form-input" placeholder="Enter your password" required aria-describedby="password-error">
-                        <button type="button" class="password-toggle" id="staffPasswordToggle" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye" aria-hidden="true"></i>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
                         </button>
                     </div>
                 </div>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8); font-size: var(--font-base);">
                     <label style="display: flex; align-items: center; gap: var(--space-2); cursor: pointer;">
-                        <input type="checkbox" id="staffRememberMe">
-                        <span>Remember me</span>
+                        <input type="checkbox" id="rememberMe">
+                        <span>Keep me signed in</span>
                     </label>
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Forgot password?</a>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;" onclick="forgotPassword()">Reset Password</a>
                 </div>
                 
-                <button type="submit" class="btn-primary" id="staffLoginBtn">
-                    <span class="btn-text">Staff Sign In</span>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Access Dashboard</span>
                     <span class="loading" style="display: none;">
                         <span class="spinner"></span>
-                        Signing In...
+                        Authenticating...
                     </span>
                 </button>
                 
-                <div class="error-message hidden" id="staffLoginError" role="alert" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
+                <div class="error-message hidden" id="loginError" style="color: var(--error); margin-top: var(--space-4); padding: var(--space-3); background: rgba(244, 67, 54, 0.1); border-radius: var(--radius-lg); border: 1px solid rgba(244, 67, 54, 0.2);"></div>
             </form>
 
-            <div style="margin-top: var(--space-8); text-align: center;">
-                <p style="margin-bottom: var(--space-4); color: var(--gray); font-size: var(--font-base);">Need to access a different portal?</p>
-                <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
-                    <a href="/client-login" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2);">
-                        <i class="fas fa-swimmer"></i> Client Portal
-                    </a>
-                    <a href="/admin" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2);">
-                        <i class="fas fa-shield-alt"></i> Admin Portal
-                    </a>
-                </div>
+            <!-- Security Info -->
+            <div style="background: rgba(76, 175, 80, 0.05); border: 1px solid rgba(76, 175, 80, 0.2); border-radius: var(--radius-lg); padding: var(--space-5); margin: var(--space-6) 0; text-align: center;">
+                <i class="fas fa-lock" style="color: var(--success); font-size: var(--font-2xl); margin-bottom: var(--space-3);"></i>
+                <p style="color: var(--success); font-weight: 600; font-size: var(--font-base); margin: 0;">This is a secure employee portal. All access is monitored and logged for security purposes.</p>
             </div>
-            
-            <div style="margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid #e9ecef; color: var(--gray); font-size: var(--font-base); text-align: center;">
-                <p>Staff Support: <a href="tel:8053676432" style="color: var(--primary); text-decoration: none; font-weight: 600;">(805) 367-6432</a></p>
+
+            <!-- Demo Credentials Info -->
+            <div style="background: rgba(30, 136, 229, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-6);">
+                <h4 style="color: var(--primary); margin-bottom: var(--space-4); font-size: var(--font-lg); font-weight: 700; text-align: center;">Demo Employee Credentials</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
+                        <strong>Administrator</strong><br>
+                        <code>ADMIN</code> / <code>admin123</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
+                        <strong>Pool Manager</strong><br>
+                        <code>EMP003</code> / <code>manager789</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
+                        <strong>Senior Lifeguard</strong><br>
+                        <code>EMP001</code> / <code>lifeguard123</code>
+                    </div>
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(30, 136, 229, 0.1);">
+                        <strong>Swim Instructor</strong><br>
+                        <code>EMP002</code> / <code>instructor456</code>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Enhanced Staff Portal Dashboard -->
-    <div class="portal-container" id="staffPortalContainer" role="main">
+    <!-- Enhanced Employee Portal Dashboard -->
+    <div class="portal-container" id="portalContainer">
         <!-- Enhanced Portal Header -->
-        <header class="portal-header glass-blur">
+        <header class="portal-header">
             <nav class="portal-nav" role="navigation" aria-label="Portal navigation">
                 <div class="portal-logo">
                     <img src="/images/805-lifeguard-logo.png" alt="805 LifeGuard Logo" onerror="this.style.display='none'">
                     <span class="portal-logo-text">Staff Portal</span>
                 </div>
                 <div class="portal-user-menu">
-                    <div class="user-avatar" id="staffUserAvatar" role="img" aria-label="Staff avatar">ST</div>
-                    <span id="staffUserName">Staff Member</span>
-                    <button class="logout-btn" id="staffLogoutBtn" aria-label="Logout">
-                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                        Logout
+                    <div class="user-avatar" id="userAvatar">JS</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Smith</div>
+                        <div class="user-role" id="userRole">Senior Lifeguard</div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
                     </button>
                 </div>
             </nav>
@@ -1236,152 +1320,167 @@
         <!-- Enhanced Portal Content -->
         <main class="portal-content">
             <!-- Enhanced Welcome Section -->
-            <section class="welcome-section" aria-labelledby="staff-welcome-heading">
+            <section class="welcome-section">
                 <div class="welcome-content">
-                    <h1 class="welcome-title" id="staff-welcome-heading">Welcome back, <span id="staffWelcomeName">Staff</span>!</h1>
-                    <p class="welcome-subtitle">Manage your schedule, track time, access training, and stay connected with the team.</p>
+                    <h1 class="welcome-title">Welcome back, <span id="welcomeName">John</span>!</h1>
+                    <p class="welcome-subtitle">Your staff dashboard for managing schedules, assignments, and accessing resources.</p>
                     
-                    <!-- Time Clock Section -->
-                    <div class="time-clock-section">
-                        <div class="clock-display" id="currentTime">--:--:-- --</div>
-                        <div class="clock-buttons">
-                            <button class="clock-btn" id="clockInBtn" onclick="staffPortal.clockIn()">
-                                <i class="fas fa-play" aria-hidden="true"></i>
-                                Clock In
-                            </button>
-                            <button class="clock-btn" id="breakBtn" onclick="staffPortal.toggleBreak()" style="display: none;">
-                                <i class="fas fa-pause" aria-hidden="true"></i>
-                                Take Break
-                            </button>
-                            <button class="clock-btn" id="clockOutBtn" onclick="staffPortal.clockOut()" style="display: none;">
-                                <i class="fas fa-stop" aria-hidden="true"></i>
-                                Clock Out
-                            </button>
-                        </div>
-                        <div style="margin-top: var(--space-4); font-size: var(--font-base);">
-                            Status: <span id="clockStatus" style="font-weight: 700;">Clocked Out</span>
-                        </div>
-                    </div>
-                    
-                    <div class="quick-stats" role="region" aria-label="Staff statistics">
+                    <div class="quick-stats">
                         <div class="stat-item">
-                            <div class="stat-number" id="hoursThisWeek" aria-label="Hours this week">0</div>
-                            <div class="stat-label">Hours This Week</div>
+                            <div class="stat-number" id="todayShifts">0</div>
+                            <div class="stat-label">Today's Shifts</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="upcomingShifts" aria-label="Upcoming shifts">0</div>
-                            <div class="stat-label">Upcoming Shifts</div>
+                            <div class="stat-number" id="weeklyHours">0</div>
+                            <div class="stat-label">Weekly Hours</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="completedTraining" aria-label="Completed training">0</div>
-                            <div class="stat-label">Training Complete</div>
+                            <div class="stat-number" id="upcomingAssignments">0</div>
+                            <div class="stat-label">Upcoming Jobs</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="employeeRating" aria-label="Employee rating">5.0</div>
-                            <div class="stat-label">Rating</div>
+                            <div class="stat-number" id="pendingReports">0</div>
+                            <div class="stat-label">Pending Reports</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Enhanced Dashboard Cards -->
-            <section class="dashboard-grid" role="region" aria-label="Staff dashboard actions">
+            <section class="dashboard-grid">
                 <!-- Schedule Management Card -->
-                <div class="dashboard-card glass-card">
+                <div class="dashboard-card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <div class="card-icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></div>
+                            <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
                             My Schedule
                         </h2>
-                        <button class="card-action" onclick="staffPortal.openSchedule()" aria-label="View schedule">
-                            <i class="fas fa-eye" aria-hidden="true"></i> View
+                        <button class="card-action" onclick="employeePortal.openScheduleModal()">
+                            <i class="fas fa-eye"></i> View All
                         </button>
                     </div>
-                    <p>View your upcoming shifts, request time off, and manage schedule preferences.</p>
+                    <p>View your upcoming shifts, request time off, and manage your availability.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="staffPortal.viewSchedule()" aria-label="View schedule">
-                            <i class="fas fa-calendar" aria-hidden="true"></i> View Schedule
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewTodaySchedule()">
+                            <i class="fas fa-clock"></i> Today's Schedule
                         </button>
-                        <button class="btn-small btn-warning" onclick="staffPortal.requestTimeOff()" aria-label="Request time off">
-                            <i class="fas fa-calendar-times" aria-hidden="true"></i> Time Off
+                        <button class="btn-small btn-accent" onclick="employeePortal.requestTimeOff()">
+                            <i class="fas fa-calendar-times"></i> Request Time Off
                         </button>
-                        <button class="btn-small btn-success" onclick="staffPortal.pickupShifts()" aria-label="Pick up shifts">
-                            <i class="fas fa-plus" aria-hidden="true"></i> Pick Up
-                        </button>
+                    </div>
+                    <div class="schedule-preview" id="schedulePreview" style="margin-top: var(--space-5); padding: var(--space-4); background: rgba(30, 136, 229, 0.05); border-radius: var(--radius-md);">
+                        <p style="text-align: center; color: var(--gray);">Loading schedule...</p>
+                    </div>
+                </div>
+
+                <!-- Assignments Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                            Active Assignments
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.viewAllAssignments()">View All</button>
+                    </div>
+                    <div class="assignments-list" id="assignmentsList">
+                        <p style="text-align: center; color: var(--gray); padding: var(--space-5);">Loading assignments...</p>
                     </div>
                 </div>
 
                 <!-- Training & Certifications Card -->
-                <div class="dashboard-card glass-card">
+                <div class="dashboard-card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <div class="card-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
-                            Training & Certs
+                            <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                            Training & Certifications
                         </h2>
-                        <button class="card-action" onclick="staffPortal.openTraining()" aria-label="Access training">
-                            <i class="fas fa-book-open" aria-hidden="true"></i> Learn
+                        <button class="card-action" onclick="employeePortal.openTrainingCenter()">
+                            <i class="fas fa-play"></i> Start Training
                         </button>
                     </div>
-                    <p>Access training materials, track certifications, and complete required courses.</p>
+                    <p>Keep your certifications up to date and complete required training modules.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="staffPortal.viewTraining()" aria-label="View training materials">
-                            <i class="fas fa-play" aria-hidden="true"></i> Start Course
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewCertifications()">
+                            <i class="fas fa-certificate"></i> My Certs
                         </button>
-                        <button class="btn-small btn-success" onclick="staffPortal.viewCertifications()" aria-label="View certifications">
-                            <i class="fas fa-certificate" aria-hidden="true"></i> Certificates
-                        </button>
-                        <button class="btn-small btn-warning" onclick="staffPortal.renewCerts()" aria-label="Renew certifications">
-                            <i class="fas fa-redo" aria-hidden="true"></i> Renew
+                        <button class="btn-small btn-accent" onclick="employeePortal.browseTraining()">
+                            <i class="fas fa-book-open"></i> Browse Training
                         </button>
                     </div>
                 </div>
 
                 <!-- Time Tracking Card -->
-                <div class="dashboard-card glass-card">
+                <div class="dashboard-card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <div class="card-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
+                            <div class="card-icon"><i class="fas fa-stopwatch"></i></div>
                             Time Tracking
                         </h2>
-                        <button class="card-action" onclick="staffPortal.openTimesheet()" aria-label="View timesheet">
-                            <i class="fas fa-history" aria-hidden="true"></i> View
+                        <button class="card-action" onclick="employeePortal.toggleClockInOut()" id="clockActionBtn">
+                            <i class="fas fa-play"></i> Clock In
                         </button>
                     </div>
-                    <p>Track hours worked, view timesheet history, and submit time corrections.</p>
+                    <p>Track your work hours and manage timesheets.</p>
+                    <div style="margin-top: var(--space-5);">
+                        <div id="currentShiftInfo" style="background: rgba(76, 175, 80, 0.1); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid rgba(76, 175, 80, 0.2); display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="color: var(--success);">Currently Clocked In</strong>
+                                    <div style="font-size: var(--font-sm); color: var(--gray);">Started: <span id="shiftStartTime"></span></div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div id="shiftDuration" style="font-size: var(--font-lg); font-weight: 700; color: var(--success);">0:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.viewTimeSheets()">
+                                <i class="fas fa-file-alt"></i> View Timesheets
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident Reports Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            Incident Reports
+                        </h2>
+                        <button class="card-action" onclick="employeePortal.createIncidentReport()">
+                            <i class="fas fa-plus"></i> New Report
+                        </button>
+                    </div>
+                    <p>Submit and manage incident reports and safety documentation.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="staffPortal.viewTimesheet()" aria-label="View timesheet">
-                            <i class="fas fa-table" aria-hidden="true"></i> Timesheet
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewMyReports()">
+                            <i class="fas fa-file-alt"></i> My Reports
                         </button>
-                        <button class="btn-small btn-warning" onclick="staffPortal.submitCorrection()" aria-label="Submit time correction">
-                            <i class="fas fa-edit" aria-hidden="true"></i> Correct
-                        </button>
-                        <button class="btn-small btn-success" onclick="staffPortal.exportTimesheet()" aria-label="Export timesheet">
-                            <i class="fas fa-download" aria-hidden="true"></i> Export
+                        <button class="btn-small btn-accent" onclick="employeePortal.emergencyProtocols()">
+                            <i class="fas fa-first-aid"></i> Emergency Protocols
                         </button>
                     </div>
                 </div>
 
-                <!-- Communication Center Card -->
-                <div class="dashboard-card glass-card">
+                <!-- Resources & Communication Card -->
+                <div class="dashboard-card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <div class="card-icon"><i class="fas fa-comments" aria-hidden="true"></i></div>
+                            <div class="card-icon"><i class="fas fa-comments"></i></div>
                             Team Communication
                         </h2>
-                        <button class="card-action" onclick="staffPortal.openMessages()" aria-label="View messages">
-                            <i class="fas fa-envelope" aria-hidden="true"></i> Messages
+                        <button class="card-action" onclick="employeePortal.openMessaging()">
+                            <i class="fas fa-envelope"></i> Messages <span id="unreadCount" class="badge">3</span>
                         </button>
                     </div>
-                    <p>Stay connected with announcements, team messages, and important updates.</p>
+                    <p>Stay connected with your team and access important resources.</p>
                     <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                        <button class="btn-small btn-edit" onclick="staffPortal.viewAnnouncements()" aria-label="View announcements">
-                            <i class="fas fa-bullhorn" aria-hidden="true"></i> Updates
+                        <button class="btn-small btn-employee" onclick="employeePortal.viewAnnouncements()">
+                            <i class="fas fa-bullhorn"></i> Announcements
                         </button>
-                        <button class="btn-small btn-success" onclick="staffPortal.teamChat()" aria-label="Team chat">
-                            <i class="fas fa-users" aria-hidden="true"></i> Team Chat
-                        </button>
-                        <button class="btn-small btn-warning" onclick="staffPortal.reportIncident()" aria-label="Report incident">
-                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Report
+                        <button class="btn-small btn-accent" onclick="employeePortal.contactSupport()">
+                            <i class="fas fa-headset"></i> Support
                         </button>
                     </div>
                 </div>
@@ -1389,65 +1488,1305 @@
         </main>
     </div>
 
-    <!-- Include the unified portal system -->
-    <script src="./lifeguard-portal-system.js"></script>
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Modal Title</h2>
+                <button class="modal-close" onclick="employeePortal.closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Modal content goes here...
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn-secondary" onclick="employeePortal.closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Enhanced Staff Portal JavaScript -->
+    <!-- Enhanced JavaScript -->
     <script>
-        // Enhanced Staff Portal System
-        class EnhancedStaffPortal {
+        // Enhanced Employee Portal System with Working Features
+        class EnhancedEmployeePortal {
             constructor() {
-                this.currentStaff = null;
-                this.schedule = [];
-                this.timeEntries = [];
-                this.training = [];
+                this.currentEmployee = null;
                 this.clockedIn = false;
-                this.onBreak = false;
-                this.clockInTime = null;
-                this.breakTime = null;
+                this.shiftStartTime = null;
+                this.shiftTimer = null;
                 
-                // Use the unified portal system
-                this.portalSystem = window.LifeGuardPortalSystem;
+                // Demo employee credentials
+                this.validEmployees = {
+                    'ADMIN': { 
+                        name: 'Admin User', 
+                        role: 'Administrator', 
+                        password: 'admin123',
+                        permissions: ['all']
+                    },
+                    'EMP001': { 
+                        name: 'John Smith', 
+                        role: 'Senior Lifeguard', 
+                        password: 'lifeguard123',
+                        permissions: ['schedule_view', 'reports', 'training', 'incident_reporting']
+                    },
+                    'EMP002': { 
+                        name: 'Sarah Johnson', 
+                        role: 'Swimming Instructor', 
+                        password: 'instructor456',
+                        permissions: ['schedule_view', 'student_progress', 'training']
+                    },
+                    'EMP003': { 
+                        name: 'Mike Wilson', 
+                        role: 'Pool Manager', 
+                        password: 'manager789',
+                        permissions: ['schedule_management', 'staff_management', 'reports', 'client_management']
+                    }
+                };
+                
+                // Mock data storage
+                this.mockData = {
+                    schedules: [],
+                    assignments: [],
+                    trainings: [],
+                    incidents: [],
+                    messages: [],
+                    timeSheets: []
+                };
                 
                 this.init();
             }
 
             async init() {
-                console.log('👤 Initializing Enhanced Staff Portal...');
+                console.log('👥 Initializing Enhanced Employee Portal...');
                 
                 this.setupEventListeners();
                 this.setupScrollEffects();
-                this.startClockUpdate();
+                this.initializeMockData();
                 
-                // Check for existing staff token
-                const token = this.portalSystem.getAuthToken('staff');
+                // Check if employee is already logged in
+                const token = this.getEmployeeToken();
                 if (token) {
-                    await this.validateStaffToken(token);
+                    await this.validateEmployeeToken(token);
                 } else {
                     this.showLogin();
                 }
                 
-                console.log('✅ Enhanced Staff Portal initialized successfully!');
+                console.log('✨ Enhanced employee portal initialized successfully!');
             }
 
+            initializeMockData() {
+                // Initialize mock data for demo
+                this.mockData.schedules = [
+                    {
+                        id: 1,
+                        date: new Date().toISOString().split('T')[0],
+                        startTime: '09:00',
+                        endTime: '17:00',
+                        location: 'Westlake Pool',
+                        type: 'Lifeguard Duty',
+                        status: 'confirmed'
+                    },
+                    {
+                        id: 2,
+                        date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+                        startTime: '14:00',
+                        endTime: '18:00',
+                        location: 'Oak Park Community Center',
+                        type: 'Swim Lessons',
+                        status: 'confirmed'
+                    },
+                    {
+                        id: 3,
+                        date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        startTime: '10:00',
+                        endTime: '16:00',
+                        location: 'Thousand Oaks Recreation Center',
+                        type: 'Pool Maintenance',
+                        status: 'pending'
+                    }
+                ];
+
+                this.mockData.assignments = [
+                    {
+                        id: 1,
+                        title: 'Pool Safety Inspection',
+                        description: 'Conduct comprehensive safety inspection of all pool equipment and facilities.',
+                        dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+                        priority: 'high',
+                        status: 'pending',
+                        assignedBy: 'Pool Manager',
+                        location: 'Westlake Pool'
+                    },
+                    {
+                        id: 2,
+                        title: 'Equipment Maintenance Check',
+                        description: 'Perform routine maintenance on rescue equipment and test emergency systems.',
+                        dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
+                        priority: 'medium',
+                        status: 'in-progress',
+                        assignedBy: 'Admin User',
+                        location: 'All Locations'
+                    },
+                    {
+                        id: 3,
+                        title: 'New Employee Training',
+                        description: 'Assist with training new lifeguard recruits on safety protocols.',
+                        dueDate: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0],
+                        priority: 'medium',
+                        status: 'pending',
+                        assignedBy: 'HR Department',
+                        location: 'Training Center'
+                    }
+                ];
+
+                this.mockData.trainings = [
+                    {
+                        id: 1,
+                        title: 'CPR Certification Renewal',
+                        description: 'Annual CPR certification renewal training',
+                        duration: '4 hours',
+                        status: 'required',
+                        dueDate: new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0],
+                        type: 'certification'
+                    },
+                    {
+                        id: 2,
+                        title: 'Water Safety Protocols',
+                        description: 'Updated water safety and rescue procedures',
+                        duration: '2 hours',
+                        status: 'completed',
+                        completedDate: new Date(Date.now() - 86400000 * 10).toISOString().split('T')[0],
+                        type: 'training'
+                    },
+                    {
+                        id: 3,
+                        title: 'Chemical Safety Training',
+                        description: 'Pool chemical handling and safety procedures',
+                        duration: '3 hours',
+                        status: 'available',
+                        type: 'training'
+                    }
+                ];
+
+                this.mockData.messages = [
+                    {
+                        id: 1,
+                        from: 'Pool Manager',
+                        subject: 'Schedule Change - Tomorrow',
+                        message: 'Please note that tomorrow\'s shift has been moved to 10:00 AM start time.',
+                        timestamp: new Date(Date.now() - 3600000).toISOString(),
+                        read: false,
+                        priority: 'high'
+                    },
+                    {
+                        id: 2,
+                        from: 'HR Department',
+                        subject: 'Training Reminder',
+                        message: 'Don\'t forget your CPR certification renewal is due next month.',
+                        timestamp: new Date(Date.now() - 86400000).toISOString(),
+                        read: false,
+                        priority: 'normal'
+                    },
+                    {
+                        id: 3,
+                        from: 'Admin',
+                        subject: 'New Safety Equipment',
+                        message: 'New rescue equipment has arrived. Please familiarize yourself with the new gear.',
+                        timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+                        read: true,
+                        priority: 'normal'
+                    }
+                ];
+            }
+
+            // Authentication methods
+            getEmployeeToken() {
+                return localStorage.getItem('employeeToken') || sessionStorage.getItem('employeeToken');
+            }
+
+            async validateEmployeeToken(token) {
+                try {
+                    const employeeData = JSON.parse(token);
+                    
+                    if (employeeData && employeeData.employeeId) {
+                        this.currentEmployee = employeeData;
+                        await this.loadEmployeeData();
+                        this.showPortal();
+                    } else {
+                        this.clearEmployeeToken();
+                        this.showLogin();
+                    }
+                } catch (error) {
+                    console.error('Token validation error:', error);
+                    this.clearEmployeeToken();
+                    this.showLogin();
+                }
+            }
+
+            clearEmployeeToken() {
+                localStorage.removeItem('employeeToken');
+                sessionStorage.removeItem('employeeToken');
+            }
+
+            async handleLogin() {
+                const employeeId = document.getElementById('employeeId').value.trim();
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+                const loginBtn = document.getElementById('loginBtn');
+                const errorDiv = document.getElementById('loginError');
+
+                this.showLoadingState(loginBtn, 'Authenticating...');
+                errorDiv.classList.add('hidden');
+
+                try {
+                    const employee = this.validEmployees[employeeId.toUpperCase()];
+                    
+                    if (!employee) {
+                        throw new Error('Invalid employee ID. Please check your credentials.');
+                    }
+                    
+                    if (employee.password !== password) {
+                        throw new Error('Invalid password. Please try again.');
+                    }
+
+                    const employeeData = {
+                        employeeId: employeeId.toUpperCase(),
+                        name: employee.name,
+                        role: employee.role,
+                        permissions: employee.permissions,
+                        loginTime: new Date().toISOString()
+                    };
+
+                    const token = JSON.stringify(employeeData);
+                    if (rememberMe) {
+                        localStorage.setItem('employeeToken', token);
+                    } else {
+                        sessionStorage.setItem('employeeToken', token);
+                    }
+
+                    this.currentEmployee = employeeData;
+                    
+                    await this.loadEmployeeData();
+                    
+                    setTimeout(() => {
+                        this.showPortal();
+                        this.showNotification('Welcome back! Successfully signed in.', 'success');
+                    }, 1000);
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorDiv.textContent = error.message;
+                    errorDiv.classList.remove('hidden');
+                    this.shakeElement(errorDiv);
+                } finally {
+                    this.hideLoadingState(loginBtn, 'Access Dashboard');
+                }
+            }
+
+            // Data Loading
+            async loadEmployeeData() {
+                try {
+                    console.log('📊 Loading employee data...');
+                    
+                    this.updateEmployeeInfo();
+                    this.updateEmployeeStats();
+                    this.updateSchedulePreview();
+                    this.updateAssignmentsList();
+                    this.updateUnreadCount();
+                    
+                    console.log('✅ Employee data loaded successfully');
+                } catch (error) {
+                    console.error('Error loading employee data:', error);
+                    this.showNotification('Some data could not be loaded.', 'warning');
+                }
+            }
+
+            // UI Updates
+            showLogin() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'flex';
+                if (portalContainer) portalContainer.style.display = 'none';
+            }
+
+            showPortal() {
+                const loginContainer = document.getElementById('loginContainer');
+                const portalContainer = document.getElementById('portalContainer');
+                if (loginContainer) loginContainer.style.display = 'none';
+                if (portalContainer) portalContainer.style.display = 'block';
+                
+                console.log('🎉 Employee portal loaded successfully!');
+            }
+
+            updateEmployeeInfo() {
+                if (!this.currentEmployee) return;
+
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const userRole = document.getElementById('userRole');
+                const welcomeName = document.getElementById('welcomeName');
+
+                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentEmployee.name);
+                if (userName) userName.textContent = this.currentEmployee.name;
+                if (userRole) userRole.textContent = this.currentEmployee.role;
+                if (welcomeName) welcomeName.textContent = this.currentEmployee.name.split(' ')[0];
+            }
+
+            updateEmployeeStats() {
+                const stats = this.getStatsForRole(this.currentEmployee.role);
+                
+                this.animateNumber('todayShifts', stats.todayShifts);
+                this.animateNumber('weeklyHours', stats.weeklyHours);
+                this.animateNumber('upcomingAssignments', stats.upcomingAssignments);
+                this.animateNumber('pendingReports', stats.pendingReports);
+            }
+
+            getStatsForRole(role) {
+                const baseStats = {
+                    'Administrator': { todayShifts: 0, weeklyHours: 40, upcomingAssignments: 12, pendingReports: 3 },
+                    'Pool Manager': { todayShifts: 1, weeklyHours: 38, upcomingAssignments: 8, pendingReports: 2 },
+                    'Senior Lifeguard': { todayShifts: 2, weeklyHours: 32, upcomingAssignments: 5, pendingReports: 1 },
+                    'Swimming Instructor': { todayShifts: 3, weeklyHours: 28, upcomingAssignments: 4, pendingReports: 0 }
+                };
+                
+                return baseStats[role] || { todayShifts: 1, weeklyHours: 25, upcomingAssignments: 3, pendingReports: 0 };
+            }
+
+            updateSchedulePreview() {
+                const container = document.getElementById('schedulePreview');
+                if (!container) return;
+                
+                const todaySchedule = this.mockData.schedules.filter(shift => 
+                    shift.date === new Date().toISOString().split('T')[0]
+                );
+
+                if (todaySchedule.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--gray);">No shifts scheduled for today</p>';
+                    return;
+                }
+
+                container.innerHTML = todaySchedule.map(shift => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+                        <div>
+                            <strong>${shift.type}</strong><br>
+                            <small style="color: var(--gray);">${shift.location}</small>
+                        </div>
+                        <div style="text-align: right; font-weight: 600; color: var(--primary);">
+                            ${shift.startTime} - ${shift.endTime}
+                            <br><small style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'});">${shift.status}</small>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateAssignmentsList() {
+                const container = document.getElementById('assignmentsList');
+                if (!container) return;
+                
+                if (this.mockData.assignments.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: var(--space-5);">No active assignments</p>';
+                    return;
+                }
+
+                container.innerHTML = this.mockData.assignments.slice(0, 3).map(assignment => {
+                    const priorityColor = assignment.priority === 'high' ? 'var(--error)' : 
+                                        assignment.priority === 'medium' ? 'var(--warning)' : 'var(--success)';
+                    
+                    return `
+                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid ${priorityColor}; cursor: pointer;" onclick="employeePortal.viewAssignment(${assignment.id})">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
+                                <strong>${assignment.title}</strong>
+                                <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs); text-transform: uppercase;">${assignment.status}</span>
+                            </div>
+                            <div style="color: var(--gray); font-size: var(--font-sm);">
+                                <i class="fas fa-calendar"></i> Due: ${new Date(assignment.dueDate).toLocaleDateString()}
+                                <br><i class="fas fa-map-marker-alt"></i> ${assignment.location}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            updateUnreadCount() {
+                const unreadMessages = this.mockData.messages.filter(msg => !msg.read).length;
+                const badge = document.getElementById('unreadCount');
+                if (badge) {
+                    badge.textContent = unreadMessages;
+                    badge.style.display = unreadMessages > 0 ? 'inline' : 'none';
+                }
+            }
+
+            // Feature Implementations
+
+            // Schedule Management
+            openScheduleModal() {
+                const content = `
+                    <div style="min-width: 600px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.showScheduleView('week')">Week View</button>
+                                <button class="btn-small btn-employee" onclick="employeePortal.showScheduleView('month')">Month View</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.requestTimeOff()">Request Time Off</button>
+                            </div>
+                        </div>
+                        <div id="scheduleContent">
+                            <h3 style="margin-bottom: var(--space-4);">Upcoming Shifts</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${this.mockData.schedules.map(shift => `
+                                        <tr>
+                                            <td>${new Date(shift.date).toLocaleDateString()}</td>
+                                            <td>${shift.startTime} - ${shift.endTime}</td>
+                                            <td>${shift.location}</td>
+                                            <td>${shift.type}</td>
+                                            <td><span style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'}); font-weight: 600;">${shift.status}</span></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('My Schedule', content);
+            }
+
+            viewTodaySchedule() {
+                const todayShifts = this.mockData.schedules.filter(shift => 
+                    shift.date === new Date().toISOString().split('T')[0]
+                );
+                
+                if (todayShifts.length === 0) {
+                    this.showNotification('No shifts scheduled for today', 'info');
+                    return;
+                }
+                
+                const content = `
+                    <h3>Today's Schedule</h3>
+                    <div style="margin-top: var(--space-4);">
+                        ${todayShifts.map(shift => `
+                            <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
+                                <h4>${shift.type}</h4>
+                                <p><strong>Time:</strong> ${shift.startTime} - ${shift.endTime}</p>
+                                <p><strong>Location:</strong> ${shift.location}</p>
+                                <p><strong>Status:</strong> <span style="color: var(--${shift.status === 'confirmed' ? 'success' : 'warning'})">${shift.status}</span></p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                this.showModal('Today\'s Schedule', content);
+            }
+
+            requestTimeOff() {
+                const content = `
+                    <form onsubmit="employeePortal.submitTimeOffRequest(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-input" name="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-input" name="endDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Reason</label>
+                            <select class="form-select" name="reason" required>
+                                <option value="">Select a reason</option>
+                                <option value="vacation">Vacation</option>
+                                <option value="sick">Sick Leave</option>
+                                <option value="personal">Personal</option>
+                                <option value="family">Family Emergency</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-textarea" name="notes" placeholder="Any additional information..."></textarea>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Request</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Request Time Off', content);
+            }
+
+            submitTimeOffRequest(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                
+                // Simulate submission
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Time off request submitted successfully!', 'success');
+                }, 1000);
+            }
+
+            // Assignment Management
+            viewAllAssignments() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.filterAssignments('all')">All</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.filterAssignments('pending')">Pending</button>
+                                <button class="btn-small btn-success" onclick="employeePortal.filterAssignments('in-progress')">In Progress</button>
+                            </div>
+                        </div>
+                        <div id="assignmentsContent">
+                            ${this.mockData.assignments.map(assignment => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4); border-left: 4px solid var(--${assignment.priority === 'high' ? 'error' : assignment.priority === 'medium' ? 'warning' : 'success'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${assignment.title}</h4>
+                                        <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${assignment.status}</span>
+                                    </div>
+                                    <p style="margin-bottom: var(--space-3);">${assignment.description}</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-calendar"></i> Due: ${new Date(assignment.dueDate).toLocaleDateString()}</div>
+                                            <div><i class="fas fa-user"></i> Assigned by: ${assignment.assignedBy}</div>
+                                            <div><i class="fas fa-map-marker-alt"></i> Location: ${assignment.location}</div>
+                                        </div>
+                                        <div style="display: flex; gap: var(--space-2);">
+                                            <button class="btn-small btn-employee" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'in-progress')">Start</button>
+                                            <button class="btn-small btn-success" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'completed')">Complete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('All Assignments', content);
+            }
+
+            viewAssignment(id) {
+                const assignment = this.mockData.assignments.find(a => a.id === id);
+                if (!assignment) return;
+                
+                const content = `
+                    <div style="min-width: 500px;">
+                        <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                            <h3>${assignment.title}</h3>
+                            <p style="margin: var(--space-2) 0;">${assignment.description}</p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-4);">
+                                <div>
+                                    <strong>Due Date:</strong><br>
+                                    ${new Date(assignment.dueDate).toLocaleDateString()}
+                                </div>
+                                <div>
+                                    <strong>Priority:</strong><br>
+                                    <span style="color: var(--${assignment.priority === 'high' ? 'error' : assignment.priority === 'medium' ? 'warning' : 'success'}); text-transform: capitalize;">${assignment.priority}</span>
+                                </div>
+                                <div>
+                                    <strong>Assigned By:</strong><br>
+                                    ${assignment.assignedBy}
+                                </div>
+                                <div>
+                                    <strong>Location:</strong><br>
+                                    ${assignment.location}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end;">
+                            <button class="btn-small btn-employee" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'in-progress')">Start Assignment</button>
+                            <button class="btn-small btn-success" onclick="employeePortal.updateAssignmentStatus(${assignment.id}, 'completed')">Mark Complete</button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Assignment Details', content);
+            }
+
+            updateAssignmentStatus(id, status) {
+                const assignment = this.mockData.assignments.find(a => a.id === id);
+                if (assignment) {
+                    assignment.status = status;
+                    this.updateAssignmentsList();
+                    this.closeModal();
+                    this.showNotification(`Assignment ${status === 'completed' ? 'completed' : 'updated'}!`, 'success');
+                }
+            }
+
+            // Training Center
+            openTrainingCenter() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="margin-bottom: var(--space-6);">
+                            <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                                <button class="btn-small btn-employee" onclick="employeePortal.filterTraining('all')">All Courses</button>
+                                <button class="btn-small btn-accent" onclick="employeePortal.filterTraining('required')">Required</button>
+                                <button class="btn-small btn-success" onclick="employeePortal.filterTraining('completed')">Completed</button>
+                            </div>
+                        </div>
+                        <div id="trainingContent">
+                            <h3 style="margin-bottom: var(--space-4);">Available Training</h3>
+                            ${this.mockData.trainings.map(training => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4); border-left: 4px solid var(--${training.status === 'required' ? 'error' : training.status === 'completed' ? 'success' : 'info'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${training.title}</h4>
+                                        <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${training.status}</span>
+                                    </div>
+                                    <p style="margin-bottom: var(--space-3);">${training.description}</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-clock"></i> Duration: ${training.duration}</div>
+                                            ${training.dueDate ? `<div><i class="fas fa-calendar"></i> Due: ${new Date(training.dueDate).toLocaleDateString()}</div>` : ''}
+                                            ${training.completedDate ? `<div><i class="fas fa-check"></i> Completed: ${new Date(training.completedDate).toLocaleDateString()}</div>` : ''}
+                                        </div>
+                                        <div>
+                                            ${training.status !== 'completed' ? `<button class="btn-small btn-employee" onclick="employeePortal.startTraining(${training.id})">Start Training</button>` : `<span style="color: var(--success); font-weight: 600;"><i class="fas fa-check-circle"></i> Completed</span>`}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Training Center', content);
+            }
+
+            viewCertifications() {
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Certifications</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>Lifeguard Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Red Cross</p>
+                                        <p style="color: var(--success); font-weight: 600;">Valid until: March 2026</p>
+                                    </div>
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--warning);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>CPR/AED Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Heart Association</p>
+                                        <p style="color: var(--warning); font-weight: 600;">Expires: ${new Date(Date.now() + 86400000 * 30).toLocaleDateString()}</p>
+                                    </div>
+                                    <i class="fas fa-exclamation-triangle" style="color: var(--warning); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                            <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4>First Aid Certification</h4>
+                                        <p style="color: var(--gray); margin: var(--space-1) 0;">American Red Cross</p>
+                                        <p style="color: var(--success); font-weight: 600;">Valid until: August 2025</p>
+                                    </div>
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: var(--font-2xl);"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-6); text-align: center;">
+                            <button class="btn-small btn-accent" onclick="employeePortal.downloadCertificates()">
+                                <i class="fas fa-download"></i> Download Certificates
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('My Certifications', content);
+            }
+
+            startTraining(id) {
+                const training = this.mockData.trainings.find(t => t.id === id);
+                if (!training) return;
+                
+                // Simulate starting training
+                this.showNotification(`Starting "${training.title}" training module...`, 'info');
+                this.closeModal();
+                
+                // In a real app, this would redirect to the training platform
+                setTimeout(() => {
+                    this.showNotification('Training module loaded successfully!', 'success');
+                }, 2000);
+            }
+
+            downloadCertificates() {
+                this.showNotification('Certificate download started...', 'info');
+                // In a real app, this would generate and download PDF certificates
+            }
+
+            // Time Tracking
+            toggleClockInOut() {
+                if (this.clockedIn) {
+                    this.clockOut();
+                } else {
+                    this.clockIn();
+                }
+            }
+
+            clockIn() {
+                this.clockedIn = true;
+                this.shiftStartTime = new Date();
+                
+                const clockBtn = document.getElementById('clockActionBtn');
+                const shiftInfo = document.getElementById('currentShiftInfo');
+                const startTimeSpan = document.getElementById('shiftStartTime');
+                
+                clockBtn.innerHTML = '<i class="fas fa-stop"></i> Clock Out';
+                clockBtn.style.background = 'var(--gradient-secondary)';
+                
+                if (shiftInfo) shiftInfo.style.display = 'block';
+                if (startTimeSpan) startTimeSpan.textContent = this.shiftStartTime.toLocaleTimeString();
+                
+                this.startShiftTimer();
+                this.showNotification('Successfully clocked in!', 'success');
+            }
+
+            clockOut() {
+                this.clockedIn = false;
+                
+                const clockBtn = document.getElementById('clockActionBtn');
+                const shiftInfo = document.getElementById('currentShiftInfo');
+                
+                clockBtn.innerHTML = '<i class="fas fa-play"></i> Clock In';
+                clockBtn.style.background = 'var(--gradient-primary-vivid)';
+                
+                if (shiftInfo) shiftInfo.style.display = 'none';
+                
+                this.stopShiftTimer();
+                
+                const duration = this.calculateShiftDuration();
+                this.showNotification(`Clocked out! Shift duration: ${duration}`, 'info');
+                
+                // Add to timesheet
+                this.addToTimesheet(this.shiftStartTime, new Date(), duration);
+            }
+
+            startShiftTimer() {
+                this.shiftTimer = setInterval(() => {
+                    const duration = this.calculateShiftDuration();
+                    const durationSpan = document.getElementById('shiftDuration');
+                    if (durationSpan) durationSpan.textContent = duration;
+                }, 1000);
+            }
+
+            stopShiftTimer() {
+                if (this.shiftTimer) {
+                    clearInterval(this.shiftTimer);
+                    this.shiftTimer = null;
+                }
+            }
+
+            calculateShiftDuration() {
+                if (!this.shiftStartTime) return '0:00';
+                
+                const now = new Date();
+                const diff = now - this.shiftStartTime;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                return `${hours}:${minutes.toString().padStart(2, '0')}`;
+            }
+
+            addToTimesheet(startTime, endTime, duration) {
+                const entry = {
+                    id: Date.now(),
+                    date: startTime.toISOString().split('T')[0],
+                    startTime: startTime.toLocaleTimeString(),
+                    endTime: endTime.toLocaleTimeString(),
+                    duration: duration,
+                    status: 'pending'
+                };
+                
+                this.mockData.timeSheets.unshift(entry);
+            }
+
+            viewTimeSheets() {
+                // Generate some mock timesheet data if empty
+                if (this.mockData.timeSheets.length === 0) {
+                    this.mockData.timeSheets = [
+                        {
+                            id: 1,
+                            date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+                            startTime: '09:00:00',
+                            endTime: '17:00:00',
+                            duration: '8:00',
+                            status: 'approved'
+                        },
+                        {
+                            id: 2,
+                            date: new Date(Date.now() - 86400000 * 2).toISOString().split('T')[0],
+                            startTime: '14:00:00',
+                            endTime: '18:00:00',
+                            duration: '4:00',
+                            status: 'approved'
+                        }
+                    ];
+                }
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Timesheets</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${this.mockData.timeSheets.map(entry => `
+                                    <tr>
+                                        <td>${new Date(entry.date).toLocaleDateString()}</td>
+                                        <td>${entry.startTime}</td>
+                                        <td>${entry.endTime}</td>
+                                        <td>${entry.duration}</td>
+                                        <td><span style="color: var(--${entry.status === 'approved' ? 'success' : 'warning'}); font-weight: 600;">${entry.status}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                this.showModal('My Timesheets', content);
+            }
+
+            // Incident Reports
+            createIncidentReport() {
+                const content = `
+                    <form onsubmit="employeePortal.submitIncidentReport(event)" style="min-width: 600px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date of Incident</label>
+                                <input type="date" class="form-input" name="incidentDate" required value="${new Date().toISOString().split('T')[0]}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Time of Incident</label>
+                                <input type="time" class="form-input" name="incidentTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <select class="form-select" name="location" required>
+                                <option value="">Select location</option>
+                                <option value="Westlake Pool">Westlake Pool</option>
+                                <option value="Oak Park Community Center">Oak Park Community Center</option>
+                                <option value="Thousand Oaks Recreation Center">Thousand Oaks Recreation Center</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Incident Type</label>
+                            <select class="form-select" name="incidentType" required>
+                                <option value="">Select type</option>
+                                <option value="injury">Injury</option>
+                                <option value="near-drowning">Near Drowning</option>
+                                <option value="equipment-failure">Equipment Failure</option>
+                                <option value="behavioral">Behavioral Issue</option>
+                                <option value="facility">Facility Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Severity Level</label>
+                            <select class="form-select" name="severity" required>
+                                <option value="">Select severity</option>
+                                <option value="low">Low - Minor issue</option>
+                                <option value="medium">Medium - Moderate concern</option>
+                                <option value="high">High - Serious incident</option>
+                                <option value="critical">Critical - Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description of Incident</label>
+                            <textarea class="form-textarea" name="description" placeholder="Provide detailed description of what happened..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Actions Taken</label>
+                            <textarea class="form-textarea" name="actionsTaken" placeholder="Describe what actions were taken to address the incident..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Witnesses</label>
+                                <input type="text" class="form-input" name="witnesses" placeholder="Names of any witnesses">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Emergency Services Called</label>
+                                <select class="form-select" name="emergencyServices">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Incident Report</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Create Incident Report', content);
+            }
+
+            submitIncidentReport(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                
+                const report = {
+                    id: Date.now(),
+                    date: formData.get('incidentDate'),
+                    time: formData.get('incidentTime'),
+                    location: formData.get('location'),
+                    type: formData.get('incidentType'),
+                    severity: formData.get('severity'),
+                    description: formData.get('description'),
+                    actionsTaken: formData.get('actionsTaken'),
+                    witnesses: formData.get('witnesses'),
+                    emergencyServices: formData.get('emergencyServices'),
+                    reportedBy: this.currentEmployee.name,
+                    status: 'submitted',
+                    submittedAt: new Date().toISOString()
+                };
+                
+                this.mockData.incidents.unshift(report);
+                
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Incident report submitted successfully!', 'success');
+                }, 1000);
+            }
+
+            viewMyReports() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <h3 style="margin-bottom: var(--space-4);">My Incident Reports</h3>
+                        ${this.mockData.incidents.length > 0 ? `
+                            <div style="display: grid; gap: var(--space-4);">
+                                ${this.mockData.incidents.map(report => `
+                                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--${report.severity === 'critical' ? 'error' : report.severity === 'high' ? 'warning' : 'info'});">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                            <h4>${report.type.charAt(0).toUpperCase() + report.type.slice(1)} Incident</h4>
+                                            <span style="background: rgba(30, 136, 229, 0.1); color: var(--primary); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--font-xs);">${report.status}</span>
+                                        </div>
+                                        <p style="margin-bottom: var(--space-3);">${report.description}</p>
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); color: var(--gray); font-size: var(--font-sm);">
+                                            <div><i class="fas fa-calendar"></i> ${new Date(report.date).toLocaleDateString()}</div>
+                                            <div><i class="fas fa-clock"></i> ${report.time}</div>
+                                            <div><i class="fas fa-map-marker-alt"></i> ${report.location}</div>
+                                            <div><i class="fas fa-exclamation-circle"></i> ${report.severity} severity</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : `
+                            <div style="text-align: center; padding: var(--space-8); color: var(--gray);">
+                                <i class="fas fa-file-alt" style="font-size: var(--font-4xl); margin-bottom: var(--space-4);"></i>
+                                <p>No incident reports submitted yet.</p>
+                                <button class="btn-small btn-employee" onclick="employeePortal.closeModal(); employeePortal.createIncidentReport();" style="margin-top: var(--space-4);">
+                                    <i class="fas fa-plus"></i> Create First Report
+                                </button>
+                            </div>
+                        `}
+                    </div>
+                `;
+                
+                this.showModal('My Incident Reports', content);
+            }
+
+            emergencyProtocols() {
+                const protocols = [
+                    {
+                        title: 'Drowning Emergency',
+                        steps: [
+                            'Immediately enter water if safe to do so',
+                            'Perform rescue breathing if needed',
+                            'Call 911 immediately',
+                            'Begin CPR if no pulse',
+                            'Continue until EMS arrives'
+                        ]
+                    },
+                    {
+                        title: 'Spinal Injury',
+                        steps: [
+                            'DO NOT move the victim',
+                            'Stabilize head and neck',
+                            'Call 911 immediately',
+                            'Monitor breathing and pulse',
+                            'Keep victim calm and still'
+                        ]
+                    },
+                    {
+                        title: 'Chemical Emergency',
+                        steps: [
+                            'Clear the area immediately',
+                            'Flush affected area with water',
+                            'Call Poison Control: 1-800-222-1222',
+                            'Notify facility management',
+                            'Document the incident'
+                        ]
+                    }
+                ];
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">Emergency Protocols</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            ${protocols.map(protocol => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--error);">
+                                    <h4 style="color: var(--error); margin-bottom: var(--space-3);">${protocol.title}</h4>
+                                    <ol style="margin-left: var(--space-4);">
+                                        ${protocol.steps.map(step => `<li style="margin-bottom: var(--space-2);">${step}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-top: var(--space-6); text-align: center;">
+                            <h4 style="color: var(--error); margin-bottom: var(--space-2);">Emergency Contacts</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3);">
+                                <div><strong>Emergency:</strong> 911</div>
+                                <div><strong>Poison Control:</strong> 1-800-222-1222</div>
+                                <div><strong>Facility Manager:</strong> (805) 555-0123</div>
+                                <div><strong>Safety Supervisor:</strong> (805) 555-0456</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Emergency Protocols', content);
+            }
+
+            // Messaging
+            openMessaging() {
+                const content = `
+                    <div style="min-width: 700px;">
+                        <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.filterMessages('all')">All Messages</button>
+                            <button class="btn-small btn-accent" onclick="employeePortal.filterMessages('unread')">Unread</button>
+                            <button class="btn-small btn-success" onclick="employeePortal.composeMessage()">Compose</button>
+                        </div>
+                        <div id="messagesContent">
+                            ${this.mockData.messages.map(message => `
+                                <div style="background: ${message.read ? 'white' : 'rgba(30, 136, 229, 0.05)'}; padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-3); border-left: 4px solid var(--${message.priority === 'high' ? 'error' : 'info'}); cursor: pointer;" onclick="employeePortal.openMessage(${message.id})">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
+                                        <div>
+                                            <strong style="color: ${message.read ? 'var(--dark)' : 'var(--primary)'};">${message.subject}</strong>
+                                            <div style="color: var(--gray); font-size: var(--font-sm);">From: ${message.from}</div>
+                                        </div>
+                                        <div style="text-align: right; color: var(--gray); font-size: var(--font-sm);">
+                                            ${new Date(message.timestamp).toLocaleDateString()}
+                                            ${!message.read ? '<div style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-left: auto; margin-top: var(--space-1);"></div>' : ''}
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--gray); font-size: var(--font-sm); margin: 0;">${message.message.substring(0, 100)}...</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Team Messages', content);
+            }
+
+            openMessage(id) {
+                const message = this.mockData.messages.find(m => m.id === id);
+                if (!message) return;
+                
+                // Mark as read
+                message.read = true;
+                this.updateUnreadCount();
+                
+                const content = `
+                    <div style="min-width: 500px;">
+                        <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                            <h3>${message.subject}</h3>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin: var(--space-2) 0; color: var(--gray); font-size: var(--font-sm);">
+                                <span>From: ${message.from}</span>
+                                <span>${new Date(message.timestamp).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); line-height: 1.6;">
+                            ${message.message}
+                        </div>
+                        <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-4);">
+                            <button class="btn-small btn-employee" onclick="employeePortal.replyToMessage(${message.id})">
+                                <i class="fas fa-reply"></i> Reply
+                            </button>
+                            <button class="btn-small btn-accent" onclick="employeePortal.closeModal(); employeePortal.openMessaging();">
+                                <i class="fas fa-arrow-left"></i> Back to Messages
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Message', content);
+            }
+
+            viewAnnouncements() {
+                const announcements = [
+                    {
+                        title: 'Pool Closure Notice',
+                        content: 'Westlake Pool will be closed for maintenance on Friday, June 7th.',
+                        date: new Date(Date.now() - 86400000).toISOString(),
+                        priority: 'high'
+                    },
+                    {
+                        title: 'New Safety Equipment',
+                        content: 'Updated rescue equipment has been installed at all locations. Please review the new procedures.',
+                        date: new Date(Date.now() - 86400000 * 3).toISOString(),
+                        priority: 'normal'
+                    },
+                    {
+                        title: 'Summer Schedule Changes',
+                        content: 'Summer operating hours will begin June 15th. Check your updated schedules.',
+                        date: new Date(Date.now() - 86400000 * 7).toISOString(),
+                        priority: 'normal'
+                    }
+                ];
+                
+                const content = `
+                    <div style="min-width: 600px;">
+                        <h3 style="margin-bottom: var(--space-4);">Company Announcements</h3>
+                        <div style="display: grid; gap: var(--space-4);">
+                            ${announcements.map(announcement => `
+                                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--${announcement.priority === 'high' ? 'error' : 'info'});">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                        <h4>${announcement.title}</h4>
+                                        <span style="color: var(--gray); font-size: var(--font-sm);">${new Date(announcement.date).toLocaleDateString()}</span>
+                                    </div>
+                                    <p>${announcement.content}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                this.showModal('Announcements', content);
+            }
+
+            contactSupport() {
+                const content = `
+                    <form onsubmit="employeePortal.submitSupportRequest(event)" style="min-width: 500px;">
+                        <div class="form-group">
+                            <label class="form-label">Support Category</label>
+                            <select class="form-select" name="category" required>
+                                <option value="">Select category</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="hr">HR/Payroll</option>
+                                <option value="scheduling">Scheduling</option>
+                                <option value="training">Training</option>
+                                <option value="equipment">Equipment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Priority Level</label>
+                            <select class="form-select" name="priority" required>
+                                <option value="">Select priority</option>
+                                <option value="low">Low - General question</option>
+                                <option value="medium">Medium - Need assistance</option>
+                                <option value="high">High - Urgent issue</option>
+                                <option value="critical">Critical - Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" name="subject" placeholder="Brief description of your issue" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-textarea" name="description" placeholder="Please provide detailed information about your issue or question..." required></textarea>
+                        </div>
+                        <div style="margin-top: var(--space-6);">
+                            <button type="submit" class="btn-primary">Submit Support Request</button>
+                        </div>
+                    </form>
+                `;
+                
+                this.showModal('Contact Support', content);
+            }
+
+            submitSupportRequest(event) {
+                event.preventDefault();
+                
+                setTimeout(() => {
+                    this.closeModal();
+                    this.showNotification('Support request submitted! You will receive a response within 24 hours.', 'success');
+                }, 1000);
+            }
+
+            // Modal Management
+            showModal(title, content, footer = null) {
+                const modalOverlay = document.getElementById('modalOverlay');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                const modalFooter = document.getElementById('modalFooter');
+                
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                
+                if (footer) {
+                    modalFooter.innerHTML = footer;
+                } else {
+                    modalFooter.innerHTML = '<button class="btn-secondary" onclick="employeePortal.closeModal()">Close</button>';
+                }
+                
+                modalOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeModal() {
+                const modalOverlay = document.getElementById('modalOverlay');
+                modalOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // Event Listeners
             setupEventListeners() {
-                // Staff login form
-                document.getElementById('staffLoginForm')?.addEventListener('submit', (e) => {
+                // Login form
+                document.getElementById('loginForm')?.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    this.handleStaffLogin();
+                    this.handleLogin();
                 });
 
                 // Password toggle
-                document.getElementById('staffPasswordToggle')?.addEventListener('click', () => {
-                    this.toggleStaffPassword();
+                document.getElementById('passwordToggle')?.addEventListener('click', () => {
+                    this.togglePassword();
                 });
 
                 // Logout button
-                document.getElementById('staffLogoutBtn')?.addEventListener('click', () => {
-                    this.handleStaffLogout();
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    this.handleLogout();
                 });
 
-                console.log('👤 Staff event listeners setup complete');
+                // Modal close on overlay click
+                document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+                    if (e.target.id === 'modalOverlay') {
+                        this.closeModal();
+                    }
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeModal();
+                    }
+                });
+
+                console.log('✅ Employee portal event listeners setup complete');
             }
 
             setupScrollEffects() {
@@ -1479,395 +2818,10 @@
                 }
             }
 
-            startClockUpdate() {
-                this.updateClock();
-                setInterval(() => {
-                    this.updateClock();
-                }, 1000);
-            }
-
-            updateClock() {
-                const clockDisplay = document.getElementById('currentTime');
-                if (clockDisplay) {
-                    const now = new Date();
-                    const timeString = now.toLocaleTimeString('en-US', { 
-                        hour12: true,
-                        hour: '2-digit', 
-                        minute: '2-digit', 
-                        second: '2-digit' 
-                    });
-                    clockDisplay.textContent = timeString;
-                }
-            }
-
-            async handleStaffLogin() {
-                const email = document.getElementById('staffEmail').value.trim();
-                const password = document.getElementById('staffPassword').value;
-                const loginBtn = document.getElementById('staffLoginBtn');
-                const errorDiv = document.getElementById('staffLoginError');
-
-                if (!email || !password) {
-                    this.showError(errorDiv, 'Please enter both email and password');
-                    return;
-                }
-
-                this.showLoadingState(loginBtn, 'Signing In...');
-                errorDiv.classList.add('hidden');
-
-                try {
-                    const response = await this.portalSystem.apiCall('staffLogin', 'POST', {
-                        email,
-                        password
-                    });
-
-                    if (response && response.success) {
-                        this.portalSystem.setAuthToken('staff', response.token);
-                        this.currentStaff = response.staff;
-                        
-                        await this.playSuccessAnimation(loginBtn);
-                        await this.loadStaffData();
-                        
-                        setTimeout(() => {
-                            this.showStaffPortal();
-                            this.portalSystem.showNotification('Welcome back! Staff access granted.', 'success', {
-                                title: 'Staff Login Successful',
-                                duration: 4000
-                            });
-                        }, 1000);
-                    } else {
-                        throw new Error(response.error || 'Staff login failed');
-                    }
-
-                } catch (error) {
-                    console.error('Staff login error:', error);
-                    await this.playErrorAnimation(loginBtn);
-                    this.showError(errorDiv, error.message || 'Staff login failed. Please check your credentials.');
-                } finally {
-                    this.hideLoadingState(loginBtn, 'Staff Sign In');
-                }
-            }
-
-            async validateStaffToken(token) {
-                try {
-                    const response = await this.portalSystem.apiCall('staffProfile', 'GET');
-                    
-                    if (response && response.success) {
-                        this.currentStaff = response.staff;
-                        await this.loadStaffData();
-                        this.showStaffPortal();
-                    } else {
-                        this.portalSystem.clearAuthToken('staff');
-                        this.showLogin();
-                    }
-                } catch (error) {
-                    console.error('Staff token validation error:', error);
-                    this.portalSystem.clearAuthToken('staff');
-                    this.showLogin();
-                }
-            }
-
-            async loadStaffData() {
-                try {
-                    console.log('📊 Loading staff data...');
-                    
-                    // Load staff-specific data
-                    const dataPromises = [
-                        this.loadSchedule(),
-                        this.loadTimeEntries(),
-                        this.loadTraining(),
-                        this.loadClockStatus()
-                    ];
-                    
-                    await Promise.allSettled(dataPromises);
-                    
-                    this.updateStaffUserInfo();
-                    this.updateStaffStats();
-                    this.updateClockButtons();
-                    
-                    console.log('✅ Staff data loaded successfully');
-                } catch (error) {
-                    console.error('Error loading staff data:', error);
-                    this.portalSystem.showNotification('Some staff data could not be loaded.', 'error');
-                }
-            }
-
-            async loadSchedule() {
-                try {
-                    const response = await this.portalSystem.apiCall('staffSchedule', 'GET');
-                    if (response && response.success) {
-                        this.schedule = response.schedule || [];
-                    }
-                } catch (error) {
-                    console.error('Error loading schedule:', error);
-                }
-            }
-
-            async loadTimeEntries() {
-                try {
-                    const response = await this.portalSystem.apiCall('staffTimeTracking', 'GET');
-                    if (response && response.success) {
-                        this.timeEntries = response.entries || [];
-                    }
-                } catch (error) {
-                    console.error('Error loading time entries:', error);
-                }
-            }
-
-            async loadTraining() {
-                try {
-                    const response = await this.portalSystem.apiCall('staffTraining', 'GET');
-                    if (response && response.success) {
-                        this.training = response.training || [];
-                    }
-                } catch (error) {
-                    console.error('Error loading training:', error);
-                }
-            }
-
-            async loadClockStatus() {
-                try {
-                    const response = await this.portalSystem.apiCall('/api/staff/clock-status', 'GET');
-                    if (response && response.success) {
-                        this.clockedIn = response.clockedIn || false;
-                        this.onBreak = response.onBreak || false;
-                        this.clockInTime = response.clockInTime ? new Date(response.clockInTime) : null;
-                        this.breakTime = response.breakTime ? new Date(response.breakTime) : null;
-                    }
-                } catch (error) {
-                    console.error('Error loading clock status:', error);
-                }
-            }
-
-            updateStaffUserInfo() {
-                if (!this.currentStaff) return;
-
-                const userAvatar = document.getElementById('staffUserAvatar');
-                const userName = document.getElementById('staffUserName');
-                const welcomeName = document.getElementById('staffWelcomeName');
-
-                if (userAvatar) userAvatar.textContent = this.getInitials(this.currentStaff.name);
-                if (userName) userName.textContent = this.currentStaff.name || 'Staff Member';
-                if (welcomeName) welcomeName.textContent = (this.currentStaff.name || 'Staff').split(' ')[0];
-            }
-
-            updateStaffStats() {
-                // Calculate stats from loaded data
-                const thisWeek = this.getThisWeekTimeEntries();
-                const hoursThisWeek = thisWeek.reduce((total, entry) => total + (entry.hours || 0), 0);
-                
-                const upcomingShifts = this.schedule.filter(shift => 
-                    new Date(shift.date) > new Date()
-                ).length;
-                
-                const completedTraining = this.training.filter(t => t.completed).length;
-                const employeeRating = this.currentStaff?.rating || 5.0;
-
-                // Animate stats
-                this.animateNumber('hoursThisWeek', hoursThisWeek);
-                this.animateNumber('upcomingShifts', upcomingShifts);
-                this.animateNumber('completedTraining', completedTraining);
-                this.animateRating('employeeRating', employeeRating);
-            }
-
-            getThisWeekTimeEntries() {
-                const now = new Date();
-                const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-                const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));
-                
-                return this.timeEntries.filter(entry => {
-                    const entryDate = new Date(entry.date);
-                    return entryDate >= startOfWeek && entryDate <= endOfWeek;
-                });
-            }
-
-            animateNumber(elementId, targetValue) {
-                const element = document.getElementById(elementId);
-                if (!element) return;
-                
-                let currentValue = 0;
-                const increment = Math.max(1, Math.ceil(targetValue / 30));
-                
-                const timer = setInterval(() => {
-                    if (currentValue < targetValue) {
-                        currentValue = Math.min(currentValue + increment, targetValue);
-                        element.textContent = currentValue;
-                    } else {
-                        clearInterval(timer);
-                    }
-                }, 50);
-            }
-
-            animateRating(elementId, targetValue) {
-                const element = document.getElementById(elementId);
-                if (!element) return;
-                
-                let currentValue = 0;
-                const increment = 0.1;
-                
-                const timer = setInterval(() => {
-                    if (currentValue < targetValue) {
-                        currentValue = Math.min(currentValue + increment, targetValue);
-                        element.textContent = currentValue.toFixed(1);
-                    } else {
-                        clearInterval(timer);
-                    }
-                }, 50);
-            }
-
-            updateClockButtons() {
-                const clockInBtn = document.getElementById('clockInBtn');
-                const breakBtn = document.getElementById('breakBtn');
-                const clockOutBtn = document.getElementById('clockOutBtn');
-                const clockStatus = document.getElementById('clockStatus');
-
-                if (this.clockedIn) {
-                    clockInBtn.style.display = 'none';
-                    breakBtn.style.display = 'inline-flex';
-                    clockOutBtn.style.display = 'inline-flex';
-                    
-                    if (this.onBreak) {
-                        breakBtn.innerHTML = '<i class="fas fa-play"></i> Return';
-                        breakBtn.classList.add('on-break');
-                        clockStatus.textContent = 'On Break';
-                    } else {
-                        breakBtn.innerHTML = '<i class="fas fa-pause"></i> Take Break';
-                        breakBtn.classList.remove('on-break');
-                        clockStatus.textContent = 'Clocked In';
-                    }
-                    
-                    clockInBtn.classList.remove('clocked-in');
-                    clockOutBtn.classList.add('clocked-in');
-                } else {
-                    clockInBtn.style.display = 'inline-flex';
-                    breakBtn.style.display = 'none';
-                    clockOutBtn.style.display = 'none';
-                    clockStatus.textContent = 'Clocked Out';
-                    
-                    clockInBtn.classList.remove('clocked-in');
-                }
-            }
-
-            // Clock In/Out Functions
-            async clockIn() {
-                try {
-                    const response = await this.portalSystem.apiCall('/api/staff/clock-in', 'POST', {
-                        timestamp: new Date().toISOString()
-                    });
-
-                    if (response && response.success) {
-                        this.clockedIn = true;
-                        this.clockInTime = new Date();
-                        this.updateClockButtons();
-                        
-                        this.portalSystem.showNotification('Successfully clocked in!', 'success', {
-                            title: 'Clock In',
-                            duration: 3000
-                        });
-                    }
-                } catch (error) {
-                    console.error('Clock in error:', error);
-                    this.portalSystem.showNotification('Failed to clock in. Please try again.', 'error');
-                }
-            }
-
-            async clockOut() {
-                if (confirm('Are you sure you want to clock out?')) {
-                    try {
-                        const response = await this.portalSystem.apiCall('/api/staff/clock-out', 'POST', {
-                            timestamp: new Date().toISOString()
-                        });
-
-                        if (response && response.success) {
-                            this.clockedIn = false;
-                            this.onBreak = false;
-                            this.clockInTime = null;
-                            this.breakTime = null;
-                            this.updateClockButtons();
-                            
-                            this.portalSystem.showNotification('Successfully clocked out!', 'success', {
-                                title: 'Clock Out',
-                                duration: 3000
-                            });
-                        }
-                    } catch (error) {
-                        console.error('Clock out error:', error);
-                        this.portalSystem.showNotification('Failed to clock out. Please try again.', 'error');
-                    }
-                }
-            }
-
-            async toggleBreak() {
-                try {
-                    const action = this.onBreak ? 'return' : 'break';
-                    const response = await this.portalSystem.apiCall(`/api/staff/${action}`, 'POST', {
-                        timestamp: new Date().toISOString()
-                    });
-
-                    if (response && response.success) {
-                        this.onBreak = !this.onBreak;
-                        if (this.onBreak) {
-                            this.breakTime = new Date();
-                        } else {
-                            this.breakTime = null;
-                        }
-                        this.updateClockButtons();
-                        
-                        const message = this.onBreak ? 'Break started' : 'Returned from break';
-                        this.portalSystem.showNotification(message, 'info', {
-                            title: 'Break Status',
-                            duration: 3000
-                        });
-                    }
-                } catch (error) {
-                    console.error('Break toggle error:', error);
-                    this.portalSystem.showNotification('Failed to update break status.', 'error');
-                }
-            }
-
-            showLogin() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('staffPortalContainer');
-                if (loginContainer) loginContainer.style.display = 'flex';
-                if (portalContainer) portalContainer.style.display = 'none';
-            }
-
-            showStaffPortal() {
-                const loginContainer = document.getElementById('loginContainer');
-                const portalContainer = document.getElementById('staffPortalContainer');
-                if (loginContainer) loginContainer.style.display = 'none';
-                if (portalContainer) portalContainer.style.display = 'block';
-                
-                this.updateStaffUserInfo();
-                
-                console.log('👤 Staff portal loaded successfully!');
-            }
-
-            handleStaffLogout() {
-                if (this.clockedIn) {
-                    if (!confirm('You are currently clocked in. Logging out will not clock you out. Continue?')) {
-                        return;
-                    }
-                }
-
-                if (confirm('Are you sure you want to logout?')) {
-                    this.portalSystem.clearAuthToken('staff');
-                    this.currentStaff = null;
-                    this.schedule = [];
-                    this.timeEntries = [];
-                    this.training = [];
-                    this.clockedIn = false;
-                    this.onBreak = false;
-                    
-                    document.getElementById('staffLoginForm').reset();
-                    this.showLogin();
-                    
-                    this.portalSystem.showNotification('Staff logout successful.', 'info');
-                }
-            }
-
-            toggleStaffPassword() {
-                const passwordInput = document.getElementById('staffPassword');
-                const toggleBtn = document.getElementById('staffPasswordToggle');
+            // Utility Functions
+            togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleBtn = document.getElementById('passwordToggle');
                 const icon = toggleBtn.querySelector('i');
 
                 if (passwordInput.type === 'password') {
@@ -1879,133 +2833,17 @@
                 }
             }
 
-            // Staff Management Functions
-            openSchedule() {
-                this.portalSystem.showNotification('Schedule management interface is being developed!', 'info', {
-                    title: 'Feature Coming Soon',
-                    subtitle: 'View and manage your work schedule',
-                    duration: 6000
-                });
-            }
-
-            viewSchedule() {
-                this.portalSystem.showNotification(`You have ${this.schedule.length} scheduled shifts.`, 'info', {
-                    title: 'Schedule Overview',
-                    duration: 4000
-                });
-            }
-
-            requestTimeOff() {
-                this.portalSystem.showNotification('Time off request form is coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            pickupShifts() {
-                this.portalSystem.showNotification('Available shifts interface coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            openTraining() {
-                this.portalSystem.showNotification('Training portal is being developed!', 'info', {
-                    title: 'Feature Coming Soon',
-                    subtitle: 'Access training materials and certifications',
-                    duration: 6000
-                });
-            }
-
-            viewTraining() {
-                this.portalSystem.showNotification('Training courses will be available soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            viewCertifications() {
-                const completed = this.training.filter(t => t.completed).length;
-                this.portalSystem.showNotification(`You have ${completed} completed certifications.`, 'info', {
-                    title: 'Certifications',
-                    duration: 4000
-                });
-            }
-
-            renewCerts() {
-                this.portalSystem.showNotification('Certification renewal system coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            openTimesheet() {
-                this.portalSystem.showNotification('Timesheet interface is being developed!', 'info', {
-                    title: 'Feature Coming Soon',
-                    subtitle: 'View and manage your time entries',
-                    duration: 6000
-                });
-            }
-
-            viewTimesheet() {
-                const thisWeekHours = this.getThisWeekTimeEntries().reduce((total, entry) => total + (entry.hours || 0), 0);
-                this.portalSystem.showNotification(`You have ${thisWeekHours} hours logged this week.`, 'info', {
-                    title: 'Timesheet',
-                    duration: 4000
-                });
-            }
-
-            submitCorrection() {
-                this.portalSystem.showNotification('Time correction form coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            exportTimesheet() {
-                this.portalSystem.showNotification('Timesheet export functionality coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            openMessages() {
-                this.portalSystem.showNotification('Communication center is being developed!', 'info', {
-                    title: 'Feature Coming Soon',
-                    subtitle: 'Team messages and announcements',
-                    duration: 6000
-                });
-            }
-
-            viewAnnouncements() {
-                this.portalSystem.showNotification('Company announcements coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            teamChat() {
-                this.portalSystem.showNotification('Team chat feature coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            reportIncident() {
-                this.portalSystem.showNotification('Incident reporting form coming soon!', 'info', {
-                    title: 'Feature In Development',
-                    duration: 4000
-                });
-            }
-
-            // Utility Functions
-            getInitials(name) {
-                if (!name) return 'ST';
-                const names = name.split(' ');
-                if (names.length >= 2) {
-                    return (names[0][0] + names[1][0]).toUpperCase();
+            handleLogout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    this.stopShiftTimer();
+                    this.clearEmployeeToken();
+                    this.currentEmployee = null;
+                    this.clockedIn = false;
+                    
+                    document.getElementById('loginForm').reset();
+                    this.showLogin();
+                    this.showNotification('Successfully logged out!', 'info');
                 }
-                return name[0].toUpperCase();
             }
 
             showLoadingState(button, text) {
@@ -2020,61 +2858,184 @@
                 button.innerHTML = text;
             }
 
-            async playSuccessAnimation(element) {
-                return new Promise(resolve => {
-                    element.style.background = 'var(--success)';
-                    element.style.transform = 'scale(1.05)';
-                    
-                    setTimeout(() => {
-                        element.style.transform = 'scale(1)';
-                        resolve();
-                    }, 300);
-                });
+            showNotification(message, type = 'success') {
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                           type === 'error' ? 'exclamation-triangle' : 
+                           type === 'warning' ? 'exclamation-circle' : 'info-circle';
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <i class="fas fa-${icon}" style="font-size: var(--font-xl);"></i>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; margin-bottom: var(--space-1);">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                            <div style="font-size: var(--font-base); opacity: 0.95;">${message}</div>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none; border: none; color: inherit; font-size: var(--font-lg); cursor: pointer; opacity: 0.7; padding: var(--space-1);
+                        ">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 100);
+                
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.classList.remove('show');
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 5000);
             }
 
-            async playErrorAnimation(element) {
-                return new Promise(resolve => {
-                    this.shakeElement(element);
-                    setTimeout(resolve, 600);
-                });
+            animateNumber(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let currentValue = parseInt(element.textContent) || 0;
+                const increment = Math.max(1, Math.ceil((targetValue - currentValue) / 20));
+                
+                const timer = setInterval(() => {
+                    if (currentValue < targetValue) {
+                        currentValue = Math.min(currentValue + increment, targetValue);
+                        element.textContent = currentValue;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 50);
             }
 
             shakeElement(element) {
                 element.style.animation = 'shake 0.6s ease-in-out';
-                
                 setTimeout(() => {
                     element.style.animation = '';
                 }, 600);
             }
 
-            showError(errorDiv, message) {
-                errorDiv.textContent = message;
-                errorDiv.classList.remove('hidden');
-                this.shakeElement(errorDiv);
+            getInitials(name) {
+                if (!name) return 'E';
+                const names = name.split(' ');
+                if (names.length >= 2) {
+                    return (names[0][0] + names[1][0]).toUpperCase();
+                }
+                return name[0].toUpperCase();
             }
         }
 
-        // Enhanced Global Functions for Staff Portal
-        function openSchedule() {
-            if (window.staffPortal) {
-                window.staffPortal.openSchedule();
+        // Forgot Password Function
+        function forgotPassword() {
+            const employeeId = document.getElementById('employeeId').value;
+            
+            if (employeeId) {
+                employeePortal.showNotification(`Password reset request submitted for ${employeeId}. Check your email for instructions.`, 'success');
+            } else {
+                employeePortal.showNotification('Please enter your employee ID first', 'warning');
+                document.getElementById('employeeId').focus();
             }
         }
 
-        function openTraining() {
-            if (window.staffPortal) {
-                window.staffPortal.openTraining();
-            }
+        // Initialize Employee Portal
+        document.addEventListener('DOMContentLoaded', function() {
+            window.employeePortal = new EnhancedEmployeePortal();
+            
+            // Auto-focus employee ID field
+            document.getElementById('employeeId')?.focus();
+            
+            // Format Employee ID input
+            document.getElementById('employeeId')?.addEventListener('input', (e) => {
+                e.target.value = e.target.value.toUpperCase();
+            });
+            
+            console.log('👥 Enhanced Employee Portal - Ready');
+        });
+
+        // Enhanced Error Handling
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Employee Portal Error:', event.error);
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Employee Portal Promise Rejection:', event.reason);
+            event.preventDefault();
+        });
+    </script>
+
+    <!-- Additional Styles for Badge and Enhanced UI -->
+    <style>
+        .badge {
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+            min-width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
         }
 
-        function openTimesheet() {
-            if (window.staffPortal) {
-                window.staffPortal.openTimesheet();
-            }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        function openMessages() {
-            if (window.staffPortal) {
-                window.staffPortal.openMessages();
-            }
+        /* Enhanced form animations */
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            animation: focusGlow 0.3s ease-out;
         }
+
+        @keyframes focusGlow {
+            0% { box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.4); }
+            100% { box-shadow: 0 0 0 6px rgba(30, 136, 229, 0.12), var(--shadow-medium); }
+        }
+
+        /* Enhanced table styles */
+        .data-table tbody tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(30, 136, 229, 0.05);
+            transform: scale(1.01);
+        }
+
+        /* Loading states for forms */
+        form[data-loading="true"] {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        form[data-loading="true"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</body>
+</html>
