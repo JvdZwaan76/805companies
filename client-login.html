@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Portal | Elite Aquatic Estate Management | 805 LifeGuard</title>
-    <meta name="description" content="Exclusive member portal for 805 LifeGuard's distinguished clientele. Access your aquatic services, scheduling, billing, and concierge support with white-glove digital experience.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>805 LifeGuard - Member Portal | Exclusive Access</title>
+    <meta name="description" content="Exclusive member portal for 805 LifeGuard's distinguished clientele">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,8 +22,6 @@
             --charcoal: #2c2c2c;
             --warm-gray: #6c757d;
             --light-gray: #e8e9ea;
-            --accent-blue: #4a90b8;
-            --forest-green: #2d5446;
             --success-green: #4caf50;
             --error-red: #e74c3c;
             --warning-amber: #f39c12;
@@ -36,246 +34,175 @@
             --shadow-elegant: 0 8px 40px rgba(26, 43, 66, 0.15);
             --shadow-luxury: 0 20px 60px rgba(26, 43, 66, 0.2);
             --border-radius-elegant: 12px;
+            --border-radius-luxury: 20px;
             --transition-luxury: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: var(--font-secondary);
-            background: linear-gradient(135deg, var(--warm-cream) 0%, #f0f2f5 100%);
-            color: var(--charcoal);
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            color: var(--pearl-white);
             line-height: 1.7;
             overflow-x: hidden;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        /* Login Container */
-        .portal-container {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            position: relative;
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
         }
-        
-        /* Left Side - Brand & Welcome */
-        .portal-brand {
-            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
-            color: var(--pearl-white);
+
+        /* Login Screen */
+        .login-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-luxury);
+            overflow: hidden;
+            box-shadow: var(--shadow-luxury);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7, #0369a1, #075985);
+            background-size: 400% 400%;
+            animation: oceanWave 8s ease-in-out infinite;
             padding: 60px 40px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
-        
-        .portal-brand::before {
+
+        .login-header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M50 50m-30 0a30,30 0 1,1 60,0a30,30 0 1,1 -60,0'/%3E%3C/g%3E%3C/svg%3E");
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            animation: waterBubbles 6s ease-in-out infinite;
         }
-        
-        .brand-content {
-            text-align: center;
-            max-width: 400px;
-            position: relative;
-            z-index: 2;
+
+        @keyframes oceanWave {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 30%; }
+            50% { background-position: 0% 70%; }
+            75% { background-position: 100% 50%; }
         }
-        
-        .brand-logo {
-            width: 120px;
-            height: 120px;
-            background: rgba(212, 175, 55, 0.15);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+
+        @keyframes waterBubbles {
+            0%, 100% { opacity: 0.7; transform: translateY(0px); }
+            50% { opacity: 1; transform: translateY(-5px); }
+        }
+
+        .login-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 30px;
-            font-size: 3rem;
-            color: var(--luxury-gold);
-            animation: gentle-glow 4s infinite;
-        }
-        
-        @keyframes gentle-glow {
-            0%, 100% { box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2); }
-            50% { box-shadow: 0 15px 60px rgba(212, 175, 55, 0.4); }
-        }
-        
-        .brand-title {
-            font-family: var(--font-primary);
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            line-height: 1.1;
-        }
-        
-        .brand-subtitle {
-            font-size: 1.1rem;
-            color: var(--luxury-gold);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-        }
-        
-        .brand-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-        
-        .brand-features {
-            list-style: none;
-            text-align: left;
-        }
-        
-        .brand-features li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-        
-        .brand-features li i {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 0.7rem;
-            color: var(--primary-navy);
-        }
-        
-        /* Right Side - Portal Form */
-        .portal-form-container {
-            background: var(--pearl-white);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 40px;
-            position: relative;
-        }
-        
-        .portal-form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .portal-form-content {
-            width: 100%;
-            max-width: 400px;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 2;
         }
-        
-        .portal-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .portal-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 2rem;
-            color: var(--pearl-white);
-            box-shadow: var(--shadow-elegant);
-        }
-        
-        .portal-title {
+
+        .login-title {
             font-family: var(--font-primary);
-            font-size: 2.5rem;
-            color: var(--primary-navy);
-            margin-bottom: 10px;
+            font-size: 2rem;
             font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
         }
-        
-        .portal-subtitle {
+
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
-            color: var(--warm-gray);
-            font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
-        
-        .portal-form {
-            margin-bottom: 30px;
+
+        .login-content {
+            padding: 50px 40px;
         }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         .form-label {
             display: block;
-            font-weight: 600;
-            color: var(--primary-navy);
             margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--pearl-white);
             font-size: 0.95rem;
         }
-        
+
         .form-input {
             width: 100%;
             padding: 16px 20px;
-            border: 2px solid #e8e9ea;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--border-radius-elegant);
+            color: var(--pearl-white);
             font-size: 16px;
             font-family: var(--font-secondary);
             transition: var(--transition-luxury);
-            background: var(--pearl-white);
-            color: var(--charcoal);
         }
-        
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         .form-input:focus {
             outline: none;
             border-color: var(--luxury-gold);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.15);
         }
-        
-        .form-input-icon {
-            position: relative;
-        }
-        
-        .form-input-icon i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--warm-gray);
-            font-size: 1.1rem;
-        }
-        
-        .form-input-icon .form-input {
-            padding-left: 50px;
-        }
-        
+
         .form-options {
             display: flex;
             justify-content: space-between;
@@ -283,140 +210,98 @@
             margin-bottom: 30px;
             font-size: 0.9rem;
         }
-        
-        .remember-me {
+
+        .checkbox-group {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--warm-gray);
         }
-        
-        .remember-me input[type="checkbox"] {
+
+        .checkbox-group input[type="checkbox"] {
             accent-color: var(--luxury-gold);
         }
-        
+
         .forgot-password {
             color: var(--luxury-gold);
             text-decoration: none;
-            font-weight: 500;
             transition: var(--transition-luxury);
         }
-        
+
         .forgot-password:hover {
             color: var(--deep-gold);
         }
-        
-        .portal-button {
+
+        .btn-primary {
             width: 100%;
+            padding: 16px;
             background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
             color: var(--pearl-white);
             border: none;
-            padding: 18px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: var(--border-radius-elegant);
+            font-size: 1rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
             transition: var(--transition-luxury);
-            font-family: var(--font-secondary);
             box-shadow: var(--shadow-elegant);
-            margin-bottom: 25px;
+            font-family: var(--font-secondary);
         }
-        
-        .portal-button:hover {
-            transform: translateY(-3px);
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
             box-shadow: var(--shadow-luxury);
         }
-        
-        .portal-button:disabled {
-            background: var(--light-gray);
-            color: var(--warm-gray);
+
+        .btn-primary:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
-            transform: none;
         }
-        
-        .portal-divider {
-            text-align: center;
-            position: relative;
-            margin: 30px 0;
-            color: var(--warm-gray);
-            font-size: 0.9rem;
-        }
-        
-        .portal-divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e8e9ea;
-        }
-        
-        .portal-divider span {
-            background: var(--pearl-white);
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .demo-access {
-            text-align: center;
+
+        .demo-credentials {
+            margin-top: 30px;
             padding: 20px;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: var(--border-radius-elegant);
-            margin-bottom: 30px;
+            text-align: center;
         }
-        
-        .demo-access h4 {
-            color: var(--primary-navy);
-            margin-bottom: 10px;
+
+        .demo-credentials h4 {
+            color: var(--luxury-gold);
+            margin-bottom: 15px;
             font-family: var(--font-primary);
         }
-        
-        .demo-access p {
+
+        .demo-credentials p {
+            margin-bottom: 15px;
             font-size: 0.9rem;
-            color: var(--warm-gray);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .demo-credentials .credentials {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
             margin-bottom: 15px;
         }
-        
-        .demo-credentials {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 0.85rem;
-        }
-        
-        .demo-credential {
-            background: var(--pearl-white);
-            padding: 8px 12px;
+
+        .btn-demo {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--pearl-white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
             border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .demo-credential strong {
-            color: var(--primary-navy);
-        }
-        
-        .portal-footer {
-            text-align: center;
-            color: var(--warm-gray);
+            cursor: pointer;
+            transition: var(--transition-luxury);
             font-size: 0.9rem;
         }
-        
-        .portal-footer a {
-            color: var(--luxury-gold);
-            text-decoration: none;
-            font-weight: 500;
+
+        .btn-demo:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
-        
-        .portal-footer a:hover {
-            color: var(--deep-gold);
-        }
-        
-        /* Message Alerts */
+
         .message-alert {
             padding: 15px 20px;
             border-radius: var(--border-radius-elegant);
@@ -426,163 +311,29 @@
             gap: 10px;
             font-weight: 500;
         }
-        
+
         .message-alert.success {
-            background: rgba(76, 175, 80, 0.1);
+            background: rgba(76, 175, 80, 0.2);
             color: var(--success-green);
             border: 1px solid rgba(76, 175, 80, 0.3);
         }
-        
+
         .message-alert.error {
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(231, 76, 60, 0.2);
             color: var(--error-red);
             border: 1px solid rgba(231, 76, 60, 0.3);
         }
-        
+
         .message-alert.warning {
-            background: rgba(243, 156, 18, 0.1);
+            background: rgba(243, 156, 18, 0.2);
             color: var(--warning-amber);
             border: 1px solid rgba(243, 156, 18, 0.3);
         }
-        
+
         .message-alert.show {
             display: flex;
         }
-        
-        /* Dashboard Preview */
-        .dashboard-preview {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-navy);
-            color: var(--pearl-white);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .dashboard-preview.show {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .dashboard-content {
-            text-align: center;
-            max-width: 600px;
-            padding: 40px;
-        }
-        
-        .dashboard-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--luxury-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 2.5rem;
-            animation: gentle-pulse 2s infinite;
-        }
-        
-        @keyframes gentle-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .dashboard-title {
-            font-family: var(--font-primary);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .dashboard-description {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .dashboard-features {
-            list-style: none;
-            font-size: 1.1rem;
-            line-height: 2;
-            margin-bottom: 40px;
-        }
-        
-        .dashboard-features li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-        
-        .dashboard-features i {
-            color: var(--luxury-gold);
-            margin-right: 10px;
-            width: 20px;
-        }
-        
-        .dashboard-return {
-            background: var(--luxury-gold);
-            color: var(--primary-navy);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: var(--transition-luxury);
-        }
-        
-        .dashboard-return:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-elegant);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .portal-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-            }
-            
-            .portal-brand {
-                padding: 40px 20px;
-                min-height: auto;
-            }
-            
-            .brand-title {
-                font-size: 2.2rem;
-            }
-            
-            .brand-description {
-                font-size: 1rem;
-            }
-            
-            .brand-features {
-                display: none;
-            }
-            
-            .portal-form-container {
-                padding: 40px 20px;
-            }
-            
-            .portal-title {
-                font-size: 2rem;
-            }
-            
-            .demo-credentials {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Loading States */
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -596,7 +347,7 @@
             justify-content: center;
             z-index: 10000;
         }
-        
+
         .loading-spinner {
             width: 60px;
             height: 60px;
@@ -605,492 +356,510 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        .loading-text {
-            color: var(--pearl-white);
-            margin-top: 20px;
-            font-size: 1.1rem;
-            font-weight: 500;
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
-        
-        /* Connection Status */
-        .connection-status {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary-navy);
-            color: var(--pearl-white);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.8rem;
-            z-index: 1000;
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .dashboard-welcome {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--luxury-gold);
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dashboard-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-luxury);
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition-luxury);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--deep-gold));
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
             box-shadow: var(--shadow-elegant);
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-        
-        .connection-status.show {
-            opacity: 1;
+
+        .feature-title {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--pearl-white);
         }
-        
-        .connection-status.connected {
-            background: var(--forest-green);
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
-        
-        .connection-status.error {
-            background: var(--error-red);
-        }
-        
-        .connection-status i {
+
+        .btn-feature {
+            background: rgba(212, 175, 55, 0.2);
             color: var(--luxury-gold);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-luxury);
+            display: inline-block;
+        }
+
+        .btn-feature:hover {
+            background: var(--luxury-gold);
+            color: var(--primary-navy);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--pearl-white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition-luxury);
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: var(--error-red);
+            color: var(--error-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-content,
+            .login-header {
+                padding: 40px 30px;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+
+            .dashboard {
+                padding: 20px 15px;
+            }
+
+            .dashboard-welcome {
+                font-size: 2rem;
+            }
+
+            .dashboard-features {
+                grid-template-columns: 1fr;
+            }
+
+            .logout-btn {
+                position: static;
+                margin-bottom: 30px;
+                display: block;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="portal-container">
-        <!-- Left Side - Brand -->
-        <div class="portal-brand">
-            <div class="brand-content">
-                <div class="brand-logo">
-                    <i class="fas fa-water"></i>
-                </div>
-                <h1 class="brand-title">805 LifeGuard</h1>
-                <div class="brand-subtitle">Premier Aquatic Estates</div>
-                <p class="brand-description">Welcome to your exclusive member portal, where distinguished service meets digital excellence.</p>
-                
-                <ul class="brand-features">
-                    <li><i class="fas fa-check"></i> Schedule premium services</li>
-                    <li><i class="fas fa-check"></i> Access concierge support</li>
-                    <li><i class="fas fa-check"></i> Manage billing & invoices</li>
-                    <li><i class="fas fa-check"></i> View service history</li>
-                    <li><i class="fas fa-check"></i> Exclusive maintenance access</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Right Side - Portal Form -->
-        <div class="portal-form-container">
-            <div class="portal-form-content">
-                <div class="portal-header">
-                    <div class="portal-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h2 class="portal-title">Member Portal</h2>
-                    <p class="portal-subtitle">Access your exclusive aquatic services</p>
-                </div>
-                
-                <div id="message-alert" class="message-alert"></div>
-                
-                <!-- Demo Access Notice -->
-                <div class="demo-access">
-                    <h4>Demo Portal Access</h4>
-                    <p>Experience our luxury client portal with these demonstration credentials:</p>
-                    <div class="demo-credentials">
-                        <div class="demo-credential">
-                            <strong>Email:</strong> demo@estate.com
-                        </div>
-                        <div class="demo-credential">
-                            <strong>Password:</strong> luxury2025
-                        </div>
-                    </div>
-                </div>
-                
-                <form class="portal-form" id="portalForm">
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email Address</label>
-                        <div class="form-input-icon">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@estate.com" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="form-input-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="password" name="password" class="form-input" placeholder="Enter your secure password" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-options">
-                        <label class="remember-me">
-                            <input type="checkbox" id="remember" name="remember">
-                            Remember me
-                        </label>
-                        <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot password?</a>
-                    </div>
-                    
-                    <button type="submit" class="portal-button" id="portalButton">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Access Portal
-                    </button>
-                </form>
-                
-                <div class="portal-divider">
-                    <span>New to 805 LifeGuard?</span>
-                </div>
-                
-                <div class="portal-footer">
-                    <p>Interested in our exclusive services? <a href="#contact">Request consultation</a></p>
-                    <p style="margin-top: 15px;">
-                        <a href="#home">← Return to Estate</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="background-pattern"></div>
     
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div style="text-align: center;">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Accessing your portal...</div>
-        </div>
+        <div class="loading-spinner"></div>
     </div>
-    
-    <!-- Dashboard Preview -->
-    <div class="dashboard-preview" id="dashboardPreview">
-        <div class="dashboard-content">
-            <div class="dashboard-icon">
-                <i class="fas fa-tachometer-alt"></i>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h1 class="login-title">Member Portal</h1>
+                <p class="login-subtitle">Exclusive Access for Distinguished Clients</p>
             </div>
-            <h2 class="dashboard-title">Welcome to Your Dashboard</h2>
-            <p class="dashboard-description">This would be your personalized member dashboard with:</p>
-            <ul class="dashboard-features">
-                <li><i class="fas fa-calendar-check"></i> Service scheduling & management</li>
-                <li><i class="fas fa-file-invoice-dollar"></i> Billing & payment portal</li>
-                <li><i class="fas fa-headset"></i> Concierge support chat</li>
-                <li><i class="fas fa-history"></i> Service history & reports</li>
-                <li><i class="fas fa-spa"></i> Exclusive maintenance access</li>
-            </ul>
-            <button class="dashboard-return" onclick="returnToPortal()">Return to Portal</button>
+            
+            <div class="login-content">
+                <div class="message-alert" id="messageAlert"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span class="btn-text">Access Portal</span>
+                        <span class="loading-text" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Authenticating...
+                        </span>
+                    </button>
+                </form>
+                
+                <div class="demo-credentials">
+                    <h4>Demo Access</h4>
+                    <p>Experience our luxury member portal with demo credentials:</p>
+                    <div class="credentials">
+                        Email: demo@estate.com<br>
+                        Password: luxury2025
+                    </div>
+                    <button class="btn-demo" onclick="fillDemoCredentials()">
+                        <i class="fas fa-key"></i> Fill Demo Credentials
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- Connection Status -->
-    <div class="connection-status" id="connectionStatus">
-        <i class="fas fa-database"></i>
-        <span>Connecting...</span>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-welcome">Welcome to Your Estate Portal</h1>
+                <p class="dashboard-subtitle">Manage your aquatic services with unparalleled luxury and convenience</p>
+            </div>
+            
+            <div class="dashboard-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Service Scheduling</h3>
+                    <p class="feature-description">Book and manage lifeguard services, swimming lessons, and pool maintenance with our intuitive scheduling system.</p>
+                    <a href="#" class="btn-feature">Schedule Services</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Concierge Support</h3>
+                    <p class="feature-description">Direct communication with your dedicated service team for immediate assistance and special requests.</p>
+                    <a href="#" class="btn-feature">Contact Concierge</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="feature-title">Billing & Payments</h3>
+                    <p class="feature-description">Secure payment processing and detailed billing history for all your aquatic services.</p>
+                    <a href="#" class="btn-feature">View Billing</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Service Reports</h3>
+                    <p class="feature-description">Comprehensive reports on pool maintenance, safety inspections, and service quality metrics.</p>
+                    <a href="#" class="btn-feature">View Reports</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="feature-title">Staff Preferences</h3>
+                    <p class="feature-description">Manage your preferred staff assignments and service personalization options.</p>
+                    <a href="#" class="btn-feature">Manage Preferences</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 class="feature-title">Exclusive Services</h3>
+                    <p class="feature-description">Access to premium maintenance packages and exclusive aquatic experiences.</p>
+                    <a href="#" class="btn-feature">Explore Premium</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Enhanced Member Portal with Database Integration
-        class LuxuryMemberPortal {
-            constructor() {
-                this.apiBase = '/api';
-                this.isConnected = false;
-                this.sessionToken = null;
-                this.init();
-            }
-            
-            async init() {
-                console.log('805 LifeGuard - Enhanced Member Portal Loading...');
+        // Configuration
+        const CONFIG = {
+            API_BASE_URL: 'https://lifeguard-portal-api-production.jaspervdz.workers.dev',
+            DEMO_MODE: true // Set to false in production
+        };
+
+        // Global state
+        let currentUser = null;
+        let authToken = null;
+
+        // Enhanced API Helper Functions
+        async function apiCall(endpoint, options = {}) {
+            const url = `${CONFIG.API_BASE_URL}${endpoint}`;
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+                }
+            };
+
+            try {
+                console.log(`API Call: ${options.method || 'GET'} ${endpoint}`);
+                const response = await fetch(url, { ...defaultOptions, ...options });
                 
-                // Check existing session
-                this.checkExistingSession();
-                
-                // Initialize components
-                this.bindEvents();
-                
-                // Connect to database
-                await this.checkConnection();
-                
-                // Show welcome message for first-time visitors
-                this.showWelcomeMessage();
-                
-                console.log('805 LifeGuard - Member Portal Loaded Successfully');
-            }
-            
-            async checkConnection() {
-                const statusEl = document.getElementById('connectionStatus');
-                statusEl.classList.add('show');
-                
-                try {
-                    const response = await fetch(`${this.apiBase}/health`);
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        this.isConnected = true;
-                        statusEl.className = 'connection-status connected show';
-                        statusEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Connected</span>';
-                        
-                        console.log('Database connected:', data);
-                    } else {
-                        throw new Error('Connection failed');
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        logout();
+                        throw new Error('Authentication expired');
                     }
-                } catch (error) {
-                    console.warn('Database connection failed, using demo mode:', error);
-                    this.isConnected = false;
-                    statusEl.className = 'connection-status error show';
-                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Demo Mode</span>';
+                    const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                    throw new Error(errorData.error || `HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('API Response:', data);
+                return data;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // Authentication functions
+        async function login(email, password, remember = false) {
+            showLoading(true);
+            
+            try {
+                // Demo mode check
+                if (CONFIG.DEMO_MODE && email === 'demo@estate.com' && password === 'luxury2025') {
+                    // Simulate API delay
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    currentUser = {
+                        id: 1,
+                        name: 'Estate Demo Client',
+                        email: 'demo@estate.com',
+                        membership_level: 'platinum'
+                    };
+                    
+                    authToken = 'demo_token_12345';
+                    
+                    // Store session
+                    localStorage.setItem('805lg_client_token', authToken);
+                    localStorage.setItem('805lg_client_user', JSON.stringify(currentUser));
+                    
+                    if (remember) {
+                        localStorage.setItem('805lg_client_remember', 'true');
+                    }
+                    
+                    showDashboard();
+                    showMessage('Welcome back! Access granted to your luxury portal.', 'success');
+                    return;
+                }
+
+                // Production API call
+                const response = await apiCall('/api/client/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.success) {
+                    authToken = response.token;
+                    currentUser = response.user;
+                    
+                    localStorage.setItem('805lg_client_token', authToken);
+                    localStorage.setItem('805lg_client_user', JSON.stringify(currentUser));
+                    
+                    if (remember) {
+                        localStorage.setItem('805lg_client_remember', 'true');
+                    }
+                    
+                    showDashboard();
+                    showMessage('Welcome back! Access granted to your luxury portal.', 'success');
+                } else {
+                    throw new Error(response.error || 'Login failed');
                 }
                 
-                // Hide status after 3 seconds
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage(error.message || 'Invalid credentials. Please check your email and password.', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function logout() {
+            authToken = null;
+            currentUser = null;
+            localStorage.removeItem('805lg_client_token');
+            localStorage.removeItem('805lg_client_user');
+            localStorage.removeItem('805lg_client_remember');
+            
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            
+            showMessage('You have been safely logged out.', 'success');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function showLoading(show) {
+            const overlay = document.getElementById('loadingOverlay');
+            const btn = document.querySelector('.btn-primary');
+            const btnText = btn.querySelector('.btn-text');
+            const loadingText = btn.querySelector('.loading-text');
+            
+            if (show) {
+                overlay.style.display = 'flex';
+                btn.disabled = true;
+                btnText.style.display = 'none';
+                loadingText.style.display = 'inline';
+            } else {
+                overlay.style.display = 'none';
+                btn.disabled = false;
+                btnText.style.display = 'inline';
+                loadingText.style.display = 'none';
+            }
+        }
+
+        function showMessage(message, type = 'info') {
+            const messageDiv = document.getElementById('messageAlert');
+            const icon = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-triangle',
+                warning: 'fas fa-info-circle'
+            }[type] || 'fas fa-info-circle';
+            
+            messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+            messageDiv.className = `message-alert ${type} show`;
+            
+            // Auto-hide non-success messages
+            if (type !== 'success') {
                 setTimeout(() => {
-                    statusEl.style.opacity = '0.3';
-                }, 3000);
+                    messageDiv.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        function fillDemoCredentials() {
+            document.getElementById('email').value = 'demo@estate.com';
+            document.getElementById('password').value = 'luxury2025';
+            showMessage('Demo credentials filled. Click "Access Portal" to continue.', 'success');
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                showMessage('Please enter your email address first, then click "Forgot password?"', 'warning');
+                document.getElementById('email').focus();
+                return;
             }
             
-            checkExistingSession() {
-                // Check for existing session token
-                this.sessionToken = localStorage.getItem('805lg_session_token');
-                
-                if (this.sessionToken) {
-                    // Verify token is still valid
-                    this.verifySession();
-                }
-                
-                // Check remember me preference
-                if (localStorage.getItem('805lg_remember') === 'true') {
-                    document.getElementById('remember').checked = true;
-                }
-            }
+            showMessage(`Password reset instructions have been sent to ${email}. Please check your inbox.`, 'success');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            const savedToken = localStorage.getItem('805lg_client_token');
+            const savedUser = localStorage.getItem('805lg_client_user');
             
-            async verifySession() {
-                if (!this.sessionToken) return false;
-                
-                try {
-                    const response = await fetch(`${this.apiBase}/user/profile`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.sessionToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('Session verified for user:', data.user.email);
-                        return true;
-                    } else {
-                        // Session expired, clear it
-                        this.clearSession();
-                        return false;
-                    }
-                } catch (error) {
-                    console.warn('Session verification failed:', error);
-                    this.clearSession();
-                    return false;
-                }
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
             }
-            
-            bindEvents() {
-                // Form submission
-                document.getElementById('portalForm').addEventListener('submit', (e) => {
-                    this.handleLogin(e);
-                });
-                
-                // Forgot password
-                document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
-                    this.handleForgotPassword(e);
-                });
-            }
-            
-            async handleLogin(e) {
+
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                const form = e.target;
-                const button = document.getElementById('portalButton');
-                const loading = document.getElementById('loadingOverlay');
-                const originalText = button.innerHTML;
-                
-                const email = document.getElementById('email').value;
+                const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
                 const remember = document.getElementById('remember').checked;
                 
-                try {
-                    // Show loading state
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-                    button.disabled = true;
-                    loading.style.display = 'flex';
-                    
-                    // Make login request
-                    const response = await fetch(`${this.apiBase}/auth/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            email,
-                            password,
-                            remember,
-                            timestamp: new Date().toISOString(),
-                            source: 'member_portal'
-                        })
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (response.ok && result.success) {
-                        // Store session token
-                        this.sessionToken = result.token;
-                        localStorage.setItem('805lg_session_token', result.token);
-                        
-                        if (remember) {
-                            localStorage.setItem('805lg_remember', 'true');
-                        } else {
-                            localStorage.removeItem('805lg_remember');
-                        }
-                        
-                        // Show success message
-                        this.showMessage('Welcome back! Redirecting to your luxury dashboard...', 'success');
-                        
-                        // Analytics tracking
-                        await this.trackEvent('member_login_success', {
-                            user_email: email,
-                            remember_me: remember
-                        });
-                        
-                        // Show dashboard preview after delay
-                        setTimeout(() => {
-                            this.showDashboardPreview();
-                        }, 2000);
-                        
-                    } else {
-                        throw new Error(result.error || 'Authentication failed');
-                    }
-                    
-                } catch (error) {
-                    console.error('Login error:', error);
-                    this.showMessage(error.message || 'Authentication failed. Please check your credentials and try again.', 'error');
-                    
-                    // Track failed login
-                    await this.trackEvent('member_login_failed', {
-                        user_email: email,
-                        error: error.message
-                    });
-                    
-                } finally {
-                    // Reset form state
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                    loading.style.display = 'none';
+                if (email && password) {
+                    login(email, password, remember);
                 }
+            });
+
+            // Forgot password
+            document.getElementById('forgotPasswordLink').addEventListener('click', handleForgotPassword);
+
+            // Remember me functionality
+            if (localStorage.getItem('805lg_client_remember') === 'true') {
+                document.getElementById('remember').checked = true;
             }
-            
-            handleForgotPassword(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('email').value;
-                if (!email) {
-                    this.showMessage('Please enter your email address first, then click "Forgot password?"', 'warning');
-                    document.getElementById('email').focus();
-                    return;
-                }
-                
-                // In production, this would trigger password reset email
-                this.showMessage(`Password reset link has been sent to ${email}. Please check your inbox.`, 'success');
-                
-                // Track password reset request
-                this.trackEvent('password_reset_requested', {
-                    user_email: email
-                });
-                
-                console.log('Password reset requested for:', email);
-            }
-            
-            showMessage(message, type) {
-                const messageDiv = document.getElementById('message-alert');
-                const icon = {
-                    success: 'fas fa-check-circle',
-                    error: 'fas fa-exclamation-triangle',
-                    warning: 'fas fa-info-circle'
-                }[type] || 'fas fa-info-circle';
-                
-                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
-                messageDiv.className = `message-alert ${type} show`;
-                
-                // Auto-hide non-success messages
-                if (type !== 'success') {
-                    setTimeout(() => {
-                        messageDiv.classList.remove('show');
-                    }, 5000);
-                }
-                
-                // Smooth scroll to message
-                messageDiv.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest' 
-                });
-            }
-            
-            showDashboardPreview() {
-                const preview = document.getElementById('dashboardPreview');
-                preview.classList.add('show');
-                
-                // Track dashboard view
-                this.trackEvent('dashboard_preview_shown');
-            }
-            
-            showWelcomeMessage() {
-                setTimeout(() => {
-                    if (!localStorage.getItem('805lg_portal_visited')) {
-                        this.showMessage('Welcome to the 805 LifeGuard Member Portal. Use the demo credentials above to explore our luxury client experience.', 'success');
-                        localStorage.setItem('805lg_portal_visited', 'true');
-                    }
-                }, 1000);
-            }
-            
-            async trackEvent(action, data = {}) {
-                if (!this.isConnected) return;
-                
-                try {
-                    await fetch(`${this.apiBase}/analytics`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            action,
-                            data,
-                            timestamp: new Date().toISOString(),
-                            userAgent: navigator.userAgent,
-                            page: 'member_portal'
-                        })
-                    });
-                } catch (error) {
-                    console.warn('Analytics tracking failed:', error);
-                }
-            }
-            
-            clearSession() {
-                this.sessionToken = null;
-                localStorage.removeItem('805lg_session_token');
-                // Keep remember preference
-            }
-        }
-        
-        // Global functions
-        function returnToPortal() {
-            const preview = document.getElementById('dashboardPreview');
-            preview.classList.remove('show');
-            
-            // Track return to portal
-            portal.trackEvent('dashboard_return_to_portal');
-        }
-        
-        // Initialize portal
-        const portal = new LuxuryMemberPortal();
-        
-        // Demo auto-fill functionality (development only)
-        if (window.location.hostname === 'localhost' || window.location.hostname.includes('dev')) {
-            setTimeout(() => {
-                if (document.getElementById('email').value === '') {
-                    document.getElementById('email').value = 'demo@estate.com';
-                    document.getElementById('password').value = 'luxury2025';
-                }
-            }, 2000);
-        }
-        
-        console.log('805 LifeGuard - Enhanced Member Portal Ready');
-        console.log('Demo Credentials - Email: demo@estate.com | Password: luxury2025');
+
+            console.log('🏊‍♂️ 805 LifeGuard Client Portal Initialized');
+            console.log('🔗 API Endpoint:', CONFIG.API_BASE_URL);
+            console.log('🔑 Demo credentials: demo@estate.com / luxury2025');
+        });
     </script>
 </body>
 </html>
